@@ -1,0 +1,825 @@
+<style>
+    .custom-btn {
+        display: inline-block;
+        margin-bottom: 0;
+        font-size: 16px;
+        background-color: transparent;
+        text-align: right;
+        vertical-align: middle;
+        touch-action: manipulation;
+        cursor: pointer;
+        background-image: none;
+        border: none;
+        margin-top: -5px;
+    }
+
+    .dollarSign {
+        padding-top: 2px;
+        float: left;
+        font-size: 15px;
+        font-weight: 500;
+        padding-right: 3px;
+    }
+
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    /* Start -Added for Currency format for input field */
+    label.currencyLbl { position: absolute; background: white; left:15px; top: 0px; cursor: pointer; padding: 2px 10px !important;max-width: inherit;}
+    input.currency { position: relative; width: 120px!important; }
+    input.currency { padding: 0; border: 1px solid #c2cad8; width: 120px!important; font-family: Arial; line-height: 20px; }
+    label.currencyLbl { padding: 0; border: 1px solid #c2cad8; width: 120px!important; font-family: Arial; line-height: 19px; height: 25px; font-weight: 400!important; color: #555555; font-size: 12px!important;}
+    input.currency:focus + label.currencyLbl { display: none!important; }
+    /* End -Added for Currency format for input field*/
+
+</style>
+<script>
+    $(':input[type=number]').on('focus', function (e) {
+        $(this).on('mousewheel.disableScroll', function (e) {
+            e.preventDefault();
+        })
+    }).on('blur', function (e) {
+        $(this).off('mousewheel.disableScroll')
+    });
+
+</script>
+
+<div class="col-md-12" ng-form="Apprisal" id="pdfGenerator" >
+
+    <!--Add/Edit Section Start-->
+    <div class="portlet light " ng-show="ApprisalOrderAddEdit">
+        <div class="portlet-body" ng-form="ApprisalForm">
+            <div class="row">
+                <div class="col-md-12 col-sm-12">
+                    <h1 style="text-align: center;font-weight: 500;">{{"SpeedCheck LOGO"|translate}} </h1>
+                </div> 
+                <div class="col-md-12 col-sm-12">
+                    <span class="caption-subject"> <h3 style="font-weight: 500;">{{"AppraisalNo"|translate}} {{AppraisalNo}}</h3></span>
+                </div>                
+                <div class="col-md-12 clearfix padding1px margin-top-10" id="cal">
+
+                    <div class="col-md-12 form-group">
+                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 portlet">
+
+                            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 padding1px" style="border:1px solid lightgray;">
+                                <div class="col-md-12 clearfix padding1px margin-top-10">
+                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-group ">
+                                        <div class="col-md-3 col-sm-7 Label_Text_Right">
+                                            <label>
+                                                {{"PolicyNo"|translate}}
+
+                                            </label>
+                                        </div>
+                                        <div class="col-md-2 col-sm-5">
+                                            <span>#{{PolicyDetails.policyNumber}}</span>
+                                        </div>
+                                        <div class="col-md-3 col-sm-7 Label_Text_Right">
+                                            <label>
+                                               {{"CurrentTerm"|translate}}
+                                            </label>
+                                        </div>
+                                        <div class="col-md-3 col-sm-7">
+                                            <span>{{PolicyDetails.currentTerm}}</span>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-group ">
+                                        <div class="col-md-3 col-sm-7 Label_Text_Right">
+                                            <label>
+                                                <strong class="mandatory">*</strong> &nbsp;{{"Primary Policyholder"|translate}}
+                                            </label>
+                                        </div>
+                                        <div class="col-md-2 col-sm-5">
+                                            <span>{{PolicyDetails.primaryPolicyholder}}</span>
+                                        </div>
+                                        <div class="col-md-3 col-sm-7 Label_Text_Right">
+                                            <label>{{"Secondary Name"|translate}} &nbsp;
+                                            </label>
+                                        </div>
+                                        <div class="col-md-2 col-sm-5">
+                                            <span>{{PolicyDetails.secondaryName}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-group ">
+                                        <div class="col-md-3 col-sm-7 Label_Text_Right">
+                                            <label>
+                                                {{"PhoneNo"|translate}}
+                                            </label>
+                                        </div>
+                                        <div class="col-md-2 col-sm-5">
+                                            <span>{{PolicyDetails.phoneNumber}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-group ">
+                                        <div class="col-md-3 col-sm-7 Label_Text_Right">
+                                            <label>
+                                                {{"Email ID"|translate}}
+                                            </label>
+                                        </div>
+                                        <div class="col-md-2 col-sm-5">
+                                            <span>{{PolicyDetails.emailId}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-group ">
+                                        <div class="col-md-3 col-sm-7 Label_Text_Right">
+                                            <label> {{"Address"|translate}} &nbsp;
+                                            </label>
+                                        </div>
+                                        <div class="col-md-2 col-sm-5">
+                                            <span>
+                                                {{PolicyDetails.completeAddress}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-group ">
+                                        <div class="col-md-3 col-sm-7 Label_Text_Right">
+                                            <label>
+                                                {{"OriginalAppraisalDesc"|translate}}
+                                            </label>
+                                        </div>
+                                        <div class="col-md-5 col-sm-7">
+                                            <span>
+                                                {{Appraisal.OriginalDescription}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-group ">
+                                        <div class="col-md-3 col-sm-7 Label_Text_Right">
+                                            <label>
+                                                {{"Appraisal Value"|translate}}
+                                            </label>
+                                        </div>
+                                        <div class="col-md-1 col-sm-3">
+                                            <span>
+                                                <b>{{Appraisal.AppraisalValue | currency}}</b>
+                                            </span>
+                                        </div>
+                                        <div class="col-md-2 col-sm-3 Label_Text_Right">
+                                            <label>
+                                                {{"Appraisal Date"|translate}}
+                                            </label>
+                                        </div>
+                                        <div class="col-md-1 col-sm-3">
+                                            <span>
+                                                <b>{{Appraisal.AppraisalDate}}</b>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-group ">
+                                        <div class="col-md-3 col-sm-7 Label_Text_Right">
+                                            <label>{{"Attachments"|translate}} &nbsp;
+                                            </label>
+                                        </div>
+                                        <div class="col-md-6 col-sm-7">
+                                            <font ng-repeat="file in attachmentList">
+                                                <span class="sbold" style="font-family:Calibri; font-size:14px;">{{file.FileName}}</span>
+                                                <span ng-readonly="isEditAppraisal" class="fa fa-times-circle fa-lg text-danger" ng-click="RemoveAttachment($index)" style="margin-left:10px;">
+                                                </span>
+                                                <span ng-if="!$last">, </span>
+                                            </font>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-group ">
+                                        <div class="col-md-3 col-sm-7 Label_Text_Right">
+                                            <label>
+                                               {{"SpeedcheckSuggestedVal"|translate}}
+                                            </label>
+                                        </div>
+                                        <div class="col-md-2 col-sm-5">
+                                            <span>
+                                                <b>{{Appraisal.speedCheckSuggestedValue | currency}}</b>
+                                            </span>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 form-group">
+                    <!--start Item details-->
+                    <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12 portlet padding1px margin-top-10">
+                        <div class="row">
+                            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 options_Background_WithBorder" style="padding-top:5px;padding-bottom:5px;">
+                                    <span class="text_options_Label sbold caption">{{"Item Attributes"|translate}}</span>
+                                </div>
+                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 padding1px" style="border:1px solid lightgray;height:100%;">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 padding1px margin-top-20">
+
+                                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+                                            <div class="col-md-3 col-sm-6 Label_Text_Right">
+                                                <label class="control-label ">{{"Gender"|translate}}</label>
+                                            </div>
+                                            <div class="col-md-6 col-sm-6">
+                                                <span>{{Appraisal.Gender.atttibuteValue}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+                                            <div class="col-md-3 col-sm-6 Label_Text_Right">
+                                               
+                                                <label class="control-label "> {{"Custom"|translate}}</label>
+                                            </div>
+                                            <div class="col-md-6 col-sm-6">
+                                                <span>{{Appraisal.Custom.atttibuteValue}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+                                            <div class="col-md-3 col-sm-6 Label_Text_Right">
+                                                
+                                                <label class="control-label "> {{"Designer"|translate}}</label>
+                                            </div>
+                                            <div class="col-md-6 col-sm-6">
+                                                <span>{{Appraisal.Designer.atttibuteValue}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+                                            <div class="col-md-3 col-sm-6 Label_Text_Right" style="padding-left: 0px;">
+                                                <label class="control-label ">
+                                                   {{"Item Category"|translate}}
+                                                </label>
+                                            </div>
+                                            <div class="col-md-6 col-sm-6">
+                                                <span>{{Appraisal.ItemCategory.atttibuteValue}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+                                            <div class="col-md-3 col-sm-6 Label_Text_Right">
+                                                <label class="control-label ">
+                                                    {{"Type"|translate}}
+                                                </label>
+                                            </div>
+                                            <div class="col-md-6 col-sm-6">
+                                                <span>{{Appraisal.ItemType.atttibuteType}}</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12   col-sm-12">
+                                            <div class="col-md-12 col-sm-12 SubHeadingDiv margin-bottom-10">
+                                                <span class="caption-subject  ">{{"Mounting Details"|translate}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+                                            <div class="col-md-3 col-sm-6 Label_Text_Right">
+                                                <label class="control-label ">
+                                                   {{"Type of Metal"|translate}}
+                                                </label>
+                                            </div>
+                                            <div class="col-md-6 col-sm-6">
+                                                <span>{{Appraisal.Mounting.MetalType.atttibuteValue}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+                                            <div class="col-md-3 col-sm-6 Label_Text_Right">
+                                                <label class="control-label ">
+                                                   {{"Metal Color"|translate}}
+                                                </label>
+                                            </div>
+                                            <div class="col-md-6 col-sm-6">
+                                                <span>{{Appraisal.Mounting.MetalColor.atttibuteValue}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+                                            <div class="col-md-3 col-sm-6 Label_Text_Right">
+                                                <label class="control-label ">
+                                                   {{"Metal Weight"|translate}}
+                                                </label>
+                                            </div>
+                                            <div class="col-md-4 col-sm-4">
+                                                <span>{{Appraisal.Mounting.MetalWeight.weight}} {{Appraisal.Mounting.MetalWeight.MetalUnit.atttibuteValue}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+                                            <div class="col-md-3 col-sm-6 Label_Text_Right">
+                                                <label class="control-label ">{{"Length "|translate}}</label>
+                                            </div>
+                                            <div class="col-md-4 col-sm-4">
+                                                <span>{{Appraisal.Mounting.MetalLength}} mm </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+                                            <div class="col-md-3 col-sm-6 Label_Text_Right">
+                                                <label class="control-label "> {{"Width"|translate}}</label>
+                                            </div>
+                                            <div class="col-md-4 col-sm-4">
+                                                <span>{{Appraisal.Mounting.MetalWidth}} mm</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+                                            <span class="sbold" style="float:  right;padding-right: 15px;">
+                                                <span class="sbold">{{"Total Estimates for Mounting"|translate}}</span>
+                                                <span>{{Appraisal.ScTotalMountingPrice | currency}}</span>
+                                            </span>
+                                        </div>
+
+
+
+                                        <!-- Daimond Detail start here -->
+
+                                        <div class="col-md-12 col-sm-12">
+                                            <div class="col-md-12 col-sm-12 SubHeadingDiv margin-bottom-10">
+                                                <span class="caption-subject  ">{{"Daimond Details"|translate}}</span>
+                                            </div>
+                                        </div>
+
+                                        <!-- Diamond detail box -->
+                                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 col-md-2 col-lg-2 col-sm-2 col-xs-2 form-group" ng-form="diamondForm">
+                                            <div class="panel panel-primary" style="margin-bottom: 35px;" data-ng-repeat="diamond in diamondItems">
+                                                <div class="panel-heading" style="padding-top:5px;padding-bottom:5px;">
+
+                                                    {{"Diamond"|translate}}&nbsp;{{diamond.id}}
+
+                                                </div>
+                                                <div class="panel-body">
+                                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group" ng-class="{ 'has-error' : diamondForm['quantity' + $index].$invalid && diamondForm['quantity' + $index].$error.required && diamondForm['quantity' + $index].$touched }">
+                                                        <div class="col-md-4 col-sm-6 Label_Text_Right">
+                                                            <label class="control-label ">
+                                                               {{"Quantity"|translate}}
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-md-6 col-sm-6">
+                                                            <span >{{diamond.quantity}}</span>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group" ng-class="{ 'has-error' : diamondForm['caretWeight' + $index].$invalid && diamondForm['caretWeight' + $index].$error.required && diamondForm['caretWeight' + $index].$touched }">
+                                                        <div class="col-md-4 col-sm-6 Label_Text_Right">
+                                                            <label class="control-label ">
+                                                               {{"Carat Weight"|translate}}
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-md-6 col-sm-6">
+                                                            <span style="float:  right;">{{diamond.caratWeight}}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+                                                        <div class="col-md-4 col-sm-6 Label_Text_Right">
+                                                            <label class="control-label ">
+                                                               {{"Measurement"|translate}}
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-md-6 col-sm-6">
+                                                            <span style="float:  right;">{{diamond.length}} mm X {{diamond.width}} mm X {{diamond.depth}}
+                                                                mm
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group" ng-class="{ 'has-error' : diamondForm['shape' + $index].$invalid && diamondForm['shape' + $index].$error.required && diamondForm['shape' + $index].$touched }">
+                                                        <div class="col-md-4 col-sm-6 Label_Text_Right">
+                                                            <label class="control-label ">
+                                                                {{"Shape"|translate}}
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-md-6 col-sm-6">
+                                                            <span style="float:  right;">{{diamond.shape.atttibuteValue}} </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group" ng-class="{ 'has-error' : diamondForm['color' + $index].$invalid && diamondForm['color' + $index].$error.required && diamondForm['color' + $index].$touched }">
+                                                        <div class="col-md-4 col-sm-6 Label_Text_Right">
+                                                            <label class="control-label ">
+                                                                {{"Color"|translate}}
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-md-6 col-sm-6" style="float:  right;">
+                                                            <span>{{diamond.color.atttibuteValue}}</span>
+                                                            <span>&nbsp;{{"-to-"|translate}}&nbsp;</span>
+                                                            <span>{{diamond.color.atttibuteValue}}</span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group" ng-class="{ 'has-error' : diamondForm['clarity' + $index].$invalid && diamondForm['clarity' + $index].$error.required && diamondForm['clarity' + $index].$touched }">
+                                                        <div class="col-md-4 col-sm-6 Label_Text_Right">
+                                                            <label class="control-label ">
+                                                                {{"Clarity"|translate}}
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-md-6 col-sm-6" style="float:  right;">
+                                                            <span>{{diamond.clarity.atttibuteValue}}</span>
+                                                            <span>&nbsp;{{"-to-"|translate}}&nbsp;</span>
+                                                            <span>{{diamond.clarity.atttibuteValue}}</span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group" ng-class="{ 'has-error' : diamondForm['clarity' + $index].$invalid && diamondForm['clarity' + $index].$error.required && diamondForm['clarity' + $index].$touched }">
+                                                        <div class="col-md-4 col-sm-6 Label_Text_Right">
+                                                            <label class="control-label ">
+                                                                {{"CutGrade"|translate}}
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-md-6 col-sm-6">
+                                                            <span style="float:  right;">{{diamond.cutGrade.atttibuteValue}}</span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+                                                        <div class="col-md-4 col-sm-6 Label_Text_Right">
+                                                            <label class="control-label ">
+                                                                &nbsp;{{"GemLab"|translate}}
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-md-6 col-sm-6">
+                                                            <span style="float:  right;">{{diamond.gemlab.atttibuteValue}}</span>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 ">
+                                                    <span style="float:  right; padding-top:  10px; padding-bottom: 5px;">
+                                                        {{"TotalEstForDiamond"|translate}}&nbsp; #{{diamond.id}} is {{diamond.scDiamondEstimate | currency}}
+                                                    </span>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+                                                <span class="sbold" style="font-size:18px;float:right;padding-bottom: 5px;">
+                                                    {{"TotalEstForDiamonds"|translate}} is {{Appraisal.ScTotalDiamondPrice | currency}}
+                                                </span>
+                                            </div>
+
+                                        </div>
+                                        <!-- Daimond Details ends here -->
+
+                                        <!-- Gemstone details starts here -->
+                                        <div class="col-md-12   col-sm-12">
+                                            <div class="col-md-12 col-sm-12 SubHeadingDiv margin-bottom-10">
+                                                <span class="caption-subject  ">{{"Gemstone Details"|translate}}</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 col-md-2 col-lg-2 col-sm-2 col-xs-2 form-group" ng-form="gemstoneForm">
+                                            <div class="panel panel-primary" style="margin-bottom: 35px;" data-ng-repeat="gemstone in gemstoneItems">
+                                                <div class="panel-heading" style="padding-top:5px;padding-bottom:5px;">
+                                                    {{"Gemstone"|translate}}&nbsp;{{gemstone.id}}                                                    
+                                                </div>
+                                                <div class="panel-body">
+                                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group" ng-class="{ 'has-error' : gemstoneForm['type' + $index].$invalid && gemstoneForm['type' + $index].$error.required && gemstoneForm['type' + $index].$touched }">
+                                                        <div class="col-md-4 col-sm-6 Label_Text_Right">
+                                                            <label class="control-label ">
+                                                                <strong class="mandatory">*</strong> &nbsp;{{"Type"|translate}}
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-md-6 col-sm-6">
+                                                            <span>{{gemstone.type.atttibuteValue}}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group" ng-class="{ 'has-error' : gemstoneForm['stoneCount' + $index].$invalid && gemstoneForm['stoneCount' + $index].$error.required && gemstoneForm['stoneCount' + $index].$touched }">
+                                                        <div class="col-md-4 col-sm-6 Label_Text_Right">
+                                                            <label class="control-label ">
+                                                                <strong class="mandatory">*</strong> &nbsp;{{"Stone Count"|translate}}
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-md-6 col-sm-6">
+                                                            <span>{{gemstone.stoneCount}}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group" ng-class="{ 'has-error' : gemstoneForm['weight' + $index].$invalid && gemstoneForm['weight' + $index].$error.required && gemstoneForm['weight' + $index].$touched }">
+                                                        <div class="col-md-4 col-sm-6 Label_Text_Right">
+                                                            <label class="control-label ">
+                                                                <strong class="mandatory">*</strong> &nbsp;{{"Carat Weight"|translate}}
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-md-6 col-sm-6">
+                                                            <span>{{gemstone.weight}} grams</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+                                                        <div class="col-md-4 col-sm-6 Label_Text_Right">
+                                                            <label class="control-label ">
+                                                                <strong class="mandatory">*</strong> &nbsp;{{"Measurement"|translate}}
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-md-6 col-sm-6">
+                                                            <span>{{gemstone.length}} mm X {{gemstone.width}} mm X {{gemstone.depth}}
+                                                                mm
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group" ng-class="{ 'has-error' : gemstoneForm['shape' + $index].$invalid && gemstoneForm['shape' + $index].$error.required && gemstoneForm['shape' + $index].$touched }">
+                                                        <div class="col-md-4 col-sm-6 Label_Text_Right">
+                                                            <label class="control-label ">
+                                                                <strong class="mandatory">*</strong> &nbsp;{{"Shape"|translate}}
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-md-6 col-sm-6">
+                                                            <span>{{gemstone.shape.atttibuteValue}}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group" ng-class="{ 'has-error' : gemstoneForm['quality' + $index].$invalid && gemstoneForm['quality' + $index].$error.required && gemstoneForm['quality' + $index].$touched }">
+                                                        <div class="col-md-4 col-sm-6 Label_Text_Right">
+                                                            <label class="control-label ">
+                                                                <strong class="mandatory">*</strong> &nbsp;{{"Quality"|translate}}
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-md-6 col-sm-6">
+                                                            <span>{{gemstone.quality.atttibuteValue}}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group" ng-class="{ 'has-error' : gemstoneForm['quality' + $index].$invalid && gemstoneForm['quality' + $index].$error.required && gemstoneForm['quality' + $index].$touched }">
+                                                        <div class="col-md-4 col-sm-6 Label_Text_Right">
+                                                            <label class="control-label ">
+                                                                <strong class="mandatory">*</strong> &nbsp;{{"Grade"|translate}}
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-md-6 col-sm-6">
+                                                            <span>{{gemstone.grade.atttibuteValue}}</span>
+                                                        </div>
+                                                    </div>
+
+
+
+                                                </div>
+                                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+                                                    <span style="float:  right; padding-top:  10px; padding-bottom: 5px;">
+                                                        <span>{{"Total Estimates for Gemstone"|translate}}</span>
+                                                        <span>&nbsp; #{{gemstone.id}} is {{gemstone.scStoneEstimate | currency}}</span>
+                                                    </span>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+                                                <span class="sbold" style="font-size:18px;float:right;padding-bottom: 5px;">
+                                                    <span class="sbold" style="font-size:18px;">{{"Total Estimates for Gemstone(s)"|translate}} is {{Appraisal.ScTotalGemStonePrice | currency}}</span>
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        <!-- Gemstone Detail ends here -->
+                                        <!-- Estimate Labor cost starts here -->
+                                        <div class="col-md-12   col-sm-12">
+                                            <div class="col-md-12 col-sm-12 SubHeadingDiv margin-bottom-10">
+                                                <span class="caption-subject  ">{{"Estimated Labor Costs"|translate}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+                                            <div class="col-md-7 col-sm-9 Label_Text_Left" style="padding-left:1px ;">
+                                                <label class="control-label "> {{"Estimated Labor Charges"|translate}}&nbsp;
+
+                                                </label>
+                                            </div>
+                                            <div class="col-md-4 col-sm-3">
+                                                <span>{{Appraisal.labourCost | currency}}</span>
+                                            </div>
+                                        </div>
+                                        <!-- Estimate Labor cost ends here -->
+
+                                        <div class="col-md-12   col-sm-12">
+                                            <div class="col-md-12 col-sm-12 SubHeadingDiv margin-bottom-10">
+                                                <span class="caption-subject  ">{{"Final SpeedCheck Estimate"|translate}}</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12 col-sm-12" style="color:red;padding-bottom: 30px !important;">
+                                            {{Appraisal.scEstimateDescription}}
+                                        </div>
+
+                                        <div class="col-md-12   col-sm-12">
+                                            <div class="col-md-12 col-sm-12 SubHeadingDiv margin-bottom-10">
+                                                <span class="caption-subject  ">{{"Coverage Premium Rates"|translate}}</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12   col-sm-12" style="padding-bottom: 30px !important;">
+                                            <div class="col-md-1 col-sm-1 Label_Text_Right">
+
+                                            </div>
+                                            <div class="col-md-4 col-sm-6 Label_Text_Left" style="padding-left:1px ;">
+                                                <label class="control-label ">{{"Insurance Premium"|translate}} &nbsp;
+
+                                                </label>
+                                            </div>
+                                            <div class="col-md-7 col-sm-6">
+                                                <label>{{Appraisal.insurancePremiumCost == null ? 0.00 : Appraisal.insurancePremiumCost | currency}}</label>
+                                                <span style="padding-left: 5px;">{{"Per Month"|translate}}</span>
+                                                <br>
+                                                <span style="float: left;margin-left: 13px;">{{"PremiumRatePerYear"|translate}} </span>
+                                            </div>
+                                        </div>
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--End Item Details-->
+                    <!---Start Auto Generatred Description-->
+                    <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12 padding1px margin-top-10">
+                        <div class="row">
+                            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 portlet" style="padding-left:5px">
+                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 options_Background_WithBorder" style="padding-top:5px;padding-bottom:5px;">
+                                        <span class="text_options_Label sbold caption">
+                                            {{"SpeedCheck Results"|translate}}
+                                        </span>
+
+                                    </div>
+                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 padding1px" style="border:1px solid lightgray;">
+                                        <div class="col-md-12 col-sm-12 margin-bottom-20 margin-top-20 ">
+                                            <div style="border:  1px solid lightgray;padding:  5px;">{{desc.gender}}
+                                            </br></br>{{"DiamondDetails"|translate}} </br>
+                                                <span ng-repeat="diamnd in desc.diamons">
+                                                    {{diamnd}}</br>
+                                                </span>
+                                               
+                                                <br> {{"GemstoneDetails"|translate}}
+                                                </br>
+                                               
+                                                <span ng-repeat="gemstne in desc.gemstones">
+                                                    {{gemstne}}</br>
+                                                </span>
+                                                <br>
+                                                <br>
+                                                <br>
+                                                <br>
+                                                <br>
+                                                <br>
+                                                <br>
+                                                <br>
+                                                <br>
+
+                                                <br>
+
+
+                                                <br>{{"SpeedcheckResultsArtigemDetailsText"|translate}}
+                                                <br>
+                                                <br>
+                                                <br>
+                                                <br>
+                                                <br>
+                                                <br>
+                                                <br>{{desc.insuranceReplacementCost}}
+                                                <br>
+                                                <br>{{desc.todaysDate}}
+                                                <br>
+                                                <br>{{desc.originalAppraisalValue}}
+                                                <br>
+                                                <br>{{desc.originalAppraisalDate}}</br>
+                                            </div>
+
+                                        </div>
+                                        <!--<div class="col-md-12 col-sm-12 form-group" style="font-size: 18px;">
+                                            <div class="col-md-8 col-sm-12 Label_Text_Left" style="padding-left: 0px; ">
+                                                <label class="control-label ">{{"Salvage Value"|translate}}</label>
+                                            </div>
+                                            <div class="col-md-3 col-sm-3">
+                                                <span>${{Appraisal.ScTotalSalvageValue | currency}}</span>
+                                            </div>
+                                        </div>-->
+                                        <div class="col-md-12 col-sm-12 form-group" style="font-size: 18px;">
+                                            <div class="col-md-8 col-sm-12 Label_Text_Left" style="padding-left: 0px; ">
+                                                <label class="control-label ">{{"Jewelers Cost"|translate}}</label>
+                                            </div>
+                                            <div class="col-md-3 col-sm-3">
+                                                <span>{{Appraisal.ScTotalJewelersCost | currency}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 col-sm-12 form-group" style="font-size: 18px;">
+                                            <div class="col-md-8 col-sm-12 Label_Text_Left" style="padding-left: 0px; ">
+                                                <label class="control-label ">{{"Artigem Replacement Value"|translate}}</label>
+                                            </div>
+                                            <div class="col-md-3 col-sm-3">
+                                                <span>{{Appraisal.ScArtigemReplacementValue | currency}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 col-sm-12 form-group" style="font-size: 18px;">
+                                            <div class="col-md-8 col-sm-12 Label_Text_Left" style="padding-left: 0px; ">
+                                                <label class="control-label ">{{"Insurance Replacement Value"|translate}}</label>
+                                            </div>
+                                            <div class="col-md-3 col-sm-3">
+                                                <span>{{Appraisal.ScInsuranceReplacementValue | currency}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 col-sm-12 form-group" style="font-size: 18px;">
+                                            <div class="col-md-8 col-sm-12 Label_Text_Left" style="padding-left: 0px; ">
+                                                <label class="control-label ">{{"Retail Value"|translate}}</label>
+                                            </div>
+                                            <div class="col-md-3 col-sm-3">
+                                                <span>{{Appraisal.ScRetailValue | currency}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <!-- Comparable details Start -->
+                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 options_Background_WithBorder" style="padding-top:5px;padding-bottom:5px;">
+                                        <span class="text_options_Label sbold caption">
+                                            {{"Comparable Report"|translate}}
+                                        </span>
+
+                                    </div>
+                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 padding1px" style="border:1px solid lightgray;">
+                                        <div class="col-md-12 col-sm-12 margin-bottom-20 margin-top-20 ">
+
+                                            <div style="border:  1px solid lightgray;padding:  5px;" ng-if="Comparables.comparableItems.length>0">
+                                                <div>{{"Date"|translate}}
+                                                     <span>{{Appraisal.comparablesUpdatedDate | formatDate}}</span>
+                                                </div>
+                                                <br/>
+                                                <br/>
+
+                                                <div>{{"OriginalAppraisalDesc"|translate}} :</div>
+                                                <p> {{Appraisal.OriginalDescription}} </p>
+                                                <br/>
+                                                <div class="col-md-12 portlet light bordered clearfix" ng-repeat="comp in Comparables.comparableItems">
+
+                                                    <div class="col-md-3 col-sm-3 imagePostion text-center">
+                                                        <div class="col-md-12 light bordered imageHeightComparable" style="border:1px solid #ddd;">
+                                                            <img ng-if="!comp.isDataImage && comp.imageURL!==null" onerror="this.onerror=null; this.src='assets/global/img/no-image.png';"
+                                                                class="ImageComparable" ng-src="{{comp.imageURL}}" alt="image"
+                                                            />
+                                                            <img ng-if="!comp.isDataImage && comp.imageURL===null" onerror="this.onerror=null; this.src='assets/global/img/no-image.png';"
+                                                                class="ImageComparable" ng-src="assets/global/img/no-image.png"
+                                                                alt="image" />
+
+                                                            <img ng-if="comp.isDataImage && comp.imageData!==null" onerror="this.onerror=null; this.src='assets/global/img/no-image.png';"
+                                                                class="ImageComparable" ng-src="{{comp.imageData}}" alt="image"
+                                                            />
+                                                            <img ng-if="comp.isDataImage && comp.imageData===null" onerror="this.onerror=null; this.src='assets/global/img/no-image.png';"
+                                                                class="ImageComparable" ng-src="assets/global/img/no-image.png"
+                                                                alt="image" />
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-4 col-xs-12 tip">
+                                                        <label class="control-label">
+                                                            <span class="sbold text-primary">{{"FormControlText.Brand"|translate}}</span>&nbsp;:&nbsp;
+                                                            <span class="Overlay" ng-if="comp.brand.length>18">{{comp.brand}}{{comp.brand.length > 18 ? '...' : ''}}</span>
+                                                            <span>{{comp.brand | limitTo: 18}}</span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-md-5 col-sm-5 col-xs-12 tip">
+                                                        <label class="control-label">
+                                                            <span class="text-primary sbold">{{"FormControlText.Model"|translate}}</span>&nbsp;:&nbsp;
+                                                            <span class="Overlay" ng-if="comp.model.length>18">{{comp.model}}</span>
+                                                            <span>{{comp.model | limitTo: 18}}{{comp.model.length > 18 ? '...'
+                                                                : ''}}</span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-4 tip">
+                                                        <label class="control-label">
+                                                            <span class="text-primary sbold">{{"FormControlText.UnitPrice"|translate}}</span>&nbsp;:&nbsp;{{comp.unitPrice|currency}}</label>
+                                                    </div>
+                                                    <div class="col-md-5 col-sm-5 col-xs-12 tip">
+                                                        <label class="control-label">
+                                                            <span class="text-primary sbold">{{"FormControlText.Supplier"|translate}}</span>&nbsp;:&nbsp;
+                                                            <span class="Overlay" ng-if="comp.supplier.length>18">{{comp.supplier}}</span>
+                                                            <span>{{comp.supplier | limitTo: 18}}{{comp.supplier.length > 18 ?
+                                                                '...' : ''}}</span>
+                                                        </label>
+                                                    </div>
+
+                                                    <div class="col-md-8 col-sm-8 col-xs-12 margin-bottom-5 ">
+                                                        <label class="control-label clearfix text-primary sbold">{{"FormControlText.VendorDescription"|translate}} &nbsp;:&nbsp;</label>
+                                                        <label>{{comp.description}}</label>                                                        
+                                                    </div>
+                                                    <div class="clearfix"></div>
+
+                                                    <div class="col-md-12 col-sm-12 text-right">
+                                                        <a href="#" style="color:red;" ng-click="ShopNow(comp)">{{"FormControlText.BuyViewHere"|translate}}</a>
+                                                    </div>
+                                                    <div class="margin-bottom-10"></div>
+                                                    
+                                                </div>
+
+
+                                                <div>{{"Artigem Comments"|translate}}</div>
+                                                
+                                                <br/>
+
+
+                                            </div>
+                                            <div ng-if="Comparables.comparableItems.length <1">
+                                                <span class="text-danger" style="text-align: center;">{{"No Comparable Available"|translate}}</span>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                <!-- Comparable details End  -->
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Add/Edit Section Stop-->
+</div>

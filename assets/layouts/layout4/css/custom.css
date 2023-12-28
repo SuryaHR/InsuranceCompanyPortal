@@ -1,0 +1,2243 @@
+/* here you can put your own css to customize and override the theme */
+
+.page-header .page-header-menu .hor-menu .navbar-nav>li>a:hover {
+    background-color: #FFF !important;
+    color: #007db8!important;
+    height: 34px;
+    padding-bottom: 11px;
+}
+
+.header-menu-item-style {
+    /*background-color: black;*/
+    padding: 0px;
+    border-radius: 3px;
+}
+
+header-li-style {
+    background-color: #6ea9dc;
+    margin-top: 2px;
+    border-radius: 3px;
+}
+
+.heder-menu-a-style {
+    margin-top: 3px;
+}
+
+.mt-radio.mt-radio-outline>span, .mt-radio.mt-checkbox-outline>span, .mt-checkbox.mt-radio-outline>span, .mt-checkbox.mt-checkbox-outline>span {
+    /* border: 1px solid #d9d9d9; */
+    border: 1px solid #908a8a;
+    background: none;
+}
+
+.BackgroundOrange {
+    background-color: #FFE4B2 !important;
+}
+
+.BackgroundGray {
+    background-color: #80808063;
+}
+
+.imgAttachmentIcon {
+    font-size: 17px !important;
+    margin-top: 13% !important;
+}
+
+.SubHeadingDiv {
+    /*color: #fff;
+    background-color: #337ab7;
+    padding: 4px 11px;*/
+    color: #666;
+    padding: 0px 5px;
+    font-size: 15px;
+    border-bottom: 1px solid #666 !important;
+}
+
+.NoDecoration {
+    text-decoration: none !important;
+    color: black;
+}
+
+.topHeaderMenuTitleAlignMent {
+    padding-top: 12px !important;
+}
+
+.topHeaderMenuSearchBoxAlignMent {
+    margin-top: 16px !important;
+}
+
+.AdjParticipantSection {
+    height: 223px !important;
+    overflow-y: auto;
+}
+
+.thirdPartClaimDetailsSectionTabHeight {
+    height: 292px !important;
+    overflow-y: hidden;
+}
+
+.ServiceRequestheight {
+    min-height: 75px !important;
+}
+
+.btnOptions {
+    margin-left: -9px!important;
+}
+
+.statusHeading {
+    text-align: center!important;
+}
+
+.breadcrumb {
+    background: none;
+    padding: 0 0 10px 0 !important;
+    margin: -6px 0 0 0;
+    color: #a7b2c0;
+}
+
+/*Css for tab*/
+
+.tabbable-customNew>.nav-tabs>li>a {
+    margin-right: 0px!important;
+    -webkit-border-radius: 0!important;
+    -moz-border-radius: 0!important;
+    -ms-border-radius: 0!important;
+    -o-border-radius: 0!important;
+    text-align: center!important;
+    /*border-radius: 0!important;*/
+    color: gray!important;
+    /*font-weight: bold!important;*/
+    /*min-width: 120px!important;*/
+    background-color: rgba(230, 230, 230, 0.54)!important
+}
+
+.tabbable-customNew>.nav-tabs>li.active {
+    background-color: rgba(128, 128, 128, 0.43)!important;
+    /*border-top: 3px solid #ed6b75!important;*/
+    margin-top: 0!important;
+    /*margin-right: 20px!important;*/
+    font-weight: bold!important;
+    position: relative!important;
+}
+
+.tabbable-customNew>.nav-tabs>li {
+    /*margin-right: 20px!important;*/
+    border-top: 2px solid transparent!important;
+}
+
+.tabbable-customNew>.tab-content {
+    background-color: #fff !important;
+    border: 1px solid #ddd!important;
+    /* border-top: none; */
+    /*padding: 10px!important;*/
+    /* padding-top: 30px; */
+    -webkit-border-radius: 0 0 4px 4px!important;
+    -moz-border-radius: 0 0 4px 4px!important;
+    -ms-border-radius: 0 0 4px 4px!important;
+    -o-border-radius: 0 0 4px 4px!important;
+    border-radius: 0 0 4px 4px!important;
+    margin-top: 0px !important;
+}
+
+.tabbable-customNew>.nav-pills {
+    margin-bottom: 0px !important;
+}
+
+/* End Css for tab*/
+
+label {
+    /*font-weight: bold !important;*/
+    font-weight: 600 !important;
+}
+
+.customBorder {
+    border: 1px solid lightgray !important;
+}
+
+/*DefaultCovergare*/
+
+.heightDefaultCovergare {
+    height: 36px;
+}
+
+/*For Options div background for each table*/
+
+.options_Background {
+    background-color: #337ab7;
+    border-right: 1px solid #ffffff;
+    border-left: 1px solid #ffffff;
+}
+
+.options_Background_WithBorder {
+    background-color: #337ab7;
+}
+
+.no_border {
+    border: none !important;
+}
+
+.text_options_Label {
+    color: #ffffff;
+}
+
+.invoice_ListDiv {
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.tableHeight {
+    min-height: 92vh;
+    max-height: auto;
+    overflow-y: auto;
+}
+
+.AlertBox {
+    min-height: 180px;
+    max-height: 180px;
+    overflow-y: hidden;
+}
+
+.DivEvent_NoScroll {
+    max-height: 33vh;
+    overflow: hidden;
+}
+
+.Label_Text_Right {
+    text-align: right!important;
+}
+
+.Div_Space {
+    min-height: 6vh !important;
+}
+
+.minTabHeight {
+    min-height: 69vh;
+}
+
+/*For Invitation*/
+
+.Invitation_Pending {
+    /*background-color:rgba(255, 165, 0, 0.18);*/
+}
+
+.Invitation_Rejected {
+    /*background-color:rgba(236, 11, 26, 0.5);*/
+}
+
+.Invitation_Accepted {
+    /*background-color: rgba(38, 194, 129, 0.32);*/
+}
+
+.Event_creator {
+    /*background-color:rgba(0, 0, 255, 0.17);*/
+}
+
+.font-orange {
+    color: orange;
+}
+
+.text_right {
+    text-align: right!important;
+}
+
+/*End Invitation*/
+
+/*th {
+   text-align:center;
+}*/
+
+/*tbody tr:nth-child(even) {
+    background: #F8F9F9 !important;
+}
+
+tbody tr:nth-child(odd) {
+    background: white !important;
+}*/
+
+.Custombreadcrumb {
+    /*Wirte css for bread crumb if needed*/
+}
+
+/*::-webkit-scrollbar {
+    width: 8px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.1);
+    background-color: #F5F5F5;
+    z-index: 9099;
+}
+
+
+::-webkit-scrollbar-thumb {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: gray;
+}
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar:horizontal {
+    height: 8px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.1);
+    background-color: #F5F5F5;
+    z-index: 9909;
+}
+
+::-webkit-scrollbar-thumb:horizontal {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: lightgray;
+}
+
+::-webkit-scrollbar-track:horizontal {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background-color: #F5F5F5;
+}*/
+
+.imageHeightComparable {
+    height: 100px;
+    border: 1px solid #c7ccd0 !important;
+}
+
+.imageHeightNote {
+    height: 60px;
+    border: 1px solid #c7ccd0 !important;
+}
+
+.imageHeight {
+    height: 140px;
+    width: 100%;
+}
+
+.ProfileImage {
+    max-height: 100%;
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    padding: 5px;
+    border: 1px solid #c7ccd0 !important;
+}
+
+.EvenPadd {
+    padding: 0 10px 0 10px !important;
+    margin-left: -3px !important;
+}
+
+.OddPadd {
+    padding: 0 10px 0 10px !important;
+    margin-left: 6px !important;
+}
+
+.ImageComparable {
+    border: none;
+    max-height: 100%;
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    padding: 3px;
+}
+
+.Slide {
+    height: 250px;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+
+.leftSlide {
+    height: 100%;
+    margin-top: 14%;
+    padding-left: 0px !important;
+}
+
+.rightSlide {
+    margin-top: 14%;
+    padding-right: 0px !important;
+}
+
+.popupDownload {
+    position: absolute;
+    right: 110px;
+    bottom: 15px;
+}
+
+.img {
+    max-height: 220px !important;
+    max-width: 250px !important;
+    border: 1px solid #ddd;
+    border: none;
+}
+
+.viewClass {
+    color: white;
+    margin-top: 5px;
+}
+
+.margin-top-5 {
+    margin-top: 5px;
+}
+
+.tableHeader {
+    /*background-color:#589ba9;*/
+    background-color: rgba(59, 67, 76, 0.83);
+}
+
+.hgtCompaire {
+    height: 100% !important;
+    overflow-y: auto;
+}
+
+#img_preview {
+    top: 20%;
+    left: 25%;
+    /* transform: translate(-50%, -50%); */
+    text-align: left;
+    box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.4) !important;
+}
+
+.image-wrapper>video {
+    height: 350px;
+    width: 100%;
+}
+
+.bordered {
+    border: 1px solid lightgray;
+}
+
+/*Service request edit for sameer*/
+
+.padding_left_zero {
+    padding-left: 0px;
+}
+
+.padding_right_zero {
+    padding-right: 0px;
+}
+
+.text_ellipsis {
+    width: 100%;
+    overflow: hidden;
+    display: inline-block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Custom Modal CSS */
+
+.modalcustom .modal-content, .modalcustom .modal-body {
+    height: max-content !important;
+}
+
+.well {
+    margin-bottom: 10px !important;
+    padding: 4px!important;
+}
+
+@media screen and ( height: 768px) {
+    .hgtCompaire {
+        height: 100% !important;
+        overflow-y: auto;
+    }
+}
+
+/*Service request edit for HD*/
+
+@media screen and (height: 1080px) {
+    .hgtCompaire {
+        height: 100% !important;
+        overflow-y: auto;
+    }
+}
+
+/*Service request edit for iPad*/
+
+@media screen and (width: 1024px) {
+    .hgtCompaire {
+        height: 460px !important;
+        overflow-y: auto;
+    }
+}
+
+/*Service request edit for Local*/
+
+@media screen and (height: 900px) {
+    .hgtCompaire {
+        height: 300px !important;
+        overflow-y: auto;
+    }
+}
+
+.nomargin {
+    margin: 0px !important;
+    padding: 0px !important;
+}
+
+/*Map Receipt*/
+
+.uploadFileIcon {
+    min-height: 105px;
+}
+
+.topmargin {
+    margin-top: 21px;
+}
+
+/*End Map Receipt*/
+
+.modalcustom .modal-content {
+    width: auto;
+    height: 240px;
+}
+
+/*For div */
+
+div.tip {
+    /*border-bottom: 1px dashed*/
+    text-decoration: none;
+    cursor: pointer;
+}
+
+div.tip:hover {
+    /*cursor: help;*/
+    position: relative;
+    /*background-color: #97b1c3; /*#ebed5c;*/
+}
+
+div.tip .Overlay {
+    display: none;
+}
+
+div.tip:hover .Overlay {
+    border: #c0c0c0 2px groove;
+    background-color: rgba(212, 223, 232, 0.97);
+    /*#ebed5c;*/
+    padding: 5px 20px 5px 5px;
+    display: block;
+    z-index: 100;
+    /*background: url(../images/status-info.png) #f0f0f0 no-repeat 100% 5%;*/
+    left: 0px;
+    margin: 2px;
+    width: auto;
+    min-height: 20px;
+    height: auto;
+    overflow: auto;
+    position: absolute;
+    top: 0px;
+    text-decoration: none;
+    color: #000000;
+    white-space: pre-wrap;
+}
+
+/*End For div*/
+
+/*For showing the popover on long description*/
+
+td.tip {
+    border-bottom: 1px dashed;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+td.tip:hover {
+    position: relative;
+    z-index: 11;
+}
+
+td.tip .Overlay {
+    display: none;
+}
+
+td.tip:hover .Overlay {
+    border: #c0c0c0 2px groove;
+    background-color: rgba(212, 223, 232, 0.97);
+    /*#ebed5c;*/
+    padding: 5px 20px 5px 5px;
+    display: block;
+    z-index: 1000;
+    /*background: url(../images/status-info.png) #f0f0f0 no-repeat 100% 5%;*/
+    max-height: 90px;
+    overflow-y: auto;
+    margin: 10px;
+    /*width: 180px;*/
+    position: absolute;
+    top: 15px;
+    text-decoration: none;
+    color: #000000;
+}
+
+/*End popover for description*/
+
+.modalcustom .modal-body {
+    height: 100px;
+}
+
+.trBackgroundSeleted {
+    /*text-decoration:line-through;*/
+    /*text-decoration-line:line-through;*/
+    background: rgb(233, 236, 243) !important;
+    /*lightgoldenrodyellow */
+}
+
+.divborder {
+    border-style: solid;
+    border-width: 1px;
+}
+
+.FontRed {
+    color: red !important;
+}
+
+.width35 {
+    width: 35%;
+}
+
+.width15 {
+    width: 15%;
+}
+
+.width20 {
+    width: 20%;
+}
+
+.width45 {
+    width: 45%;
+}
+
+.width50 {
+    width: 50%;
+}
+
+.smallCircleButton {
+    padding: 1px 6px !important;
+}
+
+.TextDecorationNone {
+    text-decoration: none !important;
+}
+
+.textDecorationUnderline {
+    text-decoration: underline;
+}
+
+.padding5 {
+    padding: 5px;
+}
+
+.padding10 {
+    padding: 10px;
+}
+
+.setwidth {
+    width: 120px !important;
+}
+
+.margintop5 {
+    margin-top: 5px;
+}
+
+.margintopleft5 {
+    margin: 5px 5px 0px 0px;
+}
+
+.margin5 {
+    margin: 5px 5px 5px 5px;
+}
+
+.padding1px {
+    padding-left: 1px !important;
+    padding-right: 1px !important;
+}
+
+.hrclass {
+    border-top: 1px solid #c7ccd0;
+    margin: 0px !important;
+    padding: 0px !important;
+    margin-bottom: 5px !important;
+}
+
+/*For select box*/
+
+/* span.select2-selection__clear {
+    display: none;
+} */
+
+/*Added by pradip for scrollable div - line item details page*/
+
+.imageDivScrollable {
+    /*max-width:100%;*/
+    overflow-x: auto;
+    overflow-y: hidden;
+    border: 0px solid black;
+    margin: 0px;
+    padding: 0px;
+    display: flex;
+    padding-top: 10px;
+    padding-left: 3px;
+    padding-right: 3px;
+    box-shadow: 2px 0px 20px 2px #E5E3F5;
+}
+
+/*Css for arrrow button*/
+
+.btn-arrow-right, .btn-arrow-left {
+    position: relative;
+    padding-left: 18px;
+    padding-right: 14px;
+}
+
+.btn-arrow-right {
+    padding-left: 35px;
+}
+
+.btn-arrow-left {
+    padding-right: 36px;
+}
+
+.btn-arrow-right:before, .btn-arrow-right:after, .btn-arrow-left:before, .btn-arrow-left:after {
+    /* make two squares (before and after), looking similar to the button */
+    content: "";
+    position: absolute;
+    top: 5px;
+    /* move it down because of rounded corners */
+    width: 22px;
+    /* same as height */
+    height: 22px;
+    /* button_outer_height / sqrt(2) */
+    background: inherit;
+    /* use parent background */
+    border: inherit;
+    /* use parent border */
+    border-left-color: transparent;
+    /* hide left border */
+    border-bottom-color: transparent;
+    /* hide bottom border */
+    border-radius: 0px 4px 0px 0px;
+    /* round arrow corner, the shorthand property doesn't accept "inherit" so it is set to 4px */
+    -webkit-border-radius: 0px 4px 0px 0px;
+    -moz-border-radius: 0px 4px 0px 0px;
+}
+
+.btn-arrow-right:before, .btn-arrow-right:after {
+    transform: rotate(45deg);
+    /* rotate right arrow squares 45 deg to point right */
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+}
+
+.btn-arrow-left:before, .btn-arrow-left:after {
+    transform: rotate(225deg);
+    /* rotate left arrow squares 225 deg to point left */
+    -webkit-transform: rotate(225deg);
+    -moz-transform: rotate(225deg);
+    -o-transform: rotate(225deg);
+    -ms-transform: rotate(225deg);
+}
+
+.btn-arrow-right:before, .btn-arrow-left:before {
+    /* align the "before" square to the left */
+    left: -11px;
+}
+
+.btn-arrow-right:after, .btn-arrow-left:after {
+    /* align the "after" square to the right */
+    right: -11px;
+}
+
+.btn-arrow-right:after, .btn-arrow-left:before {
+    /* bring arrow pointers to front */
+    z-index: 1;
+}
+
+.btn-arrow-right:before, .btn-arrow-left:after {
+    /* hide arrow tails background */
+    background-color: white;
+}
+
+.btnlineheight {
+    line-height: 1.9 !important;
+}
+
+/*Css button arrow*/
+
+/*End css for arrow button*/
+
+.btnNextPrevoius {
+    position: relative;
+    margin-top: 50% !important;
+}
+
+/*For caption in div colapseble */
+
+.CaptionNormal {
+    font-size: 17px;
+    font-weight: normal;
+    color: #333333;
+}
+
+/*Added by pradip to keep margin top and button while show in mobile view*/
+
+.btnMargin {
+    margin-top: 1px;
+    margin-bottom: 1px;
+    margin-left: 1px;
+    margin-right: 1px;
+}
+
+/*Added for increasing image height and width after hover*/
+
+/*.ImageContainer:hover{
+            height:180px;
+            width:180px;
+        }*/
+
+/*Mobile*/
+
+button {
+    min-width: 70px;
+}
+
+.addedcomparablewidth {
+    width: 392px;
+}
+
+.googlecompaarable {
+    max-height: 70PX;
+    overflow-x: auto;
+}
+
+.ComaparablesfromDB {
+    height: 1325px;
+}
+
+/*Line item Details*/
+
+.comparablesDiv {
+    height: 1323px;
+    overflow: auto;
+}
+
+.policyholderEmptyComp {
+    height: 889px;
+}
+
+.policyholderAddedComp {
+    height: 926px;
+}
+
+.comparablesDivDB {
+    margin: 0px;
+    height: 892px;
+    overflow-y: auto;
+    /*height:668px;*/
+    /*height: 807px;*/
+    /*height: 816px;*/
+}
+
+.itemImageScrollableDiv {
+    min-height: 20px;
+    max-height: 903px;
+    overflow-y: auto;
+}
+
+.imageClass {
+    height: 110px;
+    width: 110px;
+}
+
+.attachmentclass {
+    line-height: 75px;
+    margin-left: 63px;
+}
+
+.NoteTable {
+    height: 140px;
+    overflow: auto;
+}
+
+.noteDiv {
+    /*height:264px;*/
+    height: 225px;
+}
+
+.googleComparableBodyHeight {
+    /*height:540px;*/
+    height: 661px;
+}
+
+.EmptycomparablesDivDB {
+    height: 887px;
+}
+
+.PolicycomparablesDivDB {
+    height: 898px;
+}
+
+.googleSerachResultDiv {
+    overflow-y: auto !important;
+    height: 532px;
+}
+
+.AdjEventSection {
+    /*height: 200px !important;*/
+    height: 220px !important;
+    overflow-y: auto;
+}
+
+.tab_Scrollable_content {
+    max-height: 250px;
+    overflow-y: auto;
+}
+
+.arrowbuttonClaimDetails {
+    margin-top: -9px !important;
+}
+
+.Div_box_Shadow {
+    box-shadow: 0px 0px 4px 2px lightgrey;
+}
+
+.dash {
+    border: 0 none;
+    border-bottom: 2px dashed rgba(48, 43, 50, 0.53);
+    background: none;
+    height: 0;
+}
+
+/*End Linine item details*/
+
+/* For Destop: */
+
+@media only screen and (min-width: 760px) {
+    .imagePostion {
+        float: right;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    /*FNOL Request Add Note button*/
+    .loginHeightVendor {
+        height: 378px;
+    }
+    button {
+        min-width: 85px;
+    }
+    .btnMargin {
+        margin-top: 1px;
+        margin-bottom: 1px;
+    }
+    .ServiceEditMainDiv {
+        height: 592px;
+        /*height:505px;*/
+    }
+    .ServiceEditNotesDiv {
+        height: 480px;
+        /*height:400px;*/
+        overflow-y: auto;
+        overflow-x: hidden;
+        -webkit-overflow-scrolling: touch;
+    }
+    .ClaimDetailsTabHeight {
+        /*height: 385px;*/
+        height: 353px;
+        /*overflow-y:auto;*/
+        /*height:260px;*/
+    }
+    .addedcompairablesheight {
+        height: 380px;
+        overflow-y: auto;
+    }
+    .arrowbuttonClaimDetails {
+        margin-top: -9px !important;
+    }
+    .BackbuttonClaimDetails {
+        margin-top: -6px !important;
+    }
+    .addnote {
+        display: flex;
+        vertical-align: central;
+    }
+    .addedComparableOuter {
+        height: 216px;
+    }
+    .addedComparableInner {
+        display: flex;
+        height: 212px;
+        padding-top: 0px;
+    }
+    .styleflex {
+        display: flex;
+    }
+    .tablewidthGoogle {
+        width: auto;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .loginHeightVendor {
+        height: auto;
+    }
+    /*FNOL Request Add Note button*/
+    .pdfinnerviewer {
+        overflow: auto;
+        height: 685px;
+    }
+    .ClaimDetailsTabHeight {
+        height: auto;
+    }
+    .ServiceEditMainDiv {
+        height: auto;
+        /*height:505px;*/
+    }
+    .ServiceEditNotesDiv {
+        height: auto;
+        /*height:400px;*/
+        overflow-y: auto;
+        overflow-x: hidden;
+        -webkit-overflow-scrolling: touch;
+    }
+    .imagePostion {
+        float: right;
+    }
+    .tablewidthGoogle {
+        width: 670px;
+    }
+    .styleflex {
+        display: flex;
+    }
+    .addedComparableOuter {
+        height: auto;
+    }
+    .addedComparableInner {
+        display: flex;
+        height: auto;
+        padding-top: 0px;
+    }
+    .addnote {
+        vertical-align: central;
+    }
+    .noteDiv {
+        /* height: 264px; */
+        height: auto;
+    }
+    .addedcompairablesheight {
+        height: auto;
+        overflow-y: auto;
+    }
+    .googleComparableBodyHeight {
+        /* height: 540px; */
+        height: auto;
+    }
+    .detailsTabContent {
+        height: 230px;
+        overflow-y: auto;
+    }
+    .arrowbuttonClaimDetails {
+        margin-top: 0px !important;
+    }
+    .BackbuttonClaimDetails {
+        margin-top: -6px !important;
+    }
+}
+
+/* for auto complete extender*/
+
+.angucomplete-dropdown {
+    overflow-y: auto;
+    max-height: 200px;
+}
+
+/*For text size gloabally */
+
+.CommanTextSize {
+    font-size: 12px;
+}
+
+.alertBox {
+    height: 150px;
+    overflow: auto;
+}
+
+.upcomingEventBox {
+    height: 150px;
+    overflow: auto;
+}
+
+.popover.right {
+    margin-left: 10px;
+    /* width: fit-content; */
+    top: -13px;
+    color: black;
+    z-index: 101;
+    font-size: 13px !important;
+}
+
+.popover {
+    background: #90caf9;
+}
+
+.popover.right>.arrow:after {
+    left: 1px;
+    border-left-width: 0;
+    border-right-color: #90caf9;
+}
+
+.popover.right>.arrow:after {
+    left: 1px;
+    border-left-width: 0;
+    border-right-color: #90caf9;
+}
+
+.popover.left>.arrow:after {
+    border-right-width: 0;
+    border-left-color: #90caf9;
+}
+
+/* Added for scrollable table*/
+
+#ScrollableTable tbody {
+    display: block !important;
+    height: 240px;
+    overflow: auto;
+}
+
+.tablebodyAlert {
+    display: table !important;
+    width: 100% !important;
+    table-layout: fixed !important;
+}
+
+#ScrollableTable thead, #ScrollableTable tr {
+    display: table !important;
+    width: 100% !important;
+    table-layout: fixed !important;
+}
+
+#ScrollableTable thead {
+    width: calc( 100%) !important;
+}
+
+/* Added for scrollable table*/
+
+.ReceiptMapperHeight {
+    /*height:381px!important;*/
+    height: 541px !important;
+}
+
+.ReceiptHeight {
+    height: 584px;
+    /*570px;*/
+    overflow-y: auto;
+}
+
+/*Added For Position of globle search icon*/
+
+.globlaSearchIcon {
+    margin: 12px 10px 4px 10px !important;
+}
+
+.detailsTabContent {
+    height: 296px;
+    /*overflow-y: auto;*/
+}
+
+body {
+    /*background-color: #364150;*/
+}
+
+/*For 1024 Resolition*/
+
+@media only screen and (max-width:1024px) {
+    .pdfinnerviewer {
+        overflow: auto;
+        height: 685px;
+    }
+    .ClaimDetailsTabHeight {
+        height: 282px;
+    }
+    .tablewidthGoogle {
+        width: 670px;
+    }
+    .styleflex {
+        display: flex;
+    }
+    .addedComparableOuter {
+        height: auto;
+    }
+    .addedComparableInner {
+        display: flex;
+        height: auto;
+        padding-top: 0px;
+    }
+    .addnote {
+        vertical-align: central;
+    }
+    .noteDiv {
+        height: auto;
+    }
+    .addedcompairablesheight {
+        height: auto;
+        overflow-y: auto;
+    }
+    .googleComparableBodyHeight {
+        height: auto;
+    }
+    .detailsTabContent {
+        height: 195px;
+        overflow-y: auto;
+    }
+    .AdjEventSection {
+        height: 161px !important;
+        overflow-y: auto;
+    }
+    #ScrollableTable thead {
+        width: calc( 100%) !important;
+    }
+}
+
+/*for 1366 client  resoultion*/
+
+@media only screen and (device-width:1366px) and (orientation: landscape) {
+    .comparablesDivDB {
+        margin: 0px;
+        height: 892px;
+        overflow-y: scroll;
+    }
+    .EmptycomparablesDivDB {
+        height: 887px;
+    }
+    .PolicycomparablesDivDB {
+        height: 899px;
+    }
+    .googleComparableBodyHeight {
+        /* height: 540px; */
+        height: 660px;
+    }
+    .imageClass {
+        height: 66px;
+        width: 80px;
+    }
+    .ServiceEditNotesDiv {
+        height: 475px;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    .ServiceEditMainDiv {
+        height: 600px;
+    }
+    #ScrollableTable thead {
+        width: calc( 100% - 0px) !important;
+    }
+    .policyholderEmptyComp {
+        height: 887px;
+    }
+    .policyholderAddedComp {
+        height: 927px;
+    }
+}
+
+@media only screen and (max-width:800px) {
+    .tablewidthGoogle {
+        width: 100%;
+    }
+    .comparablesDivDB {
+        margin: 0px;
+        height: auto;
+        overflow-y: scroll;
+    }
+    .addedComp {
+        width: 100%;
+        overflow: scroll;
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+@media only screen and (max-width:750px) {
+    .ClaimDetailsTabHeight {
+        height: auto;
+    }
+}
+
+@media only screen and (max-width:1200px) {
+    .tablewidthGoogle {
+        width: 100%;
+    }
+}
+
+@media only screen and (min-width:1200px) {
+    .res_label_placement {
+        text-align: right;
+    }
+}
+
+#NavigateTable td {
+    cursor: pointer !important;
+}
+
+.topBorder {
+    border-radius: 0px;
+    border-top: 1px solid #c7ccd0 !important;
+}
+
+.bottomBorder {
+    border-radius: 0px;
+    border-bottom: 1px solid #c7ccd0 !important;
+}
+
+.divItemImageScroll {
+    height: 80px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch !important;
+}
+
+/*Status Bar on line item*/
+
+.ClaimStatus {
+    height: 20px;
+    width: 20px;
+    /*background-color:#3598dc;*/
+    background-color: gray;
+    color: white;
+    border-radius: 10px;
+}
+
+.ClaimStatusActive {
+    height: 20px;
+    width: 20px;
+    background-color: #32c5d2;
+    color: white;
+    border-radius: 10px;
+}
+
+.ClaimStatusActiveText {
+    color: gray;
+    font-size: 11px;
+}
+
+/*Flipcart*/
+
+.margintopleft10 width14 {
+    margin-left: 10px;
+}
+
+.width14 {
+    width: 11% !important;
+}
+
+.width16 {
+    width: 11.6%;
+    height: 4px;
+}
+
+.backgreen {
+    background: #32c5d2 !important;
+}
+
+.backGray {
+    background: gray !important;
+}
+
+/*Error message notification*/
+
+.infoWindowContent {
+    height: auto !important;
+    width: auto !important;
+}
+
+.alert {
+    padding: 5px 0px 6px 0px;
+    /* padding-top: 0px; */
+    margin-bottom: 5px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.alert-dismissable .close, .alert-dismissible .close {
+    position: relative;
+    top: -2px;
+    right: 12px;
+    color: inherit;
+}
+
+.alert-success {
+    background-color: green/*#74b574*/
+    ;
+    border-color: #abe7ed;
+    color: #fff;
+    opacity: .8;
+}
+
+.alert-error {
+    background-color: red;
+    border-color: #abe7ed;
+    color: #fff;
+    opacity: .8;
+}
+
+/*End Error messsage notification*/
+
+/*Status bar for line item details screen*/
+
+@media screen and (max-width: 786px) {
+    .toast-top-full-width {
+        top: 0 !important;
+        right: 0 !important;
+        width: 100% !important;
+    }
+    #toast-container.toast-top-full-width>div {
+        width: 100%;
+        margin: auto;
+    }
+    .ClaimStatusActiveText {
+        color: gray;
+        font-size: 8px;
+    }
+    .width16 {
+        width: 17%;
+        height: 4px;
+    }
+    .width14 {
+        width: 16% !important;
+    }
+    /*Linre item details*/
+    .StatusHorizontalLine {
+        margin-left: 13% !important;
+    }
+    /*Claim details*/
+    .ClaimStatusHorizontalLine {
+        margin-left: 22% !important;
+    }
+    /*Line item details*/
+    .StatusNumber {
+        margin-left: 4% !important;
+    }
+    /*Claim details*/
+    .ClaimStatusNumber {
+        margin-left: 16% !important;
+    }
+    /*Service request*/
+    .ClaimStatusNumber {
+        margin-left: 16% !important;
+    }
+    .ClaimStatusHorizontalLine {
+        margin-left: 22% !important;
+    }
+    /*Service request*/
+    .ServiceStatusNumber {
+        margin-left: 5.1% !important;
+    }
+    .ServiceStatusHorizontalLine {
+        margin-left: 14% !important;
+    }
+    .ErrorMessagepopupstyle {
+        z-index: 1030;
+        top: 0px;
+        position: fixed;
+        left: 0;
+        width: 100%;
+        /*margin-left:7%;*/
+    }
+    /*#ScrollableTable thead {
+    width: calc( 100% +4em ) !important;
+}*/
+}
+
+@media screen and (min-width:786px) {
+    /*#toast-container.toast-top-full-width>div
+    {
+        width:86%;
+        margin:auto;
+    }
+    .toast-top-full-width {
+        top: 0 !important;
+        right: 0%!important;
+        width: 100% !important;
+    }*/
+    .ErrorMessagepopupstyle {
+        z-index: 1030;
+        top: 0px;
+        position: fixed;
+        left: 0;
+        width: 86%;
+        margin-left: 7%;
+    }
+    .width14 {
+        width: 11% !important;
+    }
+    .width16 {
+        width: 11.6%;
+        height: 4px;
+    }
+    /*Claim details*/
+    .ClaimStatusHorizontalLine {
+        margin-left: 35% !important;
+    }
+    /*Claim details*/
+    .ClaimStatusNumber {
+        margin-left: 31% !important;
+    }
+    .StatusHorizontalLine {
+        margin-left: 29% !important;
+    }
+    .StatusNumber {
+        margin-left: 24% !important;
+    }
+    /*Service request*/
+    .ServiceStatusNumber {
+        margin-left: 25.5% !important;
+    }
+    .ServiceStatusHorizontalLine {
+        margin-left: 29% !important;
+    }
+}
+
+@media screen and (width: 1024px) {
+    .ErrorMessagepopupstyle {
+        z-index: 1030;
+        top: 0px;
+        position: fixed;
+        left: 0;
+        width: 100% !important;
+        margin-left: 0 !important;
+    }
+    .toast-top-full-width {
+        top: 0 !important;
+        right: 0 !important;
+        width: 100% !important;
+    }
+    #toast-container.toast-top-full-width>div {
+        width: 100%;
+        margin: auto;
+    }
+}
+
+.width14NewClaimDetails {
+    /*width: 20%;*/
+    width: 23%;
+}
+
+/*Margin for claim cycle bar*/
+
+@media(min-device-width:768px) {
+    .ClaimStatusNumberNewClaimDetails {
+        margin-left: 31% !important;
+    }
+    .ClaimStatusHorizontalLineNewClaimDetails {
+        margin-left: 36% !important;
+    }
+}
+
+@media(max-device-width:767px) {
+    .ClaimStatusNumberNewClaimDetails {
+        margin-left: 0% !important;
+    }
+    .ClaimStatusHorizontalLineNewClaimDetails {
+        margin-left: 7% !important;
+    }
+}
+
+/*Margin for claim cycle bar*/
+
+.width16NewClaimDetails {
+    /*width: 22.6%;*/
+    width: 18.4%;
+    height: 4px;
+}
+
+@media (min-device-width:414px) {
+    .thwidth30 {
+        width: 30%;
+    }
+    .thwidth70 {
+        width: 70%;
+    }
+    .thwidth25 {
+        width: 25%;
+    }
+}
+
+/*Classess For Stage*/
+
+.stage {
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: normal;
+    text-align: center;
+    vertical-align: middle;
+    touch-action: manipulation;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    padding-left: 2px !important;
+    padding-right: 2px !important;
+    font-size: 13px;
+    line-height: 1.42857;
+    border-radius: 25px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    width: 130px;
+}
+
+/*Claim Stages*/
+
+.ClaimStageOne {
+    background-color: gray;
+    color: white;
+}
+
+.ClaimStageTwo {
+    background-color: #337ab7;
+    color: white;
+}
+
+.ClaimStageThree {
+    background-color: #ea5460;
+    color: white;
+}
+
+.ClaimStageFour {
+    background-color: darkcyan;
+    color: white;
+}
+
+.ClaimStageFive {
+    background-color: Green;
+    color: white;
+}
+
+.ClaimStageSix {
+    background-color: red;
+    color: white;
+}
+
+/*End Claim Stages*/
+
+/*Item Stages Newly created*/
+
+.ItemStageOne {
+    /*background-color: gray;*/
+    /*color: white;*/
+    max-width: 80px !important;
+}
+
+.ItemStageTwo {
+    /*background-color: #337ab7;*/
+    /*color: white;*/
+    max-width: 80px !important;
+}
+
+.ItemStageThree {
+    /*background-color: #ea5460;
+    color: white;*/
+    max-width: 80px !important;
+}
+
+.ItemStageFour {
+    /*background-color: darkcyan;
+    color: white;*/
+    max-width: 80px !important;
+}
+
+.ItemStageFive {
+    /*background-color: #e88549;
+    color: white;*/
+    max-width: 80px !important;
+}
+
+.ItemStageSix {
+    /*background-color: Green;
+    color: white;*/
+    max-width: 80px !important;
+}
+
+.ItemStageSeven {
+    /*background-color: red;
+    color: white;*/
+    max-width: 80px !important;
+}
+
+/*End Item Stages Newly created*/
+
+/*Claim Status Classes*/
+
+.ClaimCreated {
+    background-color: gray;
+    color: white;
+}
+
+.ClaimAssigned {
+    background-color: #337ab7;
+    color: white;
+}
+
+.ClaimUnderReview {
+    background-color: #ea5460;
+    color: white;
+}
+
+.ClaimApproved {
+    background-color: darkcyan;
+    color: white;
+}
+
+.ClaimSettled {
+    background-color: Green;
+    color: white;
+}
+
+.ClaimRejected {
+    background-color: red;
+    color: white;
+}
+
+.ClaimActiveVendor {
+    background-color: #26c281;
+    color: white;
+}
+
+/*Item Status Classes*/
+
+.ItemCreated {
+    background-color: gray;
+    color: white;
+    max-width: 80px !important;
+}
+
+.ItemAssigned {
+    background-color: #337ab7;
+    color: white;
+    max-width: 80px !important;
+}
+
+.ItemUnderReview {
+    background-color: #ea5460;
+    color: white;
+    max-width: 80px !important;
+}
+
+.ItemApproved {
+    background-color: darkcyan;
+    color: white;
+    max-width: 80px !important;
+}
+
+.ItemValued {
+    background-color: #e88549;
+    color: white;
+    max-width: 80px !important;
+}
+
+.ItemSettled {
+    background-color: Green;
+    color: white;
+    max-width: 80px !important;
+}
+
+.ItemrRjected {
+    background-color: red;
+    color: white;
+    max-width: 80px !important;
+}
+
+/*.PostLossItemList {
+    max-height: 300Px;
+    overflow-y: auto;
+}*/
+
+/*Service Request Status*/
+
+.ServicePendingApproval {
+    background-color: #337ab7;
+    color: white;
+}
+
+.ServiceProcessing {
+    background-color: #ea5460;
+    color: white;
+}
+
+.ServiceDraft {
+    background-color: gray;
+    color: white;
+}
+
+.ServiceCompleted {
+    background-color: Green;
+    color: white;
+}
+
+.ServiceAssigned {
+    background-color: #337ab7;
+    color: white;
+}
+
+.text_tab_ContentHeading {
+    color: #ed6b75;
+}
+
+.wordBreak {
+    word-break: break-all;
+}
+
+/*Invoice Stages*/
+
+.InvoiceCreated {
+    background-color: gray;
+    color: white;
+}
+
+.InvoiceAssigned {
+    background-color: #337ab7;
+    color: white;
+}
+
+.InvoicePendingApproval {
+    background-color: #ea5460;
+    color: white;
+}
+
+.InvoiceApproved {
+    background-color: darkcyan;
+    color: white;
+}
+
+.InvoicePaid {
+    background-color: #e88549;
+    color: white;
+}
+
+.InvoiceRejected {
+    background-color: red;
+    color: white;
+}
+
+/*Width for PostLoss item grid column*/
+
+.Width2P {
+    width: 2% !important;
+}
+
+.Width3P {
+    Width: 3% !important;
+}
+
+.Width4P {
+    Width: 4% !important;
+}
+
+.width5P {
+    width: 5%;
+}
+
+.Width6P {
+    Width: 6% !important;
+}
+
+.Width7P {
+    Width: 7% !important;
+}
+
+.Width8P {
+    Width: 8% !important;
+}
+
+.Width9P {
+    Width: 9% !important;
+}
+
+.Width10P {
+    Width: 10% !important;
+}
+
+.width18P {
+    Width: 18% !important;
+}
+
+.width11P {
+    width: 11%;
+}
+
+.width12P {
+    width: 12%;
+}
+
+.width13P {
+    width: 13% !important;
+}
+
+.width16P {
+    width: 16%;
+}
+
+.width17P {
+    width: 17% !important;
+}
+
+.width20P {
+    Width: 20% !important;
+}
+
+.width22P {
+    Width: 22% !important;
+}
+
+.width24P {
+    Width: 24% !important;
+}
+
+.width25P {
+    Width: 25% !important;
+}
+
+.width28P {
+    Width: 28% !important;
+}
+
+.width30P {
+    Width: 30% !important;
+}
+
+.width33P {
+    Width: 33% !important;
+}
+
+.width40P {
+    Width: 40% !important;
+}
+
+.table-checkable tr>td:first-child, .table-checkable tr>th:first-child {
+    text-align: left;
+    max-width: unset;
+    min-width: unset;
+    padding-left: 6px !important;
+    padding-right: unset !important;
+}
+
+.portlet.light>.portlet-title>.caption>.caption-subject {
+    font-size: 18px !important;
+    /* font-size: 21px; */
+    font-weight: normal!important;
+}
+
+.expertise {
+    min-height: 275px;
+    height: 275px;
+    border: 1px #c7ccd0 solid;
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+}
+
+.minTabHeight {
+    min-height: 75vh;
+}
+
+@media (min-device-width:414px) {
+    .minTabHeight {
+        min-height: 75vh;
+    }
+}
+
+/* @media (max-device-width:1440px) {
+    .div_MainBody {
+        width: 98% !important;
+    }
+}*/
+
+.div_MainBody {
+    width: 98% !important;
+}
+
+@media only screen and (min-width:1441px) {
+    .div_MainBody {
+        width: 90% !important;
+    }
+}
+
+.btnRefresh {
+    margin-right: 10px;
+    margin-top: 5px;
+    color: #000;
+}
+
+/* Adjuster New Claims */
+
+/* Adjuster All Claims */
+
+/* responsive-padding
+  responsive-margin-top */
+
+@media only screen and (max-width: 767px) {
+    .responsive-padding {
+        padding: 1px !important;
+    }
+    .responsive-margin-top {
+        padding: 1px !important;
+    }
+    .claim-zip-inline {
+        display: none;
+    }
+    .claim-zip {
+        display: block;
+    }
+    label.currencyLbl {
+        padding: 0;
+        border: 1px solid #c2cad8;
+        right: auto;
+        margin-left: -15px;
+        margin-bottom: 0px;
+        margin-top: 1px;
+        width: 100% !important;
+        font-family: Arial;
+        line-height: 19px;
+        height: 25px;
+        font-weight: 400 !important;
+        color: #555555;
+        font-size: 12px !important;
+    }
+    .padding10px {
+        padding-right: 10px !important;
+        padding-left: 0px;
+    }
+    .res_label_placement {
+        text-align: left;
+    }
+    .mobile_view_padding {
+        padding: 1px;
+    }
+    .mobile_view_center {
+        text-align: center;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1020px) {
+    .responsive-margin-top {
+        padding: 1px !important;
+    }
+    .claim-zip-inline {
+        display: none;
+    }
+    .claim-zip {
+        display: block;
+    }
+    label.currencyLbl {
+        padding: 0;
+        border: 1px solid #c2cad8;
+        right: auto;
+        margin-left: -15px;
+        margin-bottom: 0px;
+        margin-top: 1px;
+        width: 100% !important;
+        font-family: Arial;
+        line-height: 19px;
+        height: 25px;
+        font-weight: 400 !important;
+        color: #555555;
+        font-size: 12px !important;
+    }
+    .padding10px {
+        padding-right: 10px !important;
+        padding-left: 0px;
+    }
+    .item-align {
+        text-align: right;
+    }
+    .res_label_placement {
+        text-align: right;
+    }
+}
+
+@media only screen and (min-width: 1021px) {
+    .claim-zip-inline {
+        display: block;
+    }
+    .claim-zip {
+        display: none;
+    }
+    .state-select {
+        padding-right: 0px;
+    }
+    .padding30Left {
+        padding-left: 30px;
+    }
+    .item-align {
+        text-align: right;
+    }
+    label.currencyLbl {
+        padding: 0;
+        border: 1px solid #c2cad8;
+        width: 92.5% !important;
+        font-family: Arial;
+        line-height: 19px;
+        height: 25px;
+        font-weight: 400 !important;
+        color: #555555;
+        font-size: 12px !important;
+    }
+    .item_atachment {
+        margin-left: 10px;
+    }
+    .input_align_left {
+        text-align: left;
+    }
+    .p_left_zero {
+        padding-left: 0px !important;
+    }
+}
+
+.more-options .dropdown-menu {
+    font-size: 13px;
+}
+
+.more-options .dropdown-menu>li:hover>a {
+    background-color: #cce7f3 !important;
+}
+
+.more-options .dropdown-menu>li:hover>button {
+    background-color: #cce7f3 !important;
+    border-radius: 4px 4px 0px 0px;
+    color: #000000!important;
+}
+.dropdown-menu > li > button {
+      padding: 8px 16px!important;
+      display: block;
+      clear: both;    
+      line-height: 18px!important;;
+      white-space: nowrap;
+      
+      background: none!important;
+      font-weight: normal!important;
+      text-decoration: none!important;
+      border: none!important;
+      margin-top: 0px;
+      margin-bottom: 5px;
+      text-align: left;
+      width: 100%;
+}
+/* NEW 2nd-Level Dropdown CSS START */
+
+.dropdown-submenu {
+    position: relative;
+    font-size: 13px;
+}
+
+.dropdown-submenu .caret {
+    -webkit-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+}
+
+.dropdown-submenu>.dropdown-menu {
+    left: 100%;
+    margin-top: -6px;
+    margin-left: -1px;
+}
+
+.dropdown-submenu.open>a:after {
+    border-left-color: #fff;
+}
+
+.dropdown-submenu.open>.dropdown-menu, .dropdown-submenu.open>.dropdown-menu {
+    display: block;
+}
+
+.dropdown-submenu .dropdown-menu {
+    margin-bottom: 8px;
+}
+
+.navbar-default .navbar-nav .open .dropdown-menu .dropdown-submenu ul {
+    background-color: #f6f6f6;
+}
+
+.navbar-inverse .navbar-nav .open .dropdown-menu .dropdown-submenu ul {
+    background-color: #333;
+}
+
+.navbar .navbar-nav .open .dropdown-submenu .dropdown-menu>li>a {
+    padding-left: 30px;
+}
+
+@media screen and (min-width:992px) {
+    .dropdown-submenu .dropdown-menu {
+        margin-bottom: 2px;
+    }
+    .navbar .navbar-nav .open .dropdown-submenu .dropdown-menu>li>a {
+        padding-left: 25px;
+    }
+    .navbar-default .navbar-nav .open .dropdown-menu .dropdown-submenu ul {
+        background-color: #fff;
+    }
+    .navbar-inverse .navbar-nav .open .dropdown-menu .dropdown-submenu ul {
+        background-color: #fff;
+    }
+}
+
+/* NEW 2nd-Level Dropdown CSS END */
+
+/* KPI's */
+
+.general-item-list>.item {
+    cursor: pointer;
+    padding: 5px 0;
+    border-bottom: 1px solid #a9a3a3
+}
+
+.general-item-list>.item:hover {
+    transform: scale(1, 1);
+    -webkit-transform: scale(1, 1);
+    -moz-transform: scale(1, 1);
+    box-shadow: 0px 6px 4px -4px rgba(48, 32, 32, 0.3);
+    -webkit-box-shadow: 0px 6px 4px -4px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0px 6px 4px -4px rgba(0, 0, 0, 0.3);
+}
+
+.general-item-list>.item>.item-body, .general-item-list>.item>.item-head>.item-status {
+    color: #656667;
+}
+
+.general-item-list>.item>.item-head>.item-details>.item-label, .general-item-list>.item>.item-footer {
+    font-size: 11px;
+    color: #666565;
+}
+
+.general-item-list>.item>.item-head>.item-details>.item-pic {
+    width: 35px;
+}
+
+/* Scroll bars */
+
+/* Works on Firefox */
+
+.custom_scroll_bar::-webkit-scrollbar-track {
+    border-radius: 5px;
+    background-color: #efecec;
+    -webkit-box-shadow: inset 0 0 6px rgba(207, 206, 206, 0.3);
+    box-shadow: inset 0 0 6px rgba(207, 206, 206, 0.3);
+}
+
+.custom_scroll_bar::-webkit-scrollbar {
+    width: 7px;
+    /* for horizontal scroll bar set height */
+    height: 7px;
+    background-color: #efecec;
+}
+
+.custom_scroll_bar::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #c3c3c3;
+    -webkit-box-shadow: inset 0 0 6px rgba(184, 176, 176, 0.3);
+    box-shadow: inset 0 0 6px rgba(207, 206, 206, 0.3);
+}

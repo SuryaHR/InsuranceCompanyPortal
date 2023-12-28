@@ -1,0 +1,19 @@
+﻿{
+  "EventDetails": "Event Details",
+  "Cancel": "Cancel",
+  "UpdateEvent": "Update Event",
+  "Title": "Title",
+  "StartTime": "Start Time",
+  "EndTime": "End Time",
+  "EventDate": "Date",
+  "EventNote": "Event Note",
+  "EventDateRequired": "Please enter event date",
+  "EventTitleRequired": "Please enter event title",
+  "EventNoteRequired": "Please enter event note",
+  "SelectParticipant": "Select Participants",
+  "EventParticipant": "Event Participants",
+  "Subject": "Subject",
+  "To": "To",
+  "Description": "Description",
+  "Reminder": "Reminder"
+}

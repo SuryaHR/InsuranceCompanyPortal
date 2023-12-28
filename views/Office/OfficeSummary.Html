@@ -1,0 +1,107 @@
+﻿<div class="">
+    <div class="">
+        <div class="col-md-12 col-sm-12">
+            <div class="portlet light bordered">
+                <div class="portlet-title text-center ">
+                    {{"Labels.CompanyName" |translate}} : <label class="">United India</label>
+                </div>
+                <div class="portlet-body">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 margin-bottom-25">
+                            <div class="portlet-title  ">
+                                <div class="col-md-6 col-sm-8">
+                                    <h4 class="text-primary">{{"Labels.OfficeDetails" | translate}}</h4>
+                                </div>
+                                <div class="col-md-6 col-sm-4 text-right">
+                                    <span class="fa fa-pencil-square-o" ng-click="EditOffice()"></span>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="form-group col-md-12 col-sm-12 clearfix">
+                            <div class="col-sm-12 clearfix visible-sm"></div>
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="col-md-4 col-sm-5">
+                                    <label class="col-md-12">{{"ControlText.OfficeId_title"|translate}}</label>
+                                </div>
+                                <div class="col-md-8 col-sm-7">
+                                    <input type="text" class="form-control" placeholder="{{'ControlText.OfficeId_title'|translate}}" />
+                                </div>
+                            </div>
+                            <div class="col-sm-12 clearfix visible-sm"></div>
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="col-md-4 col-sm-5">
+                                    <label class="col-md-12">{{"ControlText.OfficeName_title"|translate}}</label>
+                                </div>
+                                <div class="col-md-8 col-sm-7">
+                                    <input type="text" class="form-control" placeholder="{{'ControlText.OfficeName_title'|translate}}" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 clearfix visible-sm"></div>
+                        <div class="form-group col-md-12 col-sm-12">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="col-md-4 col-sm-5 ">
+                                    <label class="col-md-12">{{"ControlText.OfficeAddress_title"|translate}}</label>
+                                </div>
+                                <div class="col-md-8 col-sm-7">
+                                    <textarea class="form-control" placeholder="{{'ControlText.OfficeAddress_title'|translate}}"></textarea>
+                                </div>
+                            </div><div class="col-sm-12 clearfix visible-sm"></div>
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="col-md-4 col-sm-5 ">
+                                    <label class="col-md-12">{{"ControlText.OfficeCity_title"|translate}}</label>
+                                </div>
+                                <div class="col-md-8 col-sm-7">
+                                    <input type="text" class="form-control" placeholder="{{'ControlText.OfficeCity_title'|translate}}" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 clearfix visible-sm"></div>
+                          <div class="col-md-12 margin-bottom-25">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="col-md-4 col-sm-5">
+                                    <label class="col-md-12">{{'ControlText.OfficeZip_title'|translate}}</label>
+                                </div>
+                                <div class="col-md-8 col-sm-7">
+                                    <input type="text" class="form-control" placeholder="{{'ControlText.OfficeZip_title'|translate}}" />
+                                </div>
+                            </div>
+                                                                               <div class="col-sm-12 clearfix visible-sm"></div>
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="col-md-4 col-sm-5">
+                                    <label class="col-md-12">{{'ControlText.OfficePhoneNumber_title'|translate}}</label>
+                                </div>
+                                <div class="col-md-8 col-sm-7">
+                                    <input type="text" class="form-control" placeholder="{{'ControlText.OfficePhoneNumber_title'|translate}}" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-sm-12 clearfix visible-sm"></div> 
+                        <div class="col-md-12 col-sm-12 clearfix"
+                             >
+                            <div class="col-md-12 col-sm-12 text-right pull-right">
+                                <div class="col-md-12 col-sm-12">
+                                    <div>
+                                        <button type="button" ng-if="EditOfficebtn" class="btn  sbold btnMargin " ng-click="Save()">{{'ControlText.btnSave' |translate}}</button>
+                                        <button type="button" ng-if="EditOfficebtn" class="btn  sbold btnMargin" ng-click="Cancel()">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="portlet-body">
+                                <div class="row portlet-title">
+                                    <div ng-include="'views/Office/MemberContact.html'" ng-controller="MemberContactController">
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

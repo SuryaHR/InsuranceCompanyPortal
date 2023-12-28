@@ -1,0 +1,49 @@
+{
+    "Nav": {
+        "Home": "Home",
+        "AutoInsuranceRequests": "Auto Insurance Requests"
+    },
+    "Table": {
+        "VIN #": "VIN #",
+        "Vehicle": "Vehicle (Type, Make, Model, Year)",
+        "Submitted Date": "Submitted Date",
+        "Policy #": "Policy #",
+        "Policyholder": "Policyholder",
+        "Vehicle's Value": " Vehicle's Value",
+        "Status": "Status",
+        "NoAppraisals":"No Records Found",
+        "Search":"Policy#, Policyholder"
+    },
+
+    "AutoDetails": {
+        "VehicleSummary":"Vehicle Summary",
+        "Vin" : "VIN #",
+        "Status":"Status",
+        "Make":"Make",
+        "Model":"Model",
+        "Manufacturer":"Manufacturer",
+        "ModelYear":"Model Year",
+        "Vehiclesvalue":"Vehicle's Value",
+        "PurchasedDate":"Purchased Date",
+        "Attachments":"Attachments",
+        "InsurancePremium":"InsurancePremium"
+    },
+
+    "Attributes" :{
+        "VehicleType" :"Vehicle Type",
+        "BodyClass":"Body Class",
+        "Doors": "Doors",
+        "VehicleRating":"Vehicle Rating",
+        "Mileage":"Mileage",
+        "Series":"Series",
+        "Trim":"Trim",
+        "MetalWeight":"Metal Weight"
+    },
+
+    "Button":{
+        "Approve":"Approve Coverage",
+        "Update":"Update",
+        "Ask more Information":"Ask more Information",
+        "Print/Download PDF":"Print/Download PDF"
+    }
+}

@@ -1,0 +1,58 @@
+﻿{
+  "ControlText": {
+    "Assign_title": "Assign",
+    "Reject_title": "Reject"
+  },
+
+  "HeaderTitle": {
+    "Alert_title": "Alert Box",
+    "LineItemNotification_title": "Line Item Notification",
+    "MyClaims_title": "My Claims",
+    "UpcomingEvents": "Upcoming Events",
+    "ClosedClaims": "Closed Claims"
+  },
+  "HeaderText": {
+    "WaitingForPolicyHolder": "Waiting For Information From PolicyHolder",
+    "WaitingForInsuranceComapny": "Waiting For Approval From Insurance Comapny",
+    "NewClaimSubmission": "New Claim Submissions",
+    "ClaimsInProgress": "Claims In Progress",
+    "NewClaims": "New Claims Assigned",
+    "ClosedClaims": "Closed Claims"
+
+  },
+  "TabHeaderTitle": {
+    "ClosedClaims": "Closed Claims",
+    "OpenClaims": "Open Claims"
+  },
+  "Table": {
+    "Claim": "Claim #",
+    "InsurenceCompany": "Insurance Company",
+    "Adjustername": "Adjuster Name",
+    "#Item": "Item #",
+    "ServiceRequested": "Service Requested",
+    "Status": "Status",
+    "ReportDate": "Report Date",
+    "LastUpdate": "Last Update",
+    "LastNote": "Last Note",
+    "Date": "Date",
+    "Participant": "Participant",
+    "ScheduledAction": "Scheduled Action",
+    "StartTime": "Start Time",
+    "Title": "Title",
+    "Subject": "Subject"
+   
+
+  },
+
+  "SearchText": "My claims #,Policyholder,Vendor",
+  "MainSearchText": "Search... Any Claim #,Policyholder,Vendor",
+  "NoRecordText": "No records available",
+  "NoAlertText": "No new messages available",
+  "NoEventsText": "No events scheduled in next month",
+  "AlertTemplate": {
+    "Claim": "Claim : ",
+    "IsAssignedTo": "is assigned to",
+    "On": "on"
+  }
+
+}

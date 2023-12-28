@@ -1,0 +1,2400 @@
+<style>
+    .control-label
+    {
+        font-size:10px !important;
+    }
+    .item_Image{
+        height: 100px !important;
+    margin-top: 3% !important ;
+}
+    .ComparablesDiv{
+        max-height: 408px !important;
+    overflow: auto !important;
+    }
+    .textAlign{
+        text-align: justify !important;
+    }
+  .popUpDiv{
+    margin:auto;
+    height:100px;
+    width:300px;
+    background-color:white;
+    margin-top:25%;
+    border-radius:3px 3px 3px 3px;
+  }
+  #overlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 2;
+    cursor: pointer;
+}
+.numberDiv{
+   border:1px solid black;
+   margin:auto;
+   height:40px;
+   display:block;
+}
+  .numberTextBox{
+     padding:5px;
+
+  }
+  .fa-chevron-circle-left:hover
+  {
+      cursor:pointer;
+  }
+  .fontWeight{
+    font-weight: bold
+  }
+  .marginleft10{
+    margin-left: 10px;
+  }
+  .marginright5{
+    margin-right: 5px;
+  }
+  .marginleft6{
+    margin-left: 6px;
+  }
+  .wordBreak{
+    word-break: break-all;
+  }
+
+  /* Start - Confirmation Msg changes */
+  .bootbox-alert{
+      top: 35%!important;
+  }
+  
+  /* .modal-dialog .modal-content{
+      background: #7cffae!important;
+  } */
+  .modal-body button{
+      text-align: right!important;
+      background-image: none!important;
+  }
+  /* .modal-footer .btn-primary{
+      background: black!important;
+  } */
+  /* End - Confirmation Msg changes */
+
+  @media all and (max-width: 768px){
+
+      .resp_p0 {
+          padding: 0px!important;
+      }
+  }
+
+  .itemImg{
+        border:1px solid #a1a1a1!important;
+        padding:2px!important;
+        border-radius:4px!important;
+        height: 70px !important;
+        width: 70px !important;
+        margin-top: 20px;
+    }
+
+    .replacementItemImg{
+        border:1px solid #a1a1a1!important;
+        padding:2px!important;
+        border-radius:4px!important;
+        height: 70px !important;
+        width: 70px !important;
+    }
+
+    .yourItemImg {
+        border:1px solid #a1a1a1!important;
+        padding:2px!important;
+        border-radius:4px!important;
+        height: 70px !important;
+        width: 70px !important;
+        margin-left: 20px;
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+
+  .fixedButtons{
+    /* position: sticky; */
+    bottom:0px;
+    padding-top: 10px !important;
+    background: white;
+    margin-bottom:0px !important;
+    padding-bottom: 20px !important;
+  }
+  
+  .options{
+        width: 100%;
+        text-align: center;
+    }
+
+    .options-box,.component-box{
+        height: 300px;
+        margin:10px;
+        border:1px solid black;
+        margin-top:25px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+    }
+    .options-box{
+        display: flex;
+        flex-wrap: wrap;
+        /* flex-direction: column; */
+        overflow-x: auto;
+        width: 100% !important;
+
+    }
+
+    .option{       
+        padding:1%;
+        width:30%;
+        border: 1px solid black;
+        border-radius: 10px;
+        height: 80%;
+        margin-top:1%;
+        margin-left:1%;
+    }
+    .option-selected{       
+        padding:1%;
+        width:30%;
+        border: 4px solid #4BD863;
+        border-radius: 10px;
+        height: 80%;
+        margin-top:1%;
+        margin-left:1%;
+    }
+    .option-heading{
+        border:none;
+        border-bottom: 1px solid black;
+        text-align: left;
+    }
+
+    .itemAmt {
+        padding: 45px 0px 35px 0px!important;
+    }
+
+    .itemFavourite{
+        padding:2px!important;
+        border-radius:4px!important;
+        height: 35px!important;
+        width: 35px!important;
+    }
+
+    .itemDesc{
+        text-align: justify!important;
+        height: 50px!important;
+    }
+
+    .img-max-width {
+        max-width: 80%;
+        max-height: 100%;
+        object-fit: contain;
+        padding-bottom: 0.5em;
+    }
+
+  @media screen and (max-width: 450px) {
+    .col-m-12 {width: 100%;}
+    .col-m-6 {width: 50%;}
+    .showbuttonsWebsite{
+        display:none;
+    }
+    
+  }
+
+  @media screen and (min-width: 450px) {
+    .col-1 {width: 8.33%;}
+    .col-2 {width: 16.66%;}
+    .showbuttonsPhone{
+        display: none;
+    }
+  }
+
+   /* START - Dynamic button effect style*/
+   .btn-default , .btn-danger , .btn-success{
+        color: #333;
+        background-color: #c2cad8!important;
+        border-color: #adadad;
+    }
+    .btn-default:hover , .btn-danger:hover  , .btn-success:hover{
+        color: rgb(248, 244, 244)!important;
+        background-color: #4b4848!important;
+        border-color: #3a3737!important;
+    }
+    .btn-default:disabled,
+    .btn-default[disabled]{
+        color: #333!important;
+        background-color: #c2cad8!important;
+        border-color: #adadad!important;
+    }
+    /* END - Dynamic button effect style*/
+
+    .TextWrap{
+            word-wrap: break-word!important;
+    }
+
+</style>
+
+<div id="overlay" ng-show="PhoneValidation">
+
+    <div class="popUpDiv">
+        <div class="col-md-12 col-sm-12 col-xs-12 margin-top-10" style="padding-left: 5px;">
+           <label>Enter last 4 digits of your phone #</label>
+        </div>
+        <div class="col-md-12 col-sm-12 col-xs-12 padding1px text-center">
+            <div class="col-md-3 col-sm-3 col-xs-3 numberTextBox text-center">
+                <input type="tel" id="txtFirst" class="form-control"  maxlength="1" onkeypress='return event.charCode >= 48 && event.charCode <= 57'   ng-model="PhoneNumber.FirstDigit" ng-change="CheckNumber('txtFirst')" />
+            </div>
+            <div class="col-md-3 col-sm-3 col-xs-3 numberTextBox text-center">
+                <input type="tel" id="txtSecond" class="form-control" maxlength="1" onkeypress='return event.charCode >= 48 && event.charCode <= 57' ng-model="PhoneNumber.SecondDigit" ng-change="CheckNumber('txtSecond')" />
+            </div>
+            <div class="col-md-3 col-sm-3 col-xs-3 numberTextBox text-center">
+                <input type="tel" id="txtThird" class="form-control" maxlength="1" onkeypress='return event.charCode >= 48 && event.charCode <= 57' ng-model="PhoneNumber.ThirdDigit" ng-change="CheckNumber('txtThird')" />
+            </div>
+            <div class="col-md-3 col-sm-3 col-xs-3 numberTextBox text-center">
+                <input type="tel" id="txtFourth" class="form-control" maxlength="1" onkeypress='return event.charCode >= 48 && event.charCode <= 57' ng-model="PhoneNumber.FourthDigit" ng-change="CheckNumber('txtFourth')" />
+            </div>
+        </div>
+        <div class="col-md-12 col-sm-12 col-xs-12" style="padding-left: 8px;padding-top: 5px;" ng-show="wrongPin === true" role="alert" multiple>
+            <div ng-message="required">
+                <span class="errormessage">{{wrongPinMessage}}</span>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<div class="row img-max-width portlet-title logo" style="margin: 20px;">
+    <div ng-if= "vendorLogo != null" class="col-lg-3 col-md-3 col-sm-3" style="padding: 0px;">
+        <a href="" style="text-decoration:none;">
+            <img src="{{vendorLogo}}"  alt="" style="height: 70px; width:200px" />
+        </a>
+    </div>
+    <div ng-if= "vendorLogo == null" class="col-lg-3 col-md-3 col-sm-3" style="padding: 0px;">
+        <a href="" style="text-decoration:none;">
+            <img src="assets/global/img/no-image.png"  alt="" style="height: 70px; width:200px" />
+        </a>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-4" style="padding: 0px;">
+        <div>
+            {{companyInfo.companyAddress.completeAddress}}
+        </div>
+        <div>
+            Phone: {{companyInfo.companyPhoneNumber | tel}}
+        </div>
+        <div>
+
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-default" style="margin-top:20px !important;margin: 20px">
+    <div class="panel-body">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12 form-group padding1px" style="margin-top: 5px !important;">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div style="font-size: 2rem !important;border-bottom: gray solid 1px;">Market Evaluation Report - {{policyHolderReviewDetails.lastName}}, {{policyHolderReviewDetails.firstName}}</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12 padding1px">
+        <div class="row-fluid col-lg-12 col-md-12 col-sm-12 col-xs-12 padding1px fixedButtons" style="text-align: right;">
+            <div class="col-m-12">
+                <!-- <button class="btn btn-default sbold btnMargin ng-binding">
+                    Email this Document
+                 </button> -->
+                <button class="btn btn-default sbold btnMargin ng-binding" ng-click=CreateMerPDF()>
+                    Download as PDF
+                </button>
+            </div>
+        </div>
+        <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 padding1px">
+            <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 padding1px">
+                <div class="col-md-12 col-xs-12 col-sm-12 padding1px textAlign">
+                    <div class="col-md-12 col-sm-12 col-xs-12 padding1px" >
+
+                        <div class="portlet light col-md-8 col-sm-8 col-xs-8 padding1px" ng-show=true style="padding-bottom: 0px !important;margin-bottom: 0px !important;">
+                            <!-- original item starts here -->
+                            <div>
+                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-group" style="padding-left: 0px;">
+                                    <div class="panel panel-default">
+                                        <div class="panel-body" style="padding: 10px 0px;">
+                                            <div class="col-md-12 col-sm-12" style="padding: 0px 10px;">
+                                                <div class="col-md-12 col-sm-12 SubHeadingDiv margin-bottom-10 margin-top-10">
+                                                    <span class="caption-subject" style="font-size: 14px; font-weight: 700;">Original Item</span>
+                                                </div>
+                                                <div class="col-lg-12 col-md-12">
+                                                    <div class="col-md-8 col-sm-8 col-xs-8 col-lg-8">
+                                                       <span title="{{jewleryItemDetails.description}}" class="TextWrap">{{jewleryItemDetails.description | limitTo : 110}}{{jewleryItemDetails.description.length > 110 ? '...' : ''}}</span>
+                                                       
+                                                       <!-- <div class="col-md-3 col-lg-3 col-sm-3" style="padding: 10px;"
+                                                        ng-if="jewleryItemDetails.attachments.length !== 0" ng-repeat="file in jewleryItemDetails.attachments">
+                                                        <img onerror="this.onerror=null; this.src='assets/global/img/no-image.png';"
+                                                        class="yourItemImg" ng-src="{{file.url}}" alt="Image" /> -->
+
+                                                        <div class="col-md-3 col-lg-3 col-sm-3" style="padding: 10px;">
+                                                            <img ng-if="jewleryItemDetails.attachments" src={{jewleryItemDetails.attachments[0].url}} alt="image" style="width: 80px; height:80px;"/>
+                                                            <img ng-if="!jewleryItemDetails.attachments" ng-src="assets/global/img/no-image.png" alt="image" style="width: 80px; height:80px;" />
+                                                        
+                                                            <!-- <button class="btn-link form-control ng-binding">
+                                                                {{file.name}}
+                                                            </button> -->
+                                                       </div>
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-4 col-xs-4 col-lg-4 text-right">
+                                                        <span class="caption-subject" style="font-size: 14px; font-weight: 600;">Scheduled Value (Original Value)</span>
+                                                        <div style="padding-top: 10px;">{{jewleryItemDetails.totalStatedAmount | currency}}</div>
+                                                    </div>
+                                                </div>
+                                            </div> 
+                                            <div>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- original item ends here -->
+
+                             <!-- Replacement item starts here -->
+                             <div>
+                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-group" style="padding-left: 0px;">
+                                    <div class="panel panel-default">
+                                        <div class="panel-body" style="padding: 10px 0px;">
+                                            <div class="col-md-12 col-sm-12" style="padding: 0px 10px;">
+                                                <div class="col-md-12 col-sm-12 SubHeadingDiv margin-bottom-10 margin-top-10">
+                                                    <span class="caption-subject" style="font-size: 14px; font-weight: 700;">Replacement Item</span>
+                                                </div>
+                                                <div ng-if="replacedJewelryItem != null">
+                                                    <div class="row" style="margin: 10px;">
+                                                        <div class="col-md-2 col-lg-2 col-sm-2 padding1px" >
+                                                            <img ng-if="replacedJewelryItem.imageURL ==null" src="assets/global/img/no-image.png" class="img-responsive replacementItemImg" />
+                                                            <img ng-if="replacedJewelryItem.imageURL" src="{{replacedJewelryItem.imageURL}}" class="img-responsive replacementItemImg" />
+                                                        </div>
+                                                        <div class="col-md-7 col-lg-7 col-sm-7 padding1px">
+                                                            <span title="{{replacedJewelryItem.description}}" class="TextWrap">{{replacedJewelryItem.description | limitTo: 195}}{{replacedJewelryItem.description.length >  195 ? '...' : ''}}
+                                                                <!-- <i ng-if="replacedJewelryItem.description.length >  200" class="fa fa-info-circle"
+                                                                        style="font-size:16px;margin-top:6px"
+                                                                        aria-hidden="true"></i> -->
+                                                            </span>
+                                                        </div>
+                                                        <div class="col-md-3 col-sm-3 col-xs-3 col-lg-3 text-right">
+                                                            <span class="caption-subject" style="font-size: 14px; font-weight: 600;">Replacement Price</span>
+                                                            <div style="padding-top: 10px;">{{replacedJewelryItem.unitPrice | currency}}</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row" style="margin: 10px;">
+                                                        <div class="col-md-2 col-lg-2 col-sm-2 padding1px"></div>
+                                                        <div class="col-md-7 col-sm-7 col-xs-7 col-lg-7">
+                                                            <span class="caption-subject" style="font-size: 14px; font-weight: 600;">Description</span>
+                                                        </div>
+                                                        <div class="col-md-3 col-sm-3 col-xs-5 col-lg-3 text-right">
+                                                            <span class="caption-subject" style="font-size: 14px; font-weight: 600;">Replacement Price</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row" style="margin: 10px;" ng-repeat="subItem in replacedJewelryItem.subJewelryReplacements">
+                                                        <!--Item image-->
+                                                        <div class="col-md-2 col-lg-2 col-sm-2 padding1px" >
+                                                            <img ng-if="(subItem.imagesDTOSet == undefined || subItem.imagesDTOSet == null || !subItem.imagesDTOSet[0].url) && (subItem.imageUrl == undefined || subItem.imageUrl == null || subItem.imageUrl =='')" src="assets/global/img/no-image.png" alt="image" style="width: 80px; height:80px;" />
+                                                            <img ng-if="(subItem.imagesDTOSet!= undefined && subItem.imagesDTOSet && subItem.imagesDTOSet[0].url) || !(subItem.imageUrl == undefined || subItem.imageUrl == null || subItem.imageUrl =='')" ng-src="{{ (subItem.imagesDTOSet[0] && subItem.imagesDTOSet[0].length!=0 && subItem.imagesDTOSet[0].url) ? subItem.imagesDTOSet[0].url : subItem.imageUrl}}" alt="image" style="width: 80px; height:80px;" />
+
+                                                            <!-- <img ng-if="!subItem.imagesDTOSet && (subItem.imageUrl == undefined || subItem.imageUrl == null || subItem.imageUrl =='' || !subItem.imagesDTOSet[0].url)" src="assets/global/img/no-image.png" alt="image" class="img-responsive replacementItemImg" />
+                                                            <img ng-if="subItem.imagesDTOSet || !(subItem.imageUrl == undefined || subItem.imageUrl == null || subItem.imageUrl =='' || !subItem.imagesDTOSet[0].url)" ng-src="{{ (subItem.imagesDTOSet[0].url && subItem.imagesDTOSet[0].url.length!=0) ? subItem.imagesDTOSet[0].url : subItem.imageUrl}}" alt="image" class="img-responsive replacementItemImg" /> -->
+                                                        </div>
+                                                        <div class="col-md-7 col-lg-7 col-sm-7 padding1px">
+                                                            <span title="{{subItem.replacementDescription}}" class="TextWrap">{{subItem.replacementDescription | limitTo: 195}}{{subItem.replacementDescription.length >  195 ? '...' : ''}}
+                                                                <!-- <i ng-if="subItem.replacementDescription.length >  200" class="fa fa-info-circle"
+                                                                style="font-size:16px;margin-top:6px"
+                                                                aria-hidden="true"></i> -->
+                                                            </span>
+
+                                                            <!--SubItems breakup-->
+                                                            <div class="subComponents" ng-if="subItem.subItems!=null">
+                                                                <div  ng-repeat="subComponent in subItem.subItems" style="width:100%" >
+                                                                    <div class="subcomp-det" style="justify-content: center;width: 100% ;margin-left: 0;">
+                                                                        <div class="comp-img">
+
+                                                                            <img ng-if="(subComponent.imagesDTOSet == undefined || subComponent.imagesDTOSet == null || !subComponent.imagesDTOSet[0].url) && (subComponent.imageUrl == undefined || subComponent.imageUrl == null || subComponent.imageUrl =='')" src="assets/global/img/no-image.png" alt="image" style="width: 30px; height:30px;" />
+                                                                            <img ng-if="(subComponent.imagesDTOSet!= undefined && subComponent.imagesDTOSet && subComponent.imagesDTOSet[0].url) || !(subComponent.imageUrl == undefined || subComponent.imageUrl == null || subComponent.imageUrl =='')" ng-src="{{ (subComponent.imagesDTOSet[0] && subComponent.imagesDTOSet[0].length!=0) ? subComponent.imagesDTOSet[0].url : subComponent.imageUrl}}" alt="image" style="width: 30px; height:30px;" />
+
+                                                                            <!-- <img ng-if="subComponent.imagesDTOSet || !(subComponent.imageUrl == undefined || subComponent.imageUrl == null || subComponent.imageUrl =='')" ng-src="{{ (subComponent.imagesDTOSet[0] && subComponent.imagesDTOSet[0].length!=0) ? subComponent.imagesDTOSet[0].url : subComponent.imageUrl}}" alt="image" style="width: 30px; height:30px;"/>
+                                                                            <img ng-if="!subComponent.imagesDTOSet && (subComponent.imageUrl == undefined || subComponent.imageUrl == null || subComponent.imageUrl =='')" ng-src="assets/global/img/no-image.png" alt="image" style="width: 30px; height:30px;" /> -->
+                                                                            
+                                                                            <!-- <img style="height:30px;width: 30px;"
+                                                                            onerror="this.onerror=null; this.src='assets/global/img/no-image.png';"
+                                                                            ng-src="{{subComponent.imagesDTOSet[0].url}}" ></img> -->
+                                                                        </div>
+                                                                        <div class="comp-desc" title="{{subComponent.replacementDescription}}">
+                                                                            <span>{{subComponent.replacementDescription | limitTo: 38}}{{subComponent.replacementDescription.length >  38 ? '...' : ''}}</span>
+                                                                        </div>
+                                                                        <div class="subcomp-price" style="text-align:right;">
+                                                                            {{subComponent.totalReplacementPrice | currency}}
+                                                                        </div>
+                                                                    </div>                                                        
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+
+                                                        <!--Item cost-->
+                                                        <div class="col-md-3 col-lg-3 col-sm-3 text-right">
+                                                            <span>{{subItem.totalReplacementPrice | currency}}</span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div style="border-bottom: gray solid 1px;">
+                                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group" style="margin-top: 10px;">
+                                                            <label
+                                                                class="col-lg-9 col-md-9 col-sm-9 col-xs-9 text-right padding1px">Sub Total</label>
+                                                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-right">
+                                                                <span>{{subTotal | currency}}</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
+                                                            <label
+                                                                class="col-lg-9 col-md-9 col-sm-9 col-xs-9 text-right padding1px">Taxes ({{jewleryItemDetails.taxRate}}%)</label>
+                                                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-right">
+                                                                <span >{{replacedJewelryItem.taxesVal | currency}}</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group" >
+                                                            <label class="col-lg-9 col-md-9 col-sm-9 col-xs-9 text-right padding1px">
+                                                                Custom Design Charges
+                                                                <span ng-if="replacedJewelryItem.customChargesNote && replacedJewelryItem.customChargesNote!='' &&  replacedJewelryItem.customChargesNote!=null" style="font-weight: normal;word-break: break-all;" title = "{{replacedJewelryItem.customChargesNote}}">({{replacedJewelryItem.customChargesNote | limitTo : 70 }} {{replacedJewelryItem.customChargesNote.length > 70 ? '...' : ''}})</span>
+                                                            </label>
+                                                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-right">
+                                                                <span>{{replacedJewelryItem.customCharges | currency}}</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group" >
+                                                            <label class="col-lg-9 col-md-9 col-sm-9 col-xs-9 text-right padding1px">
+                                                                Labor Charges
+                                                                <span ng-if="replacedJewelryItem.labourChargesNote && replacedJewelryItem.labourChargesNote!='' &&  replacedJewelryItem.labourChargesNote!=null" style="font-weight: normal;word-break: break-all;" title = "{{replacedJewelryItem.labourChargesNote}}">({{replacedJewelryItem.labourChargesNote | limitTo : 70 }} {{replacedJewelryItem.labourChargesNote.length > 70 ? '...' : ''}})</span>
+                                                            </label>
+                                                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-right">
+                                                                <span>{{replacedJewelryItem.labourCharges | currency}}</span>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
+                                                            <label
+                                                                class="col-lg-9 col-md-9 col-sm-9 col-xs-9 text-right padding1px">Total Replacement Price</label>
+                                                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-right">
+                                                                <span>{{ replacedJewelryItem.totalReplacementPrice | currency}}</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div style="margin:20px;">
+                                                        Artigem has made every attempt to meet or exceed the criteria of your scheduled item, the above evaluations were derived from current market comparables and are competitively priced in the retail market.
+                                                    </div>
+                                                </div>
+                                            </div> 
+                                            <div>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Replacemet item ends here -->
+                             <!-- have any questions starts here -->
+                             <!-- <div>
+                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-group" style="padding-left: 0px;">
+                                    <div class="panel panel-default">
+                                        <div class="panel-body" style="padding: 10px 0px;">
+                                            <div class="col-md-12 col-sm-12" style="padding: 0px 10px;">
+                                                <div class="col-md-12 col-sm-12 margin-bottom-10">
+                                                    <span class="caption-subject" style="font-size: 14px; font-weight: 700;">Have any questions for {{jewleryItemDetails.associate.lastName}} ?</span>
+                                                </div>
+                                                <div class="col-md-4 col-lg-4 col-sm-4 padding1px" style="text-align: -webkit-center;" >
+                                                    <img src="assets/global/img/telephone.png" class="img-responsive itemImg" />
+                                                    <div style="padding: 10px;">{{jewleryItemDetails.associate.cellPhone ? jewleryItemDetails.associate.cellPhone : jewleryItemDetails.associate.dayTimePhone| tel}}</div>
+                                                </div>
+                                                <div class="col-md-4 col-lg-4 col-sm-4 padding1px" style="text-align: -webkit-center;">
+                                                    <img src="assets/global/img/Envelope-icon.png" class="img-responsive itemImg" />
+                                                    <div style="padding: 10px;">{{jewleryItemDetails.associate.email}}</div>
+                                                </div>
+                                            </div> 
+                                            <div>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <!-- have any questions ends here -->
+                        </div>
+                        <div class="portlet light col-md-4 col-sm-4 col-xs-4 padding1px" style="padding-bottom: 0px !important;margin-bottom: 0px !important;">
+                            <!-- Claim information starts here -->
+                            <div>
+                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-group" style="padding:0px;">
+                                    <div class="panel panel-default">
+                                        <div class="panel-body" style="padding: 10px 0px;">
+                                            <div class="col-md-12 col-sm-12" style="padding: 0px 10px;">
+                                                <div class="col-md-12 col-sm-12 SubHeadingDiv margin-bottom-10 margin-top-10">
+                                                    <span class="caption-subject" style="font-size: 14px; font-weight: 700;">Claim Information</span>
+                                                </div>
+                                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 clearfix padding1px">
+
+                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group margin-top-10">
+                                                        <label class="col-lg-5 col-md-5 col-sm-5 col-xs-5 text-right">Insurance Company</label>
+                                                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                                                            <span>{{companyInfo.companyName}} </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
+                                                        <label
+                                                            class="col-lg-5 col-md-5 col-sm-5 col-xs-5 text-right">Claim #</label>
+                                                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                                                            <span >{{claimNumber}}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group margin-top-10">
+                                                        <label class="col-lg-5 col-md-5 col-sm-5 col-xs-5 text-right">Adjuster</label>
+                                                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                                                            <span>{{adjusterInfo.lastName}}, {{adjusterInfo.firstName}}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group margin-top-10">
+                                                        <label class="col-lg-5 col-md-5 col-sm-5 col-xs-5 text-right">Adjuster Email</label>
+                                                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                                                            <span>{{adjusterInfo.email}} </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group margin-top-10">
+                                                        <label class="col-lg-5 col-md-5 col-sm-5 col-xs-5 text-right">Item #</label>
+                                                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                                                            <span>{{jewleryItemDetails.itemNumber}} </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <label style="text-decoration: underline;"> MER Prepared By</label>
+                                                </div>
+                                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 clearfix padding1px">
+
+                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group margin-top-10">
+                                                        <label class="col-lg-5 col-md-5 col-sm-5 col-xs-5 text-right">Jewelry Specialist</label>
+                                                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                                                            <span>{{jewleryItemDetails.assignmentDetails.claimRepresentative.lastName}}, {{jewleryItemDetails.assignmentDetails.claimRepresentative.firstName}}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
+                                                        <label
+                                                            class="col-lg-5 col-md-5 col-sm-5 col-xs-5 text-right">On behalf of</label>
+                                                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                                                            <span>{{jewleryItemDetails.vendorDetails.vendorName}}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group margin-top-10">
+                                                        <label class="col-lg-5 col-md-5 col-sm-5 col-xs-5 text-right">Specialist Email</label>
+                                                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                                                            <span>{{jewleryItemDetails.assignmentDetails.claimRepresentative.email}}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group margin-top-10">
+                                                        <label class="col-lg-5 col-md-5 col-sm-5 col-xs-5 text-right">Specialist Phone</label>
+                                                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                                                            <span>{{jewleryItemDetails.assignmentDetails.claimRepresentative.cellPhone ? jewleryItemDetails.assignmentDetails.claimRepresentative.cellPhone : jewleryItemDetails.assignmentDetails.claimRepresentative.dayTimePhone | tel}}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group margin-top-10">
+                                                        <label class="col-lg-5 col-md-5 col-sm-5 col-xs-5 text-right">Date of MER</label>
+                                                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                                                            <span ng-show="PhoneValidation"></span>
+                                                            <span ng-show="!PhoneValidation">{{date | date:'MMMM dd, yyyy'}} </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div> 
+                                            <div>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Claim information ends here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row-fluid col-lg-12 col-md-12 col-sm-12 col-xs-12 padding1px fixedButtons" style="text-align: right;">
+            <div class="col-m-12">
+                <!-- <button class="btn btn-default sbold btnMargin ng-binding">
+                    Email this MER
+                 </button> -->
+                <button class="btn btn-default sbold btnMargin ng-binding" ng-click=CreateMerPDF()>
+                    Download as PDF
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12 form-group padding1px" style="margin-top: 5px !important;">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div style="font-size: 2rem !important;border-bottom: gray solid 1px;">Some options that you'd like</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 col-sm-12 col-xs-12 padding1px">
+        <div class="col-sm-8 col-xs-8 col-md-8 col-lg-8" style="padding-left:0px;">
+            <div class="col-md-12 col-sm-12 padding1px" ng-show="diamondOptions.length !== 0">
+                <div class="col-md-12 col-sm-12 SubHeadingDiv margin-bottom-10 margin-top-10">
+                    <span class="caption-subject" style="font-size: 14px; font-weight: 700;">Center Diamond Options</span>
+                </div>
+                <div class="options">
+                    <div class="options-box">
+                        <div ng-class="{'option-selected': item.itemFavourite === true,
+                        'option':item.itemFavourite === false}" ng-repeat="item in diamondOptions">                                                    
+                            <div class="option-heading">
+                                <label ng-if="item.itemFavourite == true">Replacement Diamond Quoted</label>
+                                <label ng-if="item.itemFavourite == false">Center Diamond Option #{{$index+1}}</label>
+                            </div>
+                            <div class="col-md-12 col-lg-12 col-sm-12 padding1px margin-top-10" >
+                                <!--Item image-->
+                                <div class="col-md-5 col-lg-5 col-sm-5 padding1px" >
+                                    <img ng-if="( item.imagesDTOSet == undefined ||item.imagesDTOSet == null || !item.imagesDTOSet[0].url) && (item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" src="assets/global/img/no-image.png" alt="image" class="img-responsive itemImg" />
+                                    <img ng-if="(item.imagesDTOSet != undefined && item.imagesDTOSet && item.imagesDTOSet[0].url) || !(item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" ng-src="{{ (item.imagesDTOSet[0].url && item.imagesDTOSet[0].url.length!=0) ? item.imagesDTOSet[0].url : item.imageUrl}}" alt="image" class="img-responsive itemImg" />
+                                </div>
+
+                                <!--Item cost-->
+                                <div class="col-md-5 col-lg-5 col-sm-5 padding1px itemAmt">
+                                    <label>{{item.totalReplacementPrice | currency}}</label>
+                                </div>
+
+                                <!--Favourite & like -->
+                                <div class="col-md-2 col-lg-2 col-sm-2 padding1px" >      
+                                    <!--Star & star fill -->
+                                    <div class="col-md-12 col-lg-12 col-sm-12 padding1px" >                                                               
+                                        <img ng-if="item.itemFavourite == false" src="assets/global/img/star-grey.svg"  class="itemFavourite" />
+                                        <img ng-if="item.itemFavourite == true" src="assets/global/img/star-gold.svg" class="itemFavourite" />
+                                    </div>                            
+                                    <!--Heart & Heart fill -->
+                                    <div class="col-md-12 col-lg-12 col-sm-12 padding1px" ng-click="likeOrUnlikeOption(item.replacementId)" >                                                                
+                                        <img ng-if="item.itemLiked  == false" src="assets/global/img/heart.svg" class="itemFavourite" />
+                                        <img ng-if="item.itemLiked  == true" src="assets/global/img/heart-fill.svg" class="itemFavourite" />
+                                    </div> 
+                                </div>
+                                <!--Descriptions-->
+                                <div class="itemDesc col-md-12 col-lg-12 col-sm-12 padding1px margin-top-5">
+                                    <span title="{{item.replacementDescription}}" class="TextWrap">{{item.replacementDescription | limitTo: 94}}{{item.replacementDescription.length >  94 ? '...' : ''}}
+                                        <!-- <i ng-if="item.replacementDescription.length >  100" class="fa fa-info-circle"
+                                        style="font-size:16px;margin-top:6px"
+                                        aria-hidden="true"></i> -->
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+            <div class="col-md-12 col-sm-12 padding1px" ng-show="centerStoneGemstonesOptions.length !== 0">
+                <div class="col-md-12 col-sm-12 SubHeadingDiv margin-bottom-10 margin-top-10">
+                    <span class="caption-subject" style="font-size: 14px; font-weight: 700;">Center Gemstone Options</span>
+                </div>
+                <div class="options">
+                    <div class="options-box">
+                        <div ng-class="{'option-selected': item.itemFavourite === true,
+                        'option':item.itemFavourite === false}" ng-repeat="item in centerStoneGemstonesOptions">                                                    
+                            <div class="option-heading">
+                                <label ng-if="item.itemFavourite == true">Replacement Gemstone Quoted</label>
+                                <label ng-if="item.itemFavourite == false">Center Gemstone Option #{{$index+1}}</label>
+                            </div>
+                            <div class="col-md-12 col-lg-12 col-sm-12 padding1px margin-top-10" >
+                                <!--Item image-->
+                                <div class="col-md-5 col-lg-5 col-sm-5 padding1px" >
+                                    <img ng-if="( item.imagesDTOSet == undefined ||item.imagesDTOSet == null || !item.imagesDTOSet[0].url) && (item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" src="assets/global/img/no-image.png" alt="image" class="img-responsive itemImg" />
+                                    <img ng-if="(item.imagesDTOSet != undefined && item.imagesDTOSet && item.imagesDTOSet[0].url ) || !(item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" ng-src="{{ (item.imagesDTOSet[0].url && item.imagesDTOSet[0].url.length!=0) ? item.imagesDTOSet[0].url : item.imageUrl}}" alt="image" class="img-responsive itemImg" />
+                                </div>
+
+                                <!--Item cost-->
+                                <div class="col-md-5 col-lg-5 col-sm-5 padding1px itemAmt">
+                                    <label>{{item.totalReplacementPrice | currency}}</label>
+                                </div>
+
+                                <!--Favourite & like -->
+                                <div class="col-md-2 col-lg-2 col-sm-2 padding1px" >      
+                                    <!--Star & star fill -->
+                                    <div class="col-md-12 col-lg-12 col-sm-12 padding1px" >                                                               
+                                        <img ng-if="item.itemFavourite == false" src="assets/global/img/star-grey.svg"  class="itemFavourite" />
+                                        <img ng-if="item.itemFavourite == true" src="assets/global/img/star-gold.svg" class="itemFavourite" />
+                                    </div>                            
+                                    <!--Heart & Heart fill -->
+                                    <div class="col-md-12 col-lg-12 col-sm-12 padding1px" ng-click="likeOrUnlikeOption(item.replacementId)" >                                                                
+                                        <img ng-if="item.itemLiked  == false" src="assets/global/img/heart.svg" class="itemFavourite" />
+                                        <img ng-if="item.itemLiked  == true" src="assets/global/img/heart-fill.svg" class="itemFavourite" />
+                                    </div> 
+                                </div>
+                                <!--Descriptions-->
+                                <div class="itemDesc col-md-12 col-lg-12 col-sm-12 padding1px margin-top-5">
+                                    <span title="{{item.replacementDescription}}" class="TextWrap">{{item.replacementDescription | limitTo: 94}}{{item.replacementDescription.length >  94 ? '...' : ''}}
+                                        <!-- <i ng-if="item.replacementDescription.length >  100" class="fa fa-info-circle"
+                                        style="font-size:16px;margin-top:6px"
+                                        aria-hidden="true"></i> -->
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 col-sm-12 padding1px" ng-show="leftCenterStoneDiamonds.length !== 0">
+                <div class="col-md-12 col-sm-12 SubHeadingDiv margin-bottom-10 margin-top-10">
+                    <span class="caption-subject" style="font-size: 14px; font-weight: 700;">Left Diamond Options</span>
+                </div>
+                <div class="options">
+                    <div class="options-box">
+                        <div ng-class="{'option-selected': item.itemFavourite === true,
+                        'option':item.itemFavourite === false}" ng-repeat="item in leftCenterStoneDiamonds">                                                    
+                            <div class="option-heading">
+                                <label ng-if="item.itemFavourite == true">Replacement Left Diamond Quoted</label>
+                                <label ng-if="item.itemFavourite == false">Left Diamond Option #{{$index+1}}</label>
+                            </div>
+                            <div class="col-md-12 col-lg-12 col-sm-12 padding1px margin-top-10" >
+                                <!--Item image-->
+                                <div class="col-md-5 col-lg-5 col-sm-5 padding1px" >
+                                    <img ng-if="( item.imagesDTOSet == undefined ||item.imagesDTOSet == null || !item.imagesDTOSet[0].url) && (item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" src="assets/global/img/no-image.png" alt="image" class="img-responsive itemImg" />
+                                    <img ng-if="(item.imagesDTOSet != undefined && item.imagesDTOSet && item.imagesDTOSet[0].url) || !(item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" ng-src="{{ (item.imagesDTOSet[0].url && item.imagesDTOSet[0].url.length!=0) ? item.imagesDTOSet[0].url : item.imageUrl}}" alt="image" class="img-responsive itemImg" />
+
+                                    <!-- <img ng-if="!item.imagesDTOSet && (item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='' || !item.imagesDTOSet[0].url)" src="assets/global/img/no-image.png" alt="image" class="img-responsive itemImg" />
+                                    <img ng-if="item.imagesDTOSet || !(item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='' || item.imagesDTOSet[0].url)" ng-src="{{ (item.imagesDTOSet[0] && item.imagesDTOSet[0].length!=0) ? item.imagesDTOSet[0].url : item.imageUrl}}" alt="image" class="img-responsive itemImg" /> -->
+                                </div>
+
+                                <!--Item cost-->
+                                <div class="col-md-5 col-lg-5 col-sm-5 padding1px itemAmt">
+                                    <label>{{item.totalReplacementPrice | currency}}</label>
+                                </div>
+
+                                <!--Favourite & like -->
+                                <div class="col-md-2 col-lg-2 col-sm-2 padding1px" >      
+                                    <!--Star & star fill -->
+                                    <div class="col-md-12 col-lg-12 col-sm-12 padding1px" >                                                               
+                                        <img ng-if="item.itemFavourite == false" src="assets/global/img/star-grey.svg"  class="itemFavourite" />
+                                        <img ng-if="item.itemFavourite == true" src="assets/global/img/star-gold.svg" class="itemFavourite" />
+                                    </div>                            
+                                    <!--Heart & Heart fill -->
+                                    <div class="col-md-12 col-lg-12 col-sm-12 padding1px" ng-click="likeOrUnlikeOption(item.replacementId)" >                                                                
+                                        <img ng-if="item.itemLiked  == false" src="assets/global/img/heart.svg" class="itemFavourite" />
+                                        <img ng-if="item.itemLiked  == true" src="assets/global/img/heart-fill.svg" class="itemFavourite" />
+                                    </div> 
+                                </div>
+                                <!--Descriptions-->
+                                <div class="itemDesc col-md-12 col-lg-12 col-sm-12 padding1px margin-top-5">
+                                    <span title="{{item.replacementDescription}}" class="TextWrap">{{item.replacementDescription | limitTo: 94}}{{item.replacementDescription.length >  94 ? '...' : ''}}
+                                        <!-- <i ng-if="item.replacementDescription.length >  100" class="fa fa-info-circle"
+                                        style="font-size:16px;margin-top:6px"
+                                        aria-hidden="true"></i> -->
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+            <div class="col-md-12 col-sm-12 padding1px" ng-show="leftCenterStoneGemstones.length !== 0">
+                <div class="col-md-12 col-sm-12 SubHeadingDiv margin-bottom-10 margin-top-10">
+                    <span class="caption-subject" style="font-size: 14px; font-weight: 700;">Left Gemstone Options</span>
+                </div>
+                <div class="options">
+                    <div class="options-box">
+                        <div ng-class="{'option-selected': item.itemFavourite === true,
+                        'option':item.itemFavourite === false}" ng-repeat="item in leftCenterStoneGemstones">                                                    
+                            <div class="option-heading">
+                                <label ng-if="item.itemFavourite == true">Replacement Left Gemstone Quoted</label>
+                                <label ng-if="item.itemFavourite == false">Left Gemstone Option #{{$index+1}}</label>
+                            </div>
+                            <div class="col-md-12 col-lg-12 col-sm-12 padding1px margin-top-10" >
+                                <!--Item image-->
+                                <div class="col-md-5 col-lg-5 col-sm-5 padding1px" >
+                                    <img ng-if="( item.imagesDTOSet == undefined ||item.imagesDTOSet == null || !item.imagesDTOSet[0].url) && (item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" src="assets/global/img/no-image.png" alt="image" class="img-responsive itemImg" />
+                                    <img ng-if="(item.imagesDTOSet != undefined && item.imagesDTOSet && item.imagesDTOSet[0].url) || !(item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" ng-src="{{ (item.imagesDTOSet[0].url && item.imagesDTOSet[0].url.length!=0) ? item.imagesDTOSet[0].url : item.imageUrl}}" alt="image" class="img-responsive itemImg" />
+
+                                    <!-- <img ng-if="!item.imagesDTOSet && (item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='' || !item.imagesDTOSet[0].url)" src="assets/global/img/no-image.png" alt="image" class="img-responsive itemImg" />
+                                    <img ng-if="item.imagesDTOSet || !(item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='' || item.imagesDTOSet[0].url)" ng-src="{{ (item.imagesDTOSet[0] && item.imagesDTOSet[0].length!=0) ? item.imagesDTOSet[0].url : item.imageUrl}}" alt="image" class="img-responsive itemImg" /> -->
+                                </div>
+
+                                <!--Item cost-->
+                                <div class="col-md-5 col-lg-5 col-sm-5 padding1px itemAmt">
+                                    <label>{{item.totalReplacementPrice | currency}}</label>
+                                </div>
+
+                                <!--Favourite & like -->
+                                <div class="col-md-2 col-lg-2 col-sm-2 padding1px" >      
+                                    <!--Star & star fill -->
+                                    <div class="col-md-12 col-lg-12 col-sm-12 padding1px" >                                                               
+                                        <img ng-if="item.itemFavourite == false" src="assets/global/img/star-grey.svg"  class="itemFavourite" />
+                                        <img ng-if="item.itemFavourite == true" src="assets/global/img/star-gold.svg" class="itemFavourite" />
+                                    </div>                            
+                                    <!--Heart & Heart fill -->
+                                    <div class="col-md-12 col-lg-12 col-sm-12 padding1px" ng-click="likeOrUnlikeOption(item.replacementId)" >                                                                
+                                        <img ng-if="item.itemLiked  == false" src="assets/global/img/heart.svg" class="itemFavourite" />
+                                        <img ng-if="item.itemLiked  == true" src="assets/global/img/heart-fill.svg" class="itemFavourite" />
+                                    </div> 
+                                </div>
+                                <!--Descriptions-->
+                                <div class="itemDesc col-md-12 col-lg-12 col-sm-12 padding1px margin-top-5">
+                                    <span title="{{item.replacementDescription}}" class="TextWrap">{{item.replacementDescription | limitTo: 94}}{{item.replacementDescription.length >  94 ? '...' : ''}}
+                                        <!-- <i ng-if="item.replacementDescription.length >  100" class="fa fa-info-circle"
+                                        style="font-size:16px;margin-top:6px"
+                                        aria-hidden="true"></i> -->
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 col-sm-12 padding1px" ng-show="rightCenterStoneDiamonds.length !== 0">
+                <div class="col-md-12 col-sm-12 SubHeadingDiv margin-bottom-10 margin-top-10">
+                    <span class="caption-subject" style="font-size: 14px; font-weight: 700;">Right Diamond Options</span>
+                </div>
+                <div class="options">
+                    <div class="options-box">
+                        <div ng-class="{'option-selected': item.itemFavourite === true,
+                        'option':item.itemFavourite === false}" ng-repeat="item in rightCenterStoneDiamonds">                                                    
+                            <div class="option-heading">
+                                <label ng-if="item.itemFavourite == true">Replacement Right Diamond Quoted</label>
+                                <label ng-if="item.itemFavourite == false">Right Diamond Option #{{$index+1}}</label>
+                            </div>
+                            <div class="col-md-12 col-lg-12 col-sm-12 padding1px margin-top-10" >
+                                <!--Item image-->
+                                <div class="col-md-5 col-lg-5 col-sm-5 padding1px" >
+                                    <img ng-if="( item.imagesDTOSet == undefined ||item.imagesDTOSet == null || !item.imagesDTOSet[0].url) && (item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" src="assets/global/img/no-image.png" alt="image" class="img-responsive itemImg" />
+                                    <img ng-if="(item.imagesDTOSet != undefined && item.imagesDTOSet && item.imagesDTOSet[0].url) || !(item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" ng-src="{{ (item.imagesDTOSet[0].url && item.imagesDTOSet[0].url.length!=0) ? item.imagesDTOSet[0].url : item.imageUrl}}" alt="image" class="img-responsive itemImg" />
+
+                                    <!-- <img ng-if="!item.imagesDTOSet && (item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='' || !item.imagesDTOSet[0].url)" src="assets/global/img/no-image.png" alt="image" class="img-responsive itemImg" />
+                                    <img ng-if="item.imagesDTOSet || !(item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='' || item.imagesDTOSet[0].url)" ng-src="{{ (item.imagesDTOSet[0] && item.imagesDTOSet[0].length!=0) ? item.imagesDTOSet[0].url : item.imageUrl}}" alt="image" class="img-responsive itemImg" /> -->
+                                </div>
+
+                                <!--Item cost-->
+                                <div class="col-md-5 col-lg-5 col-sm-5 padding1px itemAmt">
+                                    <label>{{item.totalReplacementPrice | currency}}</label>
+                                </div>
+
+                                <!--Favourite & like -->
+                                <div class="col-md-2 col-lg-2 col-sm-2 padding1px" >      
+                                    <!--Star & star fill -->
+                                    <div class="col-md-12 col-lg-12 col-sm-12 padding1px" >                                                               
+                                        <img ng-if="item.itemFavourite == false" src="assets/global/img/star-grey.svg"  class="itemFavourite" />
+                                        <img ng-if="item.itemFavourite == true" src="assets/global/img/star-gold.svg" class="itemFavourite" />
+                                    </div>                            
+                                    <!--Heart & Heart fill -->
+                                    <div class="col-md-12 col-lg-12 col-sm-12 padding1px" ng-click="likeOrUnlikeOption(item.replacementId)" >                                                                
+                                        <img ng-if="item.itemLiked  == false" src="assets/global/img/heart.svg" class="itemFavourite" />
+                                        <img ng-if="item.itemLiked  == true" src="assets/global/img/heart-fill.svg" class="itemFavourite" />
+                                    </div> 
+                                </div>
+                                <!--Descriptions-->
+                                <div class="itemDesc col-md-12 col-lg-12 col-sm-12 padding1px margin-top-5">
+                                    <span title="{{item.replacementDescription}}" class="TextWrap">{{item.replacementDescription | limitTo: 94}}{{item.replacementDescription.length >  94 ? '...' : ''}}
+                                        <!-- <i ng-if="item.replacementDescription.length >  100" class="fa fa-info-circle"
+                                        style="font-size:16px;margin-top:6px"
+                                        aria-hidden="true"></i> -->
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+            
+            <div class="col-md-12 col-sm-12 padding1px" ng-show="rightCenterStoneGemstones.length !== 0">
+                <div class="col-md-12 col-sm-12 SubHeadingDiv margin-bottom-10 margin-top-10">
+                    <span class="caption-subject" style="font-size: 14px; font-weight: 700;">Right Gemstone Options</span>
+                </div>
+                <div class="options">
+                    <div class="options-box">
+                        <div ng-class="{'option-selected': item.itemFavourite === true,
+                        'option':item.itemFavourite === false}" ng-repeat="item in rightCenterStoneGemstones">                                                    
+                            <div class="option-heading">
+                                <label ng-if="item.itemFavourite == true">Replacement Right Gemstone Quoted</label>
+                                <label ng-if="item.itemFavourite == false">Right Gemstone Option #{{$index+1}}</label>
+                            </div>
+                            <div class="col-md-12 col-lg-12 col-sm-12 padding1px margin-top-10" >
+                                <!--Item image-->
+                                <div class="col-md-5 col-lg-5 col-sm-5 padding1px" >
+                                    <img ng-if="( item.imagesDTOSet == undefined ||item.imagesDTOSet == null || !item.imagesDTOSet[0].url) && (item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" src="assets/global/img/no-image.png" alt="image" class="img-responsive itemImg" />
+                                    <img ng-if="(item.imagesDTOSet != undefined && item.imagesDTOSet && item.imagesDTOSet[0].url) || !(item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" ng-src="{{ (item.imagesDTOSet[0].url && item.imagesDTOSet[0].url.length!=0) ? item.imagesDTOSet[0].url : item.imageUrl}}" alt="image" class="img-responsive itemImg" />
+
+                                    <!-- <img ng-if="!item.imagesDTOSet && (item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='' || !item.imagesDTOSet[0].url)" src="assets/global/img/no-image.png" alt="image" class="img-responsive itemImg" />
+                                    <img ng-if="item.imagesDTOSet || !(item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='' || item.imagesDTOSet[0].url)" ng-src="{{ (item.imagesDTOSet[0] && item.imagesDTOSet[0].length!=0) ? item.imagesDTOSet[0].url : item.imageUrl}}" alt="image" class="img-responsive itemImg" /> -->
+                                </div>
+
+                                <!--Item cost-->
+                                <div class="col-md-5 col-lg-5 col-sm-5 padding1px itemAmt">
+                                    <label>{{item.totalReplacementPrice | currency}}</label>
+                                </div>
+
+                                <!--Favourite & like -->
+                                <div class="col-md-2 col-lg-2 col-sm-2 padding1px" >      
+                                    <!--Star & star fill -->
+                                    <div class="col-md-12 col-lg-12 col-sm-12 padding1px" >                                                               
+                                        <img ng-if="item.itemFavourite == false" src="assets/global/img/star-grey.svg"  class="itemFavourite" />
+                                        <img ng-if="item.itemFavourite == true" src="assets/global/img/star-gold.svg" class="itemFavourite" />
+                                    </div>                            
+                                    <!--Heart & Heart fill -->
+                                    <div class="col-md-12 col-lg-12 col-sm-12 padding1px" ng-click="likeOrUnlikeOption(item.replacementId)" >                                                                
+                                        <img ng-if="item.itemLiked  == false" src="assets/global/img/heart.svg" class="itemFavourite" />
+                                        <img ng-if="item.itemLiked  == true" src="assets/global/img/heart-fill.svg" class="itemFavourite" />
+                                    </div> 
+                                </div>
+                                <!--Descriptions-->
+                                <div class="itemDesc col-md-12 col-lg-12 col-sm-12 padding1px margin-top-5">
+                                    <span title="{{item.replacementDescription}}" class="TextWrap">{{item.replacementDescription | limitTo: 94}}{{item.replacementDescription.length >  94 ? '...' : ''}}
+                                        <!-- <i ng-if="item.replacementDescription.length >  100" class="fa fa-info-circle"
+                                        style="font-size:16px;margin-top:6px"
+                                        aria-hidden="true"></i> -->
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+            <div class="col-md-12 col-sm-12 padding1px" ng-show="settingOptions.length !== 0">
+                <div class="col-md-12 col-sm-12 SubHeadingDiv margin-bottom-10 margin-top-10">
+                    <span class="caption-subject" style="font-size: 14px; font-weight: 700;">Setting Options</span>
+                </div>
+                <div class="options">
+                    <div class="options-box">
+                        <div ng-class="{'option-selected': item.itemFavourite === true,
+                        'option':item.itemFavourite === false}" ng-repeat="item in settingOptions">                                                    
+                            <div class="option-heading">
+                                <label ng-if="item.itemFavourite == true">Replacement Setting Quoted</label>
+                                <label ng-if="item.itemFavourite == false">Setting Option #{{$index+1}}</label>
+                            </div>
+                            <div class="col-md-12 col-lg-12 col-sm-12 padding1px margin-top-10" >
+                                <!--Item image-->
+                                <div class="col-md-5 col-lg-5 col-sm-5 padding1px" >
+                                    <img ng-if="( item.imagesDTOSet == undefined ||item.imagesDTOSet == null || !item.imagesDTOSet[0].url) && (item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" src="assets/global/img/no-image.png" alt="image" class="img-responsive itemImg" />
+                                    <img ng-if="(item.imagesDTOSet != undefined && item.imagesDTOSet && item.imagesDTOSet[0].url ) || !(item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" ng-src="{{ (item.imagesDTOSet[0].url && item.imagesDTOSet[0].url.length!=0) ? item.imagesDTOSet[0].url : item.imageUrl}}" alt="image" class="img-responsive itemImg" />
+                                </div>
+
+                                <!--Item cost-->
+                                <div class="col-md-5 col-lg-5 col-sm-5 padding1px itemAmt">
+                                    <label>{{item.totalReplacementPrice | currency}}</label>
+                                </div>
+
+                                <!--Favourite & like -->
+                                <div class="col-md-2 col-lg-2 col-sm-2 padding1px" >
+                                    <!--Star & star fill -->
+                                    <div class="col-md-12 col-lg-12 col-sm-12 padding1px" >                                                               
+                                        <img ng-if="item.itemFavourite == false" src="assets/global/img/star-grey.svg"  class="itemFavourite" />
+                                        <img ng-if="item.itemFavourite == true" src="assets/global/img/star-gold.svg" class="itemFavourite" />
+                                    </div>  
+                                    
+                                    <!--Heart & Heart fill -->
+                                    <div class="col-md-12 col-lg-12 col-sm-12 padding1px" ng-click="likeOrUnlikeOption(item.replacementId)">                                                                
+                                        <img ng-if="item.itemLiked  == false" src="assets/global/img/heart.svg" class="itemFavourite" />
+                                        <img ng-if="item.itemLiked  == true" src="assets/global/img/heart-fill.svg" class="itemFavourite" />
+                                    </div> 
+                                </div>
+                                <!--Descriptions-->
+                                <div class="itemDesc col-md-12 col-lg-12 col-sm-12 padding1px margin-top-5">
+                                    <span title="{{item.replacementDescription}}" class="TextWrap">{{item.replacementDescription | limitTo: 94}}{{item.replacementDescription.length >  94 ? '...' : ''}}
+                                        <!-- <i ng-if="item.replacementDescription.length >  100" class="fa fa-info-circle"
+                                        style="font-size:16px;margin-top:6px"
+                                        aria-hidden="true"></i> -->
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+            <div class="col-md-12 col-sm-12 padding1px"  ng-show="weddingbandOptions.length !== 0">
+                <div class="col-md-12 col-sm-12 SubHeadingDiv margin-bottom-10 margin-top-10">
+                    <span class="caption-subject" style="font-size: 14px; font-weight: 700;">Wedding Band Options</span>
+                </div>
+                <div class="options">
+                    <div class="options-box">
+                        <div ng-class="{'option-selected': item.itemFavourite === true,
+                        'option':item.itemFavourite === false}" ng-repeat="item in weddingbandOptions">                                                     
+                            <div class="option-heading">
+                                <label ng-if="item.itemFavourite == true">Replacement Wedding Band Quoted</label>
+                                <label ng-if="item.itemFavourite == false">Wedding Band Option #{{$index+1}}</label>
+                            </div>
+                            <div class="col-md-12 col-lg-12 col-sm-12 padding1px margin-top-10" >
+                                <!--Item image-->
+                                <div class="col-md-5 col-lg-5 col-sm-5 padding1px" >
+                                    <img ng-if="( item.imagesDTOSet == undefined ||item.imagesDTOSet == null || !item.imagesDTOSet[0].url) && (item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" src="assets/global/img/no-image.png" alt="image" class="img-responsive itemImg" />
+                                    <img ng-if="(item.imagesDTOSet != undefined && item.imagesDTOSet && item.imagesDTOSet[0].url ) || !(item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" ng-src="{{ (item.imagesDTOSet[0].url && item.imagesDTOSet[0].url.length!=0) ? item.imagesDTOSet[0].url : item.imageUrl}}" alt="image" class="img-responsive itemImg" />
+                                </div>
+
+                                <!--Item cost-->
+                                <div class="col-md-5 col-lg-5 col-sm-5 padding1px itemAmt">
+                                    <label>{{item.totalReplacementPrice | currency}}</label>
+                                </div>
+
+                                <!--Favourite & like -->
+                                <div class="col-md-2 col-lg-2 col-sm-2 padding1px" >
+                                   <!--Star & star fill -->
+                                   <div class="col-md-12 col-lg-12 col-sm-12 padding1px" >                                                               
+                                    <img ng-if="item.itemFavourite == false" src="assets/global/img/star-grey.svg"  class="itemFavourite" />
+                                    <img ng-if="item.itemFavourite == true" src="assets/global/img/star-gold.svg" class="itemFavourite" />
+                                </div>  
+                                    <!--Heart & Heart fill -->
+                                    <div class="col-md-12 col-lg-12 col-sm-12 padding1px" ng-click="likeOrUnlikeOption(item.replacementId)" >                                                                
+                                        <img ng-if="item.itemLiked  == false" src="assets/global/img/heart.svg" class="itemFavourite" />
+                                        <img ng-if="item.itemLiked  == true" src="assets/global/img/heart-fill.svg" class="itemFavourite" />
+                                    </div> 
+                                </div>
+                                <!--Descriptions-->
+                                <div class="itemDesc col-md-12 col-lg-12 col-sm-12 padding1px margin-top-5">
+                                    <span title="{{item.replacementDescription}}" class="TextWrap">{{item.replacementDescription | limitTo: 94}}{{item.replacementDescription.length >  94 ? '...' : ''}}
+                                        <!-- <i ng-if="item.replacementDescription.length >  100" class="fa fa-info-circle"
+                                        style="font-size:16px;margin-top:6px"
+                                        aria-hidden="true"></i> -->
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+
+            <div class="col-md-12 col-sm-12 padding1px" ng-show="chains.length !== 0">
+                <div class="col-md-12 col-sm-12 SubHeadingDiv margin-bottom-10 margin-top-10">
+                    <span class="caption-subject" style="font-size: 14px; font-weight: 700;">Chains Options</span>
+                </div>
+                <div class="options">
+                    <div class="options-box">
+                        <div ng-class="{'option-selected': item.itemFavourite === true,
+                        'option':item.itemFavourite === false}" ng-repeat="item in chains">                                                    
+                            <div class="option-heading">
+                                <label ng-if="item.itemFavourite == true">Replacement Chains Quoted</label>
+                                <label ng-if="item.itemFavourite == false">Chains Option #{{$index+1}}</label>
+                            </div>
+                            <div class="col-md-12 col-lg-12 col-sm-12 padding1px margin-top-10" >
+                                <!--Item image-->
+                                <div class="col-md-5 col-lg-5 col-sm-5 padding1px" >
+                                    <img ng-if="( item.imagesDTOSet == undefined ||item.imagesDTOSet == null || !item.imagesDTOSet[0].url) && (item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" src="assets/global/img/no-image.png" alt="image" class="img-responsive itemImg" />
+                                    <img ng-if="(item.imagesDTOSet != undefined && item.imagesDTOSet && item.imagesDTOSet[0].url) || !(item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" ng-src="{{ (item.imagesDTOSet[0].url && item.imagesDTOSet[0].url.length!=0) ? item.imagesDTOSet[0].url : item.imageUrl}}" alt="image" class="img-responsive itemImg" />
+
+                                    <!-- <img ng-if="!item.imagesDTOSet && (item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='' || !item.imagesDTOSet[0].url)" src="assets/global/img/no-image.png" alt="image" class="img-responsive itemImg" />
+                                    <img ng-if="item.imagesDTOSet || !(item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='' || item.imagesDTOSet[0].url)" ng-src="{{ (item.imagesDTOSet[0] && item.imagesDTOSet[0].length!=0) ? item.imagesDTOSet[0].url : item.imageUrl}}" alt="image" class="img-responsive itemImg" /> -->
+                                </div>
+
+                                <!--Item cost-->
+                                <div class="col-md-5 col-lg-5 col-sm-5 padding1px itemAmt">
+                                    <label>{{item.totalReplacementPrice | currency}}</label>
+                                </div>
+
+                                <!--Favourite & like -->
+                                <div class="col-md-2 col-lg-2 col-sm-2 padding1px" >      
+                                    <!--Star & star fill -->
+                                    <div class="col-md-12 col-lg-12 col-sm-12 padding1px" >                                                               
+                                        <img ng-if="item.itemFavourite == false" src="assets/global/img/star-grey.svg"  class="itemFavourite" />
+                                        <img ng-if="item.itemFavourite == true" src="assets/global/img/star-gold.svg" class="itemFavourite" />
+                                    </div>                            
+                                    <!--Heart & Heart fill -->
+                                    <div class="col-md-12 col-lg-12 col-sm-12 padding1px" ng-click="likeOrUnlikeOption(item.replacementId)" >                                                                
+                                        <img ng-if="item.itemLiked  == false" src="assets/global/img/heart.svg" class="itemFavourite" />
+                                        <img ng-if="item.itemLiked  == true" src="assets/global/img/heart-fill.svg" class="itemFavourite" />
+                                    </div> 
+                                </div>
+                                <!--Descriptions-->
+                                <div class="itemDesc col-md-12 col-lg-12 col-sm-12 padding1px margin-top-5">
+                                    <span title="{{item.replacementDescription}}" class="TextWrap">{{item.replacementDescription | limitTo: 94}}{{item.replacementDescription.length >  94 ? '...' : ''}}
+                                        <!-- <i ng-if="item.replacementDescription.length >  100" class="fa fa-info-circle"
+                                        style="font-size:16px;margin-top:6px"
+                                        aria-hidden="true"></i> -->
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+             
+            <div class="col-md-12 col-sm-12 padding1px" ng-show="centerStonePearls.length !== 0">
+                <div class="col-md-12 col-sm-12 SubHeadingDiv margin-bottom-10 margin-top-10">
+                    <span class="caption-subject" style="font-size: 14px; font-weight: 700;">Pearl Options</span>
+                </div>
+                <div class="options">
+                    <div class="options-box">
+                        <div ng-class="{'option-selected': item.itemFavourite === true,
+                        'option':item.itemFavourite === false}" ng-repeat="item in centerStonePearls">                                                    
+                            <div class="option-heading">
+                                <label ng-if="item.itemFavourite == true">Replacement Pearl Quoted</label>
+                                <label ng-if="item.itemFavourite == false">Pearl Option #{{$index+1}}</label>
+                            </div>
+                            <div class="col-md-12 col-lg-12 col-sm-12 padding1px margin-top-10" >
+                                <!--Item image-->
+                                <div class="col-md-5 col-lg-5 col-sm-5 padding1px" >
+                                    <img ng-if="( item.imagesDTOSet == undefined ||item.imagesDTOSet == null || !item.imagesDTOSet[0].url) && (item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" src="assets/global/img/no-image.png" alt="image" class="img-responsive itemImg" />
+                                    <img ng-if="(item.imagesDTOSet != undefined && item.imagesDTOSet && item.imagesDTOSet[0].url) || !(item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" ng-src="{{ (item.imagesDTOSet[0].url && item.imagesDTOSet[0].url.length!=0) ? item.imagesDTOSet[0].url : item.imageUrl}}" alt="image" class="img-responsive itemImg" />
+
+                                    <!-- <img ng-if="!item.imagesDTOSet && (item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='' || !item.imagesDTOSet[0].url)" src="assets/global/img/no-image.png" alt="image" class="img-responsive itemImg" />
+                                    <img ng-if="item.imagesDTOSet || !(item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='' || item.imagesDTOSet[0].url)" ng-src="{{ (item.imagesDTOSet[0] && item.imagesDTOSet[0].length!=0) ? item.imagesDTOSet[0].url : item.imageUrl}}" alt="image" class="img-responsive itemImg" /> -->
+                                </div>
+
+                                <!--Item cost-->
+                                <div class="col-md-5 col-lg-5 col-sm-5 padding1px itemAmt">
+                                    <label>{{item.totalReplacementPrice | currency}}</label>
+                                </div>
+
+                                <!--Favourite & like -->
+                                <div class="col-md-2 col-lg-2 col-sm-2 padding1px" >      
+                                    <!--Star & star fill -->
+                                    <div class="col-md-12 col-lg-12 col-sm-12 padding1px" >                                                               
+                                        <img ng-if="item.itemFavourite == false" src="assets/global/img/star-grey.svg"  class="itemFavourite" />
+                                        <img ng-if="item.itemFavourite == true" src="assets/global/img/star-gold.svg" class="itemFavourite" />
+                                    </div>                            
+                                    <!--Heart & Heart fill -->
+                                    <div class="col-md-12 col-lg-12 col-sm-12 padding1px" ng-click="likeOrUnlikeOption(item.replacementId)" >                                                                
+                                        <img ng-if="item.itemLiked  == false" src="assets/global/img/heart.svg" class="itemFavourite" />
+                                        <img ng-if="item.itemLiked  == true" src="assets/global/img/heart-fill.svg" class="itemFavourite" />
+                                    </div> 
+                                </div>
+                                <!--Descriptions-->
+                                <div class="itemDesc col-md-12 col-lg-12 col-sm-12 padding1px margin-top-5">
+                                    <span title="{{item.replacementDescription}}" class="TextWrap">{{item.replacementDescription | limitTo: 94}}{{item.replacementDescription.length >  94 ? '...' : ''}}
+                                        <!-- <i ng-if="item.replacementDescription.length >  100" class="fa fa-info-circle"
+                                        style="font-size:16px;margin-top:6px"
+                                        aria-hidden="true"></i> -->
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 col-sm-12 padding1px" ng-show="mainWatchs.length !== 0">
+                <div class="col-md-12 col-sm-12 SubHeadingDiv margin-bottom-10 margin-top-10">
+                    <span class="caption-subject" style="font-size: 14px; font-weight: 700;">Watch Options</span>
+                </div>
+                <div class="options">
+                    <div class="options-box">
+                        <div ng-class="{'option-selected': item.itemFavourite === true,
+                        'option':item.itemFavourite === false}" ng-repeat="item in mainWatchs">                                                    
+                            <div class="option-heading">
+                                <label ng-if="item.itemFavourite == true">Replacement Watch Quoted</label>
+                                <label ng-if="item.itemFavourite == false">Watch Option #{{$index+1}}</label>
+                            </div>
+                            <div class="col-md-12 col-lg-12 col-sm-12 padding1px margin-top-10" >
+                                <!--Item image-->
+                                <div class="col-md-5 col-lg-5 col-sm-5 padding1px" >
+                                    <img ng-if="( item.imagesDTOSet == undefined ||item.imagesDTOSet == null || !item.imagesDTOSet[0].url) && (item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" src="assets/global/img/no-image.png" alt="image" class="img-responsive itemImg" />
+                                    <img ng-if="(item.imagesDTOSet != undefined && item.imagesDTOSet && item.imagesDTOSet[0].url) || !(item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" ng-src="{{ (item.imagesDTOSet[0].url && item.imagesDTOSet[0].url.length!=0) ? item.imagesDTOSet[0].url : item.imageUrl}}" alt="image" class="img-responsive itemImg" />
+
+                                    <!-- <img ng-if="!item.imagesDTOSet && (item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='' || !item.imagesDTOSet[0].url)" src="assets/global/img/no-image.png" alt="image" class="img-responsive itemImg" />
+                                    <img ng-if="item.imagesDTOSet || !(item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='' || item.imagesDTOSet[0].url)" ng-src="{{ (item.imagesDTOSet[0] && item.imagesDTOSet[0].length!=0) ? item.imagesDTOSet[0].url : item.imageUrl}}" alt="image" class="img-responsive itemImg" /> -->
+                                </div>
+
+                                <!--Item cost-->
+                                <div class="col-md-5 col-lg-5 col-sm-5 padding1px itemAmt">
+                                    <label>{{item.totalReplacementPrice | currency}}</label>
+                                </div>
+
+                                <!--Favourite & like -->
+                                <div class="col-md-2 col-lg-2 col-sm-2 padding1px" >      
+                                    <!--Star & star fill -->
+                                    <div class="col-md-12 col-lg-12 col-sm-12 padding1px" >                                                               
+                                        <img ng-if="item.itemFavourite == false" src="assets/global/img/star-grey.svg"  class="itemFavourite" />
+                                        <img ng-if="item.itemFavourite == true" src="assets/global/img/star-gold.svg" class="itemFavourite" />
+                                    </div>                            
+                                    <!--Heart & Heart fill -->
+                                    <div class="col-md-12 col-lg-12 col-sm-12 padding1px" ng-click="likeOrUnlikeOption(item.replacementId)" >                                                                
+                                        <img ng-if="item.itemLiked  == false" src="assets/global/img/heart.svg" class="itemFavourite" />
+                                        <img ng-if="item.itemLiked  == true" src="assets/global/img/heart-fill.svg" class="itemFavourite" />
+                                    </div> 
+                                </div>
+                                <!--Descriptions-->
+                                <div class="itemDesc col-md-12 col-lg-12 col-sm-12 padding1px margin-top-5">
+                                    <span title="{{item.replacementDescription}}" class="TextWrap">{{item.replacementDescription | limitTo: 94}}{{item.replacementDescription.length >  94 ? '...' : ''}}
+                                        <!-- <i ng-if="item.replacementDescription.length >  100" class="fa fa-info-circle"
+                                        style="font-size:16px;margin-top:6px"
+                                        aria-hidden="true"></i> -->
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+            <div class="col-md-12 col-sm-12 padding1px" ng-show="customAdditions.length !== 0">
+                <div class="col-md-12 col-sm-12 SubHeadingDiv margin-bottom-10 margin-top-10">
+                    <span class="caption-subject" style="font-size: 14px; font-weight: 700;">Watch Custom Addition Options</span>
+                </div>
+                <div class="options">
+                    <div class="options-box">
+                        <div ng-class="{'option-selected': item.itemFavourite === true,
+                        'option':item.itemFavourite === false}" ng-repeat="item in customAdditions">                                                    
+                            <div class="option-heading">
+                                <label ng-if="item.itemFavourite == true">Replacement Watch Custom Addition Quoted</label>
+                                <label ng-if="item.itemFavourite == false">Watch Custom Addition Option #{{$index+1}}</label>
+                            </div>
+                            <div class="col-md-12 col-lg-12 col-sm-12 padding1px margin-top-10" >
+                                <!--Item image-->
+                                <div class="col-md-5 col-lg-5 col-sm-5 padding1px" >
+                                    <img ng-if="( item.imagesDTOSet == undefined ||item.imagesDTOSet == null || !item.imagesDTOSet[0].url) && (item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" src="assets/global/img/no-image.png" alt="image" class="img-responsive itemImg" />
+                                    <img ng-if="(item.imagesDTOSet != undefined && item.imagesDTOSet && item.imagesDTOSet[0].url) || !(item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" ng-src="{{ (item.imagesDTOSet[0].url && item.imagesDTOSet[0].url.length!=0) ? item.imagesDTOSet[0].url : item.imageUrl}}" alt="image" class="img-responsive itemImg" />
+
+                                    <!-- <img ng-if="!item.imagesDTOSet && (item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='' || !item.imagesDTOSet[0].url)" src="assets/global/img/no-image.png" alt="image" class="img-responsive itemImg" />
+                                    <img ng-if="item.imagesDTOSet || !(item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='' || item.imagesDTOSet[0].url)" ng-src="{{ (item.imagesDTOSet[0] && item.imagesDTOSet[0].length!=0) ? item.imagesDTOSet[0].url : item.imageUrl}}" alt="image" class="img-responsive itemImg" /> -->
+                                </div>
+
+                                <!--Item cost-->
+                                <div class="col-md-5 col-lg-5 col-sm-5 padding1px itemAmt">
+                                    <label>{{item.totalReplacementPrice | currency}}</label>
+                                </div>
+
+                                <!--Favourite & like -->
+                                <div class="col-md-2 col-lg-2 col-sm-2 padding1px" >      
+                                    <!--Star & star fill -->
+                                    <div class="col-md-12 col-lg-12 col-sm-12 padding1px" >                                                               
+                                        <img ng-if="item.itemFavourite == false" src="assets/global/img/star-grey.svg"  class="itemFavourite" />
+                                        <img ng-if="item.itemFavourite == true" src="assets/global/img/star-gold.svg" class="itemFavourite" />
+                                    </div>                            
+                                    <!--Heart & Heart fill -->
+                                    <div class="col-md-12 col-lg-12 col-sm-12 padding1px" ng-click="likeOrUnlikeOption(item.replacementId)" >                                                                
+                                        <img ng-if="item.itemLiked  == false" src="assets/global/img/heart.svg" class="itemFavourite" />
+                                        <img ng-if="item.itemLiked  == true" src="assets/global/img/heart-fill.svg" class="itemFavourite" />
+                                    </div> 
+                                </div>
+                                <!--Descriptions-->
+                                <div class="itemDesc col-md-12 col-lg-12 col-sm-12 padding1px margin-top-5">
+                                    <span title="{{item.replacementDescription}}" class="TextWrap">{{item.replacementDescription | limitTo: 94}}{{item.replacementDescription.length >  94 ? '...' : ''}}
+                                        <!-- <i ng-if="item.replacementDescription.length >  100" class="fa fa-info-circle"
+                                        style="font-size:16px;margin-top:6px"
+                                        aria-hidden="true"></i> -->
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+            
+        </div>
+        <div class = "col-md-4 col-lg-4 col-sm-4 col-xs-4 panel panel-default" style="margin-top: 40px;">
+                <div class="col-md-12 col-sm-12 panel-body" style="padding: 0px 10px;">
+                    <div class="col-md-12 col-sm-12 SubHeadingDiv margin-bottom-10 margin-top-10">
+                        <span class="caption-subject" style="font-size: 14px; font-weight: 700;">Your selection(s)</span>
+                    </div>
+                    <div class="col-md-12 col-lg-12 col-sm-12" style="overflow-y: auto;max-height: 600px !important;">
+                        <div ng-show="diamondOptions.length !== 0">
+                            <label> Diamond(s)</label>
+                        </div>
+                        <div ng-show="diamondOptions.length !== 0" class="row" ng-repeat="item in yourSelections.diamondOptions">
+                                <!--Item image-->
+                                <div class="col-md-3 col-lg-3 col-sm-3 padding1px" >
+                                    <img ng-if="( item.imagesDTOSet == undefined ||item.imagesDTOSet == null || !item.imagesDTOSet[0].url) && (item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" src="assets/global/img/no-image.png" alt="image" class="img-responsive yourItemImg" />
+                                    <img ng-if="(item.imagesDTOSet != undefined && item.imagesDTOSet && item.imagesDTOSet[0].url ) || !(item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" ng-src="{{ (item.imagesDTOSet[0].url && item.imagesDTOSet[0].url.length!=0) ? item.imagesDTOSet[0].url : item.imageUrl}}" alt="image" class="img-responsive yourItemImg" />
+                                
+                                </div>
+                                <div class="itemDesc col-md-6 col-lg-6 col-sm-6 padding1px">
+                                    <span title="{{item.replacementDescription}}" class="TextWrap">{{item.replacementDescription | limitTo: 79}}{{item.replacementDescription.length >  79 ? '...' : ''}}
+                                        <!-- <i ng-if="item.replacementDescription.length >  80" class="fa fa-info-circle"
+                                        style="font-size:16px;margin-top:6px"
+                                        aria-hidden="true"></i> -->
+                                    </span>
+                                </div>
+
+                                <!--Item cost-->
+                                <div class="col-md-3 col-lg-3 col-sm-3 text-right">
+                                    <label>{{item.totalReplacementPrice | currency}}</label>
+                                </div>
+                        </div>
+                        <div ng-show="centerStoneGemstonesOptions.length !== 0">
+                            <label> Gemstone(s)</label>
+                        </div>
+                        <div ng-show="centerStoneGemstonesOptions.length !== 0" class="row" ng-repeat="item in yourSelections.centerStoneGemstonesOptions">
+                                <!--Item image-->
+                                <div class="col-md-3 col-lg-3 col-sm-3 padding1px" >
+                                    <img ng-if="( item.imagesDTOSet == undefined ||item.imagesDTOSet == null || !item.imagesDTOSet[0].url) && (item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" src="assets/global/img/no-image.png" alt="image" class="img-responsive yourItemImg" />
+                                    <img ng-if="(item.imagesDTOSet != undefined && item.imagesDTOSet && item.imagesDTOSet[0].url ) || !(item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" ng-src="{{ (item.imagesDTOSet[0].url && item.imagesDTOSet[0].url.length!=0) ? item.imagesDTOSet[0].url : item.imageUrl}}" alt="image" class="img-responsive yourItemImg" />
+                                </div>
+                                <div class="itemDesc col-md-6 col-lg-6 col-sm-6 padding1px">
+                                    <span title="{{item.replacementDescription}}" class="TextWrap">{{item.replacementDescription | limitTo: 79}}{{item.replacementDescription.length >  79 ? '...' : ''}}
+                                        <!-- <i ng-if="item.replacementDescription.length >  80" class="fa fa-info-circle"
+                                        style="font-size:16px;margin-top:6px"
+                                        aria-hidden="true"></i> -->
+                                    </span>
+                                </div>
+
+                                <!--Item cost-->
+                                <div class="col-md-3 col-lg-3 col-sm-3 text-right">
+                                    <label>{{item.totalReplacementPrice | currency}}</label>
+                                </div>
+                        </div>
+
+                        <div  ng-show="leftCenterStoneDiamonds.length !== 0">
+                            <label> Left Diamond(s)</label>
+                        </div>
+                        <div  ng-show="leftCenterStoneDiamonds.length !== 0" class="row" ng-repeat="item in yourSelections.leftCenterStoneDiamonds">
+                                <!--Item image-->
+                                <div class="col-md-3 col-lg-3 col-sm-3 padding1px" >
+                                    <img ng-if="( item.imagesDTOSet == undefined ||item.imagesDTOSet == null || !item.imagesDTOSet[0].url) && (item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" src="assets/global/img/no-image.png" alt="image" class="img-responsive yourItemImg" />
+                                    <img ng-if="(item.imagesDTOSet != undefined && item.imagesDTOSet && item.imagesDTOSet[0].url ) || !(item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" ng-src="{{ (item.imagesDTOSet[0].url && item.imagesDTOSet[0].url.length!=0) ? item.imagesDTOSet[0].url : item.imageUrl}}" alt="image" class="img-responsive yourItemImg" />
+                                </div>
+                                <div class="itemDesc col-md-6 col-lg-6 col-sm-6 padding1px">
+                                    <span title="{{item.replacementDescription}}" class="TextWrap">{{item.replacementDescription | limitTo: 79}}{{item.replacementDescription.length >  79 ? '...' : ''}}
+                                        <!-- <i ng-if="item.replacementDescription.length >  80" class="fa fa-info-circle"
+                                        style="font-size:16px;margin-top:6px"
+                                        aria-hidden="true"></i> -->
+                                    </span>
+                                </div>
+
+                                <!--Item cost-->
+                                <div class="col-md-3 col-lg-3 col-sm-3 text-right">
+                                    <label>{{item.totalReplacementPrice | currency}}</label>
+                                </div>
+                        </div>
+                        <div  ng-show="leftCenterStoneGemstones.length !== 0">
+                            <label> Left Gemstone(s)</label>
+                        </div>
+                        <div  ng-show="leftCenterStoneGemstones.length !== 0" class="row" ng-repeat="item in yourSelections.leftCenterStoneGemstones">
+                                <!--Item image-->
+                                <div class="col-md-3 col-lg-3 col-sm-3 padding1px" >
+                                    <img ng-if="( item.imagesDTOSet == undefined ||item.imagesDTOSet == null || !item.imagesDTOSet[0].url) && (item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" src="assets/global/img/no-image.png" alt="image" class="img-responsive yourItemImg" />
+                                    <img ng-if="(item.imagesDTOSet != undefined && item.imagesDTOSet && item.imagesDTOSet[0].url ) || !(item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" ng-src="{{ (item.imagesDTOSet[0].url && item.imagesDTOSet[0].url.length!=0) ? item.imagesDTOSet[0].url : item.imageUrl}}" alt="image" class="img-responsive yourItemImg" />
+                                </div>
+                                <div class="itemDesc col-md-6 col-lg-6 col-sm-6 padding1px">
+                                    <span title="{{item.replacementDescription}}" class="TextWrap">{{item.replacementDescription | limitTo: 79}}{{item.replacementDescription.length >  79 ? '...' : ''}}
+                                        <!-- <i ng-if="item.replacementDescription.length >  80" class="fa fa-info-circle"
+                                        style="font-size:16px;margin-top:6px"
+                                        aria-hidden="true"></i> -->
+                                    </span>
+                                </div>
+
+                                <!--Item cost-->
+                                <div class="col-md-3 col-lg-3 col-sm-3 text-right">
+                                    <label>{{item.totalReplacementPrice | currency}}</label>
+                                </div>
+                        </div>
+                        <div  ng-show="rightCenterStoneDiamonds.length !== 0">
+                            <label> Right Diamond(s)</label>
+                        </div>
+                        <div  ng-show="rightCenterStoneDiamonds.length !== 0" class="row" ng-repeat="item in yourSelections.rightCenterStoneDiamonds">
+                                <!--Item image-->
+                                <div class="col-md-3 col-lg-3 col-sm-3 padding1px" >
+                                    <img ng-if="( item.imagesDTOSet == undefined ||item.imagesDTOSet == null || !item.imagesDTOSet[0].url) && (item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" src="assets/global/img/no-image.png" alt="image" class="img-responsive yourItemImg" />
+                                    <img ng-if="(item.imagesDTOSet != undefined && item.imagesDTOSet && item.imagesDTOSet[0].url ) || !(item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" ng-src="{{ (item.imagesDTOSet[0].url && item.imagesDTOSet[0].url.length!=0) ? item.imagesDTOSet[0].url : item.imageUrl}}" alt="image" class="img-responsive yourItemImg" />
+                                </div>
+                                <div class="itemDesc col-md-6 col-lg-6 col-sm-6 padding1px">
+                                    <span title="{{item.replacementDescription}}" class="TextWrap">{{item.replacementDescription | limitTo: 79}}{{item.replacementDescription.length >  79 ? '...' : ''}}
+                                        <!-- <i ng-if="item.replacementDescription.length >  80" class="fa fa-info-circle"
+                                        style="font-size:16px;margin-top:6px"
+                                        aria-hidden="true"></i> -->
+                                    </span>
+                                </div>
+
+                                <!--Item cost-->
+                                <div class="col-md-3 col-lg-3 col-sm-3 text-right">
+                                    <label>{{item.totalReplacementPrice | currency}}</label>
+                                </div>
+                        </div>
+                        <div  ng-show="rightCenterStoneGemstones.length !== 0">
+                            <label> Right Gemstone(s)</label>
+                        </div>
+                        <div  ng-show="rightCenterStoneGemstones.length !== 0" class="row" ng-repeat="item in yourSelections.rightCenterStoneGemstones">
+                                <!--Item image-->
+                                <div class="col-md-3 col-lg-3 col-sm-3 padding1px" >
+                                    <img ng-if="( item.imagesDTOSet == undefined ||item.imagesDTOSet == null || !item.imagesDTOSet[0].url) && (item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" src="assets/global/img/no-image.png" alt="image" class="img-responsive yourItemImg" />
+                                    <img ng-if="(item.imagesDTOSet != undefined && item.imagesDTOSet && item.imagesDTOSet[0].url ) || !(item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" ng-src="{{ (item.imagesDTOSet[0].url && item.imagesDTOSet[0].url.length!=0) ? item.imagesDTOSet[0].url : item.imageUrl}}" alt="image" class="img-responsive yourItemImg" />
+                                </div>
+                                <div class="itemDesc col-md-6 col-lg-6 col-sm-6 padding1px">
+                                    <span title="{{item.replacementDescription}}" class="TextWrap">{{item.replacementDescription | limitTo: 79}}{{item.replacementDescription.length >  79 ? '...' : ''}}
+                                        <!-- <i ng-if="item.replacementDescription.length >  80" class="fa fa-info-circle"
+                                        style="font-size:16px;margin-top:6px"
+                                        aria-hidden="true"></i> -->
+                                    </span>
+                                </div>
+
+                                <!--Item cost-->
+                                <div class="col-md-3 col-lg-3 col-sm-3 text-right">
+                                    <label>{{item.totalReplacementPrice | currency}}</label>
+                                </div>
+                        </div>
+                        <div ng-show="settingOptions.length !== 0">
+                            <label> Setting</label>
+                        </div>
+                        <div ng-show="settingOptions.length !== 0" class="row" ng-repeat="item in yourSelections.settingOptions">
+                                <!--Item image-->
+                                <div class="col-md-3 col-lg-3 col-sm-3 padding1px" >
+                                    <img ng-if="( item.imagesDTOSet == undefined ||item.imagesDTOSet == null || !item.imagesDTOSet[0].url) && (item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" src="assets/global/img/no-image.png" alt="image" class="img-responsive yourItemImg" />
+                                    <img ng-if="(item.imagesDTOSet != undefined && item.imagesDTOSet && item.imagesDTOSet[0].url ) || !(item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" ng-src="{{ (item.imagesDTOSet[0].url && item.imagesDTOSet[0].url.length!=0) ? item.imagesDTOSet[0].url : item.imageUrl}}" alt="image" class="img-responsive yourItemImg" />
+                                </div>
+                                <div class="itemDesc col-md-6 col-lg-6 col-sm-6 padding1px">
+                                    <span title="{{item.replacementDescription}}" class="TextWrap">{{item.replacementDescription | limitTo: 79}}{{item.replacementDescription.length >  79 ? '...' : ''}}
+                                        <!-- <i ng-if="item.replacementDescription.length >  80" class="fa fa-info-circle"
+                                        style="font-size:16px;margin-top:6px"
+                                        aria-hidden="true"></i> -->
+                                    </span>
+                                </div>
+
+                                <!--Item cost-->
+                                <div class="col-md-3 col-lg-3 col-sm-3 text-right">
+                                    <label>{{item.totalReplacementPrice | currency}}</label>
+                                </div>
+                        </div>
+
+                        <div  ng-show="weddingbandOptions.length !== 0">
+                            <label> Wedding Band</label>
+                        </div>
+                        <div  ng-show="weddingbandOptions.length !== 0" class="row" ng-repeat="item in yourSelections.weddingbandOptions">
+                                <!--Item image-->
+                                <div class="col-md-3 col-lg-3 col-sm-3 padding1px" >
+                                    <img ng-if="( item.imagesDTOSet == undefined ||item.imagesDTOSet == null || !item.imagesDTOSet[0].url) && (item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" src="assets/global/img/no-image.png" alt="image" class="img-responsive yourItemImg" />
+                                    <img ng-if="(item.imagesDTOSet != undefined && item.imagesDTOSet && item.imagesDTOSet[0].url ) || !(item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" ng-src="{{ (item.imagesDTOSet[0].url && item.imagesDTOSet[0].url.length!=0) ? item.imagesDTOSet[0].url : item.imageUrl}}" alt="image" class="img-responsive yourItemImg" />
+                                </div>
+                                <div class="itemDesc col-md-6 col-lg-6 col-sm-6 padding1px">
+                                    <span title="{{item.replacementDescription}}" class="TextWrap">{{item.replacementDescription | limitTo: 79}}{{item.replacementDescription.length >  79 ? '...' : ''}}
+                                        <!-- <i ng-if="item.replacementDescription.length >  80" class="fa fa-info-circle"
+                                        style="font-size:16px;margin-top:6px"
+                                        aria-hidden="true"></i> -->
+                                    </span>
+                                </div>
+
+                                <!--Item cost-->
+                                <div class="col-md-3 col-lg-3 col-sm-3 text-right">
+                                    <label>{{item.totalReplacementPrice | currency}}</label>
+                                </div>
+                        </div>
+
+                        <div  ng-show="chains.length !== 0">
+                            <label> Chain(s)</label>
+                        </div>
+                        <div  ng-show="chains.length !== 0" class="row" ng-repeat="item in yourSelections.chains">
+                                <!--Item image-->
+                                <div class="col-md-3 col-lg-3 col-sm-3 padding1px" >
+                                    <img ng-if="( item.imagesDTOSet == undefined ||item.imagesDTOSet == null || !item.imagesDTOSet[0].url) && (item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" src="assets/global/img/no-image.png" alt="image" class="img-responsive yourItemImg" />
+                                    <img ng-if="(item.imagesDTOSet != undefined && item.imagesDTOSet && item.imagesDTOSet[0].url ) || !(item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" ng-src="{{ (item.imagesDTOSet[0].url && item.imagesDTOSet[0].url.length!=0) ? item.imagesDTOSet[0].url : item.imageUrl}}" alt="image" class="img-responsive yourItemImg" />
+                                </div>
+                                <div class="itemDesc col-md-6 col-lg-6 col-sm-6 padding1px">
+                                    <span title="{{item.replacementDescription}}" class="TextWrap">{{item.replacementDescription | limitTo: 79}}{{item.replacementDescription.length >  79 ? '...' : ''}}
+                                        <!-- <i ng-if="item.replacementDescription.length >  80" class="fa fa-info-circle"
+                                        style="font-size:16px;margin-top:6px"
+                                        aria-hidden="true"></i> -->
+                                    </span>
+                                </div>
+
+                                <!--Item cost-->
+                                <div class="col-md-3 col-lg-3 col-sm-3 text-right">
+                                    <label>{{item.totalReplacementPrice | currency}}</label>
+                                </div>
+                        </div>
+                        <div  ng-show="centerStonePearls.length !== 0">
+                            <label> Pearl(s)</label>
+                        </div>
+                        <div  ng-show="centerStonePearls.length !== 0" class="row" ng-repeat="item in yourSelections.centerStonePearls">
+                                <!--Item image-->
+                                <div class="col-md-3 col-lg-3 col-sm-3 padding1px" >
+                                    <img ng-if="( item.imagesDTOSet == undefined ||item.imagesDTOSet == null || !item.imagesDTOSet[0].url) && (item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" src="assets/global/img/no-image.png" alt="image" class="img-responsive yourItemImg" />
+                                    <img ng-if="(item.imagesDTOSet != undefined && item.imagesDTOSet && item.imagesDTOSet[0].url ) || !(item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" ng-src="{{ (item.imagesDTOSet[0].url && item.imagesDTOSet[0].url.length!=0) ? item.imagesDTOSet[0].url : item.imageUrl}}" alt="image" class="img-responsive yourItemImg" />
+                                    
+                                    <!-- <img ng-if="( item.imagesDTOSet == undefined ||item.imagesDTOSet == null || !item.imagesDTOSet[0].url) && (item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" src="assets/global/img/no-image.png" alt="image" class="img-responsive yourItemImg" />
+                                    <img ng-if="(item.imagesDTOSet != undefined && item.imagesDTOSet && item.imagesDTOSet[0].url ) || !(item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" ng-src="{{ (item.imagesDTOSet[0].url && item.imagesDTOSet[0].url.length!=0) ? item.imagesDTOSet[0].url : item.imageUrl}}" alt="image" class="img-responsive yourItemImg" /> -->
+                                </div>
+                                <div class="itemDesc col-md-6 col-lg-6 col-sm-6 padding1px">
+                                    <span title="{{item.replacementDescription}}" class="TextWrap">{{item.replacementDescription | limitTo: 79}}{{item.replacementDescription.length >  79 ? '...' : ''}}
+                                        <!-- <i ng-if="item.replacementDescription.length >  80" class="fa fa-info-circle"
+                                        style="font-size:16px;margin-top:6px"
+                                        aria-hidden="true"></i> -->
+                                    </span>
+                                </div>
+
+                                <!--Item cost-->
+                                <div class="col-md-3 col-lg-3 col-sm-3 text-right">
+                                    <label>{{item.totalReplacementPrice | currency}}</label>
+                                </div>
+                        </div>
+                        <div  ng-show="mainWatchs.length !== 0">
+                            <label> Watch(s)</label>
+                        </div>
+                        <div  ng-show="mainWatchs.length !== 0" class="row" ng-repeat="item in yourSelections.mainWatchs">
+                                <!--Item image-->
+                                <div class="col-md-3 col-lg-3 col-sm-3 padding1px" >
+                                    <img ng-if="( item.imagesDTOSet == undefined ||item.imagesDTOSet == null || !item.imagesDTOSet[0].url) && (item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" src="assets/global/img/no-image.png" alt="image" class="img-responsive yourItemImg" />
+                                    <img ng-if="(item.imagesDTOSet != undefined && item.imagesDTOSet && item.imagesDTOSet[0].url ) || !(item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" ng-src="{{ (item.imagesDTOSet[0].url && item.imagesDTOSet[0].url.length!=0) ? item.imagesDTOSet[0].url : item.imageUrl}}" alt="image" class="img-responsive yourItemImg" />
+                                    
+                                    <!-- <img ng-if="( item.imagesDTOSet == undefined ||item.imagesDTOSet == null || !item.imagesDTOSet[0].url) && (item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" src="assets/global/img/no-image.png" alt="image" class="img-responsive yourItemImg" />
+                                    <img ng-if="(item.imagesDTOSet != undefined && item.imagesDTOSet && item.imagesDTOSet[0].url ) || !(item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" ng-src="{{ (item.imagesDTOSet[0].url && item.imagesDTOSet[0].url.length!=0) ? item.imagesDTOSet[0].url : item.imageUrl}}" alt="image" class="img-responsive yourItemImg" /> -->
+                                </div>
+                                <div class="itemDesc col-md-6 col-lg-6 col-sm-6 padding1px">
+                                    <span title="{{item.replacementDescription}}" class="TextWrap">{{item.replacementDescription | limitTo: 79}}{{item.replacementDescription.length >  79 ? '...' : ''}}
+                                        <!-- <i ng-if="item.replacementDescription.length >  80" class="fa fa-info-circle"
+                                        style="font-size:16px;margin-top:6px"
+                                        aria-hidden="true"></i> -->
+                                    </span>
+                                </div>
+
+                                <!--Item cost-->
+                                <div class="col-md-3 col-lg-3 col-sm-3 text-right">
+                                    <label>{{item.totalReplacementPrice | currency}}</label>
+                                </div>
+                        </div>
+                        <div  ng-show="customAdditions.length !== 0">
+                            <label> Watch Custom Addition(s)</label>
+                        </div>
+                        <div  ng-show="customAdditions.length !== 0" class="row" ng-repeat="item in yourSelections.customAdditions">
+                                <!--Item image-->
+                                <div class="col-md-3 col-lg-3 col-sm-3 padding1px" >
+                                    <img ng-if="( item.imagesDTOSet == undefined ||item.imagesDTOSet == null || !item.imagesDTOSet[0].url) && (item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" src="assets/global/img/no-image.png" alt="image" class="img-responsive yourItemImg" />
+                                    <img ng-if="(item.imagesDTOSet != undefined && item.imagesDTOSet && item.imagesDTOSet[0].url ) || !(item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" ng-src="{{ (item.imagesDTOSet[0].url && item.imagesDTOSet[0].url.length!=0) ? item.imagesDTOSet[0].url : item.imageUrl}}" alt="image" class="img-responsive yourItemImg" />
+                                    
+                                    <!-- <img ng-if="( item.imagesDTOSet == undefined ||item.imagesDTOSet == null || !item.imagesDTOSet[0].url) && (item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" src="assets/global/img/no-image.png" alt="image" class="img-responsive yourItemImg" />
+                                    <img ng-if="(item.imagesDTOSet != undefined && item.imagesDTOSet && item.imagesDTOSet[0].url ) || !(item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" ng-src="{{ (item.imagesDTOSet[0].url && item.imagesDTOSet[0].url.length!=0) ? item.imagesDTOSet[0].url : item.imageUrl}}" alt="image" class="img-responsive yourItemImg" /> -->
+                                </div>
+                                <div class="itemDesc col-md-6 col-lg-6 col-sm-6 padding1px">
+                                    <span title="{{item.replacementDescription}}" class="TextWrap">{{item.replacementDescription | limitTo: 79}}{{item.replacementDescription.length >  79 ? '...' : ''}}
+                                        <!-- <i ng-if="item.replacementDescription.length >  80" class="fa fa-info-circle"
+                                        style="font-size:16px;margin-top:6px"
+                                        aria-hidden="true"></i> -->
+                                    </span>
+                                </div>
+
+                                <!--Item cost-->
+                                <div class="col-md-3 col-lg-3 col-sm-3 text-right">
+                                    <label>{{item.totalReplacementPrice | currency}}</label>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12" style="border-top: 1px solid #666 !important;margin-top: 10px;margin-bottom: 10px;">
+                        <div class="col-md-9 col-lg-9 col-sm-9 text-right" style="padding: 10px 1px 1px 1px;">
+                            <span>Amount above the quote</span>
+                        </div>
+                        <div class="col-md-3 col-lg-3 col-sm-3 text-right" style="padding: 10px 1px 1px 1px;">
+                            <label> {{yourSelections.total | currency}}</label>
+                        </div>
+                    </div>
+                        <div style="text-align: center;margin-bottom: 10px;">
+                            <button class="btn btn-default sbold btnMargin ng-binding" 
+                            ng-disabled="!(yourSelections.diamondOptions.length>0 || yourSelections.weddingbandOptions.length>0 ||
+                            yourSelections.settingOptions.length>0 || yourSelections.centerStoneGemstonesOptions.length>0 || yourSelections.chains.length>0 ||
+                            yourSelections.leftCenterStoneDiamonds.length>0 || yourSelections.leftCenterStoneGemstones.length>0 || yourSelections.rightCenterStoneDiamonds.length>0 ||
+                            yourSelections.rightCenterStoneGemstones.length>0 || yourSelections.centerStonePearls.length>0 || yourSelections.mainWatchs.length>0 || yourSelections.customAdditions.length>0)"
+                            ng-click="updateLikedItem()">Contact me to discuss these selections</button>
+                            
+                        </div>
+                    
+                </div> 
+        </div>
+    </div>
+    <div class="col-md-6 col-lg-6 col-sm-6" style="display: flex; margin-left: 50px; padding-top: 20px;">
+        <button class="btn-link form-control ng-binding">
+            About Artigem
+        </button>
+        <button class="btn-link form-control ng-binding">
+            FAQs
+        </button>
+        <button class="btn-link form-control ng-binding">
+            Learn about Jewelry
+        </button>
+        <button class="btn-link form-control ng-binding">
+            Contact Us
+        </button>
+    </div>
+</div>
+
+</div>
+
+<!--Printable Div Start-->
+<div class="row" id="PrintableDiv" style="display:none;">
+    <style>
+        .TextWrap{
+            word-wrap: break-word!important;
+         }
+
+         .replacement-detail{
+            display:flex;
+            padding: 1%;
+
+            width: 100%;
+        }
+        .repl-desc{
+            width: 80%;
+        }
+        .comp-det,.subcomp-det{
+            width: 80%;
+            display: flex;
+            align-items: center;
+        }
+        .comp-img{
+            padding-right:2%;
+            padding-left:2%;
+            padding-top:1%;
+            padding-bottom:1%;
+
+            margin-right:5%
+        }
+        .repl-price{
+            display:flex;
+            flex-direction:column;
+            text-align: center;
+            width: 20%;
+            justify-content: center;
+        }
+        .comp-price,.subcomp-price{
+            display:flex;
+            flex-direction:column;
+            text-align: center;
+            width: 20%;
+            justify-content: flex-start;
+            padding-top: 20px;
+        }
+        .comp-desc{
+            width: 75%;
+            /* display: flex; */
+            word-wrap: break-word!important;    
+        }
+        .tab-contents{
+            height: 55px
+        }
+        @media (max-width: 1380px) {
+        .subcomp-price { padding-left: 20% !important;
+                        width:20%;
+                        padding-bottom: 3%;  }
+        .subcomp-det{
+        margin-left:2%;
+        }
+        }
+        @media (min-width: 1380px) {
+        .subcomp-price { 
+                        /* padding-left: 45% !important; */
+                        width:25%;
+                        padding-bottom: 3%;
+                        padding-right: 15px;
+                        }
+        .subcomp-det{
+        margin-left:10%;
+        }
+        }
+        .subComponents{
+            display: flex;
+            flex-direction:column ;
+            width: 100%;
+            justify-content: flex-end;
+        }
+    </style>
+    <div class="col-md-12 col-xs-12" style="border-bottom: 1px solid black; padding: 10px;">
+        <div ng-if="vendorLogo != null" class="col-md-2 col-xs-2 col-sm-2">
+            <img src={{vendorLogo}} style="height: 90px;">
+         </div>
+         <div ng-if="vendorLogo == null" class="col-md-2 col-xs-2 col-sm-2">
+            <img src="assets/global/img/no-image.png" style="height: 90px;">
+         </div>
+         <div class="col-xs-8 col-md-8 col-sm-8" style="height: 10px;">
+            <label style="font-size:16px;vertical-align: middle;margin-top: 30px;"> Market Evaluation Report - {{policyHolderReviewDetails.lastName}}, {{policyHolderReviewDetails.firstName}}</label>
+            
+            <div style="font-size:14px;border-top: 1px solid black;">
+                {{companyInfo.companyAddress.completeAddress}} Phone: {{companyInfo.companyPhoneNumber | tel}}
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 col-sm-12 col-lg-12 col-sm-12 col-xs-12 padding1px" style="margin-top: 20px;">
+        <div class="col-md-6 col-lg-6 col-xs-6" style="margin-right: 70px;margin-left: -70px;">
+            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                <div class="col-md-7 col-sm-7 col-xs-7">
+                    <label class="control-label" style="font-size:12px;float: right;">{{"Date of MER"|translate}}</label>
+                </div>
+                <div class="col-md-5 col-md-5 col-xs-5" style="padding: 0px;">
+                    <span class="control-label" style="font-size:12px;">{{date | date:'MMMM dd, yyyy'}}</span>
+                </div>
+            </div>
+            <div class="col-md-12 col-lg-12 col-sm-12">
+                <div class="col-md-7 col-sm-7 col-xs-7">
+                    <label class="control-label" style="font-size:12px;float: right;">{{"Insurance Company"|translate}}</label>
+                </div>
+                <div class="col-md-5 col-md-5 col-xs-5" style="padding: 0px;">
+                    <span class="control-label" style="font-size:12px;">{{companyInfo.companyName}}</span>
+                </div>
+            </div>
+            
+            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                <div class="col-md-7 col-sm-7 col-xs-7">
+                    <label class="control-label" style="font-size:12px;float: right;">{{"Adjuster"|translate}}</label>
+                </div>
+                <div class="col-md-5 col-sm-5 col-xs-5" style="padding: 0px;">
+                    <span class="control-label" style="font-size:12px;">{{adjusterInfo.lastName}}, {{adjusterInfo.firstName}}</span>
+                </div>
+            </div>
+            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                <div class="col-md-7 col-sm-7 col-xs-7">
+                    <label class="control-label" style="font-size:12px;float: right;">{{"Adjuster Email"|translate}}</label>
+                </div>
+                <div class="col-md-5 col-sm-5 col-xs-5" style="padding: 0px;">
+                    <span class="control-label" style="font-size:12px;">{{adjusterInfo.email}}</span>
+                </div>
+            </div>
+            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                <div class="col-md-7 col-sm-7 col-xs-7">
+                    <label class="control-label" style="font-size:12px;float: right;">{{"Brach/Office"|translate}}</label>
+                </div>
+                <div class="col-md-5 col-sm-5 col-xs-5" style="padding: 0px;">
+                    <span class="control-label" style="font-size:12px;">{{companyInfo.companyBranches[0].branchName}}</span>
+                </div>
+            </div>
+            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                <div class="col-md-7 col-sm-7 col-xs-7">
+                    <label class="control-label" style="font-size:12px;float: right;">{{"Claim#"|translate}}</label>
+                </div>
+                <div class="col-md-5 col-sm-5 col-xs-5" style="padding: 0px;">
+                    <span class="control-label" style="font-size:12px;">{{claimNumber}}</span>
+                </div>
+            </div>
+            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                <div class="col-md-7 col-sm-7 col-xs-7">
+                    <label class="control-label" style="font-size:12px;float: right;">{{"Item#"|translate}}</label>
+                </div>
+                <div class="col-md-5 col-sm-5 col-xs-5" style="padding: 0px;">
+                    <span class="control-label" style="font-size:12px;">{{jewleryItemDetails.itemNumber}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-6 col-xs-6">
+            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+            <label class="control-label" style="font-size:12px;"><u>{{"Prepared For"|translate}}</u></label>
+            </div>
+            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                <div class="col-md-7 col-sm-7 col-xs-7">
+                    <label class="control-label" style="font-size:12px;float: right;">{{"Policyholder"|translate}}</label>
+                </div>
+                <div class="col-md-5 col-sm-5 col-xs-5" style="padding: 0px;">
+                    <span class="control-label" style="font-size:12px;">{{policyHolderReviewDetails.lastName}}, {{policyHolderReviewDetails.firstName}}</span>
+                </div>
+            </div>
+            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                <div class="col-md-7 col-sm-7 col-xs-7">
+                    <label class="control-label" style="font-size:12px;float: right;">{{"Address"|translate}}</label>
+                </div>
+                <div class="col-md-5 col-sm-5 col-xs-5" style="padding: 0px;">
+                    <span class="control-label" style="font-size:12px;">{{policyHolderReviewDetails.address.streetAddressOne}}, {{policyHolderReviewDetails.address.streetAddressTwo}}</span>
+                </div>
+            </div>
+            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                <div class="col-md-7 col-sm-7 col-xs-7">
+                </div>
+                <div class="col-md-5 col-sm-5 col-xs-5" style="padding: 0px;">
+                    <span class="control-label" style="font-size:12px;">{{policyHolderReviewDetails.address.city}}</span>
+                </div>
+            </div>
+            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                <div class="col-md-7 col-sm-7 col-xs-7">
+                </div>
+                <div class="col-md-5 col-sm-5 col-xs-5" style="padding: 0px;">
+                    <span class="control-label" style="font-size:12px;">{{policyHolderReviewDetails.address.state.state}}, {{policyHolderReviewDetails.address.zipcode}}</span>
+                </div>
+            </div>
+            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+            <label class="control-label" style="font-size:12px;"><u>{{"Prepared By"|translate}}</u></label>
+            </div>
+            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                <div class="col-md-7 col-sm-7 col-xs-7">
+                    <label class="control-label" style="font-size:12px;float: right;">{{"Jewelry Specialist"|translate}}</label>
+                </div>
+                <div class="col-md-5 col-sm-5 col-xs-5" style="padding: 0px;">
+                    <span class="control-label" style="font-size:12px;">{{jewleryItemDetails.assignmentDetails.claimRepresentative.lastName}}, {{jewleryItemDetails.assignmentDetails.claimRepresentative.firstName}}</span>
+                </div>
+            </div>
+            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                <div class="col-md-7 col-sm-7 col-xs-7">
+                    <label class="control-label" style="font-size:12px;float: right;">{{"On behalf of"|translate}}</label>
+                </div>
+                <div class="col-md-5 col-sm-5 col-xs-5" style="padding: 0px;">
+                    <span class="control-label" style="font-size:12px;">{{jewleryItemDetails.vendorDetails.vendorName}}</span>
+                </div>
+            </div>
+            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                <div class="col-md-7 col-sm-7 col-xs-7">
+                    <label class="control-label" style="font-size:12px;float: right;">{{"Specialist Email"|translate}}</label>
+                </div>
+                <div class="col-md-5 col-sm-5 col-xs-5" style="padding: 0px;">
+                    <span class="control-label" style="font-size:12px;word-wrap:break-word;">{{jewleryItemDetails.assignmentDetails.claimRepresentative.email}}</span>
+                </div>
+            </div>
+            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                <div class="col-md-7 col-sm-7 col-xs-7">
+                    <label class="control-label" style="font-size:12px;float: right;">{{"Specialist Phone"|translate}}</label>
+                </div>
+                <div class="col-md-5 col-sm-5 col-xs-5" style="padding: 0px;">
+                    <span class="control-label" style="font-size:12px;">{{jewleryItemDetails.assignmentDetails.claimRepresentative.cellPhone ? jewleryItemDetails.assignmentDetails.claimRepresentative.cellPhone : jewleryItemDetails.assignmentDetails.claimRepresentative.dayTimePhone | tel}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+        
+    <div class="col-md-12 col-xs-12" style="width:100%;display:block;float:left;margin-top:5px;height:auto; padding-left: 0px;margin-right: 2px;">
+        <div style="float:none;page-break-after: always;">
+            <div class="col-md-12 col-xs-12 portlet light margin-top-10" style="width:100%;display:block;float:left;margin:10px 10px 5px 5px;border: 1px solid black !important;">
+                <div class="portlet light padding1px">
+                    <div class="portlet-title">
+                        <div class="caption font-gray-sharp">
+                            <label class="control-label" style="font-size:12px;">{{"Original Item"|translate}}</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 cd-sm-12 col-xs-12" style="border-top: 1px solid black;padding-top: 10px;padding-left: 0px !important;padding-right: 0px !important;">
+                    <div class="col-md-2 col-sm-2 col-xs-2" style="padding: 10px;">
+                        <img ng-if="jewleryItemDetails.attachments" src={{jewleryItemDetails.attachments[0].url}} alt="image" style="width: 80px; height:80px;"/>
+                        <img ng-if="!jewleryItemDetails.attachments" ng-src="assets/global/img/no-image.png" alt="image" style="width: 80px; height:80px;" />
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                            <span class="control-label TextWrap" style="font-size:12px;">{{jewleryItemDetails.description | limitTo : 110}}{{jewleryItemDetails.description.length > 110 ? '...' : ''}}</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-4">
+                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12" style="text-align: right !important;">
+                            <label class="control-label" style="font-size:12px;">{{"Scheduled Value(Original Value)"|translate}}</label>
+                        </div>
+                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12" style="text-align: right !important;">
+                            <span style="font-size:12px;float: right;">{{jewleryItemDetails.totalStatedAmount | currency}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="col-md-12 col-xs-12 portlet light margin-top-10" style="width:100%;display:block;float:left;margin:10px 5px 5px 5px;border: 1px solid black !important;" ng-if="replacedJewelryItem != null">
+                <div class="portlet light padding1px">
+                    <div class="portlet-title">
+                        <div class="caption font-gray-sharp">
+                            <label class="control-label" style="font-size:12px;">{{"Replacement Item"|translate}}</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 cd-sm-12 col-xs-12" style="border-top: 1px solid black;padding-top: 10px !important;padding-right: 0px !important;">
+                    <div class="col-md-2 col-sm-2 col-xs-2">
+                        <img ng-if="replacedJewelryItem.imageURL ==null" src="assets/global/img/no-image.png"  style="width: 80px; height:80px;"/>
+                        <img ng-if="replacedJewelryItem.imageURL" src="{{replacedJewelryItem.imageURL}}"  style="width: 80px; height:80px;" />
+                    </div>
+                    <div class="col-md-7 col-sm-7 col-xs-7">
+                            <span class="control-label TextWrap" style="font-size:12px;">
+                                {{replacedJewelryItem.description | limitTo: 195}}{{replacedJewelryItem.description.length >  195 ? '...' : ''}}
+                            </span>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-3">
+                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12" style="text-align: right !important;">
+                            <label class="control-label" style="font-size:12px;">{{"Replacement price"|translate}}</label>
+                        </div>
+                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12" style="text-align: right !important;">
+                            <span style="font-size:12px;float: right;">{{replacedJewelryItem.unitPrice | currency}}</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- replacement item break up for custom Comparable -->
+                <div class="col-md-12 col-sm-12 col-xs-12" style="padding-top: 20px;padding-left: 0px !important;padding-right: 0px !important;">
+                    <div class="col-md-12 col-sm-12 col-xs-12" style="padding-left: 0px !important;padding-right: 0px !important;">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="col-md-2 col-sm-2 col-xs-2">
+                            </div>
+                            <div class="col-md-7 col-sm-7 col-xs-7">
+                                <label class="control-label" style="font-size:12px;">{{"Description"|translate}}</label>
+                            </div>
+                            <div class="col-sm-3 col-md-3 col-xs-3" style="text-align: right !important;">
+                                <label class="control-label " style="font-size:12px;padding-left: 32px;">{{"Price"|translate}}</label>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12" style="padding-top: 20px;" ng-repeat="subItem in replacedJewelryItem.subJewelryReplacements">
+                            <div class="col-md-2 col-sm-2 col-xs-2">
+                                <img ng-if="(subItem.imagesDTOSet == undefined || subItem.imagesDTOSet == null || !subItem.imagesDTOSet[0].url) && (subItem.imageUrl == undefined || subItem.imageUrl == null || subItem.imageUrl =='')" src="assets/global/img/no-image.png" alt="image" style="width: 80px; height:80px;" />
+                                <img ng-if="(subItem.imagesDTOSet!= undefined && subItem.imagesDTOSet && subItem.imagesDTOSet[0].url) || !(subItem.imageUrl == undefined || subItem.imageUrl == null || subItem.imageUrl =='')" ng-src="{{ (subItem.imagesDTOSet[0] && subItem.imagesDTOSet[0].length!=0 && subItem.imagesDTOSet[0].url) ? subItem.imagesDTOSet[0].url : subItem.imageUrl}}" alt="image" style="width: 80px; height:80px;" />
+                            </div>
+                            <div class="col-md-7 col-sm-7 col-xs-7">
+                                <span class="control-label TextWrap" style="font-size:12px;">
+                                    {{subItem.replacementDescription | limitTo: 195}}{{subItem.replacementDescription.length >  195 ? '...' : ''}}
+                                </span>
+
+                                <!--SubItems breakup-->
+                                <div class="subComponents" ng-if="subItem.subItems!=null">
+                                    <div  ng-repeat="subComponent in subItem.subItems" style="width:100%" >
+                                        <div class="subcomp-det" style="justify-content: center;width: 100% ;margin-left: 0;">
+                                            <div class="comp-img">
+                                                <img ng-if="(subComponent.imagesDTOSet == undefined || subComponent.imagesDTOSet == null || !subComponent.imagesDTOSet[0].url) && (subComponent.imageUrl == undefined || subComponent.imageUrl == null || subComponent.imageUrl =='')" src="assets/global/img/no-image.png" alt="image" style="width: 30px; height:30px;" />
+                                                <img ng-if="(subComponent.imagesDTOSet!= undefined && subComponent.imagesDTOSet && subComponent.imagesDTOSet[0].url) || !(subComponent.imageUrl == undefined || subComponent.imageUrl == null || subComponent.imageUrl =='')" ng-src="{{ (subComponent.imagesDTOSet[0] && subComponent.imagesDTOSet[0].length!=0) ? subComponent.imagesDTOSet[0].url : subComponent.imageUrl}}" alt="image" style="width: 30px; height:30px;" />
+
+                                                <!-- <img ng-if="subComponent.imagesDTOSet || !(subComponent.imageUrl == undefined || subComponent.imageUrl == null || subComponent.imageUrl =='')" ng-src="{{ (subComponent.imagesDTOSet[0] && subComponent.imagesDTOSet[0].length!=0) ? subComponent.imagesDTOSet[0].url : subComponent.imageUrl}}" alt="image" style="width: 30px; height:30px;"/>
+                                                <img ng-if="!subComponent.imagesDTOSet && (subComponent.imageUrl == undefined || subComponent.imageUrl == null || subComponent.imageUrl =='')" ng-src="assets/global/img/no-image.png" alt="image" style="width: 30px; height:30px;" /> -->
+
+                                                <!-- <img style="height:30px;width: 30px;"
+                                                onerror="this.onerror=null; this.src='assets/global/img/no-image.png';"
+                                                ng-src="{{subComponent.imagesDTOSet[0].url}}" ></img> -->
+                                            </div>
+                                            <div class="comp-desc" title="{{subComponent.replacementDescription}}">
+                                                <span>{{subComponent.replacementDescription | limitTo: 38}}{{subComponent.replacementDescription.length >  38 ? '...' : ''}}</span>
+                                            </div>
+                                            <div class="subcomp-price" style="text-align:right;">
+                                                {{subComponent.totalReplacementPrice | currency}}
+                                            </div>
+                                        </div>                                                        
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-sm-3 col-md-3 col-xs-3" style="text-align: right !important;">
+                                <span class="control-label" style="font-size:12px;padding-left: 32px;">{{subItem.totalReplacementPrice | currency}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12" style="border-top: 1px solid black; margin-top: 20px;padding-left: 0px !important;padding-right: 0px !important;">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="col-lg-9 col-sm-9 col-md-9 col-xs-9" style="text-align: right !important;">
+                                <label class="control-label" style="font-size:12px;">{{"Sub Total"|translate}}</label>
+                            </div>
+                            <div class="col-lg-3 col-sm-3 col-md-3 col-xs-3" style="text-align: right !important;">
+                                <span style="font-size:12px;padding-left: 25px;">{{subTotal | currency}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="col-lg-9 col-sm-9 col-md-9 col-xs-9" style="text-align: right !important;">
+                                    <label class="control-label" style="font-size:12px;">{{"Taxes"|translate}}({{jewleryItemDetails.taxRate}}%)</label>
+                            </div>
+                            <div class="col-lg-3 col-sm-3 col-md-3 col-xs-3" style="text-align: right !important;">
+                                <span style="font-size:12px;padding-left: 25px;">{{replacedJewelryItem.taxesVal | currency}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="col-lg-9 col-sm-9 col-md-9 col-xs-9" style="text-align: right !important;">
+                                <label class="control-label" style="font-size:12px;">
+                                    {{"Custom Design Charges"|translate}}
+                                    <span ng-if="replacedJewelryItem.customChargesNote && replacedJewelryItem.customChargesNote!='' &&  replacedJewelryItem.customChargesNote!=null" style="font-weight: normal;word-break: break-all;" title="{{replacedJewelryItem.customChargesNote}}">({{replacedJewelryItem.customChargesNote | limitTo : 100}}{{replacedJewelryItem.customChargesNote.length >100 ? '...' : ''}})</span>
+                                </label>
+                            </div>
+                            <div class="col-lg-3 col-sm-3 col-md-3" style="text-align: right !important;">
+                                <span style="font-size:12px;padding-left: 25px;">{{replacedJewelryItem.customCharges | currency}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="col-lg-9 col-sm-9 col-md-9 col-xs-9" style="text-align: right !important;">
+                                <label class="control-label" style="font-size:12px;">
+                                    {{"Labor Charges"|translate}}
+                                    <span ng-if="replacedJewelryItem.labourChargesNote && replacedJewelryItem.labourChargesNote!='' &&  replacedJewelryItem.labourChargesNote!=null" style="font-weight: normal;word-break: break-all;" title="{{replacedJewelryItem.labourChargesNote}}">({{replacedJewelryItem.labourChargesNote | limitTo 70 }} {{replacedJewelryItem.labourChargesNote.length > 70 ? '...' : ''}})</span>
+                                </label>
+                            </div>
+                            <div class="col-lg-3 col-sm-3 col-md-3" style="text-align: right !important;">
+                                <span style="font-size:12px;padding-left: 25px;">{{replacedJewelryItem.labourCharges | currency}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="col-lg-9 col-sm-9 col-md-9 col-xs-9" style="text-align: right !important;">
+                                    <label class="control-label" style="font-size:12px;">{{"Total Replacement Cost"|translate}}</label>
+                            </div>
+                            <div class="col-lg-3 col-sm-3 col-md-3 col-xs-3" style="text-align: right !important;">
+                                <span style="font-size:12px;padding-left: 25px;">{{ replacedJewelryItem.totalReplacementPrice | currency}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>  
+        <div class="col-md-12 col-sm-12 col-xs-12 " style="margin-top: 20px;">
+            <span style="font-size:14px;"><u>Note:</u></span><br />
+            <span style="font-size:12px;">* Artigem has made every attempt to meet or exceed the criteria of your scheduled item. The evaluations were derived from market comparable and are competitively priced for the retail market.</span>
+            <br/>
+            <span style="font-size:12px;">* Policy limits and deductible may apply, contact your insurance adjuster to review your coverage. </span>
+            <br/>
+            <span style="font-size:12px;">* Please visit <span style="color: #1a75ff;"><u>www.artigem.com</u></span> to learn more about Artigem</span>
+        </div>
+        <div class="col-md-12 col-sm-12 col-xs-12 " style="margin-top: 20px;">
+            <span style="font-size:14px;"><u>Want to learn more about jewelry?</u></span>
+            <br/>
+            <span style="font-size:12px;">Diamond education blurb <span style="color: #1a75ff !important;"><u>Link to the diamond education page</u></span></span>
+            <br/>
+            <span style="font-size:12px;">Why is GIA certification important <span style="color: #1a75ff;"><u>Link to the GIA page</u></span></span>
+            <br/>
+        </div>
+    
+        <div class="col-md-12 col-sm-12 col-xs-12 " style="margin-top: 40px; margin-bottom: 10px;">
+            <div style="font-size:14px;">Hey {{policyHolderReviewDetails.lastName}}!</div>
+            <span style="font-size:14px;">Did you know that you can get the below options without having to pay anything out of your pocket! Have a look at your options below</span>
+        </div>
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="col-md-6 col-sm-6 col-xs-6" style="text-align: right;">
+                <img style="height: 40px; width: 30px" ng-src="assets/global/img/arrowdown.png" />
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-6">
+                <span style="font-size:12px;">Visit us at <span style="color: #1a75ff !important;"><u>www.artigem.com/claims</u></span> and leave a message there</span>
+            <br/>
+            <span style="font-size:12px;">Call us on <span style="color: #1a75ff !important;"><u>{{jewleryItemDetails.associate.cellPhone ? jewleryItemDetails.associate.cellPhone : jewleryItemDetails.associate.dayTimePhone| tel}}</u></span> and ask for your personal jewelry specialist {{jewleryItemDetails.associate.lastName}}, {{jewleryItemDetails.associate.firstName}}</span>
+            <br/>
+            </div>
+        </div>
+        <div class="col-md-12 col-xs-12 portlet light margin-top-10" ng-if="diamondOptions.length !== 0"
+            style="width:100%;display:block;float:left;margin:10px 5px 5px 5px;">
+            <div class="portlet light padding1px">
+                <div class="portlet-title">
+                    <div class="caption font-gray-sharp" style="border-bottom: 1px solid black;">
+                        <label class="control-label " style="font-size:12px;">{{"Center Diamond Option"|translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="padding-bottom:5px;margin:5px;border: 1px solid black !important;">
+                <div class="col-md-12 col-sm-12 col-xs-12" ng-repeat="item in diamondOptions">
+                    <div class="caption font-gray-sharp" style="border-bottom: 1px solid black;">
+                        <label ng-if="item.itemFavourite == true" style="font-size:12px;">Replacement Diamond Quoted</label>
+                        <label ng-if="item.itemFavourite == false" style="font-size:12px;">Center Diamond Option #{{$index+1}}</label>
+                    </div>
+                    <div class="col-md-2 col-sm-2 col-xs-2" style="padding-top: 10px;padding-bottom: 10px;">
+                        <img ng-if="( item.imagesDTOSet == undefined ||item.imagesDTOSet == null || !item.imagesDTOSet[0].url) && (item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" src="assets/global/img/no-image.png" alt="image" style="width: 80px; height:80px;" />
+                        <img ng-if="(item.imagesDTOSet != undefined && item.imagesDTOSet && item.imagesDTOSet[0].url ) || !(item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" ng-src="{{ (item.imagesDTOSet[0].url && item.imagesDTOSet[0].url.length!=0) ? item.imagesDTOSet[0].url : item.imageUrl}}" alt="image" style="width: 80px; height:80px;" />
+                    </div>
+                    <div class="col-md-9 col-sm-9 col-xs-9"  style="padding-top: 10px;padding-bottom: 10px;">
+                        <span class="control-label" style="font-size:12px;overflow-wrap: anywhere;">{{item.replacementDescription}}</span>
+                    </div>
+                </div>
+
+                <!-- <div class="col-md-4 cd-sm-4 col-xs-4" ng-repeat="item in diamondOptions">
+                    <div style="height:240px;width:200px;display:block;float:left;margin:10px 5px 5px 5px;border: 1px solid black !important;padding-right: 0px !important;">
+                        <div class="portlet-title" style=" margin: 10px;">
+                            <div class="caption font-gray-sharp" style="border-bottom: 1px solid black;">
+                                <label ng-if="item.itemFavourite == true" style="font-size:12px;">Replacement Diamond Quoted</label>
+                                <label ng-if="item.itemFavourite == false" style="font-size:12px;">Center Diamond Option #{{$index+1}}</label>
+                            </div>
+                        </div>
+                        <div style="text-align: center; margin: 10px;">
+                            <img  style="width: 80px; height:80px;" ng-if="item.imagesDTOSet ==null || item.imagesDTOSet.length==0" ng-src="assets/global/img/no-image.png" />
+                            <img  style="width: 80px; height:80px;" ng-if="item.imagesDTOSet && item.imagesDTOSet.length!=0" ng-src="{{item.imagesDTOSet[0].url}}" />
+                        </div>
+                        <div style="margin: 10px;">
+                            <span style="font-size:12px;overflow-wrap: break-word;">{{item.replacementDescription | limitTo: 150}}{{item.replacementDescription.length >  150 ? '...' : ''}}</span>
+                        </div>
+                    </div>
+                </div> -->
+            </div> 
+        </div>
+    
+    <div class="col-md-12 col-xs-12 portlet light margin-top-10" ng-if="centerStoneGemstonesOptions.length !== 0"
+        style="width:100%;display:block;float:left;margin:10px 5px 5px 5px;">
+        <div class="portlet light padding1px">
+            <div class="portlet-title">
+                <div class="caption font-gray-sharp" style="border-bottom: 1px solid black;">
+                    <label class="control-label" style="font-size:12px;">{{"Center Gemstone Options"|translate}}</label>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="padding-bottom:5px;margin:5px;border: 1px solid black !important;">
+            <div class="col-md-12 col-sm-12 col-xs-12" ng-repeat="item in centerStoneGemstonesOptions">
+                <div class="caption font-gray-sharp" style="border-bottom: 1px solid black;">
+                    <label ng-if="item.itemFavourite == true" style="font-size:12px;">Replacement Gemstone Quoted</label>
+                    <label ng-if="item.itemFavourite == false" style="font-size:12px;">Center Gemstone Option #{{$index+1}}</label>
+                </div>
+                <div class="col-md-2 col-sm-2 col-xs-2" style="padding-top: 10px;padding-bottom: 10px;">
+                    <img ng-if="( item.imagesDTOSet == undefined ||item.imagesDTOSet == null || !item.imagesDTOSet[0].url) && (item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" src="assets/global/img/no-image.png" alt="image" style="width: 80px; height:80px;" />
+                    <img ng-if="(item.imagesDTOSet != undefined && item.imagesDTOSet && item.imagesDTOSet[0].url ) || !(item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" ng-src="{{ (item.imagesDTOSet[0].url && item.imagesDTOSet[0].url.length!=0) ? item.imagesDTOSet[0].url : item.imageUrl}}" alt="image" style="width: 80px; height:80px;" />
+                </div>
+                <div class="col-md-9 col-sm-9 col-xs-9"  style="padding-top: 10px;padding-bottom: 10px;">
+                    <span class="control-label" style="font-size:12px;overflow-wrap: anywhere;">{{item.replacementDescription}}</span>
+                </div>
+            </div>
+            <!-- <div class="col-md-4 cd-sm-4 col-xs-4" ng-repeat="item in centerStoneGemstonesOptions">
+                <div style="height:240px;width:200px;display:block;float:left;margin:10px 5px 5px 5px;border: 1px solid black !important;padding-right: 0px !important;">
+                    <div class="portlet-title" style=" margin: 10px;">
+                        <div class="caption font-gray-sharp" style="border-bottom: 1px solid black;">
+                            <label ng-if="item.itemFavourite == true" style="font-size:12px;">Replacement Gemstone Quoted</label>
+                            <label ng-if="item.itemFavourite == false" style="font-size:12px;">Center Gemstone Option #{{$index+1}}</label>
+                        </div>
+                    </div>
+                    <div style="text-align: center; margin: 10px;">
+                        <img  style="width: 80px; height:80px;" ng-if="item.imagesDTOSet ==null || item.imagesDTOSet.length==0" ng-src="assets/global/img/no-image.png" />
+                        <img  style="width: 80px; height:80px;" ng-if="item.imagesDTOSet && item.imagesDTOSet.length!=0" ng-src="{{item.imagesDTOSet[0].url}}" />
+                    </div>
+                    <div style=" margin: 10px;">
+                        <span style="font-size:12px;overflow-wrap: break-word;">{{item.replacementDescription | limitTo: 150}}{{item.replacementDescription.length >  150 ? '...' : ''}}</span>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+    </div>
+    <div class="col-md-12 col-xs-12 portlet light margin-top-10" ng-if="leftCenterStoneDiamonds.length !== 0"
+        style="width:100%;display:block;float:left;margin:10px 5px 5px 5px;">
+        <div class="portlet light padding1px">
+            <div class="portlet-title">
+                <div class="caption font-gray-sharp" style="border-bottom: 1px solid black;margin-bottom: 5px;">
+                    <label class="control-label" style="font-size:12px;">{{"Left Diamond Option"|translate}}</label>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="padding-bottom:5px;margin:5px;border: 1px solid black !important;">
+            <div class="col-md-12 col-sm-12 col-xs-12" ng-repeat="item in leftCenterStoneDiamonds">
+                <div class="caption font-gray-sharp" style="border-bottom: 1px solid black;">
+                    <label ng-if="item.itemFavourite == true" style="font-size:12px;">Replacement Left Diamond Quoted</label>
+                    <label ng-if="item.itemFavourite == false" style="font-size:12px;">Left Diamond Option #{{$index+1}}</label>
+                </div>
+                <div class="col-md-2 col-sm-2 col-xs-2" style="padding-top: 10px;padding-bottom: 10px;">
+                    <img ng-if="(item.imagesDTOSet == undefined ||item.imagesDTOSet == null || !item.imagesDTOSet[0].url) && (item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" src="assets/global/img/no-image.png" alt="image" class="img-responsive itemImg" style="width: 80px; height:80px;" />
+                    <img ng-if="(item.imagesDTOSet != undefined && item.imagesDTOSet && item.imagesDTOSet[0].url) || !(item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" ng-src="{{ (item.imagesDTOSet[0].url && item.imagesDTOSet[0].url.length!=0) ? item.imagesDTOSet[0].url : item.imageUrl}}" alt="image" class="img-responsive itemImg" style="width: 80px; height:80px;" />
+                </div>
+                <div class="col-md-9 col-sm-9 col-xs-9"  style="padding-top: 10px;padding-bottom: 10px;">
+                    <span class="control-label" style="font-size:12px;overflow-wrap: anywhere;">{{item.replacementDescription}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 col-xs-12 portlet light margin-top-10" ng-if="leftCenterStoneGemstones.length !== 0"
+        style="width:100%;display:block;float:left;margin:10px 5px 5px 5px;">
+        <div class="portlet light padding1px">
+            <div class="portlet-title">
+                <div class="caption font-gray-sharp" style="border-bottom: 1px solid black;margin-bottom: 5px;">
+                    <label class="control-label" style="font-size:12px;">{{"Left Gemstone Option"|translate}}</label>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="padding-bottom:5px;margin:5px;border: 1px solid black !important;">
+            <div class="col-md-12 col-sm-12 col-xs-12" ng-repeat="item in leftCenterStoneGemstones">
+                <div class="caption font-gray-sharp" style="border-bottom: 1px solid black;">
+                    <label ng-if="item.itemFavourite == true" style="font-size:12px;">Replacement Left Gemstone Quoted</label>
+                    <label ng-if="item.itemFavourite == false" style="font-size:12px;">Left Gemstone Option #{{$index+1}}</label>
+                </div>
+                <div class="col-md-2 col-sm-2 col-xs-2" style="padding-top: 10px;padding-bottom: 10px;">
+                    <img ng-if="(item.imagesDTOSet == undefined ||item.imagesDTOSet == null || !item.imagesDTOSet[0].url) && (item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" src="assets/global/img/no-image.png" alt="image" class="img-responsive itemImg" style="width: 80px; height:80px;" />
+                    <img ng-if="(item.imagesDTOSet != undefined && item.imagesDTOSet && item.imagesDTOSet[0].url) || !(item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" ng-src="{{ (item.imagesDTOSet[0].url && item.imagesDTOSet[0].url.length!=0) ? item.imagesDTOSet[0].url : item.imageUrl}}" alt="image" class="img-responsive itemImg" style="width: 80px; height:80px;" />
+                </div>
+                <div class="col-md-9 col-sm-9 col-xs-9"  style="padding-top: 10px;padding-bottom: 10px;">
+                    <span class="control-label" style="font-size:12px;overflow-wrap: anywhere;">{{item.replacementDescription}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 col-xs-12 portlet light margin-top-10" ng-if="rightCenterStoneDiamonds.length !== 0"
+        style="width:100%;display:block;float:left;margin:10px 5px 5px 5px;">
+        <div class="portlet light padding1px">
+            <div class="portlet-title">
+                <div class="caption font-gray-sharp" style="border-bottom: 1px solid black;margin-bottom: 5px;">
+                    <label class="control-label" style="font-size:12px;">{{"Right Diamond Option"|translate}}</label>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="padding-bottom:5px;margin:5px;border: 1px solid black !important;">
+            <div class="col-md-12 col-sm-12 col-xs-12" ng-repeat="item in rightCenterStoneDiamonds">
+                <div class="caption font-gray-sharp" style="border-bottom: 1px solid black;">
+                    <label ng-if="item.itemFavourite == true" style="font-size:12px;">Replacement Right Diamond Quoted</label>
+                    <label ng-if="item.itemFavourite == false" style="font-size:12px;">Right Diamond Option #{{$index+1}}</label>
+                </div>
+                <div class="col-md-2 col-sm-2 col-xs-2" style="padding-top: 10px;padding-bottom: 10px;">
+                    <img ng-if="(item.imagesDTOSet == undefined ||item.imagesDTOSet == null || !item.imagesDTOSet[0].url) && (item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" src="assets/global/img/no-image.png" alt="image" class="img-responsive itemImg" style="width: 80px; height:80px;" />
+                    <img ng-if="(item.imagesDTOSet != undefined && item.imagesDTOSet && item.imagesDTOSet[0].url) || !(item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" ng-src="{{ (item.imagesDTOSet[0].url && item.imagesDTOSet[0].url.length!=0) ? item.imagesDTOSet[0].url : item.imageUrl}}" alt="image" class="img-responsive itemImg" style="width: 80px; height:80px;" />
+                </div>
+                <div class="col-md-9 col-sm-9 col-xs-9"  style="padding-top: 10px;padding-bottom: 10px;">
+                    <span class="control-label" style="font-size:12px;overflow-wrap: anywhere;">{{item.replacementDescription}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 col-xs-12 portlet light margin-top-10" ng-if="rightCenterStoneGemstones.length !== 0"
+        style="width:100%;display:block;float:left;margin:10px 5px 5px 5px;">
+        <div class="portlet light padding1px">
+            <div class="portlet-title">
+                <div class="caption font-gray-sharp" style="border-bottom: 1px solid black;margin-bottom: 5px;">
+                    <label class="control-label" style="font-size:12px;">{{"Right Gemstone Option"|translate}}</label>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="padding-bottom:5px;margin:5px;border: 1px solid black !important;">
+            <div class="col-md-12 col-sm-12 col-xs-12" ng-repeat="item in rightCenterStoneGemstones">
+                <div class="caption font-gray-sharp" style="border-bottom: 1px solid black;">
+                    <label ng-if="item.itemFavourite == true" style="font-size:12px;">Replacement Right Gemstone Quoted</label>
+                    <label ng-if="item.itemFavourite == false" style="font-size:12px;">Right Gemstone Option #{{$index+1}}</label>
+                </div>
+                <div class="col-md-2 col-sm-2 col-xs-2" style="padding-top: 10px;padding-bottom: 10px;">
+                    <img ng-if="(item.imagesDTOSet == undefined ||item.imagesDTOSet == null || !item.imagesDTOSet[0].url) && (item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" src="assets/global/img/no-image.png" alt="image" class="img-responsive itemImg" style="width: 80px; height:80px;" />
+                    <img ng-if="(item.imagesDTOSet != undefined && item.imagesDTOSet && item.imagesDTOSet[0].url) || !(item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" ng-src="{{ (item.imagesDTOSet[0].url && item.imagesDTOSet[0].url.length!=0) ? item.imagesDTOSet[0].url : item.imageUrl}}" alt="image" class="img-responsive itemImg" style="width: 80px; height:80px;" />
+                </div>
+                <div class="col-md-9 col-sm-9 col-xs-9"  style="padding-top: 10px;padding-bottom: 10px;">
+                    <span class="control-label" style="font-size:12px;overflow-wrap: anywhere;">{{item.replacementDescription}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 col-xs-12 portlet light margin-top-10" ng-if="settingOptions.length !== 0"
+        style="width:100%;display:block;float:left;margin:10px 5px 5px 5px;">
+        <div class="portlet light padding1px">
+            <div class="portlet-title">
+                <div class="caption font-gray-sharp" style="border-bottom: 1px solid black;">
+                    <label class="control-label" style="font-size:12px;">{{"Setting Option"|translate}}</label>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="padding-bottom:5px;margin:5px;border: 1px solid black !important;">
+            <div class="col-md-12 col-sm-12 col-xs-12" ng-repeat="item in settingOptions">
+                <div class="caption font-gray-sharp" style="border-bottom: 1px solid black;">
+                    <label ng-if="item.itemFavourite == true" style="font-size:12px;">Replacement Setting Quoted</label>
+                    <label ng-if="item.itemFavourite == false" style="font-size:12px;">Setting Option #{{$index+1}}</label>
+                </div>
+                <div class="col-md-2 col-sm-2 col-xs-2" style="padding-top: 10px;padding-bottom: 10px;">
+                    <img ng-if="( item.imagesDTOSet == undefined ||item.imagesDTOSet == null || !item.imagesDTOSet[0].url) && (item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" src="assets/global/img/no-image.png" alt="image" style="width: 80px; height:80px;" />
+                        <img ng-if="(item.imagesDTOSet != undefined && item.imagesDTOSet && item.imagesDTOSet[0].url ) || !(item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" ng-src="{{ (item.imagesDTOSet[0].url && item.imagesDTOSet[0].url.length!=0) ? item.imagesDTOSet[0].url : item.imageUrl}}" alt="image" style="width: 80px; height:80px;" />
+                </div>
+                <div class="col-md-9 col-sm-9 col-xs-9"  style="padding-top: 10px;padding-bottom: 10px;">
+                    <span class="control-label" style="font-size:12px;overflow-wrap: anywhere;">{{item.replacementDescription}}</span>
+                </div>
+            </div>
+            <!-- <div class="col-md-4 cd-sm-4 col-xs-4" ng-repeat="item in settingOptions">
+                <div style="height:240px;width:200px;display:block;float:left;margin:10px 5px 5px 5px;border: 1px solid black !important;padding-right: 0px !important;">
+                    <div class="portlet-title" style=" margin: 10px;">
+                        <div class="caption font-gray-sharp" style="border-bottom: 1px solid black;">
+                            <label ng-if="item.itemFavourite == true" style="font-size:12px;">Replacement Setting Quoted</label>
+                            <label ng-if="item.itemFavourite == false" style="font-size:12px;">Setting Option #{{$index+1}}</label>
+                        </div>
+                    </div>
+                    <div style="text-align: center; margin: 10px;">
+                        <img  style="width: 80px; height:80px;" ng-if="item.imagesDTOSet ==null || item.imagesDTOSet.length==0" ng-src="assets/global/img/no-image.png" />
+                        <img  style="width: 80px; height:80px;" ng-if="item.imagesDTOSet && item.imagesDTOSet.length!=0" ng-src="{{item.imagesDTOSet[0].url}}" />
+                    </div>
+                    <div style=" margin: 10px;">
+                        <span style="font-size:12px;overflow-wrap: break-word;">{{item.replacementDescription | limitTo: 150}}{{item.replacementDescription.length >  150 ? '...' : ''}}</span>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+    </div>
+    <div class="col-md-12 col-xs-12 portlet light margin-top-10" ng-if="weddingbandOptions.length !== 0"
+        style="width:100%;display:block;float:left;margin:10px 5px 5px 5px;">
+        <div class="portlet light padding1px">
+            <div class="portlet-title">
+                <div class="caption font-gray-sharp" style="border-bottom: 1px solid black;">
+                    <label class="control-label" style="font-size:12px;">{{"Wedding Band Option"|translate}}</label>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="padding-bottom:5px;margin:5px;border: 1px solid black !important;">
+            <div class="col-md-12 col-sm-12 col-xs-12" ng-repeat="item in weddingbandOptions">
+                <div class="caption font-gray-sharp" style="border-bottom: 1px solid black;">
+                    <label ng-if="item.itemFavourite == true" style="font-size:12px;">Replacement Wedding Band Quoted</label>
+                    <label ng-if="item.itemFavourite == false" style="font-size:12px;">Wedding Band Option #{{$index+1}}</label>
+                </div>
+                <div class="col-md-2 col-sm-2 col-xs-2" style="padding-top: 10px;padding-bottom: 10px;">
+                    <img ng-if="( item.imagesDTOSet == undefined ||item.imagesDTOSet == null || !item.imagesDTOSet[0].url) && (item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" src="assets/global/img/no-image.png" alt="image" style="width: 80px; height:80px;" />
+                        <img ng-if="(item.imagesDTOSet != undefined && item.imagesDTOSet && item.imagesDTOSet[0].url ) || !(item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" ng-src="{{ (item.imagesDTOSet[0].url && item.imagesDTOSet[0].url.length!=0) ? item.imagesDTOSet[0].url : item.imageUrl}}" alt="image" style="width: 80px; height:80px;" />
+                </div>
+                <div class="col-md-9 col-sm-9 col-xs-9"  style="padding-top: 10px;padding-bottom: 10px;">
+                    <span class="control-label" style="font-size:12px;overflow-wrap: anywhere;">{{item.replacementDescription}}</span>
+                </div>
+            </div>
+            <!-- <div class="col-md-4 cd-sm-4 col-xs-4" ng-repeat="item in weddingbandOptions">
+                <div style="height:240px;width:200px;display:block;float:left;margin:10px 5px 5px 5px;border: 1px solid black !important;padding-right: 0px !important;">
+                    <div class="portlet-title" style=" margin: 10px;">
+                        <div class="caption font-gray-sharp" style="border-bottom: 1px solid black;">
+                            <label ng-if="item.itemFavourite == true" style="font-size:12px;">Replacement Wedding Band Quoted</label>
+                            <label ng-if="item.itemFavourite == false" style="font-size:12px;">Wedding Band Option #{{$index+1}}</label>
+                        </div>
+                    </div>
+                    <div style="text-align: center; margin: 10px;">
+                        <img  style="width: 80px; height:80px;" ng-if="item.imagesDTOSet ==null || item.imagesDTOSet.length==0" ng-src="assets/global/img/no-image.png" />
+                        <img  style="width: 80px; height:80px;" ng-if="item.imagesDTOSet && item.imagesDTOSet.length!=0" ng-src="{{item.imagesDTOSet[0].url}}" />
+                    </div>
+                    <div style=" margin: 10px;">
+                        <span style="font-size:12px;overflow-wrap: break-word;">{{item.replacementDescription | limitTo: 150}}{{item.replacementDescription.length >  150 ? '...' : ''}}</span>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+    </div>
+    <div class="col-md-12 col-xs-12 portlet light margin-top-10" ng-if="chains.length !== 0"
+        style="width:100%;display:block;float:left;margin:10px 5px 5px 5px;">
+        <div class="portlet light padding1px">
+            <div class="portlet-title">
+                <div class="caption font-gray-sharp" style="border-bottom: 1px solid black;margin-bottom: 5px;">
+                    <label class="control-label" style="font-size:12px;">{{"Chains Option"|translate}}</label>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="padding-bottom:5px;margin:5px;border: 1px solid black !important;">
+            <div class="col-md-12 col-sm-12 col-xs-12" ng-repeat="item in chains">
+                <div class="caption font-gray-sharp" style="border-bottom: 1px solid black;">
+                    <label ng-if="item.itemFavourite == true" style="font-size:12px;">Replacement Chains Quoted</label>
+                    <label ng-if="item.itemFavourite == false" style="font-size:12px;">Chains Option #{{$index+1}}</label>
+                </div>
+                <div class="col-md-2 col-sm-2 col-xs-2" style="padding-top: 10px;padding-bottom: 10px;">
+                    <img ng-if="(item.imagesDTOSet == undefined ||item.imagesDTOSet == null || !item.imagesDTOSet[0].url) && (item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" src="assets/global/img/no-image.png" alt="image" class="img-responsive itemImg" style="width: 80px; height:80px;" />
+                    <img ng-if="(item.imagesDTOSet != undefined && item.imagesDTOSet && item.imagesDTOSet[0].url) || !(item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" ng-src="{{ (item.imagesDTOSet[0].url && item.imagesDTOSet[0].url.length!=0) ? item.imagesDTOSet[0].url : item.imageUrl}}" alt="image" class="img-responsive itemImg" style="width: 80px; height:80px;" />
+                </div>
+                <div class="col-md-9 col-sm-9 col-xs-9"  style="padding-top: 10px;padding-bottom: 10px;">
+                    <span class="control-label" style="font-size:12px;overflow-wrap: anywhere;">{{item.replacementDescription}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-12 col-xs-12 portlet light margin-top-10" ng-if="centerStonePearls.length !== 0"
+        style="width:100%;display:block;float:left;margin:10px 5px 5px 5px;">
+        <div class="portlet light padding1px">
+            <div class="portlet-title">
+                <div class="caption font-gray-sharp" style="border-bottom: 1px solid black;margin-bottom: 5px;">
+                    <label class="control-label" style="font-size:12px;">{{"Pearl Option"|translate}}</label>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="padding-bottom:5px;margin:5px;border: 1px solid black !important;">
+            <div class="col-md-12 col-sm-12 col-xs-12" ng-repeat="item in centerStonePearls">
+                <div class="caption font-gray-sharp" style="border-bottom: 1px solid black;">
+                    <label ng-if="item.itemFavourite == true" style="font-size:12px;">Replacement Pearl Quoted</label>
+                    <label ng-if="item.itemFavourite == false" style="font-size:12px;">Pearl Option #{{$index+1}}</label>
+                </div>
+                <div class="col-md-2 col-sm-2 col-xs-2" style="padding-top: 10px;padding-bottom: 10px;">
+                    <img ng-if="(item.imagesDTOSet == undefined ||item.imagesDTOSet == null || !item.imagesDTOSet[0].url) && (item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" src="assets/global/img/no-image.png" alt="image" class="img-responsive itemImg" style="width: 80px; height:80px;" />
+                    <img ng-if="(item.imagesDTOSet != undefined && item.imagesDTOSet && item.imagesDTOSet[0].url) || !(item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" ng-src="{{ (item.imagesDTOSet[0].url && item.imagesDTOSet[0].url.length!=0) ? item.imagesDTOSet[0].url : item.imageUrl}}" alt="image" class="img-responsive itemImg" style="width: 80px; height:80px;" />
+                </div>
+                <div class="col-md-9 col-sm-9 col-xs-9"  style="padding-top: 10px;padding-bottom: 10px;">
+                    <span class="control-label" style="font-size:12px;overflow-wrap: anywhere;">{{item.replacementDescription}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 col-xs-12 portlet light margin-top-10" ng-if="mainWatchs.length !== 0"
+        style="width:100%;display:block;float:left;margin:10px 5px 5px 5px;">
+        <div class="portlet light padding1px">
+            <div class="portlet-title">
+                <div class="caption font-gray-sharp" style="border-bottom: 1px solid black;margin-bottom: 5px;">
+                    <label class="control-label" style="font-size:12px;">{{"Watch Option"|translate}}</label>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="padding-bottom:5px;margin:5px;border: 1px solid black !important;">
+            <div class="col-md-12 col-sm-12 col-xs-12" ng-repeat="item in mainWatchs">
+                <div class="caption font-gray-sharp" style="border-bottom: 1px solid black;">
+                    <label ng-if="item.itemFavourite == true" style="font-size:12px;">Replacement Watch Quoted</label>
+                    <label ng-if="item.itemFavourite == false" style="font-size:12px;">Watch Option #{{$index+1}}</label>
+                </div>
+                <div class="col-md-2 col-sm-2 col-xs-2" style="padding-top: 10px;padding-bottom: 10px;">
+                    <img ng-if="(item.imagesDTOSet == undefined ||item.imagesDTOSet == null || !item.imagesDTOSet[0].url) && (item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" src="assets/global/img/no-image.png" alt="image" class="img-responsive itemImg" style="width: 80px; height:80px;" />
+                    <img ng-if="(item.imagesDTOSet != undefined && item.imagesDTOSet && item.imagesDTOSet[0].url) || !(item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" ng-src="{{ (item.imagesDTOSet[0].url && item.imagesDTOSet[0].url.length!=0) ? item.imagesDTOSet[0].url : item.imageUrl}}" alt="image" class="img-responsive itemImg" style="width: 80px; height:80px;" />
+                </div>
+                <div class="col-md-9 col-sm-9 col-xs-9"  style="padding-top: 10px;padding-bottom: 10px;">
+                    <span class="control-label" style="font-size:12px;overflow-wrap: anywhere;">{{item.replacementDescription}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 col-xs-12 portlet light margin-top-10" ng-if="customAdditions.length !== 0"
+        style="width:100%;display:block;float:left;margin:10px 5px 5px 5px;">
+        <div class="portlet light padding1px">
+            <div class="portlet-title">
+                <div class="caption font-gray-sharp" style="border-bottom: 1px solid black;margin-bottom: 5px;">
+                    <label class="control-label" style="font-size:12px;">{{"Watch Custom Addition Option"|translate}}</label>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="padding-bottom:5px;margin:5px;border: 1px solid black !important;">
+            <div class="col-md-12 col-sm-12 col-xs-12" ng-repeat="item in customAdditions">
+                <div class="caption font-gray-sharp" style="border-bottom: 1px solid black;">
+                    <label ng-if="item.itemFavourite == true" style="font-size:12px;">Replacement Watch Custom Addition Quoted</label>
+                    <label ng-if="item.itemFavourite == false" style="font-size:12px;">Watch Custom Addition Option #{{$index+1}}</label>
+                </div>
+                <div class="col-md-2 col-sm-2 col-xs-2" style="padding-top: 10px;padding-bottom: 10px;">
+                    <img ng-if="(item.imagesDTOSet == undefined ||item.imagesDTOSet == null || !item.imagesDTOSet[0].url) && (item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" src="assets/global/img/no-image.png" alt="image" class="img-responsive itemImg" style="width: 80px; height:80px;" />
+                    <img ng-if="(item.imagesDTOSet != undefined && item.imagesDTOSet && item.imagesDTOSet[0].url) || !(item.imageUrl == undefined || item.imageUrl == null || item.imageUrl =='')" ng-src="{{ (item.imagesDTOSet[0].url && item.imagesDTOSet[0].url.length!=0) ? item.imagesDTOSet[0].url : item.imageUrl}}" alt="image" class="img-responsive itemImg" style="width: 80px; height:80px;" />
+                </div>
+                <div class="col-md-9 col-sm-9 col-xs-9"  style="padding-top: 10px;padding-bottom: 10px;">
+                    <span class="control-label" style="font-size:12px;overflow-wrap: anywhere;">{{item.replacementDescription}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 col-sm-12 col-xs-12 " style="margin-top: 20px;">
+        <span style="font-size:14px;"><u>Interested in learning more about your replacement options?</u></span>
+        <br/>
+        <span style="font-size:12px;">Visit us at <span style="color: #1a75ff !important;"><u>www.artigem.com/replacements</u></span> and leave a message there</span>
+        <br/>
+        <span style="font-size:12px;">Call us on <span style="color: #1a75ff !important;"><u>{{jewleryItemDetails.associate.cellPhone ? jewleryItemDetails.associate.cellPhone : jewleryItemDetails.associate.dayTimePhone | tel}}</u></span> and ask for your personal jewelry specialist {{jewleryItemDetails.associate.lastName}}, {{jewleryItemDetails.associate.firstName}}</span>
+        <br/>
+    </div>
+</div>
+<!--Printable Div End-->

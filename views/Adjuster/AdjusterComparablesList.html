@@ -1,0 +1,74 @@
+﻿
+<div>
+   
+    <div class="modal-header">
+        <a  class="close" data-dismiss="modal" aria-hidden="true" ng-click="ok($event)"></a>
+        <h4 class="modal-title">{{"Model.Header_ComparableList"|translate}}</h4>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+                <div class="col-md-12 margin-bottom-10">
+                    <div class="col-md-3">
+                        <select class="form-control" data-placeholder="Status">
+                            <option value="1">Cat-1</option>
+                            <option value="">Cat-2</option>
+                            <option value="">Cat-3</option>
+                        </select>
+                    </div>
+                    <div class="col-md-offset-1 col-md-8">
+                        <div class="input-icon left">
+                            <i class="icon-magnifier"></i>
+                            <input type="text" class="form-control form-control-solid input-circle input-block-level" ng-model="search" placeholder="1895 MARCO POLO CANVAS PAINTING">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-12">
+                <div class="col-md-offset-4 col-md-3 text-right text-primary">
+                    <label class="col-md-12">{{"ControlText.SortBy_title"|translate}}</label>
+                </div>
+                <div class="col-md-5">
+                    <select class="form-control col-md-12" data-placeholder="Option"  ng-model="sortcolumn">
+                        <option ng-repeat="option in SortOptions" value="{{option.Id}}">{{option.Value}}</option>
+                    </select>
+                </div>
+                
+            </div>
+
+            <div class="col-md-12 table-responsive">
+                <table class="col-md-12 table-hover table-striped">
+                    <tr class="col-md-12 block thumbnail" dir-paginate="comparable in comparableList|filter:search|orderBy:sortcolumn|itemsPerPage:2">
+                        <td class="col-md-4">
+                            <img ng-src="{{comparable.image}}" class="img-thumbnail img-responsive" height="100px" width="100px" />
+                        </td>
+                        <td class="col-md-4">
+                            <ul class="text-muted" style="list-style-type:none;" data-ng-repeat="details in comparable.details">
+                                <li>{{details.BrandName}}</li>
+                                <li>{{details.Model}}</li>
+                                <li>{{details.Price}}</li>
+                                <li>{{details.Description}}</li>
+                                <li><a herf="#">Buy / View Here.</a></li>
+                            </ul>
+                            
+                        </td>
+                        <td class="col-md-4">
+                            <label class="col-md-12 mt-checkbox mt-checkbox-outline text-danger">
+                                <input type="checkbox" class="checkboxes form-control" />
+                                <span></span>Add To Comparables
+                            </label>
+                        </td>
+                    </tr>
+                </table>
+                <div ng-show="!comparableList.length" class="col-md-12 text-center text-danger">No Records available</div>
+                <dir-pagination-controls max-size="3"
+                                         direction-links="true"
+                                         boundary-links="true" class="pull-right">
+                </dir-pagination-controls>
+            </div>
+        </div>
+        </div>
+    <div class="modal-footer">
+        <button type="button" class="btn dark btn-outline" data-dismiss="modal" ng-click="cancel($event)">{{"ControlText.Cancel_title"|translate}}</button>
+        <button type="button" class="btn green" ng-click="ok($event)">{{"ControlText.Assign_title"|translate}}</button>
+    </div>
+</div>
+<!-- /.modal-content -->

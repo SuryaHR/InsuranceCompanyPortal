@@ -1,0 +1,338 @@
+<style>
+  .CursorLeft {
+        cursor: pointer !important;
+    }
+
+    .ReplacedClass {
+        border: 2px solid #6bbae0 !important;
+        padding: 12px 15px 15px 15px !important;
+        border-radius: 4px !important;
+        margin-bottom: 10px !important;
+    }
+    .disable-span{
+    color: #E6E6E6;
+    cursor: not-allowed;
+}
+
+ .mt_10 {
+   margin-top : 5px !important;
+ }
+
+ .mb_10 {
+   margin-bottom : 5px !important;
+ }
+</style>
+<script type="text/javascript">
+  $(function() {
+    iOSHandler();
+    $(window).on("orientationchange", function(event) {
+      iOSHandler();
+    });
+  });
+
+  function iOSHandler() {
+    var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    var width = screen.width;
+
+    if (iOS) {
+
+      var orientation;
+      if (window.orientation == undefined) {
+        orientation = window.screen.orientation.angle;
+      } else {
+        orientation = window.orientation;
+      }
+
+      if (orientation != 0) {
+        if (screen.width < screen.height) {
+          width = screen.height;
+        }
+      }
+      //iPhone4-Landscape
+      if (width > 475 && width < 485) {
+        $(".comparablesDivDB").css("height", "auto");
+        $(".addedComp").css("width", "100%");
+        $(".addedComp").css("overflow", "scroll");
+        $(".addedComp").css("-webkit-overflow-scrolling", "touch");
+
+      }
+
+      //iPhone5-Landscape
+      else if (width > 562 && width < 572) {
+        $(".comparablesDivDB").css("height", "auto");
+        $(".addedComp").css("width", "100%");
+        $(".addedComp").css("overflow", "scroll");
+        $(".addedComp").css("-webkit-overflow-scrolling", "touch");
+
+      }
+      //iPhone4,5-Portrait
+      else if (width > 315 && width < 325) {
+        $(".comparablesDivDB").css("height", "auto");
+        $(".addedComp").css("width", "100%");
+        $(".addedComp").css("overflow", "scroll");
+        $(".addedComp").css("-webkit-overflow-scrolling", "touch");
+
+      }
+
+      //iPhone6-Landscape
+      else if (width > 660 && width < 670) {
+        $(".comparablesDivDB").css("height", "auto");
+        $(".addedComp").css("width", "100%");
+        $(".addedComp").css("overflow", "scroll");
+        $(".addedComp").css("-webkit-overflow-scrolling", "touch");
+
+      }
+      //iPhone6-Portrait
+      else if (width > 370 && width < 380) {
+        $(".comparablesDivDB").css("height", "auto");
+        $(".addedComp").css("width", "100%");
+        $(".addedComp").css("overflow", "scroll");
+        $(".addedComp").css("-webkit-overflow-scrolling", "touch");
+
+      }
+
+      //iPhone6+-Landscape
+      else if (width > 730 && width < 740) {
+        $(".comparablesDivDB").css("height", "auto");
+        $(".addedComp").css("width", "100%");
+        $(".addedComp").css("overflow", "scroll");
+        $(".addedComp").css("-webkit-overflow-scrolling", "touch");
+
+      }
+      //iPhone6+-Portrait
+      else if (width > 410 && width < 420) {
+        $(".comparablesDivDB").css("height", "auto");
+        $(".addedComp").css("width", "100%");
+        $(".addedComp").css("overflow", "scroll");
+        $(".addedComp").css("-webkit-overflow-scrolling", "touch");
+
+      }
+
+      //ipad
+      else if (width > 1020 && width < 1025) {
+        $(".comparablesDivDB").css("height", "958px");
+        $(".googleComparableBodyHeight").css("height", "729px");
+        $(".googleSerachResultDiv").css("height", "632px");
+        $(".noteDiv").css("height", "215px");
+        $(".addedComp").css("height", "215px");
+        $(".addedComp").css("width", "100%");
+        $(".addedComp").css("overflow", "scroll");
+        $(".addedComp").css("-webkit-overflow-scrolling", "touch");
+
+
+      }
+
+      //else if (width > 760 && width < 769) {
+
+      //    $(".googleComparableBodyHeight").css("height", "680px");
+
+      //}
+      else if (width > 1360 && width < 1367) {
+        $(".googleComparableBodyHeight").css("height", "540px");
+        $(".comparablesDivDB").css("height", "853px");
+
+      }
+    }
+  }
+</script>
+<style>
+  #btnAddCustomItem:hover {
+    color: ghostwhite;
+  }
+
+  .mandatory {
+    color: red;
+  }
+
+  .NoDecoration {
+    text-decoration: none !important;
+    color: black;
+  }
+
+  .angucomplete-dropdown {
+    bottom: 100% !important;
+  }
+
+  /* Start -Added for Currency format for input field */
+  label.currencyLbl {
+      position: absolute;
+      background: white;
+      left: 15px;
+      top: 0px;
+      cursor: pointer;
+      padding: 2px 10px !important;
+      max-width: inherit;
+  }
+
+  input.currency {
+      position: relative;
+      width: 120px !important;
+  }
+
+  input.currency {
+      padding: 0;
+      border: 1px solid #c2cad8;
+      width: 120px !important;
+      font-family: Arial;
+      line-height: 20px;
+  }
+  label.currencyLbl {
+      padding: 0;
+      border: 1px solid #c2cad8;
+      width: 120px !important;
+      font-family: Arial;
+      line-height: 19px;
+      height: 25px;
+      font-weight: 400 !important;
+      color: #555555;
+      font-size: 12px !important;
+  }
+  input.currency:focus+label.currencyLbl {
+      display: none !important;
+  }
+  /* Added for the selection disable */
+  label.currencyLbl::selection {
+      display: none !important;
+  }
+
+  .pt_13 {
+    padding-top:13px !important;
+  }
+
+  @media (min-device-width:768px) {
+    .width14 {
+      width: 16% !important;
+    }
+
+    .width16 {
+      width: 17.6%;
+      height: 4px;
+    }
+
+    .StatusNumber {
+      margin-left: 2% !important;
+    }
+
+    .StatusHorizontalLine {
+      margin-left: 9% !important;
+    }
+  }
+
+  @media (max-device-width:768px) {
+    .width14 {
+      width: 14% !important;
+    }
+
+    .width16 {
+      width: 15%;
+      height: 4px;
+    }
+
+    .StatusNumber {
+      margin-left: 13% !important;
+    }
+
+    .StatusHorizontalLine {
+      margin-left: 18% !important;
+    }
+  }
+</style>
+<div class="col-md-12 padding1px" id="appsettingpage">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-left: 5px;">
+    <ul class="page-breadcrumb breadcrumb sbold" style="padding-bottom: 10px !important; ">
+      <li>
+        <a ng-click="GoToStaListPage()">{{"Premium Values"|translate}}</a>
+        <i class="fa fa-circle"></i>
+      </li>
+      <li>
+        <span>{{stateName}}</span>
+      </li>
+    </ul>
+  </div>
+  <div class="clearfix"></div>
+  <div class="col-lg-12 col-sm-12 col-md-12 padding1px">
+    <div class="portlet light padding1px">
+      <div class="portlet-title">
+        <div class="caption  font-grey-sharp ">
+          <span class="caption-subject">{{stateName}}{{"Premium Values by Zip Code"|translate}}({{zipCodes.length}}) </span>
+        </div>
+
+      </div>
+      <div class="portlet-body">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 options_Background">
+          <button class="btn sbold btnMargin mt_10 mb_10" ng-click="addNewZipCode()">
+            {{"Add New Zip Code"|translate}}
+          </button>
+          <div class="col-md-3 col-sm-5 pull-right mt_10">
+            <div class="input-icon left">
+              <i class="icon-magnifier"></i>
+              <input type="text" ng-model="search" ng-keyup="search.length > 0 ? ($event.keyCode == 13 && searchZipcodes(search)):searchZipcodes('')" class="form-control form-control-solid input-circle input-block-level " placeholder="{{'SearchchText'| translate}}" maxlength="5">
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12 table-responsive padding1px">
+          <table class="table table-striped table-bordered">
+            <thead>
+              <tr>
+                <th class="width30" ng-click="sort('name')">
+                  {{"Zip Code"|translate}}
+                  <span class="glyphicon sort-icon" ng-show="sortKey=='name'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+
+                </th>
+                <th class="width30" ng-click="sort('descriptions')">
+                  {{"Premium Value (Per $1000.00)"|translate}}
+                  <span class="glyphicon sort-icon" ng-show="sortKey=='descriptions'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+
+                </th>
+                <th class="width40" ng-click="sort('status')" class="statusHeading">
+                  {{"Area"|translate}}
+                  <span class="glyphicon sort-icon" ng-show="sortKey=='status'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                </th>
+                <th>
+                  {{"Action"|translate}}
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr dir-paginate="zipcode in zipCodes|itemsPerPage:50" ng-include="getTemplate(zipcode)"></tr>
+              <tr ng-if="zipCodes==null||zipCodes.length ==0" class="text-danger text-center" >
+                  <td colspan="6">{{"NoRecordText"|translate}}</td>
+              </tr>
+            </tbody>
+          </table>
+          <dir-pagination-controls max-size="3" direction-links="true" on-page-change="pageChanged(newPageNumber)" boundary-links="true" class="pull-right">
+          </dir-pagination-controls>
+          <script type="text/ng-template" id="display">
+            <td ng-click="EditZipCodeAndPremiums(zipcode)">{{zipcode.zipcode}}</td>
+                      <td ng-click="EditZipCodeAndPremiums(zipcode)">{{zipcode.premiumValue}}</td>
+                      <td ng-click="EditZipCodeAndPremiums(zipcode)">{{zipcode.Area}}</td>
+                      <td>
+                          <div  style="display:flex !important;">
+                              <span class="btn btn-link btn-xs" style="margin:0px!important;background:none;width:65px !important" ng-click="EditZipCodeAndPremiums(zipcode)">{{"Edit"|translate}}</span>&nbsp;&nbsp;|
+                              <span class="btn btn-link btn-xs" style="margin:0px!important;background:none" ng-click="removeZipCode(zipcode)">{{"Delete"|translate}}</span>
+                          </div>
+                      </td>
+          </script>
+          <script type="text/ng-template" id="edit">
+            <td>
+                          <input type="text" class="form-control " ng-model="selected.zipcode" name="zipcode" required minlength="5" maxlength="5" placeholder="{{'Zip Code'|translate}}">
+                      </td>
+                      <td>
+                          <input type="text" class="form-control " ng-model="selected.premiumValue" placeholder="{{'Premium Value'|translate}}">
+                      </td>
+                      <td>
+                        <input type="text" class="form-control " ng-model="selected.area" placeholder="{{'Area'|translate}}">
+                      </td>
+                      <td>
+                          <div class="btn-group btn-group-circle btn-outline" style="display:flex !important;">
+                              <span class="btn btn-link btn-xs" style="margin:0px!important;background:none" ng-disabled="selected.zipcode.length <= 5" ng-click="updatePremiumValuesWRTZipcode(selected)" >{{"Update"|translate}}</span>|
+                              <span class="btn btn-link btn-xs" style="margin:0px!important;background:none" ng-click="removeZipCode(selected)" >{{"Delete"|translate}}</span>
+                          </div>
+                      </td>
+                  </script>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

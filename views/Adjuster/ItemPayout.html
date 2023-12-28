@@ -1,0 +1,245 @@
+﻿<div>
+    <div class="modal-header">
+        <a class="close" data-dismiss="modal" aria-hidden="true" ng-click="cancel($event)"></a>
+        <h4 class="modal-title text-primary">{{"ModalHeaderText"|translate}}</h4>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-offset-1 col-md-10">
+                <div class="col-md-12">
+                    <div class="form-group col-md-3">
+                        <label class="control-label text-primary bold"> Payment Method</label>
+                    </div>
+                    <div class="col-md-9">
+                        <form>
+                            <div class="col-md-4">
+                                <label class="radio-inline">
+
+                                    <input type="radio" name="optradio"   ng-click="ShowPaymentDetails('DirectDeposit')">{{"Radio.DirectDeposit"|translate}}
+                                </label>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="radio-inline">
+
+                                    <input type="radio" name="optradio"  ng-click="ShowPaymentDetails('DebitCard')">{{"Radio.DebitCard"|translate}}
+                                </label>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="radio-inline">
+
+                                    <input type="radio" name="optradio"  ng-click="ShowPaymentDetails('Check')">{{"Radio.Check"|translate}}
+                                </label>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!--Direct Deposit Section-->
+            <div class="col-md-12 margin-top-10" ng-if="DirectDepositSection">
+                <div class="col-md-offset-1 col-md-10">
+                    <div class="form-group col-md-12">
+                        <div class="col-md-3">
+                            <label class="control-label text-muted">{{"FormControlText.Amount"|translate}}</label> 
+                        </div>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" placeholder='{{"FormControlText.Amount"|translate}}'/>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <div class="col-md-3">
+                            <label class="control-label text-muted">{{"FormControlText.ConsumerAccount"|translate}}</label>
+                        </div>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" placeholder='{{"FormControlText.ConsumerAccount"|translate}}' />
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <div class="col-md-3">
+                            <label class="control-label text-muted">{{"FormControlText.NameOfBank"|translate}}</label>
+                        </div>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" placeholder='{{"FormControlText.NameOfBank"|translate}}' />
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <div class="col-md-3">
+                            <label class="control-label text-muted">{{"FormControlText.RoutingNumber"|translate}}</label>
+                        </div>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" placeholder='{{"FormControlText.RoutingNumber"|translate}}' />
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <div class="col-md-3">
+                            <label class="control-label text-muted">{{"FormControlText.PaymentDate"|translate}}</label>
+                        </div>
+                        <div class="col-md-9">
+                            <input class="form-control datepicker" close-on-date-selection="true" data-provide="datepicker" size="16" type="text" placeholder='{{"FormControlText.PaymentDate"|translate}}' name="Date" />
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <div class="col-md-3">
+                            <label class="control-label text-muted">{{"FormControlText.PartialReplacement"|translate}}</label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="col-md-12 btn-group btn-group-circle btn-outline text-center">
+                                <button id="btnReplacmentYes" class="btn green btn-sm btn-outline ng-binding" ng-click="check('#btnReplacmentYes','#btnReplacmentNo')">{{"ControlText.Yes_title"|translate}}</button>
+                                <button id="btnReplacmentNo" class="btn red  btn-sm btn-outline ng-binding" ng-click="check('#btnReplacmentNo','#btnReplacmentYes')">{{"ControlText.No_title"|translate}}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--End Direct Deposit Section-->
+
+            <!--Debit card scetion-->
+            <div class="col-md-12 margin-top-10" ng-if="DebitCardSection">
+                <div class="col-md-offset-1 col-md-10">
+                    <div class="form-group col-md-12">
+                        <div class="col-md-3">
+                            <label class="control-label text-muted">{{"FormControlText.Amount"|translate}}</label>
+                        </div>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" placeholder='{{"FormControlText.Amount"|translate}}' />
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <div class="col-md-3">
+                            <label class="control-label text-muted">{{"FormControlText.DebitCardNumber"|translate}}</label>
+                        </div>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" placeholder='{{"FormControlText.DebitCardNumber"|translate}}' />
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <div class="col-md-3">
+                            <label class="control-label text-muted">{{"FormControlText.PaymentDate"|translate}}</label>
+                        </div>
+                        <div class="col-md-9">
+                            <input class="form-control datepicker" close-on-date-selection="true" data-provide="datepicker" size="16" type="text" placeholder='{{"FormControlText.PaymentDate"|translate}}' name="Date" />
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <div class="col-md-3">
+                            <label class="control-label text-muted">{{"FormControlText.PartialReplacement"|translate}}</label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="col-md-12 btn-group btn-group-circle btn-outline text-center">
+                                <button id="btnReplacmentYes" class="btn green btn-sm btn-outline ng-binding" ng-click="check('#btnReplacmentYes','#btnReplacmentNo')">{{"ControlText.Yes_title"|translate}}</button>
+                                <button id="btnReplacmentNo" class="btn red  btn-sm btn-outline ng-binding" ng-click="check('#btnReplacmentNo','#btnReplacmentYes')">{{"ControlText.No_title"|translate}}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--End Debit card scetion-->
+
+
+            <!--Check Section-->
+            <div class="col-md-12 margin-top-10" ng-if="CheckSection">
+                <div class="col-md-offset-1 col-md-10">
+                    <div class="form-group col-md-12">
+                        <div class="col-md-3">
+                            <label class="control-label text-muted">{{"FormControlText.Amount"|translate}}</label>
+                        </div>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" placeholder='{{"FormControlText.Amount"|translate}}' />
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <div class="col-md-3">
+                            <label class="control-label text-muted">{{"FormControlText.CheckNumber"|translate}}</label>
+                        </div>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" placeholder='{{"FormControlText.CheckNumber"|translate}}' />
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <div class="col-md-3">
+                            <label class="control-label text-muted">{{"FormControlText.DrawnOnBank"|translate}}</label>
+                        </div>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" placeholder='{{"FormControlText.DrawnOnBank"|translate}}' />
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <div class="col-md-3">
+                            <label class="control-label text-muted">{{"FormControlText.PaymentDate"|translate}}</label>
+                        </div>
+                        <div class="col-md-9">
+                            <!--<input type="text" class="form-control" placeholder='{{"FormControlText.PaymentDate"|translate}}' />-->
+                            <input class="form-control datepicker" close-on-date-selection="true" data-provide="datepicker" size="16" type="text" placeholder='{{"FormControlText.PaymentDate"|translate}}' name="Date" />
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <div class="col-md-3">
+                            <label class="control-label text-muted">{{"FormControlText.PartialReplacement"|translate}}</label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="col-md-12 btn-group btn-group-circle btn-outline text-center">
+                                <button id="btnReplacmentYes" class="btn green btn-sm btn-outline ng-binding" ng-click="check('#btnReplacmentYes','#btnReplacmentNo')">{{"ControlText.Yes_title"|translate}}</button>
+                                <button id="btnReplacmentNo" class="btn red  btn-sm btn-outline ng-binding" ng-click="check('#btnReplacmentNo','#btnReplacmentYes')">{{"ControlText.No_title"|translate}}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--End Check Section-->
+
+            <!--<div class="form-group col-md-12">
+                <div class="col-md-6">
+                    <label class="col-md-12 text-muted">{{"FormControlText.DirectDeposit"|translate}}</label>
+                </div>
+                <div class="col-md-6">
+                    <div class="col-md-12 btn-group btn-group-circle btn-outline">
+                        <span id="btnDepositYes" class="btn green btn-sm  btn-outline ng-binding" ng-click="check('#btnDepositYes','#btnDepositNo')">{{"ControlText.Yes_title"|translate}}</span>
+                        <span id="btnDepositNo" class="btn red  btn-sm btn-outline ng-binding" ng-click="check('#btnDepositNo','#btnDepositYes')">{{"ControlText.No_title"|translate}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-md-12">
+                <div class="col-md-6">
+                    <label class="col-md-12 text-muted">{{"FormControlText.DebitCardNumber"|translate}}</label>
+                </div>
+                <div class="col-md-6">
+                    <input type="text" class="form-control" placeholder='{{"FormControlText.DebitCardNumber"|translate}}' />
+                </div>
+            </div>
+            <div class="form-group col-md-12">
+                <div class="col-md-6">
+                    <label class="col-md-12 text-muted">{{"FormControlText.CheckNumber"|translate}}</label>
+                </div>
+                <div class="col-md-6">
+                    <input type="text" class="form-control" placeholder='{{"FormControlText.CheckNumber"|translate}}' />
+                </div>
+            </div>
+            <div class="form-group col-md-12">
+                <div class="col-md-6">
+                    <label class="col-md-12 text-muted">{{"FormControlText.AmountOnCheck"|translate}}</label>
+                </div>
+                <div class="col-md-6">
+                    <input type="text" class="form-control" placeholder='{{"FormControlText.AmountOnCheck"|translate}}' />
+                </div>
+            </div>
+            <div class="form-group col-md-12">
+                <div class="col-md-6">
+                    <label class="col-md-12 text-muted">{{"FormControlText.PartialReplacement"|translate}}</label>
+                </div>
+                <div class="col-md-6">
+                    <div class="col-md-12 btn-group btn-group-circle btn-outline text-center">
+                        <button id="btnReplacmentYes" class="btn green btn-sm btn-outline ng-binding" ng-click="check('#btnReplacmentYes','#btnReplacmentNo')">{{"ControlText.Yes_title"|translate}}</button>
+                        <button id="btnReplacmentNo" class="btn red  btn-sm btn-outline ng-binding" ng-click="check('#btnReplacmentNo','#btnReplacmentYes')">{{"ControlText.No_title"|translate}}</button>
+                    </div>
+                </div>
+            </div>-->
+
+
+
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn dark btn-outline" data-dismiss="modal" ng-click="cancel($event)">{{"ControlText.Cancel_title"|translate}}</button>
+        <button type="button" class="btn green" ng-click="ok($event)"> {{"ControlText.Save_title"|translate}} </button>
+    </div>
+</div>

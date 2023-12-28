@@ -1,0 +1,156 @@
+<style>
+    table {
+        width: 100%;
+    }
+
+    table,
+    th,
+    td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        text-align: center;
+    }
+
+    th,
+    td {
+        min-width: 55px;
+    }
+
+    tr>td:first-child {
+        font-weight: bold;
+    }
+
+    .border {
+        border: 2px solid #337ab7 !important;
+    }
+
+    .border_no_right {
+        border-right: none !important;
+    }
+
+    .border_no_left {
+        border-left: none !important;
+    }
+
+    .border_no_sides {
+        border-top: 2px solid #337ab7 !important;
+        border-bottom: 2px solid #337ab7 !important
+    }
+    .heading_Top{
+        padding-bottom: 2%;
+    }
+</style>
+<div class="col-md-12 form-group heading_Top" >
+    <div class="SubHeadingDiv">
+        <span class="caption-subject">
+            {{"SpeedCheck MarkUps"|translate}}
+        </span>
+    </div>
+</div>
+<div class="col-md-12 margin-top-10 padding1px">
+    <div class="col-md-12 form-group">
+        <div class="SubHeadingDiv">
+            <span class="caption-subject">
+                {{"Artigem Replacement Mark-Ups"|translate}}
+            </span>
+        </div>
+    </div>
+    
+    <div class="col-md-12 table-responsive padding1px ">
+        <table class="table table-striped table-bordered table-hover order-column" id="NavigateTable">
+            <thead>
+
+                <!-- <tr ng-include="getTemplateItemsHeaderList('displayHeaderRows')"
+                ng-init="displayRow=true"> -->
+                    <th ng-repeat="item in speedcheckMarkupData" style="border-left: 2px solid #ffffff;">
+                        {{item.min}}  <span ng-if="!$last"> - </span>
+                        <span ng-if="$last"> >= &nbsp;&nbsp; </span> {{item.max}}
+                    </th>
+
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr ng-show="speedcheckMarkupData.length > 0">
+                    <td ng-repeat="markup in speedcheckMarkupData">
+                        {{markup.artigemReplacementMarkup}}
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+               
+               
+                <!-- <td ng-repeat="markup in speedcheckMarkupData"></td>
+                
+                <th ng-repeat="item in speedcheckMarkupData" style="border-left: 2px solid #ffffff;" >
+                    {{item.min}}                    <span ng-if="!$last"> - </span>
+                    <span ng-if="$last"> >= &nbsp;&nbsp; </span>
+                    {{item.max}}
+                </th> -->
+               
+    <div class="col-md-12 form-group">
+        <div class="SubHeadingDiv">
+            <span class="caption-subject">
+                {{"Insurance Replacement Mark-Ups"|translate}}
+            </span>
+        </div>
+    </div>
+    <div class="col-md-12 table-responsive padding1px ">
+        <table class="table table-striped table-bordered table-hover order-column" id="NavigateTable">
+            <thead>
+
+                <tr>
+                        <!-- <tr ng-include="getTemplateItemsHeaderList('displayHeaderRows')"
+                        ng-init="displayRow=true"> -->
+                    <th ng-repeat="item in speedcheckMarkupData" style="border-left: 2px solid #ffffff;">
+                        {{item.min}}  <span ng-if="!$last"> - </span>
+                        <span ng-if="$last"> >= &nbsp;&nbsp; </span> {{item.max}}
+                    </th>
+
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr ng-show="speedcheckMarkupData.length > 0">
+                    <td ng-repeat="markup in speedcheckMarkupData">
+                        {{markup.insuranceReplacementMarkup}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="col-md-12 form-group">
+        <div class="SubHeadingDiv">
+            <span class="caption-subject">
+                {{"Retail Replacement Mark-Ups"|translate}}
+            </span>
+        </div>
+    </div>
+    <div class="col-md-12 table-responsive padding1px ">
+        <table class="table table-striped table-bordered table-hover order-column" id="NavigateTable">
+            <thead>
+        
+                <tr>
+                    <th ng-repeat="item in speedcheckMarkupData" style="border-left: 2px solid #ffffff;">
+                        {{item.min}} <span ng-if="!$last"> - </span>
+                        <span ng-if="$last"> >= &nbsp;&nbsp; </span> {{item.max}}
+                    </th>
+                    <!-- <tr ng-include="getTemplateItemsHeaderList('displayHeaderRows')"
+                    ng-init="displayRow=true"> -->
+        
+                </tr>
+            </thead>
+        
+            <tbody>
+                <tr ng-show="speedcheckMarkupData.length > 0">
+                    <td ng-repeat="markup in speedcheckMarkupData">
+                        {{markup.retailReplacementMarkup}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        </div>
+        </div>
+<!-- Upload Pdf Screen Table Data Ends -->

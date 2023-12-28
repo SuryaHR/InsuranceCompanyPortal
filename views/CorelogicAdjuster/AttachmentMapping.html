@@ -1,0 +1,355 @@
+﻿
+<ul class="page-breadcrumb breadcrumb sbold">
+    <li>
+        <a ng-click="GotoDashboard()">{{"Home"|translate}}</a>
+        <i class="fa fa-circle"></i>
+    </li>
+    <li>
+        <a ng-click="GoBack($event)">{{ClaimDetails.ClaimNumber}} </a>
+        <i class="fa fa-circle"></i>
+    </li>
+    <li>
+        <span>{{"Map Receipt"|translate}}</span>
+    </li>
+</ul>
+<style type="text/css">
+    .btnclass {
+        min-width: 46px !important;
+        min-height: 28px !important;
+        padding: 2px !important;
+    }
+
+    #pdf {
+        position: relative;
+        cursor: crosshair;
+    }
+
+    .mapItem {
+        /*display: table !important;*/
+        padding: 5px;
+        border: none;
+        background: transparent;
+        position: absolute;
+    }
+
+        .mapItem input[type="number"] {
+            border: 1px solid #000;
+            padding-left: 5px;
+            width: 70px;
+            height: 25px;
+        }
+
+
+    input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
+
+    .rowmapped {
+        background-color: #a1caa1 !important;
+        /*border: 2px solid green;*/
+    }
+
+    .plotbox input[disabled] {
+        background-color: #fff;
+    }
+
+    .plotbox {
+        position: absolute;
+        margin: auto 20px;
+    }
+
+        .plotbox .mapItem {
+            padding: 3px;
+            display: table !important;
+        }
+
+    .itemBorder .text-danger {
+    }
+
+    .actions_btns {
+        display: none;
+    }
+
+    .itemBorder .actions_btns {
+        position: absolute;
+        top: -25px;
+        /*right: 0;*/
+        display: block;
+        cursor: pointer;
+    }
+
+    .itemBorder {
+        border: 2px solid #f00;
+        z-index: 1;
+    }
+
+    .table-hover > tbody > tr.rowmapped:hover, .table-hover > tbody > tr.rowmapped:hover > td {
+        background: #a1caa1 !important;
+    }
+
+    .addnew_receipt span {
+        font-family: "Open Sans", sans-serif;
+        font-weight: 600;
+        margin-left: 3px;
+    }
+
+    .actions {
+        text-align: center;
+    }
+
+        .actions i {
+            margin: 0 6px;
+            cursor: pointer;
+        }
+
+    #mapItem {
+        z-index: 3;
+    }
+
+    .arrow-right {
+        width: 0;
+        height: 0;
+        border-top: 60px solid transparent;
+        border-bottom: 60px solid transparent;
+        border-left: 60px solid green;
+    }
+
+    .arrow-left {
+        width: 0;
+        height: 0;
+        border-top: 10px solid transparent;
+        border-bottom: 10px solid transparent;
+        border-right: 10px solid blue;
+    }
+
+    .mapItem {
+        /*display: table !important;*/
+        padding: 5px;
+        border: none;
+        background: transparent;
+        position: absolute;
+        z-index: 2;
+    }
+
+        .mapItem input[type="number"] {
+            border: 1px solid #000;
+            padding-left: 5px;
+            width: 70px;
+            height: 25px;
+        }
+
+
+    input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
+
+    .rowmapped {
+        background-color: #a1caa1 !important;
+        /*border: 2px solid green;*/
+    }
+
+    .plotbox input[disabled] {
+        background-color: #fff;
+    }
+
+    .plotbox {
+        position: absolute;
+        margin: auto 20px;
+    }
+
+        .plotbox .mapItem {
+            padding: 3px;
+            display: table !important;
+        }
+
+    .itemBorder .text-danger {
+    }
+
+    .actions_btns {
+        display: none;
+    }
+
+    .itemBorder .actions_btns {
+        position: absolute;
+        top: -25px;
+        /*right: 0;*/
+        display: block;
+        cursor: pointer;
+    }
+
+    .itemBorder {
+        border: 2px solid #f00;
+        z-index: 1;
+    }
+
+    .table-hover > tbody > tr.rowmapped:hover, .table-hover > tbody > tr.rowmapped:hover > td {
+        background: #a1caa1 !important;
+    }
+
+    .addnew_receipt span {
+        font-family: "Open Sans", sans-serif;
+        font-weight: 600;
+        margin-left: 3px;
+    }
+
+    .actions {
+        text-align: center;
+    }
+
+        .actions i {
+            margin: 0 6px;
+            cursor: pointer;
+        }
+
+    #mapItem {
+        z-index: 3;
+    }
+</style>
+<style>
+    .Model{
+    width: 35%;
+    display: block;
+    z-index: 3;
+    display: block;
+    position: absolute;
+    /*top: 150px;
+    left:400px;*/
+    background: #f1f4f7;
+    padding: 3px;
+    border:2px solid #989090;
+    border-radius:2px;
+    }
+
+    .focus{
+        background-color:rgba(0, 128, 0, 0.38) !important;
+    }
+
+</style>
+<div class="col-md-12 col-sm-12 col-lg-12">
+    <div class="portlet ">
+        <div class="portlet-body">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-lg-12 options_Background" style="padding:5px;">
+                    <div class="col-md-4 col-sm-12 col-lg-4  pull-left padding1px" style="border-right:1px groove;">
+                        <button class="btn btnMargin white sbold">
+                       {{"New Comment"|translate}}
+                        </button>
+                        <div class="col-md-6 col-sm-12 col-lg-6 pull-right">
+                            <div class="input-icon left">
+                                <i class="icon-magnifier"></i>
+                                <input type="text" class="form-control form-control-solid input-circle btnMargin input-block-level" ng-model="listSearch" name="textSearch" placeholder={{"SearchText"|translate}}>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8 col-lg-8 col-sm-12 padding1px">
+                        <span class="glyphicon glyphicon-list  pull-right margin-top-5 margin-right-5" style="font-size: 20px;font-weight: lighter;margin-bottom:0px !important;color: white;"></span>
+                    </div>
+                </div>
+                <!--Left Side-->
+                <div class="col-md-4 col-lg-4 col-sm-12 padding1px portlet light bordered pull-left">
+                    <div class="col-md-12 col-sm-12 col-lg-12  pull-left padding1px" style="min-height:550px;max-height:500px;overflow-y:auto;">
+                        <div class="col-md-12 col-sm-12 padding1px">
+                            <div ng-class="{'col-md-12 well col-sm-12 padding1px':(comment.id!=CommentId),'col-md-12 well col-sm-12 padding1px focus':comment.id==CommentId}" ng-repeat="comment in Comments" ng-click="RedirectToMapping(comment)">
+
+                             <div class="col-md-12 col-sm-12">
+                                 <label class="col-md-4">{{"Comment"|translate}}:</label>
+                                    <span class="col-md-8">{{comment.commentDescription}}</span>
+                              </div>
+                                <div class="col-md-12 col-sm-12">
+                                    <label class="col-md-4 ">{{"Author"|translate}}:</label>
+                                    <span class="col-md-8">{{comment.createdBy.firstName +' '+ comment.createdBy.lastName}}</span>
+                                </div>
+                                <div class="col-md-12 col-sm-12">
+                                    <label class="col-md-4">{{"Created At"|translate}}:</label>
+                                    <span class="col-md-8">{{comment.createdDate|DateFormatMMddyyyyHHmm}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--PDF View-->
+                <div class="col-md-8 col-lg-8 col-sm-12 padding1px pull-right" ng-if="ClaimDetails.Attachment.type=='application/pdf'">
+                    <div class="col-md-12 margin-bottom-10 padding1px" id="PdfView">
+                        <!-- Show PDF region Render PDF here -->
+                        <div class="col-md-12" id="load_receipts" >
+                            <ng-pdf template-url="views/ClaimFormDetails/ViewMappingPdf.html" canvasid="pdf" scale="page-fit" page=1 ></ng-pdf>
+                        </div>
+                        <!--End Show PDF region  -->
+                    </div>
+
+                </div>
+                <!--End PDF View-->
+
+                <!--Image View-->
+                <div class="col-md-8 col-lg-8 col-sm-12 padding1px pull-right" ng-if="ClaimDetails.Attachment.type=='IMAGE'||ClaimDetails.Attachment.type=='Image'||ClaimDetails.Attachment.type=='image/png'||ClaimDetails.Attachment.type=='image/jpeg'">
+                    <div class="col-md-12 margin-bottom-10 padding1px"  style="max-height:530px!important;overflow:auto !important;" >
+                        <!--<div ng-style="{'background-image':'url({{ClaimDetails.Attachment.url}})','background-repeat':'no-repeat','height':'500px','width':'100%','border':'1px solid gray'}"></div>-->
+                      <image ng-src="{{ClaimDetails.Attachment.url}}" id="AttachmentImage" style="height:auto;width:100%;" ng-click="ShowPopUp(null,$event,0,0)"></image>
+                        <!--<image src="assets/global/img/no-image.png" id="AttachmentImage" style="height:auto;width:100%;" ng-click="ShowPopUp(null,$event,0,0)"></image>-->
+                         <!--Model Start-->
+                        <div id="mapItemsGroup" class="newItemPopup" >
+                            <div class="Model Model ui-widget-content ui-draggable ui-draggable-handle mapItem itemMapped" id="popUp" ng-show="isShowPopup" ng-form="DocumentComment">
+                                <span class="fa fa-times-circle fa-2x font-red pull-right margin-top-5" ng-click="HidePopUp($event)"></span>
+                                <div class="col-md-12 col-sm-12 padding1px margin-top-10">
+                                    <div class="col-md-12 col-sm-12 form-group">
+                                        <textarea class="form-control" name="comment" required placeholder='{{"Description Of the comment"|translate}}' ng-model="Selected.Comment"></textarea>
+                                    <div class="">
+                                        <span class="text-danger" ng-show="DocumentComment.comment.$error.required && DocumentComment.comment.$touched">{{"Please enter comment"|translate}}</span>
+                                    </div>
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 padding1px form-group">
+                                        <label class="col-md-4 control-label text-muted">{{"Creator"|translate}}</label>
+                                        <div class="col-md-8">
+                                            <input type="text" class="form-control" placeholder='{{"Creator"|translate}}' readonly ng-model="Selected.UserName" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 form-group padding1px">
+                                        <label class="col-md-4 control-label text-muted">{{"Recipients"|translate}}</label>
+                                        <div class="col-md-8">
+                                            <select class="form-control select2me input-large" required  style="width:100%;" data-placeholder="Participants" multiple ng-model="CommonObject.particiapnt" id="select2insidemodal"
+                                                    name="participants" ng-options="item.participantId as item.firstName+' '+item.lastName for item in ClaimParticipantsList"></select>
+                                            <div class="">
+                                                <span class="text-danger" ng-show="DocumentComment.participants.$error.required && DocumentComment.participants.$touched">{{"Please select participant"|translate}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 form-group text-center">
+                                        <button class="btn sbold green btnMargin" ng-click="SaveValues($event)" ng-disabled="DocumentComment.$invalid||DocumentComment.$pristine">
+                                            <i class="fa fa-save fa-lg"></i>
+                                            {{"Save"|translate}}
+                                        </button>
+                                        <button class="btn sbold red btnMargin" ng-click="HidePopUp($event)">
+                                            <i class="fa fa-remove fa-lg"></i>
+                                            {{"Cancel"|translate}}
+                                        </button>
+                                        <button class="btn sbold red btnMargin" ng-click="DeleteMapping($event)">
+                                            <i class="fa fa-trash-o fa-lg"></i>
+                                            {{"Delete"|translate}}
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Model End-->
+
+                    </div>
+                </div>
+                <!--End Image View-->
+            </div>
+        </div>
+    </div>
+</div>
+
+

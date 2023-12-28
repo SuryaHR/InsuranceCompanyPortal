@@ -1,0 +1,211 @@
+<!-- common css files for dashboard alerts -->
+<!-- <link rel="stylesheet" href="Css/commonUtils.css" /> -->
+<style>
+    .empty-table {
+        text-align: center !important;
+    }
+
+    .table-fixed thead {
+        width: 100%;
+    }
+
+    .table-fixed thead,
+    .table-fixed tbody,
+    .table-fixed tr,
+    .table-fixed td,
+    .table-fixed th {
+        display: block;
+    }
+
+    .table-fixed thead>tr>th {
+        float: left;
+        border-bottom-width: 0;
+        background-color: #ddd;
+    }
+
+    .align_btn {
+        vertical-align: middle !important;
+    }
+
+    .table-fixed tbody>tr {
+        display: block;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        transition: box-shadow 0.3s ease-in-out;
+    }
+
+    .table-fixed tbody>tr:hover {
+        transform: scale(1, 1);
+        -webkit-transform: scale(1, 1);
+        -moz-transform: scale(1, 1);
+        box-shadow: 0px 6px 4px -4px rgba(48, 32, 32, 0.3);
+        -webkit-box-shadow: 0px 6px 4px -4px rgba(0, 0, 0, 0.3);
+        -moz-box-shadow: 0px 6px 4px -4px rgba(0, 0, 0, 0.3);
+    }
+
+    .width_204 {
+        width: 204px !important;
+    }
+
+    .customTabs>.nav-tabs>li.active>a {
+        background: #e3f0f4;
+        font-size: 14px;
+        font-weight: 600;
+        text-align: center;
+    }
+
+    .customTabs>.nav-tabs>li.active>a {
+        background: #e3f0f4 !important;
+        font-size: 14px !important;
+        font-weight: 600 !important;
+    }
+
+    .customTabs>.nav-tabs>li:hover,
+    .customTabs>.nav-tabs>li.active {
+        background: #e3f0f4;
+        font-size: 14px;
+        font-weight: 600;
+        text-align: center;
+        border-top: 4px solid #337ab7 !important;
+    }
+
+    .customTabs>.nav-tabs>li:active {
+        border-top: 4px solid #337ab7 !important;
+    }
+
+    .messageContent {
+        /* border-top: none !important; */
+        margin-bottom : 13px !important;
+    }
+
+    /*     @media (min-width:1080px) and (max-width:1920px) {
+        .pis_zero {
+            padding-inline-start: 0px !important;
+        }
+    } */
+</style>
+<div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 light card bordered" style="padding-top: 10px;box-shadow: 0px 3px 6px 0px #ddd; height: 368px; border-radius: 4px;">
+    <div class="SubHeadingDiv col-xs-12 caption font-gray-sharp text-left" style="margin-bottom:10px">
+        <span class="caption-subject sbold">{{"Alert"|translate}}</span>
+    </div>
+    <div class="tabbable-custom"
+        style="margin-bottom: 0px !important;margin-left: 10px;margin-top: 10px;width: 612px !important; height: 34px !important;">
+        <ul class="nav nav-tabs" id="head-tabs">
+            <li ng-class="{'active': tab=='notification'}">
+                <a href="#" data-toggle="tab" ng-click="showNotification()">&nbsp;
+                    {{"Notifications"|translate}}</a>
+            </li>
+            <li ng-class="{'active': tab=='messages'}">
+                <a href="#" data-toggle="tab" ng-click="showMessage()">&nbsp;
+                    {{"Messages"|translate}} &nbsp;</a>
+            </li>
+        </ul>
+    </div>
+    <div class="messageContent bordered" style="padding-top: 10px;margin-left: 10px;margin-right: 2px;height: 275px;"
+        ng-show="tab == 'notification'">
+        <table id="NavigateTable" class="table table-fixed" style="margin-left:15px;width:95%;">
+            <thead class="thead">
+                <tr>
+                    <th scope="col" class="col-xs-2 col-sm-2 col-md-2 col-lg-2">{{"Table.Date"|translate}}</th>
+                    <th scope="col" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">{{"Claim Details"|translate}}
+                    </th>
+                    <th scope="col" class="col-xs-7 col-sm-7 col-md-7 col-lg-7">{{"Table.Message"|translate}}</th>
+                </tr>
+            </thead>
+            <tbody infinity-scroll="NextPage()" class="custom_scroll_bar" id="infinity_scroll_table" style="height: 230px !important;">
+                <tr scope="row" ng-repeat="alert in AlertList" ng-click="GotoAlertDetails(alert)"
+                    ng-mouseover="row = $index" ng-mouseleave="row = -1"
+                    ng-style="{'background-color':alert.isRead === true ? '#edf2fa' : '#fffff'}">
+                    <td class="col-md-2 col-sm-2 col-lg-2">
+                        {{alert.createDate}}
+                    </td>
+                    <td class="col-md-3 col-sm-3 col-lg-3">
+                        <ul class="nomargin" style="list-style: none;">
+                            <li>{{alert.insuredDetails.firstName}} {{alert.insuredDetails.lastName}}</li>
+                            <li>#{{alert.notificationParams.claimNumber}}</li>
+                        </ul>
+                    </td>
+                    <td class="col-md-6 col-sm-6 col-lg-6" style="width: 300px;">
+                        <ul class="nomargin" style="list-style: none;">
+                            <li><b>{{alert.notificationParams.message1}}</b></li>
+                            <li>{{alert.message}}</li>
+                        </ul>
+                    </td>
+                    <td class="col-md-1 col-sm-1 col-lg-1 align_btn">
+                        <div ng-if="row == $index" class="pull-right remove_btn" style="margin-right: 10px;">
+                            <a href stop-propagation data-toggle="tooltip" title="Delete Notification"
+                                ng-click="DeleteNotification($index, alert)"><span
+                                    class="glyphicon glyphicon-trash"></span></a>
+                        </div>
+                    </td>
+                </tr>
+                <tr ng-if="IsLoading" class="loading text-center col-sm-12" style="position: relative;">
+                    <td colspan="12" class="text-center">
+                        <i class="fa fa-spinner fa-spin fa-2x fa-fw"></i>
+                    </td>
+                </tr>
+                <tr ng-if="AlertList === null || AlertList.length === 0">
+                    <td colspan="12" class="text-danger text-center"> {{"No new notification available"|translate}} </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="messageContent bordered" style="padding-top: 10px;margin-left: 10px;margin-right: 2px;height: 275px;"
+        ng-show="tab == 'messages'">
+        <table id="NavigateTable" class="table table-fixed" style="margin-left:15px;width:95%;">
+            <thead class="thead">
+                <tr>
+                    <th scope="col" class="col-xs-2 col-sm-2 col-md-2 col-lg-2">{{"Table.Date"|translate}}</th>
+                    <th scope="col" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">{{"Claim Details"|translate}}</th>
+                    <th scope="col" class="col-xs-7 col-sm-7 col-md-7 col-lg-7">{{"Table.Message"|translate}}</th>
+                </tr>
+            </thead>
+            <tbody infinity-scroll="NextPage()" class="custom_scroll_bar" id="infinity_scroll_table">
+                <tr scope="row" ng-repeat="alert in AlertList" ng-click="GotoAlertDetails(alert)"
+                    ng-mouseover="row = $index" ng-mouseleave="row = -1"
+                    ng-style="{'background-color':alert.isRead === true ? '#edf2fa' : '#fffff'}">
+                    <td class="col-md-2 col-sm-2 col-lg-2">
+                        {{alert.createDate}}
+                    </td>
+                    <td class="col-md-3 col-sm-3 col-lg-3" style="padding-left: 16px !important;">
+                        <ul class="nomargin" style="list-style: none;">
+                            <li>#{{alert.notificationParams.claimNumber}}</li>
+                            <li>{{alert.insuredDetails.firstName+", "+alert.insuredDetails.lastName | titleCase}}</li>
+                        </ul>
+                    </td>
+                    <td class="col-md-6 col-sm-6 col-lg-6" style="width: 300px;padding-left: 32px !important;">
+                        <ul class="nomargin" style="list-style: none;">
+                            <li><b>New Message by {{alert.sender.lastName+", "+alert.sender.firstName | titleCase}}</b>
+                            </li>
+                            <li>{{(alert.notificationParams != null && alert.notificationParams.message1 != null) ? (alert.notificationParams.message1 | limitTo : 50) + (alert.notificationParams.message1.length > 50 ? "...":'') : ''}}
+                            </li>
+                        </ul>
+                    </td>
+                    <td class="col-md-1 col-sm-1 col-lg-1 align_btn">
+                        <div ng-if="row == $index" class="pull-right remove_btn" style="margin-right: 10px;">
+                            <a href stop-propagation data-toggle="tooltip" title="Delete Notification"
+                                ng-click="DeleteNotification($index, alert)"><span
+                                    class="glyphicon glyphicon-trash"></span></a>
+                        </div>
+                    </td>
+                </tr>
+                <tr ng-if="IsLoading" class="loading text-center col-sm-12" style="position: relative;">
+                    <td colspan="12" class="text-center">
+                        <i class="fa fa-spinner fa-spin fa-2x fa-fw"></i>
+                    </td>
+                </tr>
+                <tr ng-if="AlertList === null || AlertList.length === 0">
+                    <td colspan="12" class="text-danger text-center"> {{"Table.NoAlertText"|translate}} </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+    $('#head-tabs')
+        .scrollingTabs({
+            enableSwiping: true
+        })
+        .on('ready.scrtabs', function () {
+            $('.tab-content').show();
+        });
+</script>

@@ -1,0 +1,26 @@
+﻿
+{
+  "Model": {
+    "Header_ComparableList": "Comparable List"
+  },
+
+  "ControlText": {
+    "Search_title": "Search",
+    "SortBy_title": "Sort By :",
+    "Assign_title": "Assign",
+    "Cancel_title": "Cancel"
+  },
+
+  "Table": {
+    "Match": "Match",
+    "CasesInHand": "Cases In Hand",
+    "AdjustorName": "AdjustorName",
+    "Speciality": "Specialty",
+    "Role": "Role"
+
+  },
+
+  "NoRecordText": "No Records Available",
+  "SearchText": "Search.."
+
+}

@@ -1,0 +1,9 @@
+﻿{
+  "Submit For Artigem Review" : "Submit For Artigem Review",
+  "Note to Artigem" : "Note to Artigem",
+  "Cancel" : "Cancel",
+  "Submit" : "Submit",
+  "Details_Not_Found_Header" : "The SpeedCheck's estimated market value of the item is calculated to be above the original appraisal value. A review with Artigem is suggested to verify the new market value of item.",
+  "Details_Found_Header" : "Artigemt Review is recommended",
+  "Could_Not_Calculate":"SpeedCheck could not determine the correct market value of the item. Please send the appraisal for a review by the experts at Artigem to get an accurate value."
+}

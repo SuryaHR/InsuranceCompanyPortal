@@ -1,0 +1,978 @@
+﻿<script>
+        ComponentsSelect2.init(); // init todo page
+        ComponentsBootstrapSelect.init(); // init todo page
+
+</script>
+<div class="col-md-12 padding1px" id="cal">
+    <div class="col-md-12 ">
+        <ul class="page-breadcrumb breadcrumb sbold">
+            <li>
+                <a ng-click="GoBack()">{{"Home"|translate}}</a>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <span>{{'newFnol'|translate}}</span>
+            </li>
+        </ul>
+    </div>
+    <div class="clearfix"></div>
+    <div class="portlet light padding1px">
+        <div class="portlet-title">
+            <div class="caption font-grey-sharp">
+                <span class="caption-subject">New FNOL</span>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <div class="row" >
+                <div class="col-md-12 col-sm-12 text-right margin-bottom-5">
+                    <button id="btnBack" class="btn sbold  btnMargin" ng-click="SendApp()">
+                        Send App to Insured
+                    </button>
+                    <button id="btnAssignClaims" class="btn sbold  btnMargin" ng-disabled="DisableAssignbtn " ng-click="AssignClaimToAdjuster($event)">
+
+                        {{"ControlText.Assign"|translate}}
+                    </button>
+                    <button id="btnSave" class="btn sbold  btnMargin" ng-click="SaveClaimReportDetails($event)" ng-disabled="FormClaim.$invalid || FormClaim.$pristine">
+
+                        {{"ControlText.Save"|translate}}
+                    </button>
+                </div>
+
+              <!-- Policy Details Starts -->
+              <div class="row">
+                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 clearfix" id="cal">
+                  <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 clearfix" ng-form="Form">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 options_Background_WithBorder margin-top-10 padding1px" style="padding-top:5px;padding-bottom:5px;">
+                          <span class="text_options_Label sbold caption" style="padding: 5px !important">{{'MainHeader.PolicyDetails'|translate}}</span>
+                    </div>
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="border:1px solid lightgray;padding:10px">
+
+                    <!-- Account -->
+                    <div class="col-md-12 col-sm-12 form-group clearfix">
+                         <div class="col-md-3 col-sm-6" style="padding: 0px !important;">
+                            <label class="pull-right"><strong class="text-danger">*</strong>&nbsp;{{"Label.Account#"|translate}}</label>
+                         </div>
+                        <div class="col-md-6 col-sm-6">
+                            <input type="text" class="form-control" required ng-model="PolicyDetails.insuranceNumber" name="insuranceNumber" id="insuranceNumber" placeholder="{{'Label.Account#'|translate}}">
+                            <div ng-message="required" ng-show="(Form.insuranceNumber.$error.required && Form.insuranceNumber.$touched)">
+                                <span class="text-danger">{{"Please enter insurance number."|translate}}</span>
+                            </div>
+                            <span ng-if="AccountExists!=='' ||PolicyExists!==''" class="text-danger">{{AccountExists}}</span>
+                        </div>
+                        <div class="col-md-3 col-sm-2 padding1px">
+                            <button class="btn sbold  btnMargin" ng-click="GetAccountDetails()">
+                                {{"ControlText.GO"|translate}}
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Policy# -->
+                    <div class="col-md-12 col-sm-12 form-group clearfix">
+                      <div class="col-md-3 col-sm-6" style="padding: 0px !important;">
+                        <label class="pull-right"><strong class="text-danger">*</strong>&nbsp;{{"Label.Policy#"|translate}}</label>
+                      </div>
+                      <div class="col-md-6 col-sm-6">
+                          <select class="form-control" name="PolicyNo" ng-model="PolicyDetails.policyNumber" ng-change="GetPolicyDetails()"
+                                  data-placeholder="Select Policy" ng-options="option as option for option in PolicyList" ng-show="ShowPolicyDropdown">
+                              <option value="0" selected>Select policy</option>
+                          </select>
+                          <input type="text" class="form-control" name="PolicyNo" required ng-model="PolicyDetails.policyNumber" placeholder="{{'Label.Policy#'|translate}}" ng-show="ShowPolicyTextbox">
+                          <span ng-show="(Form.PolicyNo.$error.required && Form.PolicyNo.$touched)" class="text-danger">{{"Please enter policy number"|translate}}</span>
+                          <span ng-if="AccountExists!=='' ||PolicyExists!==''" class="text-danger">{{PolicyExists}}</span>
+                      </div>
+                      <div class="col-md-3 col-sm-2 padding1px">
+                          <button class="btn sbold  btnMargin" ng-click="GetPolicyDetails()" ng-show="ShowPolicyTextbox">
+                              {{"ControlText.GO"|translate}}
+                          </button>
+                          <button class="btn sbold  btnMargin" ng-click="NewPolicy()" ng-show="ShowPolicyDropdown">
+                              {{"New"|translate}}
+                          </button>
+                      </div>
+                    </div>
+
+                    <!-- <div class="col-md-12 col-sm-12 col-lg-12" style="margin-top:-10px;" ng-if="AccountExists!=='' ||PolicyExists!==''">
+                        <label class="col-md-4 col-md-offset-2 col-lg-offset-2 col-lg-4 col-sm-4 col-sm-offset-2 control-label text-danger"><b style="padding-left:10px">{{AccountExists}}</b></label>
+                        <label class="col-md-3 col-md-offset-3 col-lg-offset-3 col-lg-3 col-sm-4 col-sm-offset-2 control-label text-danger">
+                            <b>{{PolicyExists}}</b>
+                        </label>
+                    </div> -->
+
+                    <!-- ReportDate -->
+                    <div class="col-md-12 col-sm-12 form-group">
+                       <div class="col-md-3 col-sm-6" style="padding: 0px !important;">
+                          <label class="pull-right">{{"Label.ReportDate"|translate}} </label>
+                       </div>
+                        <div class="col-md-6 col-sm-6">
+                            <span class="form-control">{{PolicyDetails.reportDate }}</span>
+                        </div>
+                        <div class="col-md-3 col-sm-6" style="padding-right: 0px;"></div>
+                     </div>
+                    <div class="clearfix visible-sm"></div>
+
+                    <!-- Policy Type -->
+                    <div class="col-md-12 col-sm-12 form-group">
+                      <div class="col-md-3 col-sm-6" style="padding: 0px !important;">
+                        <label class="pull-right"><strong class="text-danger">*</strong>&nbsp;{{"Label.PolicyType"|translate}}</label>
+                      </div>
+                      <div class="col-md-6 col-sm-9">
+                          <select class="input-sm select2me form-control" ng-change="SelectclaimType()" name="PolicyType" required ng-model="PolicyDetails.policyType" data-placeholder="Select Policy Type">
+                              <option value="HOME">Property</option>
+                              <option value="AUTO">Auto</option>
+                          </select>
+                          <div ng-message="required" ng-show="(Form.PolicyType.$error.required && Form.PolicyType.$touched)">
+                              <span class="text-danger">{{"ErrorMessage.PolicyType"|translate}}</span>
+                          </div>
+                      </div>
+                      <div class="col-md-3 col-sm-6" style="padding-right: 0px;"></div>
+                    </div>
+                  <div class="clearfix visible-sm"></div>
+
+                  <!-- Home owners policy type -->
+                  <div class="col-md-12 col-sm-12 form-group" ng-show="PolicyDetails.policyType">
+                    <div class="col-md-3 col-sm-6" style="padding: 0px !important;">
+                      <label class="Label_Text_Right"><strong class="text-danger">*</strong>&nbsp;{{"Label.HomePoliceType"|translate}}</label>
+                    </div>
+                    <div class="col-md-6 col-sm-6" ng-show="PolicyDetails.policyType">
+                        <select class="input-sm select2me" name="HomeOwnerPolicyType" required ng-model="PolicyDetails.homeownerPolicyType.id" data-placeholder="Select Policy Type" ng-change="SetDefaultCategoryCoverage()"
+                                ng-options="option.id as option.typeName for option in DdlSourcePolicyType">
+
+                        </select>
+                        <div ng-message="required" ng-show="(Form.HomeOwnerPolicyType.$error.required && Form.HomeOwnerPolicyType.$touched)">
+                            <span class="text-danger">{{"ErrorMessage.HomeOwnerPolicyType"|translate}}</span>
+                        </div>
+                      </div>
+                    <div class="col-md-3 col-sm-6" style="padding-right: 0px;"></div>
+                  </div>
+
+                 <!-- Address   -->
+                 <div class="col-ms-12 col-sm-12 form-group" ng-show="PolicyDetails.policyType=='HOME'">
+                      <div class="col-md-3 col-sm-6 margin-top-10" style="padding: 0px !important;">
+                        <label class="pull-right"><strong class="text-danger">*</strong>&nbsp;{{"Label.PropertyAddress"|translate}}</label>
+                      </div>
+                      <div class="col-md-6 col-sm-6">
+                          <div class="col-sm-12 col-sm-12 margin-bottom-10 clearfix"></div>
+                          <input type="text" class="form-control " ng-model="PolicyDetails.propertyAddress.streetAddressOne" placeholder="{{'Label.Streetadd1'|translate}}" />
+                          <div class="col-sm-12 col-sm-12 margin-bottom-10 clearfix"></div>
+                          <input type="text" class="form-control " ng-model="PolicyDetails.propertyAddress.streetAddressTwo" placeholder="{{'Label.Streetadd2'|translate}}" />
+                          <div class="col-sm-12 col-sm-12 margin-bottom-10 clearfix"></div>
+                          <input type="text" class="form-control " ng-model="PolicyDetails.propertyAddress.city" placeholder="{{'Label.City/town'|translate}}">
+                          <div class="col-sm-12 col-sm-12 margin-bottom-20 clearfix"></div>
+                          <div class="margin-top-10">
+                                  <select class="form-control" ng-model="PolicyDetails.propertyAddress.plState" data-placeholder="State" placeholder="State" ng-options="option.id as option.state for option in DdlStateList">
+                                          <option></option>
+                                      </select>
+                          </div>
+                          <div class="col-sm-12 col-sm-12 margin-bottom-10 clearfix"></div>
+                          <input type="text" class="form-control  " maxlength="5" onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="propZipCode" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" ng-maxlength="8" ng-model="PolicyDetails.propertyAddress.zipcode" placeholder="{{'Label.Zip'|translate}}">
+                          <div ng-message="pattern" ng-show="(Form.propZipCode.$error.pattern)">
+                              <span class="text-danger">{{"ErrorMessage.ZipCode"|translate}}</span>
+                          </div>
+                          <div ng-message="pattern" ng-show="(Form.propZipCode.$error.maxlength)">
+                              <span class="text-danger">{{"ErrorMessage.ZipCodeMax"|translate}}</span>
+                          </div>
+                      </div>
+                      <div class="col-md-3 col-sm-6" style="padding-right: 0px;"></div>
+                  </div>
+                  <div class="clearfix visible-sm"></div>
+
+                  <!-- PolicyName -->
+                  <div class="col-md-12 form-group  clearfix">
+                    <div class="col-md-3 col-sm-6" style="padding: 0px !important;">
+                      <label class="pull-right">{{"Label.PolicyName"|translate}} </label>
+                    </div>
+                    <div class="col-md-6 col-sm-6 form-group">
+                        <input type="text" class="form-control" name="AgentId" ng-model="PolicyDetails.policyName" placeholder="{{'Label.PolicyName'|translate}}">
+                    </div>
+                    <div class="col-md-3 col-sm-6" style="padding-right: 0px;"></div>
+                  </div>
+
+                  <!-- AgentId -->
+                  <div class="col-md-12 form-group  clearfix">
+                    <div class="col-md-3 col-sm-6" style="padding: 0px !important;">
+                      <label class="pull-right">{{"Label.AgentId"|translate}}</label>
+                    </div>
+                    <div class="col-md-6 col-sm-6 form-group">
+                        <select class="input-sm select2me" data-placeholder="Select State" ng-model="PolicyDetails.policyHolder.agentDetails.agentId"
+                                ng-options="option.id as option.name for option in AgentList"></select>
+                    </div>
+                    <div class="col-md-3 col-sm-6" style="padding-right: 0px;"></div>
+                  </div>
+
+                  <!-- PolicyCoverage -->
+                  <div class="col-md-12  form-group  clearfix" ng-show="PolicyDetails.policyType">
+                    <div class="col-md-3 col-sm-6" style="padding: 0px !important;">
+                      <label class="pull-right"><strong class="text-danger">*</strong>&nbsp;{{"Label.PolicyCoverage"|translate}} </label>
+                    </div>
+                    <div class="col-md-6 col-sm-6">
+                        <input type="text" class="form-control" name="PolicyCoverage" ng-change="ChangePropertyCoverage()" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" ng-model="PolicyDetails.totalCoverage" placeholder="{{'Label.PolicyCoverage'|translate}}">
+                        <div ng-message="pattern" ng-show="(Form.PolicyCoverage.$error.pattern)">
+                            <span class="text-danger">{{"ErrorMessage.ValidNumbers"|translate}}</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6" style="padding-right: 0px;"></div>
+                  </div>
+                  <div class="clearfix visible-sm"></div>
+
+                  <!-- SpecialLimit -->
+                  <div class="col-md-12  form-group  clearfix" ng-show="PolicyDetails.policyType">
+                    <div class="col-md-3 col-sm-6" style="padding: 0px !important;">
+                      <label class="pull-right"><strong class="text-danger">*</strong>&nbsp;{{"Label.SpecialLimit"|translate}}</label>
+                    </div>
+                    <div class="col-md-6 col-sm-6">
+                        <input type="text" class="form-control" name="specialLimit" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" ng-model="PolicyDetails.totalSpecialLimit" placeholder="{{'Label.SpecialLimit'|translate}}">
+                        <div ng-message="pattern" ng-show="(Form.specialLimit.$error.pattern)">
+                            <span class="text-danger">{{"ErrorMessage.ValidNumbers"|translate}}</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6" style="padding-right: 0px;"></div>
+                  </div>
+
+                  <!-- propertyCoverage -->
+                  <div class="col-md-12 form-group  clearfix" ng-show="PolicyDetails.policyType">
+                    <div class="col-md-3 col-sm-6" style="padding: 0px !important;">
+                      <label class="pull-right"><strong class="text-danger">*</strong>&nbsp;{{"Label.propertyCoverage"|translate}} </label>
+                    </div>
+                    <div class="col-md-6 col-sm-6 margin-top-10">
+                        <input type="text" class="form-control" name="AggregateCoverage" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" ng-model="PolicyDetails.propertyCoverage" placeholder="{{'Label.propertyCoverage'|translate}}">
+                        <div ng-message="pattern" ng-show="(Form.AggregateCoverage.$error.pattern)">
+                            <span class="text-danger">{{"ErrorMessage.ValidNumbers"|translate}}</span>
+                        </div>
+                    </div>
+                      <div class="col-md-3 col-sm-6" style="padding-right: 0px;"></div>
+                  </div>
+
+                  <!-- Deductible -->
+                  <div class="col-md-12 form-group  clearfix" ng-show="PolicyDetails.policyType">
+                    <div class="col-md-3 col-sm-6" style="padding: 0px !important;">
+                      <label class="pull-right"><strong class="text-danger">*</strong>&nbsp;{{"Label.Deductible"|translate}}</label>
+                    </div>
+                    <div class="col-md-6 col-sm-6">
+                        <input type="text" name="Deductale" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" ng-model="PolicyDetails.totalDetuctibleAmount" class="form-control" placeholder="{{'Label.Deductible'|translate}}">
+                        <div ng-message="pattern" ng-show="(Form.Deductale.$error.pattern)">
+                            <span class="text-danger">{{"ErrorMessage.ValidNumbers"|translate}}</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6" style="padding-right: 0px;"></div>
+                  </div>
+
+                  <!---Newly Added-->
+                  <div class="clearfix visible-sm"></div>
+                  <div class="col-md-12" ng-show="DefaultCategoryCoverage.length > 0">
+                      <div class="portlet ">
+                          <div class="portlet-title">
+                              <div class="col-md-12">
+                                  <div class="col-md-12 text-success">
+                                      {{"Label.DefaultCategoryLimits"|translate}}
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+
+                      <div class="col-md-12 form-group col-sm-12 heightDefaultCovergare" ng-repeat="item in DefaultCategoryCoverage">
+                        <div class="col-md-3 col-sm-6" style="padding: 0px !important;">
+                          <label ng-class="{{item.name.length > 8}} ? 'Label_Text_Right':'pull-right'">{{item.name}}</label>
+                        </div>
+                        <div class="col-md-6 col-sm-6 ">
+                              <input type="text" name="DefaultCoverage_{{$index}}" ng-change="SumSpecialLimit(item)" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" class="form-control" ng-model="item.coverageLimit" placeholder="{{'Label.DefaultCategoryLimits'|translate}}">
+                              <a href="" class="fa fa-close " style="color: black;text-decoration: none;margin-top: -20px !important;float:right !important;padding-right:10px !important" ng-click="DeleteDefaultCategory(item)"></a>
+                              <div ng-message="pattern" ng-show="(Form['DefaultCoverage_' + $index].$error.pattern)">
+                                  <span class="text-danger">{{"ErrorMessage.ValidNumbers"|translate}}</span>
+                              </div>
+                         </div>
+                         <div class="col-md-3 col-sm-6" style="padding-right: 0px;"></div>
+                         </div>
+                        </div>
+
+                      </div>
+                      <!-- Policy holder information starts -->
+
+                      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 options_Background_WithBorder margin-top-10 padding1px" style="padding-top:5px;padding-bottom:5px;">
+                            <span class="text_options_Label sbold caption" style="padding: 5px !important">{{'MainHeader.ContactInformation'|translate}}</span>
+                      </div>
+
+                      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="border:1px solid lightgray;padding:10px">
+
+                      <!-- FirstName -->
+                      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group margin-top-10">
+                          <div class="col-md-3 col-sm-3" style="padding: 0px !important;">
+                            <label class="pull-right"><strong class="text-danger">*</strong>&nbsp;{{"Label.Frstname"|translate}}</label>
+                          </div>
+                          <div class="col-md-6 col-sm-6">
+                              <input type="text" class="form-control" required name="Firstname" ng-model="PolicyDetails.policyHolder.firstName" placeholder="{{'Label.Frstname'|translate}}">
+                              <div ng-message="required" ng-show="(Form.Firstname.$error.required && Form.Firstname.$touched)">
+                                  <span class="text-danger">{{"ErrorMessage.FirstName"|translate}}</span>
+                              </div>
+                          </div>
+                          <div class="col-md-3 col-sm-6" style="padding-right: 0px;"></div>
+                      </div>
+
+                      <!-- Last Name -->
+                      <div class="col-md-12 col-sm-12 form-group">
+                        <div class="col-md-3 col-sm-3" style="padding: 0px !important;">
+                            <label class="pull-right"><strong class="text-danger">*</strong>&nbsp;{{"Label.LstName"|translate}}</label>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <input type="text" ng-model="PolicyDetails.policyHolder.lastName" required name="lastName" class="form-control" placeholder="{{'Label.LstName'|translate}}">
+                            <div ng-message="required" ng-show="(Form.lastName.$error.required && Form.lastName.$touched)">
+                                <span class="text-danger">{{"ErrorMessage.lastName"|translate}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6" style="padding-right: 0px;"></div>
+                      </div>
+
+                      <!-- Day Phone -->
+                      <div class="form-group col-md-12 col-sm-12  clearfix">
+                        <div class="col-md-3 col-sm-3" style="padding: 0px !important;">
+                          <label class="pull-right"><strong class="text-danger">*</strong>&nbsp;{{"Label.DayPhone"|translate}}</label>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <input type="text" name="dayTimepHoneNo" ng-pattern="/^([0-9-,()\s+]{15})$/" ng-trim="false" maxlength="15" ng-model="PolicyDetails.policyHolder.dayTimePhone" placeholder="XXX-XXX-XXXX" phone-input class="input-phone form-control" />
+                            <div class="col-md-12" ng-message="pattern">
+                                <span class="text-danger" ng-show="(Form.dayTimepHoneNo.$touched && Form.dayTimepHoneNo.$error.pattern  )">{{"Enter valid phone number."|translate}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-3" style="padding-right: 0px;"></div>
+                      </div>
+
+                      <!-- Evening Phone -->
+                      <div class="form-group col-md-12 col-sm-12 clearfix">
+                       <div class="col-md-3 col-sm-3" style="padding: 0px !important;">
+                        <label class="Label_Text_Right"><strong class="text-danger">*</strong>&nbsp;{{"Label.EveningPhone"|translate}}</label>
+                       </div>
+                        <div class="col-md-6 col-sm-6">
+                            <input type="text" name="eveningTimepHoneNo" ng-pattern="/^([0-9-,()\s+]{15})$/" ng-trim="false" maxlength="15" ng-model="PolicyDetails.policyHolder.eveningTimePhone" placeholder="XXX-XXX-XXXX" phone-input class="input-phone form-control" />
+                            <div class="col-md-12" ng-message="pattern">
+                                <span class="text-danger" ng-show="(Form.eveningTimepHoneNo.$touched && Form.eveningTimepHoneNo.$error.pattern  )">{{"Enter valid phone number."|translate}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6" style="padding-right: 0px;"></div>
+                      </div>
+
+                      <!-- Cell Phone -->
+                      <div class="form-group col-sm-12 col-md-12 clearfix">
+                        <div class="col-md-3 col-sm-3" style="padding: 0px !important;">
+                          <label class="pull-right"><strong class="text-danger">*</strong>&nbsp;{{"Label.CellPhone"|translate}}</label>
+                         </div>
+                        <div class="col-md-6 col-sm-6">
+                            <input type="text" name="CellpHoneNo" ng-pattern="/^([0-9-,()\s+]{15})$/" ng-trim="false" maxlength="15" ng-model="PolicyDetails.policyHolder.cellPhone" placeholder="XXX-XXX-XXXX" phone-input class="input-phone form-control" />
+                            <div class="col-md-12" ng-message="pattern">
+                                <span class="text-danger" ng-show="(Form.CellpHoneNo.$touched && Form.CellpHoneNo.$error.pattern  )">{{"Enter valid phone number."|translate}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6" style="padding-right: 0px;"></div>
+                      </div>
+
+                      <!-- Email Id -->
+                      <div class="form-group col-sm-12 col-md-12 clearfix">
+                        <div class="col-md-3 col-sm-3" style="padding: 0px !important;">
+                         <label class="pull-right"><strong class="text-danger">*</strong>&nbsp;{{"Label.Mail"|translate}}</label>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <input type="text" name="email" ng-model="PolicyDetails.policyHolder.email" pattern="[a-z0-9A-Z._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required class="form-control" placeholder="{{'Label.Mail'|translate}}" ng-blur="GetPolicyHolderInfo()">
+                            <div ng-message="required" ng-show="(Form.email.$error.required && Form.email.$touched)">
+                                <span class="text-danger">{{"ErrorMessage.EmailRequired"|translate}}</span>
+                            </div>
+                            <div ng-message="pattern" ng-show="(Form.email.$touched && Form.email.$error.pattern)">
+                                <span class="text-danger">{{"ErrorMessage.ValidEmail"|translate}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-3" style="padding-right: 0px;"></div>
+                      </div>
+
+                      <!-- Address -->
+                      <div class="form-group col-md-12 col-sm-12 clearfix">
+                        <div class="col-md-3 col-sm-3" style="padding: 0px !important;">
+                          <label class="pull-right"><strong class="text-danger">*</strong>&nbsp;{{"Label.Address"|translate}}</label>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                              <input type="text" class="form-control " ng-model="PolicyDetails.policyHolder.address.streetAddressOne" ng-attr-placeholder="{{'Label.Streetadd1'|translate}}" />
+
+                              <div class="col-sm-12 col-sm-12 margin-bottom-10 clearfix"></div>
+
+                              <input type="text" class="form-control " ng-model="PolicyDetails.policyHolder.address.streetAddressTwo" ng-attr-placeholder="{{'Label.Streetadd2'|translate}}" />
+                              <div class="col-sm-12 col-sm-12 margin-bottom-10 clearfix"></div>
+
+                              <input type="text" class="form-control" ng-model="PolicyDetails.policyHolder.address.city" placeholder="{{'Label.City/town'|translate}}">
+                              <div class="col-sm-12 col-sm-12 margin-bottom-20 clearfix"></div>
+
+                              <div class="margin-top-10">
+                                      <select class="form-control" ng-model="PolicyDetails.propertyAddress.phState" data-placeholder="State" ng-options="option.id as option.state for option in DdlStateList">
+                                              <option></option>
+                                          </select>
+                              </div>
+                              <div class="col-sm-12 col-sm-12 margin-bottom-10 clearfix"></div>
+
+                              <input type="text" maxlength="5" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="form-control" name="ZipCode" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" ng-maxlength="8" ng-model="PolicyDetails.policyHolder.address.zipcode" placeholder="{{'Label.Zip'|translate}}">
+                              <div ng-message="pattern" ng-show="(Form.ZipCode.$error.pattern)">
+                                  <span class="text-danger">{{"ErrorMessage.ZipCode"|translate}}</span>
+                              </div>
+                              <div ng-message="pattern" ng-show="(Form.ZipCode.$error.maxlength)">
+                                  <span class="text-danger">{{"ErrorMessage.ZipCodeMax"|translate}}</span>
+                              </div>
+                          </div>
+                      </div>
+                    </div>
+                    <!-- Policy holder information ends -->
+                    <!-- Create Policy -->
+                    <div class="clearfix visible-sm"></div>
+                    <div class="col-md-12 clearfix padding1px">
+                          <div class="col-md-12 margin-top-10 padding1px">
+                              <div class="col-md-12 col-sm-12 padding1px margin-top-10">
+                                  <button id="btnSave" class="btn sbold  btnMargin pull-right" ng-show="CreatePolicybutton" ng-click="createPolicy()" ng-disabled="Form.$invalid || Form.$pristine">
+                                      {{"ControlText.CreatePolicy"|translate}}
+                                  </button>
+                              </div>
+                          </div>
+                    </div>
+                </div>
+                <!-- End of Policy Details Page -->
+                <!-- Claim Details Start -->
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" ng-form="FormClaim">
+                <!-- Claim Header -->
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 options_Background_WithBorder margin-top-10 padding1px" style="padding-top:5px;padding-bottom:5px;">
+                      <span class="text_options_Label sbold caption" style="padding: 5px !important">{{'MainHeader.ClaimDetails'|translate}}</span>
+                </div>
+
+                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="border:1px solid lightgray;padding:10px;height:666px">
+                  <!-- Claim # -->
+                  <div class="col-md-12 col-sm-12 form-group clearfix margin-top-15">
+                    <div class="col-md-3 col-sm-3" style="padding: 0px !important;">
+                      <label class="pull-right">{{"Label.Claim#"|translate}}</label>
+                    </div>
+                    <div class="col-md-6 col-sm-6">
+                        <input type="text" class="form-control" required name="ClaimNO" ng-model="PolicyDetails.claimNumber" placeholder="{{'Label.Claim#'|translate}}">
+                        <div ng-message="required" ng-show="(FormClaim.ClaimNO.$error.required && FormClaim.ClaimNO.$touched )">
+                            <span class="text-danger">{{"Please enter claim number."|translate}}</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-3" style="padding-right: 0px;"></div>
+                  </div>
+
+                  <!-- Tax Rate -->
+                  <div class="col-md-12 col-sm-12 form-group clearfix">
+                    <div class="col-md-3 col-sm-3" style="padding: 0px !important;">
+                      <label class="pull-right">{{"Label.TaxRate"|translate}}</label>
+                    </div>
+                    <div class="col-md-6 col-sm-6">
+                        <input type="text" class="form-control" name="TaxRate" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" ng-model="claimDetails.taxRate" placeholder="{{'Label.TaxRate'|translate}}">
+                        <div ng-message="pattern" ng-show="( FormClaim.TaxRate.$error.pattern)">
+                            <span class="text-danger">{{"ErrorMessage.ValidNumbers"|translate}}</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-3" style="padding-right: 0px;"></div>
+                  </div>
+
+                  <!-- Claim Type -->
+                  <div class="form-group col-md-12 col-sm-12 clearfix">
+                    <div class="col-md-3 col-sm-3" style="padding: 0px !important;">
+                      <label class="pull-right">{{"Label.ClaimType"|translate}}</label>
+                    </div>
+                    <div class="col-md-6 col-sm-6">
+                        <input type="text" class="form-control" readonly name="ClaimType" required ng-model="PolicyDetails.claimType"
+                               placeholder="{{'Label.ClaimType'|translate}}">
+                        <div class="clearfix visible-sm"></div>
+                        <div class="col-md-12 clearfix" ng-message="required" ng-show="((FormClaim.ClaimType.$error.required && FormClaim.ClaimType.$dirty))">
+                            <span class="text-danger">{{"ErrorMessage.ClaimType"|translate}}</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-3" style="padding-right: 0px;"></div>
+                  </div>
+                  <div class="clearfix visible-sm"></div>
+
+                  <!-- Replacement Option -->
+                  <div class="col-md-12 col-sm-12 margin-top-10 form-group clearfix">
+                    <div class="col-md-3 col-sm-3" style="padding: 0px !important;">
+                      <label class="Label_Text_Right"><b>Replacement Option</b></label>
+                    </div>
+                    <div class="col-md-6 col-sm-6 stylefle">
+                        <label class="mt-radio mt-radio-outline mt-radio-single">
+                            <input type="radio" class="group-checkable" name="injured" ng-model="claimDetails.isACV" value="true" />
+                            ACV<span></span>
+                        </label>&nbsp;&nbsp;
+                        <label class="mt-radio mt-radio-outline mt-radio-single ">
+                            <input type="radio" class="group-checkable" name="injured" ng-model="claimDetails.isRCV" value="true" />
+                            <span></span>RCV
+                        </label>
+                    </div>
+                    <div class="col-md-3 col-sm-3" style="padding-right: 0px;"></div>
+                  </div>
+
+                  <!-- Item Category -->
+                  <div class="col-md-12 col-sm-12 form-group clearfix">
+                    <div class="col-md-3 col-sm-3" style="padding: 0px !important;">
+                      <label class="Label_Text_Right">{{"Label.ItemCategory"|translate}}</label>
+                    </div>
+                    <div class="col-md-6 col-sm-6">
+                        <select class="input-sm select2me" ng-model="CommonObject.ItemCategoryId" ng-change="CreateItemList()" data-placeholder="Select Item Category"
+                                ng-options="option.categoryId as option.categoryName for option in DdlClaimCategoryWithCovers"></select>
+                    </div>
+                    <div class="col-md-3 col-sm-3" style="padding-right: 0px;"></div>
+                  </div>
+                  <div class="clearfix visible-sm"></div>
+
+                  <!-- Item Name -->
+                  <div class="col-md-12 col-sm-12 form-group clearfix" ng-repeat="item in ClaimCategoryWithCovers">
+                    <div class="col-md-3 col-sm-3" style="padding: 0px !important;">
+                      <label ng-class="{{item.name.length > 8}} ? 'Label_Text_Right':'pull-right'">{{item.name}}</label>
+                    </div>
+                    <div class="col-md-6 col-sm-6">
+                        <input type="text" name="Coverage_{{$index}}" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" class="form-control" ng-model="item.coverageLimit" placeholder="{{'Label.coveragelimit'|translate}}">
+                        <a href="" class="fa fa-close " style="color: black;text-decoration: none;margin-top: -20px !important;float:right !important;padding-right:10px !important" ng-click="DeleteItemCategory(item)"></a>
+                        <div ng-message="pattern" ng-show="(FormClaim['Coverage_' + $index].$error.pattern)">
+                            <span class="text-danger">{{"ErrorMessage.ValidNumbers"|translate}}</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-3" style="padding-right: 0px;"></div>
+                  </div>
+                  <div class="clearfix visible-sm"></div>
+
+                  <!-- Add Note -->
+                  <div class="form-group col-md-12 col-sm-12 ">
+                    <div class="col-md-3 col-sm-3" style="padding: 0px !important;">
+                      <label class="pull-right">{{"Label.AddNote"|translate}}</label>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-md-offset-0 ">
+                        <textarea rows="2" class="form-control" ng-attr-placeholder="{{'Label.AddNote'|translate}}" ng-model="claimDetails.claimNote"></textarea>
+                    </div>
+                    <div class="col-md-3 col-sm-3" style="padding-right: 0px;"></div>
+                  </div>
+                  <div class="clearfix visible-sm"></div>
+
+                  <!-- Incident -->
+                  <div class="form-group col-md-12 col-sm-12">
+                    <div class="col-md-3 col-sm-3" style="padding: 0px !important;">
+                      <label class="pull-right">{{"Label.IncidentOccur"|translate}}</label>
+                    </div>
+                    <div class="col-md-6 col-sm-6">
+                        <input class="form-control datepicker" data-date-container='#cal' required ng-model="PolicyDetails.incidentDate" data-provide="datepicker" size="16" type="text" placeholder="{{'Label.DateofIncident'|translate}} " name="IncidentDate" />
+                        <div ng-message="required" ng-show="(FormClaim.IncidentDate.$error.required && FormClaim.IncidentDate.$touched)">
+                            <span class="text-danger">{{"ErrorMessage.IncidentDate"|translate}}</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-3" style="padding-right: 0px;"></div>
+                  </div>
+
+                  <!-- As per sameer -->
+                  <div class="col-md-12 col-sm-12 form-group clearfix">
+                    <div class="col-md-3 col-sm-3" style="padding: 0px !important;">
+                      <label class="pull-right">{{"Label.DamageTypes"|translate}}</label>
+                    </div>
+                    <div class="col-md-6 col-sm-6">
+                        <select class="input-small select2me btnMargin" name="DamageType" required data-placeholder="Select..." ng-model="claimDetails.damageTypeId" ng-change="SetQuestionForDamageType()"
+                                ng-options="option.id as option.name for option in DamageTypesList"></select>
+                        <div ng-message="required" ng-show="(FormClaim.DamageType.$error.required && FormClaim.DamageType.$touched)">
+                            <span class="text-danger">{{"ErrorMessage.DamageType"|translate}}</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-3" style="padding-right: 0px;"></div>
+                  </div>
+
+                  <!-- Question -->
+                  <div class="col-md-12  col-sm-12">
+                      <div class="form-group  clearfix" ng-repeat="question in QuestionList |orderBy:'order'" ng-if="question.type!=='IMAGE' && question.type!=='DATE'">
+
+                        <div class="col-md-3 col-sm-3" style="padding: 0px !important;">
+                          <label class="pull-right">{{question.question}}</label>
+                        </div>
+
+                        <div class="col-md-6 col-sm-6 " ng-show="question.type==='SELECT'">
+                            <select class="select2-choice btnMargin form-control" data-placeholder="Select..." ng-model="question.answer"
+                                    ng-options="option.id as option.answer for option in question.answers"></select>
+                        </div>
+
+                        <div class="col-md-6 col-sm-6" ng-if="question.type==='TEXT'">
+                            <textarea rows="2" class="form-control " ng-model="question.answer" ng-attr-placeholder="{{'Label.ReportDesc'|translate}}"></textarea>
+                        </div>
+
+                        <div class="col-md-6 col-sm-6" ng-if="question.type==='DATE'">
+                            <input class="form-control datepicker" data-date-container='#cal' ng-model="question.answer" data-provide="datepicker" size="16" type="text" name="Date" />
+                        </div>
+
+                        <div class="input-group form-group col-sm-6 col-md-6" ng-if="question.type==='BOOLEAN'">
+                            <div class="col-md-12">
+                                <div class="icheck-inline">
+                                    <label class="mt-radio mt-radio-outline mt-radio-single ">
+                                        <input type="radio" class="group-checkable" name="{{$index}}" ng-model="question.answer"
+                                               value="TRUE" />
+                                        {{"ControlText.rdoYes"|translate}}<span></span>
+                                    </label>
+                                    <label class="mt-radio mt-radio-outline mt-radio-single ">
+                                        <input type="radio" class="group-checkable" name="{{$index}}" ng-model="question.answer"
+                                               value="FALSE" />
+                                        <span></span>{{"ControlText.rdoNo"|translate}}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-3" style="padding-right: 0px;"></div>
+                      </div>
+                  </div>
+
+                  <!-- Images -->
+                  <div class="col-md-12  col-sm-12 form-group clearfix">
+                    <div class="col-md-3 col-sm-3" style="padding: 0px !important;">
+                      <label class="Label_Text_Right"><b>{{"Label.Picture"|translate}}</b></label>
+                    </div>
+                    <div class="col-md-7 col-sm-6">
+                        <input type="file" name="FileUpload" ng-required="IncidentImages.length === 0" ng-model="Validatefile" id="FileUpload" class="green" multiple onchange="angular.element(this).scope().uploadImage(event)" style="display: none;" accept="image/*">
+                        <button class="blue btn btnMargin" ng-click="FireUploadEvent($event)">Select image</button>
+                        <span class="text-success">No. of selected file {{IncidentImages.length}}</span>
+                        <div ng-message="required" ng-show="(FormClaim.FileUpload.$error.required && FormClaim.FileUpload.$touched && IncidentImages.length === 0)">
+                            <span class="text-danger">{{"ErrorMessage.FileUpload"|translate}}</span>
+                        </div>
+                        <div class="col-md-2 col-sm-3" style="padding-right: 0px;"></div>
+                     </div>
+                   </div>
+                   <div class="col-md-12 col-sm-12 form-group clearfix">
+                     <div class="col-md-3 col-sm-3" style="padding: 0px !important;">
+                     </div>
+                     <div class="col-md-8 col-sm-6">
+                         <font ng-repeat="item in IncidentImages">
+                             <a ng-click="GetDocxDetails(file)"><span>{{item.FileName}}</span> </a><span class="fa fa-times-circle fa-lg text-danger " ng-click="RemoveImage(item)" style="margin-left:3px;"></span>
+                             <span ng-if="!$last">, </span>
+                         </font>
+                     </div>
+                     <div class="col-md-1 col-sm-3" style="padding-right: 0px;"></div>
+                   </div>
+                </div>
+              </div>
+              <!-- Claim Details End -->
+              </div>
+            </div>
+          <!-- Policy Details End -->
+            </div>
+        </div>
+    </div>
+
+    <!-- <div class="clearfix"></div>
+    <div class="portlet light col-md-12 padding1px" ng-form="FormClaim">
+        <div class="SubHeadingDiv">
+            <div class="caption font-grey-sharp">
+                <span class="caption-subject  ">{{"MainHeader.ClaimDetails"|translate}}</span>
+            </div>
+            <div class="tools">
+                <a href="" class="collapse"> </a>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <div class="row">
+
+                <!-- As per sameer -->
+                <!-- <div class="col-md-12">
+                    <div class="clearfix col-sm-12 margin-top-10 visible-sm"></div>
+                    <div class="col-md-12 col-sm-12 form-group clearfix">
+                        <label class="col-md-2 col-sm-2 control-label Label_Text_Right">{{"Label.DamageTypes"|translate}}</label>
+                        <div class="col-md-3 col-sm-4">
+                            <select class="input-small select2me btnMargin" name="DamageType" required data-placeholder="Select..." ng-model="claimDetails.damageTypeId" ng-change="SetQuestionForDamageType()"
+                                    ng-options="option.id as option.name for option in DamageTypesList"></select>
+                            <div ng-message="required" ng-show="(FormClaim.DamageType.$error.required && FormClaim.DamageType.$touched)">
+                                <span class="text-danger">{{"ErrorMessage.DamageType"|translate}}</span>
+                            </div>
+                        </div>
+                    </div> -->
+                    <!-- <div class="col-md-12  col-sm-12">
+                        <div class="form-group  clearfix" ng-repeat="question in QuestionList |orderBy:'order'" ng-if="question.type!=='IMAGE' && question.type!=='DATE'">
+                            <label class="col-md-12 col-sm-6  control-label ">{{question.question}}</label>
+                            <div class="col-md-5 col-sm-6 " ng-show="question.type==='SELECT'">
+                                <select class="select2-choice btnMargin form-control" data-placeholder="Select..." ng-model="question.answer"
+                                        ng-options="option.id as option.answer for option in question.answers"></select>
+                            </div>
+
+                            <div class="col-md-5 col-sm-6" ng-if="question.type==='TEXT'">
+                                <textarea rows="2" class="form-control " ng-model="question.answer" ng-attr-placeholder="{{'Label.ReportDesc'|translate}}"></textarea>
+                            </div>
+
+                            <div class="col-md-5 col-sm-6" ng-if="question.type==='DATE'">
+                                <input class="form-control datepicker" data-date-container='#cal' ng-model="question.answer" data-provide="datepicker" size="16" type="text" name="Date" />
+                            </div>
+
+                            <div class="input-group form-group col-sm-6 col-md-5" ng-if="question.type==='BOOLEAN'">
+                                <div class="col-md-12">
+                                    <div class="icheck-inline">
+                                        <label class="mt-radio mt-radio-outline mt-radio-single ">
+                                            <input type="radio" class="group-checkable" name="{{$index}}" ng-model="question.answer"
+                                                   value="TRUE" />
+                                            {{"ControlText.rdoYes"|translate}}<span></span>
+                                        </label>
+                                        <label class="mt-radio mt-radio-outline mt-radio-single ">
+                                            <input type="radio" class="group-checkable" name="{{$index}}" ng-model="question.answer"
+                                                   value="FALSE" />
+                                            <span></span>{{"ControlText.rdoNo"|translate}}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+
+
+
+                    <div class="col-md-12 col-sm-12 topBorder padding1px">
+                        <div class="col-md-12 col-sm-12 padding1px margin-top-10 text-right">
+                            <button id="btnBack" class="btn sbold  btnMargin" ng-click="SendApp()">
+                                Send App to Insured
+                            </button>
+                            <button id="btnAssignClaims" class="btn sbold  btnMargin" ng-disabled="DisableAssignbtn " ng-click="AssignClaimToAdjuster($event)">
+
+                                {{"ControlText.Assign"|translate}}
+                            </button>
+                            <button id="btnSave" class="btn sbold  btnMargin" ng-click="SaveClaimReportDetails($event)" ng-disabled="FormClaim.$invalid || FormClaim.$pristine">
+
+                                {{"ControlText.Save"|translate}}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lost Damage Item -->
+    <div class="clearfix"></div>
+    <div class="portlet light padding1px">
+        <div class="portlet-title">
+            <div class="caption font-grey-sharp">
+                <span class="caption-subject ">{{"MainHeader.TableContenetDamage"|translate}}</span>
+            </div>
+            <!--<div class="tools">
+                <a href="" class="collapse"> </a>
+            </div>-->
+        </div>
+        <div class="portlet-body">
+            <div class="row">
+                <div class="col-md-12 col-sm-12">
+                    <div class="col-md-12 table-responsive padding1px">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 options_Background">
+                            <div div class="col-md-4 col-sm-5 margin-top-5 margin-bottom-5 padding1px">
+                                <button id="sample_editable_1_new" class="btn sbold btnMargin btnOptions" ng-disabled="DisableAssignbtn" ng-click="AddNewItemToList()">
+                                    {{"New Item"|translate}}
+                                </button>
+                                <button class="btn sbold btnMargin" ng-disabled="DisableAssignbtn" ng-click="UploadPostLossItem()">
+
+                                    {{"ControlText.LoadFromFile"|translate}}
+                                </button>
+                            </div>
+                            <div class="col-md-8 col-sm-7 margin-top-5 margin-bottom-5">
+                                <label class="control-label col-md-1 col-sm-2 text-primary col-md-offset-4">{{"Label.ddlView"|translate}}</label>
+                                <div class="col-md-3 col-sm-5">
+                                    <select class="input-small select2me btnMargin" data-placeholder="Select..." ng-model="CommonObject.SearchItemCategory" ng-change="FilterLostDamageItems()">
+                                        <option value="ALL">ALL</option>
+                                        <option value="{{itemCategory.categoryName}}" ng-repeat="itemCategory in DdlItemCatregoryList">{{itemCategory.categoryName}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4 col-sm-5">
+                                    <div class="input-icon left">
+                                        <i class="icon-magnifier"></i>
+                                        <input type="text" ng-model="search" class="form-control form-control-solid input-circle input-block-level" placeholder="{{'Label.search'|translate}}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <table class="table  table-striped table-bordered table-hover table-checkable order-column" id="sample_5">
+                            <thead>
+                                <tr>
+                                    <!--<th class="table-checkbox">
+                            <a class="TextDecorationNone" ng-click="AddNewItemToList()">
+                                <i class="fa fa-plus-circle fa-2x text-success"></i>
+                            </a>
+                        </th>-->
+                                    <th ng-click="sort('itemNumber')">
+                                        {{"Table.ItemNo"|translate}}
+                                        <span class="glyphicon sort-icon" ng-show="sortKey=='itemNumber'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                    </th>
+                                    <th ng-click="sort('itemName')">
+                                        {{"Table.ItemName_Title"|translate}}
+                                        <span class="glyphicon sort-icon" ng-show="sortKey=='ItemName'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                    </th>
+
+                                    <th ng-click="sort('description')">
+                                        {{"Table.Description"|translate}}
+                                        <span class="glyphicon sort-icon" ng-show="sortKey=='description'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                    </th>
+                                    <th ng-click="sort('price')">
+                                        {{"Table.InsuredValue(Price)"|translate}}
+                                        <span class="glyphicon sort-icon" ng-show="sortKey=='price'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                    </th>
+                                    <th ng-click="sort('scheduled')">
+                                        {{"Table.ScheduledItem"|translate}}
+                                        <span class="glyphicon sort-icon" ng-show="sortKey=='scheduled'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                    </th>
+                                    <th ng-click="sort('brand')">
+                                        {{"Table.Brand"|translate}}
+                                        <span class="glyphicon sort-icon" ng-show="sortKey=='brand'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                    </th>
+                                    <th ng-click="sort('model')">
+                                        {{"Table.Model"|translate}}
+                                        <span class="glyphicon sort-icon" ng-show="sortKey=='model'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                    </th>
+                                    <th ng-click="sort('categoryName')">
+                                        {{"Table.Category"|translate}}
+                                        <span class="glyphicon sort-icon" ng-show="sortKey=='categoryName'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                    </th>
+                                    <th ng-click="sort('subCategoryName')">
+                                        {{"Table.Sub-Category"|translate}}
+                                        <span class="glyphicon sort-icon" ng-show="sortKey=='subCategoryName'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                    </th>
+                                    <th ng-click="sort('age')">
+                                        {{"Table.Age"|translate}}
+                                        <span class="glyphicon sort-icon" ng-show="sortKey=='age'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                    </th>
+
+                                    <th ng-click="sort('status')">
+                                        {{"Table.Status"|translate}}
+                                        <span class="glyphicon sort-icon" ng-show="sortKey=='status'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                    </th>
+                                    <th>
+                                        {{"Table.Action"|translate}}
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-if="AddNewItem">
+                                    <!-- call when need to cancel add new item CancelAddNewItem -->
+
+                                    <td></td>
+                                    <td>
+                                        <input type="text" class="form-control setwidth" ng-model="selected.itemName" placeholder="{{'Table.ItemName_Title'|translate}}">
+                                    </td>
+                                    <td>
+                                        <textarea type="text" class="form-control setwidth" ng-model="selected.description" ng-attr-placeholder="{{'Table.Description'|translate}}"></textarea>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control " ng-model="selected.price" placeholder="{{'Table.InsuredValue(Price)'|translate}}">
+                                    </td>
+                                    <td>
+                                        <select class="input-small select2me form-control  " data-placeholder="Select..." ng-model="selected.scheduled">
+                                            <option value="true" ng-selected="selected.scheduled">Yes</option>
+                                            <option value="false" ng-selected="!selected.scheduled">No</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control " ng-model="selected.brand" placeholder="{{'Table.Brand'|translate}}">
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control " ng-model="selected.model" placeholder="{{'Table.Model'|translate}}">
+                                    </td>
+                                    <td>
+                                        <select class="input-small select2me form-control " data-placeholder="Select..." ng-model="selected.categoryId" ng-change="GetSubCategory()"
+                                                ng-options="option.categoryId as option.categoryName for option in CategoryList"></select>
+                                    </td>
+                                    <td>
+                                        <select class="input-small select2me form-control  " data-placeholder="Select..." ng-model="selected.subCategoryId"
+                                                ng-options="option.id as option.name for option in SubCategory"></select>
+                                    </td>
+                                    <td style="display:flex; width:100px;">
+                                        <input style="width:50% !important" type="text" class="form-control btnMargin" ng-model="selected.age" placeholder="year">
+                                        <input style="width:50% !important" type="text" class="form-control btnMargin " ng-model="selected.ageMonths" placeholder="month">
+                                    </td>
+
+                                    <td>
+                                        <input type="text" readonly class="form-control " ng-model="selected.status" placeholder="{{'Table.Status'|translate}}">
+                                    </td>
+                                    <td>
+                                        <div class="btn-group btn-group-circle btn-outline" style="display:flex !important;">
+                                            <span ng-click="SaveItemDetails()" class="btn green btn-sm btn-outline">Save</span>
+                                            <span ng-click="reset()" class="btn red btn-sm  btn-outline">Cancel</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr dir-paginate="item in FiletrLostDamageList |orderBy:sortKey:reverse|filter:search|itemsPerPage:pageItem" ng-include="getTemplate(item)"></tr>
+                                <tr ng-if="FiletrLostDamageList ===null || FiletrLostDamageList.length ==0">
+                                    <td></td>
+                                    <td colspan="13" class="text-center text-danger">No records available</td>
+                                </tr>
+
+                            </tbody>
+                            <tfoot>
+                            </tfoot>
+                        </table>
+                        <div class="clearfix"></div>
+                        <dir-pagination-controls max-size="3" direction-links="true" boundary-links="true" class="pull-right ">
+                        </dir-pagination-controls>
+                        <script type="text/ng-template" id="display">
+                            <!--<td>
+                    <a style="text-decoration:none;color:black;" class="fa fa-pencil-square-o fa-lg" aria-hidden="true" ng-click="EditItemDetails(item)"></a>
+                </td>-->
+                            <td>{{item.itemNumber}}</td>
+                            <td>{{item.itemName}}</td>
+                            <td>{{item.description}}</td>
+                            <td>{{item.price}}</td>
+                            <td>{{item.scheduled}}</td>
+                            <td>{{item.brand}}</td>
+                            <td>{{item.model}}</td>
+                            <td>{{item.categoryName}} </td>
+                            <td>{{item.subCategoryName}} </td>
+                            <td>
+                                <span ng-if="item.ageMonths===null || item.ageMonths===''">{{item.age}}</span>
+                                <span ng-if="item.ageMonths>0">{{((item.age) + (item.ageMonths/12) | limitTo : 4)}}</span>
+                            </td>
+                            <td>
+                                <span ng-class="{'btn btn-circle btn-xs ItemAssigned':item.status==='ASSIGNED','btn btn-circle btn-xs ItemCreated':item.status==='CREATED','btn btn-circle btn-xs ItemUnderReview':item.status==='UNDER REVIEW','btn btn-circle btn-xs ItemApproved':item.status==='APPROVED','btn btn-circle btn-xs ItemValued':item.status==='VALUED','btn btn-circle btn-xs ItemSettled':item.status==='SETTLED'}">{{item.status}}</span>
+                            </td>
+
+                            <td>
+                                <div style="display:flex;">
+                                    <a ng-click="EditItemDetails(item)" class="text-success font-sm sbold"> Edit</a> |
+                                    <a ng-click="DeletItem(item)" class="text-danger font-sm sbold"> Delete</a>
+                                    <!--<div style="display:flex;">
+                            <a class="TextDecorationNone margintopleft5"><i class="fa fa-check-circle fa-2x text-success " aria-hidden="true"></i> </a>
+                            <a class="TextDecorationNone margintop5" ng-click="DeletItem(item)"> <i class="fa fa-times-circle fa-2x text-danger" aria-hidden="true"></i></a>
+                        </div>-->
+                                </div>
+                            </td>
+                        </script>
+                        <script type="text/ng-template" id="edit">
+
+                            <td></td>
+                            <td>
+                                <input type="text" class="form-control " ng-model="selected.itemName" placeholder="{{'Table.ItemName_Title'|translate}}">
+                            </td>
+                            <td>
+                                <textarea type="text" class="form-control setwidth" ng-model="selected.description" ng-attr-placeholder="{{'Table.Description'|translate}}"></textarea>
+                            </td>
+                            <td>
+                                <input type="text" class="form-control " ng-model="selected.price" placeholder="{{'Table.InsuredValue(Price)'|translate}}">
+                            </td>
+                            <td>
+                                <select class="input-small select2me form-control " data-placeholder="Select..." ng-model="selected.scheduled">
+                                    <option value="true" ng-selected="selected.scheduled">Yes</option>
+                                    <option value="false" ng-selected="!selected.scheduled">No</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" class="form-control " ng-model="selected.brand" placeholder="{{'Table.Brand'|translate}}">
+                            </td>
+                            <td>
+                                <input type="text" class="form-control " ng-model="selected.model" placeholder="{{'Table.Model'|translate}}">
+                            </td>
+                            <td>
+                                <select class="input-small select2me form-control " data-placeholder="Select..." ng-model="selected.categoryId" ng-change="GetSubCategory()"
+                                        ng-options="option.categoryId as option.categoryName for option in CategoryList"></select>
+                            </td>
+                            <td>
+                                <select class="input-small select2me form-control " data-placeholder="Select..." ng-model="selected.subCategoryId"
+                                        ng-options="option.id as option.name for option in SubCategory"></select>
+                            </td>
+                            <td style="display:flex; width:100px;">
+                                <input style="width:50% !important" type="text" class="form-control btnMargin" ng-model="selected.age" placeholder="year">
+                                <input style="width:50% !important" type="text" class="form-control btnMargin " ng-model="selected.ageMonths" placeholder="month">
+                            <td>
+
+                            <td>
+                                <input type="text" readonly class="form-control " ng-model="selected.status" placeholder="{{'Table.Status'|translate}}">
+                            </td>
+                            <td>
+                                <div class="btn-group btn-group-circle btn-outline" style="display:flex;">
+                                    <span ng-click="SaveItemDetails(selected.itemId)" class="btn green btn-sm btn-outline">Save</span>
+                                    <span ng-click="reset()" class="btn red btn-sm  btn-outline">Cancel</span>
+                                </div>
+                            </td>
+                        </script>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>

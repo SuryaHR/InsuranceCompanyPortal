@@ -1,0 +1,126 @@
+﻿<div class="col-md-12 ">
+    <ul class="page-breadcrumb breadcrumb sbold">
+        <li>
+            <a ng-click="GoBack()">{{"Home"|translate}}</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span>{{"Search Results"|translate}}</span>
+        </li>
+    </ul>
+</div>
+
+<div class="row">
+    <!--Serach TextBox-->
+    <div class="col-md-12" style="margin-bottom:20px;">
+        <div class="col-md-offset-1 col-md-10 ">
+            <div class="input-icon left">
+                <i class="icon-magnifier globlaSearchIcon"></i>
+                <input type="text" ng-model="GlobalsearchText" style="height:35px;" ng-keyup="GlobalsearchText.length > 0 ? ($event.keyCode == 13 && Search()) : Search()" class="form-control form-control-solid input-circle input-block-level" placeholder={{"MainSearchText"|translate}}>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="col-md-12">
+            <div class="portlet light bordered">
+                <div class="portlet-title">
+                    <div class="caption font-green-sharp">
+                        <span class="caption-subject bold uppercase">{{"Search Result"|translate}}</span>
+                    </div>
+                    <div class="tools">
+                        <button class="btn sbold btnMargin" ng-click="GoBack()">
+                            <i class="fa fa-arrow-left">  </i>
+                            {{"Back"|translate}}
+                        </button>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="row">
+                        <div class="col-md-12 margin-bottom-20">
+
+                            <label class="text-logo "><b>{{startIndex}} &nbsp;-&nbsp; {{endIndex}}&nbsp; {{"Of"|translate}} &nbsp;{{totalitemcount}}&nbsp; {{"Result"|translate}}&nbsp; {{"For"|translate}}&nbsp;<span class="text-success">{{DisplayRecordForText}}</span></b></label>
+                            <!--<font>{{count}} of {{totalCount}} results for {{SearchText}}</font>-->
+                        </div>
+                        <div class="form-group col-md-12 clearfix">
+                            <label class="col-md-1 text-primary">{{"View"|translate}}</label>
+                            <div class="col-md-3">
+                                <select class="form-control select2me" ng-model="ClaimStatus" data-placeholder="Select Claim Status" ng-change="GetClaimOnStatus($event)">
+                                    <option value="ALL" selected>All</option>
+                                    <option ng-repeat="items in ddlClaimStatusList" value="{{items.status}}">{{items.status}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-12 table-responsive">
+                            <table class="table table-striped table-bordered table-hover table-checkable order-column" id="dash">
+                                <thead>
+                                    <tr>
+                                        <td ng-click="sort('claimType')">
+                                            {{"Table.Type"|translate}}
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='claimType'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                        </td>
+                                        <td ng-click="sort('claimId')">
+                                            {{"Table.ClaimId"|translate}}
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='claimId'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+
+                                        </td>
+                                        <td ng-click="sort('policyNumber')">
+                                            {{"Table.PolicyNo"|translate}}
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='policyNumber'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                        </td>
+                                        <td ng-click="sort('username')">
+                                            {{"Table.InsuredsName"|translate}}
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='username'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                        </td>
+                                        <td ng-click="sort('createDate')" class="">
+                                            {{"Table.DateOfClaim"|translate}}
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='createDate'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                        </td>
+                                        <td ng-click="sort('claimStatus')">
+                                            {{"Table.Status"|translate}}
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='claimStatus'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                        </td>
+                                        <td>
+                                            {{"Table.LastNote"|translate}}
+                                        </td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr dir-paginate="item in MyClaims|orderBy:sortKey:reverse|filter:search|itemsPerPage:pagesize track by $index"
+                                    total-items="totalitemcount" current-page="pagination.current">
+                                        <td><span ng-class="{'HOME':'fa fa-home fa-lg', 'AUTO':'fa fa-bus fa-lg'}[item.claimType]"></span></td>
+                                        <td class="col-xs-2" ng-click="GotoClaimDetails(item,'Contents')"><a>{{item.claimNumber}}</a></td>
+                                        <td class="col-xs-2" ng-click="GotoClaimDetails(item,'Policy Details')"><a>{{item.policyNumber}}</a></td>
+                                        <td class="col-xs-2" ng-click="GotoClaimDetails(item,'Policy Details')"><a>{{item.insuredDetails.firstName +" "+item.insuredDetails.lastName}}</a></td>
+
+                                        <td class="col-xs-1">{{item.createDate | DateFormatMMddyyyy}}</td>
+                                        <td class="col-xs-1"><a class="btn btn-circle  btn-xs green">{{item.status.status}}</a></td>
+
+                                        <td class="not-clickable-cell" ng-click="$event.stopPropagation()" class="col-xs-4" ng-init="limit = 40; moreShown = false">{{(item.lastNote.message | limitTo: limit) + (item.lastNote.message.length > limit ? '...' :
+                                            '')}}
+                                            <a ng-show="item.lastNote.message.length > limit" href ng-click="limit=item.lastNote.message.length; moreShown = true">
+                                                More
+                                            </a>
+                                            <a ng-show="moreShown" href ng-click="limit=50; moreShown = false">
+                                                Less </a>
+                                        </td>
+                                        <!-- <td><textarea class="form-control" readonly>{{item.lastNote.message}}</textarea></td> -->
+                                    </tr>
+                                    <tr ng-if="MyClaims.length ==0||MyClaims===null">
+                                        <td></td>
+                                        <td colspan="6" class="text-center text-danger">{{"NoRecordText"|translate}}</td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                </tfoot>
+                            </table>
+                            <dir-pagination-controls max-size="3" on-page-change="setCurrentPage(newPageNumber)"
+                                                     direction-links="true"
+                                                     boundary-links="true" class="pull-right">
+                            </dir-pagination-controls>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

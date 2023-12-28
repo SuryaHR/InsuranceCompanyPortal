@@ -1,0 +1,444 @@
+﻿<script type="text/javascript">
+    $(function () {
+        iOSHandler();
+        $(window).on("orientationchange", function (event) {
+            iOSHandler();
+        });
+    });
+    function iOSHandler() {
+        var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        var width = screen.width;
+
+
+        if (iOS) {
+
+            var orientation;
+            if (window.orientation == undefined) {
+                orientation = window.screen.orientation.angle;
+            }
+            else {
+                orientation = window.orientation;
+            }
+
+            if (orientation != 0) {
+                if (screen.width < screen.height) {
+                    width = screen.height;
+                }
+            }
+            //iPhone4-Landscape
+            if (width > 475 && width < 485) {
+                $(".ServiceEditMainDiv").css("height", "auto");
+                $(".ServiceEditNotesDiv").css("height", "auto");
+                $(".ServiceEditNotesDiv").css("overflow", "scroll");
+                $(".ServiceEditNotesDiv").css("-webkit-overflow-scrolling", "touch");
+            }
+
+                //iPhone5-Landscape
+            else if (width > 562 && width < 572) {
+                $(".ServiceEditMainDiv").css("height", "auto");
+                $(".ServiceEditNotesDiv").css("height", "auto");
+                $(".ServiceEditNotesDiv").css("overflow", "scroll");
+                $(".ServiceEditNotesDiv").css("-webkit-overflow-scrolling", "touch");
+            }
+                //iPhone4,5-Portrait
+            else if (width > 315 && width < 325) {
+                $(".ServiceEditMainDiv").css("height", "auto");
+                $(".ServiceEditNotesDiv").css("height", "auto");
+                $(".ServiceEditNotesDiv").css("overflow", "scroll");
+                $(".ServiceEditNotesDiv").css("-webkit-overflow-scrolling", "touch");
+            }
+
+                //iPhone6-Landscape
+            else if (width > 660 && width < 670) {
+                $(".ServiceEditMainDiv").css("height", "auto");
+                $(".ServiceEditNotesDiv").css("height", "auto");
+                $(".ServiceEditNotesDiv").css("overflow", "scroll");
+                $(".ServiceEditNotesDiv").css("-webkit-overflow-scrolling", "touch");
+            }
+                //iPhone6-Portrait
+            else if (width > 370 && width < 380) {
+                $(".ServiceEditMainDiv").css("height", "auto");
+                $(".ServiceEditNotesDiv").css("height", "auto");
+                $(".ServiceEditNotesDiv").css("overflow", "scroll");
+                $(".ServiceEditNotesDiv").css("-webkit-overflow-scrolling", "touch");
+            }
+
+                //iPhone6+-Landscape
+            else if (width > 730 && width < 740) {
+
+                $(".ServiceEditMainDiv").css("height", "auto");
+                $(".ServiceEditNotesDiv").css("height", "auto");
+                $(".ServiceEditNotesDiv").css("overflow", "scroll");
+                $(".ServiceEditNotesDiv").css("-webkit-overflow-scrolling", "touch");
+            }
+                //iPhone6+-Portrait
+            else if (width > 410 && width < 420) {
+                $(".ServiceEditMainDiv").css("height", "auto");
+                $(".ServiceEditNotesDiv").css("height", "auto");
+                $(".ServiceEditNotesDiv").css("overflow", "scroll");
+                $(".ServiceEditNotesDiv").css("-webkit-overflow-scrolling", "touch");
+            }
+
+                //ipad
+            else if (width > 1020 && width < 1025) {
+                $(".ServiceEditMainDiv").css("height", "560");
+                $(".ServiceEditNotesDiv").css("height", "440");
+                $(".ServiceEditNotesDiv").css("overflow", "scroll");
+                $(".ServiceEditNotesDiv").css("-webkit-overflow-scrolling", "touch");
+            }
+
+                else if (width ==768) {
+
+                    $(".ServiceEditMainDiv").css("height", "auto");
+                    $(".ServiceEditNotesDiv").css("height", "auto");
+                    $(".ServiceEditNotesDiv").css("overflow", "scroll");
+                    $(".ServiceEditNotesDiv").css("-webkit-overflow-scrolling", "touch");
+                }
+            else if (width > 1360 && width < 1367) {
+                $(".ServiceEditMainDiv").css("height", "670");
+                $(".ServiceEditNotesDiv").css("height", "550");
+                $(".ServiceEditNotesDiv").css("overflow", "scroll");
+                $(".ServiceEditNotesDiv").css("-webkit-overflow-scrolling", "touch");
+            }
+        }
+    }
+
+</script>
+<div class="row">
+    <!--Top buttons-->
+    <div class="col-md-12">
+        <!--<div class="row">
+            <span class="text-muted bold caption col-md-12 col-sm-12 col-xs-12 col-lg-12 margin-bottom-5 Custombreadcrumb"><a ng-click="GotoDashboard()"> {{"Dashboard"|translate}} </a>&nbsp;>&nbsp; <a ng-click="GotoBack()">  {{serviceRequestDetails.claimDetails.claimNumber}} </a> &nbsp;>&nbsp;{{serviceRequestDetails.serviceRequestId}}</span>
+        </div>-->
+        <div class="col-md-12">
+            <ul class="page-breadcrumb breadcrumb sbold">
+                <li>
+                    <a ng-click="GotoDashboard()">{{"Home"|translate}}</a>
+                    <i class="fa fa-circle"></i>
+                </li>
+                <li>
+                    <a ng-click="GotoBack()">{{serviceRequestDetails.claimDetails.claimNumber}}</a>
+                    <i class="fa fa-circle"></i>
+                </li>
+                <li>
+                    <span>{{serviceRequestDetails.serviceRequestId}}</span>
+                </li>
+            </ul>
+        </div>
+            <div class="portlet light ">
+                <div class="portlet-title">
+                        <div class="col-md-6 col-sm-6 col-lg-6 caption font-grey-sharp">
+                          
+                                <span class="caption-subject font-grey-sharp"> {{serviceRequestDetails.category.name}}</span>
+                           
+                        </div>
+                        <div class="col-md-6 col-lg-6 col-sm-6 pull-right text-right padding1px">
+
+                            <button class="btn sbold btnMargin" ng-click="GotoAssign()">
+                                {{"ControlText.Assign"|translate}}
+                            </button>
+                            <button id="btnUpdate" class="btn sbold btnMargin" ng-click="UpdateServiceRequest()">
+                               
+                                {{"ControlText.Save"|translate}}
+                            </button>
+
+                            <button id="btnDeleteClaims" class="btn sbold btnMargin" ng-click="Deleteservicerequest($event)">
+                               
+                                {{"ControlText.Delete"|translate}}
+                            </button>
+
+                        </div>
+                        <div class="col-md-12 arrowbuttonClaimDetails col-sm-12 col-xs-12 col-lg-12 padding1px" style="margin-top:-5px!important;margin-bottom:4px;">
+                            <center>
+                                <div class="col-lg-12  col-sm-12  col-md-12 col-xs-12 margin-top-10" style="margin-left:auto !important;margin-right:auto !important;">
+                                    <div class="clearfix"></div>
+                                    <div class="styleflex ServiceStatusHorizontalLine" style="margin-bottom: -13px !important;">
+                                        <div class="width16 " ng-class="{true:'backgreen', false:'backGray'}[1 <serviceRequestDetails.status.statusId]"></div>
+                                        <div class="width16" ng-class="{true:'backgreen', false:'backGray'}[2 < serviceRequestDetails.status.statusId]"></div>
+                                        <div class="width16" ng-class="{true:'backgreen', false:'backGray'}[3 < serviceRequestDetails.status.statusId]"></div>
+                                        <div class="width16" ng-class="{true:'backgreen', false:'backGray'}[4 < serviceRequestDetails.status.statusId]"></div>
+                                        <div class="width16" ng-class="{true:'backgreen', false:'backGray'}[5 < serviceRequestDetails.status.statusId]"></div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div class="styleflex ServiceStatusNumber" id="statusList">
+                                        <div class="width14">
+                                            <div class="text-center  ClaimStatus " ng-class="{true:'text-center bold ClaimStatusActive'}[0 < serviceRequestDetails.status.statusId]">1</div>
+                                            <span class="ClaimStatusActiveText clearfix hidden-xs" ng-class="{true:'font-green'}[0 <  serviceRequestDetails.status.statusId]">Draft</span>
+                                            <span class="ClaimStatusActiveText clearfix visible-xs" ng-class="{true:'font-green'}[0 < serviceRequestDetails.status.statusId]">Draft</span>
+                                        </div>
+                                        <div class="margintopleft10  width14">
+                                            <div class="text-center  ClaimStatus " ng-class="{true:'text-center bold ClaimStatusActive'}[1 < serviceRequestDetails.status.statusId]">2</div>
+                                            <span class="ClaimStatusActiveText clearfix hidden-xs" ng-class="{true:'font-green'}[1 <  serviceRequestDetails.status.statusId]">Assigned</span>
+                                            <span class="ClaimStatusActiveText clearfix visible-xs" ng-class="{true:'font-green'}[1 < serviceRequestDetails.status.statusId]">Assigned</span>
+                                        </div>
+                                        <div class="margintopleft10  width14">
+                                            <div class="text-center  ClaimStatus " ng-class="{true:'text-center bold ClaimStatusActive'}[2 < serviceRequestDetails.status.statusId]">3</div>
+                                            <span class="ClaimStatusActiveText clearfix hidden-xs" ng-class="{true:'font-green'}[2 <  serviceRequestDetails.status.statusId]">Rejected</span>
+                                            <span class="ClaimStatusActiveText clearfix visible-xs" ng-class="{true:'font-green'}[2 < serviceRequestDetails.status.statusId]">Rejected</span>
+                                        </div>
+                                        <div class="margintopleft10  width14">
+                                            <div class="text-center  ClaimStatus " ng-class="{true:'text-center bold ClaimStatusActive'}[3 < serviceRequestDetails.status.statusId]">4</div>
+                                            <span class="ClaimStatusActiveText clearfix hidden-xs" ng-class="{true:'font-green'}[3 <  serviceRequestDetails.status.statusId]">In-Progress</span>
+                                            <span class="ClaimStatusActiveText clearfix visible-xs" ng-class="{true:'font-green'}[3 < serviceRequestDetails.status.statusId]">In-Progress</span>
+
+                                        </div>
+                                        <div class="margintopleft10  width14">
+                                            <div class="text-center  ClaimStatus " ng-class="{true:'text-center bold ClaimStatusActive'}[4 < serviceRequestDetails.status.statusId]">5</div>
+                                            <span class="ClaimStatusActiveText clearfix hidden-xs" ng-class="{true:'font-green'}[4 <  serviceRequestDetails.status.statusId]">Completed</span>
+                                            <span class="ClaimStatusActiveText clearfix visible-xs" ng-class="{true:'font-green'}[4 < serviceRequestDetails.status.statusId]">Completed</span>
+                                        </div>
+                                        <div class="margintopleft10  width14">
+                                            <div class="text-center  ClaimStatus " ng-class="{true:'text-center bold ClaimStatusActive'}[5 < serviceRequestDetails.status.statusId]">6</div>
+                                            <span class="ClaimStatusActiveText clearfix hidden-xs" ng-class="{true:'font-green'}[5 <  serviceRequestDetails.status.statusId]">Cancelled</span>
+                                            <span class="ClaimStatusActiveText clearfix visible-xs" ng-class="{true:'font-green'}[5 < serviceRequestDetails.status.statusId]">Cancelled</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </center>
+                        </div>
+                </div>
+            </div>
+        <!--End Top Buttons-->
+        <!--Service request details-->
+        <div class="col-md-6 col-sm-12 col-xs-12 ">
+            <div class="portlet light bordered ServiceEditMainDiv">
+
+                <div class="portlet-body" id="ServiceRequestDiv">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 ">
+                            <div class="col-md-12 col-sm-12 form-group">
+                                <label class="col-md-4 col-sm-4 control-label">{{"ControlText.Service RequestId"|translate}} </label>
+                                <label class="col-md-6 col-sm-6  control-label"><b>{{serviceRequestDetails.serviceRequestId}}</b></label>
+
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-sm-12">
+                            <div class="col-md-12 col-sm-12 form-group">
+                                <label class="col-md-4 col-sm-4 control-label">{{"ControlText.ServiceCategory"|translate}}</label>
+                                <div class="col-md-5 col-sm-8 ">
+                                    <select class="input-sm select2me" name="ServiceCategory" ng-model="serviceRequestDetails.category.id" data-placeholder="Select Item Type"
+                                            ng-options="option.id as option.name  for option in ServiceCategoryList"></select>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-sm-12">
+                            <div class="col-md-12 col-sm-12 form-group">
+                                <label class="col-md-4 col-sm-4 control-label">{{"ControlText.Status"|translate}}</label>
+                                <div class="col-md-5 col-sm-8 ">
+                                    <select class="input-sm select2me" name="ServiceCategory" required ng-model="serviceRequestDetails.status.statusId" data-placeholder="Select Item Type"
+                                            ng-options="option.statusId as option.statusName for option in StatusList"></select>
+                                </div>
+                                <div class="col-md-4 col-sm-4"></div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 col-sm-12">
+                            <div class="col-md-12 form-group">
+                                <label class="col-md-4 col-sm-4  control-label">{{"ControlText.ServiceDescription"|translate}}</label>
+                                <div class="col-md-8 col-sm-8">
+                                    <textarea class="form-control " ng-model="serviceRequestDetails.description" type="text" rows="2" placeholder="{{'ControlText.ServiceDescription'|translate}}" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12  col-sm-12">
+                            <div class="col-md-12 form-group">
+                                <label class="col-md-4 col-sm-4  control-label">{{"ControlText.DateOfAssignMent"|translate}} </label>
+                                <div class="col-md-4 col-sm-8">
+                                    {{serviceRequestDetails.assignedDate | DateFormatMMddyyyy}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-sm-12">
+                            <div class="col-md-12 form-group">
+                                <label class="col-md-4 col-sm-4 control-label">{{"ControlText.AssignedTo"|translate}}</label>
+                                <div class="col-md-8 col-sm-8">
+                                    {{serviceRequestDetails.assignTo.vendorName}}
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="clearfix"></div>
+
+                        <div class="col-md-12 col-sm-12">
+                            <div class="col-md-12 form-group">
+                                <label class="col-md-4 col-sm-4  control-label">{{"ControlText.TargetDate"|translate}} </label>
+                                <div class="col-md-6 col-sm-8">
+                                    {{serviceRequestDetails.targetDate | DateFormatMMddyyyy}}
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="col-md-12 col-sm-12">
+                            <div class="col-md-12 form-group">
+                                <label class="col-md-4 col-sm-4  control-label">{{"ControlText.DateofCompletion"|translate}} </label>
+                                <div class="col-md-6 col-sm-8">
+                                    {{serviceRequestDetails.completionDate | DateFormatMMddyyyy}}
+                                </div>
+                            </div>
+                        </div><div class="clearfix"></div>
+                        <div class="col-md-12 col-sm-12">
+                            <div class="col-md-12 form-group">
+                                <label class="col-md-4 col-sm-4  control-label">{{"ControlText.Attachments"|translate}} </label>
+
+                                <div class="col-md-8 col-sm-8">
+                                    <div class="col-md-3 col-sm-4 padding1px">
+                                        <div class="col-md-2  padding1px">
+                                            <input id="FileUpload" type="file" multiple onchange="angular.element(this).scope().getFileDetails(this)" style="display: none;">
+                                            <button class="btn sbold green btnMargin " ng-click="SelectFile()">
+                                                <i class="fa fa-plus-circle fa-lg"></i>
+                                                {{"ControlText.AddFile"|translate}}
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 margin-top-10 margin-bottom-10 text-danger padding1px tip">
+                                        <span class="Overlay">{{SelectedFileList}}</span><span>{{SelectedFileList|limitTo:20}}</span><span ng-if="SelectedFileList.length>20">..</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-sm-4"></div>
+                                <div class="col-md-8 col-sm-8 padding1px">
+                                    <div class="col-lg-12">
+                                        <div class="col-lg-12 padding1px" style="height:50px;overflow-y:auto;">
+                                            <div class="col-lg-12 col-md-12 padding1px">
+                                                <span ng-repeat="file in serviceRequestDetails.attachments">
+                                                    <span><a href="{{file.url}}" download>{{file.name}}</a><span ng-if="!$last">,&nbsp;</span></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12  col-sm-12">
+                            <div class="col-md-12 form-group">
+                                <label class="col-md-4 col-sm-4  control-label">{{"ControlText.Invoice"|translate}} </label>
+                                <div class="col-md-8 col-sm-8">
+                                    <div class="col-lg-12 padding1px" style="height:50px;overflow-y:auto;">
+                                        <div class="col-lg-12 col-md-12 padding1px">
+                                            <span ng-repeat="file in serviceRequestDetails.invoices">
+                                                <span><a href="#" download="{{file.url}}">{{file.name}}</a><span ng-if="!$last">,&nbsp;</span></span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 col-sm-12">
+                            <div class="col-md-12 form-group">
+                                <label class="col-md-4 col-sm-4  control-label">{{"ControlText.CreateAt"|translate}} </label>
+                                <div class="col-md-8 col-sm-8">
+                                    {{serviceRequestDetails.createDate  |DateFormatMMddyyyy}}
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 col-sm-12">
+                            <div class="col-md-12 form-group">
+                                <label class="col-md-4 col-sm-4  control-label">{{"ControlText.CreatedBy"|translate}} </label>
+                                <div class="col-md-8 col-sm-8">
+                                    {{serviceRequestDetails.createdBy.name}}
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!--End Service request details-->
+        <!--Notes-->
+        <div class="col-md-6 col-sm-12 col-xs-12 ">
+            <div class="portlet light bordered ServiceEditMainDiv">
+                <div class="portlet-title">
+                    <div class="caption font-green" style="padding-bottom:0px;">
+                        <span class="caption-subject "> {{"HeadingText.Notes"|translate}}</span>
+                    </div>
+
+                </div>
+                <div class="portlet-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-12 portlet light bordered ServiceEditNotesDiv">
+                                <div class="col-md-12 col-sm-12 padding1px" ng-repeat="note in NoteListForService">
+                                    <div class="col-md-12 col-sm-12 padding1px" ng-repeat="message in note.messages">
+                                        <div class="col-md-12 col-sm-12 col-xs-12 well padding1px">
+                                            <div class="col-md-12 col-sm-12 padding1px">
+                                                <label class="col-md-2 col-sm-6">{{"Auther"|translate}}:</label>
+                                                <div class="col-md-10 col-sm-6">
+                                                    <span class="col-md-12">{{message.addedBy.name}}</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 col-sm-12 padding1px">
+                                                <label class="col-md-2 col-sm-6">{{"Message"|translate}}:</label>
+                                                <div class="col-md-10 col-sm-6">
+                                                    <span class="col-md-12">{{message.message}}</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 col-sm-12 padding1px">
+                                                <label class="col-md-2 col-sm-6">{{"Attachments"|translate}}:</label>
+                                                <div class="col-md-10 col-sm-6">
+                                                    <font class="col-md-12" ng-repeat="attachment in message.attachments"><a href="{{attachment.url}}" download>{{attachment.name}}</a><span ng-if="!$last">,</span></font>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 text-center text-danger" ng-show="!NoteListForService.length||NoteListForService===null">{{"NoRecordText"|translate}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!---Create Note Section-------->
+                    <div class="row">
+                        <div class="col-md-12 " ng-form="CreateNoteForm" id="CreateNoteForm" name="CreateNoteForm">
+                            <div class="addnote">
+
+                                <input id="NoteFileUpload" type="file" ng-model="CommonObj.Attachment" onchange="angular.element(this).scope().getNoteFileDetails(this)" style="display: none;" accept="image/*">
+                                <div class="col-md-9 col-lg-9  col-sm-9 col-xs-12 btnMargin padding1px" style="display:flex">
+                                    <i class="fa fa-paperclip fa-2x" style="margin:5px;" ng-click="SelectNoteFile()"></i>
+                                    <textarea class="form-control input-block-level" ng-model="CommonObj.ItemNote" placeholder="Multiline Text Area" required></textarea>
+
+                                </div>
+
+                                <div class="col-md-3 col-lg-3 col-sm-3 col-xs-12 btnMargin padding1px">
+                                    <button class="btn sbold btnMargin blue pull-right" ng-disabled="CreateNoteForm.$invalid || CreateNoteForm.$pristine" ng-click="AddNote($event)">
+                                        {{"ControlText.AddNote"|translate}}
+                                    </button>
+                                </div>
+
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-xs-12 btnMargin clearfix">
+                                <div class="col-md-12">
+                                    <div class="col-md-12">
+                                        <span class="text-success" ng-show="fileName">
+                                            <spaan class="text-danger">{{"Seletedfile"|translate}} &nbsp;</spaan>
+                                            {{fileName}}
+                                        </span>
+                                        <div class="clearfix" ng-message="required" ng-show="(CreateNoteForm.ItemNote.$error.required && CreateNoteForm.ItemNote.$touched)">
+                                            <span class="text-danger">{{"ErrorMessage.ItemNoteRequired"|translate}}</span>
+                                        </div>
+                                        <span class="valid-status invalid text-danger" ng-show="CreateNoteForm.NoteParticipant.$required">{{"ErrorMessage.ParticiapntInValidMessage"|translate}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!---End Create Note Section-------->
+
+                </div>
+            </div>
+        </div>
+        <!--End Notes-->
+    </div>
+</div>
+
+

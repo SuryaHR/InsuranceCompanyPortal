@@ -1,0 +1,27 @@
+﻿{
+
+  "MainHeader": {
+    "Claim_Ttile": "Claim"
+  },
+  "ControlText": {
+    "LoadFromFile": "Load from file",
+    "Export": "Export",
+    "Assign_title": "Assign",
+    "Reject_title": "Reject",
+    "ViewDropDown_Title": "View",
+    "NoRecordddl_Title": "Show",
+    "Search_Placeholder": "Search...",
+    "View_Placeholder": "Select... "
+  },
+  "Table": {
+    "Type_Title": "Type",
+    "Claim_Title": "Claim",
+    "Policy_Title": "Policy",
+    "InsuredName_Title": "Insured's Name",
+    "InsuredPhone": "Insured's Phone",
+    "DateClaim_Title": "Report Date",
+    "Status_Title": "Status",
+    "Action_Title": "Action"
+  }
+
+}

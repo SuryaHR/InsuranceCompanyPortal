@@ -1,0 +1,64 @@
+﻿{
+  "ControlText": {
+    "Assign_title": "Assign",
+    "Reject_title": "Reject"
+  },
+
+  "HeaderText": {
+    "CompanyDetails": "Company Details",
+    "VendorSettings": "Vendor Settings",
+    "VendorContactSettings": "Vendor Contact Settings",
+    "GeneralInformation": "General Information",
+    "RemitToInformation": "Remit To Information",
+    "BankInformation": "Bank Information",
+    "RemittanceDetamils": "Remittance Details",
+    "Home" : "Home",
+    "SearchResults" : "Search Results",
+    "VendorDetails" : "Vendor Details"
+  },
+  "TabHeaderTitle": {
+    "CompanyDetails": "Company Details",
+    "RemittanceDetails": "Remittance Details"
+  },
+  "Label": {
+    "VendorName": "Vendor Name",
+    "RemitTocaontactName": "Remit To contact Name",
+    "RimitToAddress": "Rimit To Address",
+    "OfficeAddress": "Office Address",
+    "BillingAddress": "Billing Address",
+    "AddressLine1": "Address Line 1",
+    "AddressLine2": "Address Line 2",
+    "City": "City",
+    "ZipCode": "Zip Code",
+    "Phoneeg": "996-000-9999",
+    "BankName": "Bank Name",
+    "RoutingNumber": "Routing Number",
+    "AccountNumber": "Account Number",
+    "BankAddress": "Bank Address",
+    "Phone#": "Phone #",
+    "Phone": "Phone(Work) #",
+    "Fax": "Fax",
+    "FirstName": "First Name",
+    "LastName": "Last Name",
+    "Email": "Email Id",
+    "Save": "Save",
+    "FEIN": "Federal Employer Identification Number (FEIN)",
+    "NAICS": "North American Industry Classification System (NAICS)",
+    "PhoneWork": "Phone (Work)",
+    "PhoneMobile": "Phone (Mobile)",
+    "CompanyWeb": "Company Website"
+  },
+  "VendorNameRequired": "Enter Vendor Name",
+  "CompanyWebsiteRequired": "Enter Website Name",
+  "ValidEmail": "Enter Valid Email",
+  "EmailRequiredRequired": "Enter Email Address",
+  "FirstNameRequired": "Enter First Name",
+  "LastNameRequired": "Enter Last Name",
+  "NAICSRequired": "Enter NAICS",
+  "FEINRequired": "Enter FEIN",
+  "RemittanceContactNameRequired": "Enter Contact Name",
+  "CompanyDetails": "Company Details",
+  "RemittanceDetails": "Remittance Details",
+  "Home": "Home",
+  "Please enter valid phone number": "Please enter valid phone number."
+}

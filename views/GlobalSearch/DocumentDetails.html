@@ -1,0 +1,55 @@
+﻿<style>
+    .ImageDocx {
+        border: none;
+        max-height: 100%;
+        max-width: 100%;
+        width: auto;
+        height: auto;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+        padding: 3px;
+    }
+</style>
+<div id="myModal">
+    <div class="modal-header">
+        <a class="close" ng-click="Cancel()" aria-hidden="true"></a>
+        <label class="modal-title ">File Name:</label> &nbsp; <span class="">{{((DocxDetails.fileName!==null && DocxDetails.fileName!=='')?DocxDetails.fileName:'Document')}}</span>
+    </div>
+    <div class="modal-body">
+        <div class="col-md-12 col-sm-12 col-xs-12 text-center" ng-if="isPDF===2">
+            <div class="col-sm-8 col-md-6 col-xs-12 " style="height:230px;width:100%;">
+
+                <img onerror="this.onerror=null; this.src='assets/global/img/no-image.png';" class="ImageDocx" ng-src="{{DocxDetails.url}}" alt="Image" />
+
+            </div>
+        </div>
+        <div class="col-md-12 col-sm-12 col-xs-12 margin-bottom-10" id="PdfView" ng-if="isPDF===1">
+            <!-- Show PDF region Render PDF here -->
+            <div class="col-md-12" id="load_receipts">
+                <ng-pdf template-url="views/GlobalSearch/PdfViewer.html" canvasid="pdf" scale="page-fit" page=1></ng-pdf>
+            </div>
+            <!--End Show PDF region  -->
+        </div>
+        <div class="col-md-12 col-sm-12 col-xs-12 text-center" ng-if="isPDF===0">
+            <div class="col-sm-8 col-md-6 col-xs-12 text-center" style="height:230px;width:100%;">
+
+                <div class="col-md-12 col-sm-12 col-xs-12 well text-center">
+                    <span class="text-info">{{"File type does not support preview option. File will start downloading.."|translate}}</span>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-12 col-sm-12 col-xs-12 text-right">
+            <span><a class="fa fa-arrow-circle-down" style="font-size:24px;text-decoration:none !important; padding: 0 10px 10px 0;" ng-href="{{DocxDetails.url}}" download=""></a></span>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="modal-footer">
+        <button type="button" class="btn sbold btnMargin" ng-click="Cancel()">{{"Close"|translate}}</button>
+    </div>
+</div>
+

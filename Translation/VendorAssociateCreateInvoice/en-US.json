@@ -1,0 +1,89 @@
+﻿{
+  "ControlText": {
+    "Back": "Back",
+    "Save": "Save",
+    "Status": "Status",
+    "VendorName": "Vendor Name",
+    "InvoiceId": "Invoice Id",
+    "Claim": "Claim #",
+    "InvoiceDate": "Invoice Date",
+    "DueDate": "Due Date",
+    "Currency": "Currency",
+    "TaxRate": "Tax Rate",
+    "PaymentTerms": "Payment Terms",
+    "AdjusterName": "Adjuster's Name",
+    "InsuredsName": "Insured's Name",
+    "VendorNote": "Vendor Note",
+    "Attachments": "Attachments",
+    "RemitTo": "Remit To",
+    "StreetAddress1": "StreetAddress1",
+    "StreetAddress2": "StreetAddress2",
+    "TownCity": "Town / City",
+    "City": "City",
+    "ZipCode": "Zip Code",
+    "State": "State",
+    "SubTotal": "SubTotal",
+    "Tax@": "Tax @(%)",
+    "GrandTotal": "Grand Total",
+    "InvoicesLeftToPay": "Invoices Left To Pay",
+    "CurrentInvoice": "Current Invoice",
+    "PayNow": "Pay Now",
+    "SendQueryToSupervisor": "Send Query To Supervisor",
+    "SendQueryToVendor": "Send Query To Vendor",
+    "InvoiceAddressed": "Invoice Addressed",
+    "Approve": "Approve",
+    "InvoiceOfItemSelected": "# Invoice Item Selected",
+    "TotalValue": "Total Value",
+    "TotalHoldoverValue": "Total Holdover Value",
+    "PaymentMethod": "Payment Method",
+    "Amount": "Amount",
+    "CheckNumber": "Check Number",
+    "DrawnOnBank": "Drawn On Bank",
+    "PaymentDate": "Payment Date",
+    "PayoutItems": "Payout Items",
+    "DebitCardNo": "Debit Card Number",
+    "SendToSupervisor": "Send To Supervisor",
+    "Reject": "Reject",
+    "RemitToAddress": "Remit To Address",
+    "ShippingAddress1": "Shipping Address 1",
+    "ShippingAddress2": "Shipping Address 2",
+    "BillTO": "Billing To Address",
+    "ShipTo": "Shipping To Address",
+    "AddAttachments": "Add Attachments",
+    "MyClaims": "My Claims"
+  },
+  "HeadingText": {
+    "Invoice": "Invoice #",
+    "ItemsList": "Items List",
+    "CreateInvoice": "Create Invoice"
+  },
+  "Radio": {
+    "Check": "Check",
+    "DebitCard": "Debit Card",
+    "EFT": "EFT"
+  },
+  "Table": {
+    "ItemId": "Item Id",
+    "ItemName": "ItemName",
+    "Description": "Description",
+    "Services": "Services",
+    "Quantity": "Quantity",
+    "UnitPrice": "Unit Price",
+    "Tax": "Tax",
+    "Amount": "Amount"
+
+  },
+  "AlertMessage": {
+    "ItemPaymentTitle": "Item Payment"
+
+  },
+  "ErrorMessage": {
+    "AmountRequired": "Enter Amount",
+    "BankNameRequired": "Enter Bank Name",
+    "DateRequired": "Enter Date",
+    "CheckNoRequired": "Enter Check Number",
+    "DueDateRequired": "Enter Due Date"
+  },
+  "NoAttachment": "0 Attachments"
+
+}

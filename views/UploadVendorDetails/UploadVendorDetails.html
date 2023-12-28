@@ -1,0 +1,450 @@
+﻿<!-- Steps screen -->
+<style>
+    .rtable {
+        /*!
+    // IE needs inline-block to position scrolling shadows otherwise use:
+    // display: block;
+    // max-width: min-content;
+    */
+        display: inline-block;
+        vertical-align: top;
+        max-width: 100%;
+        overflow-x: auto;
+        white-space: nowrap;
+        border-collapse: collapse;
+        border-spacing: 0;
+    }
+
+    .rtable,
+    .rtable--flip tbody {
+        /*// optional - enable iOS momentum scrolling*/
+        -webkit-overflow-scrolling: touch;
+        /*// scrolling shadows*/
+        background: radial-gradient(left, ellipse, rgba(0,0,0, .2) 0%, rgba(0,0,0, 0) 75%) 0 center, radial-gradient(right, ellipse, rgba(0,0,0, .2) 0%, rgba(0,0,0, 0) 75%) 100% center;
+        background-size: 10px 100%, 10px 100%;
+        background-attachment: scroll, scroll;
+        background-repeat: no-repeat;
+    }
+
+
+        .rtable td:first-child,
+        .rtable--flip tbody tr:first-child {
+            background-image: linear-gradient(to right, rgba(255,255,255, 1) 50%, rgba(255,255,255, 0) 100%);
+            background-repeat: no-repeat;
+            background-size: 20px 100%;
+        }
+
+        /*// gradient on the last cells to hide the right shadow*/
+        .rtable td:last-child,
+        .rtable--flip tbody tr:last-child {
+            background-image: linear-gradient(to left, rgba(255,255,255, 1) 50%, rgba(255,255,255, 0) 100%);
+            background-repeat: no-repeat;
+            background-position: 100% 0;
+            background-size: 20px 100%;
+        }
+
+        .rtable th {
+            text-align: left;
+            text-transform: uppercase;
+            padding: 6px 12px;
+            border: 1px solid #d9d7ce;
+            min-height: 32px !important;
+        }
+
+        /*.rtable th,*/
+        .rtable td {
+            min-height: 32px !important;
+            min-width: 180px;
+            padding: 6px 12px;
+            border: 1px solid #d9d7ce;
+        }
+
+    .rtable--flip {
+        display: flex;
+        overflow: hidden;
+        background: none;
+    }
+
+        .rtable--flip thead {
+            display: flex;
+            flex-shrink: 0;
+            min-width: min-content;
+        }
+
+        .rtable--flip tbody {
+            display: flex;
+            position: relative;
+            overflow-x: auto;
+            overflow-y: hidden;
+        }
+
+        .rtable--flip tr {
+            display: flex;
+            flex-direction: column;
+            min-width: min-content;
+            flex-shrink: 0;
+        }
+
+        .rtable--flip td,
+        .rtable--flip th {
+            display: block;
+        }
+
+        .rtable--flip td {
+            background-image: none !important;
+            /*// border-collapse is no longer active*/
+            border-left: 0;
+        }
+
+            /*// border-collapse is no longer active*/
+            .rtable--flip th:not(:last-child),
+            .rtable--flip td:not(:last-child) {
+                border-bottom: 0;
+            }
+</style>
+<div class="col-md-12 " ng-show="stepScreen">
+    <div class="portlet light bordered ">
+        <div class="portlet-title">
+            <div class="caption font-green-sharp">
+                <span class="caption-subject green bold">{{"Bulk Upload Vendor Details"|translate}}</span>
+            </div>
+
+        </div>
+        <div class="portlet-body">
+            <div class="row">
+                <div class="col-md-12 margin-bottom-15">
+                    <div class="col-md-12 margin-bottom-15 ">
+                        <span class="control-label bold">{{'ControlText.step'|translate}}</span>
+                    </div>
+                    <div class="col-md-12 margin-bottom-15">
+                        <span class="control-label">{{'ControlText.step1'|translate}} <a download href="{{TemplateURL}}">&nbsp;{{'ControlText.step1.1'|translate}} &nbsp;</a>{{'ControlText.step1.2'|translate}}</span>
+                    </div>
+                    <div class="col-md-12  margin-bottom-15">
+                        <span class="control-label">{{'ControlText.step2'|translate}}</span>
+                        <ul class="margin-top-10 margin-bottom-10">
+                            <li>
+                                <span class="control-label">{{'ControlText.step2.1'|translate}}</span>
+                            </li>
+                            <li>
+                                <span class="control-label">{{'ControlText.step2.2'|translate}}</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-12  margin-bottom-15">
+                        {{'ControlText.step3'|translate}}
+                    </div>
+                    <div class="col-md-12 col-sm-12  margin-bottom-15 form-group">
+                        <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12 styleflex">
+                            <span class="control-label"> {{'ControlText.SelectFile'|translate}} :</span>
+                            <div class="col-md-9"><input class="form-control" ng-model="FileDetails.FileName" type="text" placeholder="{{'ControlText.NoFileselected'|translate}}" /></div>
+                        </div>
+
+                        <div class="col-md-1 col-lg-1 col-sm-2 col-xs-12 padding1px">
+                            <input type="file" name="FileUpload" id="FileUpload" class="green" ng-model="fileControl" onchange="angular.element(this).scope().getFileDetails(this)" style="display: none;">
+                            <button class="sbold btn btnMargin" ng-click="FileUploadEvent($event)">{{'ControlText.SelectFile'|translate}}</button>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="col-md-12">
+                            <span class="text-danger sbold">{{ErrorMessage}}</span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12" ng-if="showProgress">
+                        <uib-progressbar class="progress-striped green" value="uploader.progress" type="{{type}}">
+                            {{type}}
+                            <i> {{uploader.progress}}% </i>
+                        </uib-progressbar>
+                    </div>
+                </div>
+                <div class="tools pull-right margin-bottom-10">
+                    <button class="sbold btn btnMargin" ng-click="GoBack($event)">{{'ControlText.Cancel'|translate}}</button>
+                    <button class="sbold btn btnMargin" ng-click="StartUpload($event)" ng-disabled="FileDetails.Files.length===0">{{'ControlText.StartUpload'|translate}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end Steps screen -->
+<!-- Verify screen -->
+<div class="col-md-12" ng-if="VerifyScreen">
+    <div class="portlet light bordered">
+        <div class="portlet-title">
+            <div class="caption font-green-sharp">
+                <span class="caption-subject green bold">{{"VerifyInformation"|translate}}</span>
+            </div>
+            <div class="tools">
+                <button class="sbold btn btnMargin" ng-click="CancelVerify($event)">{{'ControlText.Cancel'|translate}}</button>
+                <button class="sbold btn btnMargin" ng-click="Verify($event)">{{'ControlText.FinishUplolad'|translate}}</button>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <div class="row">
+
+                <div class="col-md-12 table-responsive">
+                    <table class="rtable rtable--flip">
+                        <tr>
+                            <th style="display:none"></th>
+                            <th ng-click="sort(id)" style="min-width:80px !important;">
+                                <span class="bold" style="padding:5px !important;">Vendor Id</span>
+                                <span class="glyphicon sort-icon" ng-show="sortKey=='id'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+
+                            </th>
+                            <th ng-click="sort(vendorName)" style="min-width:80px !important;">
+                                <span class="bold" style="padding:5px !important;">Vendor Name</span>
+                            </th>
+                            <th ng-click="sort(companyWebsite)" style="min-width:80px !important;">
+                                <span class="bold" style="padding:5px !important;">Website</span>
+                                <span class="glyphicon sort-icon" ng-show="sortKey=='companyWebsite'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+
+                            </th>
+                            <th style="min-width:80px !important;">
+                                <span class="bold" style="padding:5px !important;">Street Address One</span>
+                            </th>
+                            <th style="min-width:80px !important;">
+                                <span class="bold" style="padding:5px !important;">Street AddressTwo</span>
+                            </th>
+                            <th ng-click="sort(officeAddress.city)" style="min-width:80px !important;">
+                                <span class="bold" style="padding:5px !important;"> City</span>
+                                <span class="glyphicon sort-icon" ng-show="sortKey=='officeAddress.city'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+
+                            </th>
+                            <th ng-click="sort(officeAddress.state.state)" style="min-width:80px !important;">
+                                <span class="bold" style="padding:5px !important;">State</span>
+                                <span class="glyphicon sort-icon" ng-show="sortKey=='officeAddress.state.state'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+
+                            </th>
+
+                            <th ng-click="sort(officeAddress.zipcode)" style="min-width:80px !important;">
+                                <span class="bold" style="padding:5px !important;">Zip code</span>
+                                <span class="glyphicon sort-icon" ng-show="sortKey=='officeAddress.zipcode'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+
+                            </th>
+                            <th ng-click="sort(key)" style="min-width:80px !important;">
+                                <span class="bold" style="padding:5px !important;">Street Address One</span>
+                            </th>
+                            <th ng-click="sort(key)" style="min-width:80px !important;">
+                                <span class="bold" style="padding:5px !important;">Street Address Two</span>
+                            </th>
+                            <th ng-click="sort(billingAddress.city)" style="min-width:80px !important;">
+                                <span class="bold" style="padding:5px !important;"> City</span>
+                                <span class="glyphicon sort-icon" ng-show="sortKey=='billingAddress.city'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+
+                            </th>
+                            <th ng-click="sort(billingAddress.state.state)" style="min-width:80px !important;">
+                                <span class="bold" style="padding:5px !important;">State</span>
+                                <span class="glyphicon sort-icon" ng-show="sortKey=='billingAddress.state.state'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+
+                            </th>
+
+                            <th ng-click="sort(billingAddress.zipcode)" style="min-width:80px !important;">
+                                <span class="bold" style="padding:5px !important;">Zip code</span>
+                                <span class="glyphicon sort-icon" ng-show="sortKey=='billingAddress.zipcode'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+
+                            </th>
+
+                            <th ng-click="sort(companyPhone)" style="min-width:80px !important;">
+                                <span class="bold" style="padding:5px !important;">Company Phone</span>
+                                <span class="glyphicon sort-icon" ng-show="sortKey=='companyPhone'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+
+                            </th>
+                            <th ng-click="sort(companyFax)" style="min-width:80px !important;">
+                                <span class="bold" style="padding:5px !important;">Company Fax</span>
+                                <span class="glyphicon sort-icon" ng-show="sortKey=='companyFax'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+
+                            </th>
+                            <th ng-click="sort(contactFistName)" style="min-width:80px !important;">
+                                <span class="bold" style="padding:5px !important;">Contact Fist Name</span>
+                                <span class="glyphicon sort-icon" ng-show="sortKey=='contactFistName'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+
+                            </th>
+                            <th ng-click="sort(contactLastName)" style="min-width:80px !important;">
+                                <span class="bold" style="padding:5px !important;">Contact Last Name</span>
+                                <span class="glyphicon sort-icon" ng-show="sortKey=='contactLastName'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+
+                            </th>
+                            <th ng-click="sort(contactEmail)" style="min-width:80px !important;">
+                                <span class="bold" style="padding:5px !important;">Contact Email</span>
+                                <span class="glyphicon sort-icon" ng-show="sortKey=='contactEmail'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+
+                            </th>
+                            <th ng-click="sort(contactPhone)" style="min-width:80px !important;">
+                                <span class="bold" style="padding:5px !important;">Contact Phone</span>
+                                <span class="glyphicon sort-icon" ng-show="sortKey=='contactPhone'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+
+                            </th>
+                            <th ng-click="sort(contactMobile)" style="min-width:80px !important;">
+                                <span class="bold" style="padding:5px !important;">Contact Mobile</span>
+                                <span class="glyphicon sort-icon" ng-show="sortKey=='contactMobile'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+
+                            </th>
+                        </tr>
+
+                        <tr ng-repeat="item in VendorList|orderBy:sortKey:reverse">
+                            <td style="display:none"></td>
+                            <td onclick="Edit(this)">
+                                <span id="id_{{$index}}">{{item.id}}</span>
+                                <input type="text" id="id{{$index}}" ng-model="item.id" style="display:none; margin: -3px;" onblur="HideTextbox(this)" />
+                            </td>
+                            <td onclick="Edit(this)">
+                                <span id="vendorName_{{$index}}">{{item.vendorName}}</span>
+                                <input type="text" id="vendorName{{$index}}" ng-model="item.vendorName" style="display:none; margin: -3px;margin: -3px;" onblur="HideTextbox(this)" />
+                            </td>
+                            <td onclick="Edit(this)">
+                                <span id="companyWebsite_{{$index}}">{{item.companyWebsite}}</span>
+                                <input type="text" id="companyWebsite{{$index}}" ng-model="item.companyWebsite" style="display:none; margin: -3px;" onblur="HideTextbox(this)" />
+                            </td>
+                            <td onclick="Edit(this)">
+                                <span id="street1_{{$index}}">{{item.officeAddress.streetAddressOne}}</span>
+                                <input type="text" id="streetAddressOne{{$index}}" ng-model="item.officeAddress.streetAddressOne" style="display:none; margin: -3px;" onblur="HideTextbox(this)" />
+                            </td>
+                            <td onclick="Edit(this)">
+                                <span id="street2_{{$index}}">{{item.officeAddress.streetAddressTwo}}</span>
+                                <input type="text" id="streetAddressTwo{{$index}}" ng-model="item.officeAddress.streetAddressTwo" style="display:none; margin: -3px;" onblur="HideTextbox(this)" />
+                            </td>
+                            <td onclick="Edit(this)">
+                                <span id="city_{{$index}}">{{item.officeAddress.city}}</span>
+                                <input type="text" id="city{{$index}}" ng-model="item.officeAddress.city" style="display:none; margin: -3px;" onblur="HideTextbox(this)" />
+                            </td>
+                            <td onclick="Edit(this)">
+                                <span id="state_{{$index}}">{{item.officeAddress.state.state}}</span>
+                                <input type="text" id="state{{$index}}" ng-model="item.officeAddress.state.state" style="display:none; margin: -3px;" onblur="HideTextbox(this)" />
+                            </td>
+                            <td onclick="Edit(this)">
+                                <span id="zipcode_{{$index}}">{{item.officeAddress.zipcode}}</span>
+                                <input type="text" maxlength="5" onkeypress='return event.charCode >= 48 && event.charCode <= 57' id="zip{{$index}}" ng-model="item.officeAddress.zipcode" style="display:none; margin: -3px;" onblur="HideTextbox(this)" />
+                            </td>
+                            <td onclick="Edit(this)">
+                                <span id="bstreet1_{{$index}}">{{item.billingAddress.streetAddressOne}}</span>
+                                <input type="text" id="bstreet1{{$index}}" ng-model="item.billingAddress.streetAddressOne" style="display:none; margin: -3px;" onblur="HideTextbox(this)" />
+                            </td>
+                            <td onclick="Edit(this)">
+                                <span id="bstreet2_{{$index}}">{{item.billingAddress.streetAddressTwo}}</span>
+                                <input type="text" id="bstreet2{{$index}}" ng-model="item.billingAddress.streetAddressTwo" style="display:none; margin: -3px;" onblur="HideTextbox(this)" />
+                            </td>
+                            <td onclick="Edit(this)">
+                                <span id="bcity_{{$index}}">{{item.billingAddress.city}}</span>
+                                <input type="text" id="bcity{{$index}}" ng-model="item.billingAddress.city" style="display:none; margin: -3px;" onblur="HideTextbox(this)" />
+                            </td>
+                            <td onclick="Edit(this)">
+                                <span id="bstate_{{$index}}">{{item.billingAddress.state.state}}</span>
+                                <input type="text" id="bstate{{$index}}" ng-model="item.billingAddress.state.state" style="display:none; margin: -3px;" onblur="HideTextbox(this)" />
+                            </td>
+                            <td onclick="Edit(this)">
+                                <span id="bzip_{{$index}}">{{item.billingAddress.zipcode}}</span>
+                                <input type="text" maxlength="5" onkeypress='return event.charCode >= 48 && event.charCode <= 57' id="bzip{{$index}}" ng-model="item.billingAddress.zipcode" style="display:none; margin: -3px;" onblur="HideTextbox(this)" />
+                            </td>
+                            <td onclick="Edit(this)">
+                                <span id="companyPhone_{{$index}}">{{item.companyPhone}}</span>
+                                <input type="text" id="companyPhone{{$index}}" ng-model="item.companyPhone" style="display:none; margin: -3px;" onblur="HideTextbox(this)" />
+                            </td>
+                            <td onclick="Edit(this)">
+                                <span id="companyFax_{{$index}}">{{item.companyFax}}</span>
+                                <input type="text" id="companyFax{{$index}}" ng-model="item.companyFax" style="display:none; margin: -3px;" onblur="HideTextbox(this)" />
+                            </td>
+                            <td onclick="Edit(this)">
+                                <span id="contactFistName_{{$index}}">{{item.contactFistName}}</span>
+                                <input type="text" id="contactFistName{{$index}}" ng-model="item.contactFistName" style="display:none; margin: -3px;" onblur="HideTextbox(this)" />
+                            </td>
+                            <td onclick="Edit(this)">
+                                <span id="contactLastName_{{$index}}">{{item.contactLastName}}</span>
+                                <input type="text" id="contactLastName{{$index}}" ng-model="item.contactLastName" style="display:none; margin: -3px;" onblur="HideTextbox(this)" />
+                            </td>
+                            <td onclick="Edit(this)">
+                                <span id="contactEmail_{{$index}}">{{item.contactEmail}}</span>
+                                <input type="text" id="contactEmail{{$index}}" ng-model="item.contactEmail" style="display:none; margin: -3px;" onblur="HideTextbox(this)" />
+                            </td>
+                            <td onclick="Edit(this)">
+                                <span id="contactPhone_{{$index}}">{{item.contactPhone}}</span>
+                                <input type="text" id="contactPhone{{$index}}" ng-model="item.contactPhone" style="display:none; margin: -3px;" onblur="HideTextbox(this)" />
+                            </td>
+                            <td onclick="Edit(this)">
+                                <span id="contactMobile_{{$index}}">{{item.contactMobile}}</span>
+                                <input type="text" id="contactMobile{{$index}}" ng-model="item.contactMobile" style="display:none; margin: -3px;" onblur="HideTextbox(this)" />
+                            </td>
+
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--end Verify screen -->
+<!-- Finsh screen -->
+<div class="col-md-12" ng-if="FinishScreen">
+    <div class="portlet light bordered">
+        <div class="portlet-title">
+            <div class="caption font-green-sharp">
+                <span class="caption-subject green bold">{{"UploadSuccessful"|translate}}</span>
+            </div>
+            <div class="tools">
+                <button class="sbold btn btnMargin" ng-click="Done($event)">{{'ControlText.Done'|translate}}</button>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <label class="col-md-2 col-sm-2 control-label text-right text-info">{{'ControlText.FileName'|translate}} :</label>
+                    <div class="col-md-10 sbold">
+                        {{FileDetails.FileName}}
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <label class="col-md-2 col-sm-2 control-label text-info text-right">{{'ControlText.Status'|translate}} :</label>
+                    <div class="col-md-6">
+                        <uib-progressbar class="progress-striped green" value="uploader.progress" type="{{type}}">
+                            {{type}}
+                            <i ng-if="showProgress"> {{uploader.progress}}% </i>
+                            <i ng-if="uploader.progress > 99"> DONE!! </i>
+                        </uib-progressbar>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <label class="col-md-2 col-sm-2 control-label text-right text-info">{{'ControlText.RowProcessed'|translate}} :</label>
+                    <div class="col-md-10 sbold">
+                        {{RowCount}}/{{VendorList.length}}
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <label class="col-md-2 col-sm-2 control-label text-right text-info">{{'ControlText.NewItemsCreated'|translate}} :</label>
+                    <div class="col-md-10 sbold">
+                        {{newRecoredInsertedCount}}/{{VendorList.length}}
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <label class="col-md-2 col-sm-2 control-label text-right text-info">{{'ControlText.ItemsUpdated'|translate}} :</label>
+                    <div class="col-md-10 sbold">
+                        {{UpdateCount}}/{{VendorList.length}}
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <label class="col-md-2 col-sm-2 control-label text-right text-info">{{'ControlText.FailedItem'|translate}} :</label>
+                    <div class="col-md-10 sbold">
+                        {{FialedItem}}/{{VendorList.length}}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!--end Finsh screen -->
+<script>
+    var Globaltd = null;
+    function Edit(span) {
+        if (Globaltd !== null)
+            HideTextbox(HideTextbox);
+        var td = span;
+        td.children[1].style.display = "block";
+        td.children[1].focus();
+        td.children[0].style.display = "none";
+        Globaltd = span;
+    }
+    function HideTextbox(span) {
+        var td = Globaltd;
+        td.children[1].style.display = "none";
+        td.children[0].style.display = "block";
+        Globaltd = null;
+    }
+</script>

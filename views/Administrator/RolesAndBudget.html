@@ -1,0 +1,75 @@
+﻿
+<div class="col-md-12 col-sm-12 padding1px">
+    <ul class="page-breadcrumb breadcrumb sbold">
+        <li>
+            <a ng-click="goToDashboard()">{{"Home"|translate}}</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span>{{"Roles And Budget"|translate}}</span>
+        </li>
+    </ul>
+</div>
+<div class="col-md-12 margin-top-10"></div>
+    <div class="portlet light padding1px ">
+    <div class="portlet-title">
+        <div class="caption font-grey-sharp">
+            <span class="caption-subject">{{"RolesAndBudget"|translate}} </span>
+        </div>
+    </div>
+        <div class="col-lg-12 col-sm-12 col-md-12 margin-top-10 margin-bottom-10">
+            <div class="col-lg-8 col-md-12 col-sm-12 text-right">
+                <button class="btn sbold btnMargin " ng-click="GetRoles()">{{"Cancel"|translate}}</button>
+
+                <button class="btn sbold btnMargin " ng-click="UpdateRolesAndBudget()">{{"Save"|translate}}</button>
+            </div>
+        </div>
+    <div class="col-lg-8 col-sm-12 col-md-12" ng-form="RolesAndBudgetForm">
+        <div class="col-lg-12 col-md-12 col-sm-12 margin-bottom-10 BackgroundGray">
+            <div class="form-group col-lg-3 col-md-3 col-sm-3">
+                <label class="control-label sbold">{{"Role"|translate}}</label>
+            </div>
+            <div class="form-group col-lg-3 col-md-3 col-sm-3">
+                <label class="control-label sbold">{{"IndividualInvoiceLimit"|translate}}</label>
+            </div>
+            <div class="form-group col-lg-3 col-md-3 col-sm-3">
+                <label class="control-label sbold">{{"IndividualClaimLimit"|translate}}</label>
+            </div>
+            <div class="form-group col-lg-3 col-md-3 col-sm-3">
+                <label class="control-label sbold">{{"AnnualLimit"|translate}}</label>
+            </div>
+        </div>
+        <div class="clearfix margin-top-10"></div>
+        <div ng-repeat="role in RoleList" class="col-lg-12 col-md-12 col-sm-12">
+            <div class="form-group col-lg-3 col-md-3 col-sm-3">
+                <span class="control-label">{{role.name}}</span>
+            </div>
+            <div class="form-group col-lg-3 col-md-3 col-sm-3">
+                <input type="text" class="form-control" numbers-only ng-model="role.invoiceLimit" required name="InvoiceLimit_{{$index}}" />
+                <div class="errormessage">
+                    <span class="text-danger" ng-show="RolesAndBudgetForm['InvoiceLimit_'+$index].$error.required && RolesAndBudgetForm['InvoiceLimit_'+$index].$touched">{{"IndividualInvoiceLimitRequired"|translate}}</span>
+                </div>
+            </div>
+            <div class="form-group col-lg-3 col-md-3 col-sm-3">
+                <input type="text" class="form-control" numbers-only ng-model="role.claimLimit" required name="ClaimLimit_{{$index}}" />
+                <div class="errormessage">
+                    <span class="text-danger" ng-show="RolesAndBudgetForm['ClaimLimit_'+$index].$error.required && RolesAndBudgetForm['ClaimLimit_'+$index].$touched">{{"IndividualClaimLimitRequired"|translate}}</span>
+                </div>
+            </div>
+            <div class="form-group col-lg-3 col-md-3 col-sm-3">
+                <input type="text" class="form-control" numbers-only ng-model="role.annualLimit" required name="AnnualLimit_{{$index}}" />
+                <div class="errormessage">
+                    <span class="text-danger" ng-show="RolesAndBudgetForm['AnnualLimit_'+$index].$error.required && RolesAndBudgetForm['AnnualLimit_'+$index].$touched">{{"AnnualLimitRequired"|translate}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12 col-sm-12 col-md-12  margin-top-10 margin-bottom-10">
+        <div class="col-lg-8 col-md-12 col-sm-12 text-right topBorder padding1px">
+            <div class="col-md-12 col-sm-12 margin-top-10 padding1px">
+                <button class="btn sbold btnMargin " ng-click="GetRoles()">{{"Cancel"|translate}}</button>
+                <button class="btn sbold btnMargin " ng-click="UpdateRolesAndBudget()">{{"Save"|translate}}</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,138 @@
+﻿<script>
+    $(document).ready(function () {
+        $("#select2insidemodal").select2({
+            dropdownParent: $("#myModal")
+        });
+    });
+    $(".datepicker").datepicker({
+        autoclose: true
+    });
+</script>
+<div id="myModal" ng-form="EventDetailsForm">
+    <div id="responsive">
+        <div class="modal-header">
+            <a class="close" ng-click="cancel()" aria-hidden="true"></a>
+            <h4 class="modal-title sbold text-primary" style="font-family:system-ui;">{{EventDetails.title}}</h4>
+        </div>
+        <div class="modal-body">
+            <div class="col-md-12 colsm-12 clearfix  padding1px form-group" ng-form="CreateEventForm" id="CreateEventForm" name="CreateEventForm">
+                <div class="col-md-12 col-sm-12 margin-top-5 form-group clearfix" ng-show="HomeScreen===true">
+                    <label class="col-md-2 col-sm-4 control-label">{{"Claim#"|translate}}</label>
+                    <div class="col-md-10 col-sm-8">
+                        <span>{{commonObj.ClaimNumber}}</span>
+                    </div>
+                </div>
+                <div class="col-md-12 col-sm-12 margin-top-5 form-group clearfix">
+                    <label class="col-md-2 col-sm-4 control-label">{{"Subject"|translate}}</label>
+
+                    <div class="col-md-10 col-sm-8">
+                        <input class="form-control" required ng-model="EventDetails.title" placeholder='{{"Subject"|translate}}' name="EventTitle" />
+                        <div class="errormessage">
+                            <div ng-message="required" ng-show="(CreateEventForm.EventTitle.$error.required && CreateEventForm.EventTitle.$touched)">
+                                <span class="text-danger">{{"EventTitleRequired"|translate}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 colsm-12 margin-top-5 form-group" ng-show="commonObj.OragnizerId===EventDetails.organizer.id">
+                    <label class="col-md-2 col-sm-4 control-label">{{"To"|translate}}</label>
+                    <div class="col-md-10 col-sm-8">
+                        <select class="form-control select2me input-large" style="width:100%;" multiple ng-model="PraticipantIdList" data-placeholder="Select Participant" id="select2insidemodal"
+                                required name="person" ng-options="item.userId as item.firstName +' '+item.lastName for item in ClaimParticipantsList"></select>
+
+                    </div>
+                </div>
+                <div class="col-md-12 colsm-12 form-group" ng-show="commonObj.OragnizerId===EventDetails.organizer.id">
+                    <label class="col-md-2 col-sm-4 control-label"></label>
+                    <div class="col-md-10 col-sm-8 padding1px" ng-show="showisAccepted">
+                        <label class="col-md-2 col-sm-4 control-label font-green">{{"Accepted"|translate}}</label>
+                       <div class="col-md-10 col-sm-8">
+                           <font ng-repeat="particiapnt in EventDetails.participants" ng-if="particiapnt.isAccepted==true"><span class="font-green">{{particiapnt.firstName+" "+particiapnt.lastName}}</span><span ng-if="!$last"> , </span></font>
+                       </div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-sm-12 form-group" ng-show="commonObj.OragnizerId===EventDetails.organizer.id">
+                    <label class="col-md-2 col-sm-4 control-label"></label>
+                    <div class="col-md-10 col-sm-8 padding1px" ng-show="showisRejected">
+                        <label class="col-md-2 col-sm-4 control-label font-red">{{"Rejected"|translate}}</label>
+                        <div class="col-md-10 col-sm-8">
+                            <font ng-repeat="particiapnt in EventDetails.participants" ng-if="particiapnt.isAccepted==false"><span class="font-red">{{particiapnt.firstName+" "+particiapnt.lastName}}</span><span ng-if="!$last"> , </span></font>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 colsm-12 margin-top-5 form-group" ng-show="commonObj.OragnizerId!==EventDetails.organizer.id">
+                    <label class="col-md-2 col-sm-4 control-label">{{"To"|translate}}</label>
+                    <div class="col-md-10 col-sm-8">
+                        <font ng-repeat="particiapnt in EventDetails.participants"><span ng-class="{'font-green':particiapnt.isAccepted===true,'font-red':particiapnt.isAccepted===false,'font-orange':particiapnt.isAccepted==null}">{{particiapnt.firstName+" "+particiapnt.lastName}}</span><span ng-if="!$last"> , </span></font>
+                    </div>
+                </div>
+
+                <div class="col-md-12  margin-top-5  form-group ">
+                    <label class="col-md-2 control-label">{{"Description"|translate}}</label>
+                    <div class="col-md-10">
+                        <textarea class="form-control" required ng-model="EventDetails.purpose" placeholder='{{"Description"|translate}}' rows="3" name="eventNote"></textarea>
+                        <div class="errormessage">
+                            <div ng-message="required" ng-show="(CreateEventForm.eventNote.$error.required && CreateEventForm.eventNote.$touched)">
+                                <span class="text-danger">{{"EventNoteRequired"|translate}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-10 col-sm-10 margin-top-5 col-md-offset-2 col-sm-offset-2  text-center  form-group  clearfix">
+                    <div class="col-md-6 col-sm-6 margin-top-10 text-left">
+                        <label class="col-md-12 col-sm-12 control-label">{{"StartTime"|translate}}</label>
+                        <div class="col-md-5 col-sm-6 padding1px">
+                            <input class="form-control datepicker"  required ng-model="EventStartDate" data-date-container='#responsive'   data-provide="datepicker"  type="text" placeholder='{{"StartTime"|translate}}' name="EventDate" />
+                        </div>
+                        <div class="col-md-5 col-sm-6 padding1px">
+                            <input type="text" ng-model="EventDetails.startTiming" placeholder='{{"StartTime"|translate}}' class="form-control timepicker timepicker-no-seconds">
+                        </div>
+                        <!--<uib-timepicker style="margin-top:-6px;" disable ng-model="EventDetails.startTiming" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></uib-timepicker>-->
+                    </div>
+                    <div class="col-md-6 col-sm-6 margin-top-10 text-left">
+                        <label class="col-md-12 col-sm-12 control-label ">{{"EndTime"|translate}}</label>
+                        <div class="col-md-5 col-sm-6 padding1px">
+                            <input class="form-control datepicker"  required ng-model="EventEndDate" data-date-container='#responsive' close-on-date-selection="true" data-provide="datepicker" size="16" type="text" placeholder='{{"EndTime"|translate}}' name="EventDate" />
+                        </div>
+                        <div class="col-md-5 col-sm-6 padding1px">
+                            <input type="text" ng-model="EventDetails.endTiming" placeholder='{{"EndTime"|translate}}' class="form-control timepicker timepicker-no-seconds">
+                        </div>
+                        <!--<uib-timepicker style="margin-top:-6px;" ng-model="EventDetails.endTiming" ng-change="changed1()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></uib-timepicker>-->
+                    </div>
+                </div>
+                <div class="col-md-12 col-sm-12 margin-top-5 form-group clearfix">
+                        <label class="col-md-2 col-sm-4 control-label">{{"Reminder"|translate}}</label>
+                        <div class="col-md-10 col-sm-8">
+                            <div class="col-md-4 col-sm-4">
+                                <label class="mt-radio mt-radio-outline mt-radio-single sbold">
+                                    <input type="radio" class="radio" name="optReminder" ng-model="EventDetails.reminderTime" value="15" /><span></span>{{"15Min"|translate}}
+                                </label>
+                            </div>
+                            <div class="col-md-4 col-sm-4">
+                                <label class="mt-radio mt-radio-outline mt-radio-single sbold">
+                                    <input type="radio" class="radio" name="optReminder" ng-model="EventDetails.reminderTime" value="30"/><span></span>{{"30Min"|translate}}
+                                </label>
+                            </div>
+                            <div class="col-md-4 col-sm-4">
+                                <label class="mt-radio mt-radio-outline mt-radio-single sbold">
+                                    <input type="radio" class="radio" name="optReminder" ng-model="EventDetails.reminderTime" value="60" /><span></span>{{"60Min"|translate}}
+                                </label>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="modal-footer">
+            <button type="button" data-dismiss="modal" class="btn btnMargin sbold" ng-disabled="isAcceptedOrRejected==true" ng-show="commonObj.OragnizerId!==EventDetails.organizer.id" ng-click="AcceptOrRejectEvent(true)">{{"Accept"|translate}}</button>
+            <button type="button" data-dismiss="modal" class="btn btnMargin sbold" ng-disabled="isAcceptedOrRejected==true" ng-show="commonObj.OragnizerId!==EventDetails.organizer.id" ng-click="AcceptOrRejectEvent(false)">{{"Decline"|translate}}</button>
+            <button type="button" data-dismiss="modal" ng-show="commonObj.OragnizerId===EventDetails.organizer.id" class="btn btn-outline red"  ng-click="DeleteEvent()">{{"Delete"|translate}}</button>
+            <button type="button" data-dismiss="modal" ng-show="commonObj.OragnizerId===EventDetails.organizer.id" class="btn btn-outline green" ng-disabled="CreateEventForm.$invalid||CreateEventForm.$pristine" ng-click="UpdateEvent()">{{"UpdateEvent"|translate}}</button>
+       
+         </div>
+    </div>
+</div>
+<script>
+    ComponentsDateTimePickers.init(); // init todo page
+</script>

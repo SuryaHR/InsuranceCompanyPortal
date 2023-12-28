@@ -1,0 +1,193 @@
+﻿<div class="row">
+    <div class="col-md-12">
+        <div class="portlet light ">
+            <div class="portlet-title">
+                <div class="caption font-grey-sharp">
+
+                    <span class="caption-subject ">{{"MainHeader.Claim_Ttile" | translate}}</span>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <!-- Search start -->
+                <div class="row">
+
+                    <div class="portlet light ">
+                        <div class="portlet-title">
+
+                            <div class="col-lg-5 col-md-12  col-sm-12">
+
+                                <div class="col-lg-2 col-md-2 col-sm-3 bold">{{"ControlText.Show" | translate}}</div>
+                                <div class="col-lg-10 col-md-10 col-sm-9">
+                                    <ul class="nav nav-pills padding5" >
+                                        <li class="All" ng-class="searchBy=='All' ? 'active' : ''">
+                                            <a data-toggle="tab" ng-click="searchByDate('All')" aria-expanded="false">{{"ControlText.AllClaims" | translate}}</a>
+                                        </li>
+                                        <li class="ThisMonth" ng-class="searchBy=='ThisMonth' ? 'active' : ''">
+                                            <a data-toggle="tab" ng-click="searchByDate('ThisMonth')" aria-expanded="true"> {{"ControlText.ThisMonth" | translate}}</a>
+                                        </li>
+                                        <li class="Last3Month" ng-class="searchBy=='Last3Month' ? 'active' : ''">
+                                            <a data-toggle="tab" ng-click="searchByDate('Last3Month')" aria-expanded="true">{{"ControlText.Last3Months" | translate}} </a>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                            </div>
+                            <div class="col-lg-7 col-md-12 col-sm-12" id="cal">
+                                <div class="col-lg-2 col-md-2 col-sm-3  bold"> {{"ControlText.ReportDate" | translate}}</div>
+                                <div class="col-lg-3 col-md-3 col-sm-3">
+                                    <div class="input-icon left ">
+                                        <i class="icon-calendar"></i>
+                                        <input class="form-control datepicker" ng-model="fromDate" data-date-container='#cal' required close-on-date-selection="true" data-provide="datepicker" size="16" type="text" placeholder='{{"ControlText.Date"|translate}}' name="fromDate" />
+                                    </div>
+                                </div>
+                                <div class="col-lg-1 col-md-1 col-sm-1 bold">{{"ControlText.To" | translate}}</div>
+                                <div class="col-lg-3 col-sm-3 col-md-3">
+                                    <div class="input-icon left  ">
+                                        <i class="icon-calendar"></i>
+                                        <input class="form-control datepicker" ng-model="toDate" data-date-container='#cal' required close-on-date-selection="true" data-provide="datepicker" size="16" type="text" placeholder='{{"ControlText.Date"|translate}}' name="toDate" />
+                                    </div>
+                                </div>
+                                <div class="col-lg-1 col-sm-3"></div>
+                                <div>
+                                    <button id="sample_editable_1_new" class="btn sbold  btnMargin" ng-click="getAllManagerClaims()">
+                                        {{"Search"|translate}}
+                                    </button>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+                <!-- Search End -->
+                <!-- Claims grid start -->
+                <div class="row">
+
+                    <!--all claims-->
+
+                    <div class="col-md-12 col-sm-12  table-responsive">
+                        <div class="col-md-12  options_Background padding1px">
+                            <div class="col-md-2 col-sm-2 margin-bottom-5 margin-top-5">
+                                <button id="sample_editable_1_new" class="btn sbold btnMargin btnOptions ">
+
+                                    {{"ControlText.Export"|translate}}
+                                </button>
+                            </div>
+                            <div class="col-md-10 col-sm-10 margin-bottom-5 margin-top-5">
+
+
+                                <div class="col-md-4 col-sm-6 pull-right">
+                                    <div class="input-icon left">
+                                        <i class="icon-magnifier"></i>
+                                        <input type="text" ng-model="searchKeyword" class="form-control form-control-solid input-circle input-block-level btnMargin" placeholder="{{'ControlText.Search_Placeholder' | translate}}">
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-sm-4 pull-right">
+                                    <select class="input-sm select2me" data-placeholder="select" ng-model="ClaimFilter" ng-change="FilterList()">
+                                        <option value="ALL">All</option>
+                                        <option value="HOME">Home</option>
+                                        <option value="AUTO">Auto</option>
+                                    </select>
+                                </div>
+                                <label class="control-label col-md-1 col-sm-2 text_options_Label pull-right">{{"ControlText.ViewDropDown_Title" | translate}} </label>
+
+                            </div>
+                        </div>
+                        <table class="table table-striped table-bordered table-hover table-checkable order-column" id="NavigateTable">
+                            <thead>
+                                <tr>
+                                    <th ng-click="sort('claimNumber')">
+                                        {{"Table.Claim_Title" | translate}}
+                                        <span class="glyphicon sort-icon" ng-show="sortKey=='claimNumber'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                    </th>
+                                    <th ng-click="sort('claimStatus')">
+                                        {{"Table.Status_Title" | translate}}
+                                        <span class="glyphicon sort-icon" ng-show="sortKey=='claimStatus'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                    </th>
+                                    <th ng-click="sort('policyNumber')">
+                                        {{"Table.PolicyNum_Title" | translate}}
+                                        <span class="glyphicon sort-icon" ng-show="sortKey=='policyNumber'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                    </th>
+                                    <th ng-click="sort('claimType')">
+                                        {{"Table.Type_Title" | translate}}
+                                        <span class="glyphicon sort-icon" ng-show="sortKey=='claimType'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                    </th>
+                                    <th ng-click="sort('createDate')">
+                                        {{"Table.DateClaim_Title" | translate}}
+                                        <span class="glyphicon sort-icon" ng-show="sortKey=='createDate'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                    </th>
+                                    <th ng-click="sort('firstName')">
+                                        {{"Table.InsuredName_Title" | translate}}
+                                        <span class="glyphicon sort-icon" ng-show="sortKey=='firstName'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                    </th>
+                                    <th ng-click="sort('assignedTo')">
+                                        {{"Table.AssignedTo" | translate}}
+                                        <span class="glyphicon sort-icon" ng-show="sortKey=='assignedTo'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                    </th>
+                                    <!-- <th ng-click="sort('insuredDetails.cellPhone')">
+                                        {{"Table.InsuredPhone" | translate}}
+                                        <span class="glyphicon sort-icon" ng-show="sortKey=='insuredDetails.cellPhone'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                    </th> -->
+                                    <th ng-click="sort('lastUpdate')">
+                                        {{"Table.LastUpdate" | translate}}
+                                        <span class="glyphicon sort-icon" ng-show="sortKey=='lastUpdate'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                    </th>
+                                    <th ng-click="sort('lastNote.message')">
+                                        {{"Table.LastNote" | translate}}
+                                        <span class="glyphicon sort-icon" ng-show="sortKey=='lastNote.message'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr dir-paginate="item in claimList|orderBy:sortKey:reverse|filter:search|itemsPerPage:recordsPerPage" total-Items="totalClaims"  pagination-id="AllClaims">
+                                    <td ng-click="GoTOClaimDetails(item)">{{item.claimNumber}}</td>
+                                    <td ng-click="GoTOClaimDetails(item)">
+                                        <span ng-class="{'stage':item.status.status==='ASSIGNED',
+                                                                 'stage':item.status.status==='CREATED',
+                                                                  'stage':item.status.status==='REJECTED',
+                                                                 'stage':item.status.status==='UNDER REVIEW',
+                                                                 'stage':item.status.status==='APPROVED',
+                                                                 'stage':item.status.status==='SETTLED',
+                                                                 'stage':item.status.status==='3rd PARTY VENDOR' }">
+                                            {{item.status.status|limitTo: 15}}<span>{{item.status.status.length > 15 ? '...' : ''}}</span>
+                                        </span>
+                                    </td>
+                                    {{item}}
+                                    <td ng-click="GoTOClaimDetails(item)">{{item.policyNumber}}</td>
+                                    <td ng-click="GoTOClaimDetails(item)"><span ng-class="{'HOME':'fa fa-home fa-lg', 'AUTO':'fa fa-bus fa-lg'}[item.claimType]"></span></td>
+                                    <td ng-click="GoTOClaimDetails(item)">{{item.createDate |  DateFormatMMddyyyy}}</td>
+                                    <td ng-click="GoTOClaimDetails(item)">{{item.insuredDetails.lastName+", "+item.insuredDetails.firstName}} </td>
+                                    <td ng-click="GoTOClaimDetails(item)">{{item.assignedTo[0].name}}</td>
+                                    <td ng-click="GoTOClaimDetails(item)">{{item.lastUpdateDate | DateFormatMMddyyyy}}</td>
+                                    <!-- <td ng-click="GoTOClaimDetails(item)">{{item.insuredDetails.cellPhone}}</td> -->
+                                    <td ng-click="GoTOClaimDetails(item)" class="tip">
+                                        {{item.lastNote.message | limitTo : 40}}{{item.lastNote.message.length>40 ? '...' :''}}
+                                        <span class="Overlay" ng-if="item.lastNote.message">{{item.lastNote.message }}</span>
+                                    </td>
+                                </tr>
+                                <tr ng-if="(claimList===null )||(claimList.length ===0)">
+                                    <td colspan="9" class="text-center text-danger">No records available</td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                            </tfoot>
+                        </table>
+                        <dir-pagination-controls 
+                            max-size="3" 
+                            ng-hide="claimList === null || claimList.length === 0" 
+                            pagination-id="AllClaims"
+                            direction-links="true"
+                            on-page-change="pageChanged(newPageNumber)"                     
+                            boundary-links="true" class="pull-right">
+                        </dir-pagination-controls>
+                        <span ng-if="claimList.length > 0" class="bold" style="color: #337ab7;"> Showing {{ (recordsPerPage * (pageNumber - 1))+1 }} to {{toShowingPage}} of {{totalClaims}} records </span>                            
+                    </div>
+
+                </div>
+                <!-- Claims grid end -->
+            </div>
+        </div>
+    </div>
+</div>

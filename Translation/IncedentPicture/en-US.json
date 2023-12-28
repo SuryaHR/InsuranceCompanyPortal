@@ -1,0 +1,12 @@
+﻿{
+  "HeaderTitle": {
+    "PictureOfIncedent": "Picture Of Incedent",
+    "ReportAttached": "Report Attached"
+  },
+  "ControlText": {
+    "Uploadmorepictures": "Upload more pictures",
+    "NoRecordUpdatedYet": "No records updated yet. Click the link below to upload reports.",
+    "NoImageUpdatedYet": "No images updated yet. Click the link below to upload images.",
+    "Delete": "Delete"
+  }
+}

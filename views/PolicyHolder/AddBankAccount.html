@@ -1,0 +1,51 @@
+﻿<div class="">
+    <div class="modal-header text-center">
+        <a class="close" data-dismiss="modal" aria-hidden="true" ng-click="cancel($event)"></a>
+        <!--<h4 class="modal-title text-primary">{{"Modal.Header"|translate}}</h4>-->
+    </div>
+    <div class="modal-body">
+        <div class="row">
+           <div class="col-md-10 col-md-offset-1" ng-form="BankDetailsForm">
+               <div class="col-md-12 form-group">
+                   <label class="control-label">{{"AccountHolder"|translate}}</label>
+                   <input type="text" class="form-control" required ng-model="BankDetails.AccountHolder" placeholder='{{"AccountHolder"|translate}}' name="AccountHolder"/>
+                                            <span class="text-danger" ng-show="BankDetailsForm.AccountHolder.$error.required && BankDetailsForm.AccountHolder.$touched">{{"HolderNameRequired"|translate}}</span>
+                                       </div>
+               <div class="col-md-12 form-group">
+                   <label class="control-label">{{"BankRoutingNo"|translate}}</label>
+                   <input type="text" class="form-control" numbers-only  required ng-model="BankDetails.BankRoutineNumber" placeholder='{{"BankRoutingNo"|translate}}'  name="RoutingNumber"/>
+                   <span class="text-danger" ng-show="BankDetailsForm.RoutingNumber.$error.required && BankDetailsForm.RoutingNumber.$touched">{{"RoutingNumberRequired"|translate}}</span>
+               </div>
+               <div class="col-md-12 form-group">
+                   <label class="control-label">{{"CheckingAccountNumber"|translate}}</label>
+                   <input type="text" class="form-control" numbers-only required ng-model="BankDetails.CheckingAccountNumber" placeholder='{{"CheckingAccountNumber"|translate}}' name="CheckingNumber"/>
+                   <span class="text-danger" ng-show="BankDetailsForm.CheckingNumber.$error.required && BankDetailsForm.CheckingNumber.$touched">{{"CheckingNumberRequired"|translate}}</span>
+               </div>
+               <div class="col-md-12 form-group">
+                   <label class="control-label">{{"ReEnterCheckingAccountNumber"|translate}}</label>
+                   <input type="text" class="form-control" numbers-only required ng-match="CheckingNumber" ng-model="BankDetails.CheckingAccountNumber2" placeholder='{{"ReEnterCheckingAccountNumber"|translate}}' name="ReCheckingNumber"/>
+                   <span class="text-danger" ng-show="BankDetailsForm.ReCheckingNumber.$error.required && BankDetailsForm.ReCheckingNumber.$touched">{{"ReCheckingNumberRequired"|translate}}</span>
+                   <!--<span class="text-danger" ng-show="BankDetails.CheckingAccountNumber2!==BankDetails.CheckingAccountNumber">{{"CheckingNumberMismatch"|translate}}</span>-->
+               </div>
+               <div class="col-md-12 form-group">
+                   <label class="control-label">{{"DriversLicenseNo"|translate}}</label>
+                   <input type="text" class="form-control" required ng-model="BankDetails.DriversLicenseNo"  placeholder='{{"DriversLicenseNo"|translate}}' name="LisceneNumber"/>
+                   <span class="text-danger" ng-show="BankDetailsForm.LisceneNumber.$error.required && BankDetailsForm.LisceneNumber.$touched">{{"LisceneNumberRequired"|translate}}</span>
+               </div>
+               <div class="col-md-12 form-group">
+                   <label class="control-label">{{"State"|translate}}</label>
+                   <select class="form-control" required ng-model="State" ng-options="State.id as State.state for State in StateList" name="State"></select>
+                   <span class="text-danger"  ng-show="BankDetailsForm.State.$error.required && BankDetailsForm.State.$touched">{{"StateRequired"|translate}}</span>
+                    
+                </div>
+           </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div class="col-md-12 text-center">
+            <button class="btn btnMargin sbold"  ng-disabled="BankDetailsForm.$invalid || BankDetailsForm.$pristine">
+                {{"AddYourCheckingAccount"|translate}}
+            </button>
+        </div>
+    </div>
+</div>

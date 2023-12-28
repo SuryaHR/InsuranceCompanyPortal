@@ -1,0 +1,41 @@
+﻿{
+  "Logo": "Artigem",
+  "LoginText": {
+    "LogoText_title": "ARTIGEM",
+    "SignIn_title": "Sign In",
+    "SignUp_title": "Sign Up",
+    "UserName_title": "Username",
+    "Password_title": "Password",
+    "Email_title": "Email",
+    "Vendorportal": " Vendor's portal",
+    "Login": "Login",
+    "Registration": "Register",
+    "Submit": "Submit request",
+    "RegistrionText": "Enter information about your company and insurance company admin will reach out to you."
+  },
+  "ErrorMessage": {
+    "UserNameRequired_message": "User name field is required",
+    "ValidEmail_message": "Please enter valid e-mail",
+    "PasswordRequired_message": "Password field is required",
+    "EmailRequired_title": "E-mail required",
+    "FirstNameRequired_message": "First name required",
+    "LastNameRequired_message": "Last name required",
+    "DateBirth_Requird_message": "Date of birth required.",
+    "Email_required": "Email Id required.",
+    "AccNo_required": "Account No required.",
+    "Pas_Required_message": "Password required.",
+    "ConfirmPass_Required": "Confirm password required.",
+    "Password_Mismatch": "Password and Confirm password must be same"
+  },
+  "ControlText": {
+    "ForgotPassword_title": "Forgot your password",
+    "Login_title": "Login",
+    "CompanyName": "Company Name",
+    "FirstName": "First Name",
+    "LastName": "Last Name",
+    "EmailAddress": "EmailAddress",
+    "ConfirmPass": "Re Type Your Password"
+
+  }
+
+}

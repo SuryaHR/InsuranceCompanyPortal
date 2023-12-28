@@ -1,0 +1,53 @@
+﻿{
+  "HeaderText": {
+    "InvoicesNeedingApprovalInv": "Vendor Invoices Needing Approval",
+    "ToDoListInv": "To Do List",
+    "KPISInv": "KPIs"
+  },
+
+  "ThisMonth": "This Month",
+  "ThisQuater": "This Quater(Jul-Sep)",
+  "ThisYear": "This Year(2018)",
+
+  "Table": {
+    "Id": "Id",
+    "ClaimId": "Claim #",
+    "Type": "Type",
+    "Claim": "Claim",
+    "InsuredsName": "Insured's Name",
+    "LastUpdated": "Last Updated",
+    "Status": "Status",
+    "LastNote": "Last Note",
+    "DateOfClaim": "Date Of Claim",
+    "PolicyNo": "Policy No",
+    "Date": "Date",
+    "Participant": "Participant",
+    "ScheduledAction": "Scheduled Action",
+    "LastUpdate": "Last Update",
+    "InvoiceNo": "Invoice #",
+    "VendorOrPricing": "Vendor/Pricing Specialist",
+    "NoOfItems": "# Of Items",
+    "InvoiceAmount": "Invoice Amount",
+    "CreatedDate": "Created Date",
+    "Action": "Action",
+    "StartTime": "Start Time",
+    "Title": "Title",
+    "Subject": "Subject",
+    "Message": "Message",
+    "Adjuster": "Adjuster",
+    "OpenClaims": "Open Claims(Assignments)",
+    "OverDueClaims": "Overdue Claims"
+
+  },
+
+  "SearchText": "Search...",
+  "MainSearchText": "Search... Any Claim #,Policyholder,Vendor",
+  "NoRecordText": "No records available",
+  "NoInvoicesText": "No invoices available",
+  "NoAlertText": "No new messages available",
+  "NoEventsText": "No events scheduled in next month",
+  "NewClaimSearch": "claims #, Insured's Name",
+  "NoRecordsAvailable": "No Records Available"
+  
+
+}

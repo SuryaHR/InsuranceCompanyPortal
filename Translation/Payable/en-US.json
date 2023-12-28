@@ -1,0 +1,41 @@
+﻿{
+  "HeaderText": {
+    "ViewByClaim": "View By Claim",
+    "ViewByVendor": "View By Vendor"
+  },
+  "ControlText": {
+    "Dashboard": "Dashboard",
+    "BillsAndPayment": "Bills And Payment"
+  },
+  "Table": {
+    "InvoiceId": "Invoice Id",
+    "PaymentNo": "Payment#",
+    "InvoiceAmount": "Invoice Amount",
+    "ClaimNo": "Claim #",
+    "InsuranceCompany": "Insurance Company",
+    "AdjusterName": "Adjuster's Name",
+    "NoOfItem": "# Of items",
+    "ServiceRequested": "Service Requested",
+    "Status": "Status",
+    "LastUpdate": "Last Updated",
+    "LastNote": "Last Note",
+    "VendorNote": "Vendor Note",
+    "InvoiceDate": "Invoice Date",
+    "DueDate": "Due Date",
+    "Attachments": "Attachments",
+    "Action": "Action",
+    "ClaimId": "Claim Id",
+    "ProcessedDate": "Processed Date",
+    "ExpectedDate": "Expected Date"
+
+  },
+  "GlobalSearchText": "Serach ...Any Claim #, Policyholder",
+  "SearchText": "Claim #, Adjuster Name, Insurance Company",
+  "SearchResult": "Search Result For ",
+  "Back": "Back",
+  "ViewByClaim": "View By Claim",
+  "ViewByVendor": "View By Vendor",
+  "ViewByInsuranceCompany": "View By Insurance Company",
+  "Total": "Total",
+  "BillsAndPayment": "Bills And Payments"
+}

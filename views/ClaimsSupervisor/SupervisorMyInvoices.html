@@ -1,0 +1,347 @@
+﻿<script>
+    $(function () {
+        $(".widthclass").css("width", "30%");
+    });
+</script>
+<style>
+    .to-do-div-height {
+        max-height: 245px;
+        min-height: 245px;
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+
+    .To-do-list {
+        border: 1px solid gray;
+        margin: 2px;
+
+    }
+
+    .To-do-list-title {
+        display: block;
+        padding: 5px;
+        font-weight: bold;
+        font-size: 20px;
+    }
+
+    .finish {
+        background-color: #cde3f3;
+    }
+
+    .widget-thumb.bordered {
+        border: 1px solid #e7ecf1;
+        box-shadow: 2px 1px 3px 0px grey;
+    }
+
+    .widget-thumb {
+        padding: 10px 1px 10px 1px !important;
+        border-radius: 4px;
+        min-height: 113px;
+        max-height: 114px;
+    }
+
+    .widget-thumb .widget-thumb-heading {
+        font-size: 13px;
+        font-weight: bold;
+        color: #8a7979;
+        margin: 10px 0 10px 0 !important;
+    }
+
+    .DigitDashbord {
+        margin-top: 5px !important;
+        margin-bottom: 16px !important;
+        font-weight: 600 !important;
+        font-size: 24px !important;
+    }
+
+    .padding-top10 {
+        padding-top: 10px;
+    }
+
+    .marginLeft10px {
+        margin-left: 10px !important;
+    }
+
+    .height-thumbord {
+        background: #f1f4f7 !important;
+        /*min-height: 136px !important;
+         max-height: 136px !important;*/
+        overflow: hidden;
+    }
+
+    .table-fixed {
+        margin-bottom: 0px !important;
+    }
+
+    .table-fixed tbody {
+        height: 161px;
+        overflow-y: auto;
+        width: 100%;
+    }
+
+    .alertCls .table-fixed tbody {
+        height: 208px !important;
+    }
+</style>
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12 hide" >
+        <!--Start Alerts and Upcoming Events-->
+        <div class="col-md-7 col-sm-12 col-lg-7">
+            <div class="portlet">
+                <div class="portlet-body">
+                    <div class="tabbable-custom">
+                        <div class="row options_Background" style="margin: -1px;">
+                            <div class="caption" style="padding: 5px 5px 5px 10px;">
+                                <span class="caption-subject ng-binding"
+                                    style="color: #ffffff;font-size:14px;line-height:14px;">{{"Alerts"|translate}}</span>
+                            </div>
+                        </div>
+                        <div class="tab-content" style="padding: 0;">
+                            <div class="row">
+                                <!--Alert Box Start-->
+                                <div class="col-md-12 col-sm-12 col-lg-12 alertCls" ng-show="CurrentEventTab=='Alert'"
+                                    style="position:relative">
+                                    <div ng-include="'views/CommonTemplates/DashboardAlerts.html'"
+                                        ng-controller="DashboardAlertsController"></div>
+                                </div>
+                                <!--End Alert Box-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--End Alerts and Upcoming Events-->
+
+        <!--To Do List Start-->
+        <div class="col-md-5 col-sm-12 col-lg-5">
+            <div class="portlet box blue" style="border: 1px solid #ddd;">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <span class="caption-subject">{{"HeaderText.ToDoListInv"|translate}}</span>
+                    </div>
+                </div>
+                <div class="portlet-body to-do-div-height">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-lg-12">
+                            <div class="col-md-12 table-responsive padding1px margin-top-10">
+                                <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
+                                    <div class="col-md-12 text-center To-do-list">
+                                        <label class="To-do-list-title">{{newInvoicesToReview}}</label>
+                                        <label
+                                            style="margin-left: -20px;">{{"New Invoices to Review"|translate}}</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-lg-12 margin-top-10">
+                            <div class="col-md-12 col-sm-12 col-lg-12">
+                                <div class="SubHeadingDiv">
+                                    <div class="caption">
+                                        <span class="caption-subject">{{"HeaderText.KPISInv"|translate}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-sm-12">
+                                <ul class="nav nav-pills padding5 text-center">
+                                    <li class="active">
+                                        <a data-toggle="tab" ng-class="{selected:CurrentKPITab=='Month'}"
+                                            ng-click="CurrentKPITab = 'Month'"
+                                            aria-expanded="false">{{"ThisMonth"| translate}}</a>
+                                    </li>
+                                    <li class="">
+                                        <a data-toggle="tab" ng-class="{selected:CurrentKPITab=='Quater'}"
+                                            ng-click="CurrentKPITab = 'Quater'" aria-expanded="true">
+                                            {{"ThisQuater" | translate}}</a>
+                                    </li>
+                                    <li class="">
+                                        <a data-toggle="tab" ng-class="{selected:CurrentKPITab=='Year'}"
+                                            ng-click="CurrentKPITab = 'Year'"
+                                            aria-expanded="true">{{"ThisYear" | translate}} </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-lg-12 padding1px">
+                                <div class="col-md-12 table-responsive padding1px margin-top-10"
+                                    ng-show="CurrentKPITab=='Month'">
+                                    <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
+                                        <div class="col-md-12 text-center To-do-list">
+                                            <label class="To-do-list-title">{{45000|currency}}</label>
+                                            <label>{{"Total Invoiced"|translate}}</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
+                                        <div class="col-md-12 text-center To-do-list">
+                                            <label class="To-do-list-title">17%</label>
+                                            <label>{{"Replacements %"|translate}}</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 table-responsive padding1px margin-top-10"
+                                    ng-show="CurrentKPITab=='Quater'">
+                                    <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
+                                        <div class="col-md-12 text-center To-do-list">
+                                            <label class="To-do-list-title">{{45000|currency}}</label>
+                                            <label>{{"Total Invoiced"|translate}}</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
+                                        <div class="col-md-12 text-center To-do-list">
+                                            <label class="To-do-list-title">17%</label>
+                                            <label>{{"Replacements %"|translate}}</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 table-responsive padding1px margin-top-10"
+                                    ng-show="CurrentKPITab=='Year'">
+                                    <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
+                                        <div class="col-md-12 text-center To-do-list">
+                                            <label class="To-do-list-title">{{45000|currency}}</label>
+                                            <label>{{"Total Invoiced"|translate}}</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
+                                        <div class="col-md-12 text-center To-do-list">
+                                            <label class="To-do-list-title">17%</label>
+                                            <label>{{"Replacements %"|translate}}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--To Do List End-->
+    </div>
+    <!--Claims Tabs-->
+    <div class="col-md-12 col-xs-12 ">
+        <!--Invoices Needing Approval-->
+        <div class="portlet light">
+            <div class="portlet-title" style="border:none;">
+                <div class="caption font-grey-sharp col-md-6 col-xs-10 col-sm-8" style="margin:0px;">
+                    <span class="caption-subject">
+                        {{"HeaderText.InvoicesNeedingApprovalInv" | translate}}({{totalInvoices}})
+                    </span>
+                </div>
+                <div class="tools pull-right col-md-1 col-sm-1 text-right">
+                    <a href="#" class="collapse"></a>
+                    <a href="#" class="fullscreen"></a>
+                </div>
+
+            </div>
+            <div class="portlet-body">
+                <div class="row">
+                    <div class="col-md-12 table-responsive">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 options_Background">
+                            <div class="col-md-5 col-xs-12 col-sm-8 pull-right margin-bottom-5 margin-top-5">
+                                <div class="input-icon left">
+                                    <i class="icon-magnifier"></i>
+                                    <input type="text" ng-model="invoicesNeedApproval.searchKeyword"
+                                        class="form-control form-control-solid input-circle input-block-level btnMargin"
+                                        placeholder="{{'SearchText' | translate}}"
+                                        ng-keyup="invoicesNeedApproval.searchKeyword.length > 0 ? ($event.keyCode == 13 && searchByKeyword(invoicesNeedApproval.searchKeyword)) : searchByKeyword('')">
+                                </div>
+                            </div>
+                        </div>
+                        <table class="table table-hover table-bordered table-striped" id="NavigateTable">
+                            <thead>
+                                <tr>
+                                    <th class="hidden"></th>
+                                    <th ng-click="VendorInvoiceListsort('invoiceNumber')">
+                                        {{"Table.InvoiceNo"|translate}}
+                                        <span class="glyphicon sort-icon"
+                                            ng-show="vendorInvoiceSortKey=='invoiceNumber'"
+                                            ng-class="{'glyphicon-chevron-up pull-right':!vendorInvoiceReverse,'glyphicon-chevron-down pull-right':vendorInvoiceReverse}"></span>
+                                    </th>
+                                    <th ng-click="VendorInvoiceListsort('claimNumber')">
+                                        {{"Table.ClaimId"|translate}}
+                                        <span class="glyphicon sort-icon" ng-show="vendorInvoiceSortKey=='claimNumber'"
+                                            ng-class="{'glyphicon-chevron-up pull-right':!vendorInvoiceReverse,'glyphicon-chevron-down pull-right':vendorInvoiceReverse}"></span>
+                                    </th>
+                                    <th ng-click="VendorInvoiceListsort('insuredName')">
+                                        {{"Table.InsuredsName"|translate}}
+                                        <span class="glyphicon sort-icon" ng-show="vendorInvoiceSortKey=='insuredName'"
+                                            ng-class="{'glyphicon-chevron-up pull-right':!vendorInvoiceReverse,'glyphicon-chevron-down pull-right':vendorInvoiceReverse}"></span>
+                                    </th>
+                                    <th ng-click="VendorInvoiceListsort('vendorName')">
+                                        {{"Table.VendorOrPricing"|translate}}
+                                        <span class="glyphicon sort-icon" ng-show="vendorInvoiceSortKey=='vendorName'"
+                                            ng-class="{'glyphicon-chevron-up pull-right':!vendorInvoiceReverse,'glyphicon-chevron-down pull-right':vendorInvoiceReverse}"></span>
+                                    </th>
+                                    <th ng-click="VendorInvoiceListsort('noOfItems')">
+                                        {{"Table.NoOfItems"|translate}}
+                                        <span class="glyphicon sort-icon" ng-show="vendorInvoiceSortKey=='noOfItems'"
+                                            ng-class="{'glyphicon-chevron-up pull-right':!vendorInvoiceReverse,'glyphicon-chevron-down pull-right':vendorInvoiceReverse}"></span>
+                                    </th>
+                                    <th ng-click="VendorInvoiceListsort('invoiceAmount')">
+                                        {{"Table.InvoiceAmount"|translate}}
+                                        <span class="glyphicon sort-icon"
+                                            ng-show="vendorInvoiceSortKey=='invoiceAmount'"
+                                            ng-class="{'glyphicon-chevron-up pull-right':!vendorInvoiceReverse,'glyphicon-chevron-down pull-right':vendorInvoiceReverse}"></span>
+                                    </th>
+                                    <th ng-click="VendorInvoiceListsort('createDate')">
+                                        {{"Table.CreatedDate"|translate}}
+                                        <span class="glyphicon sort-icon" ng-show="vendorInvoiceSortKey=='createDate'"
+                                            ng-class="{'glyphicon-chevron-up pull-right':!vendorInvoiceReverse,'glyphicon-chevron-down pull-right':vendorInvoiceReverse}"></span>
+                                    </th>
+                                    <th ng-click="VendorInvoiceListsort('status')">
+                                        {{"Table.Status"|translate}}
+                                        <span class="glyphicon sort-icon" ng-show="vendorInvoiceSortKey=='status'"
+                                            ng-class="{'glyphicon-chevron-up pull-right':!vendorInvoiceReverse,'glyphicon-chevron-down pull-right':vendorInvoiceReverse}"></span>
+                                    </th>
+                                </tr>
+                            <tbody>
+                                <tr dir-paginate="item in vendorInvoiceList | itemsPerPage:pagesize track by $index"
+                                    total-items="totalInvoices" pagination-id="vendorInvoiceListIn"
+                                    current-page="invoicesNeedApproval.currentPage"
+                                    current-page="invoicesNeedApproval.currentPage" ng-click="InvoiceDetails(item)">
+                                    <td>{{item.invoiceNumber}}</td>
+                                    <td>{{item.claimNumber}}</td>
+                                    <td>{{item.insuredDetails.lastName}}
+                                        ,&nbsp;{{item.insuredDetails.firstName}}</td>
+                                    <td>{{item.vendorDetails.vendorName}}</td>
+                                    <td>{{item.noOfItems}}</td>
+                                    <td>{{item.invoiceAmount}}</td>
+                                    <td>{{item.createDate
+                                                                            | DateFormatMMddyyyy}}</td>
+                                    <td class="statusHeading">{{item.status.status}}
+                                    </td>
+                                </tr>
+                                <tr ng-if="vendorInvoiceList===null || vendorInvoiceList.length===0">
+                                    <td colspan="12" class="text-danger text-center">
+                                        {{"NoInvoicesText"|translate}} </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-12 col-sm-12 padding1px"
+                        ng-if="vendorInvoiceList != null && vendorInvoiceList.length > 0">
+                        <div class="col-md-6 col-sm-6 col-xs-12 bold padding1px align_center">
+                            <span style="color: #337ab7;">
+                                Showing {{ (pagesize *
+                                                                    (invoicesNeedApproval.currentPage - 1))+1 }} to
+                                {{invoicesNeedApproval.lastRecord}} of
+                                {{totalInvoices}}
+                                Claims </span>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 text-right padding1px">
+                            <dir-pagination-controls max-size="3" direction-links="true" boundary-links="true"
+                                on-page-change="setClaimCurrentPage(newPageNumber, 3)"
+                                pagination-id="vendorInvoiceListIn">
+                            </dir-pagination-controls>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--End Invoices Needing Approval-->
+    </div>
+    <!--End Claims Tabs-->
+</div>

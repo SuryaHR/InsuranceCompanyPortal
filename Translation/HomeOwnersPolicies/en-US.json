@@ -1,0 +1,50 @@
+﻿{
+  "Labeled": {
+    "HOPolicyType": "HO Policy Type",
+    "NewHOPolicyType": "New HO Policy Type",
+    "New": "New",
+    "Upload": "Upload",
+    "Export": "Export",
+    "btnBack": "Back",
+    "btnSave": "Save",
+    "btnCancel": "Cancel",
+    "lblSearch": "Search..",
+    "View": "View",
+    "Category": "Category",
+    "DollerLimit": "Dollar Limit",
+    "PageSize": "Show",
+    "DescriptionOfPolicyType": "Description Of Policy Type",
+    "LabelFOrPolicyType": "Label For Policy Type",
+    "IndividualItemLimit": "Individual Item Limit"
+
+
+  },
+  "ControlText": {
+    "Edit": "Edit",
+    "Delete": "Delete",
+    "Category": "Category",
+    "SelectType": "Select Type",
+    "SpecialLimites": "Special Limits($)"
+
+  },
+
+  "Table": {
+    "HOPolicyType": "HO Policy Type",
+    "SpecialLimit": "Special Limit",
+    "Description": "Description",
+    "Action": "Action"
+
+  },
+  "HeaderText": {
+    "HOPolicyType": "HO Policy Types",
+    "NewHOPolicyType": "HO Policy Type"
+
+  },
+  "ErrorMsg": {
+    "CoverageLimitRequired": "Please enter coverage limit.",
+    "CategoryRequired": " Please select category.",
+    "CoverageLimitNumber": "CoverageLimit should be Number"
+  },
+  "Please enter policy type name..": "Please enter policy type name..",
+  "State": "State"
+}

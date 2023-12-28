@@ -1,0 +1,59 @@
+﻿<style>
+    .carousel-control.left
+    {
+        background-image:none;
+    }
+      .carousel-control.right
+    {
+        background-image:none;
+    }
+      .carousel-indicators li
+      {
+          display:none;
+      }
+      .carousel-caption
+      {
+          text-shadow:none;
+      }
+</style>
+<div id="myModal">
+        <div class="modal-header">
+            <a class="close" ng-click="Cancel()" aria-hidden="true"></a>
+            <h4 class="modal-title font-green">{{"Pictures Of Incident"|translate}}</h4>
+        </div>
+        <div class="modal-body">
+                <div class="col-md-12 margin-bottom-10" id="ImageView">
+                    <div class="well" style="height:100%">
+                        <uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides" autoplay="false"  on-before-change="onCarouselBeforeChange()" on-after-change="ctrl.onCarouselAfterChange()">
+                            <uib-slide ng-repeat="slide in slides track by slide.id" ng-init="CurrentImage==slide.text" index="slide.id" active="slide.active">
+                                <img ng-src="{{slide.image}}" style="margin:auto;">
+                                <div class="carousel-caption">
+                                    <!--<h4>Slide {{slide.id}}</h4>-->
+                                    <!--<p>{{slide.text}}</p>-->
+                                    <!--<div class="col-md-12">
+                                        <span class="sbold text-capitalize">{{slide.text}}</span>
+                                    </div>-->
+                                </div>
+                            </uib-slide>
+                        </uib-carousel>
+                </div>
+                    <div class="col-md-12 text-center">
+                        <span class="text-capitalize sbold text-primary">{{CurrentImage}}</span>
+                    </div>
+                   
+            </div>
+               <div class="col-md-12 margin-bottom-10" id="PdfView">
+                   <!-- Show PDF region Render PDF here -->
+                   <div class="col-md-12 margin-top-10" id="load_receipts">
+                       <ng-pdf template-url="views/ClaimFormDetails/ViewMappingPdf.html" canvasid="pdf" scale="page-fit" page=1></ng-pdf>
+                   </div>
+                   <!--End Show PDF region  -->
+               </div>
+            </div>
+        <div class="clearfix"></div>
+        <div class="modal-footer">
+            <button type="button" class="btn sbold btnMargin" ng-click="Cancel()">{{"ControlText.Cancel"|translate}}</button>
+            <button type="button" data-dismiss="modal" class="btn sbold btnMargin" ng-click="ok()" ng-disabled="CreateEventForm.$invalid || CreateEventForm.$pristine">{{"ControlText.CreateEvent"|translate}}</button>
+        </div>
+    </div>
+

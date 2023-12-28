@@ -1,0 +1,246 @@
+<!--start of status Bar-->
+<center>
+    <div class="col-lg-12  col-sm-12  col-md-12 col-xs-12 " style="margin-left:auto !important;margin-right:auto !important;margin-bottom: 15px;margin-top: 25px!important;">
+        <div class="clearfix"></div>
+        <div class="styleflex " style="margin-bottom: -13px !important;margin-left: 5% !important;margin-right:5% !important">
+
+            <div class="width16" ng-if="salvageDetails.workFlow != null">
+                <div class="text-center ClaimStatus" ng-class="{true:'text-center bold ClaimStatusActive'}[0 < salvageDetails.salvageItemStatus.id]">1</div>
+                <span class="ClaimStatusActiveText clearfix hidden-xs" ng-class="{true:'font-green'}[0 < salvageDetails.salvageItemStatus.id]">Created</span>
+                <span class="ClaimStatusActiveText clearfix visible-xs" ng-class="{true:'font-green'}[0 < salvageDetails.salvageItemStatus.id]">Created</span>
+            </div>
+
+            <!-- <div class="width16" ng-if="salvageDetails.workFlow != null" ng-class="{true:'backgreen', false:'backGray'}[1 < salvageDetails.salvageItemStatus.id]"
+                style="margin-top: 7px;"></div>
+
+            <div class="margintopleft10 width16" ng-if="salvageDetails.workFlow != null">
+                <div class="text-center ClaimStatus" ng-class="{true:'text-center bold ClaimStatusActive'}[1 < salvageDetails.salvageItemStatus.id]">2</div>
+                <span class="ClaimStatusActiveText clearfix hidden-xs" ng-class="{true:'font-green'}[1 < salvageDetails.salvageItemStatus.id]">Assigned</span>
+                <span class="ClaimStatusActiveText clearfix visible-xs" ng-class="{true:'font-green'}[1 < salvageDetails.salvageItemStatus.id]">Assigned</span>
+            </div> -->
+
+            <div class="width16" ng-if="salvageDetails.workFlow != null" ng-class="{true:'backgreen', false:'backGray'}[2 < salvageDetails.salvageItemStatus.id]"
+                style="margin-top: 7px;"></div>
+            <div class="margintopleft10 width16" ng-if="salvageDetails.workFlow != null">
+                <div class="text-center ClaimStatus" ng-class="{true:'text-center bold ClaimStatusActive'}[2 < salvageDetails.salvageItemStatus.id]">2</div>
+                <span class="ClaimStatusActiveText clearfix hidden-xs" ng-class="{true:'font-green'}[2 <  salvageDetails.salvageItemStatus.id]">Work-In-Progress</span>
+                <span class="ClaimStatusActiveText clearfix visible-xs" ng-class="{true:'font-green'}[2 < salvageDetails.salvageItemStatus.id]">Work-In-Progress</span>
+            </div>
+            
+            <div class="width16" ng-if="salvageDetails.workFlow != null && salvageDetails.workFlow.id != 2" ng-class="{true:'backgreen', false:'backGray'}[7 < salvageDetails.salvageItemStatus.id]"
+                style="margin-top: 7px;"></div>
+            <div ng-if="salvageDetails.workFlow != null && salvageDetails.workFlow.id != 2" class="margintopleft10 width16">
+                <div class="text-center ClaimStatus " ng-class="{true:'text-center bold ClaimStatusActive'}[7 < salvageDetails.salvageItemStatus.id]">3</div>
+                <span class="ClaimStatusActiveText clearfix hidden-xs" ng-class="{true:'font-green'}[7 < salvageDetails.salvageItemStatus.id]">Adjuster
+                    Approval</span>
+                <span class="ClaimStatusActiveText clearfix visible-xs" ng-class="{true:'font-green'}[7 < salvageDetails.salvageItemStatus.id]">Adjuster
+                    Approval</span>
+            </div>
+
+            <div class="width16" ng-if="salvageDetails.workFlow != null && salvageDetails.workFlow.id == 1" ng-class="{true:'backgreen', false:'backGray'}[10 < salvageDetails.salvageItemStatus.id]"
+                style="margin-top: 7px;"></div>
+            <div ng-if="salvageDetails.workFlow != null && salvageDetails.workFlow.id == 1" class="margintopleft10 width16">
+                <div class="text-center ClaimStatus " ng-class="{true:'text-center bold ClaimStatusActive'}[10 < salvageDetails.salvageItemStatus.id]">4</div>
+                <span class="ClaimStatusActiveText clearfix hidden-xs" ng-class="{true:'font-green'}[10 < salvageDetails.salvageItemStatus.id]">Pending
+                    Payment</span>
+                <span class="ClaimStatusActiveText clearfix visible-xs" ng-class="{true:'font-green'}[10 < salvageDetails.salvageItemStatus.id]">Pending
+                    Payment</span>
+            </div>
+
+            <div class="width16" ng-if="salvageDetails.workFlow != null && salvageDetails.workFlow.id == 1 && salvageDetails.salvageItemStatus.name === 'Partially Paid' " ng-class="{true:'backgreen', false:'backGray'}[17 < salvageDetails.salvageItemStatus.id]"
+            style="margin-top: 7px;"></div>
+            <div ng-if="salvageDetails.workFlow != null && salvageDetails.workFlow.id == 1 && salvageDetails.salvageItemStatus.name==='Partially Paid'" class="margintopleft10 width16">
+            <div class="text-center ClaimStatus " ng-class="{true:'text-center bold ClaimStatusActive'}[17 < salvageDetails.salvageItemStatus.id]">5</div>
+            <span class="ClaimStatusActiveText clearfix hidden-xs" ng-class="{true:'font-green'}[salvageDetails.salvageItemStatus.name==='Partially Paid']">Partially Paid
+                </span>
+            <span class="ClaimStatusActiveText clearfix visible-xs" ng-class="{true:'font-green'}[salvageDetails.salvageItemStatus.name==='Partially Paid']">Partially Paid</span>
+            </div>
+
+            <div class="width16" ng-if="salvageDetails.workFlow != null && salvageDetails.workFlow.id == 1" ng-class="{true:'backgreen', false:'backGray'}[(12 < salvageDetails.salvageItemStatus.id && salvageDetails.salvageItemStatus.name != 'Partially Paid')]"
+                style="margin-top: 7px;"></div>
+            <div ng-if="salvageDetails.workFlow != null && salvageDetails.workFlow.id == 1" class="margintopleft10 width15">
+                <div class="text-center ClaimStatus" ng-if="salvageDetails.salvageItemStatus.name != 'Partially Paid'" ng-class="{true:'text-center bold ClaimStatusActive'}[(12 < salvageDetails.salvageItemStatus.id && salvageDetails.salvageItemStatus.name != 'Partially Paid')]">5</div>
+                <div class="text-center ClaimStatus" ng-if="salvageDetails.salvageItemStatus.name === 'Partially Paid'" ng-class="{false:'text-center bold ClaimStatusActive'}[ (12 < salvageDetails.salvageItemStatus.id && salvageDetails.salvageItemStatus.name === 'Partially Paid')]">6</div>
+                <span class="ClaimStatusActiveText clearfix hidden-xs" ng-class="{true:'font-green'}[(12 < salvageDetails.salvageItemStatus.id && salvageDetails.salvageItemStatus.name != 'Partially Paid')]">Paid</span>
+                <span class="ClaimStatusActiveText clearfix visible-xs" ng-class="{true:'font-green'}[(12 < salvageDetails.salvageItemStatus.id && salvageDetails.salvageItemStatus.name != 'Partially Paid')]">Paid</span>
+            </div>
+                        
+            <!-- Consignment -->
+            <div class="width16" ng-if="salvageDetails.workFlow != null && salvageDetails.workFlow.id == 2" ng-class="{true:'backgreen', false:'backGray'}[3 < salvageDetails.salvageItemStatus.id]"
+                style="margin-top: 7px;"></div>
+            <div ng-if="salvageDetails.workFlow != null && salvageDetails.workFlow.id == 2" class="margintopleft10 width16">
+                <div class="text-center ClaimStatus " ng-class="{true:'text-center bold ClaimStatusActive'}[3 < salvageDetails.salvageItemStatus.id]">3</div>
+                <span class="ClaimStatusActiveText clearfix hidden-xs" ng-class="{true:'font-green'}[3 < salvageDetails.salvageItemStatus.id]">Estimate Approval</span>
+                <span class="ClaimStatusActiveText clearfix visible-xs" ng-class="{true:'font-green'}[3 < salvageDetails.salvageItemStatus.id]">Estimate Approval</span>
+            </div>
+
+            <div class="width16" ng-if="salvageDetails.workFlow != null && salvageDetails.workFlow.id == 2" ng-class="{true:'backgreen', false:'backGray'}[4 < salvageDetails.salvageItemStatus.id]"
+                style="margin-top: 7px;"></div>
+            <div ng-if="salvageDetails.workFlow != null && salvageDetails.workFlow.id == 2" class="margintopleft10 width16">
+                <div class="text-center ClaimStatus " ng-class="{true:'text-center bold ClaimStatusActive'}[4 < salvageDetails.salvageItemStatus.id]">4</div>
+                <span class="ClaimStatusActiveText clearfix hidden-xs" ng-class="{true:'font-green'}[4 < salvageDetails.salvageItemStatus.id]">Pending Shipping</span>
+                <span class="ClaimStatusActiveText clearfix visible-xs" ng-class="{true:'font-green'}[4 < salvageDetails.salvageItemStatus.id]">Pending Shipping</span>
+            </div>
+
+            <div class="width16" ng-if="salvageDetails.workFlow != null && salvageDetails.workFlow.id == 2" ng-class="{true:'backgreen', false:'backGray'}[5 < salvageDetails.salvageItemStatus.id]"
+                style="margin-top: 7px;"></div>
+                <div ng-if="salvageDetails.workFlow != null && salvageDetails.workFlow.id == 2" class="margintopleft10 width16">
+                    <div class="text-center ClaimStatus " ng-class="{true:'text-center bold ClaimStatusActive'}[5 < salvageDetails.salvageItemStatus.id]">5</div>
+                    <span class="ClaimStatusActiveText clearfix hidden-xs" ng-class="{true:'font-green'}[5 < salvageDetails.salvageItemStatus.id]">At Cutters</span>
+                    <span class="ClaimStatusActiveText clearfix visible-xs" ng-class="{true:'font-green'}[5 < salvageDetails.salvageItemStatus.id]">At Cutters</span>
+                </div>
+
+            <div class="width16" ng-if="salvageDetails.workFlow != null && salvageDetails.workFlow.id == 2" ng-class="{true:'backgreen', false:'backGray'}[6 < salvageDetails.salvageItemStatus.id]"
+                style="margin-top: 7px;"></div>
+                <div ng-if="salvageDetails.workFlow != null && salvageDetails.workFlow.id == 2" class="margintopleft10 width16">
+                    <div class="text-center ClaimStatus " ng-class="{true:'text-center bold ClaimStatusActive'}[6 < salvageDetails.salvageItemStatus.id]">6</div>
+                    <span class="ClaimStatusActiveText clearfix hidden-xs" ng-class="{true:'font-green'}[6 < salvageDetails.salvageItemStatus.id]">At GIA</span>
+                    <span class="ClaimStatusActiveText clearfix visible-xs" ng-class="{true:'font-green'}[6 < salvageDetails.salvageItemStatus.id]">At GIA</span>
+                </div>
+
+            <div class="width16" ng-if="salvageDetails.workFlow != null && salvageDetails.workFlow.id == 2" ng-class="{true:'backgreen', false:'backGray'}[7 < salvageDetails.salvageItemStatus.id]"
+                style="margin-top: 7px;"></div>
+                <div ng-if="salvageDetails.workFlow != null && salvageDetails.workFlow.id == 2" class="margintopleft10 width16">
+                    <div class="text-center ClaimStatus " ng-class="{true:'text-center bold ClaimStatusActive'}[7 < salvageDetails.salvageItemStatus.id]">7</div>
+                    <span class="ClaimStatusActiveText clearfix hidden-xs" ng-class="{true:'font-green'}[7 < salvageDetails.salvageItemStatus.id]">Item Received</span>
+                    <span class="ClaimStatusActiveText clearfix visible-xs" ng-class="{true:'font-green'}[7 < salvageDetails.salvageItemStatus.id]">Item Received</span>
+                </div>
+            <div class="width16" ng-if="salvageDetails.workFlow != null && salvageDetails.workFlow.id == 2" ng-class="{true:'backgreen', false:'backGray'}[8 < salvageDetails.salvageItemStatus.id]"
+            style="margin-top: 7px;"></div>
+            <div ng-if="salvageDetails.workFlow != null && salvageDetails.workFlow.id == 2" class="margintopleft10 width16">
+                <div class="text-center ClaimStatus " ng-class="{true:'text-center bold ClaimStatusActive'}[8 < salvageDetails.salvageItemStatus.id]">8</div>
+                <span class="ClaimStatusActiveText clearfix hidden-xs" ng-class="{true:'font-green'}[8 < salvageDetails.salvageItemStatus.id]">Out-For-Bids</span>
+                <span class="ClaimStatusActiveText clearfix visible-xs" ng-class="{true:'font-green'}[8 < salvageDetails.salvageItemStatus.id]">Out-For-Bids</span>
+            </div>
+            <div class="width16" ng-if="salvageDetails.workFlow != null && salvageDetails.workFlow.id == 2" ng-class="{true:'backgreen', false:'backGray'}[9 < salvageDetails.salvageItemStatus.id]"
+                style="margin-top: 7px;"></div>
+                <div ng-if="salvageDetails.workFlow != null && salvageDetails.workFlow.id == 2" class="margintopleft10 width16">
+                    <div class="text-center ClaimStatus " ng-class="{true:'text-center bold ClaimStatusActive'}[9 < salvageDetails.salvageItemStatus.id]">9</div>
+                    <span class="ClaimStatusActiveText clearfix hidden-xs" ng-class="{true:'font-green'}[9 < salvageDetails.salvageItemStatus.id]">Adjuster
+                        Approval</span>
+                    <span class="ClaimStatusActiveText clearfix visible-xs" ng-class="{true:'font-green'}[9 < salvageDetails.salvageItemStatus.id]">Adjuster
+                        Approval</span>
+                </div>
+                <div class="width16" ng-if="salvageDetails.workFlow != null && salvageDetails.workFlow.id == 2" ng-class="{true:'backgreen', false:'backGray'}[10 < salvageDetails.salvageItemStatus.id]"
+                style="margin-top: 7px;"></div>
+                <div ng-if="salvageDetails.workFlow != null && salvageDetails.workFlow.id == 2" class="margintopleft10 width16">
+                    <div class="text-center ClaimStatus " ng-class="{true:'text-center bold ClaimStatusActive'}[10 < salvageDetails.salvageItemStatus.id]">10</div>
+                    <span class="ClaimStatusActiveText clearfix hidden-xs" ng-class="{true:'font-green'}[10 < salvageDetails.salvageItemStatus.id]">Bid Accepted</span>
+                    <span class="ClaimStatusActiveText clearfix visible-xs" ng-class="{true:'font-green'}[10 < salvageDetails.salvageItemStatus.id]">Bid Accepted</span>
+                </div>
+                <div class="width16" ng-if="salvageDetails.workFlow != null && salvageDetails.workFlow.id == 2" ng-class="{true:'backgreen', false:'backGray'}[11 < salvageDetails.salvageItemStatus.id]"
+                style="margin-top: 7px;"></div>
+            <div ng-if="salvageDetails.workFlow != null && salvageDetails.workFlow.id == 2" class="margintopleft10 width16">
+                <div class="text-center ClaimStatus" ng-class="{true:'text-center bold ClaimStatusActive'}[11 < salvageDetails.salvageItemStatus.id]">11</div>
+                <span class="ClaimStatusActiveText clearfix hidden-xs" ng-class="{true:'font-green'}[11 < salvageDetails.salvageItemStatus.id]">Pending
+                    Payment</span>
+                <span class="ClaimStatusActiveText clearfix visible-xs" ng-class="{true:'font-green'}[11 < salvageDetails.salvageItemStatus.id]">Pending
+                    Payment</span>
+            </div>
+
+            <div class="width16" ng-if="salvageDetails.workFlow != null && salvageDetails.workFlow.id == 2 && salvageDetails.salvageItemStatus.name === 'Partially Paid'" ng-class="{true:'backgreen', false:'backGray'}[17 < salvageDetails.salvageItemStatus.id]"
+            style="margin-top: 7px;"></div>
+            <div ng-if="salvageDetails.workFlow != null && salvageDetails.workFlow.id == 2 && salvageDetails.salvageItemStatus.name==='Partially Paid'" class="margintopleft10 width16">
+            <div class="text-center ClaimStatus " ng-class="{true:'text-center bold ClaimStatusActive'}[17 < salvageDetails.salvageItemStatus.id]">12</div>
+            <span class="ClaimStatusActiveText clearfix hidden-xs" ng-class="{true:'font-green'}[salvageDetails.salvageItemStatus.name==='Partially Paid']">Partially Paid
+                </span>
+            <span class="ClaimStatusActiveText clearfix visible-xs" ng-class="{true:'font-green'}[salvageDetails.salvageItemStatus.name==='Partially Paid']">Partially Paid</span>
+            </div>
+
+            <div class="width16" ng-if="salvageDetails.workFlow != null && salvageDetails.workFlow.id == 2" ng-class="{true:'backgreen', false:'backGray'}[(12 < salvageDetails.salvageItemStatus.id && salvageDetails.salvageItemStatus.name != 'Partially Paid')]"
+                style="margin-top: 7px;"></div>
+            <div ng-if="salvageDetails.workFlow != null && salvageDetails.workFlow.id == 2" class="margintopleft10 width15">
+                    <div class="text-center ClaimStatus" ng-if="salvageDetails.salvageItemStatus.name != 'Partially Paid'" ng-class="{true:'text-center bold ClaimStatusActive'}[(12 < salvageDetails.salvageItemStatus.id && salvageDetails.salvageItemStatus.name != 'Partially Paid')]">12</div>
+                    <div class="text-center ClaimStatus" ng-if="salvageDetails.salvageItemStatus.name === 'Partially Paid'" ng-class="{false:'text-center bold ClaimStatusActive'}[ (12 < salvageDetails.salvageItemStatus.id && salvageDetails.salvageItemStatus.name === 'Partially Paid')]">13</div>
+                    <span class="ClaimStatusActiveText clearfix hidden-xs" ng-class="{true:'font-green'}[(12 < salvageDetails.salvageItemStatus.id && salvageDetails.salvageItemStatus.name != 'Partially Paid')]">Paid</span>
+                    <span class="ClaimStatusActiveText clearfix visible-xs" ng-class="{true:'font-green'}[(12 < salvageDetails.salvageItemStatus.id && salvageDetails.salvageItemStatus.name != 'Partially Paid')]">Paid</span>
+            </div>
+
+            <!-- Policyholder Buy-Back -->
+            <div class="width16" ng-if="salvageDetails.workFlow != null && salvageDetails.workFlow.id == 3" ng-class="{true:'backgreen', false:'backGray'}[10 < salvageDetails.salvageItemStatus.id]"
+                style="margin-top: 7px;"></div>
+            <div class="margintopleft10 width16" ng-if="salvageDetails.workFlow != null && salvageDetails.workFlow.id == 3">
+                <div class="text-center ClaimStatus " ng-class="{true:'text-center bold ClaimStatusActive'}[10 < salvageDetails.salvageItemStatus.id]">4</div>
+                <span class="ClaimStatusActiveText clearfix hidden-xs" ng-class="{true:'font-green'}[10 < salvageDetails.salvageItemStatus.id]">Shipped to Policyholder</span>
+                <span class="ClaimStatusActiveText clearfix visible-xs" ng-class="{true:'font-green'}[10 < salvageDetails.salvageItemStatus.id]">Shipped to Policyholder</span>
+            </div>
+
+            <div class="width16" ng-if="salvageDetails.workFlow != null && salvageDetails.workFlow.id == 3" ng-class="{true:'backgreen', false:'backGray'}[12 < salvageDetails.salvageItemStatus.id]"
+                style="margin-top: 7px;"></div>
+            <div class="margintopleft10 width16" ng-if="salvageDetails.workFlow != null && salvageDetails.workFlow.id == 3">
+                <div class="text-center ClaimStatus " ng-class="{true:'text-center bold ClaimStatusActive'}[12 < salvageDetails.salvageItemStatus.id]">5</div>
+                <span class="ClaimStatusActiveText clearfix hidden-xs" ng-class="{true:'font-green'}[12 < salvageDetails.salvageItemStatus.id]">Invoice Payment
+                    Pending</span>
+                <span class="ClaimStatusActiveText clearfix visible-xs" ng-class="{true:'font-green'}[12 < salvageDetails.salvageItemStatus.id]">Invoice Payment
+                    Pending</span>
+            </div>
+
+            <div class="width16" ng-if="salvageDetails.workFlow != null && salvageDetails.workFlow.id == 3 && salvageDetails.salvageItemStatus.name === 'Partially Paid'" ng-class="{true:'backgreen', false:'backGray'}[14 < salvageDetails.salvageItemStatus.id]"
+            style="margin-top: 7px;"></div>
+            <div ng-if="salvageDetails.workFlow != null && salvageDetails.workFlow.id == 3 && salvageDetails.salvageItemStatus.name==='Partially Paid'" class="margintopleft10 width16">
+            <div class="text-center ClaimStatus " ng-class="{true:'text-center bold ClaimStatusActive'}[14 < salvageDetails.salvageItemStatus.id]">6</div>
+            <span class="ClaimStatusActiveText clearfix hidden-xs" ng-class="{true:'font-green'}[salvageDetails.salvageItemStatus.name==='Partially Paid']">Partially Paid
+                </span>
+            <span class="ClaimStatusActiveText clearfix visible-xs" ng-class="{true:'font-green'}[salvageDetails.salvageItemStatus.name==='Partially Paid']">Partially Paid</span>
+            </div>
+
+            <div class="width16" ng-if="salvageDetails.workFlow != null && salvageDetails.workFlow.id == 3" ng-class="{true:'backgreen', false:'backGray'}[(13 < salvageDetails.salvageItemStatus.id && salvageDetails.salvageItemStatus.name != 'Partially Paid')]"
+                style="margin-top: 7px;"></div>
+            <div class="margintopleft10 width16" ng-if="salvageDetails.workFlow != null && salvageDetails.workFlow.id == 3">
+                    <div class="text-center ClaimStatus" ng-if="salvageDetails.salvageItemStatus.name != 'Partially Paid'" ng-class="{true:'text-center bold ClaimStatusActive'}[(13 < salvageDetails.salvageItemStatus.id && salvageDetails.salvageItemStatus.name != 'Partially Paid')]">6</div>
+                    <div class="text-center ClaimStatus" ng-if="salvageDetails.salvageItemStatus.name === 'Partially Paid'" ng-class="{false:'text-center bold ClaimStatusActive'}[ (13 < salvageDetails.salvageItemStatus.id && salvageDetails.salvageItemStatus.name === 'Partially Paid')]">7</div>
+                    <span class="ClaimStatusActiveText clearfix hidden-xs" ng-class="{true:'font-green'}[(13 < salvageDetails.salvageItemStatus.id && salvageDetails.salvageItemStatus.name != 'Partially Paid')]">Invoice Paid</span>
+                    <span class="ClaimStatusActiveText clearfix visible-xs" ng-class="{true:'font-green'}[(13 < salvageDetails.salvageItemStatus.id && salvageDetails.salvageItemStatus.name != 'Partially Paid')]">Invoice Paid</span>               
+            </div>
+
+            <!-- Item Return -->
+            <div class="width16" ng-if="salvageDetails.workFlow != null && salvageDetails.workFlow.id == 4" ng-class="{true:'backgreen', false:'backGray'}[10 < salvageDetails.salvageItemStatus.id]"
+                style="margin-top: 7px;"></div>
+            <div class="margintopleft10 width16" ng-if="salvageDetails.workFlow != null && salvageDetails.workFlow.id == 4">
+                <div class="text-center ClaimStatus " ng-class="{true:'text-center bold ClaimStatusActive'}[10 < salvageDetails.salvageItemStatus.id]">4</div>
+                <span class="ClaimStatusActiveText clearfix hidden-xs" ng-class="{true:'font-green'}[10 < salvageDetails.salvageItemStatus.id]">Shipped to Policyholder</span>
+                <span class="ClaimStatusActiveText clearfix visible-xs" ng-class="{true:'font-green'}[10 < salvageDetails.salvageItemStatus.id]">Shipped to Policyholder</span>
+            </div>
+
+            <div class="width16" ng-if="salvageDetails.workFlow != null && salvageDetails.workFlow.id == 4" ng-class="{true:'backgreen', false:'backGray'}[11 < salvageDetails.salvageItemStatus.id]"
+                style="margin-top: 7px;"></div>
+            <div class="margintopleft10 width16" ng-if="salvageDetails.workFlow != null && salvageDetails.workFlow.id == 4">
+                <div class="text-center ClaimStatus " ng-class="{true:'text-center bold ClaimStatusActive'}[11 < salvageDetails.salvageItemStatus.id]">5</div>
+                <span class="ClaimStatusActiveText clearfix hidden-xs" ng-class="{true:'font-green'}[11 < salvageDetails.salvageItemStatus.id]">Shipped to Adjuster</span>
+                <span class="ClaimStatusActiveText clearfix visible-xs" ng-class="{true:'font-green'}[11 < salvageDetails.salvageItemStatus.id]">Shipped to Adjuster</span>
+            </div>
+
+            <div class="width16" ng-if="salvageDetails.workFlow != null && salvageDetails.workFlow.id == 4" ng-class="{true:'backgreen', false:'backGray'}[12 < salvageDetails.salvageItemStatus.id]"
+                style="margin-top: 7px;"></div>
+            <div class="margintopleft10 width16" ng-if="salvageDetails.workFlow != null && salvageDetails.workFlow.id == 4">
+                <div class="text-center ClaimStatus " ng-class="{true:'text-center bold ClaimStatusActive'}[12 < salvageDetails.salvageItemStatus.id]">6</div>
+                <span class="ClaimStatusActiveText clearfix hidden-xs" ng-class="{true:'font-green'}[12 < salvageDetails.salvageItemStatus.id]">Invoice Payment
+                    Pending</span>
+                <span class="ClaimStatusActiveText clearfix visible-xs" ng-class="{true:'font-green'}[12 < salvageDetails.salvageItemStatus.id]">Invoice Payment
+                    Pending</span>
+            </div>
+
+            <div class="width16" ng-if="salvageDetails.workFlow != null && salvageDetails.workFlow.id == 4 && salvageDetails.salvageItemStatus.name === 'Partially Paid'" ng-class="{true:'backgreen', false:'backGray'}[14 < salvageDetails.salvageItemStatus.id]"
+            style="margin-top: 7px;"></div>
+            <div ng-if="salvageDetails.workFlow != null && salvageDetails.workFlow.id == 4 && salvageDetails.salvageItemStatus.name==='Partially Paid'" class="margintopleft10 width16">
+            <div class="text-center ClaimStatus " ng-class="{true:'text-center bold ClaimStatusActive'}[14 < salvageDetails.salvageItemStatus.id]">7</div>
+            <span class="ClaimStatusActiveText clearfix hidden-xs" ng-class="{true:'font-green'}[salvageDetails.salvageItemStatus.name==='Partially Paid']">Partially Paid
+                </span>
+            <span class="ClaimStatusActiveText clearfix visible-xs" ng-class="{true:'font-green'}[salvageDetails.salvageItemStatus.name==='Partially Paid']">Partially Paid</span>
+            </div>
+
+            <div class="width16" ng-if="salvageDetails.workFlow != null && salvageDetails.workFlow.id == 4" ng-class="{true:'backgreen', false:'backGray'}[(13 < salvageDetails.salvageItemStatus.id && salvageDetails.salvageItemStatus.name != 'Partially Paid')]"
+                style="margin-top: 7px;"></div>
+            <div class="margintopleft10 width16" ng-if="salvageDetails.workFlow != null && salvageDetails.workFlow.id == 4">
+                    <div class="text-center ClaimStatus" ng-if="salvageDetails.salvageItemStatus.name != 'Partially Paid'" ng-class="{true:'text-center bold ClaimStatusActive'}[(13 < salvageDetails.salvageItemStatus.id && salvageDetails.salvageItemStatus.name != 'Partially Paid')]">7</div>
+                    <div class="text-center ClaimStatus" ng-if="salvageDetails.salvageItemStatus.name === 'Partially Paid'" ng-class="{false:'text-center bold ClaimStatusActive'}[(13 < salvageDetails.salvageItemStatus.id && salvageDetails.salvageItemStatus.name === 'Partially Paid')]">8</div>
+                    <span class="ClaimStatusActiveText clearfix hidden-xs" ng-class="{true:'font-green'}[(13 < salvageDetails.salvageItemStatus.id && salvageDetails.salvageItemStatus.name != 'Partially Paid')]">Invoice Paid</span>
+                    <span class="ClaimStatusActiveText clearfix visible-xs" ng-class="{true:'font-green'}[(13 < salvageDetails.salvageItemStatus.id && salvageDetails.salvageItemStatus.name != 'Partially Paid')]">Invoice Paid</span>               
+            </div>
+
+        </div>
+        <br>
+        <div class="clearfix"></div>
+    </div>
+</center>
+<!--End Of Stats Bar-->

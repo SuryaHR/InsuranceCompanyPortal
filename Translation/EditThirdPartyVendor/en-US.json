@@ -1,0 +1,29 @@
+﻿{
+  "ControlText": {
+    "Back": "Back",
+    "Save": "Save",
+    "Update": "Update"
+  },
+  "Label": {
+    "Heading": "Supplier #",
+    "CompanyWebsite": "Company Website",
+    "ContactPerson": "Contact Person*",
+    "FirstName": "Fisrt Name",
+    "LastName": "LastName",
+    "Phone": "Phone #",
+    "Email": "Email",
+    "SuppliersPhone": "Supplier's Phone #",
+    "PhoneType": "Phone Type",
+    "ShippingAddress": "Shipping Address",
+    "BillingAddress": "Billing Address",
+    "AddressLine1": "Address Line 1",
+    "AddressLine2": "Address Line 2",
+    "City": "City",
+    "State": "State",
+    "ZipCode": "Zip Code",
+    "Status": "Status"
+  },
+  "HeadingText": {
+    "CategoryExpertise": "Category Expertise"
+  }
+}

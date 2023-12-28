@@ -1,0 +1,193 @@
+<div class="page-sidebar navbar-collapse collapse">
+    <!-- BEGIN SIDEBAR MENU -->
+    <!-- DOC: Apply "page-sidebar-menu-light" class right after "page-sidebar-menu" to enable light sidebar menu style(without borders) -->
+    <!-- DOC: Apply "page-sidebar-menu-hover-submenu" class right after "page-sidebar-menu" to enable hoverable(hover vs accordion) sub menu mode -->
+    <!-- DOC: Apply "page-sidebar-menu-closed" class right after "page-sidebar-menu" to collapse("page-sidebar-closed" class must be applied to the body element) the sidebar sub menu mode -->
+    <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+    <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
+    <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+    <ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" ng-class="{'page-sidebar-menu-closed': settings.layout.pageSidebarClosed}">
+        <li class="heading" ng-if="IsAccess('ManagerDashboard')"> <!--ng-if="screanId===13"-->
+            <h3>{{"MainHeadreText.ClaimCenterManage"| translate}}</h3>
+
+        <li class="nav-item" ng-if="IsAccess('ManagerDashboard')">
+            <a href="#/ManagerDashboard">
+                <i class="icon-home"></i>
+                <span class="title">{{"Menulist.AllClaims"|translate}}</span>
+            </a>
+        </li>
+        
+        <li class="nav-item" ng-if="IsAccess('ClaimCenterAllClaims')">
+            <a  href="#/ClaimCenterAllClaims">  
+                <i class="icon-briefcase"></i>
+                <span class="title">{{"Menulist.MyClaims"|translate}}</span>
+            </a>
+        </li>
+        <li class="nav-item" ng-if="IsAccess('ClaimSpecialistHome')">
+            <a href="#/ClaimSpecialistHome">
+                <i class="icon-diamond"></i>
+                <span class="title">{{"Menulist.ClaimSpecialistsHome"|translate}}</span>
+            </a>
+        </li>
+        <!--<li class="nav-item" ng-if="IsAccess('ClaimManagerMyClaim')">
+            <a href="#/ClaimSpecialists">
+                <i class="icon-diamond"></i>
+                <span class="title">{{"Menulist.ClaimSpecialists"|translate}}</span>
+            </a>
+        </li>-->
+       
+        <li class="heading" ng-if="IsAccess('AdjusterDashboard')">
+            <h3>{{"MainHeadreText.Adjuster"|translate}}</h3>
+        </li>
+
+        <li class="nav-item" ng-if="IsAccess('AdjusterDashboard')">
+            <a href="#/AdjusterDashboard">              
+                <i class="icon-home"></i>
+                <span class="title">{{"Menulist.Dashboard"|translate}}</span>
+            </a>
+        </li>
+       
+        <!--<li class="nav-item" ng-if="IsAccess('AdjusterMyClaim')">
+            <a href="#/AdjusterClaimInProgress">
+                <i class="icon-bar-chart"></i>
+                <span class="title">{{"Menulist.ClaimsInprogress"|translate}}</span>
+            </a>
+        </li>-->
+
+        <li class="nav-item" ng-if="IsAccess('AdjusterThirdPartyVendor')">
+            <a href="#/AdjusterThirdPartyVendor">
+                <i class="icon-user"></i>
+                <span class="title">{{"Menulist.ThirdPartyVendor"|translate}}</span>
+            </a>
+        </li>
+
+      
+<!--Third party vendor-->
+        <li class="heading" ng-if="IsAccess('ThirdPartyVendorDashboard')">
+            <h3>{{"MainHeadreText.ThirdPartyVendor"|translate}}</h3>
+        </li>
+
+        <li class="nav-item" ng-if="IsAccess('ThirdPartyVendorDashboard')">
+            <a href="#/ThirdPartyVendorDashboard">
+                <i class="icon-home"></i>
+                <span class="title">{{"Menulist.ThirdPartyVendorDashboard"|translate}}</span>
+            </a>
+        </li>
+        <li class="nav-item" ng-if="IsAccess('ThirdPartyAllClaims')">
+            <a href="#/ThirdPartyAllClaims">
+                <i class="icon-briefcase"></i>
+                <span class="title">{{"Menulist.ThirdPartyAllClaims"|translate}}</span>
+            </a>
+        </li>
+        <li class="nav-item" ng-if="IsAccess('BillsAndPayment')">
+            <a href="#/BillsAndPayment">
+                <i class="icon-briefcase"></i>
+                <span class="title">{{"Menulist.BillsAndPayment"|translate}}</span>
+            </a>
+        </li>
+        <li class="nav-item" ng-if="IsAccess('ThirdPartyVendorInventory')">
+            <a href="#/ThirdPartyVendorInventory">
+                <i class="icon-home"></i>
+                <span class="title">{{"Menulist.Inventory"|translate}}</span>
+            </a>
+        </li>
+        <li class="nav-item" ng-if="IsAccess('ClaimAssociates')">
+            <a href="#/ClaimAssociates">
+                <i class="icon-home"></i>
+                <span class="title">{{"Menulist.ClaimAssociates"|translate}}</span>
+            </a>
+            </li>
+            <!--End Third party vendor-->
+        <!-- Vendor Associate -->
+        <li class="heading" ng-if="IsAccess('VendorAssociateClaimDetails')">
+            <h3>{{"MainHeadreText.VendorAssociate"|translate}}</h3>
+        </li>
+        <li class="nav-item" ng-if="IsAccess('VendorAssociateDashboard')">
+            <a href="#/VendorAssociateDashboard">
+                <i class="icon-home"></i>
+                <span class="title">{{"Menulist.Dashboard"|translate}}</span>
+            </a>
+        </li>
+
+        <li class="nav-item" ng-if="IsAccess('VendorAssociateBillsAndPayment')">
+            <a href="#/vendorAssociateBillsAndPayment">
+                <i class="icon-home"></i>
+                <span class="title">{{"Menulist.VendorAssociateBillsPayment"|translate}}</span>
+            </a>
+        </li>
+        <!--<li class="nav-item" ng-if="IsAccess('VendorAssociateInventory')">
+            <a href="#/VendorAssociateInventory">
+                <i class="icon-home"></i>
+                <span class="title">{{"Menulist.VendorAssociateClaimDetails"|translate}}</span>
+            </a>
+        </li>-->
+        <!-- End Vendor Associated -->
+
+        <li class="nav-item" ng-if="IsAccess('ClaimReports')">
+            <a href="#/ClaimReports">
+                <i class="icon-user"></i>
+                <span class="title">{{"Menulist.ClaimReports"|translate}}</span>
+            </a>
+        </li>
+
+        <li class="nav-item" ng-if="IsAccess('AdjusterSalvageReports')">
+            <a href="#/AdjusterSalvageReports">
+                <i class="icon-user"></i>
+                <span class="title">{{"Menulist.AdjusterSalvageReports"|translate}}</span>
+            </a>
+        </li>
+
+
+        <li class="heading" ng-if="IsAccess('Company')">
+            <h3>{{"MainHeadreText.Company"|translate}}</h3>
+        </li>
+
+        <li class="nav-item" ng-if="IsAccess('Company')">
+            <a href="#/Company">
+                <i class="icon-home"></i>
+                <span class="title">{{"Menulist.Company"|translate}}</span>
+            </a>
+        </li>
+
+        <li class="nav-item" ng-if="IsAccess('Company')">
+            <a href="#/Office">
+                <i class="fa fa-institution"></i>
+                <span class="title">{{"Menulist.Office"|translate}}</span>
+            </a>
+        </li>
+       
+<li class="heading" ng-if="IsAccess('ClaimManagerMyClaim')">
+            <h3>{{"MainHeadreText.Administrator"|translate}}</h3>
+        </li>
+
+        <li class="nav-item" ng-if="IsAccess('ClaimManagerMyClaim')">
+            <a href="#/AdministratorThirdPartyVendor">
+                <i class="icon-user"></i>
+                <span class="title">{{"Menulist.AdminThirdPartyVendor"|translate}}</span>
+            </a>
+        </li>
+        <li class="nav-item" ng-if="IsAccess('ClaimManagerMyClaim')">
+            <a href="#/RolesAndScreenMapping">
+                <i class="fa fa-clone"></i>
+                <span class="title">{{"Menulist.AdminScreenMapping"|translate}}</span>
+            </a>
+        </li>
+        <li class="nav-item" ng-if="IsAccess('ClaimManagerMyClaim')">
+            <a href="#/RolesAndPermissionMapping">
+                <i class="fa fa-check-square-o"></i>
+                <span class="title">{{"Menulist.AdminPermissionMapping"|translate}}</span>
+            </a>
+        </li>
+<!--Claim SuperVisor-->
+        <li class="heading" ng-if="IsAccess('SupervisorDashboard')">
+            <h3>{{"MainHeadreText.VendorAssociate"|translate}}</h3>
+        </li>
+        <li class="nav-item" ng-if="IsAccess('SupervisorDashboard')">
+            <a href="#/SupervisorDashboard">
+                <i class="icon-home"></i>
+                <span class="title">{{"Menulist.Dashboard"|translate}}</span>
+            </a>
+        </li>
+        </ul>
+        <!-- END SIDEBAR MENU -->
+</div>

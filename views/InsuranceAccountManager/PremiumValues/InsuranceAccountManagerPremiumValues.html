@@ -1,0 +1,223 @@
+<style>
+  .CursorLeft {
+        cursor: pointer !important;
+    }
+
+    .ReplacedClass {
+        border: 2px solid #6bbae0 !important;
+        padding: 12px 15px 15px 15px !important;
+        border-radius: 4px !important;
+        margin-bottom: 10px !important;
+    }
+</style>
+<script type="text/javascript">
+  $(function() {
+    iOSHandler();
+    $(window).on("orientationchange", function(event) {
+      iOSHandler();
+    });
+  });
+
+  function iOSHandler() {
+    var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    var width = screen.width;
+
+    if (iOS) {
+
+      var orientation;
+      if (window.orientation == undefined) {
+        orientation = window.screen.orientation.angle;
+      } else {
+        orientation = window.orientation;
+      }
+
+      if (orientation != 0) {
+        if (screen.width < screen.height) {
+          width = screen.height;
+        }
+      }
+      //iPhone4-Landscape
+      if (width > 475 && width < 485) {
+        $(".comparablesDivDB").css("height", "auto");
+        $(".addedComp").css("width", "100%");
+        $(".addedComp").css("overflow", "scroll");
+        $(".addedComp").css("-webkit-overflow-scrolling", "touch");
+
+      }
+
+      //iPhone5-Landscape
+      else if (width > 562 && width < 572) {
+        $(".comparablesDivDB").css("height", "auto");
+        $(".addedComp").css("width", "100%");
+        $(".addedComp").css("overflow", "scroll");
+        $(".addedComp").css("-webkit-overflow-scrolling", "touch");
+
+      }
+      //iPhone4,5-Portrait
+      else if (width > 315 && width < 325) {
+        $(".comparablesDivDB").css("height", "auto");
+        $(".addedComp").css("width", "100%");
+        $(".addedComp").css("overflow", "scroll");
+        $(".addedComp").css("-webkit-overflow-scrolling", "touch");
+
+      }
+
+      //iPhone6-Landscape
+      else if (width > 660 && width < 670) {
+        $(".comparablesDivDB").css("height", "auto");
+        $(".addedComp").css("width", "100%");
+        $(".addedComp").css("overflow", "scroll");
+        $(".addedComp").css("-webkit-overflow-scrolling", "touch");
+
+      }
+      //iPhone6-Portrait
+      else if (width > 370 && width < 380) {
+        $(".comparablesDivDB").css("height", "auto");
+        $(".addedComp").css("width", "100%");
+        $(".addedComp").css("overflow", "scroll");
+        $(".addedComp").css("-webkit-overflow-scrolling", "touch");
+
+      }
+
+      //iPhone6+-Landscape
+      else if (width > 730 && width < 740) {
+        $(".comparablesDivDB").css("height", "auto");
+        $(".addedComp").css("width", "100%");
+        $(".addedComp").css("overflow", "scroll");
+        $(".addedComp").css("-webkit-overflow-scrolling", "touch");
+
+      }
+      //iPhone6+-Portrait
+      else if (width > 410 && width < 420) {
+        $(".comparablesDivDB").css("height", "auto");
+        $(".addedComp").css("width", "100%");
+        $(".addedComp").css("overflow", "scroll");
+        $(".addedComp").css("-webkit-overflow-scrolling", "touch");
+
+      }
+
+      //ipad
+      else if (width > 1020 && width < 1025) {
+        $(".comparablesDivDB").css("height", "958px");
+        $(".googleComparableBodyHeight").css("height", "729px");
+        $(".googleSerachResultDiv").css("height", "632px");
+        $(".noteDiv").css("height", "215px");
+        $(".addedComp").css("height", "215px");
+        $(".addedComp").css("width", "100%");
+        $(".addedComp").css("overflow", "scroll");
+        $(".addedComp").css("-webkit-overflow-scrolling", "touch");
+
+
+      }
+
+      //else if (width > 760 && width < 769) {
+
+      //    $(".googleComparableBodyHeight").css("height", "680px");
+
+      //}
+      else if (width > 1360 && width < 1367) {
+        $(".googleComparableBodyHeight").css("height", "540px");
+        $(".comparablesDivDB").css("height", "853px");
+
+      }
+    }
+  }
+</script>
+<style>
+  #btnAddCustomItem:hover {
+    color: ghostwhite;
+  }
+
+  .mandatory {
+    color: red;
+  }
+
+  .NoDecoration {
+    text-decoration: none !important;
+    color: black;
+  }
+
+  .angucomplete-dropdown {
+    bottom: 100% !important;
+  }
+
+  @media (min-device-width:768px) {
+    .width14 {
+      width: 16% !important;
+    }
+
+    .width16 {
+      width: 17.6%;
+      height: 4px;
+    }
+
+    .StatusNumber {
+      margin-left: 2% !important;
+    }
+
+    .StatusHorizontalLine {
+      margin-left: 9% !important;
+    }
+  }
+
+  @media (max-device-width:768px) {
+    .width14 {
+      width: 14% !important;
+    }
+
+    .width16 {
+      width: 15%;
+      height: 4px;
+    }
+
+    .StatusNumber {
+      margin-left: 13% !important;
+    }
+
+    .StatusHorizontalLine {
+      margin-left: 18% !important;
+    }
+  }
+</style>
+<div class="col-md-12 padding1px" id="appsettingpage">
+  <div class="clearfix"></div>
+  <div class="portlet light padding1px">
+    <div class="portlet-title">
+      <div class="caption font-grey-sharp">
+        <span class="caption-subject">Premium Value Settings</span>
+      </div>
+    </div>
+    <div class="portlet-body">
+      <div class="row">
+        <div class="col-md-12 col-sm-12 margin-top-10" ng-form="StateForm">
+          <div class="col-md-12" style="margin-bottom;10px !important">
+            <a ng-click="gotoUploadZipandPremiums()">
+              <label class="CursorLeft control-label col-md-2">{{"Click to Upload an Excel"| translate }}</label>
+            </a>
+            <div class="col-md-4 col-sm-6 col-xs-12 margin-bottom-5 pull-right">
+              <div class="input-icon center">
+                <i class="icon-magnifier"></i>
+                <input type="text" ng-model="search" class="form-control form-control-solid input-circle input-block-level btnMargin" placeholder="{{'Search By Zipcode' | translate}}">
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 col-sm-12 margin-top-10 padding1px">
+            <div class="SubHeadingDiv">
+              <span class="caption-subject " style="font-size:large">
+                {{"State Names"|translate}}
+              </span>
+            </div>
+          </div>
+          <div>
+            <div class="col-md-12 col-sm-12" ng-repeat="state in StateList">
+              <div class="col-md-12 clearfix padding1px">
+                <a href="#" ng-click="openEditPremiumValuesZipCode(state)"><label class="CursorLeft control-label col-md-2">{{state.stateName}}&nbsp;({{state.noOfZipcodesWrtState}})</label></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

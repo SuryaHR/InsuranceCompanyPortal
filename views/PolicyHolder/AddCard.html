@@ -1,0 +1,52 @@
+﻿<div class="">
+    <div class="modal-header text-center">
+        <a class="close" data-dismiss="modal" aria-hidden="true" ng-click="cancel($event)"></a>
+        <!--<h4 class="modal-title text-primary">{{"Modal.Header"|translate}}</h4>-->
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1" ng-form="CardDetailsForm">
+                <div class="col-md-12 form-group">
+                    <label class="control-label">{{"CardNo"|translate}}</label>
+                    <input type="text" class="form-control" numbers-only ng-model="CardDetails.CardNo" placeholder='{{"CardNo"|translate}}' required name="CardNo"/>
+                    <span class="text-danger" ng-show="CardDetailsForm.CardNo.$error.required && CardDetailsForm.CardNo.$touched">{{"CardNoRequired"|translate}}</span>
+                </div>
+                <div class="col-md-12 form-group">
+                    <label class="control-label">{{"NameOnTheCard"|translate}}</label>
+                    <input type="text" class="form-control" ng-model="CardDetails.NameOnTheCard" placeholder='{{"NameOnTheCard"|translate}}' required name="NameOnCard" />
+                
+                    <span class="text-danger" ng-show="CardDetailsForm.NameOnCard.$error.required && CardDetailsForm.NameOnCard.$touched">{{"NameOnCard"|translate}}</span></div>
+                <div class="col-md-12 form-group">
+                    <div class="col-md-12 padding1px">
+                        <label class="control-label">{{"ExpiryDate"|translate}}</label>
+                    </div>
+                        <!--<input class="form-control datepicker" ng-model="CardDetails.ExpiryDate" required close-on-date-selection="true" data-provide="datepicker" size="16" type="text" placeholder='{{"ExpiryDate"|translate}}' name="ExpiryDate" />-->
+                    <div class="col-md-6 form-group padding1px">
+                  
+                    <div class="col-md-12 padding1px">
+                        <select class="form-control" ng-model="CardDetails.ExpiryMonth" required name="month" ng-options="month.Id as month.Name for month in Months">
+                        <option value="">-Select Month -</option>
+                        </select>
+                    </div>
+                        <span class="text-danger" ng-show="CardDetailsForm.month.$error.required && CardDetailsForm.month.$touched">{{"MonthRequired"|translate}}</span>
+                     </div>
+                    <div class="col-md-6 form-group padding1px">
+                        <div class="col-md-12 padding1px">
+                        <select class="form-control" ng-model="CardDetails.ExpiryYear" required name="year" ng-options="year.Id as year.Year for year in Years">
+                            <option value="">-Select Year -</option>
+                            </select>
+                        </div>
+                        <span class="text-danger" ng-show="CardDetailsForm.year.$error.required && CardDetailsForm.year.$touched">{{"YearRequired"|translate}}</span>
+                     </div>
+                </div>
+            </div>
+          </div>
+    </div>
+    <div class="modal-footer">
+        <div class="col-md-12 text-center">
+            <button class="btn btnMargin sbold"ng-disabled="CardDetailsForm.$invalid || CardDetailsForm.$pristine">
+                {{"AddCard"|translate}}
+            </button>
+        </div>
+    </div>
+</div>

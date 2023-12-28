@@ -1,0 +1,33 @@
+﻿<style type="text/css">
+    .btnclass {
+        min-width: 46px !important;
+        min-height: 28px !important;
+        padding: 2px !important;
+    }
+</style>
+<!--PDF page Handler-->
+<div class="col-md-12 ">
+    <div class="col-md-8 col-sm-8 col-xs-12 col-lg-8 margintop5">
+        <button class="btnclass btn-sm glyphicon glyphicon-menu-left" ng-click="goPrevious()"></button>
+        <button ng-click="zoomIn()" class="btnclass btn-sm glyphicon glyphicon-plus"></button>
+        <button ng-click="fit()" class="btnclass btn-sm">100%</button>
+        <button ng-click="zoomOut()" class="btnclass btn-sm glyphicon glyphicon-minus"></button>
+        <button class="btnclass btn-sm glyphicon glyphicon-menu-right" ng-click="goNext()"></button>
+    </div>
+    <div class="col-md-4 col-lg-4 col-sm-4 text-right col-xs-12 margintop5 padding1px">
+        <!--<span>Page: </span><input type="text" min=1 ng-model="pageNum"><span> / {{pageCount}}</span>-->
+        <span>Page:</span>
+        <label class="" type="text" min=1 ng-model="pageNum" id="page_num">{{pageNum}} / {{ pageCount }}</label>
+        <!--<span> /{{ pageCount }}</span>-->
+    </div>
+</div>
+<!--End PDF page Handler-->
+<!-- Render PDF -->
+<div class="col-md-12 col-sm-12 col-xs-12 padding1px" style="max-height:300px;overflow:auto;" id="load_canvas">
+    {{loading}}
+   
+        <canvas id="pdf" class="col-md-12 col-sm-12" title={{popupMessage}} ></canvas>
+ 
+</div>
+
+<!--End Render PDF -->

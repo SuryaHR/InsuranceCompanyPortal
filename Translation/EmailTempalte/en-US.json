@@ -1,0 +1,43 @@
+﻿{
+  "Labeled": {
+    "AddNewTemplate": "Add New Template",
+    "Upload": "Load From File",
+    "Export": "Export",
+    "btnBack": "Back",
+    "btnSave": "Save",
+    "btnCancel": "Cancel",
+    "lblSearch": "Search..",
+    "View": "View",
+    "Column": "Column",
+    "Type": "Type",
+    "PageSize": "Show",
+    "BodyOfTheEmail": "Body Of The Email",
+    "EmailSubjectLine": "Email Subject Line",
+    "EmailTemplateTitle": "Email Template Title",
+    "ShortDescOfEmailTemplate": "Short Description Of Email Template"
+  },
+  "ControlText": {
+    "Edit": "Edit",
+    "Delete": "Delete",
+    "SelectType": "Select Type",
+    "ColumnTitle": "Column Title",
+    "BtnYes": "Yes",
+    "BtnNo": "No"
+
+  },
+
+  "Table": {
+    "TemplateId": "Template Id",
+    "TemplateTitle": "Template Title",
+    "ShortDescription": "Short Description",
+    "Action": "Action"
+
+  },
+  "HeaderText": {
+    "EmailTemplete": "Email Templates",
+    "AddEmailTemp": "Add Email Template",
+    "EditEmailTemp": "Edit Email Template"
+
+  },
+  "Message": "Are you sure want to delete this template ?"
+}

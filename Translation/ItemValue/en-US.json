@@ -1,0 +1,38 @@
+﻿{
+
+  "ModalHeaderText": "1895 Marco Polo Canvas Painting",
+
+  "ControlText": {
+    "Cancel_title": "Cancel",
+    "Save_title": "Save",
+    "InsuranceType": "Insurance Type"
+  },
+  "FormControlText": {
+    "Cost_title": "Cost at time of purchase",
+    "AnnualDepreciation_title": "Annual Depreciation %",
+    "ActualCostValue_title": "Actual Cost Value (ACV)",
+    "ReplacementCostValue_title": "Replacement Cost Value (RCV)",
+    "Taxes_title": "Taxes",
+    "TotalValue_title": "Total Value"
+  },
+  "Placeholders": {
+    "Taxes": "Tax in(%)",
+    "ReplacementValue": "Replacement Value",
+    "ActualCost": "Calculated Actual Cost (ACV)",
+    "Cost": "Cost",
+    "Depreciation": "Depreciation %"
+  },
+  "Radio": {
+    "ACV": "ACV",
+    "RCV": "RCV"
+  },
+  "ErrorMessage": {
+    "TotalValue": "Please enter total value",
+    "taxRate": "Please enter tax rate",
+    "acv": "Please enter ACV",
+    "depriciation": "Please enter annual dericiation",
+    "quotedPrice": "Please enter quotaed price",
+    "Failed": "Failed to update item value, Please try again."   
+  }
+
+}

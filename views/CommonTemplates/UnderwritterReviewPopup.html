@@ -1,0 +1,30 @@
+<script>
+    $(document).ready(function () {
+        $("#select2insidemodal").select2({
+            dropdownParent: $("#myModal")
+        });
+    });
+</script>
+<div id="myModal">
+    <div id="responsive">
+        <div class="modal-header">
+            <a class="close" ng-click="cancel()" aria-hidden="true"></a>
+            <h4 class="modal-title sbold">{{"Submit For Underwriter Approval"|translate}}</h4>
+        </div>
+        <div class="modal-body">
+            <div class="col-md-12 padding1px " ng-form="UnderwritterReviewForm">
+
+                    <div class="col-md-12 col-sm-12 form-group">
+                            <textarea class="form-control" rows="10" maxlength="2000" ng-model="popup.message" name="Description" ng-attr-placeholder='{{"Note to Underwriter"|translate}}' style="resize: none;"></textarea>
+                        </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default sbold" ng-click="cancel()">{{"Cancel"|translate}}</button>
+        <button type="button" data-dismiss="modal" class="btn btn-default sbold" ng-click="ok()" ng-disabled="popup.message=='' || UnderwritterReviewForm.$invalid">{{"Submit"|translate}}</button>
+    </div>
+</div>
+</div>

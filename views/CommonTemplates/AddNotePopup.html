@@ -1,0 +1,115 @@
+﻿<script>
+    $(document).ready(function () {
+        $("#select2insidemodal").select2({
+            dropdownParent: $("#myModal")
+        });
+    });
+</script>
+<div id="myModal">
+    <div id="responsive">
+        <div class="modal-header">
+            <a class="close" ng-click="cancel()" aria-hidden="true"></a>
+            <h5 class="modal-title sbold">{{"HeaderTitle.AddNote"|translate}}</h5>
+        </div>
+        <div class="modal-body">
+            <div class="col-md-12 padding1px " ng-form="CreateNoteForm">
+              <!-- CTB-2895 -->
+                <!-- <div class="col-md-12 col-sm-12 form-group">
+                  <div class="col-md-2 col-sm-2 col-xs-12 Label_Text_Right" style="padding-left: 0px">
+                    <label class="control-label">{{"Subject"|translate}}</label>
+                  </div>
+                    <div class="col-md-10 col-sm-10 col-xs-12">
+                        <input class="form-control" ng-model="CommonObj.subject" placeholder='{{"Subject"|translate}}'
+                            rows="3" name="subject" required />
+                        <div class="errormessage">
+                            <div ng-message="required"
+                                ng-show="(CreateNoteForm.subject.$error.required && CreateNoteForm.subject.$touched)">
+                                <span class="text-danger">{{"ErrorMessage.EnterSubject"|translate}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+                <!-- end CTB-2895 -->
+
+                <!-- <div class="col-md-12 col-sm-12 form-group" ng-if="defaultParticipantList.length>0">
+                    <label class="control-label col-md-2 col-sm-4">{{"To"|translate}}</label>
+                    <div class="col-md-10 col-sm-8" style="max-height:80px;overflow-y:auto">
+                        <span ng-repeat="item in defaultParticipantList">{{ item.firstName +' '+item.lastName +' ('+item.role+')'}}<span
+                                ng-if="!$last && defaultParticipantList.length>1">, </span></span>
+                    </div>
+                </div> -->
+                <div class="col-md-12 col-sm-12 form-group">
+                  <div class="col-md-2 col-sm-2 col-xs-12 Label_Text_Right" style="padding-left: 0px">
+                    <label class="control-label">{{"To"|translate}}</label>
+                    </div>
+                    <div class="col-md-10 col-sm-10 col-xs-12" style="max-height:80px;overflow-y:auto">
+                        <select class="form-control select2me " style="width:100%;" multiple
+                            ng-model="PraticipantIdList" data-placeholder="Select Participant" id="select2insidemodal"
+                            name="person"
+                            ng-required="true"
+                            ng-options="item.participantId as (item.firstName +' '+item.lastName+' ( '+(item.companyDTO.companyName ? item.companyDTO.companyName+' - ' : '')+ item.role+' )' | titleCase) for item in ClaimParticipantsList"></select>
+                        <div ng-message="required"
+                            ng-if="(CreateNoteForm.person.$error.required && CreateNoteForm.person.$touched) && defaultParticipantList.length <= 0">
+                            <span class="text-danger">{{"ErrorMessage.SelectRecipient"|translate}}</span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-12 col-sm-12 form-group">
+                  <div class="col-md-2 col-sm-2 col-xs-12 Label_Text_Right" style="padding-left: 0px">
+                    <label class="control-label">{{"Message"|translate}}</label>
+                    </div>
+                    <div class="col-md-10 col-sm-10 col-xs-12">
+                        <!-- <input id="NoteFileUpload" type="file" ng-model="CommonObj.Attachment" multiple
+                            onchange="angular.element(this).scope().getNoteFileDetails(event)" style="display: none;"
+                            accept="image/*"> -->
+                        <!-- <div class="col-md-12 col-sm-12" style="display:flex"> -->
+                            <textarea class="form-control" ng-model="CommonObj.claimNote"
+                                placeholder='{{"Message"|translate}}' rows="3" name="claimNote"></textarea>
+                            <!-- <span style="line-height:75px;margin-left:15px;" ng-click="SelectNoteFile(); ">
+                                <i class="fa fa-paperclip fa-2x"></i>
+                            </span> -->
+                        <!-- </div> -->
+                        <div class="errormessage col-md-12 col-sm-12 pull-right">
+                            <div ng-message="required"
+                                ng-show="(CreateNoteForm.claimNote.$error.required && CreateNoteForm.claimNote.$touched)">
+                                <span class="text-danger">{{"ErrorMessage.ClaimNoteRequired"|translate}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-sm-12 form-group">
+                    <div class="col-md-2 col-sm-2 col-xs-12 Label_Text_Right" style="padding-left: 0px">
+                        <label class="control-label">{{"Attachment"|translate}}</label>
+                    </div>
+                    <div class="col-md-10 col-sm-10 col-xs-12">
+                      <input id="NoteFileUpload" type="file" ng-model="CommonObj.Attachment" multiple
+                          onchange="angular.element(this).scope().getNoteFileDetails(event)" style="display: none;"
+                          accept="image/*">
+                      <span ng-click="SelectNoteFile(); ">
+                        <a style="text-decoration:underline"
+                            ng-click="AddAttachment($event)">{{"Click to add attachment"|translate}}</a>
+                        </span>
+                        <div>
+                            <span class="text-danger" ng-if="invalidAttachment == true">{{"This document extension is not supported by Streamline. Please upload any other document"|translate}}</span>
+                        </div>
+                      </span>
+                      </div>
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-6 form-group" ng-repeat="item in files" style="margin-top:5px;">
+                        <span class="control-label">{{item.FileName}}</span>
+                        <span class="fa fa-times-circle fa-lg text-danger " ng-click="RemoveImage(item)"
+                            style="margin-left:3px;">
+                        </span>
+                    </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline dark"
+                ng-click="cancel()">{{"ControlText.Cancel"|translate}}</button>
+            <button type="button" data-dismiss="modal" class="btn sbold btnMargin" ng-click="ok()"
+                ng-disabled="CreateNoteForm.$invalid || (CreateNoteForm.claimNote.$pristine && !files.length) || invalidAttachment">{{"ControlText.AddNote"|translate}}</button>
+        </div>
+    </div>
+</div>

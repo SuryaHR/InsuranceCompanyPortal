@@ -1,0 +1,103 @@
+﻿<div>
+    <div class="modal-header">
+        <a  class="close" data-dismiss="modal" aria-hidden="true" ng-click="cancel($event)"></a>
+        <h4 class="modal-title text-primary">{{ItemDetails.ItemName}}</h4>
+    </div>
+    <div class="modal-body">
+        <div class="row" ng-form="ValueForm">
+            <div class="form-group col-md-12">
+                <div class="col-md-6">
+                    <label class="col-md-12 text-muted">{{"FormControlText.Cost_title"|translate}}</label>
+                </div>
+                <div class="col-md-6">
+                <input type="text" ng-model="ItemDetails.quotedPrice" name="quotaedPrice" required class="form-control" placeholder='{{"Placeholders.Cost"|translate}}'/>
+                    <div ng-message="required" ng-show="(ValueForm.quotaedPrice.$error.required && ValueForm.quotaedPrice.$touched)">
+                        <span class="text-danger">{{"ErrorMessage.quotaedPrice"|translate}}</span>
+                    </div>
+                 </div>
+            </div>
+            <div class="form-group col-md-12">
+                <div class="col-md-6">
+                    <label class="col-md-12 text-muted">{{"FormControlText.AnnualDepreciation_title"|translate}}</label>
+                </div>
+                <div class="col-md-6">
+                    <input type="text" ng-model="ItemDetails.depriciationRate" name="depriciation" required class="form-control" placeholder='{{"Placeholders.Depreciation"|translate}}'/>
+                    <div ng-message="required" ng-show="(ValueForm.depriciation.$error.required && ValueForm.depriciation.$touched)">
+                        <span class="text-danger">{{"ErrorMessage.depriciation"|translate}}</span>
+                    </div>
+                 </div>
+            </div>
+          
+              <!--<div class="form-group col-md-12">
+                <div class="col-md-6">
+                    <label class="col-md-12 text-muted">{{"ControlText.InsuranceType"|translate}}</label>
+                </div>
+                <div class="col-md-6">
+                    <form>
+                        <div class="col-md-6">
+                            <label class="radio-inline">
+                                <input type="radio" name="optradio" ng-click="displayACV()" ng-checked="ItemDetails.IsReplaced===true">{{"Radio.ACV"|translate}}
+                            </label>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="radio-inline">
+                                <input type="radio" name="optradio" ng-click="displayRCV()" ng-checked="ItemDetails.IsReplaced===true">{{"Radio.RCV"|translate}}
+                            </label>
+                        </div>
+                    </form>
+</div>
+            </div>-->
+
+            <div class="form-group col-md-12" >
+                <div class="col-md-6">
+                    <label class="col-md-12 text-muted">{{"FormControlText.ActualCostValue_title"|translate}}</label>
+                </div>
+                <div class="col-md-6">
+                    <input type="text" ng-model="ItemDetails.acv" name="acv" required class="form-control" placeholder='{{"Placeholders.ActualCost"|translate}}'/>
+                    <div ng-message="required" ng-show="(ValueForm.acv.$error.required && ValueForm.acv.$touched)">
+                        <span class="text-danger">{{"ErrorMessage.acv"|translate}}</span>
+                    </div>
+                </div>
+            </div>
+           
+             <div class="form-group col-md-12" >
+                <div class="col-md-6">
+                    <label class="col-md-12 text-muted">{{"FormControlText.Taxes_title"|translate}}</label>
+                </div>
+                <div class="col-md-6">
+                    <input type="text" ng-model="ItemDetails.totalTax" name="taxrate" required class="form-control" placeholder='{{"Placeholders.Taxes"|translate}}' />
+                    <div ng-message="required" ng-show="(ValueForm.taxRate.$error.required && ValueForm.taxRate.$touched)">
+                        <span class="text-danger">{{"ErrorMessage.taxRate"|translate}}</span>
+                    </div>
+                 </div>
+            </div>
+            <!--<div class="form-group col-md-12">
+                <div class="col-md-6">
+                    <label class="col-md-12 text-muted">{{"FormControlText.Taxes_title"|translate}}</label>
+                </div>
+                <div class="col-md-6">
+                    <input type="text" ng-model="ItemDetails.taxRate" name="taxrate" required class="form-control" placeholder='{{"Placeholders.Taxes"|translate}}' />
+                    <div ng-message="required" ng-show="(ValueForm.taxRate.$error.required && ValueForm.taxRate.$touched)">
+                        <span class="text-danger">{{"ErrorMessage.taxRate"|translate}}</span>
+                    </div>
+                </div>
+            </div>-->
+          
+              <div class="form-group col-md-12" >
+                <div class="col-md-6">
+                    <label class="col-md-12 text-muted">{{"FormControlText.TotalValue_title"|translate}}</label>
+                </div>
+                <div class="col-md-6">
+                    <input type="text" ng-model="ItemDetails.TotalValue" name="totalValue" required class="form-control" placeholder='{{"FormControlText.TotalValue_title"|translate}}' />
+                    <div ng-message="required" ng-show="(ValueForm.TotalValue.$error.required && ValueForm.TotalValue.$touched)">
+                        <span class="text-danger">{{"ErrorMessage.TotalValue"|translate}}</span>
+                    </div>
+                 </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn dark btn-outline" data-dismiss="modal" ng-click="cancel($event)">{{"ControlText.Cancel_title"|translate}}</button>
+        <button type="button" class="btn green" ng-click="ok($event)"> {{"ControlText.Save_title"|translate}} </button>
+    </div>
+</div>

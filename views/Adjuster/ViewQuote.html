@@ -1,0 +1,647 @@
+﻿<style>
+    .address-label { margin-left:22%; }
+  .address-field { margin-left: 6%;}
+</style>
+<div class="col-md-12">
+    <ul class="page-breadcrumb breadcrumb sbold">
+        <li>
+            <a ng-click="GotoDashboard()">{{"Home"|translate}}</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <a ng-click="goPropertyClaimDetails()">{{CommonObject.ClaimNumber}}</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <!-- <li ng-if="CommonObject.ItemNumber">
+            <a ng-click="goLineItemDetails()">{{CommonObject.ItemNumber}}</a>
+            <i class="fa fa-circle"></i>
+        </li> -->
+        <!-- <li ng-if="CommonObject.ItemNumber">
+            <a ng-click="goToVendorAssignment()">{{"Vendor Assignment"|translate}}</a>
+            <i class="fa fa-circle"></i>
+        </li> -->
+        <li ng-if="!CommonObject.ItemNumber">
+            <a ng-click="goToVendorAssignment()">{{"Vendor Assignment"|translate}}</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span>{{"View Quote"|translate}}</span>
+        </li>
+    </ul>
+    <div class="portlet light padding1px">
+        <div class="portlet-title">
+            <div class="caption font-gray-sharp">
+                <span class="caption-subject" ng-if="isNewQuote">{{"New Quote"|translate}}</span>
+                <span class="caption-subject"
+                    ng-if="!isNewQuote">{{"Replacement Quote #"|translate}}{{QuoteDetails.quoteNumber}}</span>
+            </div>
+        </div>
+       
+            <div class="col-md-12 col-sm-12 margin-top-5 form-group text-right padding1px">
+                <!-- <button class="btn btnMargin sbold" ng-click="goLineItemDetails()">{{"Back"|translate}}</button> 
+                <button class="btn btnMargin sbold" ng-disabled="isButtonDisable" ng-click="updateQuote(QuoteDetails,3)">{{"Reject"|translate}}</button>-->
+                <button class="btn btnMargin sbold" ng-disabled="isButtonDisable" ng-click="updateQuote(QuoteDetails,2)">{{"Approve"|translate}}</button>
+
+                <button class="btn btnMargin sbold" ng-click="exportQuoteToPDF(QuoteDetails.id)">{{"ExportToPDF"|translate}}</button>
+            </div>
+       
+     
+        <div class="portlet-body">
+            <div class="row">
+                <div class="col-md-6 col-sm-12">
+                    <div class="col-md-12 col-sm-12 form-group margin-top-20">
+                        <label
+                            class="col-md-4 col-sm-6 Label_Text_Right control-label sbold">{{"Status"|translate}}</label>
+                        <div class="col-md-7 col-sm-6">
+                            <span class="control-label" name="Name">{{QuoteDetails.quoteStatus.status}}</span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 col-sm-12 form-group " ng-if="!isNewQuote">
+                        <label
+                            class="col-md-4 col-sm-6 Label_Text_Right control-label sbold">{{"Date of Quote"|translate}}</label>
+                        <div class="col-md-7 col-sm-6">
+                            <span class="control-label">{{QuoteDetails.createDate}}</span>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 form-group ">
+                        <label
+                            class="col-md-4 col-sm-6 Label_Text_Right control-label sbold">{{"InsuranceCompany"|translate}}</label>
+                        <div class="col-md-7 col-sm-6">
+                            <span class="control-label" name="Name">{{QuoteDetails.companyDetails.name}}</span>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 form-group">
+                        <label
+                            class="col-md-4 col-sm-6 Label_Text_Right control-label sbold">{{"Adjuster"|translate}}</label>
+                        <div class="col-md-7 col-sm-6">
+                            <span
+                                class="control-label">{{QuoteDetails.adjsuterBaseDetails.lastName+", "+QuoteDetails.adjsuterBaseDetails.firstName}}</span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 col-sm-12 form-group">
+                        <label class="col-md-4 col-sm-6 Label_Text_Right control-label">{{"Address"|translate}}</label>
+                        <div class="col-md-7 col-sm-6">
+                            <span class="control-label">{{QuoteDetails.companyDetails.address.completeAddress}}</span>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 form-group ">
+                        <label
+                            class="col-md-4 col-sm-6 Label_Text_Right control-label sbold">{{"Claim #"|translate}}</label>
+                        <div class="col-md-7 col-sm-6">
+                            <span class="control-label">{{QuoteDetails.claimNumber}}</span>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 form-group ">
+                        <label
+                            class="col-md-4 col-sm-6 Label_Text_Right control-label sbold">{{"Assignment #"|translate}}</label>
+                        <div class="col-md-7 col-sm-6">
+                            <span class="control-label">{{QuoteDetails.assignmentNumber}}</span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 col-sm-12 form-group">
+                        <label
+                            class="col-md-4 col-sm-6 Label_Text_Right control-label sbold">{{"# Items"|translate}}</label>
+                        <div class="col-md-7 col-sm-6">
+                            <span class="control-label" name="Name">{{ReplacementItem.length}}</span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <div class="col-md-12 col-sm-12 form-group margin-top-20" style="padding: 0px;">
+                        <label class="col-md-4 col-sm-6 Label_Text_Left control-label sbold"
+                            style="padding: 0px;"><u>{{"Quote Prepared For"|translate}}</u></label>
+                    </div>
+                    <div class="col-md-12 col-sm-12 form-group">
+                        <div class="col-md-12 col-sm-12 form-group ">
+                            <label
+                                class="col-md-4 col-sm-6 Label_Text_Right control-label sbold">{{"Policyholder"|translate}}</label>
+                            <div class="col-md-7 col-sm-6">
+                                <span
+                                    class="control-label">{{ capitalizeFirstLetter(QuoteDetails.insuredBaseDetails.lastName)+", "+ capitalizeFirstLetter(QuoteDetails.insuredBaseDetails.firstName)}}</span>
+                            </div>
+                        </div>
+                        <div style="display:flex ;position:relative;width: 100%;">
+                            <div class="address-label">
+                                <label class="control-label ">{{"Address"|translate}}</label>
+                            </div>
+                            <div class="address-field">
+                                <div ng-if="(QuoteDetails.insuredBaseDetails.address.streetAddressOne != null && QuoteDetails.insuredBaseDetails.address.streetAddressOne != '') || (QuoteDetails.insuredBaseDetails.address.streetAddressTwo != null && QuoteDetails.insuredBaseDetails.address.streetAddressTwo != '')">
+                                  <span class="control-label" ng-if="QuoteDetails.insuredBaseDetails.address.streetAddressOne != null && QuoteDetails.insuredBaseDetails.address.streetAddressOne != '' ">{{QuoteDetails.insuredBaseDetails.address.streetAddressOne}}</span>
+                                  <span class="control-label" ng-if="QuoteDetails.insuredBaseDetails.address.streetAddressOne != null && QuoteDetails.insuredBaseDetails.address.streetAddressOne != '' && QuoteDetails.insuredBaseDetails.address.streetAddressTwo != null && QuoteDetails.insuredBaseDetails.address.streetAddressTwo != ''"> ,</span>
+                                  <span class="control-label" ng-if="QuoteDetails.insuredBaseDetails.address.streetAddressTwo != null && QuoteDetails.insuredBaseDetails.address.streetAddressTwo != ''"> {{QuoteDetails.insuredBaseDetails.address.streetAddressTwo}}</span>
+                
+                                </div>
+                            <div style="margin-top:0%">
+                                <span class="control-label">{{QuoteDetails.insuredBaseDetails.address.city}}</span>
+                            </div>
+                            <div>
+                                <span class="control-label">{{QuoteDetails.insuredBaseDetails.address.state.state}}, {{QuoteDetails.insuredBaseDetails.address.zipcode}}</span>
+                          </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-sm-12 form-group ">
+                            <label
+                                class="col-md-4 col-sm-6 Label_Text_Right control-label sbold">{{"Policyholder Email : "|translate}}</label>
+                            <div class="col-md-7 col-sm-6">
+                                <span
+                                    class="control-label">{{QuoteDetails.insuredBaseDetails.email}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-sm-12 form-group ">
+                            <label
+                                class="col-md-4 col-sm-6 Label_Text_Right control-label sbold">{{"Policyholder Phone : "|translate}}</label>
+                            <div class="col-md-7 col-sm-6">
+                                <span
+                                    class="control-label">{{QuoteDetails.insuredBaseDetails.cellPhone}}</span>
+                            </div>
+                        </div>
+                        <!-- <div class="col-md-12 col-sm-12 padding1px form-group">
+                            <div class="col-md-4 col-sm-4 Label_Text_Right">
+                                <label class="control-label">{{"Address"|translate}}</label>
+                            </div>
+                            <div class="col-md-8 col-sm-8">
+                                <span>{{QuoteDetails.insuredBaseDetails.address.streetAddressOne}}<span
+                                    ng-if="PolicyholderDetails.policyHolder.address.streetAddressOne!=null && PolicyholderDetails.policyHolder.address.streetAddressTwo!= null && PolicyholderDetails.policyHolder.address.streetAddressTwo!=''">,</span>{{PolicyholderDetails.policyHolder.address.streetAddressTwo}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-sm-12 padding1px form-group">
+
+                            <div class="col-md-4 col-sm-4 Label_Text_Right">
+                            </div>
+                            <div class="col-md-8 col-sm-8">
+                                <span>{{QuoteDetails.insuredBaseDetails.address.city}} </span>
+
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-sm-12 padding1px form-group">
+
+                            <div class="col-md-4 col-sm-4 Label_Text_Right">
+                            </div>
+                            <div class="col-md-8 col-sm-8">
+
+                                </span> {{QuoteDetails.insuredBaseDetails.address.state.state}}
+                                <span
+                                    ng-if="QuoteDetails.insuredBaseDetails.address.state.state!=null && QuoteDetails.insuredBaseDetails.address.zipcode!=''">,</span>{{QuoteDetails.insuredBaseDetails.address.zipcode}}</span>
+                            </div>
+                        </div> -->
+                      
+
+                    </div>
+
+                    <div class="col-md-12 col-sm-12 form-group margin-top-20" style="padding: 0px;">
+                        <label class="col-md-4 col-sm-6 Label_Text_Left control-label sbold"
+                            style="padding: 0px;"><u>{{"Quote Prepared By"|translate}}</u></label>
+
+                    </div>
+
+                    <div class="col-md-12 col-sm-12 form-group">
+                        <div class="col-md-12 col-sm-12 form-group ">
+                            <label
+                                class="col-md-4 col-sm-6 Label_Text_Right control-label sbold">{{"Claim Associate"|translate}}</label>
+                            <div class="col-md-7 col-sm-6">
+                                <span
+                                    class="control-label">{{QuoteDetails.createdBy.lastName+", "+QuoteDetails.createdBy.firstName}}</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 col-sm-12 form-group ">
+                            <label
+                                class="col-md-4 col-sm-6 Label_Text_Right control-label sbold">{{"On behalf of"|translate}}</label>
+                            <div class="col-md-7 col-sm-6">
+                                <span class="control-label">{{QuoteDetails.vendor.vendorName}}</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 col-sm-12 form-group ">
+                            <label
+                                class="col-md-4 col-sm-6 Label_Text_Right control-label sbold">{{"Associate Email"|translate}}</label>
+                            <div class="col-md-7 col-sm-6">
+                                <span class="control-label">{{QuoteDetails.createdBy.email}}</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 col-sm-12 form-group ">
+                            <label
+                                class="col-md-4 col-sm-6 Label_Text_Right control-label sbold">{{"Associate Phone"|translate}}</label>
+                            <div class="col-md-7 col-sm-6">
+                                <span class="control-label">{{QuoteDetails.createdBy.cellPhone|tel}}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-12">
+                    <div class="portlet padding1px">
+                        <div class="portlet-title"></div>
+                    </div>
+                </div>
+                <div class="col-xs-12">
+                    <table class="table table-hover table-bordered table-striped">
+                        <colgroup>
+                            <col style="width:10%">
+                            <col style="width:25%">
+                            <col style="width:15%">
+                            <col style="width:25%">
+                            <col style="width:15%">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th style=" background-color: #3074aff2 !important;
+                                    color: white;">
+                                    {{"Item #"|translate}}
+                                </th>
+                                <th style=" background-color: #3074aff2 !important;
+                                    color: white;">
+                                    {{"Insurance Description"|translate}}
+                                </th>
+                                <th style=" background-color: #3074aff2 !important;
+                                    color: white;">
+                                    {{"Original Cost "|translate}}
+                                </th>
+                                <th style=" background-color: #3074aff2 !important;
+                                    color: white;">
+                                    {{"Replacement Item"|translate}}
+                                </th>
+                                <th style=" background-color: #3074aff2 !important;
+                                    color: white;">
+                                    {{"Replacement Cost"|translate}}
+                                </th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in ReplacementItem">
+                                <!-- item Id -->
+                                <td ng-click="EditPurchaseOrder(Order)">{{item.claimItem.itemNumber}}</td>
+                                <!-- item Desc -->
+                                <td ng-click="EditPurchaseOrder(Order)">{{item.claimItem.description}}</td>
+                                <!-- item sheduled amount -->
+                                <td class="text-right" ng-click="EditPurchaseOrder(Order)">
+                                    {{item.claimItem.insuredPrice * item.claimItem.quantity|currency}}
+                                </td>
+                                <!-- item replacement desc -->
+                                <td><span ng-repeat="comp in item.comparableItems" ng-if="comp.isReplacementItem"
+                                        ng-init="desclimit = desclimit; descMoreShown = false">{{(comp.description| limitTo: desclimit) + (comp.description.length > desclimit ?
+                                                                        '...' :
+                                                                        '')}}
+                                        <a ng-show="comp.description.length > limit && !descMoreShown" stop-propagation
+                                            ng-click="desclimit=comp.description.length; descMoreShown = true">
+                                            More
+                                        </a>
+                                        <a ng-show="descMoreShown" href stop-propagation
+                                            ng-click="descMoreShown = false; desclimit=50; ">
+                                            Less </a>
+                                        <br />
+                                        <span ng-if="comp.customItemDetail.customSubItem.length>0"><span class="sbold"
+                                                ng-click="show[$index]=!show[$index]"
+                                                style="cursor:pointer; font-size: 12px;">{{"Detail description" |translate}}</span><br />
+                                            <ul style="padding-left: 19px;">
+                                                <li ng-repeat="subItem in comp.customItemDetail.customSubItem">
+                                                    {{subItem.description}}
+                                            </ul><br /></li>
+                                        </span>
+                                    </span>
+                                    <span  ng-if="item.comparableItems==null"
+                                        ng-init="desclimit = desclimit; descMoreShown = false">{{(item.claimItem.adjusterDescription| limitTo: desclimit) + (item.claimItem.adjusterDescription.length > desclimit ?
+                                                                        '...' :
+                                                                        '')}}
+                                        <a ng-show="item.claimItem.adjusterDescription.length > limit && !descMoreShown" stop-propagation
+                                            ng-click="desclimit=item.claimItem.adjusterDescription.length; descMoreShown = true">
+                                            More
+                                        </a>
+                                        <a ng-show="descMoreShown" href stop-propagation
+                                            ng-click="descMoreShown = false; desclimit=50; ">
+                                            Less </a>
+                                        <br />
+                                    </span>
+                                </td>
+                                <!-- item replacement cost -->
+                                <td class="text-right">
+                                    <!-- <span ng-repeat="comp in item.comparableItems"
+                                        ng-if="comp.isReplacementItem">{{comp.unitPrice  * comp.quantity??1 |currency}}</span> -->
+                                        <span 
+                                        >{{(item.claimItem.rcvTotal) |currency}}</span>
+                                </td>
+                            </tr>
+                            <tr ng-if="!ReplacementItem.length">
+                                <td colspan="10" class="text-danger text-center">
+                                    {{"0 items available"|translate}}</td>
+                            </tr>
+                            <!-- <tr ng-if="ReplacementItem.length>0" style="border:0px;">
+                                <td colspan="4" class=" sbold text-right">
+                                    {{"Subtotal"|translate}}</td>
+                                    <td class=" sbold text-left">
+                                        {{SubTotal| number : 2}}</td>
+                            </tr> -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-7 col-sm-12"><h6 class=" control-label sbold" style="text-align: right;"><strong style="right: 3.5%;position: relative;">{{"Total Original Cost : "}}{{TotalOriginalCost| currency}}</strong></h6></div>
+                <div class="col-md-5 col-sm-12"><h6 class=" control-label sbold" style="text-align: right;"><strong style="position: relative;">{{"Total Replacement Cost : "}}{{totalReplacementCost| currency}}</strong></h6></div>
+                <div class="col-md-6 col-sm-12 margin-top-10">
+                    <div class="portlet light bordered">
+                        <div class="SubHeadingDiv">
+                            <span class="caption-subject font-grey-sharp">
+                                {{"Additional Comments"|translate}}
+                            </span>
+                        </div>
+                        <div class="portlet-body">
+                        <span>{{QuoteDetails.vendorComment}}</span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-6 col-sm-12 margin-top-10 portlet light bordered">
+                    <div class="SubHeadingDiv">
+                        <span class="caption-subject font-grey-sharp">
+                            {{"Replacement Cost Detailed"|translate}}
+                        </span>
+                    </div>
+                    <div class="col-md-12 col-sm-12 padding1px form-group " style="padding-top:10px !important">
+                        <label
+                            class="col-md-9 col-sm-6 Label_Text_Right control-label sbold">{{"Subtotal"|translate}}</label>
+                        <div class="col-md-3 col-sm-6 padding1px text-right">
+                            <span class="control-label">{{unitCostTotal ? unitCostTotal : SubTotal |currency}}</span>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 padding1px form-group ">
+                        <label
+                            class="col-md-9 col-sm-6 Label_Text_Right control-label sbold">{{"Taxes (@ "|translate}}{{QuoteDetails.taxRate| number : 2}}{{"%)"|translate}}</label>
+                        <div class="col-md-3 col-sm-6 padding1px text-right">
+                            <span class="control-label">{{totalTax ? totalTax : Tax | currency}}</span>
+                        </div>
+                    </div>
+                    <div  ng-show="profile == 'Jewelry'" class="col-md-12 col-sm-12 form-group padding1px">
+                        <label
+                            class="col-md-9 col-sm-6 Label_Text_Right control-label sbold">{{"Custom Design Charges"}}</label>
+                        <div class="col-md-3 col-sm-6 padding1px text-right">
+                            <span class="control-label">{{TotalCustomCharge ? TotalCustomCharge : 0 | currency}}</span>
+                        </div>
+                    </div>
+                    <div  ng-show="profile == 'Jewelry'" class="col-md-12 col-sm-12 form-group padding1px">
+                            <label
+                                class="col-md-9 col-sm-6 Label_Text_Right control-label sbold">{{"Total Labor Charges"}}</label>
+                            <div class="col-md-3 col-sm-6 padding1px text-right">
+                                <span class="control-label">{{TotalLaborCharge ? TotalLaborCharge : 0 | currency}}</span>
+                            </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="margin-top-5 form-group text-right padding1px" style="float:right;">
+                    <!-- <button class="btn btnMargin sbold" ng-click="goLineItemDetails()">{{"Back"|translate}}</button> 
+                    <button class="btn btnMargin sbold" ng-disabled="isButtonDisable" ng-click="updateQuote(QuoteDetails,3)">{{"Reject"|translate}}</button>-->
+                    <button class="btn btnMargin sbold" ng-disabled="isButtonDisable"  ng-click="updateQuote(QuoteDetails,2)">{{"Approve"|translate}}</button>
+                    <button class="btn btnMargin sbold" ng-click="exportQuoteToPDF(QuoteDetails.id)">{{"ExportToPDF"|translate}}</button>
+                </div>  
+        </div>
+            <!--Printable Div Start-->
+            <div class="row" id="PrintableDiv" style="display:none;">
+                <div style="width:100%;display:block;float:left;margin-top:30px">
+                    <!--Insurance Company Details-->
+                    <div style="width:50%;float:left;">
+
+
+                        <div style="width:100%;display:block;float:left">
+                            <div style="width:50%;float:left">
+                                <label style="float:right;margin-right:5px;">{{"Status : "|translate}}</label>
+                            </div>
+                            <span>{{QuoteDetails.quoteStatus.status}}</span>
+                        </div>
+
+                        <div style="width:100%;display:block;float:left">
+                            <div style="width:50%;float:left">
+                                <label style="float:right;margin-right:5px;">{{"Date of Quote : "|translate}}</label>
+                            </div>
+                            <span>{{QuoteDetails.createDate|DateFormatMMddyyyy }}</span>
+                        </div>
+                        <div style="width:100%;display:block;float:left">
+                            <div style="width:50%;float:left">
+                                <label style="float:right;margin-right:5px;">{{"InsuranceCompany : "|translate}}</label>
+                            </div>
+                            <span>{{QuoteDetails.companyDetails.companyName}}</span>
+                        </div>
+                        <div style="width:100%;display:block;float:left">
+                            <div style="width:50%;float:left">
+                                <label style="float:right;margin-right:5px;">{{"Adjuster : "|translate}}</label>
+                            </div>
+                            <span>{{QuoteDetails.adjsuterBaseDetails.lastName+", "+QuoteDetails.adjsuterBaseDetails.firstName}}</span>
+                        </div>
+                        <div style="width:100%;display:block;float:left">
+                            <div style="width:50%;float:left">
+                                <label style="float:right;margin-right:5px;">{{"Branch /Office : "|translate}}</label>
+                            </div>
+                            <span>{{branch.branchName}}</span>
+                        </div>
+                        <!-- {{InsuranceCompanyDetails.adjuster.lastName+", "+InsuranceCompanyDetails.adjuster.firstName}}</span> -->
+                        <div style="width:100%;display:block;float:left">
+                            <div style="width:50%;float:left">
+                                <label style="float:right;margin-right:5px;">{{"Address : "|translate}}</label>
+                            </div>
+                            <div style="width:50%;float:left">
+                                <span>{{QuoteDetails.companyDetails.address.completeAddress}}</span>
+                            </div>
+
+                        </div>
+                        <div style="width:100%;display:block;float:left">
+                            <div style="width:50%;float:left">
+                                <label style="float:right;margin-right:5px;">{{"Claim # : "|translate}}</label>
+                            </div>
+                            <span>{{QuoteDetails.ClaimNumber}}</span>
+                        </div>
+
+                        <div style="width:100%;display:block;float:left">
+                            <div style="width:50%;float:left">
+                                <label style="float:right;margin-right:5px;">{{"Assignment # : "|translate}}</label>
+                            </div>
+                            <span>{{QuoteDetails.AssignmentNumber}}</span>
+                        </div>
+
+                        <div style="width:100%;display:block;float:left">
+                            <div style="width:50%;float:left">
+                                <label style="float:right;margin-right:5px;">{{"# items : "|translate}}</label>
+                            </div>
+                            <span>{{ReplacementItem.length}}</span>
+                        </div>
+
+                    </div>
+                    <!--Claim Details-->
+                    <div style="width:50%;float:left">
+                        <div style="width:100%;display:block;float:left">
+                            <div style="width:70%;float:left;margin-right:5px;">
+                                <label style="float:left;margin-right:5px;padding: 0px;"
+                                    style="padding: 0px;"><u>{{"Quote Prepared For"|translate}}</u></label>
+                            </div>
+                        </div>
+
+                        <div style="width:100%;display:block;float:left">
+                            <div style="width:50%;float:left;margin-right:5px;">
+                                <label style="float:right;margin-right:5px;">{{"Policyholder : "|translate}}</label>
+                            </div>
+                            <span>{{ capitalizeFirstLetter(QuoteDetails.insuredBaseDetails.lastName)+", "+ capitalizeFirstLetter(QuoteDetails.insuredBaseDetails.firstName)}}
+                            </span>
+                        </div>
+                        <div style="width:100%;display:block;float:left">
+                            <div style="width:50%;float:left;">
+                                <label style="float:right;margin-right:5px;">{{"Address : "|translate}}</label>
+                            </div>
+                            <div style="width:50%;float:right">
+                                <span>{{QuoteDetails.insuredBaseDetails.address.completeAddress}}</span>
+                            </div>
+                        </div>
+
+                    
+                        <div style="width:100%;display:block;float:left">
+                            <div style="width:70%;float:left;margin-right:5px;">
+                                <label style="float:left;margin-right:5px;padding: 0px;"
+                                    style="padding: 0px;"><u>{{"Quote Prepared By"|translate}}</u></label>
+                            </div>
+                        </div>
+                        <div style="width:100%;display:block;float:left">
+                            <div style="width:50%;float:left;margin-right:5px;">
+                                <label style="float:right;margin-right:5px;">{{"Claim Associate : "|translate}}</label>
+                            </div>
+                            <span>{{QuoteDetails.createdBy.lastName +", "+QuoteDetails.createdBy.firstName}}</span>
+                        </div>
+                        <div style="width:100%;display:block;float:left">
+                            <div style="width:50%;float:left;margin-right:5px;">
+                                <label style="float:right;margin-right:5px;">{{"On Behalf Of : "|translate}}</label>
+                            </div>
+                            <span>{{QuoteDetails.vendor.vendorName}}</span>
+                        </div>
+                        <div style="width:100%;display:block;float:left">
+                            <div style="width:50%;float:left;margin-right:5px;">
+                                <label style="float:right;margin-right:5px;">{{"Associate Emai : "|translate}}</label>
+                            </div>
+                            <span>{{QuoteDetails.createdBy.email}}</span>
+                        </div>
+                        <div style="width:100%;display:block;float:left">
+                            <div style="width:50%;float:left;margin-right:5px;">
+                                <label style="float:right;margin-right:5px;">{{"Phone# : "|translate}}</label>
+                            </div>
+                            <span>{{QuoteDetails.createdBy.cellPhone|tel}}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="width:100%;display:block;border-top:1px solid black;float:left;margin-top:20px">
+
+                    <table class="table table-hover table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>
+                                    {{"Item #"|translate}}
+                                </th>
+                                <th ng-click="sortPurchaseOrder('orderType.name')">
+                                    {{"Insurance Description"|translate}}
+                                </th>
+                                <th ng-click="sortPurchaseOrder('status.status')">
+                                    {{"Scheduled Value (Original Value) "|translate}}
+                                </th>
+                                <th ng-click="sortPurchaseOrder('createDate')">
+                                    {{"Replacement Item"|translate}}
+                                </th>
+                                <th ng-click="sortPurchaseOrder('createDate')">
+                                    {{"Replacement Cost"|translate}}
+                                </th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in ReplacementItem">
+                                <!-- orderid -->
+                                <td ng-click="EditPurchaseOrder(Order)">{{item.claimItem.itemNumber}}</td>
+                                <!-- Order Type -->
+                                <td ng-click="EditPurchaseOrder(Order)">{{item.claimItem.description}}</td>
+                                <!-- Status -->
+                                <td ng-click="EditPurchaseOrder(Order)">
+                                    {{item.claimItem.insuredPrice|currency}}
+                                </td>
+                                <!-- created Date -->
+                                <td><span ng-repeat="comp in item.comparableItems"
+                                        ng-if="comp.isReplacementItem">{{comp.description}}
+                                        <span ng-if="comp.customItemDetail.customSubItem.length>0"><span class="sbold"
+                                                style="cursor:pointer; font-size: 12px;">{{"Detail description" |translate}}</span><br />
+                                            <ul style="padding-left: 19px;">
+                                                <li ng-repeat="subItem in comp.customItemDetail.customSubItem">
+                                                    {{subItem.description}}
+                                            </ul><br /></li>
+                                        </span>
+                                    </span>
+                                </td>
+
+                                <td><span ng-repeat="comp in item.comparableItems"
+                                        ng-if="comp.isReplacementItem">{{comp.unitPrice|currency}}</span>
+                                </td>
+
+
+                            </tr>
+                            <tr ng-if="!ReplacementItem.length">
+                                <td colspan="10" class="text-danger text-center">
+                                    {{"0 Items available"|translate}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <!--  -->
+                </div>
+
+                <div style="width:100%;display:block;border-top:1px solid black;float:left;margin-top:20px">
+                    <!--Additional Comments-->
+                    <div style="width:50%;float:left;margin-top:10px;">
+                        <div style="width:100%;display:block;float:left">
+                            <div style="width:100%;float:left">
+                                <label style="float:left;margin-right:5px;">{{"Additional Comments"|translate}}
+                                </label>
+                            </div>
+                            <div style="width:100%;float:left">
+                                <span>{{QuoteDetails.vendorComment}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Tax Details Div-->
+                    <div style="width:50%;float:left;">
+
+                        <div style="width:100%;display:block;float:left">
+                            <table style="width:40%;margin-top:10px;float:right;">
+                                <tr>
+                                    <td style="width:50%;padding:2px;border:0px solid black">
+                                        <label> {{"Subtotal"|translate}}</label>
+                                    </td>
+                                    <td style="width:50%;padding:2px;border:0px solid black">
+                                        <label> {{SubTotal| number : 2}}</label>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="width:50%;padding:2px;border:0px solid black">
+                                        <label> {{"Tax"|translate}}</label>
+                                    </td>
+                                    <td style="width:50%;padding:2px;border:0px solid black">
+                                        <label> {{Tax| number : 2}}</label>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="width:50%;padding:2px;border:0px solid black">
+                                        <label> {{"Total"|translate}}</label>
+                                    </td>
+                                    <td style="width:50%;padding:2px;border:0px solid black">
+                                        <label> {{Total| number : 2}}</label>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <!--Printable Div End-->
+        </div>
+    </div>
+</div>

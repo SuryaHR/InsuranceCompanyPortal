@@ -1,0 +1,79 @@
+﻿<div class="col-md-12 padding1px">
+   
+        <ul class="page-breadcrumb breadcrumb sbold">
+            <li>
+                <a ng-click="GoToHome()">{{"Home"|translate}}</a>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <span>{{"Bill Pay"|translate}}</span>
+            </li>
+        </ul>
+    </div>
+
+<div class="col-md-12 col-lg-12 padding1px clearfix"> 
+    <div class="portlet light padding1px">
+        <div class="portlet-title">
+            <div class="caption font-grey-sharp">
+                <span class="caption-subject font-grey-sharp">{{"ControlText.CurrentBillsDue"|translate}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="portlet-body">
+        <div class="col-md-12 col-lg-12 padding1px table-responsive">
+            <table class="table table-responsive table-striped table-hover table-bordered" id="NavigateTable">
+                <thead>
+                    <tr>
+                        <th>{{"ControlText.PolicyNo"|translate}}</th>
+                        <th>{{"ControlText.DueDate"|translate}}</th>
+                        <th>{{"ControlText.AmountDue"|translate}}</th>
+                        <th>{{"ControlText.Action"|translate}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="4" class="text-center text-danger">{{"NoRecordText"|translate}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+      
+        
+        <div class="portlet light padding1px">
+            <div class="portlet-title">
+                <div class="caption font-grey-sharp">
+                    <span class="caption-subject font-grey-sharp">{{"ControlText.SubmittedPayments"|translate}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 col-lg-12 table-responsive padding1px">
+            <table class="table table-responsive table-striped table-hover table-bordered" id="NavigateTable">
+                <thead>
+                    <tr>
+                        <th>{{"ControlText.PolicyNo"|translate}}</th>
+                        <th>{{"ControlText.DueDate"|translate}}</th>
+                        <th>{{"ControlText.AmountDue"|translate}}</th>
+                        <th>{{"ControlText.PaidDate"|translate}}</th>
+                        <th class="statusHeading">{{"ControlText.Status"|translate}}</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="5" class="text-center text-danger">{{"NoRecordText"|translate}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!--Your Agent-->
+            <div class="row" ng-include="'views/PolicyHolder/YourAgent.html'">
+         
+        </div>
+</div>
+
+
+
+
+</div>
+<!--End Your Agent-->

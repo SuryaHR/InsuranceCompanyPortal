@@ -1,0 +1,56 @@
+﻿{
+  "ControlText": {
+    "Back": "Back",
+    "PayHoldover": "Pay Holdover",
+    "View": "View",
+    "Show": "Show",
+    "ItemsSelected": "# Of Items Selected",
+    "TotalHoldoverValue": "Total Holdover Value",
+    "PaymentMethod": "Payment Method",
+    "Amount": "Amount",
+    "CheckNumber": "Check Number",
+    "DrawnOnBank": "Drawn On Bank",
+    "PaymentDate": "Payment Date",
+    "PayoutItems": "Payout Items",
+    "DebitCardNo": "Debit Card Number"
+
+  },
+  "HeadingText": {
+    "Claim": "Claim # :",
+    "Holdover": "Holdover"
+
+  },
+  "Radio": {
+    "Check": "Check",
+    "DebitCard": "Debit Card"
+  },
+
+  "Table": {
+    "Id": "Id",
+    "Author": "Author",
+    "Date": "Date",
+    "EventType": "Event Type",
+    "Message": "Message",
+    "Reminder": "Reminder",
+    "ItemName": "ItemName",
+    "Brand": "Brand",
+    "Model": "Model",
+    "Price": "Price",
+    "Category": "Category",
+    "SubCategory": "SubCategory",
+    "Age": "Age",
+    "Status": "Status",
+    "ReplacedValue": "ReplacedValue",
+    "RCV": "RCV",
+    "ACV": "ACV",
+    "PayoutCheck": "Patout Check #",
+    "Holdover": "Holdover",
+    "VendorName": "Vendor Name",
+    "StartDate": "Start Date",
+    "EndDate": "End Date",
+    "Participant": "Participant",
+    "Action": "Action"
+  },
+  "SearchText": "Search Item #,Item Name",
+  "NoRecordText":"No Records Available..!"
+}

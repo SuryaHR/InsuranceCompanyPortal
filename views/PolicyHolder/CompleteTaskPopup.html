@@ -1,0 +1,188 @@
+<script>
+    $(document).ready(function () {
+        $("#select2insidemodal").select2({
+            dropdownParent: $("#myModal")
+        });
+    });
+</script>
+<style>
+    .img-responsive {
+        width: 81px;
+        height: 70px;
+    }
+    #img_preview {
+        min-height: 450px !important;
+        width: 675px !important;
+        padding: 10px 0px;
+        position: fixed;
+        z-index: 20;
+    }
+</style>
+<div id="myModal" style="height: auto !important;">
+    <div id="responsive">
+        <div class="modal-header">
+            <a class="close" ng-click="cancel()" aria-hidden="true"></a>
+            <h5 class="modal-title sbold">#{{CommonObj.index}}&nbsp;&nbsp;{{CommonObj.taskName}}</h5>
+        </div>
+        <div class="modal-body">
+            <div class="col-md-12 padding1px " ng-form="CompleteTaskForm">
+                <div class="col-md-12 col-sm-12 form-group">
+                    <div class="col-md-2 col-sm-2 col-xs-12 Label_Text_Right" style="padding-left: 0px">
+                        <label class="control-label">{{"Status"|translate}}</label>
+                    </div>
+                    <div class="col-md-10 col-sm-10 col-xs-12" style="max-height:80px;overflow-y:auto">
+                        <span>{{CommonObj.status}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 col-sm-12 form-group">
+                <div class="col-md-2 col-sm-2 col-xs-12 Label_Text_Right" style="padding-left: 0px">
+                    <label class="control-label">{{"Description"|translate}}</label>
+                </div>
+                <div class="col-md-10 col-sm-10 col-xs-12">
+                    <span>{{CommonObj.comment}}</span>
+                </div>
+            </div>
+            <div class="col-md-12 col-sm-12 form-group">
+                <div class="col-md-2 col-sm-2 col-xs-12 Label_Text_Right" style="padding-left: 0px">
+                    <label class="control-label">{{"Created By"|translate}}</label>
+                </div>
+                <div class="col-md-3 col-sm-3 col-xs-12">
+                    <span>{{CommonObj.createdBy}}</span>
+                </div>
+                <div class="col-md-3 col-sm-2 col-xs-12 Label_Text_Right" style="padding-left: 0px">
+                    <label class="control-label">{{"Assigned Date"|translate}}</label>
+                </div>
+                <div class="col-md-3 col-sm-3 col-xs-12">
+                    <span>{{CommonObj.assignedDate}}</span>
+                </div>
+            </div>
+            <div class="col-md-12 col-sm-12 form-group">
+                <div class="col-md-2 col-sm-2 col-xs-12 Label_Text_Right" style="padding-left: 0px">
+                    <label class="control-label">{{"Completed Date"|translate}}</label>
+                </div>
+                <div class="col-md-3 col-sm-3 col-xs-12">
+                    <span>{{CommonObj.completedDate}}</span>
+                </div>
+            </div>
+            <div class="col-md-12 col-sm-12 form-group">
+                <div class="col-md-2 col-sm-2 col-xs-12 Label_Text_Right" style="padding-left: 0px">
+                    <label class="control-label">{{"Response"|translate}}</label>
+                </div>
+                <div class="col-md-10 col-sm-10 col-xs-12" ng-show="CommonObj.UserRole == 'POLICYHOLDER' && CommonObj.status == 'PENDING'">
+                    <textarea class="form-control" ng-model="response"
+                        placeholder='{{"Response"|translate}}' rows="3" name="response"></textarea>
+                </div>
+                <div class="col-md-10 col-sm-10 col-xs-12" ng-show="(CommonObj.UserRole == 'POLICYHOLDER' && CommonObj.status == 'COMPLETED') || CommonObj.UserRole == 'ADJUSTER'">
+                    <span>{{CommonObj.response}}</span>
+                </div>
+            </div>
+            <div class="col-md-12 col-sm-12 form-group">
+                <div class="col-md-2 col-sm-2 col-xs-12 Label_Text_Right" style="padding-left: 0px"  ng-show="CommonObj.UserRole == 'POLICYHOLDER' && CommonObj.status == 'PENDING'">
+                    <label class="control-label">{{"Upload Documents"|translate}}</label>
+                </div>
+                <div class="col-md-10 col-sm-10 col-xs-12" ng-show="CommonObj.UserRole == 'POLICYHOLDER' && CommonObj.status == 'PENDING'">
+                    <input id="NoteFileUpload" type="file" ng-model="document" multiple
+                        onchange="angular.element(this).scope().getNoteFileDetails(event)" style="display: none;"
+                        accept="image/*">
+                    <span ng-click="SelectNoteFile(); ">
+                      <a style="text-decoration:underline"
+                          ng-click="AddAttachment($event)">{{"Click to upload document"|translate}}</a>
+                    </span>
+                </div>
+            </div>
+            <div class="col-md-12 col-sm-12 form-group" ng-show="(CommonObj.UserRole == 'POLICYHOLDER' && CommonObj.status == 'COMPLETED') || CommonObj.UserRole == 'ADJUSTER'">
+                <div class="col-md-12 col-sm-12 col-xs-12" style="padding-left: 0px">
+                    <label class="control-label">{{"Uploaded Documents"|translate}}</label>
+                </div>
+            </div>
+            
+            <div class="col-md-4 col-sm-4 col-xs-6 form-group" ng-repeat="item in files" style="margin-top:5px;" ng-show="CommonObj.UserRole == 'POLICYHOLDER' && CommonObj.status == 'PENDING'">
+                <img ng-src="{{item.Image}}" alt="Pictures of the incident"
+                        class="img-responsive bordered" style="width:90px; height:90px;" />
+                <span class="control-label" ng-click="GetDocxDetails(item)">{{item.FileName}}</span>
+                <!-- <span class="control-label">{{item.FileName}}</span>
+                <span class="fa fa-times-circle fa-lg text-danger " ng-click="RemoveImage(item)"
+                    style="margin-left:3px;">
+                </span> -->
+            </div>
+            <div class="col-md-2 col-sm-2 col-xs-6 form-group" ng-repeat="item in CommonObj.attachments" style="margin-top:5px;padding-right: 0px;padding-left: 0px;margin-left: 15px;" 
+            ng-show="(CommonObj.UserRole == 'POLICYHOLDER' && CommonObj.status == 'COMPLETED') || CommonObj.UserRole == 'ADJUSTER'">
+                <img ng-src="{{item.url}}" alt="{{item.name}}" class="img-responsive bordered cursor-pointer" title="{{item.name}}"
+                     ng-click="GetDocxDetails(item)" />
+                <a ng-click="GetDocxDetails(item)" class="sbold" style="word-break: break-word;font-family:Calibri; font-size:14px;cursor:pointer;overflow: hidden;" title="{{item.name}}">
+                        {{item.name| limitTo:10}}{{item.name.length < 10 ? '': ' ...'}}
+                </a>
+            </div>
+            <div class="panel panel-defaul" id="img_preview" draggable ng-if="imgDiv">
+                <div class="col-md-12 col-sm-12" style="padding: 0px 10px;">
+                    <label class="col-md-12 col-sm-12 SubHeadingDiv margin-bottom-10"
+                        style="font-size: 14px;">{{DocxDetails.name ? DocxDetails.name : DocxDetails.FileName}}</label>
+                    <div class="col-md-12 col-sm-12 margin-bottom-10" style="text-align: left;">
+                        <a class="btn btn-default sbold btnMargin" ng-show="showDownload"
+                            ng-click="downloadFile(DocxDetails)">Download</a>
+                        <a class="btn btn-default sbold btnMargin" ng-show="showDelete"
+                            ng-click="deleteClaimAttachment(DocxDetails)">Delete</a>
+                        <a id="previewclose" class="btn btn-default sbold btnMargin" ng-click="close()">Close
+                            Preview</a>
+                        <a ng-if="isPDF == 2" id="previewclose" class="btn btn-default sbold btnMargin glyphicon glyphicon-plus"
+                            ng-click="largeMe()"></a>
+                        <a ng-if="isPDF == 2" id="previewclose"
+                            class="btn btn-default sbold btnMargin glyphicon glyphicon-minus" ng-click="smallMe()"></a>
+                    </div>
+                </div>
+                <div class="col-md-12 col-sm-12">
+                    <div class="image-wrapper">
+                        <img id="imagepre" ng-if="isPDF == 2 && DocxDetails.url != null" 
+                            onerror="this.onerror=null; this.src='assets/global/img/no-image.png';" class="ImageDocx"
+                            ng-src="{{DocxDetails.url}}" alt="Image" />
+                            <img id="imagepre" ng-if="isPDF == 2 && DocxDetails.url == null" 
+                            onerror="this.onerror=null; this.src='assets/global/img/no-image.png';" class="ImageDocx"
+                            ng-src="{{DocxDetails.Image}}" alt="Image" />
+                        <!-- Show PDF region Render PDF here -->
+                        <ng-pdf ng-if="isPDF===1" template-url="views/GlobalSearch/PdfViewer.html" canvasid="pdf"
+                            scale="page-fit" page=1>
+                        </ng-pdf>
+                        <!--End Show PDF region -->
+                        <div ng-if="isPDF == 0" class="col-sm-8 col-md-6 col-xs-12" style="height:230px;width:100%;">
+                            <div class="col-md-12 col-sm-12 col-xs-12 well text-center">
+                                <span
+                                    class="text-info">{{"File type does not support preview option. File will start downloading.."|translate}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div ng-if="DocxDetails.isLocal !== true">
+                  <div class="text-center" style="padding-bottom: 5px;">
+                    <div class="font-size-14">
+                        <span>{{DocxDetails.description}}</span>
+                    </div>
+                  </div>
+                  <div class="col-md-12 col-sm-12 col-xs-12 display-block font-size-14 text-center" ng-show="DocxDetails.uploadDate != null">
+                    <div class="col-md-6 col-sm-6 col-cs-6 Label_Text_Right" style="padding: 0px;">
+                      <label>{{"Uploaded"| translate}}</label>
+                    </div>
+                     <div class="col-md-4 col-sm-4 col-cs-4 text-left" style="padding-right: 5px;">
+                       <span>{{DocxDetails.uploadDate | DateTimeFormatShort}}</span>
+                     </div>
+                  </div>
+                  <div class="col-md-12 col-sm-12 col-xs-12 display-block font-size-14 text-center" ng-show="DocxDetails.uploadBy != null">
+                    <div class="col-md-6 col-sm-6 col-cs-6 Label_Text_Right" style="padding: 0px;">
+                      <label>{{"Uploaded By"| translate}}</label>
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-cs-4 text-left" style="padding-right: 5px;">
+                      <span>{{DocxDetails.uploadBy.lastName}}, {{DocxDetails.uploadBy.firstName}}</span><span ng-if="(DocxDetails.companyDetails!= null && DocxDetails.companyDetails.name!= null)"> ({{DocxDetails.companyDetails.name}})</span>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline dark"
+                ng-click="cancel()">{{"ControlText.Cancel"|translate}}</button>
+            <button type="button" data-dismiss="modal" class="btn sbold btnMargin" ng-click="complete()"  ng-show="CommonObj.UserRole == 'POLICYHOLDER' && CommonObj.status == 'PENDING'"
+                ng-disabled="CreateNoteForm.$invalid || (CreateNoteForm.claimNote.$pristine && !files.length)">{{"Complete"|translate}}</button>
+        </div>
+    </div>
+</div>

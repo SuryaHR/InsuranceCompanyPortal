@@ -1,0 +1,32 @@
+﻿{
+
+  "Label": {
+    "VendorName": "Vendor Name",
+    "RemitTocaontactName": "Remit To contact Name",
+    "RimitToAddress": "Rimit To Address",
+    "OfficeAddress": "Office Address",
+    "BillingAddress": "Billing Address",
+    "AddressLine1": "Address Line 1",
+    "AddressLine2": "Address Line 2",
+    "City": "City",
+    "ZipCode": "Zip Code",
+    "Phoneeg": "996-000-9999",
+    "BankName": "Bank Name",
+    "RoutingNumber": "Routing Number",
+    "AccountNumber": "Account Number",
+    "BankAddress": "Bank Address",
+    "Phone#": "Phone #",
+    "Phone": "Phone(Work) #",
+    "Fax": "Fax",
+    "FirstName": "First Name",
+    "LastName": "Last Name",
+    "Email": "Email Id",
+    "Save": "Save",
+    "FEIN": "Federal Employer Identification Number (FEIN)",
+    "NAICS": "North American Industry Classification System (NAICS)",
+    "PhoneWork": "Phone (Work)",
+    "PhoneMobile": "Phone (Mobile)",
+    "CompanyWeb": "Company Website"
+
+  }
+}

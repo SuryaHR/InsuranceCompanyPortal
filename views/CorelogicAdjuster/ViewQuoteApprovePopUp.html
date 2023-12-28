@@ -1,0 +1,21 @@
+<div>
+    <div class="modal-header">
+        <a class="close" data-dismiss="modal" aria-hidden="true" ng-click="cancel($event)"></a>
+        <h4 class="modal-title">{{"Approve Replacement Quote"|translate}}</h4>
+    </div>
+    <div class="modal-body">
+        <div class="row" style="margin:10px;">
+            <div class="col-md-12 col-sm-12">
+                <span>Please enter a note to confirm that you accept the replacement quote.</span>
+            </div>
+            <div class="col-md-12 col-sm-12 form-group">
+                <textarea class="form-control" rows="10" ng-model="approveMessage" name="Description" ng-attr-placeholder='{{"Note to Artigem"|translate}}' style="resize: none;" maxlength="1000"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default sbold" ng-click="cancel()">{{"Cancel"|translate}}</button>
+        <button type="button" data-dismiss="modal" class="btn btn-default sbold" ng-click="ok()" ng-disabled="!approveMessage">{{"Accept Quote"|translate}}</button>
+    </div>
+</div>

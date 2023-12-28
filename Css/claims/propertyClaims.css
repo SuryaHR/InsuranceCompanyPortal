@@ -1,0 +1,371 @@
+    .mt-checkbox-outline>span {
+        border: 1px solid #989292 !important;
+    }
+
+    @media (min-device-width:600px) and (max-device-width:1024px) {
+        .manageSearch {
+            display: flex;
+        }
+        .column {
+            padding-bottom: 15px;
+        }
+    }
+
+    #ScrollableTableDetails tbody {
+        display: block !important;
+        height: 77px;
+        overflow: auto;
+    }
+
+    .tableBodyDetails {
+        display: table !important;
+        width: 100% !important;
+        table-layout: fixed !important;
+    }
+
+    #ScrollableTableDetails thead, #ScrollableTableDetails tr {
+        display: table !important;
+        width: 100% !important;
+        table-layout: fixed !important;
+    }
+
+    #ScrollableTableDetails thead {
+        width: calc(100% - 1em) !important;
+    }
+
+    .alignTop {
+        vertical-align: top !important;
+    }
+
+    .margin-right-20 {
+        margin-right: 20px
+    }
+
+    .paddingAttachment {
+        padding-left: 6vh !important;
+    }
+
+    .overflowtext {
+        white-space: nowrap;
+        width: 5em;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .AssignMentDiv {
+        height: 380px !important;
+        overflow-y: auto !important;
+    }
+
+    .Section {
+        border: 1px solid lightgray;
+        padding-left: 5px !important;
+        padding-right: 5px !important;
+    }
+
+    .SectionHeading {
+        margin-left: -13px !important;
+    }
+
+    #img_preview {
+        min-height: 490px;
+        width: 675px !important;
+        padding: 10px 0px;
+        position: fixed;
+        z-index: 20;
+    }
+
+    .image-wrapper {
+        max-height: 350px !important;
+        overflow: auto !important;
+        display: block;
+    }
+
+    .custom-btn {
+        display: inline-block;
+        margin-bottom: 0;
+        font-size: 16px;
+        background-color: transparent;
+        text-align: right;
+        vertical-align: middle;
+        touch-action: manipulation;
+        cursor: pointer;
+        background-image: none;
+        border: none;
+        margin-top: -5px;
+    }
+
+    .marginTopBottom3px {
+        margin-top: 3px;
+        margin-bottom: 3px;
+    }
+
+    .width150px {
+        width: 150px;
+    }
+
+    .thirdPartClaimDetailsSectionTabHeight {
+        overflow-y: auto;
+    }
+
+    .UpdateServices:hover {
+        cursor: pointer
+    }
+
+    .content-box {
+        padding: 10px;
+        border-radius: 4px;
+        box-shadow: 0px 3px 6px 0px #ddd;
+        overflow-y: auto;
+        overflow-x: hidden;
+        margin-bottom: 10px;
+        height: 321px;
+        max-height: 350px;
+    }
+
+    .activity-box {
+        height: 86%;
+        width: 100%;
+        overflow-y: auto;
+    }
+
+    .fixedContent {
+        position: sticky;
+        font-size: 13px;
+        font-weight: 600;
+        z-index: 1;
+        top: 0;
+        bottom: 0;
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    /* Float four columns side by side */
+
+    .column {
+        float: left;
+    }
+
+    /* Responsive columns */
+
+    @media screen and (max-width: 600px) {
+        .column {
+            display: block;
+            margin-bottom: 20px;
+        }
+    }
+
+    @media screen and (min-width: 320px) and (max-width: 991px) {
+        .content-box {
+            height: 270px;
+        }
+        .activity-box {
+            height: 80%;
+        }
+    }
+
+    /* Style the counter card card-border-tops */
+    .scrolling-wrapper {
+        overflow-y: auto;
+        height: max-content;
+        background-color: #ddd;
+    }
+
+    .card-wrapper {
+        display: flex;
+        align-content: center;
+        justify-content: center;
+    }
+
+    .card {
+        -webkit-box-shadow: 0 6px 6px -6px #777;
+        -moz-box-shadow: 0 6px 6px -6px #777;
+        box-shadow: 0 6px 6px -6px #777;        
+        text-align: center;        
+        border: 1px solid #c3c1c1;
+        border-radius: 4px;
+    }
+
+    .card-border-top {
+        border-top: 3px solid #32c5d2;
+    }
+
+    .card-header{
+        color: #40ACFC;
+        font-weight: bold;
+    }
+
+    .card-valLbl{
+        font-size: 9px;
+        vertical-align: middle;
+        margin-left: 5px;
+    }
+
+    h3 {
+        color: darkgrey;
+        margin-left: 20px;
+        margin-top: 20px;
+        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+        font-weight: lighter;
+    }
+
+    .rate-area {
+        float: left;
+        border-style: none;
+    }
+
+    .rate-area:not(:checked)>input {
+        position: absolute;
+        top: -9999px;
+        clip: rect(0, 0, 0, 0);
+    }
+
+    .rate-area:not(:checked)>label {
+        float: right;
+        width: 23px;
+        padding: 0 .1em;
+        overflow: hidden;
+        white-space: nowrap;
+        cursor: pointer;
+        font-size: 150%;
+        line-height: 1.2;
+        color: lightgrey;
+        text-shadow: 1px 1px #bbb;
+    }
+
+    .rate-area:not(:checked)>label:before {
+        content: '★ ';
+    }
+
+    .rate-area>input:checked~label {
+        color: #ff4500;
+        text-shadow: 1px 1px #c60;
+        font-size: 150% !important;
+    }
+
+    .rate-area:not(:checked)>label:hover, .rate-area:not(:checked)>label:hover~label {
+        color: #ff4500;
+    }
+
+    .rate-area>input:checked+label:hover, .rate-area>input:checked+label:hover~label, .rate-area>input:checked~label:hover, .rate-area>input:checked~label:hover~label, .rate-area>label:hover~input:checked~label {
+        color: #ff4500;
+        text-shadow: 1px 1px #ff4500;
+    }
+
+    .rate-area>label:active {
+        position: relative;
+        top: 2px;
+        left: 2px;
+    }
+
+    .paidModel {
+        width: 324px !important;
+        height: 162px !important;
+    }
+
+    div.open>button>span {
+        border-top: 0px !important;
+        border-bottom: 4px dashed !important;
+    }
+
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    div.absolute {
+        position: absolute;
+        bottom: 5px;
+        right: 5px;
+    }
+
+    /* START - Dynamic button effect style*/
+
+    .btn-default, .btn-danger, .btn-success {
+        color: #333;
+        background-color: #c2cad8 !important;
+        border-color: #adadad;
+    }
+
+    .btn-default:hover, .btn-danger:hover, .btn-success:hover {
+        color: rgb(248, 244, 244) !important;
+        background-color: #4b4848 !important;
+        border-color: #3a3737 !important;
+    }
+
+    .btn-default:disabled, .btn-default[disabled] {
+        color: #333 !important;
+        background-color: #c2cad8 !important;
+        border-color: #adadad !important;
+    }
+
+    /* END - Dynamic button effect style*/
+
+    /* Start - custom tabs effect style*/
+
+    .customTabs>.nav-tabs>li {
+        margin-top: 5px !important;
+        text-align: center;
+    }
+
+    .customTabs>.nav-tabs>li.active>a {
+        background: #e3f0f4;
+        font-size: 14px;
+        font-weight: 600;
+        text-align: center;
+    }
+
+    .customTabs>.nav-tabs>li.active>a {
+        background: #e3f0f4 !important;
+        font-size: 14px !important;
+        font-weight: 600 !important;
+    }
+
+    .customTabs .tab-content {
+        background: #e3f0f4;
+        border-top: none;
+    }
+
+    .customTabs>.nav-tabs>li:hover, .customTabs>.nav-tabs>li.active {
+        background: #e3f0f4;
+        font-size: 14px;
+        font-weight: 600;
+        text-align: center;
+        border-top: 4px solid #337ab7 !important;
+    }
+
+    .customTabs>.nav-tabs>li>a:hover {
+        background: #e3f0f4 !important;
+        font-size: 14px !important;
+        font-weight: 600 !important;
+        color: #555555 !important;
+    }
+
+    .customTabs>.nav-tabs>li:active {
+        border-top: 4px solid #337ab7 !important;
+    }
+
+    .round-button {
+        display: block;
+        width: 30px;
+        height: 30px;
+        line-height: 26px;
+        border: 2px solid #f5f5f5;
+        border-radius: 50%;
+        color: #f5f5f5;
+        text-align: center;
+        text-decoration: none;
+        background: #337ab7;
+        box-shadow: 0 0 3px gray;
+        font-size: 15px;
+        margin: 5px;
+        font-weight: bold;
+    }
+
+    .round-button:hover {
+        background: #72b6bb;
+    }
+
+    /* End - custom tabs effect style*/

@@ -1,0 +1,22 @@
+﻿{
+  "Claim Specialist": "Claim Specialist",
+  "Search Specialists": "Search Specialists",
+  "TabHeaderText": {
+    "NewSpecialists": "New Specialists",
+    "CategorySpecialities": "Category Specialities",
+    "Note": "the user will be sent an email to setup the account",
+    "Matchingresult": "Matching result for",
+    "searchEmployee": "Search employee name, employeeId",
+    "ContactInfromation": "Contact Infromation",
+    "Go": "Go",
+    "SearchCategories": "Search Categories",
+    "NoResultFound": "No result found",
+    "CreateNewUser": "Create new user",
+    "SearchEmployee": "Search existing employee"
+  },
+  "CategorySpecialistsTable": {
+    "Specialty": "Specialty",
+    "Categories": "Categories"
+  },
+  "NewSpecialists": "Add New Specialists"
+}

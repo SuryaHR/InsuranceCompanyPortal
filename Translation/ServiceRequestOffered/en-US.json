@@ -1,0 +1,15 @@
+﻿{
+  "Service Requests": "Service Requests",
+  "New Service": "New Service",
+  "Service ID ": "Service ID ",
+  "Service Name": "Service Name",
+  "Description": "Description",
+  "Status": "Status",
+  "Action": "Action",
+  "search": "search Service request, serviceID",
+  "No services to show": "No services to show",
+  "Add New Service Request": "Add New Service Request",
+  "Select services": "Select services",
+  "Save": "Save",
+  "Cancel": "Cancel"
+}

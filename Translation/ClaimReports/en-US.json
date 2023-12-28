@@ -1,0 +1,46 @@
+﻿{
+
+  "MainHeader": {
+   "Salvage_Report":"Salvage Report"
+  },
+  "ControlText": {
+   "Date_Range":"Date Range",
+   "To":"To",
+   "View":"View"
+  },
+  "Table": {
+    "Office":"Office",
+    "Claim#":"Claim #",
+    "AdjusterName":"Adjuster Name",
+    "SalvageID":"Salvage ID",
+    "Policyholder":"Policyholder",
+    "ItemType":"Item Type",
+    "ItemDescription":"Item Description",
+    "PreEstimate":"Pre Estimate",
+    "SalvagePrice":"Salvage Price",
+    "ClaimType":"Claim Type",
+   "#items":"# items",
+    "Commission":"Commission",
+    "Fees":"Fees",
+    "PaymentAmount":"Payment Amount",
+    "Status":"Status",
+    "commission":"Commission",
+    "closeDate":"Close Date",
+    "grossSaleAmmount":"Gross Sale Amount",
+    "expenses":"Expenses",
+    "netPaid":"Net Paid",
+    "ownerRetained":"Owner Retained",
+    "CreatedDate":"Created Date",
+    "PolicyType":"Policy Type",
+    "CoverageValue":"Coverage Value",
+    "QuoteValue":"Quote Value",
+    "IndemnityOpportunity":"Indemnity Opportunity",
+    "Indemnity":" Indemnity %",
+    "InvoiceAmount":"Invoice Amount",
+    "CloseDate":"Close Date",
+    "QuoteTime":"Quote Time",
+    "ItemReplaced":"Item Replaced?",
+    "ClaimOffice":"Claim Office"
+  }
+
+}

@@ -1,0 +1,11 @@
+﻿{
+  "Model": {
+    "Header_Invoices": "ACME Services",
+    "SubHeader": "Invoice"
+  },
+  "ControlText": {
+    "Cancel_title": "Cancel",
+    "AddInvoice_title": "Add Invoice",
+    "Attachment_title": "Attachments"
+  }
+}

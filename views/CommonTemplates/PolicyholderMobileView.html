@@ -1,0 +1,660 @@
+﻿<style>
+        .control-label
+        {
+            font-size:10px !important;
+        }
+        .item_Image{
+            height: 100px !important;
+        margin-top: 3% !important ;
+    }
+        .ComparablesDiv{
+            max-height: 408px !important;
+        overflow: auto !important;
+        }
+        .textAlign{
+            text-align: justify !important;
+        }
+      .popUpDiv{
+        margin:auto;
+        height:100px;
+        width:300px;
+        background-color:white;
+        margin-top:25%;
+        border-radius:3px 3px 3px 3px;
+      }
+      #overlay {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0,0,0,0.5);
+        z-index: 2;
+        cursor: pointer;
+    }
+    .numberDiv{
+       border:1px solid black;
+       margin:auto;
+       height:40px;
+       display:block;
+    }
+      .numberTextBox{
+         padding:5px;
+    
+      }
+      .fa-chevron-circle-left:hover
+      {
+          cursor:pointer;
+      }
+      .fontWeight{
+        font-weight: bold
+      }
+      .marginleft10{
+        margin-left: 10px;
+      }
+      .marginright5{
+        margin-right: 5px;
+      }
+      .marginleft6{
+        margin-left: 6px;
+      }
+      .wordBreak{
+        word-break: break-all;
+      }
+    
+      /* Start - Confirmation Msg changes */
+      .bootbox-alert{
+          top: 35%!important;
+      }
+      
+      /* .modal-dialog .modal-content{
+          background: #7cffae!important;
+      } */
+      .modal-body button{
+          text-align: right!important;
+          background-image: none!important;
+      }
+      /* .modal-footer .btn-primary{
+          background: black!important;
+      } */
+      /* End - Confirmation Msg changes */
+    
+      @media all and (max-width: 768px){
+    
+          .resp_p0 {
+              padding: 0px!important;
+          }
+      }
+
+      .fixedButtons{
+        position: sticky;
+        bottom:0px;
+        border-Top: 1px solid;
+        padding-top: 10px !important;
+        background: white;
+        margin-bottom:0px !important;
+        padding-bottom: 20px !important;
+      }
+      
+      @media screen and (max-width: 450px) {
+        .col-m-12 {width: 100%;}
+        .col-m-6 {width: 50%;}
+        .showbuttonsWebsite{
+            display:none;
+        }
+        
+      }
+
+      @media screen and (min-width: 450px) {
+        .col-1 {width: 8.33%;}
+        .col-2 {width: 16.66%;}
+        .showbuttonsPhone{
+            display: none;
+        }
+      }
+    
+    </style>
+    
+    <div id="overlay" ng-show="PhoneValidation">
+    
+        <div class="popUpDiv">
+            <div class="col-md-12 col-sm-12 col-xs-12 text-center margin-top-10">
+               <label>Enter last 4 digits of your phone #</label>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12 padding1px text-center">
+                <div class="col-md-3 col-sm-3 col-xs-3 numberTextBox text-center">
+                    <input type="tel" id="txtFirst" class="form-control"  maxlength="1" onkeypress='return event.charCode >= 48 && event.charCode <= 57'   ng-model="PhoneNumber.FirstDigit" ng-change="CheckNumber('txtFirst')" />
+                </div>
+                <div class="col-md-3 col-sm-3 col-xs-3 numberTextBox text-center">
+                    <input type="tel" id="txtSecond" class="form-control" maxlength="1" onkeypress='return event.charCode >= 48 && event.charCode <= 57' ng-model="PhoneNumber.SecondDigit" ng-change="CheckNumber('txtSecond')" />
+                </div>
+                <div class="col-md-3 col-sm-3 col-xs-3 numberTextBox text-center">
+                    <input type="tel" id="txtThird" class="form-control" maxlength="1" onkeypress='return event.charCode >= 48 && event.charCode <= 57' ng-model="PhoneNumber.ThirdDigit" ng-change="CheckNumber('txtThird')" />
+                </div>
+                <div class="col-md-3 col-sm-3 col-xs-3 numberTextBox text-center">
+                    <input type="tel" id="txtFourth" class="form-control" maxlength="1" onkeypress='return event.charCode >= 48 && event.charCode <= 57' ng-model="PhoneNumber.FourthDigit" ng-change="CheckNumber('txtFourth')" />
+                </div>
+            </div>
+    
+        </div>
+    
+    </div>
+    
+    <div style="margin-top:20px !important;">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12 form-group" style="text-align: center;margin-top: 5px !important;">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div style="font-size: 2rem !important;border-bottom: gray solid 1px;">{{Policyholder.InsuranceCarrier}}</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12 ">
+            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 padding1px">
+                <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 padding1px">
+                    <div class="col-md-12 col-xs-12 col-sm-12 padding1px textAlign">
+                        <div class="col-md-12 col-sm-12 col-xs-12 padding1px" >
+                            <div class="col-md-12 col-sm-12 col-xs-12 padding1px" ng-show=true >
+                                <div class="col-sm-12 col-xs-12 form-group padding1px" style="margin-bottom: 0px !important;">
+                                        <div class="col-md-6 col-sm-6 col-xs-6  padding1px">
+                                            <label class="control-label padding1px">{{"Customer Name"|translate}}</label>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-6  padding1px">
+                                            <label class="control-label padding1px">{{"Policy #"|translate}}</label>
+                                        </div>
+                                </div>
+                                <div class="col-sm-12 col-xs-12 form-group padding1px">
+                                        <div class="col-md-6 col-sm-6 col-xs-6 padding1px">
+                                            <span class="control-label">{{ Policyholder.LName+", "+Policyholder.FName}}</span>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-6 padding1px">
+                                            <span class="control-label">{{ Policyholder.PolicyNumber}}</span>
+                                        </div>                                    
+                                </div>
+                                <div class="col-sm-12 col-xs-12 form-group padding1px" style="margin-bottom: 0px !important;">
+                                        <div class="col-md-6 col-sm-6 col-xs-6  padding1px">
+                                            <label class="control-label padding1px">{{"Insurance Agent"|translate}}</label>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-6  padding1px">
+                                            <label class="control-label padding1px">{{"Appraisal#"|translate}}</label>
+                                        </div>
+                                </div>
+                                <div class="col-sm-12 col-xs-12 form-group padding1px">
+                                        <div class="col-md-6 col-sm-6 col-xs-6  padding1px ">
+                                            <div class="control-label">{{Policyholder.InsuranceAgentLname+", "+Policyholder.InsuranceAgentFname}}</div>
+                                        </div>
+                                        
+                                        <div class="col-md-6 col-sm-6 col-xs-6  padding1px">
+                                            <span class="control-label">{{Policyholder.AppraisalNumber}}</span>
+                                        </div>
+                                    
+                                </div>
+    
+                                <div class="col-sm-12 col-xs-12 form-group padding1px" style="margin-bottom: 0px !important;">
+                                        <div class="col-md-6 col-sm-6 col-xs-6  padding1px">
+                                            <label class="control-label padding1px">{{"Original Appraisal Value"|translate}}</label>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-6  padding1px">
+                                            <label class="control-label padding1px">{{"Original Appraisal Date"|translate}}</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-xs-12 form-group padding1px">
+                                        <div class="col-md-6 col-sm-6 col-xs-6  padding1px ">
+                                            <span class="control-label">{{Policyholder.OriginalAppraisalValue | currency }}</span>
+                                        </div>
+                                        
+                                        <div class="col-md-6 col-sm-6 col-xs-6  padding1px ">
+                                            <span class="control-label">{{Policyholder.AppraisalData}}</span>
+                                        </div>
+                                </div>
+                            </div>
+    
+                            <div class="portlet light col-md-12 col-sm-12 col-xs-12 padding1px" ng-show=true style="padding-bottom: 0px !important;margin-bottom: 0px !important;">
+                                <!-- <div class="portlet-body col-md-12 col-sm-12 col-xs-12 portlet light  padding1px ">
+                                        <div class="col-md-12 col-sm-12 margin-top-5 margin-bottom-5 col-xs-12 padding1px" >
+                                                    <div class="">
+                                                    <div class="caption">
+                                                    </div>
+                                                </div> 
+                                            </div> -->
+
+
+                                <label class="fontWeight" ng-if="showSpeedCheckDescription && isshowSpeedCheckDescription">New SpeedCheck Appraisal Description</label><br/>
+                                <div class="col-md-12 col-sm-12 col-xs-12  padding1px">
+                                    <span class="control-label" style="white-space:pre-line">
+                                        {{details}}
+                                    </span>
+                                </div>
+
+                                <!-- Summary starts here -->
+                                <div>
+                                    <div class="col-md-6 col-lg-5 col-sm-6 col-xs-12 form-group" style="padding:0px;">
+                                        <div class="panel panel-default">
+                                            <div class="panel-body" style="padding: 10px 0px;background:#e9e9e9">
+                                                <div class="col-md-12 col-sm-12" style="padding: 0px 10px;">
+                                                    <div class="col-md-12 col-sm-12 SubHeadingDiv margin-bottom-10">
+                                                        <span class="caption-subject" style="font-size: 14px; font-weight: 700;">{{"Value Summary"|translate}}</span>
+                                                    </div>
+                                                </div>    
+                                                <div ng-if="showMountingandSetting" class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group" style="padding:0px;">
+                                                    <div class="col-md-6 col-sm-9 col-xs-8 Label_Text_Left" style="text-align: right;padding-right:20px;">
+                                                        <label class="control-label "> {{"Estimated Cost of Setting"|translate}}&nbsp;
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-3 col-xs-4" style="padding:0px 0px 0px 5px;">
+                                                        <span class="pull-left">{{totalMountingPrice | currency}}</span>
+                                                    </div>
+                                                </div>
+
+                                                <div ng-if="showCenteredDiamond && !showLooseDiamond" class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group" style="padding:0px;">
+                                                    <div class="col-md-6 col-sm-9 col-xs-8 Label_Text_Left" style="text-align:right;padding-right:20px;">
+                                                        <label ng-if="!showCheckboxOption || centeredStoneType==187" class="control-label "> {{"Estimated Cost of Center Diamond"|translate}}&nbsp;
+                                                        </label>
+                                                        <label ng-if="showCheckboxOption" class="control-label "> {{"Estimated Cost of Center Diamond(s)"|translate}}&nbsp;
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-3 col-xs-4" style="padding:0px 0px 0px 5px;">
+                                                        <span class="pull-left">{{centerDiamondTotal | currency}}</span>
+                                                    </div>
+                                                </div>
+
+
+                                                <div ng-if="showCenteredGemstone && !showLooseGemstone" class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group" style="padding:0px;">
+                                                    <div class="col-md-6 col-sm-9 col-xs-8 Label_Text_Left" style="text-align:right;padding-right:20px;">
+                                                        <label ng-if="!showTwo || centeredStoneType==188" class="control-label "> {{"Estimated cost of center colored gemstone "|translate}}&nbsp;
+                                                        </label>
+                                                        <label ng-if="showTwo" class="control-label "> {{"Estimated cost of center colored gemstone(s)"|translate}}&nbsp;
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-3 col-xs-4" style="padding:0px 0px 0px 5px;">
+                                                        <span class="pull-left">{{centerStoneTotal | currency}}</span>
+                                                    </div>
+                                                </div>
+
+                                                    <!-- showPearl -->
+                                                    <div ng-if="showPearl" class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group" style="padding:0px;">
+                                                        <div class="col-md-6 col-sm-9 col-xs-8 Label_Text_Left" style="text-align:right;padding-right:20px;">
+                                                            <label class="control-label "> {{"Estimated cost of pearl"|translate}}&nbsp;
+
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-md-6 col-sm-3 col-xs-4"  style="padding:0px 0px 0px 5px;">
+                                                            <span class="pull-left">{{totalPearlPrice |currency}}</span>
+                                                        </div>
+                                                    </div>
+
+                                                        <!-- showLoosePearl -->
+                                                        <div ng-if="showLoosePearl" class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group" style="padding:0px;">
+                                                            <div class="col-md-6 col-sm-9 col-xs-8 Label_Text_Left" style="text-align:right;padding-right:20px;">
+                                                                <label class="control-label"> {{"Estimated cost of loose pearl"|translate}}&nbsp;
+
+                                                                </label>
+                                                            </div>
+                                                            <div class="col-md-6 col-sm-3 col-xs-4" style="padding:0px 0px 0px 5px;">
+                                                                <span class="pull-left">{{totalPearlPrice |currency}}</span>
+                                                            </div>
+                                                        </div>
+
+                                                <div ng-if="isWedding" class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group" style="padding:0px;">
+                                                    <div class="col-md-6 col-sm-9 col-xs-8 Label_Text_Left" style="text-align:right;padding-right:20px;">
+                                                        <label class="control-label "> {{"Estimated cost of wedding band setting"|translate}}&nbsp;
+
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-3 col-xs-4" style="padding:0px 0px 0px 5px;">
+                                                        <span class="pull-left">{{wbSettingTotal | currency}}</span>
+                                                    </div>
+                                                </div>
+
+                                                <div ng-if="isWedding && showWbandDiamond" class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group" style="padding:0px;">
+                                                    <div class="col-md-6 col-sm-9 col-xs-8 Label_Text_Left" style="text-align:right;padding-right:20px;">
+                                                        <label class="control-label "> {{"Estimated cost of wedding band accent diamond(s)"|translate}}&nbsp;
+
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-3 col-xs-4" style="padding:0px 0px 0px 5px;">
+                                                        <span class="pull-left">{{totalWeddingBandDiamondTotal | currency}}</span>
+                                                    </div>
+                                                </div>
+
+                                                <div ng-if="isWedding && showWbandGemstone" class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group" style="padding:0px;">
+                                                    <div class="col-md-6 col-sm-9 col-xs-8 Label_Text_Left" style="text-align:right;padding-right:20px;">
+                                                        <label class="control-label"> {{"Estimated cost of wedding band accent gemstone(s)"|translate}}&nbsp;
+
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-3 col-xs-4" style="padding:0px 0px 0px 5px;">
+                                                        <span class="pull-left">{{totalWeddingBandGemstoneTotal | currency}}</span>
+                                                    </div>
+                                                </div>
+
+                                                <div ng-if="showAccentDiamond && accentDiamondItems.length>0" class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group" style="padding:0px;">
+                                                    <div class="col-md-6 col-sm-9 col-xs-8 Label_Text_Left" style="text-align:right;padding-right:20px;">
+                                                        <label class="control-label "> {{"Estimated Cost of Accent Diamond(s)"|translate}}&nbsp;
+
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-3 col-xs-4" style="padding:0px 0px 0px 5px;">
+                                                        <span class="pull-left">{{totalAccentDiamonds | currency}}</span>
+                                                    </div>
+                                                </div>
+
+                                                <div ng-if="showAccentGemstone && accentGemstoneItems.length>0" class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group" style="padding:0px;">
+                                                    <div class="col-md-6 col-sm-9 col-xs-8 Label_Text_Left" style="text-align:right;padding-right:20px;">
+                                                        <label class="control-label"> {{"Estimated Cost of Accent Gemstone(s)"|translate}}&nbsp;
+
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-3 col-xs-4" style="padding:0px 0px 0px 5px;">
+                                                        <span class="pull-left">{{totalAccentGemstones | currency}}</span>
+                                                    </div>
+                                                </div>
+
+                                                <div ng-if="showChainandSetting" class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group" style="padding:0px;">
+                                                    <div class="col-md-6 col-sm-9 col-xs-8 Label_Text_Left" style="text-align:right;padding-right:20px;">
+                                                        <label class="control-label "> {{"Total Estimate for chain setting"|translate}}:&nbsp;
+
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-3 col-xs-4" style="padding:0px 0px 0px 5px;">
+                                                        <span class="pull-left">{{totalChainPrice | currency}}</span>
+                                                    </div>
+                                                </div>
+
+                                                <div ng-if="showChain && showChainDetailForm" class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group" style="padding:0px;">
+                                                    <div class="col-md-6 col-sm-9 col-xs-8 Label_Text_Left" style="text-align:right;padding-right:20px;">
+                                                        <label class="control-label "> {{"Total Estimate for chain"|translate}}&nbsp;
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-3 col-xs-4" style="padding:0px 0px 0px 5px;">
+                                                        <span class="pull-left">{{totalChainPrice | currency}}</span>
+                                                    </div>
+                                                </div>
+
+                                                <div ng-if="showLooseDiamond" class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group" style="padding:0px;">
+                                                    <div class="col-md-6 col-sm-9 col-xs-8 Label_Text_Left" style="text-align:right;padding-right:20px;">
+                                                        <label class="control-label"> {{"Total Estimate for Loose Diamond"|translate}}:&nbsp;    
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-3 col-xs-4" style="padding:0px 0px 0px 5px;">
+                                                        <span class="pull-left">{{centerDiamondTotal | currency}}</span>
+                                                    </div>
+                                                </div>
+
+                                                <div ng-if="showLooseGemstone" class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group" style="padding:0px;">
+                                                    <div class="col-md-6 col-sm-9 col-xs-8 Label_Text_Left" style="text-align:right;padding-right:20px;">
+                                                        <label class="control-label "> {{"Total Estimate for Loose Gemstone"|translate}}&nbsp;
+                                                            </label>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-3 col-xs-4" style="padding:0px 0px 0px 5px;">
+                                                        <span class="pull-left">{{centerStoneTotal | currency}}</span>
+                                                    </div>
+                                                </div>
+
+                                                <div ng-if="showPairedDiamond && !showCenteredDiamond" class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group" style="padding:0px;">
+                                                    <div class="col-md-6 col-sm-9 col-xs-8 Label_Text_Left" style="text-align:right;padding-right:20px;">
+                                                        <label class="control-label "> {{"Total Estimate for Center Diamond(s)"|translate}}:&nbsp;
+
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-3 col-xs-4" style="padding:0px 0px 0px 5px;">
+                                                        <span class="pull-left">{{totalDiamondPrice | currency}}</span>
+                                                    </div>
+                                                </div>
+
+                                                <div ng-if="showPairedGemstone && !showCenteredGemstone" class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group" style="padding:0px;">
+                                                    <div class="col-md-6 col-sm-9 col-xs-8 Label_Text_Left" style="text-align:right;padding-right:20px;">
+                                                        <label class="control-label "> {{"Total Estimate for Paired Center Gemstone"|translate}}:&nbsp;
+                                                            </label>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-3 col-xs-4" style="padding:0px 0px 0px 5px;">
+                                                        <span class="pull-left">{{scStoneEstimateTotal | currency}}</span>
+                                                    </div>
+                                                </div>
+
+                                                <div ng-if="showAdditionalDiamondDetails" class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group" style="padding:0px;">
+                                                    <div class="col-md-6 col-sm-9 col-xs-8 Label_Text_Left" style="text-align:right;padding-right:20px;">
+                                                        <label class="control-label "> {{"Total Estimate for Additional Diamond"|translate}}&nbsp;
+
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-3 col-xs-4" style="padding:0px 0px 0px 5px;">
+                                                        <span class="pull-left">{{centerDiamondTotal | currency}}</span>
+                                                    </div>
+                                                </div>
+
+                                                <div ng-if="showAdditionalGemstoneDetails" class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group" style="padding:0px;">
+                                                    <div class="col-md-6 col-sm-9 col-xs-8 Label_Text_Left" style="text-align:right;padding-right:20px;">
+                                                        <label class="control-label "> {{"Total Estimate for Additional Gemstone"|translate}}:&nbsp;
+
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-3 col-xs-4" style="padding:0px 0px 0px 5px;">
+                                                        <span class="pull-left">{{centerStoneTotal | currency}}</span>
+                                                    </div>
+                                                </div>
+
+                                                <div ng-if="showWatch" class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group" style="padding:0px;">
+                                                    <div class="col-md-6 col-sm-9 col-xs-8 Label_Text_Left" style="text-align:right;padding-right:20px;">
+                                                        <label class="control-label "> {{"Total Estimate for watch"|translate}}:&nbsp;
+
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-3 col-xs-4" style="padding:0px 0px 0px 5px;">
+                                                        <span class="pull-left">{{totalWatchEstimation | currency}}</span>
+                                                    </div>
+                                                </div>
+
+                                                <div ng-if="showMainDiamondDetails" class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group" style="padding:0px;">
+                                                    <div class="col-md-6 col-sm-9 col-xs-8 Label_Text_Left" style="text-align:right;padding-right:20px;">
+                                                        <label class="control-label "> {{"Total Estimate for Main Diamond"|translate}}:&nbsp;
+
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-3 col-xs-4" style="padding:0px 0px 0px 5px;">
+                                                        <span class="pull-left">{{centerDiamondTotal | currency}}</span>
+                                                    </div>
+                                                </div>
+
+                                                <div ng-if="showMainGemstoneDetails" class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group" style="padding:0px;">
+                                                    <div class="col-md-6 col-sm-9 col-xs-8 Label_Text_Left" style="text-align:right;padding-right:20px;">
+                                                        <label class="control-label"> {{"Total Estimate for Main Gemstone"|translate}}:&nbsp;
+
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-3 col-xs-4" style="padding:0px 0px 0px 5px;">
+                                                        <span class="pull-left">{{centerStoneTotal | currency}}</span>
+                                                    </div>
+                                                </div>
+
+                                                <div ng-if="!showWatch" class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group" style="padding:0px;">
+                                                    <div class="col-md-6 col-sm-9 col-xs-8 Label_Text_Left" style="text-align:right;padding-right:20px;">
+                                                        <label class="control-label "> {{"Mounting and Labor Charges"|translate}}&nbsp;
+
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-3 col-xs-4" style="padding:0px 0px 0px 5px;">
+                                                        <span class="pull-left">{{labourCost | currency}}</span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group" style="padding:0px;">
+                                                    <div class="col-md-6 col-sm-9 col-xs-8 Label_Text_Left" style="text-align:right;padding-right:20px;">
+                                                        <label class="control-label bold"> {{"Total"|translate}}&nbsp;    
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-3 col-xs-4" style="padding:0px 0px 0px 5px;">
+                                                        <span class="pull-left bold">{{ summaryTotal | currency}}</span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group" style="padding:0px;">
+                                                    <div class="col-md-6 col-sm-9 col-xs-8 Label_Text_Left" style="text-align:right;padding-right:20px;">
+                                                        <label class="control-label"> {{"Estimated Sales Tax"|translate}}&nbsp;{{salesTaxPt}}%  
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-3 col-xs-4" style="padding:0px 0px 0px 5px;">
+                                                        <span class="pull-left">{{ costSalesTax | currency}}</span>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group" style="padding:0px;">
+                                                    <div class="col-md-6 col-sm-9 col-xs-8 Label_Text_Left" style="text-align:right;padding-right:20px;">
+                                                        
+                                                    </div>
+                                                    <div class=" col-lg-2 col-md-2 col-sm-3 col-xs-3" style="border-top: gray solid 1px;padding:0px 0px 0px 5px;">
+                                                            
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group" style="padding:0px;">
+                                                    <div class="col-md-6 col-sm-9 col-xs-8 Label_Text_Left" style="text-align:right;padding-right:20px;">
+                                                        <label class="control-label bold"> {{"Grand Total"|translate}}&nbsp;    
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-3 col-xs-4" style="padding:0px 0px 0px 5px;">
+                                                        <span class="pull-left bold">{{ totalCoverageValue | currency}}</span>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Summary ends here -->
+
+                                <div class="col-sm-12 col-xs-12 form-group padding1px">
+                                    <span ng-if="isWedding" class="fontWeight" style="font-size:12px!important;">{{"Total estimate for " | translate}} {{Policyholder.Type | lowercase}} {{Policyholder.ItemCategory
+                                        | lowercase}} {{"and wedding band(s)"}} : {{ totalCoverageValue | currency}}
+                                    </span>
+                                    <span ng-if="Policyholder.ItemCategory == 'Other'" class="fontWeight" style="font-size:12px!important;">{{"Total estimate for jewelry" | translate}}: {{totalCoverageValue
+                                            | currency}}
+                                    </span>
+                                    <span ng-if="Policyholder.ItemCategory != 'Other' && !isWedding" class="fontWeight" style="font-size:12px!important;">{{"Total estimate for " | translate}} {{Policyholder.Type | lowercase}} {{Policyholder.ItemCategory
+                                            | lowercase}}: {{totalCoverageValue | currency}}
+                                    </span>
+                                </div>
+                                <div class="col-sm-12 col-xs-12 form-group padding1px">
+                                    <div class="col-lg-1 col-md-2 col-sm-3 col-xs-6 padding1px">
+                                        <label class=" fontWeight">Today's Date</label>
+                                    </div>
+                                    <div class="col-lg-1 col-md-2 col-sm-3 col-xs-6 padding1px">
+                                        <span class="control-label">{{Policyholder.TodaysDate}}</span>
+                                    </div>
+                                </div>
+
+                                <div class="row"> 
+                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                                        <span style="font-size: 10px;" ng-if="policyHolderReviewDetails.appraisalDetails.appraisalEffectiveDate != '' && policyHolderReviewDetails.appraisalDetails.appraisalEffectiveDate != null"> The above appraisal description and values are based off of the information from the original appraisal dated <b>{{policyHolderReviewDetails.appraisalDetails.appraisalEffectiveDate}}</b> and valued at <b>{{policyHolderReviewDetails.appraisalDetails.appraisalOldValue | currency}}</b>.</span>
+                                        <span style="font-size: 10px;" ng-if="policyHolderReviewDetails.appraisalDetails.appraisalEffectiveDate == '' || policyHolderReviewDetails.appraisalDetails.appraisalEffectiveDate == null">The above appraisal description and values are based off of the information from the original appraisal valued at <b>{{policyHolderReviewDetails.appraisalDetails.appraisalOldValue | currency}}</b>. </span>
+                                    </div>
+                                </div><br />
+                                <div class="col-sm-12 col-xs-12 form-group padding1px">
+                                    <div class="col-md-6 col-sm-6 col-xs-6  padding1px">
+                                        <label class=" fontWeight">Your Options</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-sm-12 col-xs-12  padding1px">
+                                    <span class="control-label" ng-if="hideParagraph">The original appraisal value {{Policyholder.OriginalAppraisalValue| currency}}</span>
+                                        <span class="control-label" ng-if="hideParagraph"> for this item is low. A new insurance appraisal is recommended. The new
+                                            suggested coverage value is </span><span class="control-label" ng-if="hideParagraph">{{ totalCoverageValue | currency }}.<br/><br/></span>
+                                    <ul>
+                                        <li>
+                                            <span class="control-label">By accepting the new appraisal value, the new annual premium will be adjusted to </span>
+                                            <span class="control-label"> {{  newInsValue  }} and will go into effect on
+                                                </span><span class="control-label"> {{  Policyholder.RenewalDate  }}.<br/><br/></span>
+                                        </li>
+                                        <li>
+                                            <span class="control-label">By declining the new appraisal value, your coverage amount and
+                                                annual premium remain the same. <br/><br/></span>
+                                        </li>
+                                        <li>
+                                            <span class="control-label"> If you would like to obtain a new appraisal from your own jeweler, your agency will be notified. Please provide
+                                                a copy of your new appraisal by </span><span class="control-label">{{Policyholder.RenewalDate}}. <br/><br/></span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-sm-12 col-xs-12 form-group padding1px">
+                                    <div class="col-md-6 col-sm-6 col-xs-6  padding1px">
+                                        <label class=" fontWeight">Disclaimer</label>
+                                    </div>
+                                </div>
+                                    
+                                <div class="col-md-12 col-sm-12 col-xs-12  padding1px">
+                                        <span class="control-label">SpeedCheck has identified a new suggested coverage value of your item based off of current market conditions. The suggested coverage amount is derived by entering the attributes 
+                                            that affect the jewelry value to compile the suggested coverage value. This value is calculated by market averages and adding 20-25% for potential market price fluctuations and possible limited availability.
+                                                While the actual cost to replace may be less than the appraisal value, it is important to protect against these scenarios.
+                                            SpeedCheck does not warrant the value as the item was not inspected.<br/><br/>
+                                        </span>
+                                </div>
+
+                                <div class="col-sm-12 col-xs-12 form-group padding1px">
+                                        <div class="col-md-6 col-sm-6 col-xs-6  text-left padding1px">
+                                            <label class=" control-label">Thank you,</label>
+                                        </div>
+                                        <div class="col-sm-12 col-xs-12 form-group padding1px">
+                                            <div class="col-md-6 col-sm-6 col-xs-6  text-left padding1px">
+                                                <label class=" control-label">{{ Policyholder.InsuranceAgentFname+" "+Policyholder.InsuranceAgentLname}}</label>
+                                            </div>
+
+                                        </div>
+                                </div>
+
+                                <!-- phone view -->
+                                <div class="showbuttonsPhone row-fluid col-lg-12 col-md-12 col-sm-12 col-xs-12 padding1px fixedButtons" style="text-align: center;">
+                                    <div class="col-m-12">
+                                        <button style="background-color: #54992e; color:white; margin:5px;height:35px !important;width:100px !important;" tabindex="-1" 
+                                        id="sample_editable_1_new" class="btn btn-default btnMargin" ng-disabled="!(policyHolderReviewDetails.appraisalDetails.policyHolderReviewStatus==1)"
+                                        ng-click="GoToPolicyHolderAcceptStatus()">
+                                            Accept
+                                         </button>
+                                        <button style="background-color: #92aac6; color:white; margin:5px;height:35px !important;width:100px !important;" tabindex="-1"
+                                        id="sample_editable_1_new" class="btn btn-default btnMargin" ng-disabled="!(policyHolderReviewDetails.appraisalDetails.policyHolderReviewStatus==1)"
+                                            ng-click="GoToPolicyHolderDeclineStatus()">
+                                            Decline
+                                        </button>
+                                    </div>
+                                    <div class="col-m-12">
+                                        <button style="background-color: #5fa7f9; margin:5px;height:35px !important;width:215px !important;" tabindex="-1" 
+                                        id="sample_editable_1_new" class="btn btn-default btnMargin" ng-disabled="!(policyHolderReviewDetails.appraisalDetails.policyHolderReviewStatus==1)"
+                                            ng-click="GoToPolicyHolderOwnAppraisalStatus()">
+                                        I'll get my own Appraisal
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- website view -->
+                                <div class="showbuttonsWebsite row-fluid col-lg-12 col-md-12 col-sm-12 col-xs-12 padding1px fixedButtons">
+                                    <button style="background-color: #54992e; color:white;" tabindex="-1" 
+                                    id="sample_editable_1_new" class="btn btn-default btnMargin"
+                                    ng-click="GoToPolicyHolderAcceptStatus()"
+                                ng-disabled="!(policyHolderReviewDetails.appraisalDetails.policyHolderReviewStatus==1)"
+
+                                    >
+                                        Accept
+                                        </button>
+                                    <button style="background-color: #92aac6; color:white;" tabindex="-1"
+                                    id="sample_editable_1_new" class="btn btn-default btnMargin"
+                                        ng-click="GoToPolicyHolderDeclineStatus()"
+                                ng-disabled="!(policyHolderReviewDetails.appraisalDetails.policyHolderReviewStatus==1)"
+                                >
+                                        Decline
+                                    </button>
+                                    <button style="background-color: #5fa7f9;" tabindex="-1" 
+                                    id="sample_editable_1_new" class="btn btn-default btnMargin"
+                                        ng-click="GoToPolicyHolderOwnAppraisalStatus()"
+                                ng-disabled="!(policyHolderReviewDetails.appraisalDetails.policyHolderReviewStatus==1)"
+                                >
+                                    I'll get my own Appraisal
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    

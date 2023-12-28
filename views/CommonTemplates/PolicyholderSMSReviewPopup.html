@@ -1,0 +1,55 @@
+<script>
+    $(document).ready(function () {
+        $("#select2insidemodal").select2({
+            dropdownParent: $("#myModal")
+        });
+    });
+</script>
+<div id="myModal" data-keyboard="true" data-backdrop="true">
+    <div id="responsive">
+        <div class="modal-header">
+            <a class="close" ng-click="cancel()" aria-hidden="true"></a>
+            <h4 class="modal-title sbold">{{"HeaderText.SMSMERtoPolicyholder"|translate}}</h4>
+        </div>
+        <div class="modal-body">
+            <div class="col-md-12 padding1px " ng-form="PolicyHolderReviewForm">
+                <div class="col-md-12 col-sm-12 form-group">
+                    <label class="control-label col-md-3 col-sm-6" style="text-align: right; padding: 0px;">{{"Label.PolicyholderName"|translate}} : </label>
+                    <label class="control-label col-md-9 col-sm-6" >{{Policyholder.FullName}}</label>
+                    <!-- <div class="col-md-7 col-sm-6">
+                        <label>{{Policyholder.Name}}</label>
+                    </div> -->
+                </div>
+                <div class="col-md-12 col-sm-12 form-group">
+                    <label class="control-label col-md-3 col-sm-6" style="text-align: right; padding: 0px">{{"Label.PhoneNumber"|translate}} : </label>
+                    <label class="control-label col-md-9 col-sm-6" >{{Policyholder.PhoneNo}}</label>
+                    <div class="col-md-7 col-sm-6" style="max-height:80px;overflow-y:auto">
+
+                        <!-- <span ng-if="!isEditPhone" class="control-label col-md-7 col-sm-6">{{Policyholder.PhoneNo}}</span> -->
+                       <!--  <span ng-if="!isEditPhone" class="fa  col-md-4 "></span> -->
+
+<!--                         <input ng-if="isEditPhone" type="text" name="phCellNum1" ng-pattern="/^([0-9-,()\s+]{15})$/" ng-trim="false" required maxlength="15"
+                            class="input-phone input-box" phone-input placeholder="(XXX)XXX-XXXX" ng-model="Policyholder.PhoneNo"
+                        /> -->
+                        <div class="errormessage" ng-if="isEditPhone">
+                            <span class="text-danger" ng-if="(PolicyHolderReviewForm.phCellNum1.$error.pattern)">
+                                {{"Please Enter valid phone #"|translate}} </span>
+                            <span class="text-danger" ng-if="(PolicyHolderReviewForm.phCellNum1.$error.required && PolicyHolderReviewForm.phCellNum1.$touched)">{{"Phone No required "|translate}}</span>
+                        </div>
+                       
+                    </div>
+                </div>
+                <div class="col-md-12 col-sm-12 form-group">
+                    <textarea class="form-control" rows="10"  maxlength="2000" ng-model="description" name="Description" ng-attr-placeholder='{{"Description"|translate}}'></textarea>
+
+                </div>
+
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default sbold" ng-click="cancel()">{{"ControlText.Cancel"|translate}}</button>
+            <button type="button" data-dismiss="modal" class="btn btn-default sbold" ng-click="SendSMSToPH()" ng-disabled="Policyholder.PhoneNo == '' || Policyholder.PhoneNo == null || description=='' || PolicyHolderReviewForm.$invalid">{{"ControlText.Send"|translate}}</button>
+        </div>
+    </div>
+</div>

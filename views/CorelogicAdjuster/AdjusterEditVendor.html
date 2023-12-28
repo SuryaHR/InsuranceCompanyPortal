@@ -1,0 +1,280 @@
+﻿<div class="col-md-12 clearfix">
+   
+        <button id="btnBack" class="btn sbold green btnMargin pull-left" ng-click="GoBack()">
+            <i class="fa fa-arrow-left"></i>
+            {{"ControlText.Back"|translate}}
+        </button>
+    
+   
+        <button id="btnSave" class="btn sbold green btnMargin pull-left" ng-click="SaveVendor()">
+            <i class="fa fa-save"></i>
+            {{"ControlText.Save"|translate}}
+        </button>
+ 
+</div>
+<!--Form-->
+<div class="col-md-12 margin-top-15">
+    <div class="portlet light bordered">
+        <div class="portlet-title">
+            <div class="col-md-4 form-group">
+                <div class="col-md-12 pull-left">
+                    <input type="text" class="input-block-level form-control" value="Wharton & Son's" />
+                </div>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group col-md-12">
+                        <div class="col-md-3">
+                            <h4 class="text-primary">{{"Label.Heading"|translate}}</h4>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-12">
+                        <div class="col-md-2">
+                            <label class="control-label text-muted">{{"Label.CompanyWebsite"|translate}}</label>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" placeholder='{{"Label.CompanyWebsite"|translate}}' />
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <div class="col-md-2">
+                            <label class="control-label text-muted">{{"Label.ContactPerson"|translate}}</label>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="text" class="form-control" placeholder='{{"Label.FirstName"|translate}}' />
+                        </div>
+                        <div class="col-md-2">
+                            <input type="text" class="form-control" placeholder='{{"Label.LastName"|translate}}' />
+                        </div>
+                        <div class="col-md-2">
+                            <input type="text" class="form-control" placeholder='{{"Label.Phone"|translate}}' />
+                        </div>
+                        <div class="col-md-2">
+                            <input type="text" class="form-control" placeholder='{{"Label.Email"|translate}}' />
+                        </div>
+                        <div class="col-md-2">
+                            <span id="btnAdd" class="btn btn-circle blue" ng-click="AddRow('contactdetails')">
+                                <i class="fa fa-plus"></i>
+                            </span>
+                        </div>
+                    </div>
+
+                    <!--Dynamically added contents-->
+                    <div class="form-group col-md-12" ng-repeat="contact in ContactDeatils">
+                        <div class="col-md-2">
+                            <!--<label class="control-label text-muted">{{"Label.ContactPerson"|translate}}</label>-->
+                        </div>
+                        <div class="col-md-2">
+                            <input type="text" class="form-control" placeholder='{{"Label.FirstName"|translate}}' />
+                        </div>
+                        <div class="col-md-2">
+                            <input type="text" class="form-control" placeholder='{{"Label.LastName"|translate}}' />
+                        </div>
+                        <div class="col-md-2">
+                            <input type="text" class="form-control" placeholder='{{"Label.Phone"|translate}}' />
+                        </div>
+                        <div class="col-md-2">
+                            <input type="text" class="form-control" placeholder='{{"Label.Email"|translate}}' />
+                        </div>
+                        <div class="col-md-2">
+                            <span id="btnAdd" class="btn btn-circle green" ng-click="RemoveRow($index,'contactdetails')">
+                                <i class="fa fa-remove"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <!--End Dynamically added contents-->
+
+                    <div class="form-group col-md-12">
+                        <div class="col-md-2">
+                            <label class="control-label text-muted">{{"Label.SuppliersPhone"|translate}}</label>
+                        </div>
+                        <div class="col-md-2">
+                            <select class="form-control select2me" placeholder='{{"Label.PhoneType"|translate}}'>
+                                <option value="Work">Work</option>
+                                <option value="Mobile">Mobile</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="text" class="form-control" placeholder='{{"Label.SuppliersPhone"|translate}}' />
+                        </div>
+                        <div class="col-md-2">
+                            <span id="btnAdd" class="btn btn-circle blue" ng-click="AddRow('phone')">
+                                <i class="fa fa-plus"></i>
+                            </span>
+                        </div>
+                    </div>
+
+                    <!--Dynamically added phone number text boxes-->
+                    <div class="form-group col-md-12" ng-repeat="phone in PhoneNumbers">
+
+                        <div class="col-md-2">
+                            <!--<label class="control-label text-muted">{{"Label.SuppliersPhone"|translate}}</label>-->
+                        </div>
+                        <div class="col-md-2">
+                            <select class="form-control select2me" placeholder='{{"Label.PhoneType"|translate}}'>
+                                <option value="Work">Work</option>
+                                <option value="Mobile">Mobile</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="text" class="form-control" placeholder='{{"Label.SuppliersPhone"|translate}}' />
+                        </div>
+                        <div class="col-md-2">
+                            <span id="btnAdd" class="btn btn-circle green" ng-click="RemoveRow($index,'phone')">
+                                <i class="fa fa-remove"></i>
+                            </span>
+                        </div>
+
+                    </div>
+                    <!--Dynamically added phone number text boxes-->
+
+                    <div class="portlet">
+                        <div class="portlet-title"></div>
+                    </div>
+
+                    <!--Shipping Address-->
+                    <div class="form-group col-md-12">
+                        <div class="col-md-2">
+                            <label class="control-label text-muted">{{"Label.ShippingAddress"|translate}}</label>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="text" class="form-control" placeholder='{{"Label.AddressLine1"|translate}}' />
+                        </div>
+                        <div class="col-md-2">
+                            <input type="text" class="form-control" placeholder='{{"Label.AddressLine2"|translate}}' />
+                        </div>
+                        <div class="col-md-2">
+                            <input type="text" class="form-control" placeholder='{{"Label.City"|translate}}' />
+                        </div>
+                        <div class="col-md-2">
+                            <select class="form-control select2me" placeholder='{{"Label.State"|translate}}'>
+                                <option value="State1">State1</option>
+                                <option value="State2">State2</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="text" class="form-control" maxlength="5" onkeypress='return event.charCode >= 48 && event.charCode <= 57' placeholder='{{"Label.ZipCode"|translate}}' />
+                        </div>
+                    </div>
+                    <!--End Shipping Address-->
+                    <!--Billing Address-->
+                    <div class="form-group col-md-12">
+                        <div class="col-md-2">
+                            <label class="control-label text-muted">{{"Label.BillingAddress"|translate}}</label>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="text" class="form-control" placeholder='{{"Label.AddressLine1"|translate}}' />
+                        </div>
+                        <div class="col-md-2">
+                            <input type="text" class="form-control" placeholder='{{"Label.AddressLine2"|translate}}' />
+                        </div>
+                        <div class="col-md-2">
+                            <input type="text" class="form-control" placeholder='{{"Label.City"|translate}}' />
+                        </div>
+                        <div class="col-md-2">
+                            <select class="form-control select2me" placeholder='{{"Label.State"|translate}}'>
+                                <option value="State1">State1</option>
+                                <option value="State2">State2</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-2">
+                            <input type="text" maxlength="5" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="form-control" placeholder='{{"Label.ZipCode"|translate}}' />
+                        </div>
+                    </div>
+                    <!--End Billing Address-->
+
+                    <div class="form-group col-md-12">
+                        <div class="col-md-2">
+                            <label class="control-label text-muted">{{"Label.Status"|translate}}</label>
+                        </div>
+                        <div class="col-md-2">
+
+                            <select class="form-control select2me" placeholder='{{"Label.Status"|translate}}'>
+                                <option value="Active">Active</option>
+                                <option value="Non-Active">Non-Active</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-12">
+                        <div class="col-md-2 pull-right">
+                            <button id="btnUpdate" class="btn sbold btnMargin btn-block" ng-click="UpdateVendor()">
+                                <i class="fa fa-save"></i>
+                                {{"ControlText.Update"|translate}}
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="portlet">
+                        <div class="portlet-title"></div>
+                    </div>
+
+                    <!-------Category Expertise-------->
+                    <div class="form-group col-md-12">
+                        <div class="col-md-offset-3 col-md-6 text-center margin-bottom-10">
+                            <h4 class="text-primary">{{"HeadingText.CategoryExpertise"|translate}}</h4>
+                        </div>
+                        <div class="col-md-offset-2 col-md-8  table-responsive">
+                            <table class="table table-bordered table-hover table-striped">
+                                <tr>
+                                    <td>
+                                        <div class="col-md-12 table-responsive" style="height:200px;">
+                                            <table class="table table-bordered table-hover table-striped">
+                                                <tr ng-repeat="category in ExportCategories" ng-show="category.IsExpert==0">
+                                                    <td>
+                                                        <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
+                                                            <input type="checkbox" class="checkboxes" ng-model="category.select" />
+                                                            <span></span>
+                                                        </label>
+                                                    </td>
+                                                    <td>{{category.categoryName}}</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+
+                                    </td>
+                                    <td rowspan="5" class="text-center">
+                                        <a href="#" style="text-decoration:none;" ng-click="AddToExportCategory()"><h1 class="text-muted">&gt;</h1></a>
+                                        <a href="#" style="text-decoration:none;" ng-click="RemoveFromExportCategory()">  <h1 class="text-muted">&lt;</h1></a>
+                                    </td>
+                                    <td>
+                                        <div class="col-md-12 table-responsive" style="height:200px;">
+                                            <table class="table table-bordered table-hover table-striped">
+                                                <tr ng-repeat="category in ExportCategories" ng-show="category.IsExpert==1">
+                                                    <td>
+                                                        <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
+                                                            <!--<input type="checkbox" class="checkboxes" ng-checked="AddToSelectedItem(category)" />-->
+                                                            <input type="checkbox" class="checkboxes" ng-model="category.select" />
+                                                            <span></span>
+                                                        </label>
+                                                    </td>
+                                                    <td>{{category.categoryName}}</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <!-------End Category Expertise-------->
+
+                    <div class="form-group col-md-12">
+                        <div class="col-md-2 pull-right">
+                            <button id="btnUpdate" class="btn sbold btnMargin btn-block" ng-click="UpdateVendor()">
+                                <i class="fa fa-save"></i>
+                                {{"ControlText.Update"|translate}}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,32 @@
+﻿<div class="">
+    <div class="modal-header text-center">
+        <a class="close" data-dismiss="modal" aria-hidden="true" ng-click="cancel($event)"></a>
+        <h4 class="modal-title text-primary">{{"Modal.Header"|translate}}</h4>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1 form-group">
+                <div class="col-md-4">
+                    <label class="control-label">{{"ControlText.FileName"|translate}}</label> 
+                </div>
+                <div class="col-md-8">
+                  <input type="text" ng-model="FileName" class="form-control" placeholder='{{"ControlText.FileName"|translate}}' readonly/>
+                </div>
+            </div>
+            <div class="col-md-10 col-md-offset-1 form-group">
+                <div class="col-md-4">
+                    <label class="control-label">{{"ControlText.CreatedDate"|translate}}</label>
+                </div>
+                <div class="col-md-8">
+                    <input type="text" ng-model="UploadDate" class="form-control" placeholder='{{"ControlText.CreatedDate"|translate}}' readonly/>
+                </div>
+            </div>
+            <div class="col-md-10 col-md-offset-1 form-group text-center">
+                <a ng-href="{{DownloadUrl}}" download>{{"ControlText.ViewFile"|translate}}</a>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer text-center">
+        <button type="button" class="btn dark btn-outline" data-dismiss="modal" ng-click="cancel($event)">{{"ControlText.Ok"|translate}}</button>
+    </div>
+</div>

@@ -1,0 +1,24 @@
+﻿<div>
+    <div id="responsive">
+        <div class="modal-header">
+            <a class="close" ng-click="cancel()" aria-hidden="true"></a>
+            <h4 class="modal-title" ng-if="IsApprove">{{"HeadText.Approve"|translate}}</h4>
+            <h4 class="modal-title" ng-if="IsReject">{{"HeadText.Reject"|translate}}</h4>
+        </div>
+        <div class="modal-body">            
+            <div class="clearfix"></div>
+           <b>{{"ControlText.Message"| translate}}</b>
+            <div class="col-md-12">
+                <div ng-show="Error!=''" class="text-danger">{{Error}}</div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="modal-footer">
+            <button type="button" class="btn sbold btnMargin" ng-click="cancel()">{{"ControlText.Cancel"|translate}}</button>
+            <button type="button" data-dismiss="modal" class="btn sbold btnMargin" ng-click="Rejectclaim()" ng-if="IsReject">{{"ControlText.btnReject"|translate}}</button>
+            <button type="button" data-dismiss="modal" class="btn sbold btnMargin" ng-click="Approveclaim()" ng-if="IsApprove">{{"ControlText.btnApprove"|translate}}</button>            
+        </div>
+    </div>
+
+</div>
+

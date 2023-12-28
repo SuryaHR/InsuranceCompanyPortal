@@ -1,0 +1,15 @@
+﻿{
+  "MainHeading": "User Role - Screen Mapping",
+  "ControlText": {
+    "Save": "Save",
+    "AccessibleScreens": "Accessible Screens"
+  },
+  "Label": {
+    "RoleGroup": "Role / Group"
+  },
+  "ErrorMessage": {
+    "RoleRequired": "Select Role",
+    "PermissionRequired": "Please select permissions to assign",
+    "ScreenRequired": "Please select screen to assign"
+  }
+}

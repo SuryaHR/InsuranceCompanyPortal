@@ -1,0 +1,222 @@
+<style>
+    .card-wrapper {
+        display: flex;
+        align-content: center;
+        justify-content: center;
+    }
+
+    .card-wrapper>.card {
+        -webkit-box-shadow: 0 6px 6px -6px #777;
+        -moz-box-shadow: 0 6px 6px -6px #777;
+        box-shadow: 0 6px 6px -6px #777;
+        text-align: center;
+        border: 1px solid #c3c1c1;
+        border-radius: 4px;
+    }
+
+    .card-wrapper>.card>.card-border-top {
+        border-top: 3px solid #32c5d2;
+    }
+
+    .card.card-KPI {
+        height: 80px;
+        display: grid;
+        align-items: center;
+        font-size: 15px;
+    }
+
+    /* .modal {
+        top: 35%;
+    } */
+
+    .modal .bootbox-body,
+    .modal-footer>button {
+        color: #323d47;
+        font-size: 14px;
+    }
+
+    .view-tabs a {
+        color: rgb(58, 112, 161);
+        font-weight: 500;
+    }
+
+    a.selected {
+        color: rgb(0, 0, 0);
+    }
+
+    @media (max-width: 375px) {
+        .card-KPI {
+            height: 90px;
+        }
+    }
+
+    .select2-container--bootstrap {
+        width: 100% !important;
+    }
+
+    .item-imgs {
+        width: 95%;
+        height: 47%;
+    }
+
+    .item_category_button {
+        display: inline-block;
+        padding-top: 10px;
+        margin-right: 6px;
+    }
+
+    .item_category_button a {
+        padding: 6px;
+        padding-left: 15px;
+        padding-right: 15px;
+        color: #5c5c5c;
+        background-color: #f8f8f8;
+        border-radius: 5px;
+        display: block;
+        text-decoration: none;
+    }
+
+    .item_category_button a.active {
+        color: #ffffff !important;
+        background-color: #007bff;
+    }
+
+    .item-container {
+        overflow-y: auto;
+        height: 70vh;
+    }
+
+    .item-card {
+        cursor: pointer;
+    }
+</style>
+<!-- Breadcrumb and heading part -->
+<div class="headerFreez border_bottom col-md-12 col-xs-12 margin-bottom-5">
+    <ul class="page-breadcrumb breadcrumb sbold">
+        <li>
+            <a ng-click="toClaimCenter()">{{"Title.ClaimCenter"|translate}}</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <a ng-click="toClaim()">{{commonObj.claimNumber}}</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <a ng-click="toInventory()">{{'Title.YourLossInventory' | translate}}</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            {{room.roomName}}
+        </li>
+    </ul>
+    <div class="mainHeadingDiv">
+        <div class="caption font-gray-sharp">
+            <span class="caption-subject">{{room.roomName}}</span>
+            <span
+                class="pull-right font-size-13">{{'Label.RoomLastUpdatedOn'|translate}}{{room.lastModifiedDate | DateTimeFormatMMMdyyyy}}</span>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb and heading part End-->
+<div class="col-xs-12 padding1px">
+    <div class="col-xs-12 margin-top-10 margin-bottom-5 clearfix card-wrapper">
+        <div class="col-lg-2 col-md-3 col-sm-3 col-xs-6 ">
+            <div class="card card-border-top card-KPI">
+                {{"Label.TotalItems"|translate}}
+                <label>{{room.claimItemsInfo.totalClaimedItems}}</label>
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-3 col-sm-3 col-xs-6 ">
+            <div class="card card-border-top card-KPI">
+                {{"Label.ReplacementWorth"|translate}}
+                <label>{{room.claimItemsInfo.totalValueOfItems ? room.claimItemsInfo.totalValueOfItems : 0| currency}}</label>
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-3 col-sm-3 col-xs-6 ">
+            <div class="card card-border-top card-KPI">
+                {{"Label.TotalCashPaid"|translate}}
+                <label>{{room.claimItemsInfo.paidToInsured ? room.claimItemsInfo.paidToInsured : 0 | currency}}</label>
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-3 col-sm-3 col-xs-6 ">
+            <div class="card card-border-top card-KPI">
+                {{"Label.TotalItemsPaid"|translate}}
+                <label>{{room.claimItemsInfo.itemsPaid ? room.claimItemsInfo.itemsPaid : 0}}</label>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 margin-top-5 form-group">
+        <div class="col-lg-2 col-md-3 col-sm-3 col-xs-12 text-center">
+            <h5 class="sbold">{{'Showing All Items'|translate}}</h5>
+        </div>
+        <div class="col-lg-10 col-md-9 col-md-9 col-xs-12">
+            <div class="category_tags">
+                <div class="item_category_button" ng-repeat="category in room.categories | orderBy : 'categoryName'">
+                    <a href="#" ng-class="{active : category.active}"
+                        ng-click="category.active = !category.active; filterByCategories(category);">{{category.categoryName}}&nbsp;({{category.noOfItems}})</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 items-align-center margin-top-10 form-group" style="justify-content: center;">
+        <div class="caption font-green-sharp col-lg-4 col-md-5 col-sm-6 col-xs-12 ">
+            <div class="input-icon left">
+                <i class="icon-magnifier"></i>
+                <input type="text" class="form-control form-control-solid input-circle input-block-level"
+                    ng-model="searchItemKeyword"
+                    ng-keyup="searchItemKeyword.length > 0 ? ($event.keyCode == 13 && getItemsByKeyword()) : getItemsByKeyword()"
+                    placeholder='{{"Description"|translate}}' style="border: 1px solid #777;">
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12 col-xs-12 padding1px margin-top-10 form-group">
+        <div class="col-lg-2 col-md-3 col-xs-12 form-group items-align-center">
+            <a ng-click="addItem($event)" class="round-button"><i class="fa fa-plus" aria-hidden="true"></i></a>
+            <a ng-click="addItem($event)"
+                class="noTextDecoration font-size-13">{{"ControlText.AddNewItem"|translate}}</a>
+        </div>
+        <div class="col-lg-10 col-md-9 col-xs-12 form-group item-container custom_scroll_bar"
+            infinity-scroll="nextItems();" id="infinity_scroll_table">
+            <div class="col-lg-3 col-md-4 col-sm-4 col-xs-6 text-center margin-bottom-15"
+                ng-repeat="item in items track by $index" bs-popover>
+                <div class="col-md-11 col-sm-12 col-xs-12 card item-card" style="padding: 5px; height: 220px;"
+                    ng-style="{'background-color' : item.isNew ? '#AAD9A0' : '#ffffff'}">
+                    <div class="dropdown display-block more-options ">
+                        <span class="pull-left">Item # {{item.itemNumber}}</span>
+                        <i class="fa fa-trash text-danger pull-right" title="Delete item" ng-click="deleteItem(item)"
+                            id="item-delete-icon" ng-show="item.status.status != constants.itemStatus.workInProgress"
+                            aria-hidden="true"></i>
+                    </div>
+                    <img ng-src="{{item.images ? item.images[0].url : 'assets/global/img/no-image.png'}}"
+                        ng-click="goToItemDetails(item)"
+                        onerror="this.onerror=null; this.src='assets/global/img/no-image.png';"
+                        class="item-imgs text-center margin-top-5" title="item Photo" alt="Item Pic" />
+                    <div class="display-block margin-top-5" ng-click="goToItemDetails(item)">
+                        <span rel="popover" data-trigger="hover"
+                            data-content="{{item.description ? item.description : 'No item description added'}}">{{item.description | limitTo:50}}{{item.description.length <= 50 ? '' : '...'}}</span>
+                    </div>
+                    <span class="display-block margin-top-5 sbold"
+                        ng-click="goToItemDetails(item)">{{item.category.categoryName}}</span>
+                    <span class="display-block margin-top-5" ng-click="goToItemDetails(item)"><b>Qty :
+                        </b>{{item.quantity}}</span>
+                </div>
+            </div>
+            <div id="itemsLoading" class="loading hide text-center col-sm-12 margin-top-10" style="position: relative;">
+                <i class="fa fa-spinner fa-spin fa-2x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        //$('[data-toggle="popover"]').popover();
+
+        $('.div_MainBody').on("keypress", function (e) {
+            if (e.which == 13) {
+                e.preventDefault();
+                $(".bootbox .btn-outline").click();
+            }
+        });
+    })  
+</script>

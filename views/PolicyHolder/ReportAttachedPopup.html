@@ -1,0 +1,46 @@
+﻿
+<div>
+    <div id="responsive">
+        <div class="modal-header">
+            <a class="close" ng-click="cancel()" aria-hidden="true"></a>
+            <h4 class="modal-title">{{"HeaderTitle.ReportAttached"|translate}}</h4>
+        </div>
+        <!-- Show if report attached -->
+        <div class="modal-body" ng-if="!NoRecords">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center bold">(1/5)</div>
+            <div class="col-md-12 col-lg-12 col-sm-12 text-center col-xs-12 Slide">
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 leftSlide"><i class="fa fa-chevron-left fa-2x"></i></div>
+                <div class="col-md-10 col-lg-10 col-sm-10 col-xs-10 text-center">
+                    <img onerror="this.onerror=null; this.src='assets/global/img/no-image.png';"
+                         class="img-thumbnail img-responsive img"
+                         ng-src="assets/global/img/no-image.png" alt="image" />
+                    <i class="fa fa-download fa-2x popupDownload"></i>
+                </div>
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 rightSlide"><i class="fa fa-chevron-right fa-2x"></i></div>
+            </div>
+        </div>
+
+        <!-- end  report attached -->
+
+        <!-- Show if report attached not available -->
+        <div class="modal-body" ng-if="NoRecords">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center bold">(0/0)</div>
+            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                <div class="col-md-12 margin-bottom-15 margin-top-20">
+                    <span class="control-label">{{'ControlText.NoRecordUpdatedYet'|translate}}</span>
+                </div>
+                <div class="col-md-12 margin-bottom-15 margin-top-20 ">
+                    <span class="control-label ">{{'ControlText.NoImageUpdatedYet'|translate}}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- end  report attached not available -->
+
+        <div class="clearfix"></div>
+        <div class="text-center" style="border-top: 1px solid #e5e5e5;margin-left:0px; padding:15px;">
+            <a>{{"ControlText.Uploadmorepictures"|translate}}</a>
+        </div>
+    </div>
+
+</div>

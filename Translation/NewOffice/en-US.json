@@ -1,0 +1,67 @@
+﻿{
+  "ControlText": {
+    "OfficeId_title": "Office Id",
+    "OfficeName_title": "Branch/Office Name",
+    "OfficeAddress_title": "Address",
+    "OfficeCity_title": "City",
+    "OfficeZip_title": "Zip ",
+    "OfficePhoneNumber_title": "Phone Number",
+    "btnSave": "Save",
+    "btnCancel": "Cancel",
+    "StreetAddressOne": "Street Address One",
+    "StreetAddressTwo": "Street Address Two",
+    "State": "State",
+    "DefaultTimeZone": "Default Time Zone",
+    "btnAddmoreContact": "Add More Contact",
+    "ZipCode": "Zip Code",
+    "Fax": "Fax",
+    "OfficeCode": "OfficeCode",
+    "BranchManager": "Branch Manager",
+    "InvoiceForwardingEmail":"Invoice Forwarding Email"
+
+
+  },
+  "Labels": {
+    "CompanyName": " Company Name",
+    "OfficeDetails": "Office Details",
+    "MemberDetails": "Member Details",
+    "BranchEmployees": "Branch Employees"
+  },
+  "Table": {
+    "FirstName": "First Name",
+    "LastName": "Last Name",
+    "Email": "Email Id",
+    "Phone": "Phone No",
+    "Role": "Role",
+    "Status": "Status",
+    "Action": "Action"
+  },
+
+  "PersonalInfo_Note_title": "* An email will be sent to admin to complete profile.",
+  "NewBranch": "New Branch",
+  "Export": "Export",
+  "LoadFromFile": "Load from file",
+  "View": "View",
+  "SearchBranch": "Search Branch",
+  "InActive": "In Active",
+  "Active": "Active",
+  "NewContact": "New Contact",
+  "CommonConfirmationHeading": "Confirmation..!!",
+  "ErrorMessageHeading": "Error..!!",
+  "WarningMessageAddEmployee": "Please save branch details first.",
+  "WarningHeading": "Warning..!!",
+  "Edit": "Edit",
+  "Delete": "Delete",
+  "BtnYes": "Yes",
+  "BtnNo": "No",
+  "ConfirmTitle": "Delete Contact",
+  "ConfirmMessage": "Are you sure want to delete this contact?",
+  "OfficeNameNameRequired": "Enter Office Name",
+  "ZipCodeRequired": "Enter Zip Code",
+  "StateRequired": "Please Select State",
+  "PhoneNoRequired": "Enter Phone Number",
+  "ValidPhoneNo": "Enter Valid Phone Number",
+  "CityNameRequired": "Please enter city name",
+  "FaxRequired": "Please enter fax number",
+  "OfficeCodeRequired": "Please enter office code"
+}

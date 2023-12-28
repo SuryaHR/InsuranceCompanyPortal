@@ -1,0 +1,171 @@
+﻿<div class="col-md-12 padding1px">
+    <ul class="page-breadcrumb breadcrumb sbold">
+        <li>
+            <a ng-click="GoToHome()">{{"Home"|translate}}</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span>{{"Content Service"|translate}}</span>
+        </li>
+    </ul>
+</div>
+<div class="col-md-12 portlet light padding1px" ng-if="!showNewService">
+    <div class="portlet-title">
+        <div class="caption font-gray-sharp">
+
+            <span class="caption-subject">{{"Content Services"|translate}}</span>
+
+        </div>
+
+    </div>
+    <div class="portlet-body">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 options_Background padding1px">
+                    <div class="col-md-2 col-sm-4 col-lg-3 margin-top-5 margin-bottom-5 ">
+                        <button id="btnNewService" class="btn sbold btnOptions btnMargin  pull-left " ng-click="NewService()">
+                            {{"New Service Type"|translate}}
+                        </button>
+                    </div>
+                    <div class="pull-right col-lg-5 col-md-6 margin-top-5 margin-bottom-5 col-sm-12 manageSearch padding1px">
+                        <div class="col-lg-5 col-md-5 col-xs-12 col-sm-5 pull-right ">
+                            <div class="input-icon left">
+                                <i class="icon-magnifier"></i>
+                                <input type="text" class="form-control form-control-solid input-circle input-block-level " ng-model="SearchService" placeholder={{"SearchService"|translate}}>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 table-responsive padding1px">
+                    <table class="table table-bordered table-hover table-striped" id="NavigateTable">
+                        <thead>
+                            <tr>
+                                <th ng-click="sort('id')">
+                                    {{"Service ID "|translate}}
+                                    <span class="glyphicon sort-icon" ng-show="sortKey=='id'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                </th>
+                                <th ng-click="sort('service')">
+                                    {{"Service Name"|translate}}
+                                    <span class="glyphicon sort-icon" ng-show="sortKey=='service'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                </th>
+                                <th>
+                                    {{"Description"|translate}}
+                                </th>
+                                <th class="statusHeading">
+                                    {{"Action"|translate}}
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr dir-paginate="item in ContentServiceList |orderBy:sortKey:reverse|filter:SearchService|itemsPerPage:10" paginatio-id="ContentServiceList">
+                                <td class="text-center">{{item.id}}</td>
+                                <td>{{item.service}}</td>
+                                <td>{{item.description}}</td>
+                                <td class="text-center">
+                                    <a ng-click="EditContentService(item)">
+                                        <i class="">
+                                        </i> Edit
+                                    </a>  | <a ng-click="DeleteContentService(item)">
+                                        <i class=""></i> Delete
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr ng-if="ContentServiceList.length ===0 || ContentServiceList===null">
+
+                                <td colspan="4" class="text-center"><span class="text-center text-danger">{{"NoRecordText"|translate}}</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <dir-pagination-controls max-size="3" ng-if="serviceList.length !==0 || serviceList!==null" paginatio-id="ContentServiceList"
+                                             direction-links="true"
+                                             boundary-links="true" class="pull-right">
+                    </dir-pagination-controls>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-12 portlet light padding1px" ng-if="showNewService" ng-form="AddCatalog">
+
+    <div class="portlet-title">
+
+        <div class="caption font-grey-sharp">
+
+            <span class="caption-subject" ng-if="!ContentService.id ">{{"New Service"|translate}}</span>
+            <span class="caption-subject" ng-if="ContentService.id>0">{{ContentService.service}}</span>
+
+        </div>
+
+    </div>
+    <div class="portlet-body">
+       
+        <div class="row">
+            <div class="form-group col-sm-12 col-md-8  clearfix margin-bottom-20" ng-form="CreateContentServiceForm">
+                <div class="col-md-12 col-lg-12 col-sm-12">
+                    <div class="col-md-12 col-lg-12 col-sm-12 text-right">
+                        <button id="btnBack" class="btn sbold btnMargin" ng-click="Cancel()">
+
+                            {{"Cancel"|translate}}
+                        </button>
+                        <button id="sample_editable_1_new" ng-disabled="CreateContentServiceForm.$invalid || CreateContentServiceForm.$pristine" ng-click="AddUpdateContentService()" class="btn sbold btnMargin pull-right">
+
+                            {{"Save"|translate}}
+                        </button>
+                    </div>
+                </div>
+                <div class="col-md-12 cols-sm-12 form-group margin-top-10">
+                    <label class="col-md-3 col-sm-4 control-label Label_Text_Right" ng-show="ContentService.id">{{"Service ID "|translate}}</label>
+                    <div class="col-md-4 col-sm-8">
+                        <!--<input class="form-control" readonly name="ServiceId" ng-model="ContentService.id" type="text" />-->
+                        <span>{{ContentService.id}}</span>
+                    </div>
+                </div>
+                <div class="col-md-12 cols-sm-12 Label_Text_Right form-group">
+                    <label class="col-md-3 col-sm-4 control-label">{{"Service Name"|translate}}</label>
+                    <div class="col-md-7 col-sm-8">
+                        <input class="form-control" name="ServiceName" ng-model="ContentService.service" type="text" required />
+                        <div class="errormessage">
+                            <span class="text-danger" ng-show="CreateContentServiceForm.ServiceName.$error.required && CreateContentServiceForm.ServiceName.$touched">{{"Please Enter Serivce"|translate}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 cols-sm-12 Label_Text_Right form-group">
+                    <label class="col-md-3 col-sm-4 control-label">{{"Description"|translate}}</label>
+                    <div class="col-md-7 col-sm-8">
+                        <textarea rows="3" class="form-control" name="Description" ng-model="ContentService.description" type="text" required></textarea>
+                        <div class="errormessage">
+                            <span class="text-danger" ng-show="CreateContentServiceForm.Description.$error.required && CreateContentServiceForm.Description.$touched">{{"Please Enter Serivce Description"|translate}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-sm-12 Label_Text_Right">
+                    <label class="col-md-3 col-sm-4 control-label">{{"Minimum Service Fee"|translate}}?</label>
+                    <div class="col-md-5 col-lg-5 col-sm-6" style="display:flex">
+                        <label class="mt-radio mt-radio-outline mt-radio-single ">
+                            <input type="radio" name="MinimumServiceFee" value="{{true}}" required ng-checked="ContentService.isminimumServiceFee==true" ng-model="ContentService.isminimumServiceFee" />
+                            <span></span>
+                        </label>{{'Yes' | translate}}
+                        <label class="mt-radio mt-radio-outline mt-radio-single" style="margin-left: 12%;">
+                            <input type="radio" name="MinimumServiceFee" value="{{false}}" required ng-model="ContentService.isminimumServiceFee" ng-checked="ContentService.isminimumServiceFee==false" ng-click="MinimumServiceFee(false)" />
+                            <span></span>
+                        </label>{{'No' | translate}}
+                    </div>
+                </div>
+                <div class="col-md-12 col-lg-12 col-sm-12 margin-top-20 topBorder">
+                    <div class="col-md-12 col-lg-12 col-sm-12 margin-top-10 text-right">
+                        <button id="btnBack" class="btn sbold btnMargin" ng-click="Cancel()">
+
+                            {{"Cancel"|translate}}
+                        </button>
+                        <button id="sample_editable_1_new" ng-disabled="CreateContentServiceForm.$invalid || CreateContentServiceForm.$pristine" ng-click="AddUpdateContentService()" class="btn sbold btnMargin">
+
+                            {{"Save"|translate}}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

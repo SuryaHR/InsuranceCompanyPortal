@@ -1,0 +1,291 @@
+<!-- Claim Snapshot -->
+<style>
+    .datepicker.dropdown-menu {
+        z-index: 9999 !important;
+    }
+</style>
+<div class="col-md-12 col-sm-12 col-xs-12 light bordered content-box" id="claim-snapshot" style="height: 350px !important;padding-right: 0px; padding-left: 0px;">
+    <div class="SubHeadingDiv col-xs-12 caption font-gray-sharp" style="margin-left: 10px;width: 97%;">
+        <span class="caption-subject sbold">{{"HeaderTitle.ClaimSnapshot"|translate}}</span>
+
+        <!-- Edit / update / Cancel button -->
+        <div class="fixedContent form-group padding1px text-right pull-right" style="padding-right: 5px!important;">
+            <a ng-if="!editClaimDetail && ClaimStatusContent.claimStatus.status == 'Supervisor Approval' && CommonObj.UserRole === 'CLAIM SUPERVISOR'" ng-click="editClaimDetails()">{{"Edit"|translate}}</a>
+            <a ng-if="!editClaimDetail && CommonObj.UserRole === 'ADJUSTER'" ng-click="editClaimDetails()">{{"Edit"|translate}}</a>
+            <a ng-if="editClaimDetail" ng-click="updateClaimDetails()">{{"Update"|translate}}</a>
+            <a class="margin-left-5" ng-if="editClaimDetail" ng-click="cancelEditDetails()">{{"Cancel"|translate}}</a>
+        </div>
+    </div>
+    
+    <!-- Claim Snapshot -->
+    <div class="col-md-12 col-sm-12 activity-box" style="padding:0px; height: 90%; /*overflow-y: unset; overflow-x: unset;*/">
+        <div class="col-md-12 col-sm-12 form-group padding1px" style="margin-top: 5px;">
+            <!--Claim Number  -->
+            <label
+                class="control-label col-md-3 col-sm-3 col-xs-6 text-right">{{"HeaderTitle.Claims_title"|translate}}</label>
+            <span ng-if="!editClaimDetail"
+                class="col-md-3 col-sm-3 col-xs-6 pull-left padding1px">{{CommonObj.ClaimNumber}}</span>                 
+            <div class="col-md-3 col-sm-3 col-xs-6 padding1px" ng-if="editClaimDetail">
+                <form name="claimNo" id="claimNo">
+                <input type="text" ng-value="CommonObj.ClaimNumber" maxlength="20" ng-model="editAssignedClaimDetail.claimNumber"
+                    class="form-control" ng-pattern="/^[A-Za-z0-9 \-]+$/" name="claimInput"/>
+                    <div ng-message="pattern" ng-show="claimNo.claimInput.$error.pattern" >
+                        <span class="text-danger" style="font-size: 11px;">{{"Special characters are not allowed."}}</span>
+                    </div>
+                </form>
+            </div>
+            <!-- -->
+            <!-- Status  -->
+            <label
+                class="control-label col-md-3 col-sm-3 col-xs-6 text-right">{{"ControlText.Status"|translate}}</label>
+            <span
+                class="col-md-3 col-sm-3 col-xs-6 pull-left padding1px">{{ClaimStatusContent.claimStatus.status}}</span>
+
+            <!--  -->
+        </div>
+        <div class="col-md-12 col-sm-12 form-group padding1px">
+            <!--Cliam Created Date  -->
+            <label class="control-label col-md-3 col-sm-3 col-xs-6 text-right">{{"Label.CreatedDate"|translate}}</label>
+            <span
+                class="col-md-3 col-sm-3 col-xs-6 pull-left padding1px">{{ClaimStatusContent.createdDate | DateTimeFormatShort}}</span>
+            <!-- -->
+            <!-- Elapsed Time  -->
+            <label class="control-label col-md-3 col-sm-3 col-xs-6 text-right">{{"Elapsed Time"|translate}}</label>
+            <span class="col-md-3 col-sm-3 col-xs-6 pull-left padding1px">{{ClaimStatusContent.claimTime}}</span>
+            <!--  -->
+        </div>
+        <div class="col-md-12 col-sm-12 form-group padding1px">
+            <!--Claim Loss Type -->
+            <label class="control-label col-md-3 col-sm-3 col-xs-6 text-right">{{"Label.LossType"|translate}}</label>
+            
+            <span ng-if="!editClaimDetail"
+                class="col-md-3 col-sm-3 col-xs-6 pull-left padding1px" style="word-wrap: break-word;">{{ClaimStatusContent.damageType}}</span>
+            <div class="col-md-3 col-sm-3 col-xs-6 text-left padding1px" ng-if="editClaimDetail">
+                <select class="select2me form-control" name="DamageType" required data-placeholder="Select..."
+                    ng-model="editAssignedClaimDetail.damageTypeId"
+                    ng-options="option.id as option.name for option in LossTypeList">
+                </select>
+            </div>
+            <!-- -->
+            <!-- Claim Deductable  -->
+            <label class="control-label col-md-3 col-sm-3 col-xs-6 text-right" style="padding-left: 0px;">{{"Label.Deductable"|translate}}</label>
+            <span ng-if="!editClaimDetail"
+                class="col-md-3 col-sm-3 col-xs-6 pull-left padding1px">{{ClaimStatusContent.deductible|currency}}</span>
+            <div class="col-md-3 col-sm-3 col-xs-6 text-left padding1px" ng-if="editClaimDetail">
+                <input type="text" input-Currency decimal-Only class="form-control"
+                    ng-model="editAssignedClaimDetail.deductible" />
+            </div>
+            <!--  -->
+        </div>
+        <div class="col-md-12 col-sm-12 form-group padding1px">
+            <!--Service requested will be displayed for jewelry and not editable -->            
+            <label ng-if="CommonObj.ClaimProfile  !=='Contents'" class="control-label col-md-3 col-sm-3 col-xs-6 text-right">{{"Service Requested"|translate}}</label>
+            <span  ng-if="CommonObj.ClaimProfile  !=='Contents'" class="col-md-3 col-sm-3 col-xs-6 pull-left padding1px">{{ClaimStatusContent.service.name}}
+                <span ng-if="ClaimStatusContent.service.subServicesRequested">
+                    (
+                    <span ng-repeat="subServices in ClaimStatusContent.service.subServicesRequested" ng-style="{'margin-left': $index>0 ? '-3px' : '0px' }">
+                        <span ng-if="subServices && $index==0">{{subServices.service}}</span>
+                        <span ng-if="subServices && $index>0">, {{subServices.service}}</span>
+                    </span>
+                    )
+                </span>
+            </span>
+
+            <!--Below tax will be dislayed for contents profile-->
+            <label ng-if="CommonObj.ClaimProfile =='Contents'" class="control-label col-md-3 col-sm-3 col-xs-6 text-right">{{"Label.TaxPer"|translate}}</label>
+            <span ng-if="CommonObj.ClaimProfile  =='Contents' && !editClaimDetail"
+                class="col-md-3 col-sm-3 col-xs-6 pull-left padding1px">{{ClaimStatusContent.taxRate}}</span>
+            <div ng-if="CommonObj.ClaimProfile  =='Contents' &&  editClaimDetail" 
+                 class="col-md-3 col-sm-3 col-xs-6 text-left padding1px">
+                <input class="form-control" type="text" decimal-Only ng-model="editAssignedClaimDetail.taxRate" />
+            </div>
+            
+            <!-- policyLimit  -->
+            <label class="control-label col-md-3 col-sm-3 col-xs-6 text-right">{{"Content Limits"|translate}}</label>
+            <span ng-if="!editClaimDetail"
+                class="col-md-3 col-sm-3 col-xs-6 pull-left padding1px">{{ClaimStatusContent.policyLimit | currency}}</span>
+            <div class="col-md-3 col-sm-3 col-xs-6 text-left padding1px" ng-if="editClaimDetail">
+                <input type="text" input-Currency decimal-Only class="form-control"
+                    ng-model="editAssignedClaimDetail.policyLimit" />
+            </div>
+            
+            <!--  -->
+        </div>
+
+        <div ng-if="CommonObj.ClaimProfile  !=='Contents'" class="col-md-12 col-sm-12 form-group padding1px">
+            <!--Min $ item to price -->
+            <!-- <label
+                class="control-label col-md-3 col-sm-3 col-xs-6 text-right"></label>
+            <span ng-if="!editClaimDetail"
+                class="col-md-3 col-sm-3 col-xs-6 pull-left padding1px"></span>
+            <div class="col-md-3 col-sm-3 col-xs-6 text-left padding1px" ng-if="editClaimDetail">
+            </div> -->
+            <!-- -->
+
+            <!--Below tax will be dislayed for jewelry profile-->
+            <label ng-if="CommonObj.ClaimProfile  !=='Contents'" class="control-label col-md-3 col-sm-3 col-xs-6 text-right">{{"Label.TaxPer"|translate}}</label>
+            <span ng-if="CommonObj.ClaimProfile  !=='Contents' && !editClaimDetail"
+                class="col-md-3 col-sm-3 col-xs-6 pull-left padding1px">{{ClaimStatusContent.taxRate}}</span>
+            <div ng-if="CommonObj.ClaimProfile  !=='Contents' &&  editClaimDetail" 
+                 class="col-md-3 col-sm-3 col-xs-6 text-left padding1px">
+                <input class="form-control" type="text" decimal-Only ng-model="editAssignedClaimDetail.taxRate" />
+            </div>
+
+            <!-- claim Individual Limit -->
+            <label ng-if="CommonObj.ClaimProfile  !=='Contents'" class="control-label col-md-3 col-sm-3 col-xs-6 text-right">{{"Item Limit"|translate}}</label>
+            <span ng-if="!editClaimDetail && CommonObj.ClaimProfile  !=='Contents'"
+                class="col-md-3 col-sm-3 col-xs-6 pull-left padding1px">{{ClaimStatusContent.individualLimit | currency}}</span>
+            <div class="col-md-3 col-sm-3 col-xs-6 text-left padding1px" ng-if="editClaimDetail  && claimProfile !=='Contents'">
+                <input type="text" input-Currency decimal-Only class="form-control"
+                    ng-model="editAssignedClaimDetail.individualLimit" />
+            </div>
+        </div>
+
+        <div class="col-md-12 col-sm-12 form-group padding1px">
+            <label ng-if="CommonObj.ClaimProfile =='Contents'"
+                class="control-label col-md-3 col-sm-3 col-xs-6 text-right">{{"Label.MinimumThreshold"|translate}}</label>
+            <span ng-if="CommonObj.ClaimProfile =='Contents' && !editClaimDetail"
+                class="col-md-3 col-sm-3 col-xs-6 pull-left padding1px">{{ClaimStatusContent.minimumThreshold | currency}}</span>
+            <div class="col-md-3 col-sm-3 col-xs-6 text-left padding1px" ng-if="CommonObj.ClaimProfile =='Contents' && editClaimDetail">
+                <input type="text" input-Currency decimal-Only class="form-control"
+                    ng-model="editAssignedClaimDetail.minimumThreshold" />
+            </div>
+
+            <!--empty section-->
+            <label
+                class="control-label col-md-3 col-sm-3 col-xs-6 text-right"></label>
+            <span ng-if="!editClaimDetail"
+                class="col-md-3 col-sm-3 col-xs-6 pull-left padding1px"></span>
+            <div class="col-md-3 col-sm-3 col-xs-6 text-left padding1px" ng-if="editClaimDetail">
+            </div>
+        </div>
+
+        <!--Shipping Method and Type - Jewelry Profile -->
+        <!-- <div class="col-md-12 col-sm-12 form-group padding1px" ng-show="CommonObj.ClaimProfile !=='Contents'">
+            <label
+                class="control-label col-md-3 col-sm-3 col-xs-6 text-right" id="cal3">{{"Label.ShippingDate"|translate}}</label>
+            <span ng-if="!editClaimDetail"
+                class="col-md-3 col-sm-3 col-xs-6 pull-left padding1px">{{ClaimStatusContent.shippingDate}}</span>
+            <div class="col-md-3 col-sm-3 col-xs-6 text-left padding1px" ng-show="editClaimDetail">
+                <div class="input-icon left">
+                    <i class="icon-calendar"></i>
+                    <input class="form-control datepicker" data-date-container='#cal3'
+                                                            data-date-start-date="+0d" ng-model="ClaimStatusContent.shippingDate"
+                                                            data-provide="datepicker" size="16" type="text"
+                                                            placeholder="{{'mm/dd/yyyy'|translate}} " name="ShippingDate"
+                                                            autocomplete="off" />
+                </div>
+            </div>
+            <label
+                class="control-label col-md-3 col-sm-3 col-xs-6 text-right">{{"Label.ShippingMethod"|translate}}</label>
+            <span ng-if="!editClaimDetail"
+                class="col-md-3 col-sm-3 col-xs-6 pull-left padding1px">{{ClaimStatusContent.shippingMethod.name}}</span>
+            <div class="col-md-3 col-sm-3 col-xs-6 text-left padding1px" ng-if="editClaimDetail">
+                <select class="select2me form-control col-md-12" name="ClaimShippingMethod"
+                    ng-model="ClaimStatusContent.shippingMethod.id"
+                    ng-options="item.id as item.name for item in shippingMethodsList"
+                    data-placeholder="select shipping method">
+                    <option value="" selected hidden>
+                    </option>
+                </select>
+            </div>
+        </div> -->
+
+        <!--Claim Instructions-->
+        <div ng-if="CommonObj.ClaimProfile !=='Contents'"  class="col-md-12 col-sm-12 form-group padding1px">
+            <!-- Claim Instructions -->
+            <label ng-if="CommonObj.ClaimProfile !=='Contents'" class="control-label col-md-3 col-sm-3 col-xs-6 text-right">{{"Claim Instructions"|translate}}</label>
+            <span ng-if="!editClaimDetail  && CommonObj.ClaimProfile !=='Contents'" class="col-md-9 col-sm-9 col-xs-9 pull-left padding1px" title="{{ClaimStatusContent.additionalNote}}">{{ClaimStatusContent.additionalNote | limitTo : 100}}{{ClaimStatusContent.additionalNote.length > 100 ? '...' : ''}}</span>
+            <div class="col-md-9 col-sm-9 col-xs-9 text-left padding1px" ng-if="editClaimDetail">
+                <textarea ng-model="editAssignedClaimDetail.additionalNote" maxlength="1000"
+                          class="form-control col-md-12 col-sm-12 col-lg-12 col-xs-12" rows="2"
+                          placeholder="{{'Remarks / Special Instruction'|translate}}" style="resize: none;"></textarea>
+            </div>
+        </div>
+        
+
+        <div class="col-xs-12 padding1px clearfix" style="padding-left: 10px!important;padding-bottom: 10px!important;">
+            <div ng-show="CommonObj.ClaimProfile =='Jewelry'" class="col-lg-4 col-md-4 col-sm-4 col-xs-4 column">
+                <div class="card card-border-top" style="height: 70px;">
+                    <h5 class="sbold">{{ClaimStatusContent.itemsClaimed}}</h5>
+                    <h6 class="sbold"># Items Claimed</label></h6>
+                </div>
+            </div>
+            <div ng-show="CommonObj.ClaimProfile =='Jewelry'" class="col-lg-4 col-md-4 col-sm-4 col-xs-4 column">
+                <div class="card card-border-top" style="height: 70px;">
+                    <h5 class="sbold">{{ClaimStatusContent.itemsProcessed}}</h5>
+                    <h6 class="sbold"># Items Processed</label></h6>
+                </div>
+            </div>
+            <div ng-show="CommonObj.ClaimProfile =='Contents'" class="col-lg-3 col-md-6 col-sm-3 col-xs-6 column paddingLeft0px">
+                <div class="card card-border-top" style="height: 85px;">
+                    <h6 class="card-header">Items</h6>
+                    <h6 class="sbold">{{ClaimStatusContent.itemsClaimed}} <span class="card-valLbl">Claimed</span></h6>
+                    <h6 class="sbold">{{ClaimStatusContent.itemsProcessed}} <span class="card-valLbl">Processed</span></h6>
+                </div>
+            </div>
+
+            <!-- <div class="col-lg-3 col-md-6 col-sm-3 col-xs-6 column paddingLeft0px">
+                <div class="card card-border-top " style="height: 85px;">
+                    <h6 class="card-header">Value</h6>
+                    <h6 class="sbold">{{TotalOfRCVs ? TotalOfRCVs:0 |currency}}<span class="card-valLbl">RCV</span></h6>
+                    <h6 class="sbold">{{TotalOfACVs ? TotalOfACVs: 0 |currency}}<span class="card-valLbl">ACV</span></h6>                    
+                </div>
+            </div> -->
+
+            <div ng-show="CommonObj.ClaimProfile =='Contents'" class="col-lg-3 col-md-6 col-sm-3 col-xs-6 column paddingLeft0px">
+                <div class="card card-border-top " style="height: 85px;">
+                    <h6 class="card-header">Exposure</h6>
+                    <h6 class="sbold">{{TotalOfReplExpo ? TotalOfReplExpo: 0 |currency}}<span class="card-valLbl">Repl</span></h6>
+                    <h6 class="sbold">{{TotalOfCashExpo ? TotalOfCashExpo:0 |currency}}<span class="card-valLbl">Cash</span></h6>
+                </div>
+            </div>
+
+            <div ng-show="CommonObj.ClaimProfile =='Contents'" class="col-lg-3 col-md-6 col-sm-3 col-xs-6 column paddingLeft0px">
+                <div class="card card-border-top " style="height: 85px;">
+                    <h6 class="card-header">Paid</h6>
+                    <h6 class="sbold">{{TotalOfCashPaid ? TotalOfCashPaid: 0 |currency}}<span class="card-valLbl">Cash</span></h6>
+                    <h6 class="sbold">{{TotalOfHoldoverPaid ? TotalOfHoldoverPaid:0 |currency}}<span class="card-valLbl">Holdover</span></h6>                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Vendor Assignments -->
+<div class="col-md-12 col-sm-12 col-xs-12 light bordered content-box hide" style="max-height: 315px;">
+    <div class="SubHeadingDiv col-xs-12 caption font-gray-sharp">
+        <span
+            class="caption-subject sbold">{{"HeaderTitle.VendorAssignments"|translate}}&nbsp;({{ItemAssignmentList.length}})</span>
+    </div>
+    <div class="col-xs-12 padding1px margin-top-10 form-group">
+        <div class="col-xs-6" ng-show="(groupedAssignmentList | json) != '{}'">
+            <span ng-repeat="(key, value) in groupedAssignmentList track by $index">
+                <span class="sbold">{{key}} : </span><span ng-repeat="assignment in value track by $index">
+                    <a ng-click="OpenAssignmentDetails(assignment)">{{assignment.assignmentNumber}}</a>
+                    <span ng-if="!$last">,&nbsp;&nbsp;</span></span>
+                <span ng-if="!$last"><br></span></span>
+        </div>
+        <div ng-show="(groupedAssignmentList | json) === '{}'" class="col-xs-6"
+            style="padding:10px;text-align: center;color: red;background-color: #ffffff;">
+            <em class="glyphicon glyphicon-exclamation-sign"></em>
+            &nbsp;
+            No Assignments Created
+        </div>
+        <div class="col-xs-6 padding1px font-weight-550">
+            <div class="col-lg-6 col-md-12 col-sm-6 col-xs-12 column">
+                <div class="card">
+                    <h5 class="sbold">{{ClaimStatusContent.itemsAssignedToVendors}}</h5>
+                    <h6 class="sbold">{{"Label.itemVendor"|translate}}</h6>
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-md-12 col-sm-6 col-xs-12 column">
+                <div class="card">
+                    <h5 class="sbold">{{ClaimStatusContent.itemsProcessed}}</h5>
+                    <h6 class="sbold">{{"Label.itemProcessed"|translate}}
+                    </h6>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

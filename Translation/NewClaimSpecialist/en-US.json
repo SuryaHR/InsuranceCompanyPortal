@@ -1,0 +1,65 @@
+﻿{
+  "Claim Specialist": "Claim Specialist",
+  "New Specialists": "New Specialists",
+  "TabHeaderText": {
+    "NewSpecialists": "New Claim Specialists",
+    "CategorySpecialities": "Category Specialities",
+    "UserNameNote": "(This would be the default username)",
+    "Note": "the user will be sent an email to setup the account",
+    "Specialists": "Specialists",
+    "ContactInformation": "Contact Information"
+  },
+  "ControlText": {
+    "ContactInformation": "Contact Information",
+    "SearchCategory": "Search Category",
+    "Employee#": "Employee#",
+    "FirstName": "First Name",
+    "LastName": "Last Name",
+    "EmailId": "Email Id",
+    "DayTimePhone": "Day Time Phone",
+    "MobilePhone": "Mobile Phone",
+    "Address": "Address",
+    "AddressLine1": "Street Address 1",
+    "AddressLine2": "Street Address 2",
+    "Town": "Town/City",
+    "State": "State",
+    "Zip": "Zip Code",
+    "ReportingManager": "Reporting Manager",
+    "Branch/Office": "Branch/Office",
+    "Role": "Role",
+    "Designation": "Designation",
+    "Save": "Save",
+    "CategorySpecialities": "Category Specialities"
+  },
+  "CategorySpecialistsTable": {
+    "search": "Serach categories",
+    "Specialty": "Specialty",
+    "Categories": "Categories"
+  },
+  "ErrorMessage": {
+    "lastName": "Please enter last name",
+    "EmailRequired": "Please enter email",
+    "ValidEmail": "Please enter valid email",
+    "PolicyType": "Please select policy type",
+    "HomeOwnerPolicyType": "Please select home owner policy type",
+    "ValidNumbers": "Please enter valid numbers",
+    "ZipCode": "Please enter valid zip code",
+    "ZipCodeMax": "Maximum length for zip code is 8",
+    "FirstName": "Please enter first name",
+    "maxNumber4": "4 digits are allowed in each box",
+    "ValidPhoneNumbers": "Please enter valid phone number"
+
+  },
+  "SaveDetails": {
+    "Title": "Specialist Details",
+    "Message": "Specialist Details saved successfully.",
+    "ErroMessage": "Failed to update the specialist details. please try again"
+  },
+  "Enter 3 digit in the first box": "Enter 3 digit in the first box",
+  "Enter 3 digit in the second box": "Enter 3 digit in the second box",
+  "Enter four digit in the last box": "Enter 4 digit in the last box",
+  "Please enter day phone.": "Please enter day phone.",
+  "Please enter evening phone.": "Please enter evening phone.",
+  "Please enter cell number.": "Please enter cell number."
+
+}

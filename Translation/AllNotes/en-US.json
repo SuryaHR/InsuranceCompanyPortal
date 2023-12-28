@@ -1,0 +1,21 @@
+﻿{
+  "Participant Name": "Participant Name",
+ 
+  "New": "New Note",
+  "Claim": "Claim",
+  "Note": "Note",
+  "Claim Notes": "Claim Notes",
+  "Search": "Search subject, participant..",
+  "GoBack": "Go Back",
+
+  "PolicyDetails":"Policy Details",
+  "Appraisal": "Appraisal",
+  "Notes":"Notes",
+  "PolicyNo":"Policy #",
+  "Name":"Name",
+  "SecondaryName":"Secondary Name",
+  "Address":"Address",
+  "PhoneNo":"Phone #",
+  "EmailId":"Email ID",
+  "EffectiveDate":"Effective Date"
+}

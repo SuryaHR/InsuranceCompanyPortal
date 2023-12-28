@@ -1,0 +1,593 @@
+﻿<style>
+    .verify-table {
+        word-break: break-word;
+        width: auto;
+        overflow: auto;
+    }
+
+    table,
+    th,
+    td {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+
+    .verify-table tbody {
+        display: block;
+        overflow: auto;
+        height: 400px;
+        width: 100%;
+    }
+
+    .verify-table thead,
+    .verify-table thead tr,
+    .verify-table tbody tr {
+        display: table;
+        width: 100%;
+        table-layout: fixed;
+    }
+
+    .verify-table thead {
+        width: calc(100% - 1em)
+    }
+
+    .itemTblBody-no-scroll {
+        overflow: visible !important;
+        height: auto !important;
+    }
+
+    .itemTblBody-scroll {
+        overflow: auto !important;
+        height: 800px !important;
+    }
+
+    .itemTblHead-fix {
+        position: fixed !important;
+        top: 35px !important;
+        width: 91.5% !important;
+    }
+
+    .itemTblHead-width1 {
+        width: 100% !important;
+    }
+
+    /* .itemTblHead-width2 {
+        width: 83.7% !important;
+    } */
+
+    .error-border {
+        border: 2px solid #ea6060;
+    }
+</style>
+<!-- Steps screen -->
+<div class="col-md-12 " ng-if="stepScreen">
+    <ul class="page-breadcrumb breadcrumb sbold">
+        <li>
+            <a ng-click="GotoDashboard()">{{"Home"|translate}}</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <a ng-click="GoBack($event)">{{ClaimNumber}}</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span>{{"Upload Items"|translate}}</span>
+        </li>
+    </ul>
+    <div class="col-md-12 col-xs-12 padding1px">
+        <div class="SubHeadingDiv ">
+            <div class="caption font-default-sharp">
+                <span class="caption-subject default">{{"MainHeader.BulkUploadItems"|translate}}</span>
+            </div>
+        </div>
+        <div class="col-md-12 margin-top-10 margin-bottom-10 padding1px">
+            <div class="col-md-12 margin-bottom-10">
+                <span class="control-label sbold">{{'ControlText.step'|translate}}</span>
+            </div>
+            <div class="col-md-12 margin-bottom-10">
+                <span class="control-label">{{'ControlText.step1'|translate}} <a download
+                        href="{{TemplateURL}}">&nbsp;{{'ControlText.step1.1'|translate}}
+                        &nbsp;</a>{{'ControlText.step1.2'|translate}}</span>
+            </div>
+            <div class="col-md-12 margin-bottom-5">
+                <span class="control-label">{{'ControlText.step2'|translate}}</span>
+                <ul class="margin-top-5 margin-bottom-5">
+                    <li>
+                        <span class="control-label">{{'ControlText.step2.1'|translate}}</span>
+                    </li>
+                    <li>
+                        <span class="control-label">{{'ControlText.step2.2'|translate}}</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-12 margin-bottom-10">
+                {{'ControlText.step3'|translate}}
+            </div>
+            <div class="col-md-12 col-sm-12 margin-bottom-15 form-group">
+                <div class="col-md-5 col-sm-10 col-xs-12">
+                    <span class="control-label col-md-3 col-sm-3 padding1px"> {{'ControlText.SelectFile'|translate}}
+                        :</span>
+                    <div class="col-md-9 col-sm-9 padding1px"><input class="form-control"
+                            ng-model="FileDetails.FileName" type="text"
+                            placeholder="{{'ControlText.NoFileselected'|translate}}" /></div>
+                </div>
+
+                <div class="col-md-1 col-lg-1 col-sm-2 col-xs-12">
+                    <input type="file" name="FileUpload" id="FileUpload" class="green" ng-model="fileControl"
+                        onchange="angular.element(this).scope().getFileDetails(this)" style="display: none;">
+                    <button class="sbold btn btnMargin"
+                        ng-click="FileUploadEvent($event)">{{'ControlText.SelectFile'|translate}}</button>
+                </div>
+                <div class="clearfix"></div>
+                <div class="col-md-12">
+                    <span class="text-danger sbold">{{ErrorMessage}}</span>
+                </div>
+            </div>
+            <div class="col-md-12" ng-if="showProgress">
+                <uib-progressbar class="progress-striped green" value="uploader.progress" type="{{type}}">
+                    {{type}}
+                    <i> {{uploader.progress}}% </i>
+                </uib-progressbar>
+            </div>
+        </div>
+        <div class="tools pull-right">
+            <button class="sbold btn btnMargin" ng-click="GoBack($event)">{{'ControlText.Cancel'|translate}}</button>
+            <button class="sbold btn btnMargin" ng-click="StartUpload($event)"
+                ng-disabled="FileDetails.Files.length===0">{{'ControlText.StartUpload'|translate}}</button>
+        </div>
+    </div>
+</div>
+<!-- end Steps screen -->
+
+<!-- Loading screen -->
+<div class="col-md-12" ng-if="StatusScreen">
+    <div class="portlet light bordered">
+        <div class="portlet-title">
+            <div class="caption font-green-sharp">
+                <span class="caption-subject green bold">{{"MainHeader.LoadingItems"|translate}}</span>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <div class="row">
+                <div class="col-md-12 col-xs-12">
+                    <label class="col-md-2 col-sm-2 control-label">{{'ControlText.FileName'|translate}}</label>
+                    <div class="col-md-10 col-sm-12">
+                        {{FileName}}
+                    </div>
+                </div>
+                <div class="col-md-12 col-sm-12">
+                    <label class="col-md-2 col-sm-2 control-label">{{'ControlText.Status'|translate}}</label>
+                    <div class="col-md-10 col-sm-10">
+                        <uib-progressbar class="progress-striped active margin-bottom-0" value="uploader.progress"
+                            type="{{type}}" ng-show="showProgress">
+                            {{type}}
+                            <i> {{uploader.progress}}% </i>
+                        </uib-progressbar>
+                    </div>
+                </div>
+                <div class="col-md-12 col-sm-12">
+                    <label class="col-md-2 col-sm-2 control-label">{{'ControlText.RowsProcessed'|translate}}</label>
+                    <div class="col-md-10 col-sm-10">
+                        {{FileName}}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!--end Loading screen -->
+
+<!-- Verify screen -->
+<div class="col-md-12" ng-show="VerifyScreen">
+    <div id="VerifyScreenDiv" class="portlet light bordered">
+        <div class="portlet-title">
+            <div class="caption font-green-sharp">
+                <span class="caption-subject green bold">{{"MainHeader.VerifyInformation"|translate}}</span>
+            </div>
+        </div>
+        <div class="portlet-content" id="resultdata">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 form-group">
+                    <div class="col-md-9 col-sm-9" style="padding:5px">
+                        <div class="portlet-body">
+                            <div class="row">
+                                <div class="col-md-12 col-xs-12">
+                                    <label class="col-md-2 col-sm-2 control-label text-right text-info padding1px">
+                                        {{'ControlText.FileName'|translate}}&nbsp;:</label>
+                                    <div class="col-md-10 col-sm-10 sbold">
+                                        {{FileDetails.FileName}}
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-sm-12">
+                                    <label class="col-md-2 col-sm-2 control-label text-right text-info padding1px">
+                                        {{'ControlText.RowsProcessed'|translate}}&nbsp;:</label>
+                                    <div class="col-md-10 col-sm-10 sbold">
+                                        {{rowsProcessed}}
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-sm-12">
+                                    <label class="col-md-2 col-sm-2 control-label text-right text-info padding1px">
+                                        {{'ControlText.ValidItems'|translate}}&nbsp;:</label>
+                                    <div class="col-md-10 col-sm-10 sbold">
+                                        {{Itemlist.length - (FailedItemlist.length ? FailedItemlist.length : 0)}}/{{rowsProcessed}}
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 hide">
+                                    <label class="col-md-2 col-sm-2 control-label text-right text-info">
+                                        {{'ControlText.ItemsCreated'|translate}}&nbsp;:</label>
+                                    <div class="col-md-10 sbold">
+                                        {{Itemlist.length}}/{{rowsProcessed}}
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-sm-12">
+                                    <label
+                                        class="col-md-2 col-sm-2 control-label text-right text-info padding1px">{{'ControlText.FailedItem'|translate}}&nbsp;:</label>
+                                    <div class="col-md-10 col-sm-10">
+                                        <span class="sbold">{{FailedItemlist.length}}/{{rowsProcessed}}</span>
+                                        <table class="table table-bordered table-striped table-hover"
+                                            ng-if="FailedItemlist.length > 0">
+                                            <thead id="failedItemsTblHead" class="itemTblHead-width1">
+                                                <tr>
+                                                    <th id="itemId" class="width20">
+                                                        Item #
+                                                    </th>
+                                                    <th id="failed-Reason">
+                                                        Reason
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="item in FailedItemlist">
+                                                    <td>
+                                                        {{item.id}}
+                                                    </td>
+                                                    <td>
+                                                        <span ng-repeat="reason in item.failedReasons">{{reason}}<span
+                                                                ng-if="!$last">,
+                                                            </span></span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-3" style="padding:5px">
+                        <div class="tools pull-right">
+                            <button class="sbold btn btnMargin"
+                                ng-click="CancelVerify($event)">{{'ControlText.Cancel'|translate}}</button>
+                            <button class="sbold btn btnMargin" ng-disabled="Itemlist.length<=0"
+                                ng-click="Verify($event)">{{'ControlText.FinishUpload'|translate}}</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 table-responsive padding1px">
+                    <table class="table table-bordered table-striped table-hover verify-table" id="NavigateTable">
+                        <thead id="itemListTblHead" class="itemTblHead-width1">
+                            <tr>
+                                <th id="itemNo">
+                                    Sl No
+                                </th>
+                                <th id="brand">
+                                    Brand
+                                </th>
+                                <th id="model">
+                                    Model
+                                </th>
+                                <th id="itemDesc" class="width15P">
+                                    Description
+                                </th>
+                                <th id="ageYr">
+                                    Age In Year
+                                </th>
+                                <th id="ageMo">
+                                    Age In Month
+                                </th>
+                                <th id="condition">Condition</th>
+                                <th id="purchasedFrom">
+                                    Purchased From
+                                </th>
+                                <th id="purchaseMethod">
+                                    Purchase Method
+                                </th>
+                                <th id="itemQuantity">
+                                    Quantity
+                                </th>
+                                <th id="itemStatedValue">
+                                    Stated Value
+                                </th>
+                                <th id="room">
+                                    Room Name
+                                </th>
+                                <th id="roomType">
+                                    Room Type
+                                </th>
+                                <th id="total">
+                                    Total Cost
+                                </th>
+                                <!-- <th id="tax">
+                                    Tax
+                                </th> -->
+                                <th id="category">
+                                    Category
+                                </th>
+                                <th id="sub-category">
+                                    Sub-Category
+                                </th>
+                                <th id="action">
+                                    Action
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="itemListTbl">
+                            <tr ng-repeat="item in Itemlist" ng-include="getTemplateItemsList(item)"
+                                ng-class="{'error-border' : !item.isValidItem}">
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div ng-show="scrollable.verticallyScrollable" class="tools pull-right" style="padding: 0px 10px;">
+                        <a href="#" ng-click="goToTop()">{{'Scroll to Top'|translate}}</a>
+                    </div>
+                    <script type="text/ng-template" id="displayItems">
+                            <td ng-click="EditItem(item)">
+                                {{item.id}}
+                            </td>
+                            <td ng-click="EditItem(item)">
+                                {{item.brand}}
+                            </td>
+                            <td ng-click="EditItem(item)">
+                                {{item.model}}
+                            </td>
+                            <td class="width15P" ng-click="EditItem(item)">
+                                {{item.description}}
+                            </td>
+                            <td ng-click="EditItem(item)">
+                                {{item.ageInYear ? item.ageInYear : 0 }}
+                            </td>
+                            <td ng-click="EditItem(item)">
+                                {{item.ageInMonth ? item.ageInMonth : 0}}
+                            </td>
+                            <td ng-click="EditItem(item)">{{item.condition}}</td>
+                            <td ng-click="EditItem(item)">
+                                {{item.purchaseFrom}}
+                            </td>
+                            <td ng-click="EditItem(item)">
+                                {{item.purchaseMethod}}
+                            </td>
+                            <td ng-click="EditItem(item)">
+                                {{item.quantity}}
+                            </td>
+                            <td ng-click="EditItem(item)">
+                                {{item.replacementCost | currency}}
+                            </td>
+                            <td ng-click="EditItem(item)">
+                                {{item.room}}
+                            </td>
+                            <td ng-click="EditItem(item)">
+                                {{item.roomType}}
+                            </td>
+                            <td ng-click="EditItem(item)">
+                                {{item.totalCost | currency}}
+                            </td>
+                            <!-- <td ng-click="EditItem(item)">
+                              {{item.tax}}
+                            </td> -->
+                            <td ng-click="EditItem(item)">
+                                {{item.category}}
+                            </td>
+                            <td ng-click="EditItem(item)">
+                                {{item.subCategory}}
+                            </td>
+                            <td>
+                                <a class="sbold" ng-click="removeItem(item)">Remove</a>
+                            </td>
+                        </script>
+                    <script type="text/ng-template" id="editItem">
+                            <td>
+                                <input type="text" disabled class="form-control" ng-model="selectedItem.id" placeholder='{{"Id"|translate}}'>
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" id="{{'itemBrand'+$index}}" ng-model="selectedItem.brand" placeholder='{{"Brand"|translate}}'>
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" id="{{'itemModel'+$index}}" ng-model="selectedItem.model" placeholder='{{"Model"|translate}}'>
+                            </td>
+                            <td>
+                                <textarea class="form-control width15P" id="{{'itemDesc'+$index}}" ng-model="selectedItem.description" placeholder='{{"Description"|translate}}' type="text"></textarea>
+                            </td>
+                            <td>
+                                <input class="form-control" id="{{'itemAgeYr'+$index}}"  numbers-Only ng-model="selectedItem.ageInYear" placeholder='{{"Age in years"|translate}}' type="text" />
+                            </td>
+                            <td>
+                                <input class="form-control" id="{{'itemAgeMonth'+$index}}" numbers-Only ng-model="selectedItem.ageInMonth" placeholder='{{"Age in months"|translate}}' type="text"  maxlength="2" months limit="11" ng-pattern="/^(1[0-1]|[0-9])$/"/>
+                            </td>
+                            <td>
+                                <input class="form-control" id="{{'itemCondtion'+$index}}"  ng-model="selectedItem.condition" placeholder="Item Condition" type="text" />                            </td>
+                            <td>
+                                <input class="form-control" id="{{'itemPurchaseFrm'+$index}}" ng-model="selectedItem.purchaseFrom" placeholder='{{"Purchased from"|translate}}' type="text" />
+                            </td>
+                            <td>
+                                <input class="form-control" id="{{'itemPurchaseMethod'+$index}}" ng-model="selectedItem.purchaseMethod" placeholder='{{"Purchase method"|translate}}' type="text" />
+                            </td>
+                            <td>
+                                <input class="form-control" id="{{'itemQuantity'+$index}}" numbers-Only ng-model="selectedItem.quantity" ng-change="updateItemPrice()" placeholder='{{"Quantity"|translate}}' type="text" />
+                            </td>
+                            <td>
+                                <input class="form-control" id="{{'itemReplacementCost'+$index}}" input-currency decimal-Only ng-model="selectedItem.replacementCost" ng-change="updateItemPrice()" placeholder='{{"Stated Value"|translate}}' type="text" />
+                            </td>
+                            <td>
+                                <input class="form-control" id="{{'itemRoomName'+$index}}" ng-model="selectedItem.room" placeholder='{{"Room name"|translate}}' type="text" />
+                            </td>
+                            <td>                                
+                                <select id="roomtype-select" class="form-control select2me"                                                        
+                                                        ng-model="selectedItem.roomType" data-placeholder="select"                                                        
+                                                        ng-options="option.name as option.name for option in roomTypes"></select>
+                            </td>
+                            <td>
+                                <input class="form-control" id="{{'itemTotalCost'+$index}}" input-currency decimal-Only ng-model="selectedItem.totalCost" ng-disabled="true" placeholder='{{"Total cost"|translate}}' type="text" />
+                            </td>
+                            <td>
+                                <input class="form-control" id="{{'tax'+$index}}" ng-model="selectedItem.tax" placeholder="tax" type="text" />
+                            </td>
+                            <td>
+                                <input class="form-control" id="{{'itemCategory'+$index}}"  ng-model="selectedItem.category"  placeholder='{{"Category"|translate}}' type="text" />
+                            </td>
+                            <td>
+                                <input class="form-control" id="{{'itemSubCategory'+$index}}"  ng-model="selectedItem.subCategory"  placeholder='{{"Sub category"|translate}}' type="text" />
+                            </td>
+                            <td>
+                                <a class="sbold" ng-click="saveorCancelEditedRow(selectedItem, 'save')" style="display:block;">Save</a>
+                                <a class="sbold" ng-click="saveorCancelEditedRow(selectedItem, 'cancel')" style="display:block;">Cancel</a>
+                            </td>
+                        </script>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--end Verify screen -->
+
+<!-- Finsh screen -->
+<div class="col-md-12" ng-if="FinishScreen">
+    <div class="portlet light bordered">
+        <div class="portlet-title">
+            <div class="caption font-green-sharp">
+                <span class="caption-subject green bold">{{"MainHeader.UploadSuccessful"|translate}}</span>
+            </div>
+            <div class="tools" ng-if="uploader.progress > 98">
+                <button class="sbold btn btnMargin" ng-click="Done($event)">{{'ControlText.Done'|translate}}</button>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <label
+                        class="col-md-2 col-sm-2 control-label text-right text-info">{{'ControlText.FileName'|translate}}
+                        :</label>
+                    <div class="col-md-10 sbold">
+                        {{FileDetails.FileName}}
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <label
+                        class="col-md-2 col-sm-2 control-label text-info text-right">{{'ControlText.Status'|translate}}
+                        :</label>
+                    <div class="col-md-6">
+                        <uib-progressbar class="progress-striped green" value="uploader.progress" type="{{type}}">
+                            {{type}}
+                            <i ng-if="showProgress"> {{uploader.progress}}% </i>
+                            <i ng-if="uploader.progress > 99"> DONE!! </i>
+                        </uib-progressbar>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <label
+                        class="col-md-2 col-sm-2 control-label text-right text-info">{{'ControlText.RowsProcessed'|translate}}
+                        :</label>
+                    <div class="col-md-10 sbold">
+                        {{RowCount ? RowCount : 0}}/{{Itemlist.length}}
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <label
+                        class="col-md-2 col-sm-2 control-label text-right text-info">{{'ControlText.NewItemsCreated'|translate}}
+                        :</label>
+                    <div class="col-md-10 sbold">
+                        {{newRecoredInsertedCount ? newRecoredInsertedCount : 0}}/{{Itemlist.length}}
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <label
+                        class="col-md-2 col-sm-2 control-label text-right text-info">{{'ControlText.ItemsUpdated'|translate}}
+                        :</label>
+                    <div class="col-md-10 sbold">
+                        {{UpdateCount ? UpdateCount : 0}}/{{Itemlist.length}}
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <label
+                        class="col-md-2 col-sm-2 control-label text-right text-info">{{'ControlText.FailedItem'|translate}}
+                        :</label>
+                    <div class="col-md-10 sbold">
+                        {{FailedItem ? FailedItem.length : 0}}/{{Itemlist.length}}
+                        <table class="table table-bordered table-striped table-hover" ng-if="FailedItem.length > 0">
+                            <thead id="failedItemsTblHead" class="itemTblHead-width1">
+                                <tr>
+                                    <th id="itemId" class="width20">
+                                        Item #
+                                    </th>
+                                    <th id="failed-Reason">
+                                        Reason
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in FailedItem">
+                                    <td>
+                                        {{item.id}}
+                                    </td>
+                                    <td>
+                                        <span ng-repeat="reason in item.failedReasons">{{reason}}<span ng-if="!$last">,
+                                            </span></span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!--end Finsh screen -->
+<script>
+    var Globaltd = null;
+    function Edit(span) {
+        if (Globaltd !== null)
+            HideTextbox(HideTextbox);
+        var td = span;
+        td.children[1].style.display = "block";
+        td.children[1].focus();
+        td.children[0].style.display = "none";
+        Globaltd = span;
+    }
+    function HideTextbox(span) {
+        var td = Globaltd;
+        td.children[1].style.display = "none";
+        td.children[0].style.display = "block";
+        Globaltd = null;
+    }
+
+    // Header fix with sub section and page scroll
+    $(document).scroll(function () {
+        var y = $(this).scrollTop();
+        var tblHeadElm = $('#itemListTblHead');
+        var tblRowCount = $('#NavigateTable >tbody >tr').length;
+        if (y > 280) {
+            tblHeadElm.addClass("itemTblHead-fix");
+            tblHeadElm.removeClass("itemTblHead-width1");
+            if (tblRowCount > 20) {
+                tblHeadElm.addClass("itemTblHead-width2");
+            } else {
+                tblHeadElm.removeClass("itemTblHead-width2");
+            }
+        } else {
+            tblHeadElm.removeClass("itemTblHead-width2");
+            if (tblRowCount <= 20) {
+                tblHeadElm.addClass("itemTblHead-width1");
+            } else {
+                tblHeadElm.removeClass("itemTblHead-width1");
+            }
+            tblHeadElm.removeClass("itemTblHead-fix");
+        }
+    });
+
+    $("#roomtype-select").select2();
+</script>

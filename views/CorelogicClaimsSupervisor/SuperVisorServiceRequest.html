@@ -1,0 +1,214 @@
+﻿<!--<div class="row">
+    <span class="text-muted bold caption col-md-12 col-sm-12 col-xs-12 col-lg-12 margin-bottom-5 Custombreadcrumb">
+        <a ng-click="GotoDashboard()">{{"Dashboard"|translate}}</a>&nbsp;>&nbsp;<a ng-click="BackToClaimDetails()">{{CommonObj.ClaimNumber}}</a>&nbsp;>&nbsp;{{"HeadingText.NewServiceRequest" | translate}}
+
+    </span>
+</div>-->
+<div class="col-md-12 padding1px">
+    <ul class="page-breadcrumb breadcrumb sbold">
+        <li>
+            <a ng-click="GotoDashboard()">{{"Home"|translate}}</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <a ng-click="BackToClaimDetails()">{{CommonObj.ClaimNumber}}</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span>{{"HeadingText.NewServiceRequest"|translate}}</span>
+        </li>
+    </ul>
+</div>
+<div class="col-md-12 padding1px">
+    <div class="portlet light ">
+        <div class="portlet-title">
+            <div class="caption font-grey-sharp">
+                <span class="caption-subject ">{{"New Service Request"|translate}}</span>
+            </div>
+            <div class="tools">
+                <button id="sample_editable_1_new" ng-disabled="ServiceRequest.$invalid||ServiceRequest.$pristine" class="btn sbold btnMargin pull-right" ng-click="SaveServiceRequest($event)">
+                    <!--ng-disabled="ServiceRequest.$invalid || ServiceRequest.$pristine"-->
+                    <!---->
+                    <i class="fa fa-save"></i>
+                    {{"ControlText.Save"|translate}}
+                </button>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <div class="row">
+                <!--all claims-->
+               
+                    <div class="portlet light " ng-form="ServiceRequest" id="cal">
+                        <div class="portlet-body">
+                            <div class="row">
+                                <!--top buttons-->
+                                <div class="col-md-12">
+                                    <div class="col-md-12 form-group">
+                                        <label class="col-md-2 control-label">{{"ControlText.ServiceDescription"|translate}}</label>
+                                        <div class="col-md-6">
+                                            <textarea class="form-control " ng-model="ServiceDetails.Description" type="text" rows="4" placeholder="{{'ControlText.ServiceDescription'|translate}}" required name="ServiceDesc" />
+                                            <div class="errormessage">
+                                                <span class="text-danger" ng-show="ServiceRequest.ServiceDesc.$error.required && ServiceRequest.ServiceDesc.$touched">{{"DescriptionRequired"|translate}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="col-md-12 form-group">
+                                        <label class="col-md-2 col-sm-3 control-label">{{"ControlText.ServiceCategory"|translate}}</label>
+                                        <div class="col-md-2 col-sm-3">
+                                            <select class="input-sm select2me" ng-model="ServiceDetails.id" name="serviceCategoryId"
+                                                    ng-options="option.id as option.name for option in ServiceCategoryList"></select>
+                                            <!--<div class="errormessage">
+                    <span ng-show="ServiceRequest.serviceCategoryId.$error.required && ServiceRequest.serviceCategoryId.$touched">Test</span>
+                </div>-->
+                                        </div>
+                                        <label class="col-md-1 col-sm-3 control-label">{{"ControlText.TargetDate"|translate}} </label>
+                                        <div class="col-md-3 col-sm-3">
+                                            <div class="input-icon left">
+                                                <i class="icon-calendar"></i>
+                                                <input class="form-control datepicker" data-date-container='#cal' ng-model="ServiceDetails.TargetDate" required close-on-date-selection="true" data-provide="datepicker" size="16" type="text" placeholder='{{"ControlText.Date"|translate}}' name="EventDate" />
+                                                <div class="errormessage">
+                                                    <span class="text-danger" ng-show="ServiceRequest.EventDate.$error.required && ServiceRequest.EventDate.$touched">{{"TargetDateRequired"|translate}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <label class="col-md-1 col-sm-3  control-label">{{"ControlText.CreatedBy"|translate}} </label>
+                                        <div class="col-md-3 col-sm-9 clearfix">
+                                            <a>{{ServiceDetails.CreatedBy}}</a>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-md-12 form-group">
+                                        <label class="col-md-2  control-label col-sm-3">{{"ControlText.Attachments"|translate}} </label>
+                                        <div class="col-md-10 col-sm-9">
+                                            <input id="FileUpload" type="file" multiple onchange="angular.element(this).scope().getFileDetails(this)" style="display: none;">
+                                            <button class="btn sbold btnMargin " ng-click="SelectFile()">
+                                               
+                                                {{"ControlText.AddFile"|translate}}
+                                            </button>
+                                            <div class="col-md-12">
+                                                <sapn ng-repeat="file in UploadedFiles"> <a> {{file.name}}</a> </sapn>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+              
+            </div>
+            <!-- Available Vendors -->
+            <div class="row">
+
+             
+                    <div class="portlet light ">
+                        <div class="portlet-title">
+                            <div class="caption font-grey-sharp">
+                                <span class="caption-subject ">{{"HeadingText.AvailableVendors"|translate}}</span>
+                            </div>
+                          
+                        </div>
+                        <div class="portlet-body">
+                            <div class="row">
+                                <div class="col-md-12">
+
+                                    <div class="col-md-12 portlet light table-responsive">
+                                        <div class="col-md-12 options_Background">
+                                            <div class="pull-right col-md-4 margin-bottom-5 margin-top-5" >
+                                         
+                                                    <div class="input-icon left">
+                                                        <i class="icon-magnifier"></i>
+                                                        <input type="text" class="form-control form-control-solid input-circle input-block-level" ng-model="search" placeholder={{"SearchText"|translate}}>
+                                                    </div>
+                                            
+                                            </div>
+                                        </div>
+                                        <table class="table table-striped  table-bordered table-hover order-column">
+                                            <thead>
+                                                <tr>
+                                                    <th class="table-checkbox" style="width:2%">
+                                                        
+
+                                                    </th>                                                    
+                                                    <th ng-click="sortVendor('name')">
+                                                        {{"Table.SpecialistName"|translate}}
+                                                        <span class="glyphicon sort-icon" ng-show="sortKey=='name'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                                    </th>
+                                                    <th ng-click="sortVendor('participant')">
+                                                        {{"Table.Participant"|translate}}
+                                                        <span class="glyphicon sort-icon" ng-show="sortKey=='participant'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                                    </th>
+                                                    <th ng-click="sortVendor('casesInHand')">
+                                                        {{"Table.ClaimsInHand"|translate}}
+                                                        <span class="glyphicon sort-icon" ng-show="sortKey=='casesInHand'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                                    </th>
+                                                    <th>
+                                                        {{"Table.Services"|translate}}
+                                                    </th>
+                                                    <th>
+                                                        {{"Table.Speciality"|translate}}
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr dir-paginate="Vendor in VendorList |orderBy:sortKey:reverse|filter:search|itemsPerPage:PageSize " pagination-id="VendorList">
+                                                    <td>
+                                                        <label class="mt-radio mt-radio-outline mt-radio-single">
+                                                            <input type="radio" class="radio" name="specialists" value="1" ng-click="SelectVendor(Vendor)" />
+                                                            <span></span>
+                                                        </label>
+                                                    </td>
+                                                    <!--<td></td>-->
+                                                    <td>{{Vendor.name}}</td>
+                                                    <td class="text-center">{{Vendor.participant==true? 'Yes' : 'No'}}</td>
+                                                    <td class="text-center">
+                                                        {{Vendor.casesInHand}}
+                                                    </td>
+                                                    <td class="tip">
+                                                        <span class="Overlay" ng-if="Vendor.ServicesList">{{Vendor.ServicesList }}</span>
+                                                        <span>{{Vendor.ServicesList | limitTo: 20}}{{Vendor.ServicesList.length >  20 ? '...' : ''}}</span>
+                                                    </td>
+                                                    <td class="tip">
+                                                        <span class="Overlay" ng-if="Vendor.specialitiesList">{{Vendor.specialitiesList}} </span>
+                                                        {{Vendor.specialitiesList | limitTo: 20}}  <span>{{Vendor.specialitiesList.length >  20 ? '...' : ''}}</span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <div ng-show="!VendorList.length||VendorList===null" class="col-md-12 text-center text-danger">{{"NoRecordText"|translate}}</div>
+
+                                        <dir-pagination-controls max-size="3" pagination-id="VendorList"
+                                                                 direction-links="true"
+                                                                 boundary-links="true" class="pull-right">
+                                        </dir-pagination-controls>
+                                        <!--<div class="col-md-12 col-lg-12">
+                                            <label class="col-md-12 col-lg-12"><b>{{"ControlText.SelectedVendor "|translate}} :&nbsp;&nbsp;{{SelectedVendor}}</b></label>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label class="col-md-12 col-lg-12"><b>{{"ControlText.MinimumCostofServices "|translate}} :&nbsp;&nbsp;{{ServiceDetails.RateForService|currency}}</b></label>
+                                        </div>-->
+                                    </div>
+
+                                    <!----End Pricing Specialist List-->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tools margin-right-10">
+                            <button id="sample_editable_1_new" ng-disabled="ServiceRequest.$invalid||ServiceRequest.$pristine" class="btn sbold btnMargin pull-right" ng-click="SaveServiceRequest($event)">
+                                <!--ng-disabled="ServiceRequest.$invalid || ServiceRequest.$pristine"-->
+                                <!---->
+                                <i class="fa fa-save"></i>
+                                {{"ControlText.Save"|translate}}
+                            </button>
+                        </div>
+                    </div>
+               
+            </div>
+           
+        </div>
+    </div>
+</div>
+

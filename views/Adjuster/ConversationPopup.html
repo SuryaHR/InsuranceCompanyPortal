@@ -1,0 +1,532 @@
+<style>
+    .inbox_people {
+        background: #ffffff none repeat scroll;
+        float: left;
+        overflow: hidden;
+        /* width: 35%; */
+        z-index: 1;
+        -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);
+        -moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);
+    }
+
+    .heading_people,
+    .heading_message {
+        padding: 7px;
+    }
+
+    .messages {
+        float: right;
+        clear: both;
+        position: relative;
+        border-radius: 4px;
+        border-top-left-radius: 0;
+        border: 1px solid #ddd;
+        border-left: 0;
+        width: calc(100% - 30%);
+        overflow: auto;
+        z-index: 0;
+        margin: 0;
+        padding: 0;
+        background-color: #ffffff;
+    }
+
+    .heading_message {
+        margin-bottom: 10px;
+        font-size: 18px;
+        border-radius: 4px;
+    }
+
+    .heading_message .caption-subject {
+        color: #55cef6;
+    }
+
+    .inbox_chat_head {
+        height: 63vh;
+        width: 100%;
+        overflow-y: auto;
+    }
+
+    /* .msg_box {
+        display: inline-block;
+        padding: 0 0 0 10px;
+        vertical-align: top;
+    }     */
+    .msg_history {
+        /* height: calc(40vh + 100px); */
+        height: 55vh;
+        overflow-y: auto;
+        margin: 5px;
+        position: relative;
+    }
+
+    .message_box {
+        overflow: hidden;
+        word-break: break-word;
+        margin-bottom: 10px;
+    }
+
+    .received_withd_msg {
+        width: auto;
+        /* max-width: 600px; */
+        word-break: break-word;
+        display: inline-block;
+    }
+
+    .received_withd_msg p {
+        background: #ebebeb none repeat scroll 0 0;
+        border-radius: 3px;
+        color: #646464;
+        font-size: 13px;
+        margin: 0;
+        padding: 5px 10px 5px 12px;
+        width: auto;
+    }
+
+    .sent_msg {
+        float: right;
+        width: auto;
+        display: inline-block;
+        word-break: break-word;
+    }
+
+    .sent_msg p {
+        background: #05728f none repeat scroll 0 0;
+        border-radius: 3px;
+        font-size: 13px;
+        margin: 0;
+        color: #fff;
+        padding: 5px 10px 5px 12px;
+        width: auto;
+    }
+
+    .incoming_msg_img {
+        display: inline-block;
+    }
+
+    .time_date {
+        color: #747474;
+        display: block;
+        font-size: 12px;
+        margin: 5px 0 0;
+    }
+
+    .users {
+        padding: 0;
+        position: relative;
+    }
+
+    .users .person {
+        /* position: relative; */
+        width: 100%;
+        padding: 10px 1rem;
+        cursor: pointer;
+        display: inline-block;
+        border-bottom: 2px solid #f0f4f8;
+    }
+
+    .users .person:hover {
+        background-color: #ffffff;
+        /* Fallback Color */
+        background-image: -webkit-gradient(linear, left top, left bottom, from(#e9eff5), to(#ffffff));
+        /* Saf4+, Chrome */
+        background-image: -webkit-linear-gradient(right, #e9eff5, #ffffff);
+        /* Chrome 10+, Saf5.1+, iOS 5+ */
+        background-image: -moz-linear-gradient(right, #e9eff5, #ffffff);
+        /* FF3.6 */
+        background-image: -ms-linear-gradient(right, #e9eff5, #ffffff);
+        /* IE10 */
+        background-image: -o-linear-gradient(right, #e9eff5, #ffffff);
+        /* Opera 11.10+ */
+        background-image: linear-gradient(right, #e9eff5, #ffffff);
+    }
+
+    .users .person.active-user {
+        background-color: #f1f4f7;
+        font-weight: 550;
+    }
+
+    .users .person:last-child {
+        border-bottom: 2px solid #f0f4f8;
+    }
+
+    .users .person .user {
+        display: block;
+        position: relative;
+        margin-right: 10px;
+    }
+
+    .users .person .user-img {
+        padding-left: 1px;
+    }
+
+    ul.avatars {
+        display: flex;
+        list-style-type: none;
+        margin: auto;
+        padding: 0px 7px 0px 0px;
+        z-index: 1;
+    }
+
+    li.avatars_item {
+        height: 49px;
+        margin: 0px 0px 0px 0px;
+        padding: 0px 0px 0px 0px;
+        position: relative;
+        width: 42px;
+    }
+
+    span.avatars_initials {
+        font-size: 18px;
+        font-weight: 550;
+        text-align: center;
+        line-height: 50px;
+        height: 50px;
+        width: 50px;
+        border-radius: 50% !important;
+        display: inline-block;
+        position: relative;
+    }
+
+    span.msg_avatars {
+        font-size: 12px;
+        font-weight: 550;
+        text-align: center;
+        line-height: 30px;
+        height: 30px;
+        width: 30px;
+        border-radius: 50% !important;
+        display: inline-block;
+        position: relative;
+    }
+
+    .expand_msg_box {
+        width: 90%;
+        z-index: 11;
+        -webkit-box-shadow: -6px 0 6px -5px rgba(0, 0, 0, 0.3);
+        -moz-box-shadow: -6px 0 6px -5px rgba(0, 0, 0, 0.3);
+        box-shadow: -6px 0 6px -5px rgba(0, 0, 0, 0.3);
+    }
+
+    .messages,
+    .expand_msg_box,
+    .reply_container_expand {
+        -webkit-transition: all 0.5s ease-in-out;
+        -moz-transition: all 0.5s ease-in-out;
+        transition: all 0.5s ease-in-out;
+    }
+
+    .note_refresh_spinner {
+        line-height: 2;
+    }
+
+    .search_bar {
+        background-color: #ffffff;
+        padding: 5px;
+    }
+
+    .img-responsive {
+        width: 70px;
+        height: 70px;
+    }
+
+    .msg_attachment {
+        display: inline-block;
+        padding: 0px 10px;
+    }
+
+    .reply_container {
+        background: #ffffff none repeat scroll 0 0;
+        padding: 3px;
+        border-left: 1px solid #ddd;
+        /* position: absolute; */
+        max-height: 90%;
+        bottom: 0;
+        box-shadow: 0px -2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    /* .reply_container_expand {
+        bottom: 0;
+    } */
+
+    #img_preview {
+        min-height: 450px !important;
+        width: 675px !important;
+        padding: 10px 0px;
+        position: fixed;
+        z-index: 20;
+    }
+
+    .image-wrapper {
+        max-height: 370px !important;
+        /* padding: 0px 10px; */
+        overflow: auto;
+    }
+
+    .sidebar {
+        margin: 0;
+        padding: 0;
+        width: calc(100% - 70%);
+        clear: both;
+        position: absolute;
+        overflow: auto;
+        border-radius: 4px;
+        border-top-right-radius: 0;
+        border: 1px solid #ddd;
+        border-right: 0;
+        z-index: 1;
+        -webkit-box-shadow: 6px 0 6px -5px rgba(0, 0, 0, 0.3);
+        -moz-box-shadow: 6px 0 6px -5px rgba(0, 0, 0, 0.3);
+        box-shadow: 6px 0 6px -5px rgba(0, 0, 0, 0.3);
+    }
+
+    .reply-textarea {
+        border-radius: 4px;
+        width: 100%;
+        min-height: 30px;
+        max-height: 70px;
+        white-space: pre-wrap;
+        resize: vertical;
+        outline: none;
+        border: 1px solid rgb(118, 118, 118);
+    }
+
+    @media screen and (max-width:767px) {
+        .messages {
+            width: 100%;
+            display: none;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            box-shadow: none;
+        }
+
+        .sidebar {
+            width: 100%;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            box-shadow: none;
+            position: relative;
+        }
+
+        .inbox_chat_head {
+            height: 70vh;
+        }
+
+        .msg_history {
+            height: 60vh;
+        }
+    }
+
+    /* Custom Modal CSS */
+    .modalcustom .modal-content,
+    .modalcustom .modal-body {
+        height: max-content !important;
+    }
+</style>
+<script>
+    $(document).ready(function () {
+        $("#select2insidemodal").select2({
+            dropdownParent: $("#myModal")
+        });
+    });
+</script>
+<div id="myModal">
+    <div id="responsive">
+           <!-- <div class="col-md-12 col-sm-12 col-xs-12 box-padding-right" ng-show="tab =='Conversation'">
+              <div class="light bordered">
+                  <div class="col-md-12 col-sm-12 col-xs-12 SubHeadingDiv col-xs-12 caption font-gray-sharp" style="padding-top:5px; padding-bottom:5px;">
+                    <div class="col-md-8 col-sm-8 col-xs-8">
+                      <span class="caption-subject sbold">{{"Conversations"|translate}}</span>
+                    </div>
+
+
+                  </div>
+                     <div class="inbox_chat_head pull-right">
+                          <ul class="users  general-item-list" style="margin:10px;">
+                              <li class="person item" style="border: 1px solid darkgray;" ng-repeat="note in Notes | limitTo:5"
+                                  ng-click="GetNoteDetails(note, $index)">
+                                  <div class="col-md-12 col-xs-12 padding1px" style="padding-bottom:5px;">
+                                      <div class="col-md-3 col-xs-5 user-img" style="padding-left:14px;">
+                                          <img  style="width:50px;" ng-src="assets/global/img/teamMemb.png"/>
+                                      </div>
+                                      <div class="col-md-9 col-xs-7 tip" style="padding:1px !important;">
+                                          <span class="Overlay"
+                                              ng-if="note.messages[note.messages.length - 1].message.length>80">{{note.messages[note.messages.length - 1].message}}</span><span>{{note.messages[note.messages.length - 1].message | limitTo: 80}}{{note.messages[note.messages.length - 1].message.length >  80 ? '...' : ''}}</span>
+                                      </div>
+                                  </div>
+                                  <div class="col-md-12 col-xs-12 padding1px">
+                                    <div class="col-md-3 col-xs-5 padding1px" style="text-align: initial;">
+                                        {{note.messages[note.messages.length - 1].addedBy.firstName.charAt(0).toUpperCase()+ note.messages[note.messages.length - 1].addedBy.firstName.substr(1).toLowerCase()+
+                                          ","+note.messages[note.messages.length - 1].addedBy.lastName.charAt(0).toUpperCase() + note.messages[note.messages.length - 1].addedBy.lastName.substr(1).toLowerCase()}}
+                                    </div>
+                                    <div class="col-md-9 col-xs-7 padding1px">{{note.updateDate | DateTimeFormatShort}}
+                                    </div>
+                                  </div>
+
+                              </li>
+                          </ul>
+                          <div ng-show="Notes === null || !Notes.length" class="col-xs-12 alert alert-info"
+                              style="padding:10px;padding: 20px;text-align: center;color: red; background-color: #FFF3EA;">
+                              <span>No messages available</span>
+                          </div>
+                      </div>
+          </div>
+        </div>-->
+        <!---Start Notes-->
+        <div class="col-md-12 col-xs-12 col-sm-12" ng-show="tab=='Notes'" style="padding: 0px;">
+          <div id="messages" >
+              <div class="heading_message" style="background: #2f7bb8 !important; color: white !important;">
+                  <div class="caption" style="padding-right:5px; padding-left:5px">
+                      <span>
+                      <!-- CTB-2895 -->
+                      <!-- {{ (NoteDetails.participants[0].firstName +" "+NoteDetails.participants[0].lastName) +
+                                             (NoteDetails.participants.length > 1 ? ' +' +(NoteDetails.participants.length - 1) + " others"  : '')}} -->
+                        <!-- end CTB-2895 -->
+                        <img ng-src='assets/global/img/rework-icon.svg' style="padding-right:10px" />{{"Conversations"|translate}}
+                      </span>
+                      <a class="pull-right" ng-click="cancel()" aria-hidden="true"><img ng-src='assets/global/img/close-window-icon.svg' /></a>
+                  </div>
+              </div>
+              <div class="msg_history custom_scroll_bar" id="chat_history">
+                  <div class="message_box" id="messageBox" ng-repeat="item in Comments">
+                      <div class="col-md-12 col-xs-12 padding1px">
+                        <span ng-show="item.commentedBy.displayPicture==null" ng-class="objMsg.UserId != item.commentedBy.id ? 'pull-left' : 'pull-right'"><span
+                            ng-style="{ 'background-color' : color[$index]}" title="{{item.commentedBy.name}}"
+                            class="msg_avatars text-left">{{item.commentedBy.firstName.charAt(0).toUpperCase() +" "+item.commentedBy.lastName.charAt(0).toUpperCase()}}</span>
+                    </span>
+                    <img class="msg_avatars text-left" ng-show="item.commentedBy.displayPicture!=null" ng-src="item.commentedBy.displayPicture" />
+                          <div class="col-md-10 col-xs-10 padding1px"
+                              ng-class="{'pull-right':objMsg.UserId == item.commentedBy.id}">
+                              <div
+                                  ng-class="{'sent_msg':objMsg.UserId == item.commentedBy.id, 'received_withd_msg' : objMsg.UserId != item.commentedBy.id}">
+                                  <p ng-show="item.comment" style="white-space: pre-wrap;">{{item.comment}}</p>
+                                  <span class="time_date" >
+                                      {{item.commentedBy.firstName.charAt(0).toUpperCase() + item.commentedBy.firstName.substr(1).toLowerCase() +" "+item.commentedBy.lastName.charAt(0).toUpperCase() + item.commentedBy.lastName.substr(1).toLowerCase()}},&nbsp;&nbsp;{{(item.commentedDate ? item.commentedDate: item.commentedDate)  }}
+                                      <!-- <span class="pull-right" style="padding-left: 10px;"
+                                          ng-show="objMsg.UserId == item.commentedBy.id"><i title="Delete message"
+                                              class="fa fa-trash fa-lg text-danger" aria-hidden="true"
+                                              ng-click="deleteMessage(item,NoteDetails.participants)"></i></span> -->
+                                  </span>
+                              </div>
+                              <div class="col-md-12 col-xs-12 padding1px" ng-show="item.images.length > 0">
+                                  <span class="msg_attachment margin-top-5"
+                                      ng-class="{'pull-right' : objMsg.UserId == item.commentedBy.id}"
+                                      ng-click="GetDocxDetails(attachment)" ng-repeat="attachment in item.images">
+                                      <img ng-if="isPdf(attachment.name)" ng-src='assets/global/img/pdf-icon.svg'
+                                          alt="attachment.name" class="img-responsive" title="{{attachment.name}}" />
+                                      <img ng-if="isExcel(attachment.name)" ng-src='assets/global/img/excel-icon.png'
+                                          alt="attachment.name" class="img-responsive" title="{{attachment.name}}" />
+                                      <img ng-if=isImage(attachment.name) ng-src="{{attachment.url}}"
+                                          alt="{{attachment.name}}" class="img-responsive bordered"
+                                          title="{{attachment.name}}" />
+                                      <img ng-if=isDocx(attachment.name) ng-src='assets/global/img/docs-file.svg'
+                                          alt="attachment.name" class="img-responsive" title="{{attachment.name}}" />
+                                      <a class="TextDecorationNone"
+                                          title="{{attachment.name}}">{{attachment.name| limitTo:10}}{{attachment.name.length < 10 ? '': ' ...'}}</a>
+                                  </span>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-md-12 col-sm-12 col-xs-12 reply_container" id="reply_box" style="margin-bottom:10px;">
+                  <form name="reply.messageForm">
+                      <div class="col-md-12 col-sm-12 col-xs-12 margin-top-5 form-group padding1px" style="display: flex;">
+                          <input id="messageFileUpload" multiple type="file" onchange="angular.element(this).scope().getMessageAttachmentDetails(this)"
+                              style="display: none; " accept="image/*|.pdf|.xls|.xlsx">
+                          <div class="col-lg-12 col-md-11 col-sm-11 col-xs-12 form-group padding5">
+                              <textarea ng-model="comment" class="reply-textarea"
+                                  placeholder='{{"your messages here..."|translate}}' rows="2" name="message" required></textarea>
+                                  <div class="errormessage">
+                                    <div ng-message="required" ng-show="(reply.messageForm.message.$error.required && reply.messageForm.message.$touched)">
+                                        <span class="text-danger">{{"Please enter your message"|translate}}</span>
+                                    </div>
+                                </div>
+                          </div>
+                          <span class="padding5" title="Attachments" style="line-height:40px;">
+                              <i class="fa fa-paperclip fa-2x" ng-click="selectMessageAttachments()"></i>
+                          </span>
+                          <span class="padding5" title="Send" style="line-height:30px;">
+                              <img src="assets/global/img/send-btn.svg"
+                                  ng-click="reply.messageForm.$valid && (reply.messageForm.message.$dirty || reply.uploadedMessageFiles.length > 0) ? replyMessage(comment) : ''"
+                                  width="25" height="25" />
+                          </span>
+                      </div>
+                      <div ng-show="invalidAttachment">
+                          <span class="text-danger">Please upload File less than 20MB</span>
+                      </div>
+                      <div class="col-md-12 col-xs-12 padding1px clearfix form-group"
+                          ng-show="reply.uploadedMessageFiles.length > 0">
+                          <div class="col-md-2">
+                              <label class="control-label">{{"Attachment(s)"|translate}}</label>
+                          </div>
+                          <div class="col-md-10 col-xs-12 text-left">
+                              <div ng-class="{'col-md-6 col-xs-12 text-center' : reply.uploadedMessageFiles.length <=2, 'col-md-4 col-xs-12 padding1px' : reply.uploadedMessageFiles.length >= 3 }"
+                                  ng-repeat="file in reply.uploadedMessageFiles">
+                                  <span id="previewDocs" class="sbold"
+                                      style="word-break: break-word;font-family:Calibri; font-size:14px;cursor:pointer"
+                                      ng-click="GetDocxDetails(file)"><a
+                                          title="{{file.FileName}}">{{file.FileName}}</a></span>
+                                  <span class="fa fa-times-circle fa-lg text-danger" ng-click="removeMessageFile(file)"
+                                      style="margin-left:3px;">
+                                  </span>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-md-12 col-sm-12 col-xs-12 form-group text-right hide">
+                          <a stop-propagation ng-click="resetReply()">{{'Reset'|translate}}</a>
+                          <button type="button" data-dismiss="modal" class="btn sbold btnMargin"
+                              ng-click="replyMessage(NoteDetails)"
+                              ng-disabled="(comment==''||comment==' ') && reply.messageForm.requird && reply.uploadedMessageFiles.length==0">{{"Send"|translate}}</button>
+                      </div>
+                  </form>
+              </div>
+          </div>
+        </div>
+        <!-- Attachements Preview Start -->
+        <div class="panel panel-defaul" id="img_preview" draggable ng-show="imgDiv && isAllNotes">
+            <div class="col-md-12 col-sm-12" style="padding: 0px 10px;">
+                <label class="col-md-12 col-sm-12 SubHeadingDiv margin-bottom-10"
+                    style="font-size: 14px;">{{DocxDetails.FileName}}</label>
+                <div class="col-md-12 col-sm-12 margin-bottom-10" style="text-align: left;">
+                    <a class="btn btn-default sbold btnMargin" ng-show="showDownload"
+                        ng-click="downloadAttachment(DocxDetails)">Download</a>
+                    <a class="btn btn-default sbold btnMargin" ng-show="showDelete"
+                        ng-click="deleteMessageAttachment(DocxDetails)">Delete</a>
+                    <a id="previewclose" class="btn btn-default sbold btnMargin" ng-click="close()">Close
+                        Preview</a>
+                    <a ng-if="isPDF == 2" id="previewclose" class="btn btn-default sbold btnMargin glyphicon glyphicon-plus"
+                        ng-click="largeMe()"></a>
+                    <a ng-if="isPDF == 2" id="previewclose"
+                        class="btn btn-default sbold btnMargin glyphicon glyphicon-minus" ng-click="smallMe()"></a>
+                </div>
+            </div>
+            <div class="col-md-12 col-sm-12">
+                <div class="image-wrapper">
+                    <img id="imagepre" ng-if="isPDF == 2"
+                        onerror="this.onerror=null; this.src='assets/global/img/no-image.png';" class="ImageDocx"
+                        ng-src="{{DocxDetails.url}}" alt="Image" />
+                    <!-- Show PDF region Render PDF here -->
+                    <ng-pdf ng-if="isPDF===1" template-url="views/GlobalSearch/PdfViewer.html" canvasid="pdf"
+                        scale="page-fit" page=1>
+                    </ng-pdf>
+                    <!--End Show PDF region -->
+                    <div ng-if="isPDF == 0" class="col-sm-8 col-md-6 col-xs-12" style="height:230px;width:100%;">
+                        <div class="col-md-12 col-sm-12 col-xs-12 well text-center">
+                            <span
+                                class="text-info">{{"File type does not support preview option. File will start downloading.."|translate}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Attachements Preview End-->
+
+        <div class="clearfix"></div>
+        <!-- <div class="modal-footer">
+          <div class="col-xs-12 text-center padding1px">
+              <a href="#" class="noTextDecoration" ng-click="showMessages();">{{"View All Conversations"|translate}}</a>
+          </div>
+        </div> -->
+    </div>
+</div>

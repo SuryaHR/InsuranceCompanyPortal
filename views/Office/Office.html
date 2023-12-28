@@ -1,0 +1,51 @@
+﻿<div class="col-md-12" >
+    <div class="portlet light bordered">
+        <div class="portlet-title tabbable-line">
+            <ul class="nav nav-tabs pull-left">
+                <li class="active">
+                    <a href="tab_newbranch" data-toggle="tab" ng-click="ShowNewBranch($event)"> {{"TabHeaderText.NewBranch_title"|translate}} </a>
+                </li>
+                
+                <li>
+                    <a href="tab_membercontact" data-toggle="tab" ng-click="ShowMemberContact($event)"> {{"TabHeaderText.MemberContact_title"|translate}}</a>
+                </li>
+                <li>
+                    <a href="tab_officesummary" data-toggle="tab" ng-click="ShowOfficeSummary($event)"> {{"TabHeaderText.OfficeSummary_title"|translate}}</a>
+                </li>
+            </ul>
+        </div>
+   
+    <div class="portlet-body">
+        <div class="tab-content">
+            <!--New Brach Tab-->
+            <div class="tab-pane active" id="tab_newbranch">
+                <div class="row" ng-include="'views/Office/NewBranch.html'" ng-controller="NewBranchController">
+
+                </div>
+            </div>
+            <!--End New Brach Tab-->
+
+            <!--Member Contact Tab-->
+            <div class="tab-pane" id="tab_membercontact">
+               
+                <div class="row portlet">
+                    <div class="col-md-12">
+                        <div class="col-md-12 portlet light bordered" ng-include="'views/Office/MemberContact.html'" ng-controller="MemberContactController">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--End Member Contact Tab-->
+
+            <!--Office Summary Tab-->
+            <div class="tab-pane" id="tab_officesummary">
+                <div class="row" ng-include="'views/Office/OfficeSummary.html'" ng-controller="OfficeSummaryController">
+
+                </div>
+            </div>
+            <!--End Office Summary Tab-->
+        </div>
+    </div>
+        </div>
+</div>

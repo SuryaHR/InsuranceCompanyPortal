@@ -1,0 +1,368 @@
+﻿<script>
+    //Code for multiple dropdown
+    $("#btnAdd").click(function () {
+        $("#Selet2For").select2({ multiple: true, width: "200px", });
+    });
+    function Select2foredit() {
+
+        setTimeout(function () {
+            $("#Selet2ForEdit").select2({ multiple: true, width: "200px", });
+            $("#IsActiveDrop").select2({});
+        }, 80);
+    }
+    $(document).ready(function () {
+        $("#Selet2For").select2({
+            dropdownParent: $("#myModal")
+        });
+        $("#Selet2ForEdit").select2({
+            dropdownParent: $("#myModal")
+        });
+    });
+</script>
+<div class="col-md-12">
+    <ul class="page-breadcrumb breadcrumb sbold">
+        <li>
+            <a ng-click="GoToHome()">{{"Home"|translate}}</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <a ng-click="GoBack()">{{CommonObj.CompanyName}}</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span ng-show="CommonObj.IdEdit==='true'">{{CommonObj.BranchName}}</span>
+            <span ng-show="CommonObj.IdEdit==='false'">{{"New Office"|translate}}</span>
+        </li>
+    </ul>
+</div>
+
+
+<div class="col-md-12 col-sm-12 padding1px">
+    <div class="portlet light padding1px">
+        <div class="portlet-title">
+            <div class="caption font-gray-sharp">
+                <span class="caption-subject" ng-show="SelectedBranch.Id">{{SelectedBranch.OfficeName}}</span>
+                <span class="caption-subject" ng-show="!SelectedBranch.Id">New Branch</span>
+
+            </div>
+        </div>
+
+        <div class="portlet-body">
+            <div class="row">
+                <div class="col-md-12 margin-bottom-10 text-right">
+                    <button type="button" class="btn sbold btnMargin " ng-click="GoBack()">{{'ControlText.btnCancel' |translate}}</button>
+                    <button type="button" class="btn sbold sbold btnMargin " ng-disabled="OfficeDetailsForm.$invalid||OfficeDetailsForm.$pristine" ng-click="SaveBranchDetails()">{{'ControlText.btnSave' |translate}}</button>
+                </div>
+                <div class="col-md-12 margin-bottom-10 ">
+                    <!--<div class="caption SubHeadingDiv">
+                        <span class="caption-subject">{{"Labels.OfficeDetails" | translate}}</span>
+                    </div>-->
+
+                </div>
+                <div class="form-group col-lg-6 col-md-6 col-sm-12 clearfix padding1px pull-left" ng-form="OfficeDetailsForm">
+                    <!--<div class="col-sm-12 clearfix visible-sm"></div>-->
+
+                    <div class="col-lg-12 col-md-12 col-sm-12 form-group">
+                        <div class="col-lg-4 col-md-4 col-sm-5">
+                            <label class="col-md-12 Label_Text_Right">{{"ControlText.OfficeCode"|translate}}</label>
+                        </div>
+                        <div class="col-lg-8 col-md-7 col-sm-7">
+                            <input type="text" class="form-control" ng-model="SelectedBranch.OfficeCode" placeholder="{{'ControlText.OfficeCode'|translate}}" required name="OfficeCode" />
+                            <div class="col-md-12 errormessage padding1px">
+                                <span class="text-danger" ng-show="OfficeDetailsForm.OfficeCode.$error.required && OfficeDetailsForm.OfficeCode.$touched">{{"OfficeCodeRequired"|translate}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12 form-group">
+                        <div class="col-lg-4 col-md-4 col-sm-5">
+                            <label class="col-md-12 Label_Text_Right">{{"ControlText.OfficeName_title"|translate}}</label>
+                        </div>
+                        <div class="col-lg-8 col-md-7 col-sm-7">
+                            <input type="text" class="form-control" ng-model="SelectedBranch.OfficeName" placeholder="{{'ControlText.OfficeName_title'|translate}}" required name="OfficeName" />
+                            <div class="col-md-12 errormessage padding1px">
+                                <span class="text-danger" ng-show="OfficeDetailsForm.OfficeName.$error.required && OfficeDetailsForm.OfficeName.$touched">{{"OfficeNameNameRequired"|translate}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12 form-group">
+                        <div class="col-lg-4 col-md-4 col-sm-5">
+                            <label class="col-md-12 Label_Text_Right">{{"ControlText.StreetAddressOne"|translate}}</label>
+                        </div>
+                        <div class="col-lg-8 col-md-7 col-sm-7">
+                            <input class="form-control " ng-model="SelectedBranch.StreetAddressOne" placeholder="{{'ControlText.StreetAddressOne'|translate}}" />
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12 form-group">
+                        <div class="col-lg-4 col-md-4 col-sm-5">
+                            <label class="col-md-12 Label_Text_Right">{{"ControlText.StreetAddressTwo"|translate}}</label>
+                        </div>
+                        <div class="col-lg-8 col-md-7 col-sm-7">
+                            <input class="form-control" ng-model="SelectedBranch.StreetAddressTwo" placeholder="{{'ControlText.StreetAddressTwo'|translate}}" />
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12 form-group">
+                        <div class="col-lg-4 col-md-4 col-sm-5">
+                            <label class="col-md-12 Label_Text_Right">{{"ControlText.OfficeCity_title"|translate}}</label>
+                        </div>
+                        <div class="col-lg-8 col-md-7 col-sm-7">
+                            <input type="text" class="form-control" ng-model="SelectedBranch.City" placeholder="{{'ControlText.OfficeCity_title'|translate}}" required name="City" />
+                            <div class="col-md-12 errormessage padding1px">
+                                <span class="text-danger" ng-show="OfficeDetailsForm.City.$error.required && OfficeDetailsForm.City.$touched">{{"CityNameRequired"|translate}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12  form-group">
+                        <div class="col-lg-4 col-md-4 col-sm-4">
+                            <label class="col-md-12 Label_Text_Right">{{"ControlText.State"|translate}}</label>
+                        </div>
+                        <div class="col-lg-3 col-md-4 col-sm-5">
+                            <select class="form-control select2me" ng-change="SetTimeZone()" ng-model="SelectedBranch.State" ng-options="state.id as state.state for state in ddlStateList" required name="State"></select>
+                            <div class="col-md-12 errormessage padding1px">
+                                <span class="text-danger" ng-show="OfficeDetailsForm.State.$error.required && OfficeDetailsForm.State.$touched">{{"StateRequired"|translate}}</span>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-4 col-sm-5">
+                            <label class="col-md-12 Label_Text_Right ">{{"ControlText.ZipCode"|translate}}</label>
+                        </div>
+                        <div class="col-lg-3 col-md-4 col-sm-5">
+                            <input type="text" maxlength="5" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="form-control" ng-model="SelectedBranch.Zip" placeholder="{{'ControlText.ZipCode'|translate}}" required name="ZipCode" />
+                            <div class="col-md-12 errormessage padding1px">
+                                <span class="text-danger" ng-show="OfficeDetailsForm.ZipCode.$error.required && OfficeDetailsForm.ZipCode.$touched">{{"ZipCodeRequired"|translate}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!--<div class="form-group col-lg-12 col-md-12 col-sm-12">
+
+                    </div>-->
+                    <div class="col-lg-12 col-md-12 col-sm-12  form-group">
+                        <div class="col-lg-4 col-md-4 col-sm-5">
+                            <label class="col-md-12 Label_Text_Right">{{"ControlText.Fax"|translate}}</label>
+                        </div>
+                        <div class="col-lg-8 col-md-7 col-sm-7">
+                            <input type="text" phone-input class="form-control" ng-pattern="/^([0-9-,()\s+]{15})$/" ng-trim="false" maxlength="15" ng-model="SelectedBranch.Fax" placeholder="{{'ControlText.Fax'|translate}}" name="Fax" />
+                            <div class="col-md-12 errormessage padding1px">
+                                <span class="text-danger" ng-show="OfficeDetailsForm.Fax.$error.required && OfficeDetailsForm.Fax.$touched">{{"FaxRequired"|translate}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12  form-group">
+                        <div class="col-lg-4 col-md-4 col-sm-5">
+                            <label class="col-md-12 Label_Text_Right">{{'ControlText.OfficePhoneNumber_title'|translate}}</label>
+                        </div>
+                        <div class="col-lg-8 col-md-7 col-sm-7">
+                            <input type="text" name="PhoneNo" ng-pattern="/^([0-9-,()\s+]{15})$/" ng-trim="false" maxlength="15" ng-model="SelectedBranch.PhoneNo" placeholder="XXX-XXX-XXXX" phone-input class="input-phone form-control col-md-9 " />
+                            <div class="col-md-12 errormessage padding1px">
+                                <span class="text-danger" ng-show="OfficeDetailsForm.PhoneNo.$error.required && OfficeDetailsForm.PhoneNo.$touched">{{"PhoneNoRequired"|translate}}</span>
+                                <span class="text-danger" ng-show="OfficeDetailsForm.PhoneNo.$error.pattern">{{"ValidPhoneNo"|translate}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12 form-group">
+                        <div class="col-lg-4 col-md-4 col-sm-5">
+                            <label class="col-md-12 Label_Text_Right">{{"ControlText.InvoiceForwardingEmail"|translate}}</label>
+                        </div>
+                        <div class="col-lg-8 col-md-7 col-sm-7">
+                            <input type="email" name="invoiceForwardEmail" class="form-control" ng-model="SelectedBranch.invoiceForwardingEmail" 
+                            placeholder="{{'ControlText.InvoiceForwardingEmail'|translate}}" />
+                        
+                        <div class="col-md-12 errormessage padding1px">
+                            <span class="text-danger"  
+                            ng-show="OfficeDetailsForm.invoiceForwardEmail.$error.email">{{"Please enter valid emailID."|translate}}</span>
+                        </div>
+                    </div>
+                        <!-- <span class="text-danger col-sm-12 col-xs-12 col-lg-12 col-md-12" ng-message="pattern"
+                        ng-show="(RegisterVendor.useremail.$touched && RegisterVendor.useremail.$error.pattern)">
+                      {{"Please enter valid emailID."|translate}} -->
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12 form-group">
+                        <div class="col-lg-4 col-md-4 col-sm-5">
+                            <label class="col-md-12 Label_Text_Right">{{"ControlText.DefaultTimeZone"|translate}}</label>
+                        </div>
+                        <div class="col-lg-8 col-md-7 col-sm-7">
+                            <input type="text" class="form-control" ng-model="SelectedBranch.DefaultTimeZone" placeholder="{{'ControlText.DefaultTimeZone'|translate}}" />
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 col-md-12 col-sm-12 form-group">
+                        <div class="col-lg-4 col-md-4 col-sm-5">
+                            <label class="col-md-12 Label_Text_Right">{{"ControlText.BranchManager"|translate}}</label>
+                        </div>
+                        <div class="col-lg-8 col-md-7 col-sm-7">
+                            
+                            <select class="form-control select2me"  ng-model="SelectedBranch.BranchManager" ng-options="item.userId as item.lastName +', '+item.firstName +' ( '+item.role[0].roleName.toUpperCase()+' )' for item in BranchMgnrList"  required name="BranchMangr"></select>                          
+                            <div class="col-md-12 errormessage padding1px">
+                                <span class="text-danger" ng-show="OfficeDetailsForm.BranchMangr.$error.required && OfficeDetailsForm.BranchMangr.$touched">{{"Select branch manager"|translate}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tools text-right topBorder">
+                <button type="button" class="btn sbold btnMargin margin-top-10" ng-click="GoBack()">{{'ControlText.btnCancel' |translate}}</button>
+                <button type="button" class="btn sbold btnMargin margin-top-10" ng-disabled="OfficeDetailsForm.$invalid||OfficeDetailsForm.$pristine" ng-click="SaveBranchDetails()">{{'ControlText.btnSave' |translate}}</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="portlet light padding1px">
+        <div class="portlet-body">
+            <div class="col-md-12 col-sm-12 padding1px">
+                <div class="SubHeadingDiv margin-bottom-10">
+                    <span class="caption-subject">{{"Labels.BranchEmployees" | translate}}</span>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 options_Background padding1px">
+                    <div class="col-lg-5 col-md-5 col-sm-12 margin-bottom-5 margin-top-5">
+                        <button class="btn btnMargin  sbold btnOptions" ng-click="AddNewContacts()" id="btnAdd">{{"New Employee"|translate}}</button>
+                        <button class="btn btnMargin  sbold">{{"LoadFromFile"|translate}}</button>
+                        <button class="btn btnMargin  sbold">{{"Export"|translate}}</button>
+                    </div>
+                    <div class="col-lg-7 col-md-6 visible-md visible-lg margin-bottom-5  margin-top-5 padding1px">
+                        <div class="col-lg-5 col-md-5 padding1px pull-right">
+                            <div class="input-icon left">
+                                <i class="icon-magnifier"></i>
+                                <input type="text" ng-model="searchEmployee" class="form-control form-control-solid input-circle input-block-level btnMargin " placeholder="{{'SearchBranch' | translate}}">
+                            </div>
+                        </div>
+                        <div class="col-lg-5 col-md-5 pull-right">
+                            <select class="form-control btnMargin " ng-model="CommonObj.ShowItem" placeholder='{{"Options"|translate}}' ng-change="FilterRecord()">
+                                <option value="All">{{"All"|translate}}</option>
+                                <option value=true>{{"Active"|translate}}</option>
+                                <option value=false>{{"InActive"|translate}}</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-1 col-md-1 pull-right"><label class="text_options_Label">{{"View"|translate}}</label></div>
+                    </div>
+                    <div class="col-sm-12 margin-bottom-5  margin-top-5 visible-sm padding1px">
+                        <div class="col-sm-1"><label class="text_options_Label">{{"View"|translate}}</label></div>
+                        <div class="col-sm-5 ">
+                            <select class="form-control btnMargin" ng-model="ShowItem" placeholder='{{"Options"|translate}}'></select>
+                        </div>
+                        <div class="col-sm-5">
+                            <div class="input-icon left">
+                                <i class="icon-magnifier"></i>
+                                <input type="text" ng-model="searchOffice" class="form-control form-control-solid input-circle input-block-level btnMargin" placeholder="{{'SearchBranch' | translate}}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 col-lg-12 col-sm-12 table-responsive padding1px" id="myModal">
+                <table class="table table-striped table-bordered table-hover table-checkable order-column" id="abc">
+                    <thead>
+                        <tr>
+                            <th ng-click="sort('id')">
+                                {{"Id"|translate}}
+                                <span class="glyphicon sort-icon" ng-show="sortKey=='id'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                            </th>
+                            <th ng-click="sort('firstName')">
+                                {{"Table.FirstName"|translate}}
+                                <span class="glyphicon sort-icon" ng-show="sortKey=='firstName'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                            </th>
+                            <th ng-click="sort('lastName')">
+                                {{"Table.LastName"|translate}}
+                                <span class="glyphicon sort-icon" ng-show="sortKey=='lastName'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+
+                            </th>
+                            <th ng-click="sort('email')">
+                                {{"Table.Email"|translate}}
+
+                                <span class="glyphicon sort-icon" ng-show="sortKey=='email'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                            </th>
+                            <th ng-click="sort('eveningTimePhone')">
+                                {{"Table.Phone"|translate}}
+                                <span class="glyphicon sort-icon" ng-show="sortKey=='eveningTimePhone'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                            </th>
+                            <th>
+                                {{"Table.Role"|translate}}
+                            </th>
+                            <th ng-click="sort('isActive')" class="statusHeading">
+                                {{"Table.Status"|translate}}
+                                <span class="glyphicon sort-icon" ng-show="sortKey=='isActive'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                            </th>
+                            <th ng-show="AddNewContact==false && EditContact==false"  class="statusHeading">{{"Table.Action"|translate}}</th>
+                            <th ng-show="AddNewContact==true || EditContact==true"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-show="AddNewContact">
+                            <td></td>
+                            <td><input type="text" class="form-control" ng-model="SelectedMember.firstName" /></td>
+                            <td><input type="text" class="form-control" ng-model="SelectedMember.lastName" /></td>
+                            <td><input type="text" class="form-control" ng-model="SelectedMember.email" /></td>
+                            <td>
+                                <input type="text" name="phonenumber" ng-pattern="/^([0-9-]{12})$/" maxlength="12" ng-model="SelectedMember.eveningTimePhone" placeholder="XXX-XXX-XXXX" phone-input class="input-phone form-control" />
+                            </td>
+                            <td>
+                                <div style="max-height:50px; overflow-y:auto">
+                                    <select class="form-control" id="Selet2For" multiple ng-model="commonObj.RoleId" ng-options="role.id as role.name for role in RoleList"></select>
+                                </div>
+                            </td>
+                            <td>
+                                <div style="width:100px !important;">
+                                    <select class="form-control select2me" ng-model="SelectedMember.isActive" ng-options="status.Id as status.Name for status in StatusList"></select>
+                                </div>
+                            </td>
+                            <td>
+                                <div style="display:flex" class="btn-group btn-group-circle btn-outline">
+                                    <a ng-click="saveContact($index,'Save')" >Save</a>
+                                    <a ng-click="CancelAddNewContacts()">Cancel</a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr ng-if="EmployeeList!=null" dir-paginate="item in EmployeeList|orderBy:sortKey:reverse|filter:searchEmployee|itemsPerPage:5" ng-include="getTemplate(item)"></tr>
+                        <tr ng-if="EmployeeList===null||!EmployeeList">
+                            <td colspan="8" class="text-danger" style="text-align: center !important;">{{"NoRecordText"|translate}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="clearfix"></div>
+                <dir-pagination-controls max-size="3" direction-links="true" boundary-links="true" class="pull-right ">
+                </dir-pagination-controls>
+            </div>
+            <script type="text/ng-template" id="display">
+                <td>{{item.id}}</td>
+                <td class="text-left">{{item.firstName}}</td>
+                <td class="text-left">{{item.lastName}}  </td>
+                <td class="text-left">{{item.email}}</td>
+                <td class="text-left">{{item.eveningTimePhone |tel}}</td>
+                <td><span ng-repeat="role  in item.roles"><span>{{role.roleName}}</span><span ng-if="!$last">,</span></span></td>
+                <td class="text-center"><span ng-if="item.isActive===false">{{"InActive"|translate}}</span> <span ng-if="item.isActive===true">{{"Active"|translate}}</span></td>
+                <td style="text-align:center">
+                    <a style="margin:0px!important" onclick="Select2foredit()" id="btnEdit" ng-click="editContact(item)">{{"Edit"|translate}}</a>
+                    <a style="margin:0px!important" ng-click="DeleteContact(item)">{{"Delete"|translate}}</a>
+                </td>
+            </script>
+            <script type="text/ng-template" id="edit">
+                <td><input type="text" class="form-control" readonly ng-model="SelectedMember.id" /></td>
+                <td><input type="text" class="form-control" ng-model="SelectedMember.firstName" /></td>
+                <td><input type="text" class="form-control" ng-model="SelectedMember.lastName" /></td>
+                <td><input type="text" class="form-control" ng-model="SelectedMember.email" /></td>
+                <td>
+                    <input type="text" name="phonenumber" ng-pattern="/^([0-9-]{12})$/" maxlength="12" ng-model="SelectedMember.eveningTimePhone" placeholder="XXX-XXX-XXXX" phone-input class="input-phone form-control" />
+                </td>
+                <td>
+                    <div style="max-height:50px; overflow-y:auto">
+                        <select class="form-control select2me" multiple id="Selet2ForEdit" ng-model="commonObj.RoleId"
+                                ng-options="role.id as role.name for role in RoleList"></select>
+                    </div>
+                </td>
+                <td>
+                    <div style="width:100px !important;">
+                        <select class="form-control" id="IsActiveDrop" ng-model="SelectedMember.isActive" ng-options="status.Id as status.Name for status in StatusList"></select>
+                    </div>
+                </td>
+                <td>
+                    <div style="display:flex" class="btn-group btn-group-circle btn-outline">
+                        <a ng-click="saveContact($index,'Edit')" >Save</a>
+                        <a ng-click="CancelEdit()" >Cancel</a>
+                    </div>
+                </td>
+            </script>
+
+            <!-- <label class="text-danger"> {{"PersonalInfo_Note_title" | translate}}</label> -->
+        </div>
+        <!--End Member Contact Details-->
+
+    </div>
+</div>

@@ -1,0 +1,112 @@
+﻿<script>
+$(document).ready(function () {
+    $("#select2insidemodal").select2({
+        dropdownParent: $("#mapItemsGroup")
+    });
+   $('#select2insidemodal').select2({});
+});
+</script>
+<!-- PDF nevigation -->
+<div class="text-center visible-sm margin-bottom-5">
+    <span class="sbold text-info">{{"Receipt"|translate}}</span>
+</div>
+<!--<div class="text-center col-sm-12 col-md-12 col-xs-12 bottomBorder ">
+    <span class="glyphicon glyphicon-menu-left font-lg" style="cursor:pointer;margin-top:5px;" ng-click="goPreviousPage($event)"></span>
+    <span class="font-md sbold">( {{PDFPageNumber}}/{{pageCount}} )</span>
+    <span ng-click="goNextPage($event)" style="cursor:pointer;" class="glyphicon glyphicon-menu-right font-lg"></span>
+</div>-->
+<div class="text-center col-sm-12 col-md-12 col-xs-12 bottomBorder ">
+    <!--<span class="glyphicon glyphicon-menu-left font-lg" ng-click="PreviousReceipt()"></span>
+    <span class="font-md sbold">( {{Recieptindex +1}}/{{ReceiptList.length}} )</span>
+    <span ng-click="NextReceipt()" class="glyphicon glyphicon-menu-right font-lg"></span>-->
+    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 text-center" id="receiptName">
+        <label class="">File Name: &nbsp;</label><span>{{ClaimDetails.Attachment.name}}</span>
+    </div>
+    <!--<div class="col-md-3 col-lg-2 col-sm-2 col-xs-2 text-right">
+        <span ng-if="ZoomIn" class="pull-right margin-bottom-10 hidden-sm hidden-xs	glyphicon glyphicon-resize-full " style="font-size: 18px;" ng-click="ZoomPdfSection()"></span>
+        <span ng-if="ZoomOut" class="pull-right margin-bottom-10 glyphicon glyphicon-resize-small" style="font-size: 20px;" ng-click="ZoomOutPdfSection()"></span>
+        <span class="glyphicon glyphicon-tags pull-right" style="transform: rotate(90deg);font-size: 18px;padding-bottom: -2px;margin-right:5px;" ng-click="ModalLabels(pdfId)"></span>
+    </div>-->
+    <div class="clearfix margin-bottom-10"></div>
+    <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12 ">
+        <div>
+            <span class="glyphicon glyphicon-triangle-left font-lg col-md-1 col-sm-2 col-sm-offset-2 col-md-offset-1 col-xs-2 col-lg-1 col-lg-offset-3" style="font-size: 20px;" ng-click="goPreviousPage($event)"></span>
+            <span class="font-md sbold col-md-5 col-sm-3 col-md-offset-1 col-lg-3 col-sm-3 col-lg-offset-1  col-xs-8">Page  ( {{PDFPageNumber}}/{{pageCount}} )</span>
+            <span class="glyphicon glyphicon-triangle-right col-md-offset-1	 font-lg col-md-1  col-lg-1 col-sm-3 col-xs-2" style="font-size: 20px;" ng-click="goNextPage($event)"></span>
+ </div>
+
+
+    </div>
+</div>
+<!--End PDF nevigation-->
+<!--PDF page Handler-->
+<!--<div class="col-md-12 margin-top-10">
+    <div class="col-md-8 col-sm-8 col-xs-12 col-lg-8 margintop5">
+        <button class="btnclass btn-sm glyphicon glyphicon-menu-left" ng-click="goPrevious()"></button>
+        <button ng-click="zoomIn()" class="btnclass btn-sm glyphicon glyphicon-plus"></button>
+        <button ng-click="fit()" class="btnclass btn-sm">100%</button>
+        <button ng-click="zoomOut()" class="btnclass btn-sm glyphicon glyphicon-minus"></button>
+        <button class="btnclass btn-sm glyphicon glyphicon-menu-right" ng-click="goNext()"></button>
+    </div>
+    <div class="col-md-4 col-lg-4 col-sm-4 text-right col-xs-12 margintop5 padding1px">
+     
+        <span>Page:</span>
+        <label class="" type="text" min=1 ng-model="pageNum" id="page_num">{{pageNum}} / {{ pageCount }}</label>
+      
+    </div>
+</div>-->
+<!--End PDF page Handler-->
+<!-- Render PDF -->
+<div class="col-md-12 col-sm-12 col-xs-12 padding1px" style="max-height:520px!important;overflow:auto !important;" id="load_canvas" >
+    {{loading}}
+
+    <canvas id="pdf" class="col-md-12 col-sm-12" title={{popupMessage}} ng-click="ShowPopUp(null,$event,0,0)" ></canvas>
+
+    <!--Model Start-->
+    <div id="mapItemsGroup" class="newItemPopup">
+        <div  class="Model Model ui-widget-content ui-draggable ui-draggable-handle mapItem itemMapped" id="popUp" ng-show="isShowPopup" ng-form="DocumentComment">
+            <span class="fa fa-times-circle fa-2x font-red pull-right margin-top-5" ng-click="HidePopUp($event)"></span>
+            <div class="col-md-12 col-sm-12 padding1px margin-top-10">
+                <div class="col-md-12 col-sm-12 form-group">
+                    <textarea class="form-control" placeholder='{{"Description Of the comment"|translate}}' ng-model="Selected.Comment"></textarea>
+                    <div class="">
+                        <span class="text-danger" ng-show="DocumentComment.comment.$error.required && DocumentComment.comment.$touched">{{"Please enter comment"|translate}}</span>
+                    </div>
+                </div>
+                <div class="col-md-12 col-sm-12 padding1px form-group">
+                    <label class="col-md-4 control-label text-muted">{{"Creator"|translate}}</label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" placeholder='{{"Creator"|translate}}' readonly ng-model="Selected.UserName" />
+                    </div>
+                </div>
+                <div class="col-md-12 col-sm-12 form-group padding1px">
+                    <label class="col-md-4 control-label text-muted">{{"Recipients"|translate}}</label>
+                    <div class="col-md-8">
+                        <select class="form-control select2me input-large" style="width:100%;" data-placeholder="Participants" multiple ng-model="CommonObject.particiapnt" id="select2insidemodal"
+                        name="participants" ng-options="item.participantId as item.firstName+' '+item.lastName for item in ClaimParticipantsList" required></select>
+                        <div class="">
+                            <span class="text-danger" ng-show="DocumentComment.participants.$error.required && DocumentComment.participants.$touched">{{"Please select participant"|translate}}</span>
+                        </div>
+                     </div>
+                </div>
+                <div class="col-md-12 col-sm-12 form-group text-center">
+                    <button class="btn sbold  btnMargin" ng-click="SaveValues($event)" ng-disabled="DocumentComment.$invalid||DocumentComment.$pristine">
+                   
+                    {{"Save"|translate}}</button>
+                    <button class="btn sbold btnMargin" ng-click="HidePopUp($event)">
+                       
+                    {{"Cancel"|translate}}</button>
+                    <button class="btn sbold btnMargin" ng-click="DeleteMapping($event)">
+                       
+                    {{"Delete"|translate}}</button>
+                </div>
+            </div>
+            </div>
+        </div>
+        <!--Model End-->
+
+    </div>
+<div class="col-md-12 col-sm-12 col-xs-12" id="receiptName">
+    <p class="" style="text-align:center">{{receiptName}}</p>
+</div>
+<!--End Render PDF -->

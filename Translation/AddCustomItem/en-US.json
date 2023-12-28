@@ -1,0 +1,35 @@
+﻿{
+  "HeaderText": {
+    "ReplacementItem": "Replacement Item",
+    "NewWorksheetItem": "New Worksheet Item"
+  },
+  "Table": {
+    "ItemID": "Item ID",
+    "ItemDescription": "Item Description",
+    "UnitPrice": "Unit Price",
+    "Quantity": "Quantity",
+    "TotalCost": "Total Cost",
+    "Attachments": "Attachments",
+    "Action": "Action"
+  },
+
+  "Label": {
+    "ReplacementDescription": "Replacement Description",
+    "ReplacementrDescription": "Replacement Description",
+    "ItemCoverageLimit": "Item Coverage Limit",
+    "GroupCoverageLimit": "Group Coverage Limit",
+    "ReplacementCost": "Replacement Cost",
+    "TotalCost": "Total Cost",
+    "Description": "Description",
+    "UnitPrice": "Unit Price",
+    "Quantity": "Quantity",
+    "TaxRate": "Tax Rate",
+    "Attachments": "Attachments"
+  },
+
+  "NewItem": "New Item",
+  "Save": "Save",
+  "Delete": "Delete",
+  "Cancel": "Cancel",
+  "NewCustomItem": "New Custom Item"
+}

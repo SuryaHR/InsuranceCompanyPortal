@@ -1,0 +1,52 @@
+<script>
+    $("#roomType").select2();
+</script>
+<div id="myModal">
+    <div id="responsive">
+        <div class="modal-header clearfix">
+            <a class="TextDecorationNone pull-right" id="icon-close-btn" ng-click="roomModal.dismiss()">
+                <i class="fa fa-times-circle fa-2x text-danger" aria-hidden="true"></i></a>
+            <h5 class="modal-title sbold">
+                {{room.id && !room.isDefaultRoom ? "Update Room" :  "Title.NewRoom"|translate}}
+            </h5>
+        </div>
+        <div class="modal-body clearfix">
+            <div class="col-xs-12 padding1px" ng-form="AddRoomForm">
+                <!-- Room Name-->
+                <div class="col-xs-12 form-group">
+                    <label class="control-label">{{"Room Name"|translate}}</label>
+                    <div class="col-xs-12">
+                        <input type="text" id="roomName" name="roomName" class="form-control"
+                            ng-model="room.name" placeholder="Room name" autocomplete="false123" />
+                        <div class="errormessage hide">
+                            <span class="text-danger"
+                                ng-show="AddRoomForm.roomName.$error.required && AddRoomForm.roomName.$touched">{{"Please enter room name"|translate}}</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Room Type-->
+                <div class="col-xs-12 form-group">
+                    <label class="control-label">{{"Room Type"|translate}} </label>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <select class="form-control select2me" ng-model="room.type.id" id="roomType"
+                            data-placeholder="Select room type"
+                            ng-options="option.id as option.name for option in roomTypes">
+                            <option value=''></option>
+                        </select>
+                    </div>
+                </div>
+                <!-- Buttons -->
+                <div class="col-xs-12 margin-top-10 text-right">
+                    <a id="sample_editable_1_new" ng-click="roomModal.dismiss()" id="room-cancel-btn" style="text-decoration: underline;">
+                        {{"Label.Cancel"|translate}}</a>
+                    <button id="sample_editable_1_new" id="room-add-btn" ng-disabled="AddRoomForm.$invalid || (!room.type && !room.name)"
+                        ng-click="addRoom()" class="btn sbold btnMargin">
+                        {{room.id && !room.isDefaultRoom ? "Label.Update" : "Label.AddRoom"|translate}}
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer hide">
+        </div>
+    </div>
+</div>

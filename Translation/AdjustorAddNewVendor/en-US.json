@@ -1,0 +1,72 @@
+﻿{
+  "Modal": {
+    "Header": "New Third Party Vendor"
+  },
+  "ControlText": {
+
+    "AddParticipantPopup": "Add Participant",
+    "Cancel": "Cancel",
+    "Go": "GO",
+    "Ok": "OK"
+
+  },
+  "Radio": {
+    "InternalParticipant": "Internal Participant",
+    "Existing3rdPartyVendor": "Existing 3rd Party Vendor",
+    "New3rdPartyVendor": "New 3rd Party Vendor"
+  },
+  "FormControl": {
+    "ParticipantType": "Participant Type",
+    "Supplier": "Supplier#",
+    "SupplierName": "Supplier Name",
+    "CompanyWebsite": "Company Website",
+    "ContactPerson": "Contact Person*",
+    "SuppliersPhone": "Supplier's Phone*",
+    "FirstName": "First Name",
+    "LastName": "Last Name",
+    "Phone": "Phone",
+    "Email": "Email",
+    "ShippingAddress": "Shipping Address",
+    "BillingAddress": "Billing Address",
+    "AddressLine1": "Address Line 1",
+    "AddressLine2": "Address Line 2",
+    "City": "City",
+    "State": "State",
+    "ZipCode": "Zip Code",
+    "Name": "Name",
+    "Reason": "Reason To Be Involved In The claim",
+    "Address": "Address",
+    "Clear": "Clear",
+    "AddVendor": "Add Vendor"
+  },
+  "ErrorMessage": {
+    "SearchTextRquired": "Please enter value to search",
+    "ContactPersonDetailsRequired": "All details are required",
+    "FirstNameRequired": "Enter First Name",
+    "LastNameRequired": "Enter Last Name",
+    "SelectVendorFromList": "Please select vendor from list.",
+    "SelectEmployeeFromList": "Please select employee from list. ",
+    "EmailCorrect": "Enter Valid Email Id",
+    "ValidNumbers": "Enter Valid Phone No"
+  },
+  "AlertMessage": {
+    "ExternalParticiapnt": "External Participant",
+    "NewVendor": "New Vendor",
+    "ExistingVendor": "Existing Vendor",
+    "InternalEmployee": "Internal Employee",
+    "AddParticipant": "Add Participant"
+
+  },
+  "SearchCategory": "Search Category",
+  "AddToPermanentVendor": "Add to permanent vendor's list",
+  "SearchForExistingEmployee": "Search an existing employee",
+  "SearchForExistingVendor": "Search an existing vendor",
+  "SearchExistingVendor": "Search third party vendor",
+  "SearchInternalEmployee": "Search internal employee",
+  "Result": "Result",
+  "NoRecordText": "0 results found for search",
+  "SuccessHeading": "Confirmation",
+  "ErrorHeading": "Error"
+
+
+}

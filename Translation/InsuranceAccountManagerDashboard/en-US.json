@@ -1,0 +1,52 @@
+﻿{
+  "LabelText":{
+    "ArtileAndPremium" : "Article Coverage And Premiums",
+    "ArticleCoverageTrend" : "Article Coverage Trend",
+    "PremiumTrend" : "Premium Trend",
+    "ArtileAndPremiumChartNote" : "* All dollar values are in '000s (thousands)",
+    
+    "ThisMonth" : "This Month",
+    "ThisQuarter" : "This Quarter",
+    "ThisYear" : "This Year",
+
+    "AllDollarValues" : "All dollar values are in '000s (thousands)",
+    "ViewAll" : "View All",
+
+    "DueAppraisals":"Appraisals Due For Update",
+    "CompanyPerformance" : "Company KPI's",
+    "ItemCategory" : "Item Category Split",
+    "PolicyholderReviewResults" : "Policyholder Review Results",
+
+    "AppraisalsNeedUpdate" : "Appraisals Needing Update",
+    "AppraisalsExpiring" : "Appraisals Expiring",
+
+    "AppraisalsCreatedPerDay":"Avg.# of appraisals created per day",
+    "AvgEvaluationTime": "Average evaluation time",
+    "AppraisalsEvaluatedPerDay":"Avg.# of appraisals evaluated per day",
+    "AppraisalsSentForArtigem":"Appraisals sent for Artigem Review",
+    "TotalAppraisalsCreated" : "Total # of appraisals created"
+    },
+
+    "Table":
+    {
+      "AgencyReports":"Agencies Report",
+      "Placeholder": "Agency code, Agent's name",
+      "AgencyCode":"Agency Code",
+      "AgentName":"Agent Name",
+      "ActivePolicies":"Active Policies",
+      "TotalAppraisals":"Total # of Appraisals",
+      "TotalValueAppraisals":"Total Value of Appraisals",
+      "YearlyPremium":"Yearly Insurance Premium",
+      "NoRecords" : "No agent found"
+    },
+
+  "HeaderText":{
+    "Dashboard":"Dashboard",
+    "AllAppraisals":"All Appraisals",
+    "Reports":"Reports",
+    "Settings":"Settings"
+  },
+  
+  "View-More" : "View More"
+
+}

@@ -1,0 +1,29 @@
+{
+  "data": {
+    "insuranceCarrier":"Insurance Company Name",
+    "serverAddress": "http://localhost:8080",
+    "Xoriginator": "worldwide.3circledemo.com",
+    "apiurl": "/ArtigemRS-FI/api/",
+    "AdminApiurl": "/ArtigemRS-FI_Admin/api/",
+    "receipturl": "/",
+    "ExportUrl": "",
+    "ClaimTemplate": "/artigem/templates/ClaimDetails.xlsx",
+    "ItemTemplate": "/ArtigemRS-FI/artigem/templates/postloss_Items.xlsx",
+    "VendorDetailsTemplate": "/artigem/templates/VendorCatalogUpload.xlsx",
+    "UserDetailsTemplate": "/artigem/templates/UserDetails.xlsx",
+    "zipcodesAndPremiumTemplate":"/ArtigemRS-FI/artigem/mediafiles/zipCodesAndPremiumTemplate.csv",
+    "claimProfile": "Jewelry",
+    "serviceRequests" : "true",
+    "jewelryVendor": "ARTGM",
+    "speedCheckVendor": "ARTGM",
+    "SpeedCheckApiurl": "http://localhost:8080/SpeedCheck_App/api/",
+    "hideCaptcha":"true",
+    "gemGuideApi":"false",
+    "gemGuideClientKey":"bd49fe6a766bce8ef1cd55102284f6ce",
+    "googleShoppingDropdown":"false",
+    "loginWithSSO":"true",
+    "ThirdPartyAdjusting" : "false",
+    "loginWithSAML": "true",
+    "isCoreLogic":"false"
+  }
+}

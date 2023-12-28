@@ -1,0 +1,37 @@
+﻿{
+  "HeaderTitle": {
+    "AllReplQuotesSummary": "All Replacement Quotes Summary",
+    "ReplEstimateSummary" : "Replacement Estimate Summary",
+    "ReplEstimate" : "Replacement Estimate - ",
+    "ReplQuote" : "Replacement Quote - "    
+  },
+  
+  "Table": {
+    "Item": "Item #",
+    "OriginItemDesc": "Original Item Description",
+    "Status": "Status",
+    "OriginalCost": "Original Cost",
+    "ReplItemDesc": "Replacement Item Description",
+    "ReplCost": "Replacement Cost",
+    "QuoteDate": "Quote Date",
+    "QuotedBy": "Quoted By" 
+  },
+
+  "Summary" : {
+    "DateOfQuote" : "Date Of Quote",
+    "Company" : "Insurance Company",
+    "Adjuster" : "Adjuster",
+    "AdjusterEmail" : "Adjuster Email",
+    "Branch" : "Branch / Office",
+    "Address" : "Address",
+    "Claim#" : "Claim #",
+    "#Items" : "# Items",
+    "QuotePreparedFor" : "Quote Prepared For",
+    "Policyholder" : "Policyholder",
+    "PolicyholderEmail" : "Policyholder Email",
+    "PolicyholderMobile" : "Policyholder Mobile Phone"
+  },
+
+  "DownloadPDF":"Download as PDF"
+
+}

@@ -1,0 +1,286 @@
+<style>
+    .CursorLeft {
+        cursor: pointer !important;
+    }
+
+    .ReplacedClass {
+        border: 2px solid #6bbae0 !important;
+        padding: 12px 15px 15px 15px !important;
+        border-radius: 4px !important;
+        margin-bottom: 10px !important;
+    }
+</style>
+<script type="text/javascript">
+    $(function () {
+        iOSHandler();
+        $(window).on("orientationchange", function (event) {
+            iOSHandler();
+        });
+    });
+    function iOSHandler() {
+        var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        var width = screen.width;
+
+        if (iOS) {
+
+            var orientation;
+            if (window.orientation == undefined) {
+                orientation = window.screen.orientation.angle;
+            }
+            else {
+                orientation = window.orientation;
+            }
+
+            if (orientation != 0) {
+                if (screen.width < screen.height) {
+                    width = screen.height;
+                }
+            }
+            //iPhone4-Landscape
+            if (width > 475 && width < 485) {
+                $(".comparablesDivDB").css("height", "auto");
+                $(".addedComp").css("width", "100%");
+                $(".addedComp").css("overflow", "scroll");
+                $(".addedComp").css("-webkit-overflow-scrolling", "touch");
+
+            }
+
+            //iPhone5-Landscape
+            else if (width > 562 && width < 572) {
+                $(".comparablesDivDB").css("height", "auto");
+                $(".addedComp").css("width", "100%");
+                $(".addedComp").css("overflow", "scroll");
+                $(".addedComp").css("-webkit-overflow-scrolling", "touch");
+
+            }
+            //iPhone4,5-Portrait
+            else if (width > 315 && width < 325) {
+                $(".comparablesDivDB").css("height", "auto");
+                $(".addedComp").css("width", "100%");
+                $(".addedComp").css("overflow", "scroll");
+                $(".addedComp").css("-webkit-overflow-scrolling", "touch");
+
+            }
+
+            //iPhone6-Landscape
+            else if (width > 660 && width < 670) {
+                $(".comparablesDivDB").css("height", "auto");
+                $(".addedComp").css("width", "100%");
+                $(".addedComp").css("overflow", "scroll");
+                $(".addedComp").css("-webkit-overflow-scrolling", "touch");
+
+            }
+            //iPhone6-Portrait
+            else if (width > 370 && width < 380) {
+                $(".comparablesDivDB").css("height", "auto");
+                $(".addedComp").css("width", "100%");
+                $(".addedComp").css("overflow", "scroll");
+                $(".addedComp").css("-webkit-overflow-scrolling", "touch");
+
+            }
+
+            //iPhone6+-Landscape
+            else if (width > 730 && width < 740) {
+                $(".comparablesDivDB").css("height", "auto");
+                $(".addedComp").css("width", "100%");
+                $(".addedComp").css("overflow", "scroll");
+                $(".addedComp").css("-webkit-overflow-scrolling", "touch");
+
+            }
+            //iPhone6+-Portrait
+            else if (width > 410 && width < 420) {
+                $(".comparablesDivDB").css("height", "auto");
+                $(".addedComp").css("width", "100%");
+                $(".addedComp").css("overflow", "scroll");
+                $(".addedComp").css("-webkit-overflow-scrolling", "touch");
+
+            }
+
+            //ipad
+            else if (width > 1020 && width < 1025) {
+                $(".comparablesDivDB").css("height", "958px");
+                $(".googleComparableBodyHeight").css("height", "729px");
+                $(".googleSerachResultDiv").css("height", "632px");
+                $(".noteDiv").css("height", "215px");
+                $(".addedComp").css("height", "215px");
+                $(".addedComp").css("width", "100%");
+                $(".addedComp").css("overflow", "scroll");
+                $(".addedComp").css("-webkit-overflow-scrolling", "touch");
+
+
+            }
+
+            //else if (width > 760 && width < 769) {
+
+            //    $(".googleComparableBodyHeight").css("height", "680px");
+
+            //}
+            else if (width > 1360 && width < 1367) {
+                $(".googleComparableBodyHeight").css("height", "540px");
+                $(".comparablesDivDB").css("height", "853px");
+
+            }
+        }
+    }
+
+</script>
+<style>
+    #btnAddCustomItem:hover {
+        color: ghostwhite;
+    }
+
+    .mandatory {
+        color: red;
+    }
+
+    .NoDecoration {
+        text-decoration: none !important;
+        color: black;
+    }
+
+    .angucomplete-dropdown {
+        bottom: 100% !important;
+    }
+
+    @media (min-device-width:768px) {
+        .width14 {
+            width: 16% !important;
+        }
+
+        .width16 {
+            width: 17.6%;
+            height: 4px;
+        }
+
+        .StatusNumber {
+            margin-left: 2% !important;
+        }
+
+        .StatusHorizontalLine {
+            margin-left: 9% !important;
+        }
+    }
+
+    @media (max-device-width:768px) {
+        .width14 {
+            width: 14% !important;
+        }
+
+        .width16 {
+            width: 15%;
+            height: 4px;
+        }
+
+        .StatusNumber {
+            margin-left: 13% !important;
+        }
+
+        .StatusHorizontalLine {
+            margin-left: 18% !important;
+        }
+    }
+</style>
+
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding1px">
+        <div class="portlet light padding1px" style="padding-top: 0px;">
+            <div class="form-group">
+
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+                    <ul class="page-breadcrumb breadcrumb sbold">
+                        <li>
+                            <a ng-click="GoToHome()">{{"Nav.Home"|translate}}</a>
+                            <i class="fa fa-circle"></i>
+                        </li>
+                        <li>
+                            <span>{{"Nav.AutoInsuranceRequests"|translate}}</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+                    <div class="portlet-body">
+                        <div class="row">
+                            <div class="col-md-12 colsm-12">
+                                <div class="portlet-title" style="border-bottom: 1px solid #666; margin-bottom: 5px;">
+                                    <div class="caption font-gray-sharp ">
+                                        <span class="caption-subject ng-binding" style="font-size: 18px;color: #666;">{{"Nav.AutoInsuranceRequests"|translate}}</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 options_Background padding1px">
+                                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 margin-bottom-5 margin-top-5 pull-right">
+                                        <div class="input-icon left">
+                                            <i class="icon-magnifier"></i>
+                                            <input type="text" ng-model="search" class="form-control form-control-solid input-circle input-block-level " placeholder="{{'Table.Search'| translate}}" ng-keyup="search.length > 0 ? ($event.keyCode == 13 && searchAppraisalsByKeyword(search)) : searchAppraisalsByKeyword('')">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 table-responsive padding1px" style="background-color: white;">
+                                    <table class="table  table-striped table-bordered table-hover table-checkable order-column"
+                                    id="NavigateTable" >
+                                        <thead>
+                                            <tr>
+                                                <th ng-click="sort('')">
+                                                    {{"Table.VIN #"|translate}}
+                                                    <span class="glyphicon sort-icon" ng-show="sortKey==='appraisal_number'" ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                </th>
+                                                <th ng-click="sort('')">
+                                                    {{"Table.Vehicle"|translate}}
+                                                    <span class="glyphicon sort-icon" ng-show="sortKey==='item_type'" ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                </th>
+                                                <th ng-click="sort('')">
+                                                    {{"Table.Submitted Date"|translate}}
+                                                    <span class="glyphicon sort-icon" ng-show="sortKey==='submitted_date'" ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                </th>
+                                                <th ng-click="sort('')">
+                                                    {{"Table.Policy #"|translate}}
+                                                    <span class="glyphicon sort-icon" ng-show="sortKey==='policy_number'" ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                </th>
+                                                <th ng-click="sort('')">
+                                                    {{"Table.Policyholder"|translate}}
+                                                    <span class="glyphicon sort-icon" ng-show="sortKey==='createdBy'" ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                </th>
+                                                <th ng-click="sort('')" >
+                                                    {{"Table.Vehicle's Value"|translate}}
+                                                    <span class="glyphicon sort-icon" ng-show="sortKey==='coverage'" ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                </th>
+                                                <th ng-click="sort('')" >
+                                                    {{"Table.Status"|translate}}
+                                                    <span class="glyphicon sort-icon" ng-show="sortKey==='status'" ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-click="openAutoAppraisalDetails(item)" dir-paginate="item in autoAppraisals | itemsPerPage:pageSize track by $index"
+                                            total-items="totalItems" current-page="currentPage" pagination-id="newRequests">
+                                                <td>{{item.vin}}</td>
+                                                <td>{{item.make}}, {{item.model}}, {{modelYear}}</td>
+                                                <td>{{item.createdDate | formatDate}}</td>
+                                                <td>{{item.vin}}</td>
+                                                <td>{{item.createdBy}}</td>
+                                                <td>{{item.purchasePrice | USCurrencyFormat}}</td>
+                                                <td>{{item.status}}</td>
+                                            </tr>
+                                            <tr ng-if="autoAppraisals.length===0 || autoAppraisals===null">
+                                                <td colspan="8" class="text-center text-danger" style="text-align: center;">{{"Table.NoAppraisals"|translate}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="clearfix"></div>
+                                    <dir-pagination-controls pagination-id="newRequests" max-size="10" on-page-change="pageChangeHandler(newPageNumber)" direction-links="true" boundary-links="true"
+                                        class="pull-right ">
+                                    </dir-pagination-controls>
+                                    <span ng-if="autoAppraisals!=null && autoAppraisals.length!=0" class="bold" style="color: #337ab7;"> Showing {{ (pageSize * (currentPage - 1))+1 }} to {{toShowingPage}} of {{totalItems}} records </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!---End Branches/Office-->
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>

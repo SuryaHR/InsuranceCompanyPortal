@@ -1,0 +1,22 @@
+{
+    "Nav":{
+        "Home":"Home",
+        "NewInsuranceRequests":"New Insurance Requests"
+        },
+    
+     "Table":{
+         "placeholder" : "Policy #, Policyholder's Name, Appraisal #",
+         "NoAppraisals" : "No appraisals found",
+         "Appraisal":"Appraisal #",
+         "ItemType":"Item Type",
+         "SubmittedDate":"Submitted Date",
+         "Policy":"Policy #",
+         "Policyholder":"Policyholder",
+         "SpeedCheckAppraisalDate":"SpeedCheck Appraisal Date",
+         "InsuranceReplacementValue":"Insurance Replacement Value",
+         "Status":"Status",
+         "ItemValue" : "Item's Value",
+         "InsuranceCoverageRequested" : "Insurance Coverage Requested"
+     }   
+    
+    }

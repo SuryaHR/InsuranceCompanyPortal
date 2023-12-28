@@ -1,0 +1,76 @@
+﻿{
+  "TabHeaderText": {
+    "ContactInfromation": "ContactInfromation",
+    "CategorySpecialities": "Category Specialities",
+    "Note": "the user will be sent an email to setup the account",
+    "Specialists": "Specialists"
+  },
+  "ControlText": {
+    "MatchingResult": "Matching Result",
+    "Go": "Go",
+    "CreateNewUser": "Create New User",
+    "NoResultFound": "No Result Found",
+    "SearchClaim": "SearchReference#, Insured Name, Phone#",
+    "SearchCategory": "Search Category",
+    "Employee#": "Employee#",
+    "FirstName": "First Name",
+    "LastName": "Last Name",
+    "EmailId": "Email Id",
+    "DayTimePhone": "Day Time Phone",
+    "MobilePhone": "Mobile Phone",
+    "Address": "Address",
+    "ReportingManager": "Reporting Manager",
+    "Branch/Office": "Branch/Office",
+    "Role": "Role",
+    "Designation": "Designation",
+    "Save": "Save",
+    "Show": "Show",
+    "CategorySpecialities": "Category Specialities",
+    "Name": "Name",
+    "Category": "Category",
+    "Specialities": "Specialities",
+    "AssignedClaims": "Assigned Claims",
+    "View": "View",
+    "AddressLine1": "Street Address Line1",
+    "AddressLine2": "Street Address Line2",
+    "Town": "Town / City",
+    "Zip": "Zip"
+  },
+  "Table": {
+    "Type": "Type",
+    "Claim#": "Claim#",
+    "Policy#": "Policy#",
+    "HeadLine": "HeadLine",
+    "DateOfClaim": "Date Of Claim",
+    "Status": "Status"
+  },
+  "CategorySpecialistsTable": {
+    "search": "Serach categories",
+    "Specialty": "Specialty",
+    "Categories": "Categories"
+  },
+  "SaveDetails": {
+    "Title": "Specialist Details",
+    "Message": "Specialist Details updated successfully.",
+    "ErroMessage": "Failed to update the specialist details. please try again"
+
+  },
+  "ErrorMessage": {
+    "lastName": "Please enter last name",
+    "EmailRequired": "Please enter email",
+    "ValidEmail": "Please enter valid email",
+    "ValidNumbers": "Please enter valid numbers",
+    "ZipCode": "Please enter valid zip code",
+    "ZipCodeMax": "Maximum length for zip code is 8",
+    "FirstName": "Please enter first name",
+    "maxNumber4": "4 digits are allowed in each box",
+    "ValidPhoneNumbers": "Please enter valid phone number"
+
+  },
+  "Enter 3 digit in the first box": "Enter 3 digit in the first box",
+  "Enter 3 digit in the second box": "Enter 3 digit in the second box",
+  "Enter four digit in the last box": "Enter 4 digit in the last box",
+  "Please enter day phone.": "Please enter day phone.",
+  "Please enter evening phone.": "Please enter evening phone.",
+  "Please enter cell number.": "Please enter cell number."
+}

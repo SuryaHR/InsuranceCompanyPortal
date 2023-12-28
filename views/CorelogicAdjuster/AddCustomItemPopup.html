@@ -1,0 +1,255 @@
+﻿<script>
+$(document).ready(function () {
+    $("#select2insidemodal").select2({
+        dropdownParent: $("#myModal")
+    });
+    window.addEventListener("paste", processEvent);
+    function processEvent(e) {
+        for (var i = 0 ; i < e.clipboardData.items.length ; i++) {
+            // get the clipboard item
+            var clipboardItem = e.clipboardData.items[i];
+            var type = clipboardItem.type;
+            // if it's an image add it to the image field
+            if (type.indexOf("image") != -1) {
+                // get the image content and create an img dom element
+                var blob = clipboardItem.getAsFile();
+                var blobUrl = window.URL.createObjectURL(blob);
+                var img = document.getElementById('customImage');
+                var fileReader = new FileReader();
+                fileReader.onloadend = function () {
+                    var result = fileReader.result
+                    img.src = result;
+                }
+                fileReader.readAsDataURL(blob);
+                var Imagefile = this.dataURItoBlob(img.currentSrc);
+                var image = new File([Imagefile], 'image.png');
+
+            } else {
+             //   console.log("Not supported: " + type);
+            }
+        }
+    }
+
+});
+
+function dataURItoBlob(dataURI) {
+    var byteString = atob(dataURI.toString().split(',')[1]);
+    //var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+    var ab = new ArrayBuffer(byteString.length);
+    var ia = new Uint8Array(ab);
+    for (var i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i);
+    }
+    var blob = new Blob([ab], { type: 'image/png' }); //or mimeString if you want
+    return blob;
+}
+
+</script>
+<div id="myModal">
+    <div id="responsive">
+        <div class="modal-header">
+            <a class="close" ng-click="cancel()" aria-hidden="true"></a>
+            <h4 ng-if="ItemDetails.id == null" class="modal-title">{{"New Custom Comparable"|translate}}</h4>
+            <h4 ng-if="ItemDetails.id != null" class="modal-title">{{"Update Custom Comparable"|translate}}</h4>
+        </div>
+        <div class="modal-body">
+            <form>
+                <div class="col-md-12 col-lg-12 col-sm-12 clearfix padding1px form-group" ng-form="CreateCustomItem" id="CreateCustomItem">
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                            <div class="col-lg-12 col-md-12 col-sm-12" ng-show="!((attachmentList && attachmentList.FileName )
+                            ||( attachmentListEdit && attachmentListEdit[0]))">
+                        <img ng-paste="paste()" id="customImage" ng-src={{NoImagePath}} class="img-responsive" style="height: 120px !important;width: 120px !important; border:1px solid #a1a1a1;padding:2px;border-radius:4px" />
+                            </div>
+                            <div class="col-md-12 col-sm-12 padding1px"
+                             style="text-align: center; width: 120px;">
+                               
+                                <div ng-show="attachmentList  && attachmentList.FileName">
+                                <a class="TextDecorationNone" style="top:8px;left:60px;position:relative"
+                                    ng-click="RemoveEditAttachment()">
+                                    <i class="fa fa-times-circle fa-2x text-danger" aria-hidden="true"></i></a>
+                                    <img ng-src="{{attachmentList.Image}}" alt="Pictures of the item"
+                                        class="img-responsive bordered "
+                                        style="width:120px; height:120px;padding:5px;border:1px groove;" />
+                                </div>
+                                <div ng-show="attachmentListEdit && attachmentListEdit[0] " >
+                                    <a class="TextDecorationNone"
+                                        style="top:8px;left:60px;position:relative"
+                                        ng-click="deleteItemAttachment();">
+                                        <i class="fa fa-times-circle fa-2x text-danger"
+                                            aria-hidden="true"></i></a>
+                                    <img ng-src="{{attachmentListEdit[0]}}" alt="Pictures of the item"
+                                        class="img-responsive bordered "
+                                        style="width:120px; height:120px;padding:5px;border:1px groove;" />
+                                </div>
+                                <span id="previewDocs" class="sbold" 
+                                    style="word-break: break-word;font-family:Calibri; font-size:14px;cursor:pointer"
+                                    ng-click="GetDocxDetails(attachmentList)"><a
+                                        title="{{attachmentList.FileName}}">{{attachmentList.FileName| limitTo:15}}{{attachmentList.FileName.length < 15 ? '': ' ...'}}</a></span>
+                            </div>
+                            <!-- <div class="col-md-12 col-sm-12 padding1px"  ng-show="attachmentListEdit != null && attachmentListEdit.length > 0"
+                            style="text-align: center; width: 120px;">
+                               <a class="TextDecorationNone" style="top:8px;left:60px;position:relative"
+                                   ng-click="RemoveEditAttachment()">
+                                   <i class="fa fa-times-circle fa-2x text-danger" aria-hidden="true"></i></a>
+                               <div ng-if=isImage(attachmentListEdit.FileName)>
+                                   <img ng-src="{{attachmentListEdit.Image}}" alt="Pictures of the item"
+                                       class="img-responsive bordered "
+                                       style="width:120px; height:120px;padding:5px;border:1px groove;" />
+                               </div>
+                               <span id="previewDocs" class="sbold"
+                                   style="word-break: break-word;font-family:Calibri; font-size:14px;cursor:pointer"
+                                   ng-click="GetDocxDetails(attachmentList)"><a
+                                       title="{{attachmentList.FileName}}">{{attachmentList.FileName| limitTo:15}}{{attachmentList.FileName.length < 15 ? '': ' ...'}}</a></span>
+                           </div> -->
+                            <div class="col-md-12 col-sm-12">
+                                    <input id="FileUpload" type="file" name="imageUpload"
+                                        onchange="angular.element(this).scope().getAttachmentDetails(this)"
+                                        style="display: none;" accept="image/*|.pdf|.xls|.xlsx" ng-attr-placeholder='upload Image'>
+                                    <a style="text-decoration:none"
+                                        ng-click="AddAttachment($event)">Click to add attachment</a>&nbsp;&nbsp;
+                                </div>
+                                <!-- kjhkjhk{{attachmentListEdit}} -->
+                                <!-- <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-group"
+                                            ng-show="attachmentListEdit != null && attachmentListEdit.length > 0">
+                                            <div class="col-md-3">
+                                            </div>
+                                            <div class="col-md-9 col-xs-12">
+                                                <div class="col-md-6 col-sm-4 col-xs-10 margin-bottom-10 clearfix"
+                                                    style="padding: 0px;margin-left: 0;"
+                                                    ng-repeat="file in attachmentListEdit">
+                                                    <div>
+                                                        <div class="col-md-12 col-sm-12 padding1px"
+                                                            style="text-align: center; width: 120px;">
+                                                            <!-- <a class="TextDecorationNone"
+                                                                style="top:8px;left:60px;position:relative"
+                                                                ng-click="RemoveEditImage()">
+                                                                <i class="fa fa-times-circle fa-2x text-danger"
+                                                                    aria-hidden="true"></i></a> -->
+                                                            <!-- <div ng-if=isPdf(file.FileName)>
+                                                                <img ng-src='assets/global/img/pdf-icon.svg'
+                                                                    class="img-responsive bordered "
+                                                                    style="width:120px; height:120px;padding:5px;border:1px groove;" />
+                                                            </div>
+                                                            <div ng-if=isExcel(file.FileName)>
+                                                                <img ng-src='assets/global/img/excel-icon.png'
+                                                                    class="img-responsive bordered "
+                                                                    style="width:120px; height:120px;padding:5px;border:1px groove;" />
+                                                            </div> -->
+                                                            <!-- <div>
+                                                                <img ng-src="{{file}}"
+                                                                    alt="Pictures of the incident"
+                                                                    class="img-responsive bordered "
+                                                                    style="width:120px; height:120px;padding:5px;border:1px groove;" />
+                                                            </div> -->
+                                                            <!-- <div ng-if=isDocx(file.FileName)>
+                                                                <img ng-src='assets/global/img/docs-file.svg'
+                                                                    class="img-responsive bordered "
+                                                                    style="width:120px; height:120px;padding:5px;border:1px groove;" />
+                                                            </div>
+                                                            <span id="previewDocs" class="sbold"
+                                                                style="word-break: break-word;font-family:Calibri; font-size:14px;cursor:pointer"
+                                                                ng-click="GetDocxDetails(file)"><a
+                                                                    title="{{file.FileName}}">{{file.FileName| limitTo:15}}{{file.FileName.length < 15 ? '': ' ...'}}</a></span> 
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> -->
+                                        <!-- upload image start -->
+                                        <!-- <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-group"
+                                            ng-show="attachmentList && attachmentList.FileName">
+                                            <div class="col-md-3 text-right">
+                                            </div>
+                                            <div class="col-md-9 col-xs-12">
+                                                <div class="col-md-6 col-sm-4 col-xs-10 margin-bottom-10 clearfix"
+                                                    style="padding:0px;" >
+                                                    <div class="col-md-12 col-sm-12 padding1px"
+                                                        style="text-align: center; width: 120px;">
+                                                        <a class="TextDecorationNone"
+                                                            style="top:8px;left:60px;position:relative"
+                                                            ng-click="RemoveEditAttachment()">
+                                                            <i class="fa fa-times-circle fa-2x text-danger"
+                                                                aria-hidden="true"></i></a>
+                                                        <div ng-if=isImage(attachmentList.FileName)>
+                                                            <img ng-src="{{attachmentList.Image}}" alt="Pictures of the item"
+                                                                class="img-responsive bordered "
+                                                                style="width:120px; height:120px;padding:5px;border:1px groove;" />
+                                                        </div>
+                                                        <span id="previewDocs" class="sbold"
+                                                            style="word-break: break-word;font-family:Calibri; font-size:14px;cursor:pointer"
+                                                            ng-click="GetDocxDetails(attachmentList)"><a
+                                                                title="{{attachmentList.FileName}}">{{attachmentList.FileName| limitTo:15}}{{attachmentList.FileName.length < 15 ? '': ' ...'}}</a></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> -->
+                                        <!-- upload image end -->
+                    </div>
+                    <div class="col-lg-9 col-md-9 col-sm-9 margin-bottom-10">
+                        <div class="col-md-12 col-lg-12 col-sm-12">
+                            <label class="control-label "><span class="text-danger">*</span>Replacement Description </label>
+                            <textarea class="form-control" name="desc" maxlength="4096" required ng-model="ItemDetails.ItemDescription" ng-attr-placeholder='Item Description'></textarea>
+                        <div class="errormessage">
+                            <span ng-show="(CreateCustomItem.desc.$error.required && CreateCustomItem.desc.$touched)">Please enter item description</span>
+                        </div>
+                        </div>
+                        <div class="col-md-12 col-lg-12 col-sm-12 margin-top-5" style="display:flex">
+                            <div class="col-md-4 col-sm-6 col-lg-4 padding1px" style="width:25% ;">
+                                <label class="control-label "><span class="text-danger">*</span>Total Cost </label>
+                                <input type="text" decimal-Only class="form-control" required name="unitPrice" style="width:85% ;" ng-change="CalculateRCV()" ng-model="ItemDetails.unitPrice" ng-attr-placeholder='Item Price' />
+                                <div class="errormessage">
+                                    <span ng-show="(CreateCustomItem.unitPrice.$error.required && CreateCustomItem.unitPrice.$touched)">Please enter price</span>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-6 col-lg-4 padding1px" style="width:25% ;">
+                                <label class="control-label "><span class="text-danger">*</span>Quantity </label>
+                                <input type="text" decimal-Only class="form-control" required name="itemQuantity" numbers-only style="width:85% ;" ng-blur="CalculateRCV()" ng-model="ItemDetails.ItemQuantity" ng-attr-placeholder='Item Quantity' />
+                                <div class="errormessage">
+                                    <span ng-show="(CreateCustomItem.itemQuantity.$error.required && CreateCustomItem.itemQuantity.$touched)">Please enter Quantity</span>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-6 col-lg-4 padding1px" style="width:20%;text-align: center;">
+                                <label class="control-label "><span class="text-danger">*</span>Tax(@{{ItemDetails.taxRate}}%) </label>
+                                {{ItemDetails.taxAmount}}
+                            </div>
+                            
+              
+
+
+                        </div>
+                        <div class="col-md-12 col-lg-12 col-sm-12 margin-top-5" style="display:flex;width: 100%;">
+                            <div class="col-md-4 col-sm-6 col-lg-4 padding1px" style="width:100% ;">
+                                <label class="control-label "><span class="text-danger">*</span>Total Replacement Cost </label>
+                                <input type="text" decimal-Only class="form-control" required name="itemPrice" style="width:50% ;" ng-model="ItemDetails.ItemPrice" ng-blur="CalculateRCV()" ng-attr-placeholder='Total Replacement Cost' readonly />
+                            </div>
+                            <div class="col-md-4 col-sm-6 col-lg-4 padding1px" style="width:100% ;">
+                                <label class="control-label">Supplier Name</label>
+                                <input type="text" class="form-control" name="supplier" ng-model="ItemDetails.supplier" ng-attr-placeholder='Supplier Name' />
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-lg-12 col-sm-12 margin-top-5">
+                                <div class="col-md-12 col-sm-12 col-lg-12 padding1px">
+                                        <label class="control-label ">Supplier's Website (If any) </label>
+                                        <input type="text" class="form-control" name="website" maxlength="2048" ng-model="ItemDetails.SupplierWebsite" ng-attr-placeholder='Supplier Website' />
+                                        <div class="errormessage">
+                                            <span ng-show="(CreateCustomItem.website.$error.required && CreateCustomItem.website.$touched)">Please enter website name</span>
+                                        </div>
+                                    </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+         </div>
+        <div class="clearfix"></div>
+        <div class="modal-footer">
+
+            <button type="button" data-dismiss="modal" class="btn btnMargin sbold" ng-click="addCustomItem(true)" ng-if="!editCustomItem" ng-disabled="(CreateCustomItem.$invalid || CreateCustomItem.$pristine) ">Mark Replacement</button>
+
+            <button type="button" data-dismiss="modal" ng-if="!editCustomItem" class="btn btnMargin sbold" ng-click="addCustomItem(false)" ng-disabled="(CreateCustomItem.$invalid || CreateCustomItem.$pristine) ">Add Comparable</button>
+            <button type="button" data-dismiss="modal" ng-if="editCustomItem" class="btn btnMargin sbold" ng-click="update(false)" ng-disabled="(CreateCustomItem.$invalid || CreateCustomItem.$pristine) ">{{"Update Comparable"|translate}}</button>
+            <button type="button" class="btn btnMargin sbold" ng-click="cancel()">Cancel</button>
+        </div>
+    </div>
+</div>
+

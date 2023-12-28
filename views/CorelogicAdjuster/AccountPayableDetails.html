@@ -1,0 +1,1243 @@
+﻿<style>
+     #contract_preview{
+            min-height: 300px;
+            width: 675px !important;
+            padding: 10px 0px;
+            position: fixed;
+            z-index: 20;
+      }
+
+      /* Start - PDF Header & Footer styles*/
+    #pdfGenerator {
+        display: none;
+    }
+    .page-template>* {
+        position: absolute;
+        left: 20px;
+        right: 20px;
+        font-size: 90%;
+    }
+
+    .page-template .header {
+        top: 20px;
+        border-bottom: 1px solid #000;
+    }
+
+    .page-template .footer {
+        bottom: 20px;
+        border-top: 1px solid #000;
+        padding-top: 5px;
+    }
+
+    #pdfGenerator .form-group {
+        margin-bottom: 0px !important;
+    }
+
+    #pdfGenerator {
+        font-size: 12px !important;
+    }
+
+    /* End - PDF Header & Footer styles*/
+</style>
+<script type="x/kendo-template" id="page-header-footer-template">
+    <div class="page-template" style="padding:0px;">
+      <div class="header" style="border-bottom:2px solid gray;padding:0px;">
+            <div class="col-md-7 col-sm-12 col-xs-12" style="padding:0px;margin-bottom: 10px;">
+                <span class="pull-left" style="font-weight:600;font-size:18px!important;">
+                    Account Payable - AP #=window.apNum#
+                </span>
+                <span class="pull-left margin-top-10">
+                    <span> <b>Claim -</b> #=window.claimNum# </span>
+                </span>
+            </div>
+            <div class="col-md-5 col-sm-12 col-xs-12" style="padding:0px;margin-bottom: 10px;">
+                <span class="pull-right">
+                    <img class="img-responsive" src="assets/pages/img/pdf/artigemLogo.png" style="vertical-align:top;margin-top:1vh;height: 40px;width: 170px; margin-left:auto;margin-right:auto;" />
+                </span>
+            </div>
+      </div>      
+      <div class="footer text-center bold">
+        Page #: pageNum # of #: totalPages #
+      </div>
+    </div>
+</script>
+
+<div id="nonpdfGenerator" class="col-md-12" style="padding: 0px;">
+    <div class="col-md-12 padding1px">
+        <div class="col-md-12 padding1px">
+            <ul class="page-breadcrumb breadcrumb sbold">
+                <!-- <li>
+                    <a ng-click="goBack()">{{CommomObj.PageName}}</a>
+                    <i class="fa fa-circle"></i>
+                </li> -->
+                <li>
+                    <a ng-click="goToDashboard()">{{"Home"|translate}}</a>
+                    <i class="fa fa-circle"></i>
+                </li>
+                <!-- <li>
+                    <a ng-click="goBack()">{{"Payments"|translate}}</a>
+                    <i class="fa fa-circle"></i>
+                </li>
+                <li>
+                    <span>{{VendorInvoiceDetails.invoiceNumber}}</span>
+                </li> -->
+                <li>
+                    <a ng-click="claimDetailsPage()">{{VendorInvoiceDetails.claim.claimNumber}}</a>
+                    <i class="fa fa-circle"></i>
+                  </li>
+                  <li>
+                    <span>{{"Payments"|translate}}</span>
+                  </li>
+ 
+            </ul>
+        </div>
+    </div>
+
+    <div class="col-md-12 col-sm-12 margin-bottom-10 padding1px text-right">
+        <!-- Export -->
+        <button id="saveAsPdf" class="btn sbold btnMargin" ng-click="exportPDF()" >
+            {{"Save as PDF"|translate}}
+        </button>
+        <button class="btn sbold btnMargin " ng-click="goToSalvage()">
+            {{"Cancel"|translate}}
+        </button>
+        <button class="btn sbold btnMargin " ng-disabled="(CreateInvoiceForm.$invalid || CreateInvoiceForm.$pristine)&&SalvageDetails.length>0&&VendorInvoiceDetails.invoiceNumber" ng-if="!VendorInvoiceDetails.id" ng-click="createInvoice(false)">
+            {{"ControlText.Save"|translate}}
+        </button>
+        <button class="btn sbold btnMargin " ng-disabled="CreateInvoiceForm.$invalid || CreateInvoiceForm.$pristine&&VendorInvoiceDetails.invoiceNumber" ng-if="VendorInvoiceDetails.id && VendorInvoiceDetails.status.status=='DRAFT'" ng-click="createInvoice(true)">
+            {{"ControlText.Update"|translate}}
+        </button>
+    </div>
+
+    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 options_Background_WithBorder"
+        style="padding-top:5px;padding-bottom:5px;">
+        <span class="text_options_Label sbold caption">{{"Account Payable Details"|translate}}</span>
+    </div>
+    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 clearfix padding1px" style="border:1px solid lightgray;padding-bottom: 10px;">
+        <!--Start Left section-->
+        <div class="col-md-6 margin-top-10">
+            <div class="col-md-12 form-group ">
+                <div class="col-md-4 Label_Text_Right">
+                    <label class="control-label">{{"ControlText.AP"|translate}}</label>
+                </div>
+                <div class="col-md-6">
+                    <span class="control-label">{{VendorInvoiceDetails.invoiceNumber}}</span>
+                </div>
+            </div>
+            <div class="col-md-12 form-group ">
+                <div class="col-md-4 Label_Text_Right">
+                    <label class="control-label">{{"ControlText.CreatedBy"|translate}}</label>
+                </div>
+                <div class="col-md-6">
+                    <span class="control-label" ng-show="VendorInvoiceDetails.creatorName!=null" >{{VendorInvoiceDetails.createdBy}}</span>
+
+                    <!-- <span class="control-label" ng-show="VendorInvoiceDetails.createdBy!=null">{{VendorInvoiceDetails.createdBy.lastName+", "+VendorInvoiceDetails.createdBy.firstName}}</span> -->
+                </div>
+            </div>
+            <div class="col-md-12 form-group ">
+                <div class="col-md-4 Label_Text_Right">
+                    <label class="control-label">{{"ControlText.Status"|translate}}</label>
+                </div>
+                <div class="col-md-6">
+                    <span class="control-label">{{VendorInvoiceDetails.status.status}}</span>
+                </div>
+            </div>
+            
+            <div class="col-md-12 form-group">
+                <div class="col-md-4 Label_Text_Right">
+                    <label class="control-label">{{"ControlText.AssignmentNumber"|translate}}</label>
+                </div>
+                <div class="col-md-6">
+                    <span class="control-label"><a ng-click="GotToAssignmentDetailsScreen(VendorInvoiceDetails.vendorAssignment.assignmentNumber)">{{VendorInvoiceDetails.vendorAssignment.assignmentNumber}}</a></span>
+                </div>
+            </div>
+            <div class="col-md-12 form-group">
+                <div class="col-md-4 Label_Text_Right">
+                    <label class="control-label">{{"ControlText.SalvageID"|translate}}</label>
+                </div>
+                <div class="col-md-6">
+                    <span class="control-label"><a
+                            ng-click="GoToSalvageDetails(VendorInvoiceDetails.vendorAssignment.assignmentNumber)">{{VendorInvoiceDetails.itemSalvageDetails.salvageId}}</a></span>
+                </div>
+            </div>
+            
+            <div class="col-md-12 form-group">
+                <div class="col-md-4 Label_Text_Right">
+                    <label class="control-label">{{"ControlText.InvoiceDate"|translate}}</label>
+                </div>
+                <div class="col-md-8">
+                    <span class="control-label">{{VendorInvoiceDetails.createDate |DateFormatMMddyyyy}}</span>
+                </div>
+            </div>
+            <div class="col-md-12 form-group">
+                <div class="col-md-4 Label_Text_Right">
+                    <label class="control-label">{{"ControlText.PaymentTerms"|translate}}</label>
+                </div>
+                <div class="col-md-6">
+                    <span class="control-label">{{VendorInvoiceDetails.paymentTerm.paymentPlan}}</span>
+                </div>
+            </div>
+            <div class="col-md-12 form-group">
+                <div class="col-md-4 Label_Text_Right">
+                    <label class="control-label">{{"ControlText.DueDate"|translate}}</label>
+                </div>
+                <div class="col-md-8">
+                    <span class="control-label">{{VendorInvoiceDetails.dueDate |DateFormatMMddyyyy}}</span>
+                </div>
+            </div>
+            <div class="col-md-12 form-group">
+                <div class="col-md-4 Label_Text_Right">
+                    <label class="control-label">{{"ControlText.Currency"|translate}}</label>
+                </div>
+                <div class="col-md-6">
+                    <span class="control-label">{{VendorInvoiceDetails.currency}}</span>
+                </div>
+            </div>
+            <div class="col-md-12 form-group">
+                <div class="col-md-4 Label_Text_Right">
+                    <label class="control-label">{{"ControlText.TaxRate"|translate}}</label>
+                </div>
+                <div class="col-md-6">
+                    <span class="control-label">{{VendorInvoiceDetails.taxRate==null?0:VendorInvoiceDetails.taxRate}}</span>
+                </div>
+            </div>
+            <div class="col-md-12 form-group ">
+                <div class="col-md-4 Label_Text_Right">
+                    <label class="control-label">{{"ControlText.SalvageDescription"|translate}}</label>
+                </div>
+                <div class="col-md-6">
+                    <span class="control-label">{{VendorInvoiceDetails.salvageDescription}}</span>
+                </div>
+            </div>
+            <!-- <div class="col-md-12 form-group ">
+                <div class="col-md-4 Label_Text_Right">
+                    <label class="control-label">{{"ControlText.VendorComments"|translate}}</label>
+                </div>
+                <div class="col-md-8">
+                    <span class="control-label">{{VendorInvoiceDetails.invoiceDetails.vendorNote}}</span>
+                    <span class="control-label">{{VendorInvoiceDetails.vendorNote}}</span>
+                </div>
+            </div> -->
+            <div class="col-md-12 form-group ">
+                <div class="col-md-4 Label_Text_Right">
+                    <label class="control-label">{{"ControlText.Attachments"|translate}}</label>
+                </div>
+                <div class="col-md-8" ng-if="VendorInvoiceDetails.attachments">
+                    <!--<a href="#">{{}}</a>-->
+                    <a ng-repeat="Attachment in VendorInvoiceDetails.attachments" href="{{Attachment.url}}" download>
+                        {{Attachment.name}}<font ng-if="!$last">, &nbsp; </font>
+                    </a>
+                </div>
+                <div class="col-md-6" ng-if="VendorInvoiceDetails.attachments==null">
+                    <label class="control-label text-danger">{{"NoAttachments"|translate}}</label>
+                </div>
+            </div>
+            <!-- <div class="col-md-12 form-group ">
+                    <div class="col-md-4 Label_Text_Right">
+                        <label class="control-label">{{"ControlText.ContractDetails"|translate}}</label>
+                    </div>
+                    <div class="col-md-8">
+                        <span class="control-label">{{VendorInvoiceDetails.invoiceDetails.vendorNote}}</span>
+                        <a ng-click="openContractDetails(VendorInvoiceDetails.invoiceNumber)">View Details</a>
+                        
+                    </div>
+                </div> -->
+
+                <div class="panel panel-default" id="contract_preview" draggable ng-if="contractDiv" style="margin-top: -70px;padding-top: 0px;left: 305.297px;top: 204px;">
+                        <!-- <div class="col-md-12 col-sm-12" style="padding: 0px 10px;">
+                            <div class="col-md-12 col-sm-12 margin-bottom-10" style="text-align: left;">
+                            </div>
+                        </div> -->
+
+                        <div class = "panel-heading" style="padding: 5px;background-color:#2472B8;height: 35px">
+                            
+                            <div class="col-md-4 col-lg-4"></div>
+                            <div class="col-md-4 col-lg-4">
+                                <span style="color: white;font-size: 15px;">Contract Details</span>
+                            </div>
+                            <div class="col-md-4 col-lg-4 pull-right" style="padding: 0px;">
+                                <i class="fa fa-times-circle" style="font-size:25px; margin-top:5px; color: white; float: right;" ng-click="close()"></i> 
+                            </div>
+                                                                                    <!-- <span class="fa fa-window-close" ng-click="close()"></span> -->
+                            </div>
+
+                        <div class="col-md-12 col-sm-12" style="padding: 0px 0px;" >
+                            <div class="col-md-12 col-sm-12" style="padding: 0px 0px;">
+                                
+                                <div class="col-md-12" ng-include="'views/Contract/ContractPopup.html'" ng-controller="ContractPopupController" style="height: 300px;">
+                                    </div>
+
+                                <!-- <img id = "imagepre" class="image-wrapper" onerror="this.onerror=null; this.src='assets/global/img/no-image.png';" class="ImageDocx" ng-src="{{DocxDetails.url}}"
+                                    alt="Image" /> -->
+                            </div>
+                        </div>
+                        <!-- <div class="col-md-12 col-sm-12 col-xs-12 margin-bottom-10" id="PdfView" ng-if="isPDF===1">
+                            <div class="col-md-12" id="load_receipts">
+                                <ng-pdf template-url="views/GlobalSearch/PdfViewer.html" canvasid="pdf" scale="page-fit" page=1></ng-pdf>
+                            </div>
+                        </div> -->
+                        <!-- <div class="col-md-12 col-sm-12 col-xs-12 text-center" ng-if="isPDF===0">
+                            <div class="col-sm-8 col-md-6 col-xs-12 text-center" style="height:230px;width:100%;">
+                                <div class="col-md-12 col-sm-12 col-xs-12 well text-center">
+                                    <span class="text-info">{{"File type does not support preview option. File will start downloading.."|translate}}</span>
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>
+        </div>
+        <!--End Left section-->
+        <!--Start Right section-->
+        <div class="col-md-6 margin-top-10">
+            <div class="col-md-12 form-group">
+                <div class="col-md-5 Label_Text_Right">
+                    <label class="control-label">{{"ControlText.Claim"|translate}}</label>
+                </div>
+                <div class="col-md-5">
+                    <span class="control-label">{{VendorInvoiceDetails.claim.claimNumber}}</span>
+                </div>
+            </div>
+            <div class="col-md-12 form-group">
+                <div class="col-md-5 Label_Text_Right">
+                    <label class="control-label">{{"ControlText.AdjusterName"|translate}}</label>
+                </div>
+                <div class="col-md-5">
+                    <span class="control-label" ng-show="VendorInvoiceDetails.adjuster!=null">{{VendorInvoiceDetails.adjuster.lastName+", "+ VendorInvoiceDetails.adjuster.firstName}}</span>
+                </div>
+            </div>
+            <div class="col-md-12 form-group">
+                <div class="col-md-5 Label_Text_Right">
+                    <label class="control-label">{{"ControlText.InsuredsName"|translate}}</label>
+                </div>
+                <div class="col-md-5">
+                    <span class="control-label" ng-show="VendorInvoiceDetails.claim.policyHolder!=null">{{VendorInvoiceDetails.claim.policyHolder}}</span>
+                </div>
+            </div>
+            <div class="col-md-12 form-group">
+                <div class="col-md-5 Label_Text_Right">
+                    <label class="control-label">{{"Insurance Company's Name"|translate}}</label>     </div>
+                <div class="col-md-5">
+                    <span class="control-label">{{VendorInvoiceDetails.insuranceCompany.companyName}}</span>
+                </div>
+            </div>
+            <div class="col-md-12 form-group">
+                <div class="col-md-5 Label_Text_Right">
+                    <label class="control-label ">{{"Branch Office"|translate}}</label>
+                </div>
+                <div class="col-md-6">
+                    <span class="control-label">{{VendorInvoiceDetails.branchDetails.branchName}}</span>
+                </div>
+            </div>
+            <div class="col-md-12 form-group">
+                <div class="col-md-5 Label_Text_Right">
+                    <label class="control-label">{{"ControlText.RemitToAddress"|translate}}</label>
+                </div>
+                <div class="col-md-6">
+                    <span class="control-label">{{VendorInvoiceDetails.remitAddress.streetAddressOne}}</span>
+                </div>
+            </div>
+            <div class="col-md-12 form-group">
+                <div class="col-md-5 Label_Text_Right">
+                </div>
+                <div class="col-md-6">
+                    <span class="control-label">{{VendorInvoiceDetails.remitAddress.streetAddressTwo}}</span>
+                </div>
+            </div>
+            <div class="col-md-12 form-group">
+                <div class="col-md-5 Label_Text_Right">
+                </div>
+                <div class="col-md-6">
+                    <span class="control-label">{{VendorInvoiceDetails.remitAddress.companyAddress.city}}</span>
+                </div>
+            </div>
+            <div class="col-md-12 form-group">
+                <div class="col-md-5">
+                    <!--<label class="control-label">{{"ControlText.ZipCode"|translate}}</label>-->
+                </div>
+                <div class="col-md-6">
+                    <span class="control-label">{{VendorInvoiceDetails.remitAddress.state.state}}</span>
+                    &nbsp;&nbsp;
+                    <span class="control-label">{{VendorInvoiceDetails.remitAddress.zipcode}}</span>
+                </div>
+            </div>
+            <div class="col-md-12 form-group">
+                <div class="col-md-5 Label_Text_Right">
+                    <label class="control-label">{{"Vendor Company"|translate}}</label>
+                </div>
+                <div class="col-md-5">
+                    <span class="control-label">{{VendorInvoiceDetails.vendor.vendorName}}</span>
+                </div>
+            </div>
+            <div class="col-md-12 form-group">
+                <div class="col-md-5 Label_Text_Right">
+                    <label class="control-label">{{"Billing Address"|translate}}</label>
+                </div>
+                <div class="col-md-6">
+                    <span class="control-label">{{VendorInvoiceDetails.vendor.shippingAddress.streetAddressOne}}</span>
+                    <!--<input type="text" class="form-control" ng-model="VendorInvoiceDetails.vendorBillAddress.streetAddressOne" placeholder='{{"ControlText.StreetAddress1"|translate}}' />-->
+                </div>
+            </div>
+            <div class="col-md-12 form-group">
+                <div class="col-md-5 Label_Text_Right">
+                </div>
+                <div class="col-md-6">
+                    <span class="control-label">{{VendorInvoiceDetails.vendor.shippingAddress.streetAddressTwo}}</span>
+                    <!-- <input type="text" class="form-control" ng-model="VendorInvoiceDetails.vendorBillAddress.streetAddressTwo" placeholder='{{"ControlText.StreetAddress2"|translate}}' />-->
+                </div>
+            </div>
+            <div class="col-md-12 form-group">
+                <div class="col-md-5 Label_Text_Right">
+                    <!--<label class="control-label">{{"ControlText.TownCity"|translate}}</label>-->
+                </div>
+                <div class="col-md-6">
+                    <span class="control-label">{{VendorInvoiceDetails.vendor.shippingAddress.city}}</span>
+                    <!--<input type="text" class="form-control" ng-model="VendorInvoiceDetails.vendorBillAddress.city" placeholder='{{"ControlText.TownCity"|translate}}' />-->
+                </div>
+            </div>
+            <div class="col-md-12 form-group">
+                <div class="col-md-5 Label_Text_Right">
+                    <!--<label class="control-label">{{"ControlText.ZipCode"|translate}}</label>-->
+                </div>
+
+                <div class="col-md-6">
+                    <span class="control-label">{{VendorInvoiceDetails.vendor.shippingAddress.state.state}}</span>
+                    &nbsp;&nbsp;
+                    <span class="control-label">{{VendorInvoiceDetails.vendor.shippingAddress.zipcode}}</span>
+                </div>
+            </div>
+        </div>
+        <!--End Right section-->
+    </div>
+
+    <!-- Start Item list-->
+    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 options_Background_WithBorder margin-top-10"
+        style="padding-top:5px;padding-bottom:5px;">
+        <span class="text_options_Label sbold caption"
+            style="vertical-align: sub;">{{"ControlText.SalvageDetails"|translate}}</span>
+    </div>
+    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 clearfix table-responsive"
+        style="border:1px solid lightgray;padding: 10px 10px 0px 10px;">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 options_Background"
+            style="background: #83C5FC;padding: 5px;">
+            <div class="col-md-12 margin-top-5" style="padding-left: 0px;">
+
+            </div>
+        </div>
+        <div class="col-md-12 table-responsive" style="padding: 0px;">
+            <table class="table table-striped  table-bordered table-hover table-checkable order-column" id="NavigateTable">
+                <thead>
+                    <tr>
+                        <th>
+                            {{"Table.BillingCode"|translate}}
+                            <span class="glyphicon sort-icon" ng-show="sortNewClaimKey=='salvageItem.billingCode'" ng-class="{'glyphicon-chevron-up pull-right':reverseNewClaim,'glyphicon-chevron-down pull-right':!reverseNewClaim}"></span>
+                        </th>
+                        <th ng-click="sort('gemlabLineItem.assignmentNumber')">
+                            {{"Table.ItemDescription"|translate}}
+                            <span class="glyphicon sort-icon" ng-show="sortNewClaimKey=='gemlabLineItem.assignmentNumber'" ng-class="{'glyphicon-chevron-up pull-right':reverseNewClaim,'glyphicon-chevron-down pull-right':!reverseNewClaim}"></span>
+                        </th>
+                        <th ng-click="sort('gemlabLineItem.claimNumber')">
+                            {{"Table.Quantity"|translate}}
+                            <span class="glyphicon sort-icon" ng-show="sortNewClaimKey=='gemlabLineItem.claimNumber'" ng-class="{'glyphicon-chevron-up pull-right':reverseNewClaim,'glyphicon-chevron-down pull-right':!reverseNewClaim}"></span>
+                        </th>
+                        <th ng-click="sort('gemlabLineItem.itemNumber')">
+                            {{"Table.Value"|translate}}
+                            <span class="glyphicon sort-icon" ng-show="sortNewClaimKey=='gemlabLineItem.itemNumber'" ng-class="{'glyphicon-chevron-up pull-right':reverseNewClaim,'glyphicon-chevron-down pull-right':!reverseNewClaim}"></span>
+                        </th>
+                        <th ng-click="sort('salvageItem.id')">
+                            {{"Table.Commission"|translate}}
+                            <span class="glyphicon sort-icon" ng-show="sortNewClaimKey=='salvageItem.id'" ng-class="{'glyphicon-chevron-up pull-right':reverseNewClaim,'glyphicon-chevron-down pull-right':!reverseNewClaim}"></span>
+                        </th>
+                        <th ng-click="sort('gemlabLineItem.insuredDetails.lastName')">
+                            {{"Table.ShippingCost"|translate}}
+                            <span class="glyphicon sort-icon" ng-show="sortNewClaimKey=='gemlabLineItem.insuredDetails.lastName'" ng-class="{'glyphicon-chevron-up pull-right':reverseNewClaim,'glyphicon-chevron-down pull-right':!reverseNewClaim}"></span>
+                        </th>
+                        <th ng-click="sort('gemlabLineItem.itemDescription')">
+                            {{"Table.GIACost"|translate}}
+                            <span class="glyphicon sort-icon" ng-show="sortNewClaimKey=='gemlabLineItem.itemDescription'" ng-class="{'glyphicon-chevron-up pull-right':reverseNewClaim,'glyphicon-chevron-down pull-right':!reverseNewClaim}"></span>
+                        </th>
+                        <th ng-click="sort('gemlabLineItem.assignDate')">
+                            {{"Table.CuttingCharges"|translate}}
+                            <span class="glyphicon sort-icon" ng-show="sortNewClaimKey=='gemlabLineItem.assignDate'" ng-class="{'glyphicon-chevron-up pull-right':reverseNewClaim,'glyphicon-chevron-down pull-right':!reverseNewClaim}"></span>
+                        </th> 
+                        <th ng-click="sort('gemlabLineItem.fees')">
+                            {{"Table.Fees"|translate}}
+                            <span class="glyphicon sort-icon" ng-show="sortNewClaimKey=='gemlabLineItem.fees'" ng-class="{'glyphicon-chevron-up pull-right':reverseNewClaim,'glyphicon-chevron-down pull-right':!reverseNewClaim}"></span>
+                        </th>                       
+                        <th ng-click="sort('salvageItem.status.status')">
+                            {{"Table.TotalAmount"|translate}}
+                            <span class="glyphicon sort-icon" ng-show="sortNewClaimKey=='salvageItem.status.status'" ng-class="{'glyphicon-chevron-up pull-right':reverseNewClaim,'glyphicon-chevron-down pull-right':!reverseNewClaim}"></span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in SalvageDetails|orderBy:sortKeyPay:reversepay">
+                        <td>{{item.billingCode}}</td>
+                        <td>{{item.description}}</td>
+                        <td>{{item.quantity}}</td>
+                        <td>{{item.itemValue|currency}}</td>
+                        <td class="text-danger">{{item.commissionsCharges|currency}}</td>
+                        <td class="text-danger">{{item.shippingCost|currency}}</td>
+                        <td class="text-danger">{{item.giaCost|currency}}</td>
+                        <td class="text-danger">{{item.cuttingCharge|currency}}</td>  
+                        <td class="text-danger">{{item.expenses | currency}}</td>                      
+                        <td>{{item.totalAmount|currency}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                <dir-pagination-controls max-size="5" ng-if="NewClaims!=null" pagination-id="OrignalItem"
+                                        direction-links="true"
+                                        boundary-links="true">
+                </dir-pagination-controls>
+            </div>
+            <!-- Comment details -->
+            <div>
+                <div class="col-md-1 Label_Text_Right">
+                    <label class="control-label">{{"ControlText.Comments"|translate}}</label>
+                </div>
+                <div class="col-md-6">
+                    <span class="control-label">{{VendorInvoiceDetails.invoiceDetails.vendorNote}}</span>
+                    <span class="control-label">{{VendorInvoiceDetails.vendorNote}}</span>
+                </div>
+            </div>
+            <!-- Total details -->
+            <div class="col-md-12 clearfix margin-bottom-10 margin-top-10">
+                <div class="col-md-12 clearfix"></div>
+                <label class="control-label col-md-2 col-md-offset-8 col-sm-5 col-sm-offset-3 text-right"><b>{{"ControlText.GrandTotal"|translate}}</b></label>
+                <div class="col-md-2">
+                    <label>{{VendorInvoiceDetails.subtotal|currency}}</label>
+                    <!--<input type="text" class="form-control text-right" readonly ng-model="VendorInvoiceDetails.subtotal" placeholder='{{"ControlText.TotalAmount"|translate}}' />-->
+                </div>
+                <div class="col-md-12 clearfix"></div>
+                <label class="control-label col-md-2 col-md-offset-10 col-sm-10 col-sm-offset-3 text-right"><b>{{""|translate}}</b></label>
+
+                <div class="col-md-12 clearfix"></div>
+                <label class="control-label col-md-2 col-md-offset-8 col-sm-5 col-sm-offset-3 text-right"><b>{{"ControlText.(-)AdvancePayment"|translate}}</b></label>
+                <div class="col-md-2">
+                    <label>{{VendorInvoiceDetails.advancePayment|currency}}</label>
+                    <!--<input type="text" class="form-control text-right" ng-change="calculateTotalPayable()" ng-model="VendorInvoiceDetails.advancePayment" placeholder='{{"$0.00"|translate}}' />-->
+                </div>
+                <div class="col-md-12 clearfix "></div>
+                <hr class="col-md-3 pull-right bold" />
+                <label class="control-label col-md-2 col-md-offset-8 col-sm-5 col-sm-offset-3 text-right"><b>{{"ControlText.TotalPayable"|translate}}</b></label>
+                <div class="col-md-2">
+                    <label>{{VendorInvoiceDetails.total|currency}}</label>
+                    <!--<input type="text" class="form-control text-right" readonly ng-model="VendorInvoiceDetails.total" placeholder='{{"ControlText.TotalPayable"|translate}}' />-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Start PaymentDetails-->
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding1px" ng-if="VendorInvoiceDetails.status.status=='PAID'">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding1px">
+            <div class="SubHeadingDiv" style="font-size:large">
+                <span class="caption-subject">
+                    {{"ControlText.PaymentDetails"|translate}}
+                </span>
+            </div>
+        </div>
+        <div class="col-md-12 clearfix margin-top-15" id="cal">
+            <div class="col-md-6">
+                <div class="form-group col-md-12">
+                    <div class="col-md-4">
+                        <label class="control-label ">{{"ControlText.PaymentMethod"|translate}}</label>
+                    </div>
+                    <div class="col-md-8">                       
+                        <div class="col-md-6">
+                            <label class="mt-radio mt-radio-outline mt-radio-single">
+                                <input type="radio" disabled name="opt_eft" ng-checked="VendorInvoiceDetails.paymentDetails.check" class="radio"  /><span></span>{{"Radio.Check"|translate}}
+                            </label>
+                        </div>
+                        <div class="col-md-6">
+                                <label class="mt-radio mt-radio-outline mt-radio-single">
+                                    <input type="radio" disabled name="opt_check" ng-checked="VendorInvoiceDetails.paymentDetails.eft" class="radio" /><span></span>{{"Radio.EFT"|translate}}
+                                </label>
+                            </div>
+                    </div>
+                </div>
+                <!---Check section-->
+                <form class="register-form" id="CheckSectionForm" name="CheckSectionForm" ng-if="CheckSection">
+                    <div class="form-group col-md-12">
+                        <div class="col-md-4">
+                            <label class="control-label ">{{"ControlText.Amount"|translate}}</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control currency" disabled ng-model="VendorInvoiceDetails.paymentDetails.payAmount" placeholder='{{"ControlText.Amount"|translate}}' name="Amount" required />
+                            <label class="currencyLbl" style="width: 92% !important;background-color: #eef1f5;" for="Amount">{{VendorInvoiceDetails.paymentDetails.payAmount == null ? 0.00 : VendorInvoiceDetails.paymentDetails.payAmount | currency}}</label>
+
+                            <div class="errormessage">
+                                <div ng-message="required" ng-show="(CheckSectionForm.Amount.$error.required && CheckSectionForm.Amount.$touched)">
+                                    <span class="text-danger">{{"ErrorMessage.AmountRequired"|translate}}</span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <div class="col-md-4">
+                            <label class="control-label ">{{"ControlText.CheckNumber"|translate}}</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" maxlength="20" disabled ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" ng-model="VendorInvoiceDetails.paymentDetails.checkNumber" placeholder='{{"ControlText.CheckNumber"|translate}}' name="CheckNo" required />
+                            <div class="errormessage">
+                                <div ng-message="required" ng-show="(CheckSectionForm.CheckNo.$error.required && CheckSectionForm.CheckNo.$touched)">
+                                    <span class="text-danger">{{"ErrorMessage.CheckNoRequired"|translate}}</span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <div class="col-md-4">
+                            <label class="control-label ">{{"ControlText.DrawnOnBank"|translate}}</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" disabled ng-model="VendorInvoiceDetails.paymentDetails.bankName" placeholder='{{"ControlText.DrawnOnBank"|translate}}' name="BankName" required />
+                            <div class="errormessage">
+                                <div ng-message="required" ng-show="(CheckSectionForm.BankName.$error.required && CheckSectionForm.BankName.$touched)">
+                                    <span class="text-danger">{{"ErrorMessage.BankNameRequired"|translate}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <div class="col-md-4">
+                            <label class="control-label ">{{"ControlText.PaymentDate"|translate}}</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input class="form-control datepicker" disabled data-date-container='#cal' ng-model="VendorInvoiceDetails.paymentDetails.checkDate" close-on-date-selection="true" data-provide="datepicker" size="16" type="text" placeholder='{{"ControlText.PaymentDate"|translate}}' name="Date" required />
+                            <div class="errormessage">
+                                <div ng-message="required" ng-show="(CheckSectionForm.Date.$error.required && CheckSectionForm.Date.$touched)">
+                                    <span class="text-danger">{{"ErrorMessage.DateRequired"|translate}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <!---EFT section-->
+                <form class="register-form" id="CheckSectionForm" name="EFTSectionForm" ng-if="!CheckSection">
+                    <div class="form-group col-md-12">
+                        <div class="col-md-4">
+                            <label class="control-label ">{{"ControlText.Amount"|translate}}</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control currency" disabled ng-model="VendorInvoiceDetails.paymentDetails.payAmount" placeholder='{{"ControlText.Amount"|translate}}' name="Amount" required />
+                            <label class="currencyLbl" style="width: 92% !important;background-color: #eef1f5;" for="Amount">{{VendorInvoiceDetails.paymentDetails.payAmount == null ? 0.00 : VendorInvoiceDetails.paymentDetails.payAmount | currency}}</label>
+
+                            <div class="errormessage">
+                                <div ng-message="required" ng-show="(CheckSectionForm.Amount.$error.required && CheckSectionForm.Amount.$touched)">
+                                    <span class="text-danger">{{"ErrorMessage.AmountRequired"|translate}}</span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- <div class="form-group col-md-12">
+                        <div class="col-md-4">
+                            <label class="control-label ">{{"ControlText.BankAccountNumber"|translate}}</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" disabled ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" ng-model="VendorInvoiceDetails.paymentDetails.bankAccountNumber" placeholder='{{"ControlText.CheckNumber"|translate}}' name="BankAccountNumber" required />
+                            <div class="errormessage">
+                                <div ng-message="required" ng-show="(EFTSectionForm.BankAccountNumber.$error.required && EFTSectionForm.BankAccountNumber.$touched)">
+                                    <span class="text-danger">{{"ErrorMessage.BankAccountNumberNoRequired"|translate}}</span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div> -->
+                    <div class="form-group col-md-12">
+                        <div class="col-md-4">
+                            <label class="control-label ">{{"ControlText.DrawnOnBank"|translate}}</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" disabled ng-model="VendorInvoiceDetails.paymentDetails.bankName" placeholder='{{"ControlText.DrawnOnBank"|translate}}' name="BankName" required />
+                            <div class="errormessage">
+                                <div ng-message="required" ng-show="(EFTSectionForm.BankName.$error.required && EFTSectionForm.BankName.$touched)">
+                                    <span class="text-danger">{{"ErrorMessage.BankNameRequired"|translate}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <div class="col-md-4">
+                            <label class="control-label ">{{"ControlText.PaymentDate"|translate}}</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input class="form-control datepicker" disabled data-date-container='#cal' ng-model="VendorInvoiceDetails.paymentDetails.paymentDate" close-on-date-selection="true" data-provide="datepicker" size="16" type="text" placeholder='{{"ControlText.PaymentDate"|translate}}' name="Date" required />
+                            <div class="errormessage">
+                                <div ng-message="required" ng-show="(EFTSectionForm.Date.$error.required && EFTSectionForm.Date.$touched)">
+                                    <span class="text-danger">{{"ErrorMessage.PaymentDateRequired"|translate}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <div class="col-md-4">
+                            <label class="control-label ">{{"Reference Number"|translate}}</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" disabled ng-model="VendorInvoiceDetails.paymentDetails.eftConfirmationNumber" placeholder='{{"Reference Number"|translate}}' name="RoutingNumber" />
+                            <!-- <div class="errormessage">
+                                <div ng-message="required" ng-show="(EFTSectionForm.RoutingNumber.$error.required && EFTSectionForm.RoutingNumber.$touched)">
+                                    <span class="text-danger">{{"ErrorMessage.RoutingNumberRequired"|translate}}</span>
+                                </div>
+                            </div> -->
+                        </div>
+                    </div>
+                </form>
+                <!--EFT Selection-->
+            </div>
+        </div>
+    </div>
+    <!--End PaymentDetails-->
+
+    <div class="col-md-12 col-sm-12 topBorder padding1px">
+        <div class="col-md-12 col-sm-12 margin-top-10 margin-bottom-20 padding1px text-right">
+            <!-- Export -->
+            <button id="saveAsPdf" class="btn sbold btnMargin" ng-click="exportPDF()" >
+                {{"Save as PDF"|translate}}
+            </button>
+            <button class="btn sbold btnMargin " ng-click="goToSalvage()">
+                {{"Cancel"|translate}}
+            </button>
+            <button class="btn sbold btnMargin " ng-disabled="(CreateInvoiceForm.$invalid || CreateInvoiceForm.$pristine)&&SalvageDetails.length>0&&VendorInvoiceDetails.invoiceNumber" ng-if="!VendorInvoiceDetails.id" ng-click="createInvoice(false)">
+                {{"ControlText.Save"|translate}}
+            </button>
+            <button class="btn sbold btnMargin " ng-disabled="CreateInvoiceForm.$invalid || CreateInvoiceForm.$pristine&&VendorInvoiceDetails.invoiceNumber" ng-if="VendorInvoiceDetails.id && VendorInvoiceDetails.status.status=='DRAFT'" ng-click="createInvoice(true)">
+                {{"ControlText.Update"|translate}}
+            </button>
+        </div>
+    </div>
+   
+</div>
+
+<div id="pdfGenerator" class="col-md-12" style="padding: 0px;">
+    <div class="col-md-12 col-sm-12" style="padding:0px 10px;margin-top: 100px;">
+        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 options_Background_WithBorder"
+            style="padding-top:5px;padding-bottom:5px;">
+            <span class="text_options_Label sbold caption">{{"Account Payable Details"|translate}}</span>
+        </div>
+        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 clearfix padding1px" style="border:1px solid lightgray;padding-bottom: 10px;">
+            <!--Start Left section-->
+            <div class="col-md-6 margin-top-10" style="padding:0px;">
+                <div class="col-md-12 form-group" style="padding:0px;">
+                    <div class="col-md-5 Label_Text_Right">
+                        <label class="control-label">{{"ControlText.AP"|translate}}</label>
+                    </div>
+                    <div class="col-md-7">
+                        <span class="control-label">{{VendorInvoiceDetails.invoiceNumber}}</span>
+                    </div>
+                </div>
+                <div class="col-md-12 form-group" style="padding:0px;">
+                    <div class="col-md-5 Label_Text_Right">
+                        <label class="control-label">{{"ControlText.CreatedBy"|translate}}</label>
+                    </div>
+                    <div class="col-md-7">
+                        <span class="control-label" ng-show="VendorInvoiceDetails.creatorName!=null" >{{VendorInvoiceDetails.createdBy}}</span>
+    
+                        <!-- <span class="control-label" ng-show="VendorInvoiceDetails.createdBy!=null">{{VendorInvoiceDetails.createdBy.lastName+", "+VendorInvoiceDetails.createdBy.firstName}}</span> -->
+                    </div>
+                </div>
+                <div class="col-md-12 form-group" style="padding:0px;">
+                    <div class="col-md-5 Label_Text_Right">
+                        <label class="control-label">{{"ControlText.Status"|translate}}</label>
+                    </div>
+                    <div class="col-md-7">
+                        <span class="control-label">{{VendorInvoiceDetails.status.status}}</span>
+                    </div>
+                </div>
+                
+                <div class="col-md-12 form-group" style="padding:0px;">
+                    <div class="col-md-5 Label_Text_Right">
+                        <label class="control-label">{{"ControlText.AssignmentNumber"|translate}}</label>
+                    </div>
+                    <div class="col-md-7">
+                        <span class="control-label"><a ng-click="GotToAssignmentDetailsScreen(VendorInvoiceDetails.vendorAssignment.assignmentNumber)">{{VendorInvoiceDetails.vendorAssignment.assignmentNumber}}</a></span>
+                    </div>
+                </div>
+                <div class="col-md-12 form-group" style="padding:0px;">
+                    <div class="col-md-5 Label_Text_Right">
+                        <label class="control-label">{{"ControlText.SalvageID"|translate}}</label>
+                    </div>
+                    <div class="col-md-7">
+                        <span class="control-label"><a
+                                ng-click="GoToSalvageDetails(VendorInvoiceDetails.vendorAssignment.assignmentNumber)">{{VendorInvoiceDetails.itemSalvageDetails.salvageId}}</a></span>
+                    </div>
+                </div>
+                
+                <div class="col-md-12 form-group" style="padding:0px;">
+                    <div class="col-md-5 Label_Text_Right">
+                        <label class="control-label">{{"ControlText.InvoiceDate"|translate}}</label>
+                    </div>
+                    <div class="col-md-7">
+                        <span class="control-label">{{VendorInvoiceDetails.createDate |DateFormatMMddyyyy}}</span>
+                    </div>
+                </div>
+                <div class="col-md-12 form-group" style="padding:0px;">
+                    <div class="col-md-5 Label_Text_Right">
+                        <label class="control-label">{{"ControlText.PaymentTerms"|translate}}</label>
+                    </div>
+                    <div class="col-md-7">
+                        <span class="control-label">{{VendorInvoiceDetails.paymentTerm.paymentPlan}}</span>
+                    </div>
+                </div>
+                <div class="col-md-12 form-group" style="padding:0px;">
+                    <div class="col-md-5 Label_Text_Right">
+                        <label class="control-label">{{"ControlText.DueDate"|translate}}</label>
+                    </div>
+                    <div class="col-md-7">
+                        <span class="control-label">{{VendorInvoiceDetails.dueDate |DateFormatMMddyyyy}}</span>
+                    </div>
+                </div>
+                <div class="col-md-12 form-group" style="padding:0px;">
+                    <div class="col-md-5 Label_Text_Right">
+                        <label class="control-label">{{"ControlText.Currency"|translate}}</label>
+                    </div>
+                    <div class="col-md-7">
+                        <span class="control-label">{{VendorInvoiceDetails.currency}}</span>
+                    </div>
+                </div>
+                <div class="col-md-12 form-group" style="padding:0px;">
+                    <div class="col-md-5 Label_Text_Right">
+                        <label class="control-label">{{"ControlText.TaxRate"|translate}}</label>
+                    </div>
+                    <div class="col-md-7">
+                        <span class="control-label">{{VendorInvoiceDetails.taxRate==null?0:VendorInvoiceDetails.taxRate}}</span>
+                    </div>
+                </div>
+                <div class="col-md-12 form-group" style="padding:0px;">
+                    <div class="col-md-5 Label_Text_Right">
+                        <label class="control-label">{{"ControlText.SalvageDescription"|translate}}</label>
+                    </div>
+                    <div class="col-md-7">
+                        <span class="control-label">{{VendorInvoiceDetails.salvageDescription}}</span>
+                    </div>
+                </div>
+                <div class="col-md-12 form-group" style="padding:0px;">
+                    <div class="col-md-5 Label_Text_Right">
+                        <label class="control-label">{{"ControlText.Attachments"|translate}}</label>
+                    </div>
+                    <div class="col-md-7" ng-if="VendorInvoiceDetails.attachments">
+                        <!--<a href="#">{{}}</a>-->
+                        <a ng-repeat="Attachment in VendorInvoiceDetails.attachments" href="{{Attachment.url}}" download>
+                            {{Attachment.name}}<font ng-if="!$last">, &nbsp; </font>
+                        </a>
+                    </div>
+                    <div class="col-md-7" ng-if="VendorInvoiceDetails.attachments==null">
+                        <label class="control-label text-danger">{{"NoAttachments"|translate}}</label>
+                    </div>
+                </div>    
+                   
+            </div>
+            <!--End Left section-->
+            <!--Start Right section-->
+            <div class="col-md-6 margin-top-10" style="padding:0px;">
+                <div class="col-md-12 form-group" style="padding:0px;">
+                    <div class="col-md-5 Label_Text_Right">
+                        <label class="control-label">{{"ControlText.Claim"|translate}}</label>
+                    </div>
+                    <div class="col-md-7">
+                        <span class="control-label">{{VendorInvoiceDetails.claim.claimNumber}}</span>
+                    </div>
+                </div>
+                <div class="col-md-12 form-group" style="padding:0px;">
+                    <div class="col-md-5 Label_Text_Right">
+                        <label class="control-label">{{"ControlText.AdjusterName"|translate}}</label>
+                    </div>
+                    <div class="col-md-7">
+                        <span class="control-label" ng-show="VendorInvoiceDetails.adjuster!=null">{{VendorInvoiceDetails.adjuster.lastName+", "+ VendorInvoiceDetails.adjuster.firstName}}</span>
+                    </div>
+                </div>
+                <div class="col-md-12 form-group" style="padding:0px;">
+                    <div class="col-md-5 Label_Text_Right">
+                        <label class="control-label">{{"ControlText.InsuredsName"|translate}}</label>
+                    </div>
+                    <div class="col-md-7">
+                        <span class="control-label" ng-show="VendorInvoiceDetails.claim.policyHolder!=null">{{VendorInvoiceDetails.claim.policyHolder}}</span>
+                    </div>
+                </div>
+                <div class="col-md-12 form-group" style="padding:0px;">
+                    <div class="col-md-5 Label_Text_Right">
+                        <label class="control-label">{{"Insurance Company's Name"|translate}}</label>     </div>
+                    <div class="col-md-7">
+                        <span class="control-label">{{VendorInvoiceDetails.insuranceCompany.companyName}}</span>
+                    </div>
+                </div>
+                <div class="col-md-12 form-group" style="padding:0px;">
+                    <div class="col-md-5 Label_Text_Right">
+                        <label class="control-label ">{{"Branch Office"|translate}}</label>
+                    </div>
+                    <div class="col-md-7">
+                        <span class="control-label">{{VendorInvoiceDetails.branchDetails.branchName}}</span>
+                    </div>
+                </div>
+                <div class="col-md-12 form-group" style="padding:0px;">
+                    <div class="col-md-5 Label_Text_Right">
+                        <label class="control-label">{{"ControlText.RemitToAddress"|translate}}</label>
+                    </div>
+                    <div class="col-md-7">
+                        <span class="control-label">{{VendorInvoiceDetails.remitAddress.streetAddressOne}}</span>
+                    </div>
+                </div>
+                <div class="col-md-12 form-group" style="padding:0px;">
+                    <div class="col-md-5 Label_Text_Right">
+                    </div>
+                    <div class="col-md-7">
+                        <span class="control-label">{{VendorInvoiceDetails.remitAddress.streetAddressTwo}}</span>
+                    </div>
+                </div>
+                <div class="col-md-12 form-group" style="padding:0px;">
+                    <div class="col-md-5 Label_Text_Right">
+                    </div>
+                    <div class="col-md-7">
+                        <span class="control-label">{{VendorInvoiceDetails.remitAddress.companyAddress.city}}</span>
+                    </div>
+                </div>
+                <div class="col-md-12 form-group" style="padding:0px;">
+                    <div class="col-md-5">
+                        <!--<label class="control-label">{{"ControlText.ZipCode"|translate}}</label>-->
+                    </div>
+                    <div class="col-md-7">
+                        <span class="control-label">{{VendorInvoiceDetails.remitAddress.state.state}}</span>
+                        &nbsp;&nbsp;
+                        <span class="control-label">{{VendorInvoiceDetails.remitAddress.zipcode}}</span>
+                    </div>
+                </div>
+                <div class="col-md-12 form-group" style="padding:0px;" >
+                    <div class="col-md-5 Label_Text_Right">
+                        <label class="control-label">{{"Vendor Company"|translate}}</label>
+                    </div>
+                    <div class="col-md-7">
+                        <span class="control-label">{{VendorInvoiceDetails.vendor.vendorName}}</span>
+                    </div>
+                </div>
+                <div class="col-md-12 form-group" style="padding:0px;" >
+                    <div class="col-md-5 Label_Text_Right">
+                        <label class="control-label">{{"Billing Address"|translate}}</label>
+                    </div>
+                    <div class="col-md-7">
+                        <span class="control-label">{{VendorInvoiceDetails.vendor.shippingAddress.streetAddressOne}}</span>
+                        <!--<input type="text" class="form-control" ng-model="VendorInvoiceDetails.vendorBillAddress.streetAddressOne" placeholder='{{"ControlText.StreetAddress1"|translate}}' />-->
+                    </div>
+                </div>
+                <div class="col-md-12 form-group" style="padding:0px;" >
+                    <div class="col-md-5 Label_Text_Right">
+                    </div>
+                    <div class="col-md-7">
+                        <span class="control-label">{{VendorInvoiceDetails.vendor.shippingAddress.streetAddressTwo}}</span>
+                        <!-- <input type="text" class="form-control" ng-model="VendorInvoiceDetails.vendorBillAddress.streetAddressTwo" placeholder='{{"ControlText.StreetAddress2"|translate}}' />-->
+                    </div>
+                </div>
+                <div class="col-md-12 form-group" style="padding:0px;" >
+                    <div class="col-md-5 Label_Text_Right">
+                        <!--<label class="control-label">{{"ControlText.TownCity"|translate}}</label>-->
+                    </div>
+                    <div class="col-md-7">
+                        <span class="control-label">{{VendorInvoiceDetails.vendor.shippingAddress.city}}</span>
+                        <!--<input type="text" class="form-control" ng-model="VendorInvoiceDetails.vendorBillAddress.city" placeholder='{{"ControlText.TownCity"|translate}}' />-->
+                    </div>
+                </div>
+                <div class="col-md-12 form-group" style="padding:0px;">
+                    <div class="col-md-5 Label_Text_Right">
+                        <!--<label class="control-label">{{"ControlText.ZipCode"|translate}}</label>-->
+                    </div>
+    
+                    <div class="col-md-7">
+                        <span class="control-label">{{VendorInvoiceDetails.vendor.shippingAddress.state.state}}</span>
+                        &nbsp;&nbsp;
+                        <span class="control-label">{{VendorInvoiceDetails.vendor.shippingAddress.zipcode}}</span>
+                    </div>
+                </div>
+            </div>
+            <!--End Right section-->
+        </div>
+    </div>
+
+    <div class="page-break col-md-12 col-sm-12" style="padding: 0px 10px;margin-top: 100px;">
+        <!-- Start Item list-->
+        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 options_Background_WithBorder margin-top-10"
+            style="padding-top:5px;padding-bottom:5px;">
+            <span class="text_options_Label sbold caption"
+                style="vertical-align: sub;">{{"ControlText.SalvageDetails"|translate}}</span>
+        </div>
+        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 clearfix table-responsive"
+            style="border:1px solid lightgray;padding: 10px 10px 0px 10px;">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 options_Background"
+                style="background: #83C5FC;padding: 5px;">
+                <div class="col-md-12 margin-top-5" style="padding-left: 0px;">
+
+                </div>
+            </div>
+            <div class="col-md-12 table-responsive" style="padding: 0px;">
+                <table class="table table-striped  table-bordered table-hover table-checkable order-column" id="NavigateTable">
+                    <thead>
+                        <tr>
+                            <th>
+                                {{"Table.BillingCode"|translate}}
+                                <span class="glyphicon sort-icon" ng-show="sortNewClaimKey=='salvageItem.billingCode'" ng-class="{'glyphicon-chevron-up pull-right':reverseNewClaim,'glyphicon-chevron-down pull-right':!reverseNewClaim}"></span>
+                            </th>
+                            <th ng-click="sort('gemlabLineItem.assignmentNumber')">
+                                {{"Table.ItemDescription"|translate}}
+                                <span class="glyphicon sort-icon" ng-show="sortNewClaimKey=='gemlabLineItem.assignmentNumber'" ng-class="{'glyphicon-chevron-up pull-right':reverseNewClaim,'glyphicon-chevron-down pull-right':!reverseNewClaim}"></span>
+                            </th>
+                            <th ng-click="sort('gemlabLineItem.claimNumber')">
+                                {{"Table.Quantity"|translate}}
+                                <span class="glyphicon sort-icon" ng-show="sortNewClaimKey=='gemlabLineItem.claimNumber'" ng-class="{'glyphicon-chevron-up pull-right':reverseNewClaim,'glyphicon-chevron-down pull-right':!reverseNewClaim}"></span>
+                            </th>
+                            <th ng-click="sort('gemlabLineItem.itemNumber')">
+                                {{"Table.Value"|translate}}
+                                <span class="glyphicon sort-icon" ng-show="sortNewClaimKey=='gemlabLineItem.itemNumber'" ng-class="{'glyphicon-chevron-up pull-right':reverseNewClaim,'glyphicon-chevron-down pull-right':!reverseNewClaim}"></span>
+                            </th>
+                            <th ng-click="sort('gemlabLineItem.insuredDetails.lastName')">
+                                {{"Table.ShippingCost"|translate}}
+                                <span class="glyphicon sort-icon" ng-show="sortNewClaimKey=='gemlabLineItem.insuredDetails.lastName'" ng-class="{'glyphicon-chevron-up pull-right':reverseNewClaim,'glyphicon-chevron-down pull-right':!reverseNewClaim}"></span>
+                            </th>
+                            <th ng-click="sort('gemlabLineItem.itemDescription')">
+                                {{"Table.GIACost"|translate}}
+                                <span class="glyphicon sort-icon" ng-show="sortNewClaimKey=='gemlabLineItem.itemDescription'" ng-class="{'glyphicon-chevron-up pull-right':reverseNewClaim,'glyphicon-chevron-down pull-right':!reverseNewClaim}"></span>
+                            </th>
+                            <th ng-click="sort('gemlabLineItem.assignDate')">
+                                {{"Table.CuttingCharges"|translate}}
+                                <span class="glyphicon sort-icon" ng-show="sortNewClaimKey=='gemlabLineItem.assignDate'" ng-class="{'glyphicon-chevron-up pull-right':reverseNewClaim,'glyphicon-chevron-down pull-right':!reverseNewClaim}"></span>
+                            </th>
+                            <th ng-click="sort('salvageItem.id')">
+                                {{"Table.Commission"|translate}}
+                                <span class="glyphicon sort-icon" ng-show="sortNewClaimKey=='salvageItem.id'" ng-class="{'glyphicon-chevron-up pull-right':reverseNewClaim,'glyphicon-chevron-down pull-right':!reverseNewClaim}"></span>
+                            </th>
+                            <th ng-click="sort('salvageItem.status.status')">
+                                {{"Table.TotalAmount"|translate}}
+                                <span class="glyphicon sort-icon" ng-show="sortNewClaimKey=='salvageItem.status.status'" ng-class="{'glyphicon-chevron-up pull-right':reverseNewClaim,'glyphicon-chevron-down pull-right':!reverseNewClaim}"></span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in SalvageDetails|orderBy:sortKeyPay:reversepay">
+                            <td>{{item.billingCode}}</td>
+                            <td>{{item.description}}</td>
+                            <td>{{item.quantity}}</td>
+                            <td>{{item.itemValue|currency}}</td>
+                            <td class="text-danger">{{item.shippingCost|currency}}</td>
+                            <td class="text-danger">{{item.giaCost|currency}}</td>
+                            <td class="text-danger">{{item.cuttingCharge|currency}}</td>
+                            <td class="text-danger">{{item.commissionsCharges|currency}}</td>
+                            <td>{{item.totalAmount|currency}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                    <dir-pagination-controls max-size="5" ng-if="NewClaims!=null" pagination-id="OrignalItem"
+                                            direction-links="true"
+                                            boundary-links="true">
+                    </dir-pagination-controls>
+                </div>
+                <!-- Comment details -->
+                <div>
+                    <div class="col-md-1 Label_Text_Right">
+                        <label class="control-label">{{"ControlText.Comments"|translate}}</label>
+                    </div>
+                    <div class="col-md-6">
+                        <span class="control-label">{{VendorInvoiceDetails.invoiceDetails.vendorNote}}</span>
+                        <span class="control-label">{{VendorInvoiceDetails.vendorNote}}</span>
+                    </div>
+                </div>
+                <!-- Total details -->
+                <div class="col-md-12 clearfix margin-bottom-10 margin-top-10">
+                    <div class="col-md-12 clearfix"></div>
+                    <label class="control-label col-md-2 col-md-offset-8 col-sm-5 col-sm-offset-3 text-right"><b>{{"ControlText.GrandTotal"|translate}}</b></label>
+                    <div class="col-md-2">
+                        <label>{{VendorInvoiceDetails.subtotal|currency}}</label>
+                        <!--<input type="text" class="form-control text-right" readonly ng-model="VendorInvoiceDetails.subtotal" placeholder='{{"ControlText.TotalAmount"|translate}}' />-->
+                    </div>
+                    <div class="col-md-12 clearfix"></div>
+                    <label class="control-label col-md-2 col-md-offset-10 col-sm-10 col-sm-offset-3 text-right"><b>{{""|translate}}</b></label>
+
+                    <div class="col-md-12 clearfix"></div>
+                    <label class="control-label col-md-3 col-md-offset-7 col-sm-5 col-sm-offset-3 text-right"><b>{{"ControlText.(-)AdvancePayment"|translate}}</b></label>
+                    <div class="col-md-2">
+                        <label>{{VendorInvoiceDetails.advancePayment|currency}}</label>
+                        <!--<input type="text" class="form-control text-right" ng-change="calculateTotalPayable()" ng-model="VendorInvoiceDetails.advancePayment" placeholder='{{"$0.00"|translate}}' />-->
+                    </div>
+                    <div class="col-md-12 clearfix "></div>
+                    <hr class="col-md-3 pull-right bold" />
+                    <label class="control-label col-md-2 col-md-offset-8 col-sm-5 col-sm-offset-3 text-right"><b>{{"ControlText.TotalPayable"|translate}}</b></label>
+                    <div class="col-md-2">
+                        <label>{{VendorInvoiceDetails.total|currency}}</label>
+                        <!--<input type="text" class="form-control text-right" readonly ng-model="VendorInvoiceDetails.total" placeholder='{{"ControlText.TotalPayable"|translate}}' />-->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Start PaymentDetails-->
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding1px" ng-if="VendorInvoiceDetails.status.status=='PAID'">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding1px">
+                <div class="SubHeadingDiv" style="font-size:large">
+                    <span class="caption-subject">
+                        {{"ControlText.PaymentDetails"|translate}}
+                    </span>
+                </div>
+            </div>
+            <div class="col-md-12 clearfix margin-top-15" id="cal">
+                <div class="col-md-6">
+                    <div class="form-group col-md-12">
+                        <div class="col-md-4">
+                            <label class="control-label ">{{"ControlText.PaymentMethod"|translate}}</label>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="col-md-6">
+                                        <label class="mt-radio mt-radio-outline mt-radio-single">
+                                            <input type="radio" disabled name="optradio" ng-checked="VendorInvoiceDetails.paymentDetails.check" class="radio" ng-click="RadioChecked()" /><span></span>{{"Radio.Check"|translate}}
+                                        </label>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <label class="mt-radio mt-radio-outline mt-radio-single">
+                                    <input type="radio" disabled name="optradio" ng-checked="VendorInvoiceDetails.paymentDetails.eft" class="radio" ng-click="RadioChecked()" /><span></span>{{"Radio.EFT"|translate}}
+                                </label>
+                            </div>                         
+                        </div>
+                    </div>
+                    <!---Check section-->
+                    <form class="register-form" id="CheckSectionForm" name="CheckSectionForm" ng-if="CheckSection">
+                        <div class="form-group col-md-12">
+                            <div class="col-md-4">
+                                <label class="control-label ">{{"ControlText.Amount"|translate}}</label>
+                            </div>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control currency" disabled ng-model="VendorInvoiceDetails.paymentDetails.payAmount" placeholder='{{"ControlText.Amount"|translate}}' name="Amount" required />
+                                <label class="currencyLbl" style="width: 92% !important;background-color: #eef1f5;" for="Amount">{{VendorInvoiceDetails.paymentDetails.payAmount == null ? 0.00 : VendorInvoiceDetails.paymentDetails.payAmount | currency}}</label>
+
+                                <div class="errormessage">
+                                    <div ng-message="required" ng-show="(CheckSectionForm.Amount.$error.required && CheckSectionForm.Amount.$touched)">
+                                        <span class="text-danger">{{"ErrorMessage.AmountRequired"|translate}}</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <div class="col-md-4">
+                                <label class="control-label ">{{"ControlText.CheckNumber"|translate}}</label>
+                            </div>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" maxlength="20" disabled ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" ng-model="VendorInvoiceDetails.paymentDetails.checkNumber" placeholder='{{"ControlText.CheckNumber"|translate}}' name="CheckNo" required />
+                                <div class="errormessage">
+                                    <div ng-message="required" ng-show="(CheckSectionForm.CheckNo.$error.required && CheckSectionForm.CheckNo.$touched)">
+                                        <span class="text-danger">{{"ErrorMessage.CheckNoRequired"|translate}}</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <div class="col-md-4">
+                                <label class="control-label ">{{"ControlText.DrawnOnBank"|translate}}</label>
+                            </div>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" disabled ng-model="VendorInvoiceDetails.paymentDetails.bankName" placeholder='{{"ControlText.DrawnOnBank"|translate}}' name="BankName" required />
+                                <div class="errormessage">
+                                    <div ng-message="required" ng-show="(CheckSectionForm.BankName.$error.required && CheckSectionForm.BankName.$touched)">
+                                        <span class="text-danger">{{"ErrorMessage.BankNameRequired"|translate}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <div class="col-md-4">
+                                <label class="control-label ">{{"ControlText.PaymentDate"|translate}}</label>
+                            </div>
+                            <div class="col-md-8">
+                                <input class="form-control datepicker" disabled data-date-container='#cal' ng-model="VendorInvoiceDetails.paymentDetails.paymentDate" close-on-date-selection="true" data-provide="datepicker" size="16" type="text" placeholder='{{"ControlText.PaymentDate"|translate}}' name="Date" required />
+                                <div class="errormessage">
+                                    <div ng-message="required" ng-show="(CheckSectionForm.Date.$error.required && CheckSectionForm.Date.$touched)">
+                                        <span class="text-danger">{{"ErrorMessage.DateRequired"|translate}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                    <!---EFT section-->
+                    <form class="register-form" id="CheckSectionForm" name="EFTSectionForm" ng-if="!CheckSection">
+                        <div class="form-group col-md-12">
+                            <div class="col-md-4">
+                                <label class="control-label ">{{"ControlText.Amount"|translate}}</label>
+                            </div>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control currency" disabled ng-model="VendorInvoiceDetails.paymentDetails.payAmount" placeholder='{{"ControlText.Amount"|translate}}' name="Amount" required />
+                                <label class="currencyLbl" style="width: 92% !important;background-color: #eef1f5;" for="Amount">{{VendorInvoiceDetails.paymentDetails.payAmount == null ? 0.00 : VendorInvoiceDetails.paymentDetails.payAmount | currency}}</label>
+
+                                <div class="errormessage">
+                                    <div ng-message="required" ng-show="(CheckSectionForm.Amount.$error.required && CheckSectionForm.Amount.$touched)">
+                                        <span class="text-danger">{{"ErrorMessage.AmountRequired"|translate}}</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- <div class="form-group col-md-12">
+                            <div class="col-md-4">
+                                <label class="control-label ">{{"ControlText.BankAccountNumber"|translate}}</label>
+                            </div>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" disabled ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" ng-model="VendorInvoiceDetails.paymentDetails.bankAccountNumber" placeholder='{{"ControlText.CheckNumber"|translate}}' name="BankAccountNumber" required />
+                                <div class="errormessage">
+                                    <div ng-message="required" ng-show="(EFTSectionForm.BankAccountNumber.$error.required && EFTSectionForm.BankAccountNumber.$touched)">
+                                        <span class="text-danger">{{"ErrorMessage.BankAccountNumberNoRequired"|translate}}</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div> -->
+                        <div class="form-group col-md-12">
+                            <div class="col-md-4">
+                                <label class="control-label ">{{"ControlText.DrawnOnBank"|translate}}</label>
+                            </div>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" disabled ng-model="VendorInvoiceDetails.paymentDetails.bankName" placeholder='{{"ControlText.DrawnOnBank"|translate}}' name="BankName" required />
+                                <div class="errormessage">
+                                    <div ng-message="required" ng-show="(EFTSectionForm.BankName.$error.required && EFTSectionForm.BankName.$touched)">
+                                        <span class="text-danger">{{"ErrorMessage.BankNameRequired"|translate}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <div class="col-md-4">
+                                <label class="control-label ">{{"ControlText.PaymentDate"|translate}}</label>
+                            </div>
+                            <div class="col-md-8">
+                                <input class="form-control datepicker" disabled data-date-container='#cal' ng-model="VendorInvoiceDetails.paymentDetails.paymentDate" close-on-date-selection="true" data-provide="datepicker" size="16" type="text" placeholder='{{"ControlText.PaymentDate"|translate}}' name="Date" required />
+                                <div class="errormessage">
+                                    <div ng-message="required" ng-show="(EFTSectionForm.Date.$error.required && EFTSectionForm.Date.$touched)">
+                                        <span class="text-danger">{{"ErrorMessage.PaymentDateRequired"|translate}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <div class="col-md-4">
+                                <label class="control-label ">{{"Reference Number"|translate}}</label>
+                            </div>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" maxlength="20" disabled ng-model="VendorInvoiceDetails.paymentDetails.eftConfirmationNumber" placeholder='{{"Reference Number"|translate}}' name="RoutingNumber" />
+                                <!-- <div class="errormessage">
+                                    <div ng-message="required" ng-show="(EFTSectionForm.RoutingNumber.$error.required && EFTSectionForm.RoutingNumber.$touched)">
+                                        <span class="text-danger">{{"ErrorMessage.RoutingNumberRequired"|translate}}</span>
+                                    </div>
+                                </div> -->
+                            </div>
+                        </div>
+                    </form>
+                    <!--EFT Selection-->
+                </div>
+            </div>
+        </div>
+        <!--End PaymentDetails-->
+    </div>  
+    
+</div>
+
+

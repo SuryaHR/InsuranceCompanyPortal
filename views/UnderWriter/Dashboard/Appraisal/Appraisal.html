@@ -1,0 +1,439 @@
+<style>
+    .CursorLeft {
+        cursor: pointer !important;
+    }
+
+    .ReplacedClass {
+        border: 2px solid #6bbae0 !important;
+        padding: 12px 15px 15px 15px !important;
+        border-radius: 4px !important;
+        margin-bottom: 10px !important;
+    }
+
+    @-webkit-keyframes ring {
+  0% {
+    -webkit-transform: rotate(-15deg);
+    transform: rotate(-15deg);
+  }
+
+  2% {
+    -webkit-transform: rotate(15deg);
+    transform: rotate(15deg);
+  }
+
+  4% {
+    -webkit-transform: rotate(-18deg);
+    transform: rotate(-18deg);
+  }
+
+  6% {
+    -webkit-transform: rotate(18deg);
+    transform: rotate(18deg);
+  }
+
+  8% {
+    -webkit-transform: rotate(-22deg);
+    transform: rotate(-22deg);
+  }
+
+  10% {
+    -webkit-transform: rotate(22deg);
+    transform: rotate(22deg);
+  }
+
+  12% {
+    -webkit-transform: rotate(-18deg);
+    transform: rotate(-18deg);
+  }
+
+  14% {
+    -webkit-transform: rotate(18deg);
+    transform: rotate(18deg);
+  }
+
+  16% {
+    -webkit-transform: rotate(-12deg);
+    transform: rotate(-12deg);
+  }
+
+  18% {
+    -webkit-transform: rotate(12deg);
+    transform: rotate(12deg);
+  }
+
+  20% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes ring {
+  0% {
+    -webkit-transform: rotate(-15deg);
+    -ms-transform: rotate(-15deg);
+    transform: rotate(-15deg);
+  }
+
+  2% {
+    -webkit-transform: rotate(15deg);
+    -ms-transform: rotate(15deg);
+    transform: rotate(15deg);
+  }
+
+  4% {
+    -webkit-transform: rotate(-18deg);
+    -ms-transform: rotate(-18deg);
+    transform: rotate(-18deg);
+  }
+
+  6% {
+    -webkit-transform: rotate(18deg);
+    -ms-transform: rotate(18deg);
+    transform: rotate(18deg);
+  }
+
+  8% {
+    -webkit-transform: rotate(-22deg);
+    -ms-transform: rotate(-22deg);
+    transform: rotate(-22deg);
+  }
+
+  10% {
+    -webkit-transform: rotate(22deg);
+    -ms-transform: rotate(22deg);
+    transform: rotate(22deg);
+  }
+
+  12% {
+    -webkit-transform: rotate(-18deg);
+    -ms-transform: rotate(-18deg);
+    transform: rotate(-18deg);
+  }
+
+  14% {
+    -webkit-transform: rotate(18deg);
+    -ms-transform: rotate(18deg);
+    transform: rotate(18deg);
+  }
+
+  16% {
+    -webkit-transform: rotate(-12deg);
+    -ms-transform: rotate(-12deg);
+    transform: rotate(-12deg);
+  }
+
+  18% {
+    -webkit-transform: rotate(12deg);
+    -ms-transform: rotate(12deg);
+    transform: rotate(12deg);
+  }
+
+  20% {
+    -webkit-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+}
+
+.faa-ring.animated,
+.faa-ring.animated-hover:hover,
+.faa-parent.animated-hover:hover > .faa-ring {
+  -webkit-animation: ring 4s ease infinite;
+  animation: ring 4s ease infinite;
+  transform-origin-x: 50%;
+  transform-origin-y: 0px;
+  transform-origin-z: initial;
+}
+.clr{
+color:rgb(66, 82, 110)
+
+}
+</style>
+<script type="text/javascript">
+    $(function () {
+        iOSHandler();
+        $(window).on("orientationchange", function (event) {
+            iOSHandler();
+        });
+    });
+    function iOSHandler() {
+        var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        var width = screen.width;
+
+        if (iOS) {
+
+            var orientation;
+            if (window.orientation == undefined) {
+                orientation = window.screen.orientation.angle;
+            }
+            else {
+                orientation = window.orientation;
+            }
+
+            if (orientation != 0) {
+                if (screen.width < screen.height) {
+                    width = screen.height;
+                }
+            }
+            //iPhone4-Landscape
+            if (width > 475 && width < 485) {
+                $(".comparablesDivDB").css("height", "auto");
+                $(".addedComp").css("width", "100%");
+                $(".addedComp").css("overflow", "scroll");
+                $(".addedComp").css("-webkit-overflow-scrolling", "touch");
+
+            }
+
+            //iPhone5-Landscape
+            else if (width > 562 && width < 572) {
+                $(".comparablesDivDB").css("height", "auto");
+                $(".addedComp").css("width", "100%");
+                $(".addedComp").css("overflow", "scroll");
+                $(".addedComp").css("-webkit-overflow-scrolling", "touch");
+
+            }
+            //iPhone4,5-Portrait
+            else if (width > 315 && width < 325) {
+                $(".comparablesDivDB").css("height", "auto");
+                $(".addedComp").css("width", "100%");
+                $(".addedComp").css("overflow", "scroll");
+                $(".addedComp").css("-webkit-overflow-scrolling", "touch");
+
+            }
+
+            //iPhone6-Landscape
+            else if (width > 660 && width < 670) {
+                $(".comparablesDivDB").css("height", "auto");
+                $(".addedComp").css("width", "100%");
+                $(".addedComp").css("overflow", "scroll");
+                $(".addedComp").css("-webkit-overflow-scrolling", "touch");
+
+            }
+            //iPhone6-Portrait
+            else if (width > 370 && width < 380) {
+                $(".comparablesDivDB").css("height", "auto");
+                $(".addedComp").css("width", "100%");
+                $(".addedComp").css("overflow", "scroll");
+                $(".addedComp").css("-webkit-overflow-scrolling", "touch");
+
+            }
+
+            //iPhone6+-Landscape
+            else if (width > 730 && width < 740) {
+                $(".comparablesDivDB").css("height", "auto");
+                $(".addedComp").css("width", "100%");
+                $(".addedComp").css("overflow", "scroll");
+                $(".addedComp").css("-webkit-overflow-scrolling", "touch");
+
+            }
+            //iPhone6+-Portrait
+            else if (width > 410 && width < 420) {
+                $(".comparablesDivDB").css("height", "auto");
+                $(".addedComp").css("width", "100%");
+                $(".addedComp").css("overflow", "scroll");
+                $(".addedComp").css("-webkit-overflow-scrolling", "touch");
+
+            }
+
+            //ipad
+            else if (width > 1020 && width < 1025) {
+                $(".comparablesDivDB").css("height", "958px");
+                $(".googleComparableBodyHeight").css("height", "729px");
+                $(".googleSerachResultDiv").css("height", "632px");
+                $(".noteDiv").css("height", "215px");
+                $(".addedComp").css("height", "215px");
+                $(".addedComp").css("width", "100%");
+                $(".addedComp").css("overflow", "scroll");
+                $(".addedComp").css("-webkit-overflow-scrolling", "touch");
+
+
+            }
+
+            //else if (width > 760 && width < 769) {
+
+            //    $(".googleComparableBodyHeight").css("height", "680px");
+
+            //}
+            else if (width > 1360 && width < 1367) {
+                $(".googleComparableBodyHeight").css("height", "540px");
+                $(".comparablesDivDB").css("height", "853px");
+
+            }
+        }
+    }
+
+</script>
+<style>
+    #btnAddCustomItem:hover {
+        color: ghostwhite;
+    }
+
+    .mandatory {
+        color: red;
+    }
+
+    .NoDecoration {
+        text-decoration: none !important;
+        color: black;
+    }
+
+    .angucomplete-dropdown {
+        bottom: 100% !important;
+    }
+
+    @media (min-device-width:768px) {
+        .width14 {
+            width: 16% !important;
+        }
+
+        .width16 {
+            width: 17.6%;
+            height: 4px;
+        }
+
+        .StatusNumber {
+            margin-left: 2% !important;
+        }
+
+        .StatusHorizontalLine {
+            margin-left: 9% !important;
+        }
+    }
+
+    @media (max-device-width:768px) {
+        .width14 {
+            width: 14% !important;
+        }
+
+        .width16 {
+            width: 15%;
+            height: 4px;
+        }
+
+        .StatusNumber {
+            margin-left: 13% !important;
+        }
+
+        .StatusHorizontalLine {
+            margin-left: 18% !important;
+        }
+    }
+</style>
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding1px">
+
+    <div class="headerFreez col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-left: 5px;">
+
+        <ul class="page-breadcrumb breadcrumb sbold">
+            <li>
+                <a ng-click="goToHome()">{{"Home"|translate}}</a>
+                <i class="fa fa-circle"></i>
+            </li>
+
+            <li ng-if="searchResult">
+                <a ng-click="goToSearchPage()">{{"SearchResults"|translate}}</a>
+                <i class="fa fa-circle"></i>
+            </li>
+
+            <!-- UnderwriterAppraisal -->
+            <li ng-if="isReports">
+                <a ng-click="goToReportsPage()">{{"Reports"|translate}}</a>
+                <i class="fa fa-circle"></i>
+            </li>
+
+            <li ng-if="allAppraisals">
+                <a ng-click="goToAllAppraisals()">{{"AllAppraisals"|translate}}</a>
+                <i class="fa fa-circle"></i>
+            </li>
+
+            <li ng-if="appraisalNeedUpdate">
+                <a ng-click="goToManagerAppraisalReports('NeedUpdate')">{{"AppraisalsNeedingUpdate"|translate}}</a>
+                <i class="fa fa-circle"></i>
+            </li>
+
+            <li ng-if="appraisalExpiring">
+                <a ng-click="goToManagerAppraisalReports('Expired')">{{"AppraisalsExpiring"|translate}}</a>
+                <i class="fa fa-circle"></i>
+            </li>
+
+            <li ng-if="tab == 'Appraisal'">
+                <span>{{"AppraisalNo"|translate}}&nbsp;{{AppraisalNo}}</span>
+            </li>
+            <li ng-if="tab == 'Notes'">
+                <a ng-click="GoToAppraisal()">{{"AppraisalNo"|translate}}&nbsp;{{AppraisalNo}}</a>
+                <i class="fa fa-circle"></i>
+            </li>
+
+            <li ng-if="tab == 'Notes'">
+                <span>{{"Note"|translate}}</span>
+            </li>
+
+            <li ng-if="tab == 'ActivityLog'">
+                <a ng-click="GoToAppraisal()">{{AppraisalNo}}</a>
+                <i class="fa fa-circle"></i>
+                <span>{{"Activity Log"|translate}}</span>
+            </li>
+
+        </ul>
+
+        <div class="portlet light padding1px">
+            <div class="portlet-title">
+                <div class="caption font-gray-sharp">
+                    <span class="caption-subject">{{"AppraisalNo"|translate}} &nbsp;{{AppraisalNo}}</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="portlet light padding1px">
+        <!-- <div class="portlet-title">
+            <div class="caption font-gray-sharp">
+                <span class="caption-subject">{{"AppraisalNo"|translate}} &nbsp;{{AppraisalNo}}</span>
+            </div>
+        </div> -->
+
+        <div class="col-md-12 col-sm-12 col-xs-12" style="padding:0px;">
+            <div class="portlet-body">
+                <div class="tabbable-custom">
+                    <ul class="nav nav-tabs">
+
+                        <li ng-class="{'active': tab=='Appraisal'}">
+                            <a href="#" data-toggle="tab" ng-click="tab='Appraisal';goToAppraisal()">&nbsp;
+                                {{"AppraisalDetails"|translate}} &nbsp;</a>
+                        </li>
+
+                        <li ng-class="{'active': tab=='Notes'}">
+                            <a ng-if="EditAppraisal" href="#" data-toggle="tab" ng-click="tab='Notes';showNotes()">&nbsp;
+                                {{"Notes"|translate}} &nbsp;</a>
+                        </li>
+
+                        <li ng-class="{'active': tab=='ActivityLog'}">
+                            <a ng-if="EditAppraisal" href="#" data-toggle="tab" ng-click="tab='ActivityLog';showActivityLog()">&nbsp;
+                                {{"Activity Log"|translate}} &nbsp;
+                                <sup ng-if="showBell" class="fa fa-bell-o faa-ring clr animated"><sup>{{unReadLogsCount}}</sup></sup>
+                            </a> 
+                        </li>
+
+                    </ul>
+                    <div class="tab-content minTabHeight">
+                        <div class="row">
+                            <div class="col-md-12" ng-show="tab=='Notes'" id="Notes" ng-include="'views/AppraisalNotes/Notes.html'"
+                                ng-controller="NotesController">
+                            </div>
+
+                            <div class="col-md-12" ng-show="tab=='ActivityLog'" id="ActivityLog" ng-include="'views/InsActivityLog/ActivityLog.html'">
+                            </div>
+
+                            <div class="col-md-12" ng-if="tab=='Appraisal'" id="appraisal" ng-include="'views/UnderWriter/Dashboard/Appraisal/AppraisalDetails.html'"
+                                ng-controller="AppraisalDetailsController">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Design -->
+        </div>
+
+
+
+    </div>
+</div>

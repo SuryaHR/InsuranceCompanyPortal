@@ -1,0 +1,56 @@
+﻿{
+
+  "NewThirdPartyVendorTitle": "New Vendor Settings ",
+
+  "ControlText": {
+    "SendInvite": "Send Invite",
+    "Back": "Back",
+    "Save": "Save",
+    "Update": "Update",
+    "Cancel": "Cancel"
+  },
+  "FormControl": {
+    "Email": "Email Id",
+    "BodyOfInvite": "Body Of Invite",
+    "SupplierName": "Vendor Name",
+    "CompanyWebsite": "Company Website",
+    "OfficeAddress": "Office Address",
+    "BillingAddress": "Billing Address",
+    "Phone": "Phone(Work)#",
+    "Fax": "Fax",
+    "AddressLine1": "Address Line 1",
+    "AddressLine2": "Address Line 2",
+    "City": "City",
+    "ZipCode": "Zip Code",
+    "FirstName": "First Name",
+    "LastName": "Last Name",
+    "Mobile": "Mobile(Work)"
+
+
+  },
+  "Label": {
+    "Heading": "Supplier #",
+    "CompanyWebsite": "Company Website",
+    "ContactPerson": "Contact Person*",
+    "FirstName": "Fisrt Name",
+    "LastName": "LastName",
+    "Phone": "Phone #",
+    "Email": "Email",
+    "SuppliersPhone": "Supplier's Phone #",
+    "PhoneType": "Phone Type",
+    "ShippingAddress": "Shipping Address",
+    "BillingAddress": "Billing Address",
+    "AddressLine1": "Address Line 1",
+    "AddressLine2": "Address Line 2",
+    "City": "City",
+    "State": "State",
+    "ZipCode": "Zip Code",
+    "Status": "Status",
+    "SupplierName": "Vendor Name"
+  },
+  "HeadingText": {
+    "CategoryExpertise": "Category Expertise"
+  },
+  "VendorContactSettings": "Vendor Contact Settings",
+  "NoteText": "*An email will be sent to thre contact to complete their profile"
+}

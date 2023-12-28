@@ -1,0 +1,259 @@
+[{
+    "subcategory":"Fiction and Non-Fiction",
+    "category":"BOOKS",
+    "totalRate":60,
+    "monthlyRate":0,
+    "validity":""
+
+},{
+    "subcategory":"Paperbacks",
+    "category":"BOOKS",
+    "totalRate":50,
+    "monthlyRate":0,
+    "validity":""
+
+},{
+    "category":"CLOTHING - MEN’S",
+    "subcategory":"Uniforms",
+    "totalRate":50,
+    "monthlyRate":0,
+    "validity":""
+
+},{
+    "category":"CLOTHING - WOMEN’S",
+    "subcategory":"Uniforms",
+    "totalRate":60,
+    "monthlyRate":0,
+    "validity":""
+
+},{
+    "category":"CLOTHING - WOMEN’S",
+    "subcategory":"Wedding Gowns",
+    "totalRate":50,
+    "monthlyRate":0,
+    "validity":""
+
+},{
+    "category":"DECORATIVE ITEMS",
+    "subcategory":"Artificial Flowers and Fruits",
+    "totalRate":25,
+    "monthlyRate":0,
+    "validity":""
+
+},{
+    "category":"DECORATIVE ITEMS",
+    "subcategory":"Decorations - Holiday",
+    "totalRate":10,
+    "monthlyRate":0,
+    "validity":""
+
+},{
+    "category":"DECORATIVE ITEMS",
+    "subcategory":"Lithograph Prints",
+    "totalRate":10,
+    "monthlyRate":0,
+    "validity":""
+
+},{
+    "category":"DECORATIVE ITEMS",
+    "subcategory":"Oil Paintings",
+    "totalRate":0,
+    "monthlyRate":0,
+    "validity":"",
+    "comment":"commercial value"
+
+},{
+    "category":"DECORATIVE ITEMS",
+    "subcategory":"Vases",
+    "totalRate":60,
+    "monthlyRate":0,
+    "validity":"",
+    "comment":"commercial value"
+
+
+},{
+    "category":"ELECTRONICS",
+    "subcategory":"CB Radios",
+    "totalRate":0,
+    "monthlyRate":1,
+    "validity":"1 year",
+    "comment":"if loss"
+
+},{
+    "category":"ELECTRONICS",
+    "subcategory":"Telephones cell",
+    "totalRate":30,
+    "monthlyRate":4,
+    "validity":"1 month"
+
+},{
+    "category":"ELECTRONICS",
+    "subcategory":"Television Tower",
+    "totalRate":0,
+    "monthlyRate":0,
+    "validity":"",
+    "comment":"replacement cost"
+
+},{
+    "category":"FOOD SUPPLIES",
+    "subcategory":"Beverages and Staples",
+    "totalRate":0,
+    "monthlyRate":0,
+    "validity":"",
+    "comment":"replacement cost"
+
+},{
+    "category":"FOOD SUPPLIES",
+    "subcategory":"Canned - Commercial, Home",
+    "totalRate":0,
+    "monthlyRate":0,
+    "validity":"",
+    "comment":"Use replacement cost or use commercial value, whichever is less"
+
+
+},{
+    "category":"HOBBIES & SPORTING GOODS",
+    "subcategory":"Cards - Playing",
+    "totalRate":25,
+    "monthlyRate":0,
+    "validity":"",
+    "comment":""
+
+
+},{
+    "category":"HOBBIES & SPORTING GOODS",
+    "subcategory":"Chess Sets",
+    "totalRate":25,
+    "monthlyRate":0,
+    "validity":"",
+    "comment":""
+    
+
+},{
+    "category":"HOBBIES & SPORTING GOODS",
+    "subcategory":"Coin Collection",
+    "totalRate":0,
+    "monthlyRate":0,
+    "validity":"",
+    "comment":"replacement cost < use commercial value"
+
+
+},{
+    "category":"HOBBIES & SPORTING GOODS",
+    "subcategory":"Stamp Collections",
+    "totalRate":0,
+    "monthlyRate":0,
+    "validity":"",
+    "comment":"replacement cost"
+
+
+},{
+    "category":"JEWELRY",
+    "subcategory":"other",
+    "totalRate":0,
+    "monthlyRate":0,
+    "validity":"",
+    "comment":"appraisal value"
+
+},{
+    "category":"MISCELLANEOUS ITEMS",
+    "subcategory":"Brick-A-Brac",
+    "totalRate":75,
+    "monthlyRate":0,
+    "validity":"",
+    "comment":""
+
+
+},{
+    "category":"MISCELLANEOUS ITEMS",
+    "subcategory":"Figurines",
+    "totalRate":90,
+    "monthlyRate":0,
+    "validity":"",
+    "comment":"Use actual value or 90% of replacement cost, whichever is less"
+
+
+},{
+    "category":"MISCELLANEOUS ITEMS",
+    "subcategory":"Photograph Albums, Pictures",
+    "totalRate":0,
+    "monthlyRate":0,
+    "validity":"",
+    "comment":"material cost"
+
+
+},{
+    "category":"MISCELLANEOUS ITEMS",
+    "subcategory":"Professional Equipment",
+    "totalRate":0,
+    "monthlyRate":0,
+    "validity":"",
+    "comment":"commercial value"
+    
+
+},{
+    "category":"MISCELLANEOUS ITEMS",
+    "subcategory":"Scrapbooks",
+    "totalRate":0,
+    "monthlyRate":0,
+    "validity":"",
+    "comment":"commercial value"
+
+
+},{
+    "category":"MISCELLANEOUS ITEMS",
+    "subcategory":"Stationery",
+    "totalRate":90,
+    "monthlyRate":0,
+    "validity":"",
+    "comment":""
+
+
+},{
+    "category":"MUSICAL INSTRUMENTS & SUPPLIES",
+    "subcategory":"CD",
+    "totalRate":25,
+    "monthlyRate":0,
+    "validity":"",
+    "comment":""
+
+
+},{
+    "category":"MUSICAL INSTRUMENTS & SUPPLIES",
+    "subcategory":"Music - Sheet, Book",
+    "totalRate":33,
+    "monthlyRate":0,
+    "validity":"",
+    "comment":""
+
+
+}
+,{
+    "category":"PERSONAL ITEMS",
+    "subcategory":"Cosmetics use ",
+    "totalRate":90,
+    "monthlyRate":0,
+    "validity":""
+
+},{
+    "category":"PERSONAL ITEMS",
+    "subcategory":"Toiletries",
+    "totalRate":90,
+    "monthlyRate":0,
+    "validity":""
+
+},{
+    "category":"VINYL RECORDS",
+    "subcategory":"33RPM, 45RPM Stereo",
+    "totalRate":75,
+    "monthlyRate":0,
+    "validity":""
+
+},{
+    "category":"VINYL RECORDS",
+    "subcategory":"78 RPM Stereo",
+    "totalRate":33,
+    "monthlyRate":0,
+    "validity":""
+
+}]

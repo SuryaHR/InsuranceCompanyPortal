@@ -1,0 +1,266 @@
+  <style>
+      .To-do-list {
+          border: 2px solid gray;
+          margin: 10px;
+          height: 100px;
+          border-radius: 10px;
+
+      }
+
+      .To-do-list-title {
+          display: block;
+          padding: 5px;
+          font-weight: bold;
+          font-size: 20px;
+          margin-top: 20px;
+          margin-top: 4px;
+
+      }
+  </style>
+  <div class="col-md-12 col-sm-12 col-lg-12">
+      <div class="col-md-4 col-sm-4 col-lg-2 col-xs-4">
+          <div class="col-md-12 text-center To-do-list">
+
+              <label style="font-size: 15px;margin-top: 20px;">Total # of items</label>
+              <label class="To-do-list-title"> {{ReportDetails.claimItemsDetails.length}}</label>
+          </div>
+      </div>
+      <div class="col-md-4 col-sm-4 col-lg-2 col-xs-4">
+          <div class="col-md-12 text-center To-do-list">
+              <label style="font-size: 15px;margin-top: 20px;">Total Replacement $</label>
+              <label class="To-do-list-title"> {{TotalReplacementCost| currency   }}</label>
+          </div>
+      </div>
+      <div class="col-md-4 col-sm-4 col-lg-2 col-xs-4">
+          <div class="col-md-12 text-center To-do-list">
+              <label style="font-size: 15px;margin-top: 20px;"> # of items paid</label>
+              <label class="To-do-list-title"> {{paidItemsCount}}</label>
+          </div>
+      </div>
+      <div class="col-md-4 col-sm-4 col-lg-2 col-xs-4">
+          <div class="col-md-12 text-center To-do-list">
+              <label style="font-size: 15px;margin-top: 20px;">Total $ paid</label>
+              <label class="To-do-list-title"> {{totalSettlement}}</label>
+          </div>
+      </div>
+      <div class="col-md-4 col-sm-4 col-lg-2 col-xs-4">
+          <div class="col-md-12 text-center To-do-list">
+              <label style="font-size: 15px;margin-top: 20px;">Policy Coverage</label>
+              <label class="To-do-list-title">
+                  {{(ReportDetails.reportClaimDetails.coverageLimit ?ReportDetails.reportClaimDetails.coverageLimit :0 )| currency}}</label>
+          </div>
+      </div>
+  </div>
+  <!-- Same html  is there in contents evaluation tab. -->
+  <div class="col-md-12 padding1px text-right form-group"><a class="btn sbold  btnMargin "
+          ng-click="exportDetailedInventory('excel')">Export
+          to Excel</a></div>
+  <!--Start Table-->
+  <div class="col-md-12 col-sm-12 padding1px">
+      <div class="table-scroll-container custom_scroll_bar table-responsive" scroll>
+          <table class="table table-bordered table-hover" id="NavigateTable" aria-describedby="">
+              <thead class="header">
+                  <tr>
+                      <th class="fixed fixed-top-left" ng-click="sortReport('itemNumber')">
+                          {{"Item #"|translate}}
+                          <span class="glyphicon sort-icon" ng-show="sortReportKey=='itemNumber'"
+                              ng-class="{'glyphicon-chevron-up pull-right':!reverseReport,'glyphicon-chevron-down pull-right':reverseReport}"></span>
+                      </th>
+                      <th class="fixed fixed-top" ng-click="sortReport('room.roomName')">
+                          {{"Room"|translate}}
+                          <span class="glyphicon sort-icon" ng-show="sortReportKey=='room.roomName'"
+                              ng-class="{'glyphicon-chevron-up pull-right':!reverseReport,'glyphicon-chevron-down pull-right':reverseReport}"></span>
+                      </th>
+                      <th class="col-xs-2 fixed fixed-top" ng-click="sortReport('originalItemDescription')">
+                          {{"Origional Description"|translate}}
+                          <span class="glyphicon sort-icon" ng-show="sortReportKey=='originalItemDescription'"
+                              ng-class="{'glyphicon-chevron-up pull-right':!reverseReport,'glyphicon-chevron-down pull-right':reverseReport}"></span>
+                      </th>
+                      <th class="fixed fixed-top" ng-click="sortReport('[ageInYears,ageInMonths]')">
+                          {{"Age"|translate}}
+                          <span class="glyphicon sort-icon" ng-show="sortReportKey === '[ageInYears,ageInMonths]'"
+                              ng-class="{'glyphicon-chevron-up pull-right':!reverseReport,'glyphicon-chevron-down pull-right':reverseReport}"></span>
+                      </th>
+                      <th class="fixed fixed-top" ng-click="sortReport('quantity')">
+                          {{"Quantity"|translate}}
+                          <span class="glyphicon sort-icon" ng-show="sortReportKey=='quantity'"
+                              ng-class="{'glyphicon-chevron-up pull-right':!reverseReport,'glyphicon-chevron-down pull-right':reverseReport}"></span>
+                      </th>
+                      <th class="fixed fixed-top" ng-click="sortReport('totalPrice')">
+                          {{"Total Price"|translate}}
+                          <span class="glyphicon sort-icon" ng-show="sortReportKey=='unitPrice'"
+                              ng-class="{'glyphicon-chevron-up pull-right':!reverseReport,'glyphicon-chevron-down pull-right':reverseReport}"></span>
+                      </th>
+                      <th class="fixed fixed-top" ng-click="sortReport('isScheduled')">
+                          {{"Scheduled"|translate}}
+                          <span class="glyphicon sort-icon" ng-show="sortReportKey=='isScheduled'"
+                              ng-class="{'glyphicon-chevron-up pull-right':!reverseReport,'glyphicon-chevron-down pull-right':reverseReport}"></span>
+                      </th>
+                      <!-- <th class="fixed fixed-top" ng-click="sortReport('status.status')">
+                            {{"status"|translate}}
+                            <span class="glyphicon sort-icon"
+                                ng-show="sortReportKey=='status.status'"
+                                ng-class="{'glyphicon-chevron-up pull-right':!reverseReport,'glyphicon-chevron-down pull-right':reverseReport}"></span>
+                        </th> -->
+                      <th class="col-xs-2 fixed fixed-top" ng-click="sortReport('replacementItemDescription')">
+                          {{"Replacement Description"|translate}}
+                          <span class="glyphicon sort-icon" ng-show="sortReportKey=='replacementItemDescription'"
+                              ng-class="{'glyphicon-chevron-up pull-right':!reverseReport,'glyphicon-chevron-down pull-right':reverseReport}"></span>
+                      </th>
+                      <th class="fixed fixed-top" ng-click="sortReport('replacementTotalCost')">
+                          {{"Replacement Cost"|translate}}
+                          <span class="glyphicon sort-icon" ng-show="sortReportKey=='replacementTotalCost'"
+                              ng-class="{'glyphicon-chevron-up pull-right':!reverseReport,'glyphicon-chevron-down pull-right':reverseReport}"></span>
+                      </th>
+                      <th class="fixed fixed-top" ng-click="sortReport('quotedBy')">
+                          {{"QuotedBy"|translate}}
+                          <span class="glyphicon sort-icon" ng-show="sortReportKey=='quotedBy'"
+                              ng-class="{'glyphicon-chevron-up pull-right':!reverseReport,'glyphicon-chevron-down pull-right':reverseReport}"></span>
+                      </th>
+                      <th class="fixed fixed-top" ng-click="sortReport('categoryDetails.name')">
+                          {{"Category"|translate}}
+                          <span class="glyphicon sort-icon" ng-show="sortReportKey=='categoryDetails.name'"
+                              ng-class="{'glyphicon-chevron-up pull-right':!reverseReport,'glyphicon-chevron-down pull-right':reverseReport}"></span>
+                      </th>
+                      <th class="fixed fixed-top" ng-click="sortReport('subCategoryDetails.annualDepreciation')">
+                          {{"Deprn %"|translate}}
+                          <span class="glyphicon sort-icon"
+                              ng-show="sortReportKey=='subCategoryDetails.annualDepreciation'"
+                              ng-class="{'glyphicon-chevron-up pull-right':!reverseReport,'glyphicon-chevron-down pull-right':reverseReport}"></span>
+                      </th>
+                      <th class="fixed fixed-top" ng-click="sortReport('depreciationAmount')">
+                          {{"Depriciation $"|translate}}
+                          <span class="glyphicon sort-icon" ng-show="sortReportKey=='depreciationAmount'"
+                              ng-class="{'glyphicon-chevron-up pull-right':!reverseReport,'glyphicon-chevron-down pull-right':reverseReport}"></span>
+                      </th>
+                      <th class="fixed fixed-top" ng-click="sortReport('actualCashValue')">
+                          {{"ActualCash $"|translate}}
+                          <span class="glyphicon sort-icon" ng-show="sortReportKey=='actualCashValue'"
+                              ng-class="{'glyphicon-chevron-up pull-right':!reverseReport,'glyphicon-chevron-down pull-right':reverseReport}"></span>
+                      </th>
+                      <th class="fixed fixed-top" ng-click="sortReport('isReplaced')">
+                          {{"Replaced"|translate}}
+                          <span class="glyphicon sort-icon" ng-show="sortReportKey=='isReplaced'"
+                              ng-class="{'glyphicon-chevron-up pull-right':!reverseReport,'glyphicon-chevron-down pull-right':reverseReport}"></span>
+                      </th>
+                      <th class="fixed fixed-top" ng-click="sortReport('holdOverValue')">
+                          {{"Item Overage $"|translate}}
+                          <span class="glyphicon sort-icon" ng-show="sortReportKey=='holdOverValue'"
+                              ng-class="{'glyphicon-chevron-up pull-right':!reverseReport,'glyphicon-chevron-down pull-right':reverseReport}"></span>
+                      </th>
+                      <th class="fixed fixed-top" ng-click="sortReport('itemLimit')">
+                          {{"Individual Limit"|translate}}
+                          <span class="glyphicon sort-icon" ng-show="sortReportKey=='itemLimit'"
+                              ng-class="{'glyphicon-chevron-up pull-right':!reverseReport,'glyphicon-chevron-down pull-right':reverseReport}"></span>
+                      </th>
+                      <th class="fixed fixed-top" ng-click="sortReport('settlementValue')">
+                          {{"Settlement $"|translate}}
+                          <span class="glyphicon sort-icon" ng-show="sortReportKey=='settlementValue'"
+                              ng-class="{'glyphicon-chevron-up pull-right':!reverseReport,'glyphicon-chevron-down pull-right':reverseReport}"></span>
+                      </th>
+                      <th class="fixed fixed-top" ng-click="sortReport('comments')">
+                          {{"Comment(s)"|translate}}
+                          <span class="glyphicon sort-icon" ng-show="sortReportKey=='comments'"
+                              ng-class="{'glyphicon-chevron-up pull-right':!reverseReport,'glyphicon-chevron-down pull-right':reverseReport}"></span>
+                      </th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr id="{{'col-'+$index}}"
+                      ng-repeat="Report in ReportDetails.claimItemsDetails|orderBy:sortReportKey:reverseReport track by $index">
+                      <td class="fixed fixed-left">{{Report.itemNumber}}</td>
+                      <td>{{Report.room.roomName}}</td>
+                      <td class="col-xs-2" ng-init="itemDesclimit = limit; itemDescMoreShown = false">{{
+                                Report.originalItemDescription ? (Report.originalItemDescription
+                                | limitTo: itemDesclimit) + (Report.originalItemDescription.length > itemDesclimit ?
+                                '...' :
+                                '') : ''
+                            }}
+                          <a ng-show="Report.originalItemDescription.length > itemDesclimit && !itemDescMoreShown"
+                              stop-propagation
+                              ng-click="itemDesclimit=Report.originalItemDescription.length; itemDescMoreShown = true">
+                              More
+                          </a>
+                          <a ng-show="itemDescMoreShown" href stop-propagation
+                              ng-click="itemDescMoreShown = false; itemDesclimit=50; ">
+                              Less </a>
+                      </td>
+                      <td>
+                          <span ng-show="Report.ageInYears > 0  || Report.ageInMonths > 0">
+                              {{Report.ageInYears > 0 ? Report.ageInYears+'yr ' : ""}}
+                              {{Report.ageInMonths > 0 ? Report.ageInMonths + 'mo' : ""}}
+                          </span>
+                          <span ng-show="Report.ageInYears <= 0 && Report.ageInMonths <=0">NA</span>
+                      </td>
+                      <td>{{Report.quantity}}</td>
+                      <td class="text-right">{{Report.totalPrice|currency}}</td>
+                      <td>{{Report.scheduled ? 'Yes' : 'No'}}</td>
+                      <!-- <td>{{Report.status.status | titleCase}}</td> -->
+                      <td class="col-xs-2"
+                          ng-init="replacementItemDescLimit = limit; replacementItemDescMoreShown = false">{{
+                            Report.replacementItemDescription ? (Report.replacementItemDescription
+                            | limitTo: replacementItemDescLimit) + (Report.replacementItemDescription.length > replacementItemDescLimit ?
+                            '...' :
+                            '') : ''
+                        }}
+                          <a ng-show="Report.replacementItemDescription.length > replacementItemDescLimit && !replacementItemDescMoreShown"
+                              stop-propagation
+                              ng-click="replacementItemDescLimit=Report.replacementItemDescription.length; replacementItemDescMoreShown = true">
+                              More
+                          </a>
+                          <a ng-show="replacementItemDescMoreShown" href stop-propagation
+                              ng-click="replacementItemDescMoreShown = false; replacementItemDescLimit=50;">
+                              Less </a>
+                      </td>
+                      <td class="text-right">
+                          {{Report.replacementTotalCost ? Report.replacementTotalCost : 0 | currency}}
+                      </td>
+                      <td>{{Report.quotedBy}}</td>
+                      <td>{{Report.categoryDetails.name}}</td>
+                      <td>{{Report.subcategoryDetails.annualDepreciation}}</td>
+                      <td class="text-right">
+                          {{Report.depreciationAmount ? Report.depreciationAmount : 0 |currency}}
+                      </td>
+                      <td class="text-right">
+                          {{Report.actualCashValue ? Report.actualCashValue : 0 |currency}}
+                      </td>
+                      <td><span ng-if="Report.isReplaced===true">Yes</span><span
+                              ng-if="Report.isReplaced===false">No</span></td>
+                      <td class="text-right">
+                          {{Report.holdOverValue ? Report.holdOverValue : 0 |currency}}
+                      </td>
+                      <td class="text-right">
+                          {{Report.itemLimit ? Report.itemLimit : 0 | currency}}</td>
+                      <td class="text-right">
+                          {{Report.settlementValue ? Report.settlementValue : 0 |currency}}
+                      </td>
+                      <td><span ng-show="Report.replacementTotalCost > Report.itemLimit">Item limits exceeded</span>
+                          <!-- <span ng-show="Report.totalPrice > Report.categoryLimit">Category limits exceeded</span> -->
+                      </td>
+                  </tr>
+                  <tr ng-if="!ReportDetails || !ReportDetails.claimItemsDetails">
+                      <td colspan="20" class="text-danger" style="text-align: center;">
+                          {{"No items available"|translate}}
+                      </td>
+                  </tr>
+              </tbody>
+              <!-- <tfoot class="footer" ng-show="istfoot">
+                    <tr class="sbold">
+                        <td class="text-right" colspan="9">{{"Total"|translate}}</td>
+                        <td class="text-right">{{TotalReplacementCost|currency}}</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td class="text-right">{{TotalDepreciationAmount|currency}}</td>
+                        <td class="text-right">{{TotalActualCashValue | currency}}</td>
+                        <td></td>
+                        <td class="text-right">{{totalHoldOverValue | currency}}</td>
+                        <td></td>
+                        <td class="text-right">{{totalSettlement | currency }}</td>
+                        <td></td>
+                    </tr>
+                </tfoot> -->
+          </table>
+      </div>
+  </div>
+  <!--End Table-->

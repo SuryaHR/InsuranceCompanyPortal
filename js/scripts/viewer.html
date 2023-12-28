@@ -1,0 +1,356 @@
+<style type="text/css">
+    .pointer td {
+        cursor: pointer !important;
+    }
+
+    .btnclass {
+        min-width: 46px !important;
+        min-height: 28px !important;
+        padding: 2px !important;
+    }
+
+    #pdf {
+        position: relative;
+        cursor: crosshair;
+    }
+
+    .mapItem {
+        /*display: table !important;*/
+        padding: 3px 4px 5px 3px;;
+        border: none;
+        background: transparent;
+        position: absolute;
+        z-index: 2;
+
+        /* box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        -webkit-box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        -moz-box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3); */
+        height: 235px;
+    }
+
+    .mapItem input {
+        border: 1px solid #000;
+        padding-left: 5px;
+        width: 70px;
+        height: 25px;
+    }
+
+
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
+
+    .rowmapped {
+        background-color: #a1caa1 !important;
+        /*border: 2px solid green;*/
+    }
+
+    .plotbox input[disabled] {
+        background-color: #fff;
+    }
+
+    .plotbox {
+        position: absolute;
+        margin: auto 20px;
+    }
+
+    .plotbox .mapItem {
+        padding: 3px;
+        display: table !important;
+    }
+
+    .itemBorder .text-danger {}
+
+    .actions_btns {
+        display: none;
+    }
+
+    .itemBorder .actions_btns {
+        position: absolute;
+        top: -25px;
+        /*right: 0;*/
+        display: block;
+        cursor: pointer;
+    }
+
+    .itemBorder {
+        border: 2px solid #f00;
+        z-index: 1;
+    }
+
+
+
+    /*.table-hover > tbody > tr.rowmapped:hover, .table-hover > tbody > tr.rowmapped:hover > td {
+        background: #a1caa1 !important;
+    }*/
+
+    .addnew_receipt span {
+        font-family: "Open Sans", sans-serif;
+        font-weight: 600;
+        margin-left: 3px;
+    }
+
+    .actions {
+        text-align: center;
+    }
+
+    .actions i {
+        margin: 0 6px;
+        cursor: pointer;
+    }
+
+    #mapItem {
+        z-index: 3;
+    }
+
+    /*Border to show the ,mapping status*/
+    .ProgressBorder {
+
+        border: 2px solid blue !important;
+        z-index: 1;
+    }
+
+    .ProgressBorderRed {
+
+        border: 2px solid red !important;
+        z-index: 1;
+    }
+
+    .ProgressBorder-Top {
+        border-top: 2px solid blue !important;
+        z-index: 1;
+    }
+
+    .ProgressBorder-LeftRight {
+        border-left: 2px solid blue !important;
+        border-right: 2px solid blue !important;
+        z-index: 1;
+    }
+
+    .ProgressBorder-Bottom {
+        border-bottom: 2px solid blue !important;
+        z-index: 1;
+    }
+
+    /*Orange partially map*/
+    .partialColor {
+        background: #f7c191 !important;
+    }
+
+    .partialColorMain {
+        background: #e26c04 !important;
+    }
+
+    .replacedColorMain {
+        background: #b15c11 !important;
+        color: white !important;
+    }
+
+    /*Green replaced map*/
+    .settledColor {
+        background: #d0e8b7 !important;
+    }
+
+    .settledColorMain {
+        background: #4A7023 !important;
+        color: white !important;
+    }
+
+    /*Light yellow for default item */
+    .defaultColorMain {
+        background-color: #FFFCE0 !important;
+    }
+
+    .overlay {
+        position: absolute;
+        padding-left: 200px;
+        margin-top: -6px;
+        height: 5%;
+        width: 5%;
+        opacity: 100%;
+        transition: .3s ease;
+    }
+
+    .btn-default {
+        color: #333;
+        background-color: #c2cad8;
+        border-color: #adadad;
+    }
+
+    .btn-default:hover {
+        color: rgb(248, 244, 244) !important;
+        background-color: #4b4848 !important;
+        border-color: #3a3737 !important;
+    }
+    .cursor-disabled{
+        cursor: not-allowed  !important;
+    }
+</style>
+
+
+<!-- PDF nevigation -->
+<!--<div class="text-center visible-sm margin-bottom-5">
+    <span class="sbold text-info">{{"Receipt"|translate}}</span>
+</div>-->
+<div class="text-center col-sm-12 col-md-12 col-xs-12 bottomBorder ">
+    <!--<span class="glyphicon glyphicon-menu-left font-lg" ng-click="PreviousReceipt()"></span>
+    <span class="font-md sbold">( {{Recieptindex +1}}/{{ReceiptList.length}} )</span>
+    <span ng-click="NextReceipt()" class="glyphicon glyphicon-menu-right font-lg"></span>-->
+    <div class="col-md-7 col-xs-7 padding1px" id="receiptName">
+        <label class="col-xs-4 padding1px">File Name: &nbsp;</label>
+        <span class="col-xs-8 padding1px" title="{{receiptName}}">{{receiptName | limitTo : 25}}{{receiptName.length > 25 ? '...' :''}}</span>
+    </div>
+    <div class="col-md-5 col-xs-5 text-right">
+        <span ng-if="ZoomIn" class="pull-right margin-bottom-10 hidden-sm hidden-xs	glyphicon glyphicon-resize-full "
+            style="font-size: 18px;" ng-click="ZoomPdfSection()"></span>
+        <span ng-if="ZoomOut" class="pull-right margin-bottom-10 glyphicon glyphicon-resize-small"
+            style="font-size: 20px;" ng-click="ZoomOutPdfSection()"></span>
+            <span ng-click="zoomOut()" class="pull-right glyphicon glyphicon-zoom-out" style="font-size: 18px;margin-right:5px;"></span>
+            <span ng-click="zoomIn()" class="pull-right glyphicon glyphicon-zoom-in" style="font-size: 18px;margin-right:5px;"></span>
+        <span class="glyphicon glyphicon-tags pull-right"
+            style="transform: rotate(90deg);font-size: 18px;padding-bottom: -2px;margin-right:5px;"
+            ng-click="ModalLabels(pdfId)"></span>
+    </div>
+    <div class="col-md-12 col-xs-12 margin-top-10">
+        <span
+            class="glyphicon glyphicon-triangle-left font-lg col-md-1 col-sm-2 col-sm-offset-2 col-md-offset-1 col-xs-2 col-lg-1 col-lg-offset-1"
+            style="font-size: 20px;" ng-click="goPreviousPage()"></span>
+        <span class="font-md sbold col-md-5 col-sm-3 col-md-offset-1 col-lg-5 col-sm-6 col-lg-offset-1 col-xs-8">Page
+            ( {{PDFPageNumber}}/{{pageCount}} )</span>
+        <span class="glyphicon glyphicon-triangle-right col-md-offset-1 font-lg col-md-1  col-lg-1 col-sm-3 col-xs-2"
+            style="font-size: 20px;" ng-click="goNextPage()"></span>
+    </div>
+</div>
+
+<!--End PDF nevigation -->
+<!--PDF page Handler-->
+<div class="col-md-12 ">
+    <div class="col-md-8 col-sm-8 col-xs-12 col-lg-8 margintop5">
+        <!--<button class="btnclass btn-sm glyphicon glyphicon-menu-left" ng-click="goPreviousPage()"></button>-->
+        <!--<button ng-click="zoomInPage()" class="btnclass btn-sm glyphicon glyphicon-plus"></button>
+        <button ng-click="fitPage()" class="btnclass btn-sm">100%</button>
+        <button ng-click="zoomOutPage()" class="btnclass btn-sm glyphicon glyphicon-minus"></button>-->
+        <!--<button class="btnclass btn-sm glyphicon glyphicon-menu-right" ng-click="goNextPage()"></button>-->
+    </div>
+    <div class="col-md-4 col-lg-4 col-sm-4 text-right col-xs-12 margintop5 padding1px">
+        <!--<button ng-click="rotate()"><span>90</span></button>-->
+        <!--<span>Page: </span>-->
+        <input class="input-sm control" type="text" min=1 ng-model="PDFPageNumber"
+            style="width: 40px;height: 25px; display:none" ng-keyup="loadSeletedPage(PDFPageNumber)" id="page_num">
+        <!--<span> /{{isRowClicked ? PDFPageCount : pageCount }}</span>-->
+    </div>
+</div>
+<!--End PDF page Handler-->
+<!-- Render PDF -->
+<div class="col-md-12 col-sm-12 col-xs-12 padding1px" style="max-height:504px;overflow:auto;" id="load_canvas">
+    {{loading}}
+    <canvas id="pdf" class="col-md-12 col-sm-12" title={{popupMessage}} ng-click="drawPopupBox($event)"></canvas>
+    <!--<div id='mapItemsGroup'>
+        <div id="mapItem" class="ui-widget-content ui-draggable ui-draggable-handle mapItem itemMapped" ng-show="isShowPopup">
+            <input type="number" id="txtItemId" placeholder="Item ID" ng-model="mapItem.itemId"><input type="number" id="txtItemValue" placeholder="Price" ng-keypress="saveItem($event)" ng-model="mapItem.itemValue">
+        </div>
+    </div>-->
+    <div id="mapItemsGroup" class="newItemPopup">
+        <div id="mapItem" class="ui-widget-content ui-draggable ui-draggable-handle mapItem itemMapped"
+            ng-show="isShowPopup" style="background: #dddcdc;">
+            <div class="overlay">
+                <i class="fa fa-times-circle fa-2x text-danger" ng-click="closeMapping()"></i>
+            </div>
+            <table class="table table-striped table-bordered table-hover order-column" style="background:#fff">
+                <tbody>
+                    <tr></tr>
+                    <td>{{"Table.ItemId"|translate}}</td>
+                    <td>
+                        <input type="text" numbers-Only id="txtItemId" ng-if="command=='create'"
+                            placeholder="{{'Table.ItemId'|translate}}" ng-model="mapItem.itemNumber"
+                            ng-blur="loadItemDetails($event)" ng-keydown="$event.which === 13 && loadItemDetails()">
+                        <span ng-if="command=='edit'">{{mapItem.itemNumber}}</span>
+                    </td>
+                    </tr>
+                    <tr>
+                        <td>{{"Table.Quantity Replaced"|translate}}</td>
+                        <td><input type="text" numbers-Only id="txtItemQuantity" placeholder="{{'Quantity'|translate}}"
+                                ng-model="mapItem.itemQuantity"
+                                ng-blur="calculateACVandRCVBasedOnQuantity(mapItem.itemQuantity);CalculateRCVForReplacedItem()">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>{{"Material Cost"|translate}}</td>
+                        <td><input type="text" decimal-Only input-currency id="txtItemMCost" placeholder="{{'Material Cost'|translate}}"
+                                ng-model="mapItem.itemMCost" ng-blur="CalculateRCVForReplacedItem()" >
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>{{"Sales Tax(%)"|translate}}</td>
+                        <td style="position: relative;">
+                            <input type="text" decimal-Only max="99" limit-to-max id="txtItemSalesTax" name="txtItemSalesTax" placeholder="{{'Sales Tax(%)'|translate}}"
+                                ng-model="mapItem.itemSalesTax" class="currency" style="width: 70px !important;" ng-blur="CalculateRCVForReplacedItem()"  ng-disabled="!mapItem.itemApplyTax">
+                            <label ng-class="{'cursor-disabled' : !mapItem.itemApplyTax}" class="currencyLbl"  for="txtItemSalesTax" style="left: 4px; top: 4px; border-color: black; width: 70px !important;padding: 3px 0px 0px 5px!important;">{{mapItem.itemSalesTax == null ? 0 : mapItem.itemSalesTax | percentage : 2}}</label>
+
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>{{"Shipping"|translate}}</td>
+                        <td><input type="text" decimal-Only input-currency="" id="txtItemShipping" placeholder="{{'Shipping'|translate}}"
+                                ng-model="mapItem.itemShipping"  ng-blur="CalculateRCVForReplacedItem()">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>{{"Table.ReceiptValue"|translate}}</td>
+                        <td>
+                            <span class="control-label bold">
+                                {{mapItem.itemValue !=null ? mapItem.itemValue: 0 | currency}}
+                            </span>
+                            <!-- <input type="text" decimal-Only input-currency="" id="txtItemValue"
+                                placeholder="{{'PopUp.Value'|translate}}" ng-model="mapItem.itemValue"
+                                ng-blur="CalculateRCVForReplacedItem()"> -->
+                        </td>
+
+                    </tr>
+
+                    <!-- <tr>
+                        <td>{{"PopUp.RCV"|translate}}</td>
+                        <td>{{RCVValue|currency}}</td>
+                    </tr>
+                    <tr>
+
+                        <td>
+                            {{"Table.ACV"|translate}}
+                        </td>
+                        <td>{{ACVValue > 0 ? ACVValue : 0 |currency}}</td>
+                    </tr>
+
+                    <tr>
+                        <td>{{"Table.Holdover"|translate}}</td>
+                        <td>{{HoldoverValue > 0 ? HoldoverValue : 0 |currency}}</td>
+                    </tr> -->
+
+                    <tr>
+                        <td class="actions" colspan="2">
+                            <span class="btn btn-default sbold btnMargin"
+                                ng-click="SaveMappedItem()">{{"Save"|translate}}</span>
+                            <span class="btn btn-default sbold btnMargin"
+                                ng-click="reloadPopupData()">{{"Reset"|translate}}</span>
+                            <span class="btn btn-default sbold btnMargin"
+                                ng-click="deleteMapping()">{{"Delete"|translate}}</span>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!--End Render PDF -->

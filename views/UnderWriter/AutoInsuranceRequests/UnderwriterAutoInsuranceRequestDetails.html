@@ -1,0 +1,1071 @@
+<style>
+    .CursorLeft {
+        cursor: pointer !important;
+    }
+
+    .ReplacedClass {
+        border: 2px solid #6bbae0 !important;
+        padding: 12px 15px 15px 15px !important;
+        border-radius: 4px !important;
+        margin-bottom: 10px !important;
+    }
+
+    @-webkit-keyframes ring {
+        0% {
+            -webkit-transform: rotate(-15deg);
+            transform: rotate(-15deg);
+        }
+
+        2% {
+            -webkit-transform: rotate(15deg);
+            transform: rotate(15deg);
+        }
+
+        4% {
+            -webkit-transform: rotate(-18deg);
+            transform: rotate(-18deg);
+        }
+
+        6% {
+            -webkit-transform: rotate(18deg);
+            transform: rotate(18deg);
+        }
+
+        8% {
+            -webkit-transform: rotate(-22deg);
+            transform: rotate(-22deg);
+        }
+
+        10% {
+            -webkit-transform: rotate(22deg);
+            transform: rotate(22deg);
+        }
+
+        12% {
+            -webkit-transform: rotate(-18deg);
+            transform: rotate(-18deg);
+        }
+
+        14% {
+            -webkit-transform: rotate(18deg);
+            transform: rotate(18deg);
+        }
+
+        16% {
+            -webkit-transform: rotate(-12deg);
+            transform: rotate(-12deg);
+        }
+
+        18% {
+            -webkit-transform: rotate(12deg);
+            transform: rotate(12deg);
+        }
+
+        20% {
+            -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
+    }
+
+    @keyframes ring {
+        0% {
+            -webkit-transform: rotate(-15deg);
+            -ms-transform: rotate(-15deg);
+            transform: rotate(-15deg);
+        }
+
+        2% {
+            -webkit-transform: rotate(15deg);
+            -ms-transform: rotate(15deg);
+            transform: rotate(15deg);
+        }
+
+        4% {
+            -webkit-transform: rotate(-18deg);
+            -ms-transform: rotate(-18deg);
+            transform: rotate(-18deg);
+        }
+
+        6% {
+            -webkit-transform: rotate(18deg);
+            -ms-transform: rotate(18deg);
+            transform: rotate(18deg);
+        }
+
+        8% {
+            -webkit-transform: rotate(-22deg);
+            -ms-transform: rotate(-22deg);
+            transform: rotate(-22deg);
+        }
+
+        10% {
+            -webkit-transform: rotate(22deg);
+            -ms-transform: rotate(22deg);
+            transform: rotate(22deg);
+        }
+
+        12% {
+            -webkit-transform: rotate(-18deg);
+            -ms-transform: rotate(-18deg);
+            transform: rotate(-18deg);
+        }
+
+        14% {
+            -webkit-transform: rotate(18deg);
+            -ms-transform: rotate(18deg);
+            transform: rotate(18deg);
+        }
+
+        16% {
+            -webkit-transform: rotate(-12deg);
+            -ms-transform: rotate(-12deg);
+            transform: rotate(-12deg);
+        }
+
+        18% {
+            -webkit-transform: rotate(12deg);
+            -ms-transform: rotate(12deg);
+            transform: rotate(12deg);
+        }
+
+        20% {
+            -webkit-transform: rotate(0deg);
+            -ms-transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
+    }
+
+    .faa-ring.animated,
+    .faa-ring.animated-hover:hover,
+    .faa-parent.animated-hover:hover>.faa-ring {
+        -webkit-animation: ring 4s ease infinite;
+        animation: ring 4s ease infinite;
+        transform-origin-x: 50%;
+        transform-origin-y: 0px;
+        transform-origin-z: initial;
+    }
+
+    .clr {
+        color: rgb(66, 82, 110)
+    }
+</style>
+<script type="text/javascript">
+    $(function () {
+        iOSHandler();
+        $(window).on("orientationchange", function (event) {
+            iOSHandler();
+        });
+    });
+    function iOSHandler() {
+        var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        var width = screen.width;
+
+        if (iOS) {
+
+            var orientation;
+            if (window.orientation == undefined) {
+                orientation = window.screen.orientation.angle;
+            }
+            else {
+                orientation = window.orientation;
+            }
+
+            if (orientation != 0) {
+                if (screen.width < screen.height) {
+                    width = screen.height;
+                }
+            }
+            //iPhone4-Landscape
+            if (width > 475 && width < 485) {
+                $(".comparablesDivDB").css("height", "auto");
+                $(".addedComp").css("width", "100%");
+                $(".addedComp").css("overflow", "scroll");
+                $(".addedComp").css("-webkit-overflow-scrolling", "touch");
+
+            }
+
+            //iPhone5-Landscape
+            else if (width > 562 && width < 572) {
+                $(".comparablesDivDB").css("height", "auto");
+                $(".addedComp").css("width", "100%");
+                $(".addedComp").css("overflow", "scroll");
+                $(".addedComp").css("-webkit-overflow-scrolling", "touch");
+
+            }
+            //iPhone4,5-Portrait
+            else if (width > 315 && width < 325) {
+                $(".comparablesDivDB").css("height", "auto");
+                $(".addedComp").css("width", "100%");
+                $(".addedComp").css("overflow", "scroll");
+                $(".addedComp").css("-webkit-overflow-scrolling", "touch");
+
+            }
+
+            //iPhone6-Landscape
+            else if (width > 660 && width < 670) {
+                $(".comparablesDivDB").css("height", "auto");
+                $(".addedComp").css("width", "100%");
+                $(".addedComp").css("overflow", "scroll");
+                $(".addedComp").css("-webkit-overflow-scrolling", "touch");
+
+            }
+            //iPhone6-Portrait
+            else if (width > 370 && width < 380) {
+                $(".comparablesDivDB").css("height", "auto");
+                $(".addedComp").css("width", "100%");
+                $(".addedComp").css("overflow", "scroll");
+                $(".addedComp").css("-webkit-overflow-scrolling", "touch");
+
+            }
+
+            //iPhone6+-Landscape
+            else if (width > 730 && width < 740) {
+                $(".comparablesDivDB").css("height", "auto");
+                $(".addedComp").css("width", "100%");
+                $(".addedComp").css("overflow", "scroll");
+                $(".addedComp").css("-webkit-overflow-scrolling", "touch");
+
+            }
+            //iPhone6+-Portrait
+            else if (width > 410 && width < 420) {
+                $(".comparablesDivDB").css("height", "auto");
+                $(".addedComp").css("width", "100%");
+                $(".addedComp").css("overflow", "scroll");
+                $(".addedComp").css("-webkit-overflow-scrolling", "touch");
+
+            }
+
+            //ipad
+            else if (width > 1020 && width < 1025) {
+                $(".comparablesDivDB").css("height", "958px");
+                $(".googleComparableBodyHeight").css("height", "729px");
+                $(".googleSerachResultDiv").css("height", "632px");
+                $(".noteDiv").css("height", "215px");
+                $(".addedComp").css("height", "215px");
+                $(".addedComp").css("width", "100%");
+                $(".addedComp").css("overflow", "scroll");
+                $(".addedComp").css("-webkit-overflow-scrolling", "touch");
+
+
+            }
+
+            //else if (width > 760 && width < 769) {
+
+            //    $(".googleComparableBodyHeight").css("height", "680px");
+
+            //}
+            else if (width > 1360 && width < 1367) {
+                $(".googleComparableBodyHeight").css("height", "540px");
+                $(".comparablesDivDB").css("height", "853px");
+
+            }
+        }
+    }
+
+</script>
+<style>
+    #btnAddCustomItem:hover {
+        color: ghostwhite;
+    }
+
+    .mandatory {
+        color: red;
+    }
+
+    .NoDecoration {
+        text-decoration: none !important;
+        color: black;
+    }
+
+    .angucomplete-dropdown {
+        bottom: 100% !important;
+    }
+
+    @media (min-device-width:768px) {
+        .width14 {
+            width: 16% !important;
+        }
+
+        .width16 {
+            width: 17.6%;
+            height: 4px;
+        }
+
+        .StatusNumber {
+            margin-left: 2% !important;
+        }
+
+        .StatusHorizontalLine {
+            margin-left: 9% !important;
+        }
+    }
+
+    @media (max-device-width:768px) {
+        .width14 {
+            width: 14% !important;
+        }
+
+        .width16 {
+            width: 15%;
+            height: 4px;
+        }
+
+        .StatusNumber {
+            margin-left: 13% !important;
+        }
+
+        .StatusHorizontalLine {
+            margin-left: 18% !important;
+        }
+    }
+</style>
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding1px">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-left: 5px;">
+        <ul class="page-breadcrumb breadcrumb sbold" style="padding-bottom: 20px !important; ">
+            <li>
+                <a ng-click="gotoDashboard()">Home</a>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <a ng-click="goToAutoInsuranceRequests()">{{"Nav.AutoInsuranceRequests"|translate}}</a>
+            </li>
+            <li>
+                <i class="fa fa-circle"></i>
+                <span>{{vehicleDetails.vin}}</span>
+            </li>
+        </ul>
+    </div>
+    <div class="portlet light padding1px">
+        <div class="portlet-title">
+            <div class="caption font-gray-sharp">
+                <span class="caption-subject">{{"Table.VIN #"|translate}} {{vehicleDetails.vin}}</span>
+            </div>
+        </div>
+
+        <div class="portlet-body" name="ApprisalForm" ng-form="ApprisalForm">
+            <!-- Buttons -->
+            <div class="row">
+                <div class="col-md-12 text-right margin-top-10">
+                    <!--For New-->
+                    <button ng-if="!isEditAppraisal" ng-disabled="isDisable || ApprisalForm.$invalid"
+                        id="sample_editable_1_new" class="btn btn-default sbold btnMargin"
+                        ng-click="updateVehicalAppraisal()">
+                        {{"Button.Update"|translate}}
+                    </button>
+
+                    <button ng-if="!isEditAppraisal" ng-disabled="isDisable" id="sample_editable_1_new"
+                        class="btn btn-default sbold btnMargin" ng-click="">
+                        {{"Button.Approve"|translate}}
+                    </button>
+
+                    <button ng-if="!isEditAppraisal" ng-disabled="isDisable" id="sample_editable_1_new"
+                        class="btn btn-default sbold btnMargin" ng-click="">
+                        {{"Button.Ask more Information"|translate}}
+                    </button>
+
+                    <button ng-if="!isEditAppraisal || showPrint" ng-disabled="isDisable" id="sample_editable_1_new"
+                        class="btn btn-default sbold btnMargin" ng-click="printAppraisalDetails()">
+                        {{"Button.Print/Download PDF"|translate}}
+                    </button>
+                    <!--End New-->
+                </div>
+            </div>
+
+            <!-- Vehicle summary and contact details -->
+            <div class="col-md-12 clearfix padding1px margin-top-10" id="cal">
+                <div class="col-md-12 form-group" style="padding: 0px;">
+                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 portlet"
+                        style="margin-bottom: -20px!important;">
+
+                        <!-- Appraisal Details starts here " -->
+                        <div class="col-md-8 col-lg-8 col-sm-8 col-xs-8 padding1px" filedropzone
+                            dropfiles="attachmentList" style="padding-right:15px!important;">
+                            <div class="panel panel-default" style="min-height:420px; overflow-y:auto;">
+                                <div class="panel-body" style="padding: 10px 0px;">
+
+                                    <div class="col-md-12 col-sm-12" style="padding: 0px 10px;">
+                                        <div class="col-md-12 col-sm-12 SubHeadingDiv margin-bottom-10">
+                                            <span class="caption-subject"
+                                                style="font-size: 14px; font-weight: 700;">{{"AutoDetails.VehicleSummary"|translate}}</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-group">
+                                        <div class="col-md-4 col-sm-4 Label_Text_Right">
+                                            <label>{{"AutoDetails.Vin"|translate}}</label>
+                                        </div>
+                                        <div class="col-md-8 col-sm-8">
+                                            <input type="text" numberOnly ng-model="vehicleDetails.vin" name="vinno"
+                                                id="vinno" required />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-group">
+                                        <div class="col-md-4 col-sm-4 Label_Text_Right">
+                                            <label>{{"AutoDetails.Status"|translate}}</label>
+                                        </div>
+                                        <div class="col-md-8 col-sm-8">
+                                            <span>{{vehicleDetails.status}}</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-group ">
+                                        <div class="col-md-4 col-sm-4 Label_Text_Right">
+                                            <label><strong
+                                                    class="mandatory">*</strong>&nbsp;{{"AutoDetails.Make"|translate}}</label>
+                                        </div>
+                                        <div class="col-md-8 col-sm-8">
+                                            <input type="text" numberOnly ng-model="vehicleDetails.make" name="vinno"
+                                                id="vinno" required />
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-group ">
+                                        <div class="col-md-4 col-sm-4 Label_Text_Right">
+                                            <label><strong
+                                                    class="mandatory">*</strong>&nbsp;{{"AutoDetails.Model"|translate}}</label>
+                                        </div>
+                                        <div class="col-md-8 col-sm-8">
+                                            <input type="text" numberOnly ng-model="vehicleDetails.model" name="vinno"
+                                                id="vinno" required />
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-group ">
+                                        <div class="col-md-4 col-sm-4 Label_Text_Right">
+                                            <label><strong
+                                                    class="mandatory">*</strong>&nbsp;{{"AutoDetails.Manufacturer"|translate}}</label>
+                                        </div>
+                                        <div class="col-md-8 col-sm-8">
+                                            <input type="text" numberOnly ng-model="vehicleDetails.manufacturer"
+                                                name="vinno" id="vinno" required />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-group ">
+                                        <div class="col-md-4 col-sm-4 Label_Text_Right">
+                                            <label><strong
+                                                    class="mandatory">*</strong>&nbsp;{{"AutoDetails.ModelYear"|translate}}</label>
+                                        </div>
+                                        <div class="col-md-8 col-sm-8">
+                                            <input type="text" numberOnly name="vinno"
+                                                ng-model="vehicleDetails.modelYear" id="vinno" required />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-group ">
+                                        <div class="col-md-4 col-sm-4 Label_Text_Right">
+                                            <label><strong
+                                                    class="mandatory">*</strong>&nbsp;{{"AutoDetails.Vehiclesvalue"|translate}}</label>
+                                        </div>
+                                        <div class="col-md-8 col-sm-8">
+                                            <input type="text" numberOnly input-currency="" ng-model="vehicleDetails.purchasePrice"
+                                                name="vinno" id="vinno" required />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-group ">
+                                        <div class="col-md-4 col-sm-4 Label_Text_Right">
+                                            <label>
+                                                <strong
+                                                    class="mandatory">*</strong>&nbsp;{{"AutoDetails.PurchasedDate"|translate}}
+                                            </label>
+                                        </div>
+                                        <div class="col-md-8 col-sm-8">
+                                            <div class="input-icon left">
+                                                <i class="icon-calendar"></i>
+
+                                                <input class="form-control datepicker" ng-disabled="isEditAppraisal"
+                                                    required name="Pickdt" ng-model="vehicleDetails.purchaseDate"
+                                                    data-date-container='#cal' close-on-date-selection="true"
+                                                    data-provide="datepicker" autocomplete="off" style="width: 120px;"
+                                                    data-date-end-date="0d" size="16" type="text"
+                                                    placeholder='{{"Date"|translate}}' />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                                        <div class="col-md-4 col-sm-4 Label_Text_Right">
+                                            <label>{{"AutoDetails.Attachments"|translate}}
+                                            </label>
+                                        </div>
+                                        <input id="FileUpload1" ng-readonly="isEditAppraisal" multiple type="file"
+                                            ng-model="attachmentList"
+                                            onchange="angular.element(this).scope().getAttachmentDetails(this)"
+                                            style="display: none;">
+                                        <button ng-disabled="isEditAppraisal" ng-show="!isDisable"
+                                            ng-click="AddAttachment($event)" class="custom-btn btn-link"
+                                            style="font-family:'Open Sans', sans-serif;font-size: 13px;border-bottom: 1px solid;padding: 0px;margin-left: 15px!important;line-height: 14px;font-weight: 500;">Click
+                                            to Upload Attachments</button>
+
+                                        <div class="col-md-8 col-lg-8 col-sm-8 col-xs-8 form-group"
+                                            style="padding-right: 0px">
+                                            <div class="col-md-12 col-sm-12" style="padding:0px">
+                                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12"
+                                                    style="padding:0px">
+                                                    <font ng-repeat="file in attachmentList">
+                                                        <span id="previewDocs" class="sbold"
+                                                            style="font-family:Calibri; font-size:14px;cursor:pointer"
+                                                            ng-click="GetDocxDetails(file)">
+                                                            <a>{{file.fileName}}</a>
+                                                        </span>
+                                                        <span ng-hide="isEditAppraisal"
+                                                            class="fa fa-times-circle fa-lg text-danger"
+                                                            ng-click="RemoveAttachment($index)"
+                                                            style="margin-left:0px;"></span>
+                                                        <span ng-if="!$last">, </span>
+                                                    </font>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- coverage premium rates starts here -->
+                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-group"
+                                    ng-if="!artAndMaterial && !brand">
+                                    <div class="col-md-4 col-sm-4 Label_Text_Right">
+                                        <label>{{"AutoDetails.InsurancePremium"|translate}}</label>
+                                    </div>
+                                    <div class="col-md-8 col-sm-8 string-value" style="padding-right:0px;">
+                                        <input type="number" min="0" placeholder="0.00" ng-disabled="isEditAppraisal"
+                                            id="newInsurancePremiumCost" name="newInsurancePremiumCost" readonly
+                                            ng-blur="roundOfValue($event);" string-to-number disablearrows
+                                            ng-model="vehicleDetails.purchasePrice" class="form-control currency"
+                                            style="width:160px;float: left;margin-right: 5px;" />
+                                        <label class="currencyLbl" for="newInsurancePremiumCost"></label>
+                                        <span>per month</span>
+                                        <br />
+                                    </div>
+                                </div>
+                                <!-- coverage premium rates ends here -->
+
+                            </div>
+                        </div>
+                        <!-- Vin# Details ends here -->
+
+                        <!-- Policy Details starts here " -->
+                        <div class="col-md-4 col-lg-4 col-sm-4 col-xs-4 padding1px">
+                            <div class="panel panel-default" style="min-height:420px;padding: 10px 0px;">
+                                <div class="col-md-12 col-sm-12" style="padding: 0px 10px;">
+                                    <div class="col-md-12 col-sm-12 SubHeadingDiv margin-bottom-10">
+                                        <span class="caption-subject"
+                                            style="font-size: 14px; font-weight: 700;">{{"Policy Details"|translate}}</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-group" style="padding: 0px;">
+                                    <div class="col-md-5 col-sm-5 Label_Text_Right" style="padding: 0px;">
+                                        <label>{{"Policy#"|translate}}</label>
+                                    </div>
+                                    <div class="col-md-7 col-sm-7" style="padding-right: 0px;">
+                                        {{policyNumber}}
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-group" style="padding: 0px;">
+                                    <div class="col-md-5 col-sm-5 Label_Text_Right" style="padding: 0px;">
+                                        <label>{{"Primary Policyholder"|translate}}</label>
+                                    </div>
+                                    <div class="col-md-7 col-sm-7" style="padding-right: 0px;">
+                                        {{primaryPolicyHolderFullName | titleCase}}
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-group" style="padding: 0px;">
+                                    <div class="col-md-5 col-sm-5 Label_Text_Right" style="padding: 0px;">
+                                        <label>{{"Phone#"|translate}}</label>
+                                    </div>
+                                    <div class="col-md-7 col-sm-7 string-value" style="padding-right: 0px;">
+                                        {{PolicyholderDetails.primaryPolicyHolderCellphoneNo | tel }}
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-group" style="padding: 0px;">
+                                    <div class="col-md-5 col-sm-5 Label_Text_Right" style="padding: 0px;">
+                                        <label>{{"Email ID"|translate}}</label>
+                                    </div>
+                                    <div class="col-md-7 col-sm-7" style="padding-right: 5px;word-break: break-word;">
+                                        {{PolicyholderDetails.primaryPolicyHolderEmailId}}
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-group" style="padding: 0px;"
+                                    ng-if="isNotSecondaryName">
+                                    <div class="col-md-5 col-sm-5 Label_Text_Right" style="padding: 0px;">
+                                        <label>{{"Secondary Policyholder"|translate}}</label>
+                                    </div>
+                                    <div class="col-md-7 col-sm-7" style="padding-right: 0px;">
+                                        {{secondaryPHName}}
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-group" style="padding: 0px;"
+                                    ng-if="isNotSecondaryPhone">
+                                    <div class="col-md-5 col-sm-5 Label_Text_Right" style="padding: 0px;">
+                                        <label>{{"Secondary Phone#"|translate}}</label>
+                                    </div>
+                                    <div class="col-md-7 col-sm-7 string-value" style="padding-right: 0px;">
+                                        {{ secondaryPhone | tel }}
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-group" style="padding: 0px;"
+                                    ng-if="isNotSecondaryEmail">
+                                    <div class="col-md-5 col-sm-5 Label_Text_Right" style="padding: 0px;">
+                                        <label>{{"Secondary Email"|translate}}</label>
+                                    </div>
+                                    <div class="col-md-7 col-sm-7" style="padding-right: 5px;word-break: break-word;">
+                                        {{secEmailId}}
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-group" style="padding: 0px;">
+                                    <div class="col-md-5 col-sm-5 Label_Text_Right" style="padding: 0px;">
+                                        <label>{{"Current Term"|translate}}</label>
+                                    </div>
+                                    <div class="col-md-7 col-sm-7 string-value" style="padding-right: 0px;">
+                                        {{policyCurrentTerm}}
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 form-group" style="padding: 0px;">
+        <!--start Item details-->
+        <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12 portlet padding1px margin-top-10">
+            <div class="row">
+                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 options_Background_WithBorder"
+                        style="padding-top:5px;padding-bottom:5px;">
+                        <span class="text_options_Label sbold caption">{{"Vehicle Attributes"|translate}}</span>
+                    </div>
+                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 padding1px"
+                        style="border:1px solid lightgray;height:100%;">
+                        <div class="col-lg-12 col-md-12 col-sm-12 padding1px margin-top-20">
+
+                            <a id="clear_filters" ng-if="!isEditAppraisal" class="sbold  pull-right"
+                                ng-click="ClearFilters('all')" style="margin-right: 10px;">
+                                <u>{{"Clear All Filters"|translate}}</u>
+                            </a>
+
+                            <!-- Type -->
+                            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group" style="padding:0px;">
+                                <div class="col-md-4 col-sm-4 Label_Text_Right">
+                                    <strong class="mandatory">*</strong>&nbsp;
+                                    <label class="control-label "> {{"Vehicle Type"|translate}}</label>
+                                </div>
+                                <div class="col-md-8 col-sm-8">
+                                    <input type="text" ng-model="vehicleDetails.vehicleType" />
+                                    <i class="fa fa-info-circle" data-popover="" data-popover-trigger="mouseenter"
+                                        data-popover-placement="right" style="font-size:20px;margin-top:6px "
+                                        aria-hidden="true"></i>
+                                </div>
+                            </div>
+
+                            <!-- Type -->
+                            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group" style="padding:0px;">
+                                <div class="col-md-4 col-sm-4 Label_Text_Right">
+                                    <strong class="mandatory">*</strong>&nbsp;
+                                    <label class="control-label "> {{"Body Class"|translate}}</label>
+                                </div>
+                                <div class="col-md-8 col-sm-8">
+                                    <input type="text" ng-model="vehicleDetails.bodyClass" />
+                                    <i class="fa fa-info-circle" data-popover="" data-popover-trigger="mouseenter"
+                                        data-popover-placement="right" style="font-size:20px;margin-top:6px "
+                                        aria-hidden="true"></i>
+                                </div>
+                            </div>
+
+                            <!-- Type -->
+                            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group" style="padding:0px;">
+                                <div class="col-md-4 col-sm-4 Label_Text_Right">
+                                    <strong class="mandatory">*</strong>&nbsp;
+                                    <label class="control-label "> {{"Doors"|translate}}</label>
+                                </div>
+                                <div class="col-md-8 col-sm-8">
+                                    <input type="text" numbersOnly ng-model="vehicleDetails.door" />
+                                    <i class="fa fa-info-circle" data-popover="" data-popover-trigger="mouseenter"
+                                        data-popover-placement="right" style="font-size:20px;margin-top:6px "
+                                        aria-hidden="true"></i>
+                                </div>
+                            </div>
+
+                            <!-- Type -->
+                            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group" style="padding:0px;">
+                                <div class="col-md-4 col-sm-4 Label_Text_Right">
+                                    <strong class="mandatory">*</strong>&nbsp;
+                                    <label class="control-label "> {{"Vehicle Rating"|translate}}</label>
+                                </div>
+                                <div class="col-md-8 col-sm-8">
+                                    <input type="text" ng-model="vehicleDetails.vehicleRating" />
+                                    <i class="fa fa-info-circle" data-popover="" data-popover-trigger="mouseenter"
+                                        data-popover-placement="right" style="font-size:20px;margin-top:6px "
+                                        aria-hidden="true"></i>
+                                </div>
+                            </div>
+
+                            <!-- Type -->
+                            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group" style="padding:0px;">
+                                <div class="col-md-4 col-sm-4 Label_Text_Right">
+                                    <strong class="mandatory">*</strong>&nbsp;
+                                    <label class="control-label "> {{"Mileage"|translate}}</label>
+                                </div>
+                                <div class="col-md-8 col-sm-8">
+                                    <input type="text" ng-model="vehicleDetails.mileage" />
+                                    <i class="fa fa-info-circle" data-popover="" data-popover-trigger="mouseenter"
+                                        data-popover-placement="right" style="font-size:20px;margin-top:6px "
+                                        aria-hidden="true"></i>
+                                </div>
+                            </div>
+
+                            <!-- Type -->
+                            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group" style="padding:0px;">
+                                <div class="col-md-4 col-sm-4 Label_Text_Right">
+                                    <strong class="mandatory">*</strong>&nbsp;
+                                    <label class="control-label "> {{"Series"|translate}}</label>
+                                </div>
+                                <div class="col-md-8 col-sm-8">
+                                    <input type="text" ng-model="vehicleDetails.series" />
+                                    <i class="fa fa-info-circle" data-popover="" data-popover-trigger="mouseenter"
+                                        data-popover-placement="right" style="font-size:20px;margin-top:6px "
+                                        aria-hidden="true"></i>
+                                </div>
+                            </div>
+
+                            <!-- Type -->
+                            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group" style="padding:0px;">
+                                <div class="col-md-4 col-sm-4 Label_Text_Right">
+                                    <strong class="mandatory">*</strong>&nbsp;
+                                    <label class="control-label "> {{"Trim"|translate}}</label>
+                                </div>
+                                <div class="col-md-8 col-sm-8">
+                                    <input type="text" ng-model="vehicleDetails.trim" />
+                                    <i class="fa fa-info-circle" data-popover="" data-popover-trigger="mouseenter"
+                                        data-popover-placement="right" style="font-size:20px;margin-top:6px "
+                                        aria-hidden="true"></i>
+                                </div>
+                            </div>
+
+                            <!-- Metal -->
+                            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group" style="padding:0px;">
+                                <div class="col-md-4 col-sm-4 Label_Text_Right">
+                                    <strong class="mandatory">*</strong>&nbsp;
+                                    <label class="control-label "> {{"Metal Weight"|translate}}</label>
+                                </div>
+                                <div class="col-md-8 col-sm-8">
+                                    <input type="text" decimalOnly ng-model="vehicleDetails.weight" />
+                                    <i class="fa fa-info-circle" data-popover="" data-popover-trigger="mouseenter"
+                                        data-popover-placement="right" style="font-size:20px;margin-top:6px "
+                                        aria-hidden="true"></i>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Buttons -->
+    <div class="row">
+        <div class="col-md-12 text-right margin-top-10 margin-bottom-10">
+            <!--For New-->
+            <button ng-if="!isEditAppraisal" ng-disabled="isDisable || ApprisalForm.$invalid" id="sample_editable_1_new"
+                class="btn btn-default sbold btnMargin" ng-click="updateVehicalAppraisal()">
+                {{"Button.Update"|translate}}
+            </button>
+
+            <button ng-if="!isEditAppraisal" ng-disabled="isDisable" id="sample_editable_1_new"
+                class="btn btn-default sbold btnMargin" ng-click="">
+                {{"Button.Approve"|translate}}
+            </button>
+
+            <button ng-if="!isEditAppraisal" ng-disabled="isDisable" id="sample_editable_1_new"
+                class="btn btn-default sbold btnMargin" ng-click="">
+                {{"Button.Ask more Information"|translate}}
+            </button>
+
+            <button ng-if="!isEditAppraisal || showPrint" ng-disabled="isDisable" id="sample_editable_1_new"
+                class="btn btn-default sbold btnMargin" ng-click="printAppraisalDetails()">
+                {{"Button.Print/Download PDF"|translate}}
+            </button>
+            <!--End New-->
+        </div>
+    </div>
+
+    </div>
+    <style>
+        #pdfGenerator {
+            display: none;
+        }
+
+        #SCResultsPdfGenerator {
+            display: none;
+        }
+
+        @media print {
+            #nonpdfGenerator {
+                display: none;
+            }
+
+            #pdfGenerator {
+                display: block;
+            }
+
+            #SCResultsPdfGenerator {
+                display: block;
+            }
+        }
+
+        .custom-btn {
+            display: inline-block;
+            margin-bottom: 0;
+            font-size: 16px;
+            background-color: transparent;
+            text-align: right;
+            vertical-align: middle;
+            touch-action: manipulation;
+            cursor: pointer;
+            background-image: none;
+            border: none;
+            margin-top: -5px;
+        }
+
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        .dollarSign {
+            padding-top: 2px;
+            float: left;
+            font-size: 15px;
+            font-weight: 500;
+            padding-right: 3px;
+        }
+
+        /* Start -Added for Currency format for input field */
+        label.currencyLbl {
+            position: absolute;
+            background: white;
+            left: 15px;
+            top: 0px;
+            cursor: pointer;
+            padding: 2px 10px !important;
+            max-width: inherit;
+        }
+
+        input.currency {
+            position: relative;
+            width: 120px !important;
+        }
+
+        input.currency {
+            padding: 0;
+            border: 1px solid #c2cad8;
+            width: 120px !important;
+            font-family: Arial;
+            line-height: 20px;
+        }
+
+        label.currencyLbl {
+            padding: 0;
+            border: 1px solid #c2cad8;
+            width: 120px !important;
+            font-family: Arial;
+            line-height: 19px;
+            height: 25px;
+            font-weight: 400 !important;
+            color: #555555;
+            font-size: 12px !important;
+        }
+
+        input.currency:focus+label.currencyLbl {
+            display: none !important;
+        }
+
+        /* Added for the selection disable */
+        label.currencyLbl::selection {
+            display: none !important;
+        }
+
+        .submit-btn {
+            margin-top: 10px;
+        }
+
+        /* End -Added for Currency format for input field*/
+        /* caret icon up and down */
+        div.open>button>span {
+            border-top: 0px !important;
+            border-bottom: 4px dashed !important;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: #f9f9f9;
+            min-width: 180px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            border-radius: 5px;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 0px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #edecec
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown:disabled .dropdown-content,
+        .dropdown[disabled] .dropdown-content {
+            display: none !important;
+        }
+
+        /* START - Dynamic button effect style*/
+        .btn-default,
+        .btn-danger,
+        .btn-success {
+            color: #333;
+            background-color: #c2cad8 !important;
+            border-color: #adadad;
+        }
+
+        .btn-default:hover,
+        .btn-danger:hover,
+        .btn-success:hover {
+            color: rgb(248, 244, 244) !important;
+            background-color: #4b4848 !important;
+            border-color: #3a3737 !important;
+        }
+
+        .btn-default:disabled,
+        .btn-default[disabled] {
+            color: #333 !important;
+            background-color: #c2cad8 !important;
+            border-color: #adadad !important;
+        }
+
+        /* END - Dynamic button effect style*/
+        .btn-link:hover {
+            text-decoration: none;
+        }
+
+        .text-red {
+            color: red;
+        }
+
+        #speedCheck-Estimate {
+            font-size: 14px !important;
+            resize: none !important;
+        }
+
+        .text-green {
+            color: green;
+        }
+
+        .bootbox-close-button {
+            background-position: right !important;
+        }
+
+        .sel-container {
+            padding: 0px !important;
+        }
+
+        .sel-box {
+            padding: 0px, 0px, 0px, 10px !important
+        }
+
+        .sel-to {
+            padding: 3px 0px 0px 0px;
+            text-align: center !important;
+        }
+
+        #scDesc {
+            border: none;
+            border-color: transparent;
+            width: 100%;
+            min-height: 400px;
+            max-height: 350px;
+            overflow: auto;
+            resize: none;
+        }
+
+        #scDesc:focus {
+            outline: none !important;
+            border-color: rgb(242, 244, 245);
+            box-shadow: 0 0 10px rgb(242, 244, 245);
+        }
+
+        #img_preview {
+            min-height: 490px;
+            width: 675px !important;
+            padding: 10px 0px;
+            position: fixed;
+            z-index: 20;
+        }
+
+        .image-wrapper {
+            max-height: 350px !important;
+            overflow: auto !important;
+            display: block;
+        }
+
+        .k-list-scroller {
+            height: 130px !important;
+        }
+
+        .k-list-container {
+            height: 160px !important;
+
+        }
+
+        div.dropdownCls span.dropCls {
+
+            border: solid 1px lightgray !important;
+            background-color: white !important;
+            height: 30px;
+        }
+
+        .k-dropdown-wrap .k-state-default {
+            background-color: white;
+        }
+    </style>
+    <script>
+        $(':input[type=number]').on('focus', function (e) {
+            $(this).on('mousewheel.disableScroll', function (e) {
+                e.preventDefault();
+            })
+        }).on('blur', function (e) {
+            $(this).off('mousewheel.disableScroll')
+        });
+    </script>

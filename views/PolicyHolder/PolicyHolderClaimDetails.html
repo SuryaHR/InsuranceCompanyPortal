@@ -1,0 +1,594 @@
+﻿<div class="col-md-12 padding1px hide">
+    <ul class="page-breadcrumb breadcrumb sbold">
+        <!-- <li>
+            <a ng-click="GoToDashboard()">{{"Home"|translate}}</a>
+            <i class="fa fa-circle"></i>
+        </li> -->
+        <li>
+            <a ng-click="back()">{{"Claim Center"|translate}}</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span>{{CommonObj.ClaimNumber}}</span>
+        </li>
+    </ul>
+</div>
+
+<!-- Messages -->
+
+<!-- CTB-2308 -->
+<style>
+    .profile-img {
+        width: 70px;
+        height: 70px;
+    }
+
+    .HeadingDiv {
+        color: #666;
+        padding: 0px 5px;
+        font-size: 16px;
+        border-bottom: 1px solid #666 !important;
+    }
+
+    .To-do-list {
+        border: 1px solid gray;
+        margin: 50px;
+        border-radius: 7px;
+        height: 90px;
+    }
+
+    .To-do-list-title {
+        display: block;
+        padding: 4px;
+        font-weight: bold;
+        font-size: 18px;
+    }
+
+    .attachment-wrapper {
+        height: 160px;
+    }
+
+    .img-responsive {
+        display: inline-block;
+    }
+
+    .filename {
+        word-break: break-word;
+        font-family: Calibri;
+        font-size: 14px;
+        cursor: pointer
+    }
+
+    #img_preview {
+        min-height: 450px !important;
+        width: 675px !important;
+        padding: 10px 0px;
+        position: fixed;
+        z-index: 20;
+    }
+</style>
+<div class="row" ng-show="tab==='Contents'">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <div class="light bordered content-box activity-box-container">
+                <div class="HeadingDiv col-xs-12 caption font-gray-sharp">
+                    <span
+                        class="caption-subject sbold">{{"You have"|translate}}&nbsp;({{(PendingTaskList.length != null) ? PendingTaskList.length : 0 }}){{" task to act on"}}</span>
+                </div>
+                <div class="col-xs-12 padding1px custom_scroll_bar activity-box">
+                    <div class="general-item-list">
+                        <div class="item" ng-repeat="task in PendingTaskList | limitTo:3"
+                            ng-click="completeTaskPopup(task)" ng-show="task.status.status == 'PENDING'">
+                            <div class="item-head">
+                                <div class="item-details" style="margin-top: 15px;">
+                                    <i class="fa fa-exclamation-triangle fa-3x" style="color: red;"
+                                        aria-hidden="true"></i>
+                                    <span class="item-name primary-link">{{task.createdBy}}</span>
+                                    <span class="item-label hide">{{task.assignedDate | DateTimeDiff}}</span>
+                                </div>
+                            </div>
+                            <div class="item-body tip text-left">
+                                {{task.comment | limitTo:50}}{{task.comment.length > 50 ? '...' : ''}}
+                                <span class="Overlay" ng-if="task.comment.length>50">{{task.comment}}</span>
+                            </div>
+                            <div class="item-footer text-right">
+                                <span>{{task.assignedDate}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-show="!PendingTaskList.length"
+                        style="padding:10px;text-align: center;color: red;background-color: #ffffff;">
+                        <em class="glyphicon glyphicon-exclamation-sign"></em>
+                        &nbsp;No tasks
+                    </div>
+                </div>
+                <div class="col-xs-12 text-right padding1px">
+                    <a href="#" class="noTextDecoration" ng-click="GoToAllTasks()">{{"View all tasks"}}</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <div class="light bordered content-box activity-box-container">
+                <div class="HeadingDiv col-xs-12 caption font-gray-sharp">
+                    <span
+                        class="caption-subject sbold">{{"Message Center"|translate}}&nbsp;({{(totalMessages != null) ? totalMessages : 0}})</span>
+                    <a ng-click="AddNotePopup()"
+                        class="pull-right noTextDecoration font-size-13">{{"Add New Message"|translate}}</a>
+                </div>
+                <div class="col-xs-12 padding1px custom_scroll_bar activity-box" infinity-scroll="nextMessagePage();"
+                    id="infinity_scroll_table">
+                    <div class="general-item-list">
+                        <div class="item" ng-click="GotoAllNotes(message)"
+                            ng-repeat="message in claimMessages | limitTo:5">
+                            <div class="item-head">
+                                <div class="item-details">
+                                    <img ng-src="{{message.addedBy.profilePic ? message.addedBy.profilePic.url : assets/global/img/teamMemb.png}}"
+                                        onerror="this.onerror=null; this.src='assets/global/img/teamMemb.png';"
+                                        class="item-pic rounded" title="Profile Photo" alt="Profile Picture" />
+                                    <span
+                                        class="item-name primary-link">{{message.addedBy.lastName + ", "+message.addedBy.firstName}}</span>
+                                    <span class="item-label hide">{{message.createDate | DateTimeDiff}}</span>
+                                </div>
+                            </div>
+                            <div class="item-body tip text-left">
+                                {{message.message | limitTo:50}}{{message.message.length > 50 ? '...' : ''}}
+                                <span class="Overlay" ng-if="message.message.length>50">{{message.message}}</span>
+                            </div>
+                            <div class="item-footer text-right">
+                                <span>{{message.createDate | DateTimeDiff}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-show="isMessagesLoading" class="loading text-center col-sm-12" style="position: relative;">
+                        <i class="fa fa-spinner fa-spin fa-2x fa-fw"></i>
+                    </div>
+                    <div ng-show="!claimMessages.length"
+                        style="padding:10px;text-align: center;color: red;background-color: #ffffff;">
+                        <em class="glyphicon glyphicon-exclamation-sign"></em>
+                        &nbsp;No New Messages
+                    </div>
+                </div>
+                <div class="col-xs-12 text-right padding1px">
+                    <a href="#" class="noTextDecoration" ng-click="GotoAllNotes()">{{"View all messages"}}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <div class="light bordered content-box activity-box-container"
+                style="max-height: 700px !important;height: 652px !important;">
+                <div>
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 10px;">
+                        <i class="fa fa-home fa-3x padding5"></i><span class="caption-subject sbold"
+                            style="font-size: 18px; margin-left:35px;">{{"Claim #"}}{{CommonObj.ClaimNumber}}</span>
+                    </div>
+                    <div>
+                        <!--start of status Bar-->
+                        <center>
+                            <div class="col-lg-12  col-sm-12  col-md-12 col-xs-12 "
+                                style="margin-left:auto !important;margin-right:auto !important;margin-bottom: 65px;margin-top: 25px!important;">
+                                <div class="clearfix"></div>
+                                <div class="styleflex "
+                                    style="margin-bottom: -13px !important;margin-left: 5% !important;margin-right:5% !important">
+                                    <div class="width16">
+                                        <div class="text-center ClaimStatus"
+                                            ng-class="{true:'text-center bold ClaimStatusActive'}[0 < ClaimStatusContent.claimStatus.id]">
+                                            1</div>
+                                        <span class="ClaimStatusActiveText clearfix hidden-xs"
+                                            ng-class="{true:'font-green'}[0 < ClaimStatusContent.claimStatus.id]">Created</span>
+                                        <span class="ClaimStatusActiveText clearfix visible-xs"
+                                            ng-class="{true:'font-green'}[0 < ClaimStatusContent.claimStatus.id]">Created</span>
+                                    </div>
+
+                                    <div class="width16"
+                                        ng-class="{true:'backgreen', false:'backGray'}[1 < ClaimStatusContent.claimStatus.id]"
+                                        style="margin-top: 7px;"></div>
+
+                                    <div class="margintopleft10 width16">
+                                        <div class="text-center ClaimStatus"
+                                            ng-class="{true:'text-center bold ClaimStatusActive'}[1 < ClaimStatusContent.claimStatus.id]">
+                                            2</div>
+                                        <span class="ClaimStatusActiveText clearfix hidden-xs"
+                                            ng-class="{true:'font-green'}[1 < ClaimStatusContent.claimStatus.id]">Work
+                                            In Progress</span>
+                                        <span class="ClaimStatusActiveText clearfix visible-xs"
+                                            ng-class="{true:'font-green'}[1 < ClaimStatusContent.claimStatus.id]">Work
+                                            In Progress</span>
+                                    </div>
+
+                                    <div class="width16"
+                                        ng-class="{true:'backgreen', false:'backGray'}[2 < ClaimStatusContent.claimStatus.id]"
+                                        style="margin-top: 7px;"></div>
+                                    <div class="margintopleft10 width16">
+                                        <div class="text-center ClaimStatus"
+                                            ng-class="{true:'text-center bold ClaimStatusActive'}[2 < ClaimStatusContent.claimStatus.id]">
+                                            3</div>
+                                        <span class="ClaimStatusActiveText clearfix hidden-xs"
+                                            ng-class="{true:'font-green'}[2 < ClaimStatusContent.claimStatus.id]">3rd
+                                            Party Vendor</span>
+                                        <span class="ClaimStatusActiveText clearfix visible-xs"
+                                            ng-class="{true:'font-green'}[2 < ClaimStatusContent.claimStatus.id]">3rd
+                                            Party Vendor</span>
+                                    </div>
+
+                                    <div class="width16"
+                                        ng-class="{true:'backgreen', false:'backGray'}[4 < ClaimStatusContent.claimStatus.id]"
+                                        style="margin-top: 7px;"></div>
+                                    <div class="margintopleft10 width16">
+                                        <div class="text-center ClaimStatus "
+                                            ng-class="{true:'text-center bold ClaimStatusActive'}[4 < ClaimStatusContent.claimStatus.id]">
+                                            4</div>
+                                        <span class="ClaimStatusActiveText clearfix hidden-xs"
+                                            ng-class="{true:'font-green'}[4 < ClaimStatusContent.claimStatus.id]">Supervisor
+                                            Approval</span>
+                                        <span class="ClaimStatusActiveText clearfix visible-xs"
+                                            ng-class="{true:'font-green'}[4 < ClaimStatusContent.claimStatus.id]">Supervisor
+                                            Approval</span>
+                                    </div>
+
+                                    <div class="width16"
+                                        ng-class="{true:'backgreen', false:'backGray'}[7 < ClaimStatusContent.claimStatus.id]"
+                                        style="margin-top: 7px;"></div>
+                                    <div class="margintopleft10 width16">
+                                        <div class="text-center ClaimStatus "
+                                            ng-class="{true:'text-center bold ClaimStatusActive'}[7 < ClaimStatusContent.claimStatus.id]">
+                                            5</div>
+                                        <span class="ClaimStatusActiveText clearfix hidden-xs"
+                                            ng-class="{true:'font-green'}[7 < ClaimStatusContent.claimStatus.id]">Closed</span>
+                                        <span class="ClaimStatusActiveText clearfix visible-xs"
+                                            ng-class="{true:'font-green'}[7 < ClaimStatusContent.claimStatus.id]">Closed</span>
+                                    </div>
+
+                                </div>
+                                <br>
+                                <div class="clearfix"></div>
+                            </div>
+                        </center>
+                        <!--End Of Stats Bar-->
+
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 10px;">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <label class="control-label" style="font-size: 14px;">{{"Last Update"|translate}}</label>
+                        </div>
+                        <div ng-show="logs !== null" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <label>[{{logs[0].updatedByUserName}}] {{logs[0].createdDate}}</label>
+                        </div>
+                        <div ng-show="logs !== null" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <span>{{logs[0].message}}</span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 10px;">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <label class="control-label" style="font-size: 14px;">{{"Status"|translate}}</label>
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <span>{{ClaimStatusContent.claimStatus.status}}</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 10px;">
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="padding: 0px;">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <label class="control-label"
+                                    style="font-size: 14px;">{{"Claim Created"|translate}}</label>
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <span>{{ClaimStatusContent.createdDate | DateTimeFormatShort}}</span>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="padding: 0px;">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <label class="control-label"
+                                    style="font-size: 14px;">{{"Claim Adjuster"|translate}}</label>
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <span>{{PolicyDetails.insuraceAccountDetails.adjuster.lastName}},
+                                    {{PolicyDetails.insuraceAccountDetails.adjuster.firstName}}</span>
+                                <span>({{PolicyDetails.insuraceAccountDetails.adjuster.email}})</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 10px;">
+                        <div class="col-md-6 col-sm-6 col-xs-12" style="padding: 0px;">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <label class="control-label"
+                                    style="font-size: 14px;">{{"Total Items Claimed"|translate}}</label>
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <span>{{ClaimStatusContent.itemsClaimed}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12" style="padding: 0px;">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <label class="control-label">{{"Total Amount Paid"|translate}}</label>
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <span>{{TotalAmountPaid | currency}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 text-right padding1px">
+                    <a href="#" class="noTextDecoration" ng-click="goToActivityLog()">{{"View your claim story"}}</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-6 col-xs-12" style="padding:0px;">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="light bordered content-box activity-box-container">
+                    <div class="HeadingDiv col-xs-12 caption font-gray-sharp">
+                        <span class="caption-subject sbold">{{"Your loss inventory"}}</span>
+                    </div>
+                    <div class="col-xs-12 padding1px custom_scroll_bar activity-box">
+                        <div class="col-md-4 col-sm-4 col-lg-4 col-xs-4">
+                            <div class="col-md-12 text-center To-do-list">
+                                <label class="To-do-list-title">{{"Total # Items"}}</label>
+                                <label
+                                    class="To-do-list-title">{{ClaimStatusContent.itemsClaimed ? ClaimStatusContent.itemsClaimed : 0}}</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-lg-4 col-xs-4">
+                            <div class="col-md-12 text-center To-do-list">
+                                <label class="To-do-list-title">{{"Total $ Worth"}}</label>
+                                <label
+                                    class="To-do-list-title">{{ClaimStatusContent.totalClaimedItemsWorth ? ClaimStatusContent.totalClaimedItemsWorth : 0 | currency}}</label>
+                            </div>
+                        </div>
+                        <div ng-show="" style="padding:10px;text-align: center;color: red;background-color: #ffffff;">
+                            <em class="glyphicon glyphicon-exclamation-sign"></em>
+                            &nbsp;No loss inventory
+                        </div>
+                    </div>
+                    <div class="col-xs-12 text-right padding1px">
+                        <a href="#" class="noTextDecoration"
+                            ng-click="gotoDetailedInventory()">{{"View detailed inventory"}}</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="light bordered content-box activity-box-container">
+                    <div class="HeadingDiv col-xs-12 caption font-gray-sharp">
+                        <span class="caption-subject sbold">{{"Claim Settlement Summary"}}</span>
+                    </div>
+                    <div class="col-xs-12 padding1px custom_scroll_bar activity-box">
+                        <div class="col-md-4 col-sm-4 col-lg-4 col-xs-4">
+                            <div class="col-md-12 text-center To-do-list">
+                                <label class="To-do-list-title">{{"# Items Paid"}}</label>
+                                <label class="To-do-list-title">{{paidItemsCount}}</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-lg-4 col-xs-4">
+                            <div class="col-md-12 text-center To-do-list">
+                                <label class="To-do-list-title">{{"Total $ Payout"}}</label>
+                                <label class="To-do-list-title">{{totalSettlement | currency}}</label>
+                            </div>
+                        </div>
+                        <div ng-show="" style="padding:10px;text-align: center;color: red;background-color: #ffffff;">
+                            <em class="glyphicon glyphicon-exclamation-sign"></em>
+                            &nbsp;No claim summary
+                        </div>
+                    </div>
+                    <div class="col-xs-12 text-right padding1px">
+                        <a href="#" class="noTextDecoration" ng-click="goToClaimItems()">{{"View claim summary"}}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="col-md-6 col-sm-6 col-xs-6">
+            <div class="light bordered content-box activity-box-container">
+                <div class="HeadingDiv col-xs-12 caption font-gray-sharp">
+                    <span
+                        class="caption-subject sbold">{{"Claim Documents"}}&nbsp;({{(RecentDocuments.claimAttachments.attachments.length != null) ? RecentDocuments.claimAttachments.attachments.length : 0}})</span>
+                </div>
+                <div class="col-xs-12 padding1px custom_scroll_bar activity-box">
+                    <div id="attachments-{{$index}}"
+                        ng-repeat="file in RecentDocuments.claimAttachments.attachments | limitTo:3"
+                        class="col-lg-4 col-md-4 col-sm-4 col-xs-6 margin-bottom-5 margin-top-10 text-center"
+                        style="padding:0px;" ng-include src="'displayChildAttachements'">
+                    </div>
+                    <div ng-show="!RecentDocuments.claimAttachments.attachments"
+                        style="padding:10px;text-align: center;color: red;background-color: #ffffff;">
+                        <em class="glyphicon glyphicon-exclamation-sign"></em>
+                        &nbsp;No claim documents
+                    </div>
+                </div>
+                <div class="col-xs-12 text-right padding1px">
+                    <a href="#" class="noTextDecoration" ng-click="showDocumentsTab()">{{"View all documents"}}</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-6 col-xs-6" ng-click="GoToClaimParticipants()">
+            <div class="light bordered content-box activity-box-container">
+                <div class="HeadingDiv col-xs-12 caption font-gray-sharp">
+                    <span class="caption-subject sbold">{{"Your Claim Team"}}</span><i
+                        class="fa fa-ellipsis-v pull-right"></i>
+                </div>
+                <div class="col-xs-12 custom_scroll_bar activity-box">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center margin-bottom-10 margin-top-10"
+                        ng-repeat="participant in ClaimParticipantsList | limitTo:3">
+                        <div class="col-md-11 col-sm-12 col-xs-12 card" style="padding: 5px; height: 150px;">
+                            <img ng-src="{{participant.participantImage ? participant.participantImage.url : assets/global/img/teamMemb.png}}"
+                                onerror="this.onerror=null; this.src='assets/global/img/teamMemb.png';"
+                                class="profile-img text-center rounded" title="Profile Photo" alt="Profile Picture" />
+                            <span
+                                class="display-block primary-link">{{participant.lastName +", "+participant.firstName}}</span>
+                            <span class="display-block font-size-12">{{participant.companyDTO.companyName}}</span>
+                            <span
+                                class="display-block font-size-12 font-weight-550">{{((participant.designation ? participant.designation.name : participant.role) | titleCase ) | limitTo : 20}}</span>
+                            <div class="col-md-12"
+                                ng-class="{'text-center': participant.emailId === CommonObj.UserName}">
+                                <span
+                                    ng-class="{'pull-left': participant.emailId != CommonObj.UserName}">{{participant.phoneNum|tel}}</span>
+                                <a class="pull-right" ng-class="{'hide': participant.emailId === CommonObj.UserName}"
+                                    title="click to send a new message"
+                                    ng-click="sendMessageToParticipant(participant)">
+                                    <em class="fa fa-envelope-o"></em></a>
+                            </div>
+                        </div>
+                        <div ng-show="!ClaimParticipantsList.length"
+                            style="padding:10px;text-align: center;color: red;background-color: #ffffff;">
+                            <em class="glyphicon glyphicon-exclamation-sign"></em>
+                            &nbsp;No participants
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="col-md-6 col-sm-6 col-xs-6">
+            <div class="light bordered content-box activity-box-container">
+                <div class="HeadingDiv col-xs-12 caption font-gray-sharp">
+                    <span class="caption-subject sbold">{{"Understanding your policy and coverages"}}</span>
+                </div>
+                <div class="col-xs-12 custom_scroll_bar activity-box text-justify" style="padding-top:10px;">
+                    <span> <label class="sbold" style="margin-bottom:0px;">{{CompanyDetails.companyName}}</label> is
+                        committed to notifying people applying for insurance about our information practices and our use
+                        of credit-based insurance scores. Most of the information we use in underwriting comes from you
+                        on the insurance application. In our regular underwriting
+                        procedure, and in servicing your policy, we may also collect personal information about you from
+                        others.</span>
+                </div>
+                <div class="col-xs-12 text-right padding1px">
+                    <a href="#" class="noTextDecoration" ng-click="goToPolicyCoverage()">{{"View policy details"}}</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-6 col-xs-6">
+            <div class="light bordered content-box activity-box-container">
+                <div class="HeadingDiv col-xs-12 caption font-gray-sharp">
+                    <span class="caption-subject sbold">{{"Payouts"}}</span>
+                </div>
+                <div class="col-xs-12 padding1px custom_scroll_bar activity-box">
+                    <div class="col-md-4 col-sm-4 col-lg-4 col-xs-4">
+                        <div class="col-md-12 text-center To-do-list" style="background-color: #efc014;">
+                            <label class="To-do-list-title">{{"Total Cash Paid"}}</label>
+                            <label class="To-do-list-title">{{TotalAmountPaid | currency}}</label>
+                        </div>
+                    </div>
+                    <div class="col-md-7 col-sm-7 col-lg-7 col-xs-7">
+                        <div class="col-md-12 text-center To-do-list" style="height:120px !important;">
+                            <label class="To-do-list-title">{{"Last 3 payout(s)"}}</label>
+                            <div ng-repeat="payment in PaymentSummary.paymentSummaryDetails | limitTo:3">
+                                <label>Check #{{payment.referenceNumber}} paid on
+                                    {{payment.paymentDate | DateTimeFilter}} for {{payment.amountPaid}}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-show="" style="padding:10px;text-align: center;color: red;background-color: #ffffff;">
+                        <em class="glyphicon glyphicon-exclamation-sign"></em>
+                        &nbsp;No payouts
+                    </div>
+                </div>
+                <div class="col-xs-12 text-right padding1px">
+                    <a href="#" class="noTextDecoration" ng-click="">{{"View payout history"}}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Common Template to show attachments -->
+    <script type="text/ng-template" id="displayChildAttachements">
+      <a class="TextDecorationNone"
+                  ng-show="file.uploadBy && (CommonObj.UserId == file.uploadBy.id || CommonObj.UserRole === 'CLAIM SUPERVISOR')"
+                  style="top:6px;right:2.5rem;position:absolute;z-index:1;"
+                  ng-click="deleteClaimAttachment(file)">
+                  <i class="fa fa-times-circle fa-2x text-danger" aria-hidden="true"></i></a>
+              <div class="col-md-12 margin-top-15 attachment-wrapper">
+                  <div ng-if=isPdf(file.name)>
+                      <img src='assets/global/img/pdf-icon.svg' class="img-responsive bordered "
+                          style="width:90px; height:90px;padding:5px;border:1px groove;" />
+                  </div>
+                  <div ng-if=isExcel(file.name)>
+                      <img src='assets/global/img/excel-icon.png' class="img-responsive bordered "
+                          style="width:90px; height:90px;padding:5px;border:1px groove;" />
+                  </div>
+                  <div ng-if=isImage(file.name)>
+                      <img ng-src="{{file.url}}" alt="Pictures of the incident" class="img-responsive bordered "
+                          style="width:90px; height:90px;padding:5px;border:1px groove;" />
+                  </div>
+                  <span id="previewDocs" class="sbold filename"
+                      ng-click="GetDocxDetails(file)"><a
+                          title="{{file.name}}">{{file.name| limitTo:15}}{{file.name.length < 15 ? '': ' ...'}}</a></span>
+                  <div class="tip font-size-11">
+                      {{file.description | limitTo:45}}{{file.description.length > 45 ? '...' : ''}}
+                      <span class="Overlay" ng-if="file.description.length > 45">{{file.description}}</span>
+                  </div>
+                  <span class="display-block font-size-11">{{file.uploadDate | DateTimeFormatShort}}</span>
+              </div>
+  </script>
+    <!-- Img preview -->
+    <div class="panel panel-defaul" id="img_preview" draggable ng-if="imgDiv">
+        <div class="col-md-12 col-sm-12" style="padding: 0px 10px;">
+            <label class="col-md-12 col-sm-12 HeadingDiv margin-bottom-10"
+                style="font-size: 14px;">{{DocxDetails.name ? DocxDetails.name : DocxDetails.FileName}}</label>
+            <div class="col-md-12 col-sm-12 margin-bottom-10" style="text-align: left;">
+                <a class="btn btn-default sbold btnMargin" ng-show="showDownload"
+                    ng-click="downloadFile(DocxDetails)">Download</a>
+                <a class="btn btn-default sbold btnMargin" ng-show="showDelete"
+                    ng-click="deleteClaimAttachment(DocxDetails)">Delete</a>
+                <a id="previewclose" class="btn btn-default sbold btnMargin" ng-click="closePreview()">Close
+                    Preview</a>
+                <a ng-if="isPDF == 2" id="previewclose" class="btn btn-default sbold btnMargin glyphicon glyphicon-plus"
+                    ng-click="largeMe()"></a>
+                <a ng-if="isPDF == 2" id="previewclose"
+                    class="btn btn-default sbold btnMargin glyphicon glyphicon-minus" ng-click="smallMe()"></a>
+            </div>
+        </div>
+        <div class="col-md-12 col-sm-12">
+            <div class="image-wrapper">
+                <img id="imagepre" ng-if="isPDF == 2"
+                    onerror="this.onerror=null; this.src='assets/global/img/no-image.png';" class="ImageDocx"
+                    ng-src="{{DocxDetails.url}}" alt="Image" />
+                <!-- Show PDF region Render PDF here -->
+                <ng-pdf ng-if="isPDF===1" template-url="views/GlobalSearch/PdfViewer.html" canvasid="pdf"
+                    scale="page-fit" page=1>
+                </ng-pdf>
+                <!--End Show PDF region -->
+                <div ng-if="isPDF == 0" class="col-sm-8 col-md-6 col-xs-12" style="height:230px;width:100%;">
+                    <div class="col-md-12 col-sm-12 col-xs-12 well text-center">
+                        <span
+                            class="text-info">{{"File type does not support preview option. File will start downloading.."|translate}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div ng-if="DocxDetails.isLocal !== true">
+            <div class="text-center" style="padding-bottom: 5px;">
+                <div class="font-size-14">
+                    <span>{{DocxDetails.description}}</span>
+                </div>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12 display-block font-size-14 text-center">
+                <div class="col-md-6 col-sm-6 col-cs-6 Label_Text_Right" style="padding: 0px;">
+                    <label>{{"Uploaded"| translate}}</label>
+                </div>
+                <div class="col-md-4 col-sm-4 col-cs-4 text-left" style="padding-right: 5px;">
+                    <span>{{DocxDetails.uploadDate | DateTimeFormatShort}}</span>
+                </div>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12 display-block font-size-14 text-center">
+                <div class="col-md-6 col-sm-6 col-cs-6 Label_Text_Right" style="padding: 0px;">
+                    <label>{{"Uploaded By"| translate}}</label>
+                </div>
+                <div class="col-md-4 col-sm-4 col-cs-4 text-left" style="padding-right: 5px;">
+                    <span>{{DocxDetails.uploadBy.lastName}}, {{DocxDetails.uploadBy.firstName}}</span><span
+                        ng-if="(DocxDetails.companyDetails!= null && DocxDetails.companyDetails.name!= null)">
+                        ({{DocxDetails.companyDetails.name}})</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Documents Tab-->
+<div id="DocumentsDiv" ng-if="tab==='Documents'" ng-include="'views/CommonTemplates/ClaimDocuments.html'"
+    ng-controller="ClaimDocumentsController">
+</div>
+<!--End Documents Tab-->
+
+<!-- end CTB-2308 -->

@@ -1,0 +1,27 @@
+﻿{
+  "ModalHeaderText": "1895 Marco Polo Canvas Painting",
+  "ControlText": {
+    "Cancel_title": "Cancel",
+    "Save_title": "Save",
+    "Yes_title": "YES",
+    "No_title": "NO"
+  },
+  "FormControlText": {
+    "DirectDeposit": "Direct Deposit",
+    "DebitCardNumber": "Debit Card Number",
+    "CheckNumber": "Check Number",
+    "AmountOnCheck": "Amount On Check",
+    "PartialReplacement": "Partial Replacement",
+    "Amount": "Amount",
+    "ConsumerAccount": "Consumer Account#",
+    "NameOfBank": "Name Of The Bank",
+    "RoutingNumber": "Routing Number",
+    "PaymentDate": "Payment Date",
+    "DrawnOnBank": "Drawn On Bank"
+  },
+  "Radio": {
+    "DirectDeposit": "Direct Deposit",
+    "DebitCard": "Debit Card",
+    "Check": "Check"
+  }
+}

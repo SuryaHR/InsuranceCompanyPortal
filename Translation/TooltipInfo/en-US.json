@@ -1,0 +1,173 @@
+﻿{
+  "TooltipText": {
+          "Mounting" : {
+            "TypeofMetal" : "The material this piece is made out of",
+            "MetalColor"  :	"The color of the metal in this piece",
+            "MetalWeight"	: "The weight of this piece per appraisal. If not listed please use average.",
+            "Length"      :	"The length of the piece",
+            "Width" 	    : "The width of the piece",
+            "CustomMade"    : "Was this piece custom made?",
+            "DesignerBrand" : "Is this piece a high end designer brand?",
+            "WeightMeasure"  : "The unit of measurement used"
+          },
+
+          "Chain" :{            
+            "MetalType"     : "The material the chain is made out of",
+            "MetalColor"    : "The color of the chain",
+            "MetalWeight"   : "The weight of the chain and The unit of measurement used",
+            "MetalLength"   :	"How long the chain is",
+            "CustomMade"    : "Was this piece custom made?",
+            "DesignerBrand" : "Is this piece a designer brand?"
+          },
+
+          "LooseDiamond" : {
+            "Quantity"	  :"The total number of loose diamond with same attributes",
+            "CaratWeight" :"The weight in carats of loose diamond",
+            "Measurement" :"The length, width, and depth of loose diamond in mm",
+            "Shape"       :"The shape of loose diamond",
+            "Color"       :"The color grade of loose diamond per appraisal",
+            "Clarity"		  :"The clarity grade of loose diamond per appraisal",
+            "CutGrade"		:"The cut grade of loose diamond per appraisal",
+            "Gemlab"      :"The gemology laboratory that has certified loose diamond",
+            "CertificateNo":"The gemological laboratory report number for loose diamond"
+          },
+
+          "LooseGemstone" : {
+            "Quantity"     : "The total number of loose gemstone with same attributes",
+            "CaratWeight"  : "The weight in carats of loose colored gemstone",
+            "Measurement"  : "The length, width, and depth of the loose colored gemstone in mm",
+            "Type"         : "The type of loose colored gemstone per appraisal",
+            "Shape"        : "The shape of the loose gemstone",
+            "Color"        : "The color grade of loose gemstone per appraisal",
+            "Quality"      : "The quality grade of loose colored gemstone per appraisal",
+            "Clarity"      : "The clarity grade of loose gemstone per appraisal",
+            "Gemlab"       : "The gemological laboratory that has certified loose colored gemstone",
+            "CertificateNo": "The gemological laboratory report number for loose colored gemstone"
+          },
+
+          "AccentDiamond" : {
+            "Quantity"	  :"The total number of accent diamonds with same attributes",
+            "CaratWeight" :"The total weight in carats of accent diamonds with same attributes",
+            "Measurement" :"The length, width, and depth of diamond(s) in mm",
+            "Shape"       :"The shape of diamond(s)",
+            "Color"       :"The color grade of diamond(s) per appraisal",
+            "Clarity"		  :"The clarity grade of diamond(s) per appraisal",
+            "CutGrade"		:"The cut grade of diamond(s) per appraisal",
+            "Gemlab"      :"The gemology laboratory that has certified diamond(s)",
+            "CertificateNo":"The gemological laboratory report number"
+          },
+
+          "AccentGemstone" : {
+            "Quantity"     : "The total number of accent colored gemstone(s) with same attributes",
+            "CaratWeight"  : "The total weight in carats of accent colored gemstone(s) with same attributes",
+            "Measurement"  : "The length, width, and depth of colored gemstone(s) in mm",
+            "Type"         : "The type of colored gemstone(s) per appraisal",
+            "Shape"        : "The shape of colored gemstone(s)",
+            "Color"        : "The color grade of colored gemstone(s) per appraisal",
+            "Quality"      : "The quality grade of colored gemstone(s) per appraisal",
+            "Clarity"      : "The clarity grade of the colored gemstone(s)",
+            "Gemlab"       : "The gemology lab which has certified the colored gemstone(s)",
+            "CertificateNo": "The certificate number of the colored gemstone(s)"
+          },
+
+          "WeddingBandDiamond" : {
+            "Quantity"	  :"The total number of accent diamonds with same attributes. If not provided please use average count",
+            "CaratWeight" :"The total weight in carats of accent diamonds with same attributes",
+            "Measurement" :"The length, width, and depth of diamond(s) in mm",
+            "Shape"       :"The shape of diamond(s)",
+            "Color"       :"The color grade of diamond(s) per appraisal",
+            "Clarity"		  :"The clarity grade of diamond(s) per appraisal",
+            "CutGrade"		:"The cut grade of diamond(s) per appraisal",
+            "Gemlab"      :"The gemology laboratory that has certified diamond(s)",
+            "CertificateNo":"The gemological laboratory report number"
+          },
+
+          "WeddingBandGemstone" : {
+            "Quantity"     : "The total number of accent colored gemstone(s) with same attributes. If not provided please use average count",
+            "CaratWeight"  : "The total weight in carats of accent colored gemstone(s) with same attributes",
+            "Measurement"  : "The length, width, and depth of colored gemstone(s) in mm",
+            "Type"         : "The type of colored gemstone(s) per appraisal",
+            "Shape"        : "The shape of colored gemstone(s)",
+            "Color"        : "The color grade of colored gemstone(s) per appraisal",
+            "Quality"      : "The quality grade of colored gemstone(s) per appraisal",
+            "Clarity"      : "The clarity grade of the colored gemstone(s)",
+            "Gemlab"       : "The gemology lab which has certified the colored gemstone(s)",
+            "CertificateNo": "The certificate number of the colored gemstone(s)"
+          },
+
+
+          "CenterDiamond" : { 
+            "Quantity"	  :"The total number of center diamonds with same attributes",
+            "CaratWeight" :"The weight in carats of center diamond",
+            "Measurement" :"The length, width, and depth of diamond in mm",
+            "Shape"       :"The shape of diamond",
+            "Color"       :"The color grade of diamond per appraisal",
+            "Clarity"		  :"The clarity grade of diamond per appraisal",
+            "CutGrade"		:"The cut grade of diamond per appraisal",
+            "Gemlab"      :"The gemology laboratory that has certified diamond",
+            "CertificateNo":"The gemological laboratory report number"
+          },          
+
+          "CenterGemstone" : {
+            "Quantity"     : "The total number of gemstones that are this shape",
+            "CaratWeight"  : "The weight in carats of center colored gemstone",
+            "Measurement"  : "The length, width, and depth of colored gemstone in mm",
+            "Type"         : "The type of colored gemstone per appraisal",
+            "Shape"        : "The shape of colored gemstone",
+            "Color"        : "The color of the gemstone",
+            "Quality"      : "The quality grade of colored gemstone per appraisal.",
+            "Clarity"      : "The clarity grade of the gemstone",
+            "Gemlab"       : "The gemology laboratory that has certified the colored gemstone",
+            "CertificateNo": "The gemological laboratory report number"
+          },
+
+          "PearlStrandSetting" : {
+            "ClaspMetal"    : "What is the clasp made out of per appraisal?",
+            "ClaspColor"    :	"What color is the clasp per appraisal?",
+            "ClaspWeight"	  : "What is the weight of the clasp per appraisal? If not listed please use average",
+            "CustomMade"    : "Was this piece custom made?",
+            "DesignerBrand" : "Is this piece a high end designer brand?"
+          },
+
+          "PearlStrandDetails" : {
+            "Quantity"      : "Total number of pearls with same attributes",            
+            "Type"          : "Where pearl(s) originated from",
+            "Shape"         : "Characteristic the form has taken",
+            "Quality"       : "The grade of pearl(s) per appraisal",
+            "Size"          : "The stated color of pearl(s) per appraisal",
+            "Color"         : "The stated color per appraisal",
+            "LengthOfStrand": "The length of strand per appraisal",
+            "TypeOfClasp"   : "The type of clasp for appraisal"
+         },
+
+          "Pearl" : {
+             "Quantity"      : "Total number of pearls with same attributes",
+             "Type"          : "Where pearl(s) originated from",
+             "Shape"         : "Characteristic the form has taken",
+             "Quality"       : "The grade of pearl(s) per appraisal",
+             "Size"          : "The size of one pearl in mm",
+             "Color"         : "The stated color of pearl(s) per appraisal",             
+             "LengthOfStrand": "The length of strand per appraisal",
+             "TypeOfClasp"   : "The type of clasp for appraisal"
+          },
+
+          "LoosePearl" : {
+            "Quantity"      : "Total number of pearls with same attributes",
+            "Type"          : "Where loose pearl originated from",
+            "Shape"         : "Characteristic the form of loose pearl has taken",
+            "Quality"       : "The grade of loose pearl per appraisal",
+            "Size"          : "The size of loose pearl in mm",
+            "Color"         : "The stated color of loose pearl per appraisal"
+         },
+
+          "Watch" : {  
+            "Brand"            : "The designer of this timepiece",
+            "ModelName"        : "Manufacturer style collection",
+            "ModelNumber"      : "Manufacturer style number",
+            "SerialNumber"     : "Unique identification number",
+            "BraceletMaterial" : "The material of the timepiece band"
+         },
+         
+         "AttachmentValidFormats" : "Valid file formats (pdf, bmp, tiff, jpeg, jpg, png, doc, docx, xls, xlsx)"
+      }
+}

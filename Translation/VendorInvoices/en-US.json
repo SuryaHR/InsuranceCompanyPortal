@@ -1,0 +1,97 @@
+﻿{
+  "VendorInvoices": "Vendor Invoice",
+  "ControlText": {
+
+    "Back": "Back",
+    "PayHoldover": "Pay Holdover",
+    "View": "View",
+    "Show": "Show",
+    "VendorName": "Vendor Name",
+    "InvoiceOfItemSelected": "# Invoice Item Selected",
+    "TotalValue": "Total Value",
+    "TotalHoldoverValue": "Total Holdover Value",
+    "PaymentMethod": "Payment Method",
+    "Amount": "Amount",
+    "CheckNumber": "Check Number",
+    "DrawnOnBank": "Drawn On Bank",
+    "PaymentDate": "Payment Date",
+    "PayoutItems": "Payout Items",
+    "DebitCardNo": "Debit Card Number",
+    "SendToSupervisor": "Send To Supervisor",
+    "Approve": "Approve",
+    "Reject": "Reject",
+    "RemitToAddress": "Remit To Address",
+    "ShippingAddress1": "Shipping Address 1",
+    "ShippingAddress2": "Shipping Address 2",
+    "TownCity": "Town / City",
+    "State": "State",
+    "ZipCode": "Zip Code",
+    "PayNow": "Pay Now",
+    "SendQueryToVendor": "Send Query To Vendor",
+    "InvoiceAddressed": "Selected Invoice",
+    "BankAccountNumber": "Bank Account No.",
+    "RoutingNumber": "Routing Number"
+  },
+  "HeadingText": {
+    "Claim": "Vendor Invoice Claim # :",
+    "Holdover": "Holdover",
+    "MakePayment": "Make A Payment"
+
+  },
+  "NoTextRecord": "No invoices yet",
+  "Radio": {
+    "Check": "Check",
+    "DebitCard": "Debit Card",
+    "EFT": "EFT"
+  },
+  "TabHeaderTitle": {
+    "InvoicesToBePaid": "Invoices To Be Paid",
+    "AllInvoices": "All Invoices"
+  },
+  "Table": {
+    "InvoiceId": "Invoice Id",
+    "VendorNote": "Vendor Note",
+    "Amount": "Amount",
+    "Author": "Author",
+    "InvoiceDate": "Invoice Date",
+    "DueDate": "Due Date",
+    "Attachments": "Attachments",
+    "Actions": "Actions",
+    "EventType": "Event Type",
+    "Message": "Message",
+    "Reminder": "Reminder",
+    "ItemName": "ItemName",
+    "Brand": "Brand",
+    "Model": "Model",
+    "Price": "Price",
+    "Category": "Category",
+    "SubCategory": "SubCategory",
+    "Age": "Age",
+    "Status": "Status",
+    "ReplacedValue": "ReplacedValue",
+    "RCV": "RCV",
+    "ACV": "ACV",
+    "PayoutCheck": "Patout Check #",
+    "Holdover": "Holdover",
+    "VendorName": "Vendor Name",
+    "StartDate": "Start Date",
+    "EndDate": "End Date",
+    "Participant": "Participant",
+    "Action": "Action"
+
+  },
+  "AlertMessage": {
+    "InvoicePaymentTitle": "Invoice Payment Status"
+  },
+  "ErrorMessage": {
+    "AmountRequired": "Enter Amount",
+    "BankNameRequired": "Enter Bank Name",
+    "DateRequired": "Enter Date",
+    "CheckNoRequired": "Enter Check Number"
+  },
+  "SearchText": "Search Invoice #,Invoice Name",
+  "NoRecordText": "No Records Available..!",
+  "ErrorHeading": "Error..!!",
+  "SuccessHeading": "Confirmation..!!",
+  "Home": "Home"
+}

@@ -1,0 +1,1324 @@
+﻿<style>
+    /* Remove extra left and right margins, due to padding */
+    .row {
+        margin: 0 -5px;
+    }
+
+    /* Clear floats after the columns */
+    .row:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+    .table-scroll-container {
+        /* display: block;
+        position: relative;
+        */
+        max-height: 450px;
+        overflow: auto;
+    }
+
+    .table-scroll-container>table {
+        margin-bottom: 0px !important;
+    }
+    .selection-disabled{
+    user-select: none;
+    -webkit-user-select: none;
+    }
+
+
+/* .table-hover-content>tbody>tr:hover>td.chatHover:last-child .hoverEdit{
+        display: block;
+    }
+
+    .table-hover-content>tbody>tr:hover>td.chatHover:last-child .hoverDelete{
+        display: block;
+    }
+
+.hoverEdit{
+    z-index: 2;
+    display: none;
+}
+
+.hoverDelete{
+    z-index: 2;
+    display: none;
+} */
+
+.drpdown{
+    position: absolute;
+    z-index: 100;
+    background-color: white;
+    border-radius: 5px;
+    min-width: 12%;
+    border: 1px solid lightgray;
+    max-height: 225px;
+    overflow-y: scroll;
+}
+.okaybtn{
+    background-color: #1E90FF;
+    border:none;
+    color:white;
+    min-width: 50px !important;
+    border-radius: 2px;
+}
+.cancelBtn{
+    min-width: 50px !important;
+    margin-right: 10%;
+    border:0px;
+    background-color: white;
+    color: #1E90FF;
+    text-decoration: underline;
+}
+
+.clearall{
+    background-color: transparent;
+    border: 0px;
+    margin:0px;
+    text-decoration: underline;
+    color: #1E90FF;
+}
+
+.selectAll{
+    position: sticky;
+    top:0px;
+    background-color: white;
+    padding: 2px;
+    border-bottom: 1px solid black;
+    padding-top: 10px;
+}
+
+.btn-controls{
+    position: sticky !important;
+    bottom: 0px;
+    background-color: white;
+    padding: 2px;
+    padding-bottom: 10px;
+    padding-top:8px;
+}
+
+.table_Row_Heading {
+        border-left: 5px solid #b3b3b3 !important;
+    }
+
+</style>
+
+<div class="headerFreez col-lg-12 col-md-12 col-sm-12 col-xs-12 border_bottom margin-bottom-5">
+    <ul class="page-breadcrumb breadcrumb sbold">
+        <li ng-show="coreLogicConst.BreadcrumbHome == 'true'" ng-if="!useStatusFilter">
+            <a ng-click="home()">{{"Home"|translate}}</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li ng-if="backPage === 'Performance'">
+            <a ng-click="goToMyTeamTab()">{{"My Team"|translate}}</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li ng-if="useStatusFilter">
+            <a ng-if="backPage === 'SupervisorAllClaim'" ng-click="goToPreviousPage()">{{"All Claims"|translate}}</a>
+            <a ng-if="backPage === 'Performance'" ng-click="goToPreviousPage()">{{"Performance"|translate}}</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li ng-if="fromSearch">
+            <a ng-click="goToSearchResult()">{{"Search Results"|translate}}</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <!-- <li>
+                <span>{{CommonObj.ClaimNumber}}</span>
+            </li> -->
+        <li ng-show="tab=='Contents'">
+            {{CommonObj.ClaimNumber}}
+        </li>
+        <li ng-show="tab!='Contents'">
+            <a ng-click="tab='Contents'">{{CommonObj.ClaimNumber}}</a>
+            <i class="fa fa-circle"></i>
+            <span>{{tab === 'Claim Form' ? ('TabHeaderTitle.PolicyholderTasks'|translate) : (tab === 'Reports' ? ('TabHeaderTitle.ClaimSummary'|translate) : tab)}}</span>
+        </li>
+    </ul>
+
+    <div class="mainHeadingDiv">
+        <div class="caption font-gray-sharp">
+            <span class="caption-subject">{{"Claim#"|translate}}&nbsp;{{CommonObj.ClaimNumber}} -
+                {{ClaimStatusContent.policyholder.lastName+ ", "+ClaimStatusContent.policyholder.firstName | titleCase}}</span>
+        </div>
+    </div>
+</div>
+<div class="col-md-12 clearfix padding1px">
+    <script type="text/ng-template" id="myPopoverTemplate.html">
+            <a class="form-group" ng-click="CreatePendingtask($event)" style="color: black;">
+                <!--uib-popover="Send task to PH"-->
+                Send task to PH
+            </a>
+        </script>
+    <!--Claim Details, Vendor Assignments, Activity Log, Claim Summary, Policy Details, Policyholder's Tasks, Invoices-->
+    <div class="col-md-12 col-sm-12 col-xs-12 padding1px" id="content-parent">
+        <div class="tabbable-custom">
+            <ul class="nav nav-tabs" id="head-tabs">
+                <li ng-show="coreLogicConst.ClaimDetailsTab.ClaimDetails == 'true'" ng-class="{'active': tab=='Contents'}">
+                    <a href="#" data-toggle="tab"
+                        ng-click="CommonObj.isAssignmentDone ? showContents() : tab='Contents'">&nbsp;
+                        {{"Claim Details"|translate}} &nbsp;</a>
+                </li>
+                <li ng-show="CommonObj.ClaimProfile === 'Contents' && coreLogicConst.ClaimDetailsTab.ContentsEvaluation == 'true'" ng-class="{'active': tab=='Reports'}">
+                    <a href="#" data-toggle="tab" ng-click="tab='Reports'">&nbsp;
+                        {{"TabHeaderTitle.ContentsEvaluation"|translate}}&nbsp; </a>
+                </li>
+                <!-- CTB-2689, CTB-2878 Hide this tab as on 19/2/2021 -->
+                <!-- ctb -2894 unhiding this tab as on 12/3/2021 -->
+                <!-- <li ng-class="{'active': tab=='Item Replacement Quotes'}">
+                    <a href="#" data-toggle="tab" ng-click="showAllReplacementQuotes()">&nbsp;
+                        {{"TabHeaderTitle.ItemReplacementQuotes"|translate}} &nbsp;</a>
+                </li> -->
+                <li ng-show="coreLogicConst.ClaimDetailsTab.VendorAssignments == 'true'" ng-class="{'active': tab==='Vendor Assignments'}">
+                    <a href="#" data-toggle="tab" ng-click="vendorAssigmentTab()">&nbsp;
+                        {{"Vendor Assignments"|translate}} &nbsp;</a>
+                </li>
+                <li ng-show="coreLogicConst.ClaimDetailsTab.Documents == 'true'" ng-class="{'active': tab==='Documents'}">
+                    <a href="#" data-toggle="tab" ng-click="showDocumentsTab()">
+                        &nbsp;{{"TabHeaderTitle.Documents"|translate}} &nbsp;</a>
+                </li>
+                <li ng-show="coreLogicConst.ClaimDetailsTab.ClaimParticipants == 'true'" ng-class="{'active': tab==='Claim Participants'}">
+                    <a href="#" data-toggle="tab" ng-click="showClaimParticipantsTab()">
+                        &nbsp;{{"TabHeaderTitle.ClaimParticipant"|translate}} &nbsp;</a>
+                </li>
+                <li ng-show="coreLogicConst.ClaimDetailsTab.ActivityLog == 'true'" ng-class="{'active': tab==='Activity Log'}">
+                    <a href="#" data-toggle="tab" ng-click="ShowActivityLogTab()">&nbsp;
+                        {{"TabHeaderTitle.ActivityLog"|translate}}&nbsp; </a>
+                </li>
+                <li ng-show="coreLogicConst.ClaimDetailsTab.PolicyAndCoverageDetails == 'true'" ng-class="{'active': tab=='Policy Details'}">
+                    <a href="#" data-toggle="tab" ng-click="showPolicyDetailsTab()">
+                        &nbsp;{{"TabHeaderTitle.PolicyDetails"|translate}}&nbsp; </a>
+                </li>
+                <li ng-show="coreLogicConst.ClaimDetailsTab.PolicyholderTasks == 'true'" ng-class="{'active': tab=='Claim Form'}">
+                    <a href="#" data-toggle="tab"
+                        ng-click="getClaimForm()">&nbsp;{{"TabHeaderTitle.PolicyholderTasks"|translate}}&nbsp;
+                    </a>
+                </li>
+                <!-- <li ng-class="{'active': tab=='Invoices'}">
+                    <a href="#" data-toggle="tab" ng-click="getInvoice()">
+                        &nbsp;{{"TabHeaderTitle.Invoices"|translate}} &nbsp;</a>
+                </li> -->
+            </ul>
+            <div class="tab-content">
+                <div class="row">
+                    <!--Start FNOL div-->
+                    <div class="col-md-12" ng-if="tab=='FNOL'" id="Contents">
+                    </div>
+                    <!--End FNOL div-->
+                    <!--Start Content Div-->
+                    <div class="col-lg-12 col-xs-12 padding1px" ng-show="tab=='Contents'" id="Contents">
+                        <div class="col-md-12 col-sm-12 margin-bottom-10 padding1px text-right">
+                            <button ng-show="coreLogicConst.ClaimDetailsActions.CloseClaim == 'true'" class="btn btnmargin margin-right-10 sbold"
+                                ng-click="closeClaim()">{{"Close Claim"|translate}}</button>
+                            <button ng-show="coreLogicConst.ClaimDetailsActions.ReAssignClaim == 'true'" class="btn btnmargin margin-right-10 sbold"
+                                ng-click="ReAssign()">{{"Re-Assign Claim"|translate}}</button>
+                            <!-- <button class="btn btnMargin margin-right-10 sbold"
+                                ng-click="approve($event, 'CLAIM')">{{"Approve"|translate}}</button> -->
+                        </div>
+
+
+                        <!-- Claim Snapshot -->
+                        <div ng-show="coreLogicConst.ClaimDetailsPageSections.ClaimSnapshots == 'true'" class="col-md-5 col-sm-12 col-xs-12" style="padding: 0px 0px 0px 10px!important;"
+                            ng-include="'views/CommonTemplates/ClaimSnapshot.html'">
+                        </div>
+                        <!--Start Requests,Notes, Participant & Attachements section-->
+                        <div ng-show="coreLogicConst.ClaimDetailsPageSections.Messages == 'true'" class="col-md-7 col-sm-12 col-xs-12" style="padding: 0px 10px 0px 15px!important;"
+                            ng-include="'views/CommonTemplates/ClaimActivities.html'"></div>
+                        <!--End  Requests ,Notes & Participant & Attachements section-->
+
+                        <!--Service Request And Contents-->
+                        <!--Service Requests -->
+                        <div ng-show="CommonObj.ClaimProfile == 'Contents' && CommonObj.ServiceRequests == 'true' && coreLogicConst.ClaimDetailsPageSections.ClaimSnapshots == 'true'"
+                            class="col-md-12 col-sm-12 col-xs-12 margin-top-5">
+                            <!-- Service request start -->
+                            <div class="mainHeadingDiv border_bottom caption form-group">
+                                <span class="caption-subject">{{"HeaderTitle.ServiceRequests"|translate}}</span>
+                            </div>
+                            <!--table data-->
+                            <div class="col-md-12 col-sm-12 col-xs-12 options_Background padding1px">
+                                <div class="col-md-12 col-sm-12 margin-top-5 col-xs-12 margin-bottom-5">
+                                    <div
+                                        class="caption font-green-sharp col-lg-3 col-md-3 col-xs-12 col-sm-6 pull-right padding1px">
+                                        <div class="input-icon left">
+                                            <i class="icon-magnifier"></i>
+                                            <input type="text"
+                                                class="form-control form-control-solid input-circle input-block-level"
+                                                ng-model="searchServices"
+                                                placeholder='{{"LostDamagedSearchText"|translate}}'>
+                                        </div>
+                                    </div>
+                                    <button id="btn" ng-click="GotoNewServiceRequest()"
+                                        class="pull-left btn sbold btnMargin">
+                                        {{"ControlText.NewServiceRequest"|translate}}
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-md-12 padding1px clearfix table-responsive">
+                                <table class="table table-striped table-bordered table-hover order-column"
+                                    id="NavigateTable">
+                                    <thead>
+                                        <tr>
+                                            <th ng-click="sortServiceRequest('serviceNumber')">
+                                                {{"Table.ServiceNumber"|translate}}
+                                                <span class="glyphicon sort-icon"
+                                                    ng-show="sortServiceRequestKey==='serviceNumber'"
+                                                    ng-class="{'glyphicon-chevron-up':!sortServiceRequestreverse,'glyphicon-chevron-down':sortServiceRequestreverse}"></span>
+                                            </th>
+                                            <th ng-click="sortServiceRequest('description')">
+                                                {{"Table.RequestDescription"|translate}}
+                                                <span class="glyphicon sort-icon"
+                                                    ng-show="sortServiceRequestKey==='description'"
+                                                    ng-class="{'glyphicon-chevron-up':!sortServiceRequestreverse,'glyphicon-chevron-down':sortServiceRequestreverse}"></span>
+                                            </th>
+                                            <th ng-click="sortServiceRequest('vendorDetails.vendorName')">
+                                                {{"Table.Vendor"|translate}}
+                                                <span class="glyphicon sort-icon"
+                                                    ng-show="sortServiceRequestKey==='vendorDetails.vendorName'"
+                                                    ng-class="{'glyphicon-chevron-up':!sortServiceRequestreverse,'glyphicon-chevron-down':sortServiceRequestreverse}"></span>
+                                            </th>
+                                            <th ng-click="sortServiceRequest('assignedDate')">
+                                                {{"Table.AssignDate"|translate}}
+                                                <span class="glyphicon sort-icon"
+                                                    ng-show="sortServiceRequestKey==='assignedDate'"
+                                                    ng-class="{'glyphicon-chevron-up':!sortServiceRequestreverse,'glyphicon-chevron-down':sortServiceRequestreverse}"></span>
+                                            </th>
+                                            <th ng-click="sortServiceRequest('targetDate')">
+                                                {{"Table.TargetCompletionDate"|translate}}
+                                                <span class="glyphicon sort-icon"
+                                                    ng-show="sortServiceRequestKey==='targetDate'"
+                                                    ng-class="{'glyphicon-chevron-up':!sortServiceRequestreverse,'glyphicon-chevron-down':sortServiceRequestreverse}"></span>
+                                            </th>
+                                            <th class="statusHeading"
+                                                ng-click="sortServiceRequest('status.statusName')">
+                                                {{"Table.Status"|translate}}
+                                                <span class="glyphicon sort-icon"
+                                                    ng-show="sortServiceRequestKey==='status.statusName'"
+                                                    ng-class="{'glyphicon-chevron-up':!sortServiceRequestreverse,'glyphicon-chevron-down':sortServiceRequestreverse}"></span>
+                                            </th>
+                                            <th>
+                                                {{"Table.Action"|translate}}
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr dir-paginate="ServiceRequest in ServiceRequestList |orderBy:sortServiceRequestKey:sortServiceRequestreverse|filter:searchServices|itemsPerPage:5"
+                                            pagination-id="ServiceRequest">
+                                            <td ng-click="GoToServiceRequestEdit(ServiceRequest)">
+                                                {{ServiceRequest.serviceNumber}}
+                                            </td>
+                                            <td ng-click="GoToServiceRequestEdit(ServiceRequest)">
+                                                {{ServiceRequest.description}}
+                                            </td>
+                                            <td ng-click="GoToServiceRequestEdit(ServiceRequest)">
+                                                {{ServiceRequest.vendorDetails.vendorName}}
+                                            </td>
+                                            <td ng-click="GoToServiceRequestEdit(ServiceRequest)">
+                                                {{ServiceRequest.assignedDate |DateFormatMMddyyyy}}
+                                            </td>
+                                            <td ng-click="GoToServiceRequestEdit(ServiceRequest)">
+                                                {{ServiceRequest.targetDate |DateFormatMMddyyyy}}
+                                            </td>
+                                            <td ng-click="GoToServiceRequestEdit(ServiceRequest)">
+                                                <span>
+                                                    {{ServiceRequest.status.statusName}}
+                                                </span>
+                                            </td>
+                                            <td style="display:flex;">
+                                                <a class="text-success control-label text-center sbold font-sm"
+                                                    ng-click="GotoAssign(ServiceRequest)">
+                                                    Assign
+                                                </a>|
+                                                <a class="text-danger control-label sbold font-sm"
+                                                    ng-click="Deleteservicerequest(ServiceRequest)">
+                                                    Delete
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr ng-show="!ServiceRequestList.length||ServiceRequestList===null">
+                                            <td colspan="7" class="text-center text-danger">
+                                                {{"NoRecordText"|translate}}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <dir-pagination-controls max-size="3" pagination-id="ServiceRequest"
+                                    direction-links="true" boundary-links="true" class="pull-right">
+                                </dir-pagination-controls>
+                            </div>
+                            <!--End table data-->
+                        </div>
+                        <!--End Service Requests -->
+                        <!--Contents List  -->
+                        <div class="col-md-12 col-sm-12 col-xs-12 form-group" id="itemsDiv">
+                            <div class="mainHeadingDiv border_bottom caption form-group">
+                                <span
+                                    class="caption-subject">{{"Contents List"|translate}}&nbsp;({{statusFilterItems.length}})</span>
+                            </div>
+                            <div class="col-md-12 padding1px clearfix">
+                                <!--Start Options Div-->
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 options_Background">
+                                    <div class="col-md-7 col-sm-12 col-xs-12 col-lg-7 margin-top-5 margin-bottom-5 padding1px"
+                                        style="width: auto;">
+                                        <!-- <button id="btnLoadFile" class="btn sbold  btnMargin"
+                                            ng-click="AddEditItem(null, 'ADD')">
+                                            {{"Add Item"|translate}}
+                                        </button>
+                                        <button id="btnLoadFile" ng-show="CommonObj.ClaimProfile == 'Contents'"
+                                            class="btn sbold btnMargin" ng-click="UploadPostLossItem($event)">
+                                            {{"ControlText.LoadFromFile"|translate}}
+                                        </button> -->
+                                        <div class="dropdown more-options" ng-if="CommonObj.ClaimProfile !== 'Jewelry'">
+                                            <button class="btn sbold btnMargin" type="button"
+                                                data-toggle="dropdown" data-close-others="true"
+                                                
+                                                id="more_opt">Add Item(s)
+                                                <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu" style="left: 5px;margin-top: 5px;">
+                                                
+                                                <li>
+                                                    <a  ng-click="AddEditItem(null, 'ADD')">
+                                                        {{"Add Item"|translate}}</a>
+                                                </li>
+    
+                                                <li ng-hide="CommonObj.ClaimProfile == 'Jewelry'">
+                                                    <a  ng-click="UploadPostLossItem($event)">
+                                            {{"ControlText.LoadFromFile"|translate}} </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <button class="btn sbold btnMargin" type="button" ng-if="CommonObj.ClaimProfile === 'Jewelry'" ng-click="AddEditItem(null, 'ADD')"
+                                        style="margin-left: -10px;">
+                                            Add Item(s)
+                                        </button>
+                                        <button id="btnAssign" class="btn sbold btnMargin" ng-disabled="!creaAssignmentFlag"
+                                            ng-click="GoToVendorAssignment()">
+                                            {{"Create Assignment"|translate}}
+                                        </button>
+                                        <button id="btnMapReceipts" ng-show="CommonObj.ClaimProfile == 'Contents'"
+                                            ng-click="GotoReceiptMapperHome()" class="btn sbold btnMargin">
+                                            {{"ControlText.MapReceipts"|translate}}
+                                        </button>
+
+                                        <div class="dropdown more-options">
+                                            <button class="btn sbold btnMargin" type="button"
+                                                ng-disabled="SelectedPostLostItems.length == 0" dropdown-menu-hover
+                                                data-toggle="dropdown" data-close-others="true"
+                                                ng-mouseover="SelectedPostLostItems.length ? checkOptions() : angular.noob()"
+                                                id="more_opt">More
+                                                <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu" style="left: 5px;margin-top: 5px;">
+                                                <li class="dropdown-header" style="color:#337ab7;font-weight: 300;">
+                                                    {{SelectedPostLostItems.length}}
+                                                    item(s)
+                                                    selected
+                                                </li>
+                                                <li>
+                                                    <a ng-click="CategoryPopup()">{{"Change Category" | translate}}</a>
+                                                </li>
+                                                <li class="dropdown-submenu">
+                                                    <a tabindex="-1" href="#" class="dropdown-submenu-toggle" >Change
+                                                        Status</a>
+                                                    <ul class="dropdown-menu">
+                                                        <li>
+                                                            <a ng-show="isApprovable"
+                                                                ng-click="approve($event, 'ITEMS')">
+                                                                {{"Approve"|translate}}
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a ng-click="paid()" ng-show="showPaid">
+                                                                {{"Mark Paid"|translate}}
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a ng-click="ChangeStatus(constants.itemStatus.replaced)"
+                                                                ng-show="isReplaceable">
+                                                                {{"Mark Replaced"|translate}}
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a ng-click="ChangeStatus(constants.itemStatus.settled)"
+                                                                ng-show="showSettled">
+                                                                {{"Mark Settled"|translate}}
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a ng-click="ChangeStatus(constants.itemStatus.valued)"
+                                                                ng-show="showValued">
+                                                                {{"Mark Valued"|translate}}
+                                                            </a>
+                                                        </li>
+
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <button ng-show="CommonObj.ClaimProfile == 'Contents'" id="btnMapReceipts"
+                                        ng-click="acceptStandardCost($event)" class="btn sbold btnMargin">
+                                        {{"Accept Standard Cost"|translate}}
+                                    </button>
+                                    </div>
+                                    <div class="pull-right col-lg-5 col-md-5 col-sm-12 margin-top-5 margin-bottom-5 manageSearch padding1px"
+                                        style="width: 45%;padding-left: 0px;">
+                                        <div
+                                            class="caption font-green-sharp col-lg-5 col-md-5 col-xs-12 col-sm-5 pull-right padding1px">
+                                            <div class="input-icon left">
+                                                <i class="icon-magnifier"></i>
+                                                <input type="text"
+                                                    class="form-control form-control-solid input-circle input-block-level"
+                                                    ng-model="searchDamagedContent"
+                                                    ng-change="getItemsByKeyword(PostLostItemsTab)"
+                                                    placeholder="{{'LostDamagedSearchText'|translate}}">
+                                            </div>
+                                        </div>
+                                        <!-- <div class="col-lg-5 col-md-6 col-xs-12 col-sm-5  pull-right">
+                                            <select class="input-small select2me form-control multi-sel" name="Categories"
+                                            ng-model="CommonObj.Categories" data-placeholder="CategoryList..."
+                                            ng-change="GetItemsByCategory(PostLostItemsTab)"
+                                            multiple
+                                            >
+                                            <option value="ALL" selected>
+                                                All
+                                            </option>
+                                            <option ng-repeat="category in DdlSourceCategoryList"
+                                                value="{{category.categoryId}}">
+                                                {{category.categoryName}}
+                                            </option>
+                                        </select>
+                                        </div>
+                                        <div class="col-lg-1 col-md-1 col-sm-1 padding1px pull-right">
+                                            <label class="control-label"
+                                                style="color:#ffffff;">{{"ControlText.View_title"|translate}}</label>
+                                        </div> -->
+                                    </div>
+                                </div>
+                                <!--End Options Div-->
+                                <div class="row">
+                                 <div infinity-scroll="nextRecords();" style="min-height: 250px!important;"
+                                    class="table-scroll-container custom_scroll_bar table-responsive col-md-12 PostLossItemList padding1px ServiceRequestheight">
+                                    <table class="table table-bordered table-hover table-hover-content order-column"
+                                        id="NavigateTable">
+                                        <thead class="table_Row_Heading" style="position: sticky; top:0;background-color: white;z-index: 1;">
+                                            <tr>
+                                                <th colspan="4">
+                                                    <button ng-click="GetPostLostItems()" class="clearall">Clear All Filters</button>
+                                                </th>
+                                                <th colspan="4"
+                                                    style="text-align: center;background: #abe7fc!important;border-right: 1px solid #ffffff;border-left: 2px solid #ffffff;">
+                                                    {{"Original Item"|translate}}
+                                                </th>
+                                                <th colspan="1"
+                                                style="text-align: center;background: #abe7fc!important;border-right: 1px solid #ffffff;border-left: 2px solid #ffffff;">
+                                                            Vendor
+                                                </th>
+                                                
+                                                <th colspan="{{CommonObj.ClaimProfile === 'Contents' ? 3 : 2 }}"
+                                                    style="text-align: center;background:#55cef6!important;border-right: 2px solid #ffffff;border-left: 1px solid #ffffff;">
+                                                    {{"Replacement Item"|translate}}
+                                                </th>
+                                                <th colspan="1">
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                <th class="Width2P">
+                                                    <label class="mt-checkbox mt-checkbox-outline mt-checkbox-single ">
+                                                        <input type="checkbox" ng-model="selectedAll"
+                                                            ng-click="checkAll(selectedAll)" />
+                                                        <span></span>
+                                                    </label>
+                                                </th>
+                                                <th class="Width4P" ng-click="sortpostlostitem('itemNumber')">
+                                                    {{"Table.ItemNumber"|translate}}
+                                                    <span class="glyphicon sort-icon" ng-show="sortKey === 'itemNumber'"
+                                                        ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                </th>
+                                                <th ng-click="sortpostlostitem('itemName')"
+                                                    ng-show="AddNewItem===true|| EditItem===true">
+                                                    {{"Table.ItemName"|translate}}
+                                                    <span class="glyphicon sort-icon" ng-show="sortKey === 'itemName'"
+                                                        ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                </th>
+
+                                                <!-- status -->
+                                                <th class="Width4P statusHeading">
+                                                    <div style="display: flex;">
+                                                    <div  ng-click="sortpostlostitem('status.status')">
+                                                    {{"Table.Status"|translate}}
+                                                    <span class="glyphicon sort-icon"
+                                                        ng-show="sortKey==='status.status'"
+                                                        ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                        </div>
+                                                        <i class="fa fa-filter fa-lg" aria-hidden="true" style="color:#337ab7;margin-left:8%" ng-click="handleCancelbx('status')"></i>
+
+                                                        <div class="drpdown custom_scroll_bar"  ng-show="displaystatusfiltr">
+                                                            <div style="margin:10%;margin-bottom: 0%;margin-top:0%">
+                                                            <div class="selectAll"> 
+                                                            <input type="checkbox"  onchange="selectAll(event);" id="selectall" style="margin-right: 10px;padding:10%;margin-top:5%;" ng-model="all" ng-checked="all">Select All
+                                                            </div>
+                                                            <div style="margin-bottom: 10%;padding:5%">
+                                                            <div style="display: flex;" ng-repeat="status in uniqueStatus">
+                                                                 <input type="checkbox"  class="status_check" onchange ="handleCheck(event)" style="margin-right: 10px;margin-left: 9%;" value="{{status}}" ng-checked="all">
+                                                                {{status}}
+                                                            </div>
+                                                            </div>
+                                                            <div class="btn-controls" style="display: flex;position:relative;right: 3;">
+                                                                <button ng-click="handleCancelbx('status')" class="cancelBtn" style="">Cancel</button>
+                                                                <button class="okaybtn" style="min-width: 50px !important;" ng-click="Filter('status')">OK</button>
+                                                            </div>
+                                                    </div>
+                                                    </div>
+                                                    </div>
+                                                </th>
+
+                                                <!-- category -->
+                                                <th class="Width4P">
+                                                    <div style="display: flex;">
+                                                        <div  ng-click="sortpostlostitem('category.name')">
+                                                    {{"Table.Category"|translate}}
+                                                    <span class="glyphicon sort-icon"
+                                                        ng-show="sortKey==='category.name'"
+                                                        ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                    </div>
+                                                    <i class="fa fa-filter fa-lg" aria-hidden="true" style="color:#337ab7;margin-left:8%" ng-click="handleCancelbx('category')"></i>
+
+                                                    <div class="drpdown custom_scroll_bar"  ng-show="displaycategoryfiltr">
+                                                        <div style="margin:10%;margin-bottom: 0%;margin-top:0%">
+                                                        <div class="selectAll">
+                                                        <input type="checkbox" class="selectAll" onchange="selectAllCategory(event);" id="selectallCategory" style="margin-right: 10px;padding:10%;margin-top:5%;margin-left: 13%" ng-model="allcat" ng-checked="allcat">Select All
+                                                        </div>
+                                                        <div style="margin-bottom: 10%;padding:5%">
+                                                        <div style="display: flex;" ng-repeat="category in uniqueCategory">
+                                                             <input type="checkbox"   class="cat_check" onchange ="handleCheckCategory(event)" style="margin-right: 10px;margin-left: 10%;" value="{{category}}" ng-checked="allcat">
+                                                            {{category}}
+                                                        </div>
+                                                        </div>
+                                                        <div class ="btn-controls" style="display: flex;position:relative;right: 3;">
+                                                            <button ng-click="handleCancelbx('category')" class="cancelBtn" style="">Cancel</button>
+                                                            <button class="okaybtn" style="min-width: 50px !important;" ng-click="Filter('category')">OK</button>
+                                                        </div>
+                                                </div>
+                                                </div>
+                                                </div>
+                                                </th>
+
+                                                
+                                                <!-- Start - Original Item -->
+                                                <!-- description -->
+                                                <th ng-click="sortpostlostitem('description')" class="Width9P"
+                                                    style="border-left: 2px solid #ffffff;">
+                                                    {{"Table.ItemDescription"|translate}}
+                                                    <span class="glyphicon sort-icon"
+                                                        ng-show="sortKey === 'description'"
+                                                        ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                </th>
+
+                                                <!-- age -->
+                                                <!-- <th class="Width3P" ng-if="CommonObj.ClaimProfile === 'Contents'"
+                                                    ng-click="sortpostlostitem('ageYears + ageMonths/12')">
+                                                    {{"Table.Age"|translate}}
+                                                    <span class="glyphicon sort-icon"
+                                                        ng-show="sortKey === 'ageYears + ageMonths/12'"
+                                                        ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                </th> -->
+
+                                                <!-- Qty -->
+                                                <th class="Width3P" ng-click="sortpostlostitem('quantity')">
+                                                    {{"Table.Qty"|translate}}
+                                                    <span class="glyphicon sort-icon" ng-show="sortKey=='quantity'"
+                                                        ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                </th>
+
+                                                <!-- stated value -->
+                                                <!-- <th class="Width6P" ng-click="sortpostlostitem('unitCost')">
+                                                    {{"Unit Price"|translate}}
+                                                    <span class="glyphicon sort-icon" ng-show="sortKey==='unitCost'"
+                                                        ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                </th> -->
+
+                                                <th class="Width4P">
+                                                    <div style="display: flex;">
+                                                        <div  ng-click="sortpostlostitem('totalStatedAmount')">
+                                                    {{"Total Price"|translate}}
+                                                    <span class="glyphicon sort-icon"
+                                                        ng-show="sortKey==='totalStatedAmount'"
+                                                        ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                    </div>
+                                                    <i class="fa fa-filter fa-lg" aria-hidden="true" style="color:#337ab7;margin-left:8%" ng-click="handleCancelbx('totalprice')"></i>
+
+                                                    <div class="drpdown custom_scroll_bar" style="width: 19%;" ng-show="displaytotalpricefiltr">
+                                                        <div style="margin:10%;margin-bottom: 0%;margin-top:0%;">
+                                                        <div class="selectAll">
+                                                        <input type="checkbox" onchange="selectAllTotalPrice(event);" id="selectallTotalPrice" style="margin-right: 10px;padding:10%;margin-top:5%;margin-left: 13%" ng-model="alltotalprice" ng-checked="alltotalprice">Select All
+                                                        </div>
+                                                        <div style=" margin-bottom: 10%;padding:5%">
+                                                        <div style="display: flex;">
+                                                             <input type="checkbox"  class="price_check" onchange ="handleCheckTotalPrice(event)" style="margin-right: 10px;margin-left: 10%;" value="1" ng-checked="alltotalprice">
+                                                            {{"$0.00 - $24.99"}}
+                                                        </div>
+                                                        <div style="display: flex;">
+                                                            <input type="checkbox"  class="price_check" onchange ="handleCheckTotalPrice(event)" style="margin-right: 10px;margin-left: 10%;" value="2" ng-checked="alltotalprice">
+                                                            {{"$25.00 - $99.99"}} 
+                                                       </div>
+                                                       <div style="display: flex;">
+                                                        <input type="checkbox"  class="price_check" onchange ="handleCheckTotalPrice(event)" style="margin-right: 10px;margin-left: 10%;" value="3" ng-checked="alltotalprice">
+                                                            {{"$100.00 - $999.99"}}
+                                                     </div>
+                                                     <div style="display: flex;">
+                                                        <input type="checkbox"  class="price_check" onchange ="handleCheckTotalPrice(event)" style="margin-right: 10px;margin-left: 10%;" value="4" ng-checked="alltotalprice">
+                                                        {{"$1,000.00+"}}
+                                                   </div>
+                                                        </div>
+                                                        <div style="display: flex;position:relative;right: 3;" class="btn-controls">
+                                                            <button ng-click="handleCancelbx('totalprice')" class="cancelBtn" style="">Cancel</button>
+                                                            <button class="okaybtn" style="min-width: 50px !important;" ng-click="Filter('totalprice')">OK</button>
+                                                        </div>
+                                                </div>
+                                                </div>
+                                                </div>
+                                                </th>
+                                                <th class="Width4P">
+                                                    <div style="display: flex;">
+                                                        <div  ng-click="sortItemTag('itemTag')">
+                                                        {{"Item Tag"|translate}}
+                                                        <span class="glyphicon sort-icon"
+                                                            ng-show="sortKey==='itemTag'"
+                                                            ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                        </div>
+                                                        <i class="fa fa-filter fa-lg" aria-hidden="true" style="color:#337ab7;margin-left:8%" ng-click="handleCancelbx('itemTag')"></i>
+
+                                                        <div class="drpdown custom_scroll_bar" style="width: 19%;" ng-show="displayItemTagfiltr">
+                                                            <div style="margin:10%;margin-bottom: 0%;margin-top:0%;">
+                                                                <div class="selectAll">
+                                                                <input type="checkbox" onchange="selectAllItemTag(event);" id="selectallItemTag" style="margin-right: 10px;padding:10%;margin-top:5%;margin-left: 13%" ng-model="allItemTag" ng-checked="allItemTag">Select All
+                                                                </div>
+                                                                <div style=" margin-bottom: 10%;padding:5%">
+                                                                    <div style="display: flex;" ng-repeat="itemTag in uniqueItemTag">
+                                                                        <input type="checkbox"  class="itemTag_check" onchange ="handleCheckItemTag(event)" style="margin-right: 10px;margin-left: 9%;" value="{{itemTag}}" ng-checked="allItemTag">
+                                                                       {{itemTag}}
+                                                                   </div>
+                                                                </div>
+                                                                <div style="display: flex;position:relative;right: 3;" class="btn-controls">
+                                                                    <button ng-click="handleCancelbx('itemTag')" class="cancelBtn">Cancel</button>
+                                                                    <button class="okaybtn" style="min-width: 50px !important;" ng-click="Filter('itemTag')">OK</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </th>
+                                                <!-- End - Original Item -->
+
+                                                <!-- vendor -->
+                                                <th class="Width6P">
+                                                    <div style="display: flex;">
+                                                        <div  ng-click="sortpostlostitem('vendorDetails.vendorName')">
+                                                    {{"Vendor"|translate}}
+                                                    <span class="glyphicon sort-icon"
+                                                        ng-show="sortKey==='vendorDetails.vendorName'"
+                                                        ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                    </div>
+                                                    <i class="fa fa-filter fa-lg hide" aria-hidden="true" style="color:#337ab7;margin-left:8%" ng-click="handleCancelbx('vendor')"></i>
+
+                                                    <div class="drpdown custom_scroll_bar"  ng-show="displayvendorfiltr">
+                                                        <div style="margin:10%;margin-bottom: 0%;margin-top:0%">
+                                                        <div class="selectAll">
+                                                        <input type="checkbox" onchange="selectAllVendor(event);" id="selectAllVendor" style="margin-right: 10px;padding:10%;margin-top:5%;margin-left: 13%" ng-model="allvendor" ng-checked="allvendor">Select All
+                                                        </div>
+                                                        <div style=" margin-bottom: 10%;padding:5%">
+                                                        <div style="display: flex;" ng-repeat="vendor in uniqueVendor">
+                                                             <input type="checkbox"  class="vendor_check" onchange ="handleCheckVendor(event)" style="margin-right: 10px;margin-left: 10%;" value="{{vendor}}" ng-checked="allvendor">
+                                                            {{vendor}}
+                                                        </div>
+                                                        </div>
+                                                        <div class="btn-controls" style="display: flex;position:relative;right: 3;">
+                                                            <button ng-click="handleCancelbx('vendor')" class="cancelBtn" style="">Cancel</button>
+                                                            <button class="okaybtn" style="min-width: 50px !important;" ng-click="Filter('vendor')">OK</button>
+                                                        </div>
+                                                </div>
+                                                </div>
+                                                </div>
+                                                </th>
+
+                                                <!-- serivice request -->
+                                                <!-- <th class="Width8P" ng-show="AddNewItem===false && EditItem===false"
+                                                    ng-click="sortpostlostitem('contentService.service')">
+                                                    {{"Service Request"|translate}}
+                                                    <span class="glyphicon sort-icon"
+                                                        ng-show="sortKey === 'contentService.service'"
+                                                        ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                </th> -->
+
+
+                                                <!-- Start - Replacement Item -->
+                                                <!-- replacement description -->
+                                                <th class="Width10P" ng-click="sortpostlostitem('adjusterDescription')"
+                                                    style="border-left: 2px solid #ffffff;"
+                                                    ng-show="AddNewItem===false && EditItem===false">
+                                                    {{"Replacement Description"|translate}}
+                                                    <span class="glyphicon sort-icon"
+                                                        ng-show="sortKey === 'adjusterDescription'"
+                                                        ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                </th>
+
+                                                <!-- RCV -->
+                                                <th class="Width4P" ng-show="AddNewItem===false && EditItem===false"
+                                                    ng-style="{'border-right': CommonObj.ClaimProfile === 'Jewelry' ? '2px solid #ffffff' : '1px solid #e7ecf1' }"
+                                                    ng-click="sortpostlostitem('rcvTotal')">
+                                                    {{"Replacement Cost"|translate}}
+                                                    <span class="glyphicon sort-icon" ng-show="sortKey === 'rcvTotal'"
+                                                        ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                </th>
+
+                                                <!-- acv -->
+                                                <th class="Width4P" ng-if="CommonObj.ClaimProfile === 'Contents'"
+                                                    style="border-right: 2px solid #ffffff;"
+                                                    ng-show="AddNewItem===false && EditItem===false"
+                                                    ng-click="sortpostlostitem('cashPayoutExposure')">
+                                                    {{"Cash Exposure"|translate}}
+                                                    <span class="glyphicon sort-icon"
+                                                        ng-show="sortKey === 'cashPayoutExposure'"
+                                                        ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                </th>
+                                                <!-- End - Replacement Item -->
+
+                                                <!-- unit Cost -->
+                                                <!-- <th class="Width6P" ng-show="AddNewItem===false && EditItem===false" ng-click="sortpostlostitem('comparableItems[0].unitPrice')">
+                                                                           {{"Table.UnitCost"|translate}}
+                                                                       </th> -->
+
+                                                <!-- Depriciation -->
+                                                <!-- <th class="Width6P" ng-show="AddNewItem===false && EditItem===false" ng-click="sortpostlostitem('claimItem.depriciationRate')">
+                                                                           {{"Table.Depriciation"|translate}}
+                                                                       </th> -->
+
+                                                <!-- Replaced -->
+                                                <!-- <th class="Width4P" ng-show="AddNewItem===false && EditItem===false"
+                                                    ng-click="sortpostlostitem('isReplaced')">
+                                                    {{"Table.Replaced"|translate}}
+                                                    <span class="glyphicon sort-icon" ng-show="sortKey === 'isReplaced'"
+                                                        ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                </th> -->
+
+                                                <!-- Action -->
+                                                <th class="Width6P" style="text-align: center;">
+                                                    {{"Table.Action"|translate}}
+                                                </th>
+                                                <!-- <th class="Width4P">
+                                                    {{"Chat"|translate}}
+                                                </th> -->
+                                                <!--<th class="Width8P" ng-click="sortpostlostitem('claimItem.isScheduledItem')">
+                                                                           {{"Table.ScheduledItem"|translate}}
+                                                                           <span class="glyphicon sort-icon" ng-show="sortKey=='claimItem.isScheduledItem'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                                                       </th>
+
+
+                                                                       <th ng-show="AddNewItem===true || EditItem===true" ng-click="sortpostlostitem('claimItem.subCategory.name')">
+                                                                           {{"Table.SubCategory"|translate}}
+                                                                       </th>-->
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-if="AddNewItem===true">
+                                                <td>
+                                                    <input type="text" class="form-control "
+                                                        ng-model="selected.itemNumber"
+                                                        placeholder="{{'Table.ItemName'|translate}}">
+                                                </td>
+                                                <!--<td></td>-->
+                                                <td>
+                                                    <input type="text" class="form-control "
+                                                        ng-model="selected.itemName"
+                                                        placeholder="{{'Table.ItemName'|translate}}">
+
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control "
+                                                        ng-model="selected.itemName"
+                                                        placeholder="{{'Table.ItemName'|translate}}">
+
+                                                </td>
+                                                <td>
+                                                    <!--<input type="text" class="form-control " ng-model="selected.itemName" placeholder="{{'Table.ItemName'|translate}}">-->
+
+
+                                                    <input type="text" class="form-control setwidth"
+                                                        ng-model="selected.description"
+                                                        ng-attr-placeholder="{{'Table.Description'|translate}}">
+                                                </td>
+                                                <!--<td>
+                                                                           <select class="input-small select2me form-control  " data-placeholder="Select..." ng-model="selected.isScheduledItem">
+                                                                               <option value="true" ng-selected="selected.scheduled">Yes</option>
+                                                                               <option value="false" ng-selected="!selected.scheduled">No</option>
+                                                                           </select>
+                                                                       </td>-->
+                                                <td>
+                                                    <input type="text" class="form-control "
+                                                        ng-model="selected.status.status"
+                                                        placeholder="{{'Table.Status'|translate}}" readonly>
+                                                </td>
+                                                <td>
+                                                    <select class="input-small select2me form-control "
+                                                        data-placeholder="Select..." ng-model="selected.category.id"
+                                                        ng-change="GetSubCategory()"
+                                                        ng-options="option.categoryId as option.categoryName for option in DdlSourceCategoryList"></select>
+                                                </td>
+                                                <td>
+                                                    <select class="input-small select2me form-control  "
+                                                        data-placeholder="Select..." ng-model="selected.subCategory.id"
+                                                        ng-options="option.id as option.name for option in SubCategory"></select>
+                                                </td>
+                                                <!--<td>
+                                                                           <input type="text" class="form-control setwidth" ng-model="selected.description" ng-attr-placeholder="{{'Table.Description'|translate}}">
+                                                                       </td>-->
+
+                                                <td>
+                                                    <div style="display:flex;width:130px;">
+                                                        <div class="pull-left text-center" style="margin-left:5px">
+                                                            <input type="text" class="form-control" style="width:60px;"
+                                                                ng-model="selected.ageYears"
+                                                                ng-attr-placeholder="{{'Table.Year'|translate}}">
+                                                        </div>
+
+                                                        <div class="pull-right text-center">
+                                                            <input type="text" class="form-control" style="width:60px;"
+                                                                ng-model="selected.ageMonths"
+                                                                ng-attr-placeholder="{{'Table.Months'|translate}}">
+                                                        </div>
+                                                    </div>
+
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control setwidth"
+                                                        ng-model="selected.quantity"
+                                                        ng-attr-placeholder="{{'Table.Qty'|translate}}">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control setwidth"
+                                                        ng-model="selected.insuredPrice"
+                                                        ng-attr-placeholder="{{'Table.Cost'|translate}}">
+                                                </td>
+                                                <td>
+                                                    <div class="btn-group btn-group-circle btn-outline"
+                                                        style="display:flex !important;">
+                                                        <span ng-click="SaveItemDetails()"
+                                                            class="btn green btn-sm btn-outline">Save</span>
+                                                        <span ng-click="reset()"
+                                                            class="btn red btn-sm  btn-outline">Cancel</span>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr ng-if="statusFilterItems!=null"
+                                                ng-repeat="item in statusFilterItems | limitTo : getNumberOfRec | orderBy:sortKey:reverse:localeSensitiveComparator"
+                                                ng-class="{ 'Highlighted_Row_StatusValued':item.status.status === constants.itemStatus.valued,
+                                                       'Highlighted_Row_StatusPaid': item.status.status === constants.itemStatus.paid,
+                                                       'Highlighted_Row_Created':(item.totalStatedAmount > ClaimStatusContent.minimumThreshold) && (item.status.status === constants.itemStatus.created),
+                                                       'Highlighted_Row_Assigned': item.status.status === constants.itemStatus.assigned,
+                                                       'Highlighted_Row_Settled': item.status.status === constants.itemStatus.settled,
+                                                       'Highlighted_Row_UnderReview':item.status.status === constants.itemStatus.underReview,
+                                                       'Highlighted_Row_WorkInProgress': item.status.status === constants.itemStatus.workInProgress,
+                                                       'Highlighted_Row_Replaced': item.status.status === constants.itemStatus.replaced,
+                                                       'Highlighted_Row_PartialReplaced': item.status.status === constants.itemStatus.partialReplaced }">
+                                                <td>
+                                                    <label class="mt-checkbox mt-checkbox-outline mt-checkbox-single selection-disabled ">
+                                                        <!-- ng-disabled="item.status.id==2||item.status.id ==3"
+                                                            removed condition since not able changes category for item which r assigned to suoervisor
+                                                            -->
+                                                        <input type="checkbox" ng-click="SelectMultiple($event,$index);$event.stopPropagation();"
+                                                            ng-disabled ="item.status.status==='SETTLED' || item.status.status ==='CREATED'"
+                                                            ng-model="item.Selected" />
+                                                        <span></span>
+                                                    </label>
+                                                </td>
+                                                <!--<td style="text-decoration:none;color:black;"><sapn class="fa fa-pencil-square-o fa-lg" aria-hidden="true" ng-click="EditItemDetails(item)"></sapn></td>-->
+                                                <td ng-click="GoToDetails(item)"><i
+                                                        class="fa fa-paperclip imgAttachmentIcon"
+                                                        ng-show="item.attachments.length"></i>&nbsp;&nbsp;{{item.itemNumber}}
+                                                </td>
+
+                                                <!-- status value -->
+                                                <td class="hide" ng-click="GoToDetails(item)">
+                                                    <!--<span ng-class="{'btn btn-circle btn-xs ItemAssigned':item.status.status==='ASSIGNED','btn btn-circle btn-xs ItemCreated':item.status.status==='CREATED','btn btn-circle btn-xs ItemUnderReview':item.status.status==='UNDER REVIEW','btn btn-circle btn-xs ItemApproved':item.status.status==='APPROVED','btn btn-circle btn-xs ItemValued':item.status.status==='VALUED','btn btn-circle btn-xs ItemSettled':item.status.status==='SETTLED'}">{{item.status.status}}</span></td>-->
+                                                    <span
+                                                        ng-class="{'stage ItemStageTwo':item.status.status===constants.itemStatus.assigned,
+                                                        'stage ItemStageOne':item.status.status===constants.itemStatus.created,
+                                                        'stage ItemStageThree':item.status.status===constants.itemStatus.underReview,
+                                                        'stage ItemStageFour':item.status.status===constants.itemStatus.approved,
+                                                        'stage ItemStageFive':item.status.status===constants.itemStatus.valued,
+                                                        'stage ItemStageSix':item.status.status===constants.itemStatus.settled}">
+                                                        {{item.status.status|limitTo: 8}}{{item.status.status.length > 8 ? '...' : ''}}
+                                                    </span>
+                                                </td>
+
+                                                <td class="text-left" ng-click="GoToDetails(item)">
+                                                    <span>
+                                                        {{item.status.status|limitTo: 12}}
+                                                    </span><span>{{item.status.status.length >  12 ? '...' : ''}}</span>
+                                                </td>
+
+                                                <!-- category value -->
+                                                <td ng-click="GoToDetails(item)">{{item.category.name}}</td>
+
+                                                <!-- description -->
+                                                <td ng-click="GoToDetails(item)"
+                                                    ng-init="desclimit = desclimit; DescMoreShown = false">{{(item.description
+                                                            | limitTo: desclimit) + (item.description.length > desclimit ?
+                                                            '...' :
+                                                            '')}}
+                                                    <a ng-show="item.description.length > desclimit && !descMoreShown"
+                                                        stop-propagation
+                                                        ng-click="desclimit=item.description.length; descMoreShown = true">
+                                                        More
+                                                    </a>
+                                                    <a ng-show="descMoreShown" href stop-propagation
+                                                        ng-click="descMoreShown = false; desclimit=30; ">
+                                                        Less </a>
+                                                </td>
+
+                                                <!-- Age -->
+                                                <!-- <td ng-if="CommonObj.ClaimProfile === 'Contents'"
+                                                    ng-click="GoToDetails(item)" class="text-left">
+                                                    <span
+                                                        ng-if="(item.ageYears!=0 && item.ageYears!=null)&&(item.ageMonths!=0 && item.ageMonths!=null)">
+                                                        {{item.ageYears+'yr ' + item.ageMonths +'mo'}}
+                                                    </span>
+                                                    <span
+                                                        ng-if="(item.ageYears==0||item.ageYears==null) && (item.ageMonths!=0 && item.ageMonths!=null )">{{item.ageMonths+'mo'}}</span>
+                                                    <span
+                                                        ng-if="(item.ageYears!=0 && item.ageYears!=null) && (item.ageMonths==0 || item.ageMonths==null )">{{item.ageYears+'yr'}}</span>
+                                                    <span
+                                                        ng-if="(item.ageYears==0||item.ageYears==null )&& (item.ageMonths==0||item.ageMonths==null)">NA</span>
+                                                </td> -->
+
+                                                <!-- quantity -->
+                                                <td ng-click="GoToDetails(item)">{{item.quantity}}</td>
+                                                <!-- <td ng-click="GoToDetails(item)" class="text-right">
+                                                    {{item.unitCost !=null ? item.unitCost : 0.00 | currency}}
+                                                </td> -->
+                                                <td ng-click="GoToDetails(item)" class="text-right">
+                                                    {{item.totalStatedAmount ? item.totalStatedAmount : 0.00 | currency}}
+                                                </td>
+
+                                                <td class="text-left" ng-click="GoToDetails(item)">
+                                                    {{item.itemTag.name ? item.itemTag.name : "N/A"}}
+                                                </td>
+                                                <!-- vendor -->
+                                                <td ng-show="AddNewItem===false && EditItem===false" class="text-right"
+                                                    ng-click="GoToDetails(item)">{{item.vendorName!=null? item.vendorName :(item.status.status==="ASSIGNED" ? VendorName : "")}}</td>
+
+                                                <!-- service request -->
+                                                <!-- <td ng-show="AddNewItem===false && EditItem===false" class="text-right"
+                                                    ng-click="GoToDetails(item)">{{item.contentService.service}}</td> -->
+                                                    
+                                                <!-- replacement description -->
+                                                <td ng-click="GoToDetails(item)"
+                                                    ng-init="limit = limit; moreShown = false">{{item.adjusterDescription ? ((item.adjusterDescription
+                                                            | limitTo: limit) + (item.adjusterDescription.length > limit ?
+                                                            '...' :
+                                                            '')) : ''}}
+                                                    <a ng-show="item.adjusterDescription.length > limit && !moreShown"
+                                                        stop-propagation
+                                                        ng-click="limit=item.adjusterDescription.length; moreShown = true">
+                                                        More
+                                                    </a>
+                                                    <a ng-show="moreShown" href stop-propagation
+                                                        ng-click="moreShown = false; limit=30; ">
+                                                        Less </a>
+                                                </td>
+
+                                                <!-- RCV -->
+                                                <td ng-show="AddNewItem===false && EditItem===false"
+                                                    ng-click="GoToDetails(item)" class="text-right">
+                                                    {{item.rcvTotal ? item.rcvTotal : 0 | currency}}</td>
+
+                                                <!-- ACV -->
+                                                <td ng-if="CommonObj.ClaimProfile === 'Contents'"
+                                                    ng-show="AddNewItem===false && EditItem===false"
+                                                    ng-click="GoToDetails(item)" class="text-right">
+                                                    {{item.cashPayoutExposure ? item.cashPayoutExposure : 0 | currency}}
+                                                </td>
+
+                                                <!-- unit Cost -->
+                                                <!-- <td ng-show="AddNewItem===false && EditItem===false" ng-click="GoToDetails(item)" class="text-right">{{item.comparableItems[0].unitPrice|USCurrencyFormat}}</td> -->
+
+
+                                                <!-- Depriciation -->
+                                                <!-- <td ng-show="AddNewItem===false && EditItem===false" ng-click="GoToDetails(item)" class="text-right">{{item.depriciationRate}}</td> -->
+
+                                                <!-- Replaced -->
+                                                <!-- <td ng-show="AddNewItem===false && EditItem===false"
+                                                    ng-click="GoToDetails(item)"><span
+                                                        ng-if="item.isReplaced===true">Yes</span><span
+                                                        ng-if="item.isReplaced===false">No</span></td> -->
+
+                                                <!-- Action -->
+                                                <td class="text-center TextDecorationNone margintop5 text-left chatHover" style="padding:5px">
+                                                    <div class="col-lg-12 col-md-12 col-sm-12" style="padding:0px;">
+                                                        <div class="col-lg-4 col-md-4 col-sm-4" style="padding:0px;">
+                                                            <img ng-click="ConversationPopup(item);$event.stopPropagation();" ng-src='assets/global/img/top-bar-menu-chat-icon.svg' style="height: 16px !important;" alt="converstions" />
+                                                            <div class="notify-badge" ng-if="item.noOfUnreadComment > 0 || (item.noOfUnreadComment == null && ItemDetails.totalNoOfComments > 0)" style="position: relative !important;
+                                                                    background: red !important;
+                                                                    height: 8px !important;
+                                                                    top: 3.15% !important;
+                                                                    left: 60% !important;
+                                                                    /* right: 134px !important; */
+                                                                    width: 8px !important;
+                                                                    text-align: center !important;
+                                                                    /* line-height: 47px; */
+                                                                    font-size: 1rem !important;
+                                                                    border-radius: 56% !important;
+                                                                    color: white !important;
+                                                                    border: 1px solid red !important;
+                                                                    margin-top: -50% !important;">
+                                                            </div>
+                                                        </div>
+                                                    <div class="col-lg-4 col-md-4 col-sm-4" style="padding:0px;" ng-show="item.status.status=='UNDER REVIEW'">
+                                                        <a ng-click="AddEditItem(item, 'EDIT')"
+                                                        class="font-sm sbold" ><i class="fa fa-edit fa-lg" style="color: grey;"></i></a>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-4 col-sm-4" style="padding:0px;">
+                                                        <a ng-click="DeletItem(item)" ng-show="!(item.status.status === 'WORK IN PROGRESS'|| item.status.status === 'VALUED' || item.status.status === 'REPLACED' || item.status.status === 'PAID' || item.status.status === 'SETTLED' || item.status.status === 'PARTIAL REPLACED')"
+                                                        class="text-danger font-sm sbold"><i class="fa fa-trash fa-lg" style="color: grey;"></i></a>
+                                                    </div>
+                                                </div>
+                                                </td>
+                                            </tr>
+
+                                            <tr ng-show="!itemsLoading && !FiletrLostDamageList.length">
+                                                <td colspan="16" class="text-center text-danger">
+                                                    {{"NoRecordText"|translate}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="16" class="text-danger" ng-show="itemsLoading"
+                                                    style="text-align: center;">
+                                                    <i class="fa fa-spinner fa-spin fa-2x fa-fw"></i>
+                                                </td>
+                                                <td colspan="16" class="text-danger"
+                                                    ng-show="!itemsLoading && !statusFilterItems.length"
+                                                    style="text-align: center;">
+                                                    {{"No items available"| translate}}
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <!-- Pagination -->
+                                    <div>
+                                        <dir-pagination-controls class="pull-right" max-size="3"
+                                            on-page-change="pageChangeHandler(newPageNumber)" direction-links="true"
+                                            boundary-links="true" pagination-id="FiletrLostDamageListControl">
+                                        </dir-pagination-controls>
+                                        <span ng-if="statusFilterItems.length > 0" class="bold pull-left"
+                                            style="color: #337ab7;">
+                                            Showing
+                                            1 to
+                                            {{statusFilterItems.length}}
+                                            of
+                                            {{statusFilterItems.length}}
+                                            Items </span>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        <!--End Contents List -->
+                        <!--End Service Request And Contents-->
+                    </div>
+                    <!--End Content Div-->
+                    <!--Start All Replacement Quotes Div-->
+                    <div class="col-md-12 col-lg-12 padding1px" ng-if="tab=='Vendor Assignments'"
+                        >
+                        <div class="col-md-12 col-xs-12" ng-include="'views/AllReplQuotesSupervisor/AllReplQuotesSupervisor.html'"
+                            ng-controller="AllReplQuotesSupervisorController">
+                        </div>
+                    </div>
+                    <!--End All Replacement Quotes Div-->
+                    <!--Vendors tab-->
+                    <!-- <div class="col-md-12 col-lg-12 padding1px" ng-if="tab=='Vendor Assignments'"
+                        id="VendorAssignments">
+                        <div class="col-md-12 col-xs-12" ng-include="'views/ClaimsSupervisor/VendorAssignments.html'">
+                        </div>
+                    </div> -->
+                    <!--End Vendors tab-->
+                    
+                    <!--Policy Details Tab-->
+                    <div class="" id="PolicyDetails" ng-if="tab=='Policy Details'">
+                        <div class="col-md-12 col-sm-12 col-lg-12 margin-top-10"
+                            ng-include="'views/Policy/PolicyDetails.html'" ng-controller="PolicyDetailsController">
+                        </div>
+                    </div>
+                    <!--Policy Details Tab-->
+                    <!--claim Form Tab-->
+                    <div class="" id="ClaimDetails" ng-if="tab=='Claim Form'">
+                        <div class="col-md-12 col-sm-12">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 options_Background padding1px">
+                                <div class="col-lg-2 col-md-2 col-xs-12 col-sm-2 ">
+                                    <button class="btn sbold  margin-top-5 margin-bottom-5 "
+                                        ng-click="AddClaimForm($event)">
+                                        {{"New Claim Form"|translate}}
+                                    </button>
+                                </div>
+
+                                <div
+                                    class="caption font-green-sharp col-lg-3 col-md-3 col-xs-12 col-sm-3 pull-right padding1px margin-top-5">
+                                    <div class="input-icon left">
+                                        <i class="icon-magnifier"></i>
+                                        <input type="text"
+                                            class="form-control form-control-solid input-circle input-block-level"
+                                            ng-model="searchFormData"
+                                            placeholder="{{'LostDamagedSearchText'|translate}}">
+                                    </div>
+                                </div>
+                            </div>
+                            <!--<div class="col-md-12 padding1px AdjEventSection">
+                                                        <div class="col-md-9 col-sm-10 well well-sm border-red divborder" style="display:flex" ng-repeat="task in PendingTaskList">
+                                                            <div class="col-md-11 col-sm-10" ng-click="ShowClaimFormAttachments()">
+                                                                <label class="font-blue"><b>{{task.taskName}}</b></label><div class="clearfix">
+                                                                    <label class="font-red">{{task.attributeRequired}}</label>
+                                                                    <label class="font-red text-lowercase" ng-if="task.attributeRequired===null">{{task.status.status}}</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-1 col-sm-2 text-center">
+                                                                <i class="fa fa-exclamation-triangle fa-lg font-red pull-right" ng-click="StoreTaskObject(task)" popover-trigger="outsideClick" uib-popover-template="dynamicPopover.templateUrl" aria-hidden="true" popover-placement="right" popover-is-open="myPopover.isOpen" uib-popover="{{dynamicPopover.content}}"></i>
+                                                            </div>
+                                                        </div>
+                                                        <div class="text-danger col-md-8 margin-top-10" ng-if="PendingTaskList===null ||PendingTaskList.length===0">
+                                                            <b>  <span>No task for user</span></b>
+                                                        </div>
+
+                                                    </div>-->
+                            <div class="table-responsive col-md-12  padding1px tableHeight">
+                                <table class="table table-bordered table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th ng-click="SortClaimForm('taskId')">
+                                                {{"Form ID"|translate}}</th>
+                                            <th ng-click="SortClaimForm('taskName')">
+                                                {{"Form Name"|translate}}</th>
+                                            <th>{{"Description"|translate}}</th>
+                                            <th ng-click="SortClaimForm('status.status')" class="statusHeading">
+                                                {{"State"|translate}}</th>
+                                            <th>{{"Created By"|translate}}</th>
+                                            <th>{{"Assigned To"|translate}}</th>
+                                            <th>{{"Assigned Date"|translate}}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-click="ShowClaimFormAttachments(task)"
+                                            ng-repeat="task in PendingTaskList |orderBy:sortClaimFormKey:reversesortClaimFormKey|filter:searchFormData">
+                                            <td>
+                                                {{task.taskId}}
+                                            </td>
+                                            <td>
+                                                {{task.taskName}}
+                                            </td>
+                                            <td>
+                                                {{task.comment}}
+                                            </td>
+                                            <td class="text-center">
+                                                {{task.status.status}}
+                                            </td>
+                                            <td>
+                                                {{task.createdBy}}
+                                            </td>
+                                            <td>
+                                                {{task.assignedTo}}
+                                            </td>
+                                            <td>
+                                                {{task.assignedDate}}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!--End claim Form Tab-->
+                    <!--Report Tab-->
+                    <div id="ReportsDiv" ng-if="tab=='Reports'">
+                        <!--<a class="pull-left col-lg-12 col-sm-12 col-md-12 col-xs-12 padding1px" href="#" ng-click="GoToReport()">{{"GoTOReport"|translate}}</a>-->
+                        <div class="col-md-12 col-sm-12 col-lg-12" ng-include="'views/Reports/Report.html'"
+                            ng-controller="ReportController">
+                        </div>
+                    </div>
+                    <!--End Reports Tab-->
+                    <!--Documents Tab-->
+                    <div id="DocumentsDiv" ng-if="tab==='Documents'"
+                        ng-include="'views/CommonTemplates/ClaimDocuments.html'"
+                        ng-controller="ClaimDocumentsController">
+                    </div>
+                    <!--End Documents Tab-->
+                    <!--Claim participants Tab-->
+                    <div id="ParticipantsDiv" ng-if="tab==='Claim Participants'"
+                        ng-include="'views/CommonTemplates/ClaimParticipants.html'">
+                    </div>
+                    <!--End Claim participants Tab-->
+                    <!--ActivityLog Tab-->
+                    <div class="" id="activityLog" ng-if="tab=='Activity Log'">
+                        <div class="col-md-12 col-sm-12 col-lg-12 margin-top-10 padding1px"
+                            ng-include="'views/ActivityLog/ActivityLog.html'" ng-controller="ActivityLogController">
+                        </div>
+                    </div>
+                    <!--End ActivityLog Tab-->
+
+                    <!---Event Tab-->
+                    <div class="col-md-12" ng-show="tab=='Event'">
+                        <div class="col-md-12  clearfix options_Background">
+                            <div class="col-md-12 col-sm-12 margin-bottom-5 margin-top-5">
+                                <button class="btn sbold  btnMargin pull-right " ng-click="AddEventPopup($event)">
+                                    {{"ControlText.CreateEvent"|translate}}
+                                </button>
+                            </div>
+                        </div>
+                        <div class="table-responsive col-md-12 padding1px AdjEventSection">
+                            <table class="table table-bordered order-column ">
+                                <thead>
+                                    <tr class="text-left">
+                                        <th class="width45">{{"Table.StartTime"|translate}}</th>
+                                        <th class="thwidth25">{{"Table.Subject"|translate}}</th>
+                                        <th class="thwidth35">
+                                            {{"Table.Participant"|translate}}<span class="icon-refresh sbold pull-right"
+                                                style="margin-right:10px" ng-click="GetEventList()"></span></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="event in EventList"
+                                        ng-class="{'Invitation_Accepted':event.IsPaticiapntAccepted=='true','Invitation_Rejected':event.IsPaticiapntAccepted=='false','Invitation_Pending':event.IsPaticiapntAccepted=='pending','Event_creator':event.IsPaticiapntAccepted=='creator',}">
+                                        <td ng-click="GetEventDetails(event)">
+                                            {{event.startTiming |DateFormatMMddyyyyHHmm }}</td>
+                                        <td ng-click="GetEventDetails(event)">
+                                            <span>{{event.title}}</span></td>
+                                        <td ng-click="GetEventDetails(event)">
+                                            <!--<span ng-repeat="name in event.participants">{{((name.firstName===null)?"":name.firstName)+" "+((name.lastName===null)?"":name.lastName)}}<span ng-if="!$last">, &nbsp;</span></span>-->
+                                            <span>{{event.particiapntsTstring|limitTo:26}}<span
+                                                    ng-if="event.particiapntsTstring.length>26">...</span></span>
+                                        </td>
+                                    </tr>
+                                    <tr ng-if="!EventList.length||EventList===null">
+                                        <td class="text-center text-danger" colspan="3">
+                                            {{"NoRecordText"|translate}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="col-lg-12 col-md-12">
+                            <a href="#" class="pull-right" ng-click="GotoAllEvents()">{{"View All Events"}}</a>
+                        </div>
+                    </div>
+                    <!--End Event Tab-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!---End ClaimNo-->
+</div>
+<!-- CTB-2948 to hide side arrows
+<script>
+    $('#head-tabs')
+        .scrollingTabs({
+            enableSwiping: true
+        })
+        .on('ready.scrtabs', function () {
+            $('.tab-content').show();
+        });
+</script> -->

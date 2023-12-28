@@ -1,0 +1,2392 @@
+﻿<script type="text/javascript">
+    $(function () {
+        iOSHandler();
+        $(window).on("orientationchange", function (event) {
+            iOSHandler();
+        });
+    });
+    function iOSHandler() {
+        var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        var width = screen.width;
+
+
+        if (iOS) {
+
+            var orientation;
+            if (window.orientation == undefined) {
+                orientation = window.screen.orientation.angle;
+            }
+            else {
+                orientation = window.orientation;
+            }
+
+            if (orientation != 0) {
+                if (screen.width < screen.height) {
+                    width = screen.height;
+                }
+            }
+            //iPhone4-Landscape
+            if (width > 475 && width < 485) {
+                $(".comparablesDivDB").css("height", "auto");
+                $(".addedComp").css("width", "100%");
+                $(".addedComp").css("overflow", "scroll");
+                $(".addedComp").css("-webkit-overflow-scrolling", "touch");
+
+            }
+
+            //iPhone5-Landscape
+            else if (width > 562 && width < 572) {
+                $(".comparablesDivDB").css("height", "auto");
+                $(".addedComp").css("width", "100%");
+                $(".addedComp").css("overflow", "scroll");
+                $(".addedComp").css("-webkit-overflow-scrolling", "touch");
+
+            }
+            //iPhone4,5-Portrait
+            else if (width > 315 && width < 325) {
+                $(".comparablesDivDB").css("height", "auto");
+                $(".addedComp").css("width", "100%");
+                $(".addedComp").css("overflow", "scroll");
+                $(".addedComp").css("-webkit-overflow-scrolling", "touch");
+
+            }
+
+            //iPhone6-Landscape
+            else if (width > 660 && width < 670) {
+                $(".comparablesDivDB").css("height", "auto");
+                $(".addedComp").css("width", "100%");
+                $(".addedComp").css("overflow", "scroll");
+                $(".addedComp").css("-webkit-overflow-scrolling", "touch");
+
+            }
+            //iPhone6-Portrait
+            else if (width > 370 && width < 380) {
+                $(".comparablesDivDB").css("height", "auto");
+                $(".addedComp").css("width", "100%");
+                $(".addedComp").css("overflow", "scroll");
+                $(".addedComp").css("-webkit-overflow-scrolling", "touch");
+
+            }
+
+            //iPhone6+-Landscape
+            else if (width > 730 && width < 740) {
+                $(".comparablesDivDB").css("height", "auto");
+                $(".addedComp").css("width", "100%");
+                $(".addedComp").css("overflow", "scroll");
+                $(".addedComp").css("-webkit-overflow-scrolling", "touch");
+
+            }
+            //iPhone6+-Portrait
+            else if (width > 410 && width < 420) {
+                $(".comparablesDivDB").css("height", "auto");
+                $(".addedComp").css("width", "100%");
+                $(".addedComp").css("overflow", "scroll");
+                $(".addedComp").css("-webkit-overflow-scrolling", "touch");
+
+            }
+
+            //ipad
+            else if (width > 1020 && width < 1025) {
+                $(".comparablesDivDB").css("height", "958px");
+                $(".googleComparableBodyHeight").css("height", "729px");
+                $(".googleSerachResultDiv").css("height", "632px");
+                $(".noteDiv").css("height", "215px");
+                $(".addedComp").css("height", "215px");
+                $(".addedComp").css("width", "100%");
+                $(".addedComp").css("overflow", "scroll");
+                $(".addedComp").css("-webkit-overflow-scrolling", "touch");
+
+
+            }
+
+            //else if (width > 760 && width < 769) {
+
+            //    $(".googleComparableBodyHeight").css("height", "680px");
+
+            //}
+            else if (width > 1360 && width < 1367) {
+                $(".googleComparableBodyHeight").css("height", "540px");
+                $(".comparablesDivDB").css("height", "853px");
+
+            }
+        }
+    }
+
+</script>
+<style>
+    .angucomplete-dropdown {
+        bottom: 100% !important;
+    }
+
+    @media screen and (min-width: 786px) {
+        .StatusNumber {
+            margin-left: 27% !important;
+        }
+
+        .width14 {
+            width: 15% !important;
+        }
+
+        .StatusHorizontalLine {
+            margin-left: 32% !important;
+        }
+
+        .width16 {
+            width: 16%;
+            height: 4px;
+        }
+    }
+
+    .inputTransperent {
+        border: 0;
+        outline: 0;
+        border-bottom: 1px solid #AEA7A7;
+    }
+
+    .activePage {
+        border: 1px solid #337ab7;
+        background-color: #337ab7 !important;
+        color: white !important;
+    }
+
+    .itemNumber-count {
+        display: inline-block;
+        padding: 6px 6px;
+        margin-top: -5px;
+    }
+
+    #img_preview {
+        min-height: 450px !important;
+        width: 675px !important;
+        padding: 10px 0px;
+        position: fixed;
+        z-index: 20;
+    }
+
+    .image-wrapper {
+        max-height: 370px !important;
+        /* padding: 0px 10px; */
+        overflow: auto;
+    }
+
+    #video_preview {
+        min-height: 490px !important;
+        width: 675px !important;
+        padding: 10px 0px;
+        position: fixed;
+        z-index: 20;
+    }
+
+    /* CTB-2313 */
+    .btn-conv {
+        padding: 2px 12px !important;
+        font-size: 20px !important;
+        border: 1px solid !important;
+    }
+
+    .thirdPartyItemDetailsSectionTabHeight {
+        overflow-y: auto;
+    }
+
+    /* Start - Floating Item Summary Box */
+    .summaryBox {
+        position: absolute;
+        top: 486px;
+        left: 15px;
+        z-index: 20;
+        background: white;
+    }
+
+    .fix-summaryBox {
+        position: fixed !important;
+        top: 89px;
+        width: 97.7%;
+        box-shadow: 0 8px 8px -6px rgba(0, 0, 0, 0.4);
+        -webkit-box-shadow: 0 8px 8px -6px rgba(0, 0, 0, 0.4);
+        -moz-box-shadow: 0 8px 8px -6px rgba(0, 0, 0, 0.4);
+        /* left: 5%; */
+    }
+
+    .fix-marginTop {
+        margin-top: 100px;
+    }
+
+    @media screen and (min-width: 1441px) {
+        .fix-summaryBox {
+            position: fixed !important;
+            top: 89px;
+            width: 90%;
+            box-shadow: 0 8px 8px -6px rgba(0, 0, 0, 0.4);
+            -webkit-box-shadow: 0 8px 8px -6px rgba(0, 0, 0, 0.4);
+            -moz-box-shadow: 0 8px 8px -6px rgba(0, 0, 0, 0.4);
+            left: 5%;
+        }
+    }
+
+    /* End - Floating Item Summary Box */
+    .img-responsive {
+        width: 80px;
+        height: 80px;
+        padding: 5px;
+        border: 1px groove;
+    }
+
+    textarea#description {
+        width: 100px;
+        border: 1px solid #c2cad8;
+        width: 100%;
+        white-space: pre-wrap;
+        resize: vertical;
+        outline: none;
+        min-height: 60px;
+    }
+
+    .CursorLeft {
+        cursor: pointer !important;
+        position: fixed !important;
+
+    }
+
+    .Cursor {
+        position: absolute;
+        top: 486px;
+        left: 15px;
+        z-index: 999 !important;
+    }
+
+    .Cursor {
+        position: absolute;
+        top: 486px;
+        left: 15px;
+        z-index: 999 !important;
+    }
+</style>
+
+
+<div class="headerFreez border_bottom col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-bottom-5">
+    <div class="col-lg-5 col-md-5 col-sm-6 col-xs-12 padding1px">
+        <ul class="page-breadcrumb breadcrumb sbold">
+            <li>
+                <a ng-click="goToDashboard()">{{"Home"|translate}}</a>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <a ng-click="goBack($event)">{{CommonObj.ClaimNumber}}</a>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <a ng-click="goToDetailedInventory()">Detailed Inventory</a>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li ng-show="ItemDetails.room && room.roomName === ItemDetails.room.roomName">
+                <a ng-click="goToRoom()">{{ItemDetails.room.roomName}}</a>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <span>{{ItemDetails.itemNumber}}</span>
+            </li>
+        </ul>
+    </div>
+    <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12" ng-show="FiletrLostDamageList.length > 1">
+        <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12 sbold itemNumber-count"
+            style="text-align: center;align-self: center;">
+            <!-- showing item {{ itemIndex }} out of {{FiletrLostDamageList.length}} -->
+            <div class="col-lg-3 col-md-2 col-sm-4 col-xs-6"></div>
+            <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                    <button id="btnBack" class="btn sbold btnMargin" ng-disabled="pageIndex === 1"
+                        ng-click="ChangePreviousItem()" style="margin-left: -42px;">
+                        {{"Previous"|translate}}
+                    </button>
+                </div>
+                <div class="col-md-1 col-sm-1 col-lg-1 col-xs-1">
+                    <button id="btnBack" class="btn sbold btnMargin" ng-disabled=""
+                        ng-class="{'activePage': pageIndex === 1}" ng-click="setPage(1)"
+                        style="min-width: 39px !important;">
+                        {{"1" |translate}}
+                    </button>
+                </div>
+                <div class="col-md-1 col-sm-1 col-lg-1 col-xs-1" ng-if="pageIndex > 4 && totalPages > 7">
+                    <i class='fa fa-ellipsis-h' style='font-size:24px;padding-top:6px;padding-left:11px;'></i>
+                </div>
+                <div>
+                    <div class="col-md-1 col-sm-1 col-lg-1 col-xs-1" ng-repeat="page in pager.pages"
+                        ng-if="page != 1 &&page != totalPages">
+                        <button id="btnBack" class="btn sbold btnMargin" ng-disabled=""
+                            ng-class="{'activePage': pageIndex === page}" ng-click="setPage(page)"
+                            style="min-width: 39px !important;">
+                            {{page |translate}}
+                        </button>
+                    </div>
+                </div>
+                <div class="col-md-1 col-sm-1 col-lg-1 col-xs-1"
+                    ng-if="ItemDetails.itemNumber < totalPages-4 && totalPages > 8">
+                    <i class='fa fa-ellipsis-h' style='font-size:24px;padding-top:6px;padding-left:11px;'></i>
+                </div>
+                <div class="col-md-1 col-sm-1 col-lg-1 col-xs-1">
+                    <button id="btnBack" class="btn sbold btnMargin" ng-disabled=""
+                        ng-class="{'activePage': totalPages === pageIndex}" ng-click="setPage(totalPages)"
+                        style="min-width: 39px !important;">
+                        {{totalPages |translate}}
+                    </button>
+                </div>
+
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                    <button id="btnBack" class="btn sbold btnMargin" ng-disabled="ItemDetails.itemNumber == totalPages"
+                        ng-click="ChangeNextItem($event)">
+                        {{"Next"|translate}}
+                    </button>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+    <!-- <div class="col-lg-2 col-md-4 col-sm-4 col-xs-6 sbold itemNumber-count" style="text-align: center;">
+        showing item {{ itemIndex }} out of {{FiletrLostDamageList.length}}
+    </div> -->
+    <div class="col-md-12 col-xs-12 mainHeadingDiv">
+        <div class="caption font-gray-sharp">
+            <span class="caption-subject">{{"Item#"|translate}}&nbsp;{{ItemDetails.itemNumber}}
+            </span>
+        </div>
+    </div>
+</div>
+<div class="col-md-12" ng-show="FiletrLostDamageList.length > 1">
+    <span class="pull-left Cursor hide" ng-click="ChangePreviousItem()" style="top: 50vh; left: 1%;">
+        <i class="fa fa-chevron-circle-left fa-4x" title="Previous Item"></i>
+    </span>
+    <span class="pull-right Cursor hide" ng-click="ChangeNextItem($event)" style="top:50vh; right: 1%; left:auto;">
+        <i class="fa fa-chevron-circle-right fa-4x" title="Next Item"></i>
+    </span>
+</div>
+<div class="col-md-12 col-sm-12 padding1px" ng-form="itemForm.contents">
+    <div class="col-xs-12 text-right padding1px pull-right form-group">
+        <!--<button id="btnAssignClaim" class="btn sbold btnMargin" ng-click="AcceptItem()" ng-disabled="isQuote==true">
+                    {{"ControlText.Accept"|translate}}
+                </button>-->
+        <button id="btnUpdate" class="btn sbold btnMargin" ng-click="SaveNewlyAddedComparables(false)">
+            {{"ControlText.Update_title"|translate}}
+        </button>
+    </div>
+    <!---Start Origional Item-->
+    <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12 portlet padding1px">
+        <!-- <div class="row"> -->
+        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 padding1px">
+            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 options_Background_WithBorder"
+                style="padding-top:5px;padding-bottom:5px;">
+                <span class="text_options_Label sbold caption">{{"Original Item"|translate}}</span>
+            </div>
+            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 padding1px original-item-details"
+                ng-style="{'height' : (CommonObj.ClaimProfile == 'Contents') ? '535px' : '535px' }"
+                style="border:1px solid lightgray; overflow-y: auto;">
+                <div class="col-lg-12 col-md-12 col-sm-12 padding1px margin-top-20">
+                    <div class="col-xs-12 form-group">
+                        <label class="control-label "><span ng-show="ItemDetails.category.id === 23"
+                                class="text-danger">*</span>
+                            {{"Original Item Description"|translate}}</label>
+                        <div class="col-xs-12 padding1px">
+                            <textarea rows="3" type="text" ng-required="ItemDetails.category.id === 23" id="description"
+                                name="description" class="vertical" ng-model="ItemDetails.description"
+                                ng-attr-placeholder='{{"FormControlText.PolicyHolderDescription"|translate}}'></textarea>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 form-group" ng-if="CommonObj.ClaimProfile != 'Contents'">
+                        <label class="control-label ">
+                            {{"FormControlText.ItemType"|translate}}</label>
+                        <div class="col-xs-12 padding1px">
+                            <label class="control-label">{{ItemDetails.itemType}}</label>
+                        </div>
+                    </div>
+
+                    <div ng-show="CommonObj.ClaimProfile == 'Contents'" class="col-xs-12 form-group">
+                        <label class="control-label ">{{"FormControlText.Category"|translate}}
+                        </label>
+                        <span style="display: flex;">
+                            <div class="col-sm-8 col-xs-12 padding1px">
+                                <select class="form-control select2me" ng-disabled="isQuoteSubmittedByVendor"
+                                    ng-model="ItemDetails.category.id" data-placeholder="select"
+                                    ng-change="changeSelection('itemCategorySel','category')"
+                                    ng-options="option.categoryId as option.categoryName for option in CategoryList">
+                                </select>
+                            </div>
+                            <i class="fa fa-info-circle" data-container="body" data-toggle="popover"
+                                data-placement="right"
+                                data-content='{{ItemDetails.category.id ? (ItemDetails.category.description ? ItemDetails.category.description : ItemDetails.category.name): "Select a category"}}'
+                                data-trigger="hover" style="font-size:20px;margin-top:6px;padding-left: 10px;"
+                                aria-hidden="true"></i>
+                        </span>
+                    </div>
+
+                    <div ng-show="CommonObj.ClaimProfile == 'Contents'" class="col-xs-12 form-group">
+                        <label class="control-label ">{{"FormControlText.SubCategory"|translate}}
+                        </label>
+                        <span style="display: flex;">
+                            <div class="col-sm-8 col-xs-12 padding1px">
+                                <select class="form-control select2me" ng-disabled="isQuoteSubmittedByVendor"
+                                    ng-model="ItemDetails.subCategory.id" data-placeholder="select"
+                                    ng-change="changeSelection('itemSubCategorySel','subCategory')"
+                                    ng-options="option.id as option.name for option in SubCategoryList">
+
+                                </select>
+                            </div>
+                            <i class="fa fa-info-circle" data-container="body" data-toggle="popover"
+                                data-placement="right"
+                                data-content='{{ItemDetails.subCategory.id ? (ItemDetails.subCategory.description ? ItemDetails.subCategory.description : ItemDetails.subCategory.name) : "Select a sub category"}}'
+                                data-trigger="hover" style="font-size:20px;margin-top:6px;padding-left: 10px;"
+                                aria-hidden="true"></i>
+                        </span>
+                    </div>
+
+                    <div class="col-xs-12 form-group">
+                        <div class="col-sm-4 col-xs-6 padding_left_zero">
+                            <label class="control-label">
+                                <span ng-show="ItemDetails.category.id === 23" class="text-danger">*</span>
+                                {{"Cost Per Unit"|translate}}
+                            </label>
+                            <input type="text" ng-model="ItemDetails.insuredPrice" id="statedValue" name="statedValue"
+                                ng-disabled="isQuoteSubmittedByVendor" input-Currency decimal-Only autocomplete="id"
+                                ng-change="CalculateTotalStatedValue()" class="form-control"
+                                placeholder='{{"FormControlText.PriceQuoted"|translate}}' ng-blur="CalculateRCV();" />
+                        </div>
+
+                        <div class="col-sm-4 col-xs-6 padding_right_zero">
+                            <label class="control-label">
+                                <span ng-show="ItemDetails.category.id === 23" class="text-danger">*</span>
+                                {{"Qty Lost / Damaged"|translate}}
+                            </label>
+                            <input type="text" ng-model="ItemDetails.quantity" ng-disabled="isQuoteSubmittedByVendor"
+                                numbers-only ng-change="CalculateTotalStatedValue(); CalculateRCV()" autocomplete="id"
+                                class="form-control" placeholder='{{"FormControlText.Quantity"|translate}}' />
+                        </div>
+                    </div>
+
+                    <div ng-if="ItemDetails.category.id !== 23 && CommonObj.ClaimProfile == 'Contents'"
+                        class="col-xs-12 form-group">
+                        <label class="control-label ">{{"Age of Item"|translate}}
+                        </label>
+                        <div class="col-xs-12 age padding1px ">
+                            <div class="col-sm-4 col-xs-6 display-flex padding_left_zero">
+                                <input type="text" maxlength="3" ng-disabled="isQuoteSubmittedByVendor" numbers-only
+                                    ng-blur="itemAgeYearChanged(ItemDetails.ageYears)" ng-model="ItemDetails.ageYears"
+                                    class="form-control" placeholder='{{"Years"|translate}}'
+                                    ng-blur="CalculateRCV();" />
+                                <span
+                                    style="vertical-align: middle;font-weight: 600; margin: 0px 5px;">{{"(Years)"|translate}}</span>
+                            </div>
+                            <div class="col-sm-4 col-xs-6 display-flex padding_right_zero">
+                                <input type="text" maxlength="2" ng-disabled="isQuoteSubmittedByVendor" numbers-only
+                                    ng-model="ItemDetails.ageMonths" months limit="11"
+                                    ng-blur="itemAgeMonthChanged(ItemDetails.ageMonths)" class="form-control"
+                                    placeholder='{{"Months"|translate}}' ng-blur="CalculateRCV();" />
+                                <span
+                                    style="vertical-align: middle;font-weight: 600; margin: 0px 5px;">{{"(Months)"|translate}}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div ng-if="ItemDetails.category.id !== 23" class="col-xs-12 form-group">
+                        <label class="control-label ">{{"Pictures, Recipts etc."|translate}}</label>
+                        <input id="FileUpload" ng-disabled="isQuoteSubmittedByVendor" multiple type="file"
+                            onchange="angular.element(this).scope().getAttachmentDetails(this)" style="display: none;"
+                            accept="image/*|.pdf|.xls|.xlsx">
+                        <a style="text-decoration:none" class="display-block" ng-disabled="isQuoteSubmittedByVendor"
+                            ng-click="AddAttachment($event)">{{"Click to add attachment(s)"|translate}}</a>
+                    </div>
+                    <div ng-show="invalidAttachment">
+                        <span class="text-danger">Please upload File less than
+                            20MB</span>
+                    </div>
+                    <!-- upload image start -->
+                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-group"
+                        ng-show="attachmentList != null && attachmentList.length > 0">
+                        <div class="col-xs-12">
+                            <div class="col-md-3 col-sm-4 col-xs-6 margin-bottom-10 clearfix" style="padding:0px;"
+                                ng-repeat="file in attachmentList" ng-include src="'images'">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- upload image end -->
+                    <!-- edit image start -->
+                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-group"
+                        ng-show="attachmentListEdit != null && attachmentListEdit.length > 0">
+                        <div class="col-xs-12">
+                            <div class="col-md-3 col-sm-4 col-xs-6 margin-bottom-10 clearfix"
+                                style="padding: 0px;margin-left: 0;" ng-repeat="file in attachmentListEdit" ng-include
+                                src="'images'">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- edit image end -->
+                    <div class="col-xs-12 form-group flex-end" ng-show="ItemDetails.category.id !== 23">
+                        <div class="col-sm-4 col-xs-6 padding_left_zero">
+                            <label class="control-label ">{{"Brand / Manufacturer"|translate}}</label>
+                            <input type="text" ng-model="ItemDetails.brand" class="form-control"
+                                placeholder='{{"Brand"|translate}}' />
+                        </div>
+                        <div class="col-sm-4 col-xs-6 padding_right_zero">
+                            <label class="control-label ">{{"Model"|translate}}</label>
+                            <input type="text" ng-model="ItemDetails.model" class="form-control"
+                                placeholder='{{"Model"|translate}}' />
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 form-group flex-end" ng-show="ItemDetails.category.id !== 23">
+                        <div class="col-sm-4 col-xs-6 padding_left_zero">
+                            <label class="control-label ">{{"Condition"|translate}}
+                            </label>
+                            <select id="itemConditionSel" class="form-control select2me"
+                                ng-model="ItemDetails.condition.conditionId"
+                                ng-change="changeSelection('itemConditionSel', 'condition')" data-placeholder="select"
+                                ng-options="option.conditionId as option.conditionName for option in ConditionList">
+                            </select>
+                        </div>
+                        <div class="col-sm-4 col-xs-6 padding_right_zero">
+                            <label class="control-label ">{{"Room"|translate}} </label>
+                            <select class="form-control select2me" ng-disabled="isQuoteSubmittedByVendor"
+                                ng-model="ItemDetails.room.id"
+                                ng-change="selectRoom((RoomsList|filter:{id:ItemDetails.room.id})[0])"
+                                data-placeholder="select"
+                                ng-options="option.id as option.roomName for option in RoomsList">
+                            </select>
+                        </div>
+                    </div>
+
+                    <div ng-show="ItemDetails.category.id !== 23 && CommonObj.ClaimProfile == 'Contents'"
+                        class="col-xs-12 form-group">
+                        <div class="col-sm-4 col-xs-6 padding_left_zero" ng-show="ItemDetails.purchaseMethod != 'Gift'">
+                            <label class="control-label">{{"Purchased From"|translate}}</label>
+                            <select class="form-control select2me" ng-disabled="isQuoteSubmittedByVendor"
+                                ng-model="ItemDetails.originallyPurchasedFrom.id"
+                                ng-change="selectRetailer((Retailers|filter:{id:ItemDetails.originallyPurchasedFrom.id})[0])"
+                                data-placeholder="select" ng-options="option.id as option.name for option in Retailers">
+                            </select>
+                            <div class="display-block">
+                                <div class="padding1px">
+                                    <a ng-show="!newRetailer.addOtherRetailer" ng-click="addNewRetailer()">
+                                        Not found? click to add new retailer</a>
+                                </div>
+                                <div ng-show="newRetailer.addOtherRetailer">
+                                    <div class="col-xs-11 padding1px">
+                                        <input type="text" ng-disabled="isQuoteSubmittedByVendor"
+                                            ng-model="ItemDetails.newRetailer" class="margin-top-5 form-control"
+                                            placeholder='{{"Add Retailer"|translate}}' />
+                                    </div>
+                                    <span class="text-danger glyphicon glyphicon-remove input-remove pointer"
+                                        ng-click="newRetailer.addOtherRetailer = false; ItemDetails.newRetailer=null"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-xs-6 padding_right_zero">
+                            <label class="control-label ">{{"Purchase Method"|translate}}
+                            </label>
+                            <select class="form-control select2me" ng-model="ItemDetails.purchaseMethod"
+                                ng-change="selectPaymentmethod(ItemDetails.purchaseMethod)" data-placeholder="select"
+                                ng-options="option for option in paymentTypes">
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 form-group"
+                        ng-show="CommonObj.ClaimProfile == 'Contents' && ItemDetails.category.id !== 23 && ItemDetails.purchaseMethod === 'Gift'">
+                        <label class="control-label">{{"Gift From"|translate}}</label>
+                        <input type="text" ng-model="ItemDetails.giftedFrom" class="form-control"
+                            placeholder='{{"Name and Address"|translate}}' />
+                    </div>
+
+                    <!-- <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group"   style="padding:5px;">
+                            <div class="col-md-3 col-sm-6 Label_Text_Right" style="padding:0px;">
+                                <label class="control-label ">{{"Room"|translate}} </label>
+                            </div>
+                            <div class="col-md-3 col-sm-6" style="padding-right:5px;">
+                                <select class="form-control select2me" ng-disabled="isQuoteSubmittedByVendor" ng-model="ItemDetails.room.id" ng-change="selectRoom((RoomsList|filter:{id:ItemDetails.room.id})[0])" data-placeholder="select"
+                                        ng-options="option.id as option.roomName for option in RoomsList"></select>
+                            </div>
+
+                            <div class="col-md-3 col-sm-6 Label_Text_Right" style="padding:0px;">
+                                <label class="control-label ">{{"Purchase Method"|translate}} </label>
+                            </div>
+                            <div class="col-md-3 col-sm-6" style="padding-right:5px;">
+                                <select class="form-control select2me col-md-12 col-sm-12 col-xs-12" ng-model="ItemDetails.purchaseMethod" ng-change="selectPaymentmethod(ItemDetails.purchaseMethod)" data-placeholder="select"
+                                    ng-options="option for option in paymentTypes"></select>
+                            </div>
+                        </div> -->
+
+                    <!-- Purchased From / Gift from -->
+                    <!-- <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group"   style="padding:5px;">
+
+                            <div class="col-md-3 col-sm-6 Label_Text_Right" style="padding:0px;" ng-show="ItemDetails.purchaseMethod != 'Gift'">
+                                <label class="control-label">{{"Originally Purchased From"|translate}}</label>
+                            </div>
+                            <div class="col-md-3 col-sm-6" style="padding-right:5px;" ng-show="ItemDetails.purchaseMethod != 'Gift'">
+                            <select class="form-control select2me col-md-12 col-sm-12 col-xs-12" ng-disabled="isQuoteSubmittedByVendor" ng-model="ItemDetails.originallyPurchasedFrom.id" ng-change="selectRetailer((Retailers|filter:{id:ItemDetails.originallyPurchasedFrom.id})[0])" data-placeholder="select"
+                                    ng-options="option.id as option.name for option in Retailers"></select>
+                                <input type="text" ng-show="addOtherRetailer" ng-disabled="isQuoteSubmittedByVendor" ng-model="ItemDetails.newRetailer" class="form-control col-md-12 col-sm-12 margin-top-5" placeholder='{{"Specify"|translate}}' />
+                            </div>
+
+                                <div class="col-md-3 col-sm-6 Label_Text_Right" style="padding:0px;" ng-show="ItemDetails.purchaseMethod === 'Gift'">
+                                    <label class="control-label">{{"Gift From"|translate}}</label>
+                                </div>
+                                <div class="col-md-9 col-sm-12 col-xs-12" style="padding-right:5px;" ng-show="ItemDetails.purchaseMethod === 'Gift'">
+                                  <input type="text" ng-model="ItemDetails.giftedFrom" class="form-control col-md-12 col-sm-12 margin-top-5" placeholder='{{"Name and Address"|translate}}' />
+                                </div>
+                        </div> -->
+                    <!-- <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group" ng-if="CommonObj.ClaimProfile != 'Contents'" style="padding:5px;">
+                            <div class="col-md-3 col-sm-4 col-xs-4 Label_Text_Right" style="padding:0px;">
+                                <label class="control-label "> {{"FormControlText.ItemType"|translate}}</label>
+                            </div>
+                            <div class="col-md-6 col-sm-6" style="padding-right:5px;">
+                                <label class="control-label">{{ItemDetails.itemType}}</label>
+                            </div>
+                        </div> -->
+                    <!-- <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group"  ng-if="CommonObj.ClaimProfile == 'Contents'" style="padding:5px;">
+                            <div class="col-md-3 col-sm-6 Label_Text_Right" style="padding:0px;">
+                                <label class="control-label ">{{"Age(Years)"|translate}}</label>
+                            </div>
+                            <div class="col-md-3 col-sm-6" style="padding-right:5px;">
+                                <input type="text" maxlength="3" ng-disabled="isQuoteSubmittedByVendor" numbers-only ng-change="itemAgeYearChanged(ItemDetails.ageYears)" ng-model="ItemDetails.ageYears" class="form-control" placeholder='{{"Scheduled Amt."|translate}}' />
+                            </div>
+                            <div class="col-md-3 col-sm-6 Label_Text_Right" style="padding:0px;">
+                                <label class="control-label ">{{"Age(Months)"|translate}} </label>
+                            </div>
+                            <div class="col-md-3 col-sm-6" style="padding-right:5px;">
+                                <input type="text" maxlength="2" ng-disabled="isQuoteSubmittedByVendor" numbers-only ng-model="ItemDetails.ageMonths" ng-change="itemAgeMonthChanged(ItemDetails.ageMonths)" class="form-control" placeholder='{{"FormControlText.Deductible"|translate}}' />
+                            </div>
+                        </div> -->
+                    <!-- Purchased Method and Item Room -->
+                    <!-- <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group"  ng-show="CommonObj.ClaimProfile == 'Contents'" style="padding:5px;">
+                            <div class="col-md-3 col-sm-6 Label_Text_Right" style="padding:0px;">
+                                <label class="control-label ">{{"Room"|translate}} </label>
+                            </div>
+                            <div class="col-md-3 col-sm-6" style="padding-right:5px;">
+                                <select class="form-control select2me" ng-disabled="isQuoteSubmittedByVendor" ng-model="ItemDetails.room.id" ng-change="selectRoom((RoomsList|filter:{id:ItemDetails.room.id})[0])" data-placeholder="select"
+                                        ng-options="option.id as option.roomName for option in RoomsList"></select>
+                            </div>
+
+                            <div class="col-md-3 col-sm-6 Label_Text_Right" style="padding:0px;">
+                                <label class="control-label ">{{"Purchase Method"|translate}} </label>
+                            </div>
+                            <div class="col-md-3 col-sm-6" style="padding-right:5px;">
+                                <select class="form-control select2me col-md-12 col-sm-12 col-xs-12" ng-model="ItemDetails.purchaseMethod" ng-change="selectPaymentmethod(ItemDetails.purchaseMethod)" data-placeholder="select"
+                                    ng-options="option for option in paymentTypes"></select>
+                            </div>
+                        </div> -->
+
+                    <!-- Purchased From / Gift from -->
+                    <!-- <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group"  ng-show="CommonObj.ClaimProfile == 'Contents'" style="padding:5px;">
+
+                            <div class="col-md-3 col-sm-6 Label_Text_Right" style="padding:0px;" ng-show="ItemDetails.purchaseMethod != 'Gift'">
+                                <label class="control-label">{{"Originally Purchased From"|translate}}</label>
+                            </div>
+                            <div class="col-md-3 col-sm-6" style="padding-right:5px;" ng-show="ItemDetails.purchaseMethod != 'Gift'">
+                            <select class="form-control select2me col-md-12 col-sm-12 col-xs-12" ng-disabled="isQuoteSubmittedByVendor" ng-model="ItemDetails.originallyPurchasedFrom.id" ng-change="selectRetailer((Retailers|filter:{id:ItemDetails.originallyPurchasedFrom.id})[0])" data-placeholder="select"
+                                    ng-options="option.id as option.name for option in Retailers"></select>
+                                <input type="text" ng-show="addOtherRetailer" ng-disabled="isQuoteSubmittedByVendor" ng-model="ItemDetails.newRetailer" class="form-control col-md-12 col-sm-12 margin-top-5" placeholder='{{"Specify"|translate}}' />
+                            </div>
+
+                                <div class="col-md-3 col-sm-6 Label_Text_Right" style="padding:0px;" ng-show="ItemDetails.purchaseMethod === 'Gift'">
+                                    <label class="control-label">{{"Gift From"|translate}}</label>
+                                </div>
+                                <div class="col-md-9 col-sm-12 col-xs-12" style="padding-right:5px;" ng-show="ItemDetails.purchaseMethod === 'Gift'">
+                                  <input type="text" ng-model="ItemDetails.giftedFrom" class="form-control col-md-12 col-sm-12 margin-top-5" placeholder='{{"Name and Address"|translate}}' />
+                                </div>
+                        </div> -->
+
+                    <!-- <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group" style="padding:5px;">
+                          <div class="col-md-3 col-sm-4 col-xs-4 Label_Text_Right" style="padding:0px;">
+                                 <label class="control-label">{{"Service Requested"|translate}}</label>
+                          </div>
+                          <div class="col-md-9 text-left" ng-if="!editClaimDetail" style="padding-right:5px;">
+                                <label class="control-label" style="font-size : 12px !important">{{ItemDetails.contentService.service}}</label>
+                                <span>
+                                <span ng-if="ItemDetails.contentService.subServices != null && ItemDetails.contentService.subServices.length>0" style="margin-left: 0px !important">(</span>
+                                <span ng-repeat="subService in ItemDetails.contentService.subServices" style="font-size: 0.80em !important;margin-left: -4px !important">{{subService.service}}<span ng-if="!$last">,&nbsp;&nbsp;</span></span>
+                                <span ng-if="ItemDetails.contentService.subServices != null && ItemDetails.contentService.subServices.length>0" style="margin-left: -4px !important">)</span>
+                                </span>
+                            </div>
+                        </div> -->
+                    <!-- <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group" style="padding:5px;">
+                            <div class="col-md-3 col-sm-4 col-xs-4 Label_Text_Right" style="padding:0px;">
+                                <label class="control-label ">{{"FormControlText.Invidiual Limit"|translate}}</label>
+                            </div>
+                            <div class="col-md-3 col-sm-6" style="padding-right:5px;">
+                                <input type="text" ng-model="ItemDetails.individualLimitAmount" ng-disabled="isQuoteSubmittedByVendor" input-Currency="" decimal-Only class="form-control" placeholder='{{"FormControlText.Invidiual Limit"|translate}}' />
+                            </div>
+                            <div class="col-md-3 col-sm-4 col-xs-4 Label_Text_Right" style="padding:0px;">
+                                <label class="control-label ">{{"FormControlText.CategoryLimit"|translate}}</label>
+                            </div>
+                            <div class="col-md-3 col-sm-6" style="padding-right:5px;">
+                                <input type="text" class="form-control" readonly input-Currency="" decimal-Only ng-model="ItemDetails.categoryLimit" placeholder='{{"FormControlText.CategoryLimit"|translate}}' />
+                            </div>
+                        </div> -->
+                    <!-- <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group" ng-if="CommonObj.ClaimProfile !=='Contents'" style="padding:5px;">
+                            <div class="col-md-3 col-sm-4 col-xs-4 Label_Text_Right" style="padding:0px;">
+                                <label class="control-label ">{{"Appraisal Value"|translate}}</label>
+                            </div>
+                            <div class="col-md-3 col-sm-6" style="padding-right:5px;">
+                                <input type="text" ng-model="ItemDetails.appraisalValue" ng-disabled="isQuoteSubmittedByVendor" input-Currency="" decimal-Only class="form-control" placeholder='{{"FormControlText.ApprisalValue"|translate}}' />
+                            </div>
+                            <div class="col-md-3 col-sm-4 col-xs-4 Label_Text_Right" style="padding:0px;">
+                                <label class="control-label ">{{"Appraisal Date"|translate}}</label>
+                            </div>
+                            <div class="col-md-3 col-sm-6" style="padding-right:5px;">
+                                <div class="input-icon left ">
+                                    <i class="icon-calendar"></i>
+                                    <input class="form-control datepicker" required name="Pickdt" ng-model="ItemDetails.appraisalDate" ng-disabled="isQuoteSubmittedByVendor" close-on-date-selection="true" data-provide="datepicker" size="16" type="text" placeholder='{{"Date"|translate}}' />
+                                </div>
+                            </div>
+                        </div> -->
+                    <!-- <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group" style="padding:5px;">
+                            <div class="col-md-3 col-sm-4 col-xs-4 Label_Text_Right" style="padding:0px;">
+                                <label class="control-label ">{{"FormControlText.PriceQuoted"|translate}} </label>
+                            </div>
+                            <div class="col-md-3 col-sm-6" style="padding-right:5px;">
+                                <input type="text" ng-model="ItemDetails.insuredPrice" ng-disabled="isQuoteSubmittedByVendor" input-Currency="" decimal-Only ng-change="CalculateTotalStatedValue()" class="form-control" placeholder='{{"FormControlText.PriceQuoted"|translate}}' />
+                            </div>
+                            <div class="col-md-3 col-sm-4 col-xs-4 Label_Text_Right" style="padding:0px;">
+                                <label class="control-label ">{{"FormControlText.Quantity"|translate}} </label>
+                            </div>
+                            <div class="col-md-3 col-sm-6" style="padding-right:5px;">
+                                <input type="text" ng-model="ItemDetails.quantity" ng-disabled="isQuoteSubmittedByVendor" numbers-only ng-change="CalculateTotalStatedValue()" class="form-control" placeholder='{{"FormControlText.Quantity"|translate}}' />
+                            </div>
+                        </div> -->
+                    <!-- <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-group" style="padding: 5px;">
+                            <div class="col-md-3 col-sm-4 col-xs-4 Label_Text_Right" style="padding: 0px;">
+                                <label class="control-label">{{"Video Link"|translate}}</label>
+                            </div>
+                            <div class="col-md-3 col-sm-6" style="padding-right: 5px;">
+                                <input type="text" id="videoLink" name="videoLink"
+                                    ng-if="videoLinkEditable" ng-model="ItemDetails.videoLink"
+                                    ng-dblclick="playVideoOnDblClick()" class="form-control"
+                                    placeholder='{{"video Link"|translate}}' ng-blur="playVideo()" />
+                                <span class="control-label" title="{{ItemDetails.videoLink}}">
+                                    <a href="#" ng-click="playVideoOnDblClick()"
+                                        ng-show="!videoLinkEditable"><label
+                                            class="text_ellipsis">{{ItemDetails.videoLink}}</label></a>
+                                </span>
+                            </div>
+                            <div class="col-md-1 form-group padding_left_zero">
+                                <a href="#" title="Remove" style="font-size: 20px;margin-top: -2px;"
+                                    ng-click="clearVideoLink()" ng-if="videoLinkEditable"> <span
+                                        class="glyphicon glyphicon-remove text-danger"></span> </a>
+                                <a href="#" title="Edit"
+                                    style="color:#337ab7;font-size: 20px;margin-top: -2px;"
+                                    ng-click="editVideoLink()" ng-if="!videoLinkEditable"> <span
+                                        class="glyphicon glyphicon-pencil"></span> </a>
+                            </div>
+                        </div> -->
+                    <!-- <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group" ng-if="CommonObj.ClaimProfile !=='Contents'" style="padding:5px;">
+                            <div class="col-md-3 col-sm-4 col-xs-4 Label_Text_Right" style="padding:0px;">
+                                <label class="control-label ">{{"Scheduled Amt."|translate}}</label>
+                            </div>
+                            <div class="col-md-3 col-sm-6" style="padding-right:5px;">
+                                <input type="text" input-Currency="" decimal-Only ng-disabled="isQuoteSubmittedByVendor" ng-model="ItemDetails.scheduleAmount" class="form-control" placeholder='{{"Scheduled Amt."|translate}}' />
+                            </div>
+                            <!--<div class="col-md-3 col-sm-6 Label_Text_Right">
+                                <label class="control-label ">{{"FormControlText.Deductible"|translate}} </label>
+                            </div>
+                            <div class="col-md-3 col-sm-6">
+                                <input type="text" numbers-only ng-model="ItemDetails.deductibleAmount" class="form-control" placeholder='{{"FormControlText.Deductible"|translate}}' />
+                            </div>
+
+                        </div> -->
+
+                    <!-- <div class="col-md-12 col-sm-12 col-lg-12 form-group" ng-if="CommonObj.ClaimProfile !=='Contents'" style="padding:5px;">
+                            <div class="col-md-3 col-sm-4 col-xs-4 Label_Text_Right" id="cal3" style="padding:0px;">
+                                <label class="control-label">{{"FormControlText.ShippingDate"|translate}}</label>
+                            </div>
+                            <div class="col-md-4 col-sm-6 col-xs-12" style="padding-right:5px;">
+                                <div class="input-icon left">
+                                    <i class="icon-calendar"></i>
+                                    <input class="form-control datepicker" data-date-container='#cal3' data-date-start-date="+0d" ng-model="ItemDetails.shippingDate" data-provide="datepicker" size="16" type="text" placeholder="{{'mm/dd/yyyy'|translate}} " name="ShippingDate" autocomplete="fakeShippingDate" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group" ng-if="CommonObj.ClaimProfile !=='Contents'" style="padding:5px;">
+                            <label class="col-md-3 col-sm-4 col-xs-4 control-label Label_Text_Right" style="padding:0px;">{{"FormControlText.ShippingMethod"|translate}}</label>
+                            <div class="col-md-4 col-sm-6 col-xs-12" style="padding-right:5px;">
+                                <select class="select2me form-control col-md-12" style="height:25px;" name="ShippingMethod" ng-model="ItemDetails.shippingMethod.id" ng-options="item.id as item.name for item in shippingMethodsList" data-placeholder="Select">
+                                </select>
+                             </div>
+                        </div>                                             -->
+
+                    <!-- End CTB-2313 -->
+
+                    <!-- upload image start -->
+                    <!-- <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-group" ng-show="attachmentList != null && attachmentList.length > 0">
+                            <div class="col-md-3 col-sm-3 col-xs-5 text-right">
+                            </div>
+                            <div class="col-md-9 col-sm-9 col-xs-9">
+                                <div class="col-md-6 col-sm-4 col-xs-10 margin-bottom-10 clearfix" style="padding:0px;" ng-repeat="file in attachmentList">
+                                    <div class="col-md-12 col-sm-12 padding1px" style="text-align: center; width: 120px;">
+                                        <a class="TextDecorationNone" style="top:8px;left:60px;position:relative" ng-click="RemoveAttachment($index)">
+                                                <i class="fa fa-times-circle fa-2x text-danger" aria-hidden="true"></i></a>
+                                        <!-- <img  ng-click="GetDocxDetails(file)" ng-src="{{file.Image}}" alt="Pictures of the incident" class="img-responsive bordered "
+                                                style="width:120px; height:120px;padding:5px;border:1px groove;" />
+                                        <div ng-if=isPdf(file.FileName)>
+                                            <img src='assets/global/img/pdf-icon.svg' class="img-responsive bordered "
+                                                style="width:120px; height:120px;padding:5px;border:1px groove;" />
+                                        </div>
+                                        <div ng-if=isExcel(file.FileName)>
+                                            <img src='assets/global/img/excel-icon.png' class="img-responsive bordered "
+                                                style="width:120px; height:120px;padding:5px;border:1px groove;" />
+                                        </div>
+                                        <div ng-if=isImage(file.FileName)>
+                                            <img ng-src="{{file.Image}}" alt="Pictures of the incident" class="img-responsive bordered "
+                                                style="width:120px; height:120px;padding:5px;border:1px groove;" />
+                                        </div>
+                                        <div ng-if=isDocx(file.FileName)>
+                                            <img src='assets/global/img/docs-file.svg' class="img-responsive bordered "
+                                                style="width:120px; height:120px;padding:5px;border:1px groove;" />
+                                        </div>
+                                        <span id="previewDocs" class="sbold" style="word-break: break-word;font-family:Calibri; font-size:14px;cursor:pointer"
+                                                ng-click="GetDocxDetails(file)"><a title="{{file.FileName}}">{{file.FileName| limitTo:10}}{{file.FileName.length < 10 ? '': ' ...'}}</a></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                         <!-- upload image end -->
+
+                    <!-- edit image start -
+                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-group" ng-show="attachmentListEdit != null && attachmentListEdit.length > 0">
+                            <div class="col-md-2 col-sm-2 col-xs-5">
+                            </div>
+                            <div class="col-md-10 col-sm-10 col-xs-9">
+                                <div class="col-md-6 col-sm-4 col-xs-10 margin-bottom-10 clearfix" style="padding: 0px;margin-left: 0;" ng-repeat="file in attachmentListEdit">
+                                    <div>
+                                        <div class="col-md-12 col-sm-12 padding1px" style="text-align: center; width: 120px;">
+                                            <a class="TextDecorationNone" style="top:8px;left:60px;position:relative" ng-click="RemoveEditAttachment($index)">
+                                                    <i class="fa fa-times-circle fa-2x text-danger" aria-hidden="true"></i></a>
+                                            <!-- <img  ng-click="GetDocxDetails(file)" ng-src="{{file.Image}}" alt="Pictures of the incident" class="img-responsive bordered "
+                                                    style="width:120px; height:120px;padding:5px;border:1px groove;" /> --
+                                            <div ng-if=isPdf(file.FileName)>
+                                                <img src='assets/global/img/pdf-icon.svg' class="img-responsive bordered "
+                                                    style="width:120px; height:120px;padding:5px;border:1px groove;" />
+                                            </div>
+                                            <div ng-if=isExcel(file.FileName)>
+                                                <img src='assets/global/img/excel-icon.png' class="img-responsive bordered "
+                                                    style="width:120px; height:120px;padding:5px;border:1px groove;" />
+                                            </div>
+                                            <div ng-if=isImage(file.FileName)>
+                                                <img ng-src="{{file.url}}" alt="Pictures of the incident" class="img-responsive bordered "
+                                                    style="width:120px; height:120px;padding:5px;border:1px groove;" />
+                                            </div>
+                                            <div ng-if=isDocx(file.FileName)>
+                                                <img src='assets/global/img/docs-file.svg' class="img-responsive bordered "
+                                                    style="width:120px; height:120px;padding:5px;border:1px groove;" />
+                                            </div>
+                                            <span id="previewDocs" class="sbold" style="word-break: break-word;font-family:Calibri; font-size:14px;cursor:pointer"
+                                                    ng-click="GetDocxDetails(file)"><a title="{{file.FileName}}">{{file.FileName| limitTo:10}}{{file.FileName.length < 10 ? '': ' ...'}}</a></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+                    <!-- edit image end -->
+
+
+                    <!-- <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+                            <div class="col-lg-3 col-md-2 col-sm-2 col-xs-2">
+                            </div>
+                            <div class="col-lg-9 col-md-8 col-sm-8 col-xs-8">
+                                <font ng-repeat="file in attachmentListEdit">
+                                    <a ng-click="GetDocxDetails(file)"><span>{{file.FileName}}</span></a>
+                                    <span ng-if="!$last">, </span>
+                                </font>
+                            </div>
+                        </div> -->
+                    <!-- <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group" ng-if="displayAddImageButton">
+                            <div class="col-md-6 col-sm-6 text-right">
+                                <button id="addAttachment" class="btn sbold btnMargin" ng-click="saveAttachment()">
+                                    {{"Save"|translate}}
+                                </button>
+                                <button id="addAttachment" class="btn sbold btnMargin" ng-click="cancelAttachment()">
+                                    {{"Cancel"|translate}}
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+                            <div class="col-md-12 col-sm-12 col-xs-12 portlet light bordered table-responsive" style="height:131px !important;-webkit-overflow-scrolling: touch; overflow-y: auto; overflow-x:auto; white-space:nowrap; scrollbar-arrow-color:black;">
+                                <div class="col-md-12 col-sm-12 text-center" ng-if="attachmentListEdit.length==0">
+                                    <label class="text-danger">{{"No attachments available for this item"|translate}} </label>
+                                </div>
+                                <div ng-repeat="file in attachmentListEdit" class="col-md-3 col-sm-4 col-xs-6" style="padding:3px;">
+                                    <span>
+                                        <a class="TextDecorationNone" style="top:-43px;left:112px;position:relative" ng-click="deteteItemAttachment(file)"> <i class="fa fa-times-circle fa-2x text-danger" aria-hidden="true"></i></a>
+                                        <a href="{{file.url}}" download><img ng-src="{{file.url}}" class="img-responsive img-thumbnail" style="height:100px;width:100px;" /></a>
+                                    </span>
+                                </div>
+                            </div>
+                        </div> -->
+                    <!-- <div class="col-md-12 col-sm-12 form-group"> -->
+                    <!--<div class="col-md-6 col-sm-6 padding1px">
+                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-group">
+                                    <div class="col-md-6 col-sm-6 Label_Text_Right padding1px">
+                                        <label class="control-label ">{{"FormControlText.InsuranceCompany"|translate}} </label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6">
+                                        <span class="control-label ">{{InsuranceCompanyDetails.company.companyName}} </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-group">
+                                    <div class="col-md-6 col-sm-6 Label_Text_Right padding1px">
+                                        <label class="control-label ">{{"FormControlText.Adjuster"|translate}} </label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6">
+                                        <span class="control-label ">{{InsuranceCompanyDetails.adjuster.lastName+", "+InsuranceCompanyDetails.adjuster.firstName}} </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-group">
+                                    <div class="col-md-6 col-sm-6 Label_Text_Right padding1px">
+                                        <label class="control-label ">{{"FormControlText.AdjusterEmail"|translate}} </label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6">
+                                        <span class="control-label ">{{InsuranceCompanyDetails.adjuster.email}} </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-group">
+                                    <div class="col-md-6 col-sm-6 Label_Text_Right padding1px">
+                                        <label class="control-label ">{{"FormControlText.AdjusterPhone"|translate}} </label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6">
+                                        <span class="control-label ">{{InsuranceCompanyDetails.adjuster.cellPhone|tel}}</span>
+                                    </div>
+                                </div>
+                            </div>-->
+                    <!-- <div class="col-md-12 col-sm-12 pull-right">                                                         -->
+                    <!-- <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-group"  ng-if="CommonObj.ClaimProfile !=='Contents'" style="padding:5px;">
+                                    <div class="col-md-3 col-sm-4 col-xs-12 Label_Text_Right" style="padding:0px;">
+                                        <label class="control-label">{{"FormControlText.PolicyholderName"|translate}} </label>
+                                    </div>
+                                    <div class="col-md-4 col-sm-6 col-xs-12" style="padding-right:5px;">
+                                        <span class="control-label" ng-if="PolicyholderDetails.policyHolder.lastName.length">{{PolicyholderDetails.policyHolder.lastName}}</span><span class="control-label" ng-if="PolicyholderDetails.policyHolder.firstName.length">, </span>
+                                        <span class="control-label" ng-if="PolicyholderDetails.policyHolder.firstName.length">{{PolicyholderDetails.policyHolder.firstName}}</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-group"  ng-if="CommonObj.ClaimProfile !=='Contents'" style="padding:5px;">
+                                    <div class="col-md-3 col-sm-4 col-xs-12 Label_Text_Right" style="padding:0px;">
+                                        <label class="control-label">{{"FormControlText.PolicyholderEmail"|translate}} </label>
+                                    </div>
+                                    <div class="col-md-4 col-sm-6 col-xs-12" style="padding-right:5px;">
+                                        {{PolicyholderDetails.policyHolder.email}}
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group" ng-if="CommonObj.ClaimProfile !=='Contents'" style="padding:5px;">
+                                    <div class="col-md-3 col-sm-4 col-xs-12 Label_Text_Right" style="padding:0px;">
+                                        <label class="control-label ">{{"Policyholder Phone"|translate}} </label>
+                                    </div>
+                                    <div class="col-md-4 col-sm-6 col-xs-12" style="padding-right:5px;">
+                                        <span class="control-label ">
+                                            {{PolicyholderDetails.policyHolder.dayTimePhone|tel}} </span>
+
+                                    </div>
+                                </div> -->
+                    <!--<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+                                    <div class="col-md-6 col-sm-6 Label_Text_Right padding1px">
+                                        <label class="control-label">{{"FormControlText.PolicyholderPhone"|translate}} </label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6">
+                                        <span class="control-label ">{{PolicyholderDetails.policyHolder.dayTimePhone}} </span>
+                                    </div>
+                                </div>-->
+                    <!-- </div> -->
+                    <!-- </div> -->
+                    <!--<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+                                <div class="col-md-3 col-sm-6 Label_Text_Right">
+                                    <label class="control-label "> {{"FormControlText.AdjusterDescription"|translate}}</label>
+                                </div>
+                                <div class="col-md-9 col-sm-6">
+                                    <textarea class="form-control" ng-model="ItemDetails.adjusterDescription" ng-attr-placeholder='{{"FormControlText.AdjusterDescription"|translate}}'></textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+                                <div class="col-md-3 col-sm-6 Label_Text_Right">
+                                    <label class="control-label "> {{"FormControlText.Make"|translate}}</label>
+                                </div>
+                                <div class="col-md-3 col-sm-6">
+                                    <input type="text" ng-model="ItemDetails.brand" class="form-control" placeholder='{{"FormControlText.Make"|translate}}' />
+                                </div>
+                                <div class="col-md-3 col-sm-6 Label_Text_Right">
+                                    <label class="control-label "> {{"FormControlText.Model"|translate}}</label>
+                                </div>
+                                <div class="col-md-3 col-sm-6">
+                                    <input type="text" ng-model="ItemDetails.model" class="form-control" placeholder='{{"FormControlText.Model"|translate}}' />
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+                                <div class="col-md-3 col-sm-6 Label_Text_box Right">
+                                    <label class="control-label ">{{"FormControlText.TotalValue"|translate}} </label>
+                                </div>
+                                <div class="col-md-3 col-sm-6">
+                                    <span class="control-label">{{ItemDetails.totalStatedAmount}}</span>
+                                </div>
+                                <div class="col-md-3 col-sm-6 Label_Text_Right visible-md visible-lg ">
+                                    <label class="control-label ">{{"FormControlText.Age"|translate}} </label>
+                                </div>
+                                <div class="col-md-3 col-sm-6 visible-md visible-lg">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 padding1px">
+                                        <input type="text" class="form-control" numbers-only ng-model="ItemDetails.ageYears" ng-change="CalculateRCV()" placeholder='{{"FormControlText.Year"|translate}}' />
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 padding1px">
+                                        <input type="text" class="form-control" numbers-only ng-model="ItemDetails.ageMonths" ng-change="CalculateRCV()" placeholder='{{"FormControlText.Month"|translate}}' />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 visible-sm visible-xs form-group">
+                                <div class="col-sm-6 col-xs-6 Label_Text_Right">
+                                    <label class="control-label ">{{"FormControlText.Age"|translate}} </label>
+                                </div>
+                                <div class="col-sm-6 col-xs-6">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 padding1px">
+                                        <input type="text" class="form-control" numbers-only ng-model="ItemDetails.ageYears" ng-change="CalculateRCV()" placeholder='{{"FormControlText.Year"|translate}}' />
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 padding1px">
+                                        <input type="text" class="form-control" numbers-only ng-model="ItemDetails.ageMonths" ng-change="CalculateRCV()" placeholder='{{"FormControlText.Month"|translate}}' />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+                                <div class="col-md-3 col-sm-6 Label_Text_Right">
+                                    <label class="control-label ">{{"FormControlText.Category"|translate}} </label>
+                                </div>
+                                <div class="col-md-3 col-sm-6">
+                                    <select class="form-control select2me" ng-model="ItemDetails.category.id" data-placeholder="select" ng-change="GetSubCategory()"
+                                            ng-options="option.categoryId as option.categoryName for option in CategoryList"></select>
+                                </div>
+                                <div class="col-md-3 col-sm-6 Label_Text_Right">
+                                    <label class="control-label ">{{"FormControlText.SubCategory"|translate}} </label>
+                                </div>
+                                <div class="col-md-3 col-sm-6">
+                                    <select class="form-control select2me" ng-model="ItemDetails.subCategory.id" data-placeholder="select" ng-change="ChangeDepriciationRate()"
+                                            ng-options="option.id as option.name for option in SubCategoryList"></select>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+                                <div class="col-md-3 col-sm-6 Label_Text_Right">
+                                    <label class="control-label ">{{"FormControlText.Usefulyear"|translate}} </label>
+                                </div>
+                                <div class="col-md-3 col-sm-6">
+                                    <input type="text" ng-model="ItemDetails.itemUsefulYears" numbers-only ng-change="CalculateRCV()" class="form-control" placeholder='{{"FormControlText.Usefulyear"|translate}}' />
+
+                                </div>
+                                <div class="col-md-3 col-sm-6 Label_Text_Right">
+                                    <label class="control-label ">{{"FormControlText.Depreciation"|translate}}</label>
+
+                                </div>
+                                <div class="col-md-3 col-sm-6">
+                                    <input type="text" ng-model="ItemDetails.depriciationRate" numbers-only ng-change="CalculateRCV()" class="form-control" placeholder='{{"FormControlText.Depreciation"|translate}}' />
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+                                <div class="col-md-3 col-sm-6 Label_Text_Right">
+                                    <label class="control-label "> {{"FormControlText.TaxRate"|translate}}</label>
+                                </div>
+                                <div class="col-md-3 col-sm-6">
+                                    <input type="text" ng-model="ItemDetails.taxRate" numbers-only class="form-control" ng-change="CalculateRCV()" placeholder='{{"FormControlText.TaxRate"|translate}}' />
+                                </div>
+                                <div class="col-md-3 col-sm-6 Label_Text_Right">
+                                    <label class="control-label "> {{"Is Scheduled"|translate}}</label>
+                                </div>
+                                <div class="col-md-3 col-sm-6">
+                                    <label class="mt-radio mt-radio-outline mt-radio-single ">
+                                        <input type="radio" name="ContactInsured" ng-checked="selected.isScheduledItem==true" value="{{true}}" ng-model="selected.isScheduledItem" />
+                                        <span></span>
+                                    </label>Yes
+
+                                    <label class="mt-radio mt-radio-outline mt-radio-single " style="margin-left: 12%;">
+                                        <input type="radio" value="{{false}}" ng-checked="selected.isScheduledItem==false" name="ContactInsured" ng-model="selected.isScheduledItem" />
+                                        <span></span>
+                                    </label>No
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-bottom-10 margin-top-10 table-responsive">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>Amount</th>
+                                            <th>Tax</th>
+                                            <th>Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>RCV</td>
+                                            <td class="text-right">{{ItemDetails.rcv|currency}}</td>
+                                            <td class="text-right">{{ItemDetails.rcvTax|currency}}</td>
+                                            <td class="text-right">{{ItemDetails.rcvTotal|currency}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>ACV</td>
+                                            <td class="text-right">{{ItemDetails.acv|currency}}</td>
+                                            <td class="text-right">{{ItemDetails.acvTax|currency}}</td>
+                                            <td class="text-right">{{ItemDetails.acvTotal|currency}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>-->
+                </div>
+            </div>
+        </div>
+        <!-- </div> -->
+    </div>
+    <!---End Origional Item-->
+    <!---Start Replacement Item-->
+    <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12 padding1px">
+        <!-- <div class="row"> -->
+        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 padding1px">
+            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 padding1px">
+                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 options_Background_WithBorder"
+                    style="padding-top:5px;padding-bottom:5px;">
+                    <span class="text_options_Label sbold caption">{{"Replacement Item"|translate}}</span>
+                </div>
+                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 padding1px"
+                    style="border:1px solid lightgray;min-height: 535px;">
+                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 margin-top-20 margin-bottom-10"
+                        style="padding: 0px 5px;">
+
+                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group" style="padding: 0px;">
+                            <!-- <div class="col-md-3 col-sm-6 Label_Text_Right" style="padding: 0px;">
+                                    <label class="control-label "> {{"FormControlText.PolicyHolderDescription"|translate}}</label>
+                                </div> -->
+                            <div class="col-md-3 col-sm-4 margin-bottom-5 clearfix" style="padding:0px;">
+                                <label class="control-label ">{{"Pictures, Documents etc."|translate}}</label>
+                                <div class="col-md-12 col-sm-12 padding1px" style="text-align: center;"
+                                    ng-repeat="item in markedProductList">
+                                    <div class="col-md-12 light bordered imageHeightComparable"
+                                        style="border:1px solid #ddd;height: 93px;">
+                                        <img ng-if="item.imageURL !== null"
+                                            onerror="this.onerror=null; this.src='assets/global/img/no-image.png';"
+                                            class="ImageComparable" ng-src="{{item.imageURL}}" alt="image" />
+                                        <img ng-if="item.imageURL === null"
+                                            onerror="this.onerror=null; this.src='assets/global/img/no-image.png';"
+                                            class="ImageComparable" ng-src="assets/global/img/no-image.png"
+                                            alt="image" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-9 col-sm-8" style="padding-right: 5px;">
+                                <label class="control-label ">{{"Description"|translate}}</label>
+                                <textarea class="form-control" rows="5" ng-disabled="isQuoteSubmittedByVendor"
+                                    ng-model="ItemDetails.adjusterDescription"
+                                    ng-attr-placeholder='{{"FormControlText.PolicyHolderDescription"|translate}}'></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Marked Images Starts    -->
+                        <!-- <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-group">
+                                <div class="col-md-3 col-sm-6 Label_Text_Right">
+                                    <label class="control-label"></label>
+                                </div>
+                                <div class="col-md-9 col-sm-9">
+                                    <div class="col-md-4 col-sm-4 col-xs-10 margin-bottom-5 clearfix" style="padding:0px;margin-right: 25px" ng-repeat="item in markedProductList">
+                                        <div class="col-md-12 col-sm-12 padding1px" style="text-align: center; width: 120px;padding-right: 5px !important;">
+                                            <div class="col-md-12 light bordered imageHeightComparable" style="border:1px solid #ddd;">
+                                                    <img ng-if="item.imageURL !== null" onerror="this.onerror=null; this.src='assets/global/img/no-image.png';" class="ImageComparable" ng-src="{{item.imageURL}}" alt="image" />
+                                                    <img ng-if="item.imageURL === null" onerror="this.onerror=null; this.src='assets/global/img/no-image.png';" class="ImageComparable" ng-src="assets/global/img/no-image.png" alt="image" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
+                        <!-- Marked Images Ends -->
+
+                        <!-- CTB-2313 -->
+                        <div class="col-md-6 col-lg-6 col-sm-6 col-xs-12 form-group">
+                            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12" style="padding: 0px;">
+                                <div class="col-md-6 col-sm-6 Label_Text_Left" style="padding: 0px;">
+                                    <label class="control-label ">{{"Total Material Cost"|translate}}</label>
+                                </div>
+                                <div class="col-md-6 col-sm-6 Label_Text_Left" style="padding: 0px;">
+                                    <label class="control-label">{{"Taxes (@8.32%)"|translate}}</label>
+                                </div>
+
+                            </div>
+                            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-group"
+                                style="padding: 0px;padding-bottom:5px;">
+                                <div class="col-md-6 col-sm-6" style="padding: 0px;">
+                                    <span>{{ItemDetails.rcv==null ||  ItemDetails.quantity==null || ItemDetails.rcvTotal==null? 0 : ItemDetails.rcv*ItemDetails.quantity | currency}}</span>
+                                </div>
+                                <div class="col-md-6 col-sm-6" style="padding: 0px;">
+                                    <span>{{ItemDetails.totalTax ? ItemDetails.totalTax : 0 | currency}}</span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12" style="padding: 0px;">
+                                <div class="col-md-6 col-sm-6 Label_Text_Left" style="padding: 0px;">
+                                    <label class="control-label ">{{"Total Replacement Cost"|translate}}</label>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-group"
+                                style="padding: 0px;padding-bottom:5px;">
+                                <div class="col-md-6 col-sm-6" style="padding: 0px;">
+                                    <span>{{ItemDetails.rcvTotal==null?0 : ItemDetails.rcvTotal | currency}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-6 col-sm-6 col-xs-12 form-group" style="margin-top:15px">
+                            <div class="col-md-12 col-sm-12 col-xs-12 margin-bottom-5 text-center">
+                                <button class="btn-conv" ng-click=""
+                                    style="background-color: #fff!important; border-color:grey;">{{"Got a question?"|translate}}&nbsp;<i
+                                        class="fa fa-comments-o"></i></button>
+                            </div>
+                        </div>
+
+                        <!-- <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group" style="padding: 0px;">
+                                <div class="col-md-3 col-sm-6 Label_Text_Right" style="padding: 0px;">
+                                    <label class="control-label ">{{"Material Cost"|translate}}</label>
+                                </div>
+                                <div class="col-md-3 col-sm-6">
+                                    <label class="control-label ">{{ItemDetails.rcv ? ItemDetails.rcv : 0 | currency}}</label>
+                                </div>
+                                <div class="col-md-3 col-sm-6 Label_Text_Right" style="padding: 0px;">
+                                    <label class="control-label ">{{"Actual Cost Value"|translate}}</label>
+                                </div>
+                                <div class="col-md-3 col-sm-6">
+                                    <label class="control-label ">{{ItemDetails.acv ? ItemDetails.acv : 0  | currency }}</label>
+                                </div>
+                            </div> -->
+                        <!-- <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-group" style="padding: 0px;">
+                                <div class="col-md-3 col-sm-6 Label_Text_Right" style="padding: 0px;">
+                                    <label class="control-label ">{{"Tax Amount"|translate}}</label>
+                                </div>
+                                <div class="col-md-3 col-sm-6">
+                                    <label class="control-label ">{{ItemDetails.totalTax ? ItemDetails.totalTax : 0 | currency}}</label>
+                                </div>
+
+                                <div class="col-md-3 col-sm-6 Label_Text_Right" style="padding: 0px;">
+                                    <label class="control-label ">{{"Market Evaluation"|translate}}</label>
+                                </div>
+                                <div class="col-md-3 col-sm-6">
+                                    <label class="control-label"><a href="#" ng-click="!isQuoteSubmittedByVendor && GoToMER()">Link to MER</a></label>
+                                </div>
+                            </div> -->
+                        <!-- <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-group" style="padding: 0px;">
+                                <div class="col-md-3 col-sm-6 Label_Text_Right" style="padding: 0px;">
+                                    <label class="control-label ">{{"Total Replacement Cost"|translate}}</label>
+                                </div>
+                                <div class="col-md-3 col-sm-6">
+                                    <label class="control-label ">{{ItemDetails.rcvTotal==null?0 : ItemDetails.rcvTotal | currency}}</label>
+                                </div>
+
+                                <div class="col-md-3 col-sm-6 Label_Text_Right" style="padding: 0px;">
+                                    <label class="control-label ">{{"Vendor Invoice"|translate}}</label>
+                                </div>
+                                <div class="col-md-3 col-sm-6" style="padding-right: 0px;">
+                                    <div class="col-md-12 col-sm-12" ng-repeat="item in ItemDetails.invoiceList" style="padding:0px;">
+                                        <a ng-click="GotoInvoiceDetails(item)" class="pointer control-label margin-right-5">{{item.invoiceNumber}}</a>
+                                    </div>
+                                </div>
+                            </div> -->
+
+                        <!-- <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-group" style="padding: 0px;">
+                                <div class="col-md-3 col-sm-6 Label_Text_Right" style="padding: 0px;">
+                                    <label class="control-label">{{"Vendor Company"|translate}}</label>
+                                </div>
+                                <div class="col-md-3 col-sm-6">
+                                    <span class="control-label" ng-if="!ItemDetails.vendorDetails">N/A</span>
+                                    <span class="control-label" ng-if="ItemDetails.vendorDetails">{{ItemDetails.vendorDetails.vendorName}}</span>
+                                </div>
+                                <div class="col-md-3 col-sm-6 Label_Text_Right" style="padding: 0px;">
+                                    <label class="control-label">{{"Vendor Associate"|translate}}</label>
+                                </div>
+                                <div class="col-md-3 col-sm-6" style="padding-right: 0px;">
+                                    <span class="control-label" ng-if="!ItemDetails.associate">Not-Assigned</span>
+                                    <span class="control-label" ng-if="ItemDetails.associate">{{ItemDetails.associate.lastName +", "+ItemDetails.associate.firstName}}</span>
+                                </div>
+                            </div> -->
+                        <!-- end CTB-2313 -->
+
+                        <!-- <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-group" style="padding: 0px;" ng-if="CommonObj.ClaimProfile !== 'Contents'">
+                                <div class="col-md-3 col-sm-6 Label_Text_Right" style="padding: 0px;">
+                                    <label class="control-label ">{{"Total Charges"|translate}}</label>
+                                </div>
+                                <div class="col-md-3 col-sm-6">
+                                    <label class="control-label"></label>
+                                </div>
+                                <div class="col-md-3 col-sm-6 Label_Text_Right" style="padding: 0px;">
+                                    <label class="control-label ">{{"Amount Paid"|translate}}</label>
+                                </div>
+                                <div class="col-md-3 col-sm-6">
+                                    <label class="control-label"></label>
+                                </div>
+                            </div> -->
+
+                        <!-- <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group" ng-if="CommonObj.ClaimProfile !== 'Contents'">
+                                <div class="col-md-3 col-sm-6 Label_Text_Right" style="padding: 0px 7px 0px 0px;">
+                                    <label class="control-label">{{"Payment Date"|translate}}</label>
+                                </div>
+                                <div class="col-md-3 col-sm-6">
+                                    <label class="control-label"></label>
+                                </div>
+                            </div> -->
+
+                        <!-- <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group" ng-if="CommonObj.ClaimProfile !== 'Contents'">
+                                <div class="col-md-3 col-sm-6 Label_Text_Right">
+                                    <label class="control-label ">{{"Amount Paid"|translate}}</label>
+                                </div>
+                                <div class="col-md-3 col-sm-6">
+                                    <label class="control-label"></label>
+                                </div>
+                            </div> -->
+                        <!-- <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group" ng-if="CommonObj.ClaimProfile !== 'Contents'">
+                                <div class="col-md-3 col-sm-6 Label_Text_Right">
+                                    <label class="control-label ">{{"Payment Date"|translate}}</label>
+                                </div>
+                                <div class="col-md-3 col-sm-6">
+                                    <label class="control-label"></label>
+                                </div>
+                            </div> -->
+                        <!-- <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-group">
+                                <div class="col-md-3 col-sm-6 Label_Text_Right">
+                                    <label class="control-label ">{{"Vendor Invoice"|translate}}</label>
+                                </div>
+                                <div class="col-md-9 col-sm-6" ng-repeat="item in ItemDetails.invoiceList">
+                                    <a ng-click="GotoInvoiceDetails(item)" class="pointer control-label margin-right-5">{{item.invoiceNumber}}</a>
+                                </div>
+                            </div> -->
+
+
+                        <!--Left Side-->
+                        <!--<div class="col-md-6 col-lg-6 col-sm-12 col-xs-12 margin-top-10 padding1px">
+                            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+                                <div class="col-md-3 col-sm-6 Label_Text_Right">
+                                    <label class="control-label ">{{"FormControlText.Invidiual Limit"|translate}}</label>
+                                </div>
+                                <div class="col-md-3 col-sm-6">
+                                    <input type="text" ng-model="ItemDetails.individualLimitAmount" numbers-only class="form-control" placeholder='{{"FormControlText.Invidiual Limit"|translate}}' />
+                                </div>
+                                <div class="col-md-3 col-sm-6 Label_Text_Right">
+                                    <label class="control-label ">{{"FormControlText.CategoryLimit"|translate}}</label>
+
+                                </div>
+                                <div class="col-md-3 col-sm-6">
+                                    <input type="text" class="form-control" numbers-only ng-model="ItemDetails.category.aggregateLimit" placeholder='{{"FormControlText.CategoryLimit"|translate}}' />
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+                                <div class="col-md-3 col-sm-6 Label_Text_Right">
+                                    <label class="control-label "> {{"Replacement Descr."|translate}}</label>
+                                </div>
+                                <div class="col-md-9 col-sm-6">
+                                    <textarea class="form-control" ng-attr-placeholder='{{"Replacement Description"|translate}}'></textarea>
+                                </div>
+                            </div>
+
+
+                            </div>-->
+                        <!--End Left Side-->
+                        <!---Right Side-->
+                        <!--<div class="col-md-6 col-lg-6 col-sm-12 col-xs-12 padding1px  margin-top-10">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
+                                        <div class="col-lg-4 col-sm-6 Label_Text_Right">
+                                            <label class="control-label ">{{"Total Charges"|translate}}</label>
+                                        </div>
+                                        <div class="col-lg-8 col-sm-6">
+                                            <span class="control-label"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
+                                        <div class="col-lg-4 col-sm-6 Label_Text_Right">
+                                            <label class="control-label ">{{"Amount Paid"|translate}}</label>
+                                        </div>
+                                        <div class="col-lg-8 col-sm-6">
+                                            <span class="control-label">{{InvoiceDetails.paymentDetails.amountPaid}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
+                                        <div class="col-lg-4 col-sm-6 Label_Text_Right">
+                                            <label class="control-label ">{{"Payment Date"|translate}}</label>
+                                        </div>
+                                        <div class="col-lg-8 col-sm-6">
+                                            <span class="control-label">{{InvoiceDetails.paymentDetails.paymentDate |DateFormatMMddyyyy}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
+                                        <div class="col-lg-4 col-sm-6 Label_Text_Right">
+                                            <label class="control-label ">{{"Vendor Invoice"|translate}}</label>
+                                        </div>
+                                        <div class="col-lg-8 col-sm-6">
+                                            <a class="control-label" ng-repeat="item in InvoiceDetails.invoiceAttachments" download ng-href="{{item.url}}">{{item.name}}</a>
+                                        </div>
+                                    </div>
+
+                                </div>-->
+                        <!---End Right Side-->
+                    </div>
+
+                    <!--Start - SalvageDetails Section-->
+                    <div ng-if="CommonObj.ClaimProfile == 'Jewelry'" class="portlet light margin-top-20">
+                        <div class="portlet-title margin-top-20">
+                            <div class="caption">
+                                <span class="caption-subject bold"> {{"HeaderText.SalvageDetails"|translate}}</span>
+                            </div>
+                        </div>
+                        <div class="portlet-body">
+                            <div class="row">
+                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                                    <div class="col-md-8 col-lg-8 col-sm-12 col-xs-12 margin-top-10 padding1px">
+                                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+                                            <div class="col-md-6 col-sm-6 Label_Text_Right">
+                                                <label class="control-label"> {{"Salvage Item?"|translate}}</label>
+                                            </div>
+                                            <div class="col-md-6 col-sm-6">
+                                                <select class="select2me form-control" disabled
+                                                    ng-model="ItemDetails.salvageItem"
+                                                    ng-options="item.id as item.status for item in statuslist"></select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group"
+                                            ng-if="ItemDetails.salvageItem">
+                                            <div class="col-md-6 col-sm-6 Label_Text_Right">
+                                                <label class="control-label">{{"Salvage Amount"|translate}}</label>
+                                            </div>
+                                            <div class="col-md-6 col-sm-6">
+                                                <input type="text" readonly ng-model="ItemDetails.salvageAmount"
+                                                    class="form-control" placeholder='{{"Salvage Amount"|translate}}' />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--End - SalvageDetails Section-->
+
+                    <!-- CTB-2313  -->
+                    <!-- Settlement Summary section -->
+                    <div class="portlet light margin-top-15 "
+                        style="padding-bottom: 0px;margin-top: 10px!important; padding-top: 0px;">
+                        <div class="portlet-title text-center">
+                            <div class="caption font-green text-center" style="padding-bottom:0px;">
+                                <span class="caption-subject bold">
+                                    {{"Settlement Summary"|translate}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  Label_Text_Left"
+                            style="padding:0px;margin-top: 10px">
+                            <label class="control-label ">{{"Item Status"|translate}}</label>
+                            <span><i class="fa fa-info-circle" style="font-size:16px;" aria-hidden="true"></i></span>
+                        </div>
+                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-group Label_Text_Left"
+                            style="padding: 0px;padding-bottom:5px;">
+                            <span>{{ItemDetails.status.status}}</span>
+                        </div>
+
+                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12" style="padding: 0px;">
+                            <div class="col-md-4 col-sm-6 Label_Text_Left" style="padding: 0px;">
+                                <label class="control-label ">{{"Total Replacement Cost"|translate}}</label>
+                                <span><i class="fa fa-info-circle" style="font-size:16px;"
+                                        aria-hidden="true"></i></span>
+                            </div>
+                            <div ng-if="ItemDetails.category.id !== 23" class="col-md-4 col-sm-6 Label_Text_Left"
+                                style="padding: 0px;">
+                                <label class="control-label ">{{"Annual Depreciation"|translate}}</label>
+                                <span><i class="fa fa-info-circle" style="font-size:16px;"
+                                        aria-hidden="true"></i></span>
+                            </div>
+                            <div ng-if="ItemDetails.category.id !== 23" class="col-md-4 col-sm-6 Label_Text_Left"
+                                style="padding: 0px;">
+                                <label class="control-label ">{{"Total $ Depreciation"|translate}}</label>
+                                <span><i class="fa fa-info-circle" style="font-size:16px;"
+                                        aria-hidden="true"></i></span>
+                            </div>
+                            <div ng-if="ItemDetails.category.id === 23" class="col-md-4 col-sm-6 Label_Text_Left"
+                                style="padding: 0px;">
+                                <label class="control-label ">{{"Item Limit"|translate}}</label>
+                                <span><i class="fa fa-info-circle" style="font-size:16px;"
+                                        aria-hidden="true"></i></span>
+                            </div>
+                            <div ng-if="ItemDetails.category.id === 23" class="col-md-4 col-sm-6 Label_Text_Left"
+                                style="padding: 0px;">
+                                <label class="control-label ">{{"Aggregate Coverage Limit"|translate}}</label>
+                                <span><i class="fa fa-info-circle" style="font-size:16px;"
+                                        aria-hidden="true"></i></span>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group"
+                            style="padding: 0px;padding-bottom:5px;">
+                            <div class="col-md-4 col-sm-6 Label_Text_Left" style="padding: 0px;">
+                                <span>{{ItemDetails.rcvTotal==null?0 : ItemDetails.rcvTotal | currency}}</span>
+                            </div>
+                            <div ng-if="ItemDetails.category.id !== 23" class="col-md-4 col-sm-6 Label_Text_Left"
+                                style="padding: 0px;">
+                                <span>{{ItemDetails.subCategory.annualDepreciation == null ? (ItemDetails.category.annualDepreciation == null ? 0 : ItemDetails.category.annualDepreciation) : ItemDetails.subCategory.annualDepreciation | percentage}}</span>
+                            </div>
+                            <div ng-if="ItemDetails.category.id !== 23" class="col-md-4 col-sm-6 Label_Text_Left"
+                                style="padding: 0px;">
+                                <span>{{ItemDetails.depreciationAmount == null ? 0 : ItemDetails.depreciationAmount | currency}}</span>
+                            </div>
+                            <div ng-if="ItemDetails.category.id === 23" class="col-md-4 col-sm-6 Label_Text_Left"
+                                style="padding: 0px;">
+                                <span>{{ItemDetails.individualLimitAmount == null ? 0 : ItemDetails.individualLimitAmount | currency}}</span>
+                            </div>
+                            <div ng-if="ItemDetails.category.id === 23" class="col-md-4 col-sm-6 Label_Text_Left"
+                                style="padding: 0px;">
+                                <!-- <span>{{ItemDetails.category.aggregateLimit == null ? 0 : ItemDetails.category.aggregateLimit | currency}}</span> -->
+                                <span>{{ItemDetails.categoryLimit ? ItemDetails.categoryLimit : 0 | currency}}</span>
+                            </div>
+                        </div>
+
+                        <div ng-if="ItemDetails.category.id !== 23" class="col-md-12 col-lg-12 col-sm-12 col-xs-12"
+                            style="padding: 0px;">
+                            <div class="col-md-4 col-sm-6 Label_Text_Left" style="padding: 0px;">
+                                <label class="control-label ">{{"Total Cash Value"|translate}}</label>
+                                <span><i class="fa fa-info-circle" style="font-size:16px;"
+                                        aria-hidden="true"></i></span>
+                            </div>
+                        </div>
+                        <div ng-if="ItemDetails.category.id !== 23"
+                            class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group"
+                            style="padding: 0px;padding-bottom:5px;">
+                            <div class="col-md-4 col-sm-6 Label_Text_Left" style="padding: 0px;">
+                                <span>{{ItemDetails.acv==null?0 : ItemDetails.acv | currency}}</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12" style="padding: 0px;">
+                            <div ng-if="ItemDetails.category.id !== 23" class="col-md-4 col-sm-6 Label_Text_Left"
+                                style="padding: 0px;">
+                                <label class="control-label ">{{"Item Limit"|translate}}</label>
+                                <span><i class="fa fa-info-circle" style="font-size:16px;"
+                                        aria-hidden="true"></i></span>
+                            </div>
+                            <div ng-if="ItemDetails.category.id !== 23" class="col-md-4 col-sm-6 Label_Text_Left"
+                                style="padding: 0px;">
+                                <label class="control-label ">{{"Aggregate Coverage Limit"|translate}}</label>
+                                <span><i class="fa fa-info-circle" style="font-size:16px;"
+                                        aria-hidden="true"></i></span>
+                            </div>
+                            <div ng-if="ItemDetails.category.id === 23" class="col-md-4 col-sm-6 Label_Text_Left"
+                                style="padding: 0px;">
+                                <label class="control-label ">{{"Total Replacement Exposure"|translate}}</label>
+                                <span><i class="fa fa-info-circle" style="font-size:16px;"
+                                        aria-hidden="true"></i></span>
+                            </div>
+                            <div ng-if="ItemDetails.category.id === 23" class="col-md-4 col-sm-6 Label_Text_Left"
+                                style="padding: 0px;">
+                                <label class="control-label ">{{"Total Cash Payout Exposure"|translate}}</label>
+                                <span><i class="fa fa-info-circle" style="font-size:16px;"
+                                        aria-hidden="true"></i></span>
+                            </div>
+                            <div ng-if="ItemDetails.category.id === 23" class="col-md-4 col-sm-6 Label_Text_Left"
+                                style="padding: 0px;">
+                                <label class="control-label ">{{"Item Overage"|translate}}</label>
+                                <span><i class="fa fa-info-circle" style="font-size:16px;"
+                                        aria-hidden="true"></i></span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group"
+                            style="padding: 0px;padding-bottom:5px;">
+                            <div ng-if="ItemDetails.category.id !== 23" class="col-md-4 col-sm-6 Label_Text_Left"
+                                style="padding: 0px;">
+                                <span>{{ItemDetails.individualLimitAmount == null ? 0 : ItemDetails.individualLimitAmount | currency}}</span>
+                            </div>
+                            <div ng-if="ItemDetails.category.id !== 23" class="col-md-4 col-sm-6 Label_Text_Left"
+                                style="padding: 0px;">
+                                <!-- <span>{{ItemDetails.category.aggregateLimit == null ? 0 : ItemDetails.category.aggregateLimit | currency}}</span> -->
+                                <span>{{ItemDetails.categoryLimit ? ItemDetails.categoryLimit : 0 | currency}}</span>
+                            </div>
+                            <div ng-if="ItemDetails.category.id === 23" class="col-md-4 col-sm-6 Label_Text_Left"
+                                style="padding: 0px;">
+                                <span>{{ItemDetails.replacementExposure == null ? 0 : ItemDetails.replacementExposure | currency}}</span>
+                            </div>
+                            <div ng-if="ItemDetails.category.id === 23" class="col-md-4 col-sm-6 Label_Text_Left"
+                                style="padding: 0px;">
+                                <span>{{ItemDetails.cashPayoutExposure == null ? 0 : ItemDetails.cashPayoutExposure | currency}}</span>
+                            </div>
+                            <div ng-if="ItemDetails.category.id === 23" class="col-md-4 col-sm-6 Label_Text_Left"
+                                style="padding: 0px;">
+                                <span>{{ItemDetails.holdOverValue == null || ItemDetails.receiptMapped === false ? 0 : ItemDetails.holdOverValue | currency}}</span>
+                            </div>
+                        </div>
+
+                        <div ng-if="ItemDetails.category.id !== 23" class="col-md-12 col-lg-12 col-sm-12 col-xs-12"
+                            style="padding: 0px;">
+                            <div class="col-md-4 col-sm-6 Label_Text_Left" style="padding: 0px;">
+                                <label class="control-label ">{{"Total Replacement Exposure"|translate}}</label>
+                                <span><i class="fa fa-info-circle" style="font-size:16px;"
+                                        aria-hidden="true"></i></span>
+                            </div>
+                            <div class="col-md-4 col-sm-6 Label_Text_Left" style="padding: 0px;">
+                                <label class="control-label ">{{"Total Cash Payout Exposure"|translate}}</label>
+                                <span><i class="fa fa-info-circle" style="font-size:16px;"
+                                        aria-hidden="true"></i></span>
+                            </div>
+                            <div class="col-md-4 col-sm-6 Label_Text_Left" style="padding: 0px;">
+                                <label class="control-label ">{{"Item Overage"|translate}}</label>
+                                <span><i class="fa fa-info-circle" style="font-size:16px;"
+                                        aria-hidden="true"></i></span>
+                            </div>
+                        </div>
+                        <div ng-if="ItemDetails.category.id !== 23"
+                            class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group"
+                            style="padding: 0px;padding-bottom:5px;">
+                            <div ng-if="ItemDetails.category.id !== 23" class="col-md-4 col-sm-6 Label_Text_Left"
+                                style="padding: 0px;">
+                                <span>{{ItemDetails.replacementExposure == null ? 0 : ItemDetails.replacementExposure | currency}}</span>
+                            </div>
+                            <div ng-if="ItemDetails.category.id !== 23" class="col-md-4 col-sm-6 Label_Text_Left"
+                                style="padding: 0px;">
+                                <span>{{ItemDetails.cashPayoutExposure == null ? 0 : ItemDetails.cashPayoutExposure | currency}}</span>
+                            </div>
+                            <div ng-if="ItemDetails.category.id !== 23" class="col-md-4 col-sm-6 Label_Text_Left"
+                                style="padding: 0px;">
+                                <span>{{ItemDetails.holdOverValue == null || ItemDetails.receiptMapped === false ? 0 : ItemDetails.holdOverValue | currency}}</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  Label_Text_Left" style="padding:0px;">
+                            <label class="control-label ">{{"Payment History"|translate}}</label>
+                        </div>
+                        <div ng-if="ItemDetails.paymentDetails !==null"
+                            class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-group Label_Text_Left"
+                            style="padding: 0px;padding-bottom:5px;">
+                            <span>check #{{ItemDetails.paymentDetails.checkNumber}} paid on
+                                {{ItemDetails.paymentDetails.checkDate}}</span>
+                        </div>
+                    </div>
+                    <!--End - Settlement Summary section -->
+                    <!-- end CTB-2313 -->
+
+                    <!--Added Comparables-->
+                    <div class="portlet light margin-top-15 hide"
+                        style="padding-bottom: 0px;margin-top: 0px!important; padding-top: 0px;">
+                        <div class="portlet-title text-center">
+                            <div class="caption font-green text-center" style="padding-bottom:0px;">
+                                <span class="caption-subject bold"> {{"HeaderText.AddedComparables"|translate}}</span>
+                            </div>
+                            <div class="tools">
+                                <a href="#" class="fullscreen"></a>
+                            </div>
+                        </div>
+                        <div class="portlet-body responsive">
+                            <div class="row">
+                                <div class="table-responsive  padding1px"
+                                    style="padding-top:0px;display:inline;direction: rtl;">
+                                    <div class="col-md-12 col-lg-12 col-sm-12 table-responsive addedComp form-group padding1px"
+                                        style="direction: ltr;margin-top: -15px;">
+                                        <div class="row flex-row flex-nowrap"
+                                            style="padding-left: 14px;padding-right: 14px;">
+                                            <div ng-repeat="item in AddedComparables" class="col-box"
+                                                style="padding:2px;min-width: 49%;margin: 5px 0px 5px 5px;">
+                                                <div ng-class="item.isReplacementItem==true ? 'compSelectedCls' : 'CompUnSelectedCls'"
+                                                    class="col-md-12 col-lg-12 col-sm-12 bordered"
+                                                    style="min-height: 190px;padding-right: 5px;padding:5px;  border: 1px solid #c7ccd0 !important;border-radius: 4px;">
+
+                                                    <a href="#" title="Remove"
+                                                        style="color: red;font-size: 20px;float: right;margin-top: -2px;"
+                                                        ng-click="RemoveFromComparableList(item)">
+                                                        <span class="glyphicon glyphicon-remove"></span>
+                                                    </a>
+                                                    <div class="col-md-5 col-sm-6 col-lg-5" style="padding: 0px;">
+                                                        <div
+                                                            class="col-md-12 col-sm-12 col-lg-12 text-center imageHeightComparable">
+                                                            <img ng-src="{{item.imageURL}}"
+                                                                onerror="this.onerror=null; this.src='assets/global/img/no-image.png';"
+                                                                class="ImageComparable" /><br />
+                                                        </div>
+                                                        <div class="col-md-12 col-sm-12 col-lg-12 text-center"
+                                                            style="padding: 0px;">
+                                                            <label>{{item.price |currency}}</label>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6 col-lg-6 col-sm-6 tip"
+                                                        style="max-height: 115px;height: 115px;padding-right: 0px; padding-left: 7px;">
+                                                        <span
+                                                            title="{{item.description}}">{{item.description| limitTo : 50}}{{item.description.length>50 ? '...' :''}}
+                                                            <i class="fa fa-info-circle"
+                                                                style="font-size:20px;margin-top:6px"
+                                                                aria-hidden="true"></i>
+                                                        </span>
+                                                        <!-- {{item.description| limitTo : 50}}{{item.description.length>50 ? '...' :''}}
+                                                                    <span class="Overlay" ng-if="item.description">{{item.description }}</span> -->
+                                                    </div>
+                                                    <div class="col-lg-12 col-md-12 col-sm-12 text-center">
+                                                        <input type="radio" name="replItem"
+                                                            ng-model="item.isReplacementItem" ng-value="true"
+                                                            ng-click="MarkAsReplacement(item)" />
+                                                        <label for="replItem"
+                                                            class="mt-checkbox mt-checkbox-outline text-success"
+                                                            ng-click="MarkAsReplacement(item)"
+                                                            style="font-size:13px;padding-left: 5px;vertical-align: top;">{{"Mark as replacement item"|translate}}</label>
+                                                    </div>
+                                                    <div class="col-lg-12 col-md-12 col-sm-12 text-center col-xs-12"
+                                                        ng-click="ShopNow(item)">
+                                                        <a herf="#"
+                                                            style="color:red;">{{"ControlText.BuyHere"|translate}}</a>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div ng-if="AddedComparables==null || (AddedComparables!=null && AddedComparables.length==0)"
+                                            style="text-align:center;height:100%;padding:80px;">
+                                            <span class="text-danger">{{"No comparable added yet"|translate}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--End Added Comparables-->
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- CTB-2313 -->
+    <!--Display of Item Summary while scrolling -->
+    <div class="summaryBox col-md-12 col-sm-12 padding1px" ng-show="accessComparable">
+        <!---Item Summary-->
+        <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12 portlet padding1px margin-top-10">
+            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 padding1px thirdPartyItemDetailsSectionTabHeight"
+                style="border:2px solid lightgray;height:135px;background: lightcyan;">
+                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                    <label class="control-label ">{{"Original Item"|translate}}</label>
+                </div>
+                <div class="col-xs-12 form-group">
+                    <label
+                        class="col-md-4 col-sm-3 col-xs-5 control-label Label_Text_Right">{{"Original Desc."|translate}}</label>
+                    <span title="{{ItemDetails.description}}"
+                        class="col-md-8 col-sm-9 col-xs-7 padding1px">{{ItemDetails.description | limitTo : 50}}{{ItemDetails.description.length>50 ? '...' :''}}
+                    </span>
+                </div>
+                <div class="col-xs-12 form-group">
+                    <div class="col-md-7 col-sm-6 col-xs-12 padding1px">
+                        <label
+                            class="col-md-7 col-sm-6 col-xs-5 control-label Label_Text_Right">{{"Cost Per Unit"|translate}}</label>
+                        <span class="col-md-5 col-sm-6 col-xs-7 sbold padding1px"
+                            style="font-size: 16px;">{{ItemDetails.insuredPrice ? ItemDetails.insuredPrice : 0  | currency }}</span>
+                    </div>
+                    <div class="col-md-5 col-sm-6 col-xs-12 padding1px">
+                        <label
+                            class="col-md-3 col-sm-4 col-xs-5 control-label Label_Text_Right">{{"Age"|translate}}</label>
+                        <span class="col-md-9 col-sm-6 col-xs-7 padding1px">
+                            {{ItemDetails.ageYears == null || ItemDetails.ageYears == undefined || ItemDetails.ageYears == '0' || ItemDetails.ageYears == 0 ? 0 : ItemDetails.ageYears}}
+                            Yrs
+                            {{ItemDetails.ageMonths == null || ItemDetails.ageMonths == undefined || ItemDetails.ageMonths == '0' || ItemDetails.ageMonths == 0 ? 0 : ItemDetails.ageMonths}}
+                            Months
+                        </span>
+                    </div>
+                </div>
+                <div class="col-xs-12 form-group">
+                    <label
+                        class="col-md-4 col-sm-3 col-xs-5 control-label Label_Text_Right">{{"FormControlText.Category"|translate}}</label>
+                    <div class="col-md-6 col-xs-6 padding1px">
+                        <div class="col-sm-8 col-xs-12 padding1px">
+                            <span ng-show="ItemDetails.status.status == constants.itemStatus.supervisorReview"
+                                class="control-label">{{ItemDetails.category.name}}</span>
+                            <select id="floatingboxSel"
+                                ng-show="ItemDetails.status.status != constants.itemStatus.supervisorReview"
+                                class="form-control select2me categorySel" ng-disabled="isQuoteSubmittedByVendor"
+                                ng-model="ItemDetails.category.id" data-placeholder="select"
+                                ng-change="changeSelection('floatingboxSel','category')"
+                                ng-options="option.categoryId as option.categoryName for option in CategoryList"></select>
+                        </div>
+                        <i class="fa fa-info-circle hidden-xs" data-container="body" data-toggle="popover"
+                            data-placement="right"
+                            data-content='{{ItemDetails.category.id ? (ItemDetails.category.description ? ItemDetails.category.description : ItemDetails.category.name): "Select a category"}}'
+                            data-trigger="hover" style="font-size:20px;margin-top:6px;padding-left: 10px;"
+                            aria-hidden="true"></i>
+                    </div>
+                </div>
+                <div class="col-xs-12 form-group">
+                    <label
+                        class="col-md-4 col-sm-3 col-xs-5 control-label Label_Text_Right">{{"FormControlText.SubCategory"|translate}}</label>
+                    <div class="col-md-6 col-xs-6 padding1px">
+                        <div class="col-sm-8 col-xs-12 padding1px">
+                            <span ng-show="ItemDetails.status.status == constants.itemStatus.supervisorReview"
+                                class="control-label">{{ItemDetails.subCategory.name}}</span>
+                            <select id="floatingSubCatSel" class="form-control select2me"
+                                ng-show="ItemDetails.status.status != constants.itemStatus.supervisorReview"
+                                ng-disabled="isQuoteSubmittedByVendor" ng-model="ItemDetails.subCategory.id"
+                                data-placeholder="select" ng-change="changeSelection('floatingSubCatSel','subCategory')"
+                                ng-options="option.id as option.name for option in SubCategoryList"></select>
+                        </div>
+                        <i class="fa fa-info-circle hidden-xs" data-container="body" data-toggle="popover"
+                            data-placement="right"
+                            data-content='{{ItemDetails.subCategory.id ? (ItemDetails.subCategory.description ? ItemDetails.subCategory.description : ItemDetails.subCategory.name) : "Select a sub category"}}'
+                            data-trigger="hover" style="font-size:20px;margin-top:6px;padding-left: 10px;"
+                            aria-hidden="true"></i>
+                    </div>
+                </div>
+                <div class="col-xs-12 form-group">
+                    <label
+                        class="col-md-4 col-sm-3 col-xs-5 control-label Label_Text_Right">{{"Condition"|translate}}</label>
+                    <div class="col-sm-4 col-xs-6 padding1px">
+                        <span class="control-label"
+                            ng-if="ItemDetails.status.status == constants.itemStatus.supervisorReview">
+                            {{ItemDetails.condition.conditionName}}</span>
+                        <select id="floatCondtionSel" class="form-control select2me"
+                            ng-show="ItemDetails.status.status != constants.itemStatus.supervisorReview"
+                            ng-model="ItemDetails.condition.conditionId"
+                            ng-change="changeSelection('floatCondtionSel', 'condition')" data-placeholder="select"
+                            ng-options="option.conditionId as option.conditionName for option in ConditionList"></select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!---Comparable Summary-->
+        <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12 portlet padding1px margin-top-10">
+            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 padding1px">
+
+                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 padding1px thirdPartyItemDetailsSectionTabHeight"
+                    style="border:2px solid lightgray;height:135px;background: lightcyan;">
+                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-group">
+                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                            <label class="control-label ">{{"Replacement Item"|translate}}</label>
+                        </div>
+                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                            <div class="row flex-row flex-nowrap"
+                                style="padding-left: 14px;padding-right: 14px;padding: 0px;">
+                                <div ng-repeat="item in markedProductList | filter:{ isDelete: false, isReplacementItem:true}"
+                                    class="col-box" style="padding:2px;min-width: 49%;margin: 5px 0px 5px 5px;">
+                                    <div ng-class="item.isReplacementItem==true ? 'compSelectedCls' : 'CompUnSelectedCls'"
+                                        class="col-md-12 col-sm-12 col-lg-12 bordered"
+                                        style="padding-right: 5px;padding:5px;  border: 1px solid #c7ccd0 !important;border-radius: 4px;">
+                                        <div class="col-md-12 col-lg-12 col-sm-12">
+                                            <a href="#" title="Remove"
+                                                style="color: red;font-size: 20px;float: right;margin-top: -2px;"
+                                                ng-click="AddtoComparableListFromRapid(item)">
+                                                <span class="glyphicon glyphicon-remove"></span>
+                                            </a>
+                                            <div class="col-md-4 col-lg-4 col-sm-6" style="padding: 0px;">
+                                                <div class="col-md-12 col-sm-12 col-lg-12 text-center imageHeightComparable"
+                                                    style="height: 75px;padding: 0px;">
+                                                    <img ng-src="{{item.imageURL}}"
+                                                        onerror="this.onerror=null; this.src='assets/global/img/no-image.png';"
+                                                        class="ImageComparable" />
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-7 col-lg-7 col-sm-6 tip"
+                                                style="max-height: 115px;padding-right: 0px; padding-left: 7px;">
+                                                <span
+                                                    title="{{item.description}}">{{item.description| limitTo : 150}}{{item.description.length>20 ? '...' :''}}
+                                                    <i class="fa fa-info-circle" style="font-size:20px;margin-top:6px"
+                                                        aria-hidden="true"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="margin-top-12 col-ms-7 col-md-7 col-lg-7" style="padding: 0px;">
+                                            <div class="margin-top-5 col-ms-5 col-md-5 col-lg-5 Label_Text_Right"
+                                                style="padding: 0px;">
+                                                <label>{{"Cost Per Unit"| translate}}</label>
+                                            </div>
+                                            <div class="margin-top-5 col-ms-3 col-md-3 col-lg-3"
+                                                style="padding-right: 5px;">
+                                                <span>{{item.price| currency}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="margin-top-12 col-ms-7 col-md-7 col-lg-7" style="padding: 0px;">
+                                            <div class="margin-top-5 col-ms-5 col-md-5 col-lg-5 Label_Text_Right"
+                                                style="padding: 0px;">
+                                                <label>{{"Total Replacement Cost"| translate}}</label>
+                                            </div>
+                                            <div class="margin-top-5 col-ms-3 col-md-3 col-lg-3"
+                                                style="padding-right: 5px;">
+                                                <span>{{ItemDetails.rcvTotal==null?0 : ItemDetails.rcvTotal | currency}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="margin-top-12 col-ms-7 col-md-7 col-lg-7" style="padding: 0px;">
+                                            <div class="margin-top-5 col-ms-5 col-md-5 col-lg-5 Label_Text_Right"
+                                                style="padding: 0px;">
+                                                <label>{{"Total Cash Value"| translate}}</label>
+                                            </div>
+                                            <div class="margin-top-5 col-ms-3 col-md-3 col-lg-3"
+                                                style="padding-right: 5px;">
+                                                <span>{{ItemDetails.acv==null?0 : ItemDetails.acv | currency}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div ng-if="markedProductList==null || (markedProductList!=null && markedProductList.length==0)"
+                                    style="text-align:center;height:100%;padding: 35px 180px; font-weight: 600;">
+                                    <span class="text-danger">{{"No replacement item added yet"|translate}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end CTB-2313 -->
+    <div id="compTbl" class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-group padding1px" ng-show="accessComparable">
+        <!--Comparable filter Starts here-->
+        <div ng-if="CommonObj.ClaimProfile == 'Jewelry'"
+            class="col-md-5 col-lg-5 col-sm-12 col-xs-12 padding1px margin-top-10"
+            ng-include="'views/ComparableFilter/ComparableFilter.html'" ng-show="accessComparable"
+            ng-controller="ComparableFilterController">
+        </div>
+        <!---Start Comparables Item-->
+        <div class="col-md-7 col-lg-7 col-sm-12 col-xs-12 padding1px margin-top-10" ng-show="accessComparable">
+            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 padding1px">
+                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 options_Background_WithBorder"
+                    style="padding-top:5px;padding-bottom:5px;margin-top: 10px;">
+                    <span class="text_options_Label sbold caption">{{"Comparable Details"|translate}}</span>
+                </div>
+                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 padding1px"
+                    style="border:1px solid lightgray;height:667px;">
+                    <!--Empty comparables-->
+                    <div class="col-md-12 col-sm-12 padding1px" ng-show="displayEmptyPart" style="height:100%;">
+
+                        <div class="col-md-12 text-center btnMargin">
+                            <span class="text-primary bold ">{{"HeaderText.Comparables"|translate}}</span>
+                        </div>
+                        <div class="portlet light">
+                            <div class="portlet-title text-center">
+                                <div class="caption font-green text-center">
+
+                                </div>
+                            </div>
+                            <div class="portlet-body">
+                                <div class="row">
+                                    <div class="col-md-12 text-center text-primary margin-bottom-20">
+                                        <span class=""><b>{{"NoReplacement"|translate}}</b></span>
+                                    </div>
+
+                                    <div class="col-md-12 margin-top-10 clearfix">
+                                        <div>
+                                            <div class="col-md-offset-1 col-md-10 margin-bottom-5">
+                                                <div class="input-icon left">
+                                                    <i class="icon-magnifier"></i>
+                                                    <input type="text" ng-model="CommonObj.SearchComparables"
+                                                        ng-keydown="$event.which === 13 && SearchReplacement()"
+                                                        ng-disabled="ItemDetails.status.status == constants.itemStatus.underReview"
+                                                        ;
+                                                        class="form-control form-control-solid input-circle input-block-level"
+                                                        placeholder="{{'ComparablesSearch'|translate}}">
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="col-md-10 col-md-offset-1  text-center text-primary margin-bottom-20">
+                                                <span class="">{{"Searchreplacements"|translate}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!--End Empty comparables-->
+                    <!--Comparables-->
+
+                    <!--End Comparables-->
+                    <!--Search Comparable-->
+                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 padding1px" style="height:100%;"
+                        ng-show="!displayEmptyPart">
+                        <div class="portlet light">
+
+                            <div class="portlet-body">
+                                <div class="row">
+                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 margin-bottom-10 padding1px">
+                                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                                            <div class="input-icon left">
+                                                <i class="icon-magnifier"></i>
+                                                <input type="text"
+                                                    class="form-control form-control-solid input-circle input-block-level"
+                                                    ng-keydown="Searchoptions.length != 0 && CommonObj.SearchComparables != ''  ? SearchReplacement() : GoogleComparableList = []"
+                                                    ng-model="CommonObj.SearchComparables" placeholder="search">
+                                            </div>
+                                        </div>
+                                        <!-- <div class="col-md-4 col-lg-4 col-sm-4 col-xs-12">
+                                                    <select class="form-control col-md-12" data-placeholder="Option" data-ng-model="sortcolumn" ng-change="SortGoogleResult()">
+                                                        <option ng-repeat="option in SortOptions" value="{{option.Id}}">{{option.Value}}</option>
+                                                    </select>
+                                                </div> -->
+                                    </div>
+                                    <div
+                                        class="col-md-12  col-lg-12 col-sm-12 col-xs-12 padding1px margin-bottom-10  googlecompaarable">
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <!-- CTB-2683 -->
+                                            <!-- <select class="form-control select2me" name="Searchoptions"
+                                              multiple ng-model="Searchoptions"
+                                              data-placeholder="Select search options"
+                                              ng-options="option.id as option.supplierName for option in ReplacementSuplier"
+                                              ng-change="Searchoptions.length != 0 && CommonObj.SearchComparables != ''  ? SearchReplacement() : IsLoading = false; GoogleComparableList=[]"></select> -->
+                                            <div class="col-md-4  col-lg-4 col-sm-4 col-xs-4"
+                                                ng-repeat="supplier in ReplacementSuplier | limitTo:3">
+                                                <button
+                                                    ng-style="{'background-color': supplier.isSelected == true ? '#337ab7' : '#ddd', 'color': supplier.isSelected == true ?  'white' : '#000000' }"
+                                                    class="form-control btn sbold btnMargin" name="Searchoptions"
+                                                    ng-click="Searchoptions.length != 0 && CommonObj.SearchComparables != ''  ? addOrRemoveSearchEngine(supplier) : IsLoading = false; GoogleComparableList=[]">
+                                                    {{supplier.supplierName}}
+                                                </button>
+                                            </div>
+
+                                            <!-- end CTB-2683 -->
+                                        </div>
+                                        <div class="col-md-12 col-sm-12 col-xs-12" style="padding-top:5px ;">
+                                            <!-- <div class="col-md-2 col-sm-2 col-xs-2" style="padding-left: 0px;">
+                                                                <input type="text" class="priceCurrency" id="priceFrom" name="priceFrom" ng-model="CommonObj.priceFrom" input-currency decimal-Only placeholder="Price From">
+                                                                <label class="priceCurrencyLbl"  for="priceFrom">{{CommonObj.priceFrom == null ? 0 :CommonObj.priceFrom | currency}}</label>
+
+                                                            </div>
+                                                            <div class="col-md-1 col-sm-1 col-xs-1" >
+                                                                <span>To</span>
+                                                                </div>
+                                                            <div class="col-md-3 col-sm-3 col-xs-3" class="priceCurrency"  style="padding-left: 0px;margin-left: -40px;">
+                                                                    <input type="text" class="priceCurrency" id="priceTo" name="priceTo" input-currency decimal-Only ng-model="CommonObj.priceTo" placeholder="Price To">
+                                                                    <label class="priceCurrencyLbl"  for="priceTo" >{{CommonObj.priceTo == null ? 0 :CommonObj.priceTo | currency}}</label>
+
+                                                                </div> -->
+                                            <div class="col-md-3 col-sm-3 col-xs-3" style="padding-left: 0px;">
+                                                <span class="prefix">$</span><input type="text" id="priceFrom"
+                                                    class="inputTransperent" name="priceFrom"
+                                                    ng-model="CommonObj.priceFrom" decimal-Only placeholder="Price From"
+                                                    style="width: 50%;">
+                                                <!-- <label class="priceCurrencyLbl"  for="priceFrom">{{CommonObj.priceFrom == null ? 0 :CommonObj.priceFrom | currency}}</label> -->
+
+                                            </div>
+                                            <div class="col-md-1 col-sm-1 col-xs-1">
+                                                <span class="sbold" style="margin-left: -48px;">To</span>
+                                            </div>
+                                            <div class="col-md-3 col-sm-3 col-xs-3"
+                                                style="padding-left: 0px;margin-left: -40px;">
+                                                <span class="prefix">$</span><input type="text" id="priceTo"
+                                                    class="inputTransperent" name="priceTo" decimal-Only
+                                                    ng-model="CommonObj.priceTo" placeholder="Price To"
+                                                    style="width: 50%;">
+                                                <!-- <label class="priceCurrencyLbl"  for="priceTo" >{{CommonObj.priceTo == null ? 0 :CommonObj.priceTo | currency}}</label> -->
+                                            </div>
+                                            <div class="col-md-6 col-sm-6 col-xs-6"
+                                                style="padding-left: 0px;margin-left: -67px;">
+                                                <span class="sbold">Brand : </span>
+                                                <input type="text" class="inputTransperent" ng-model="CommonObj.brand"
+                                                    ng-keydown="$event.which === 13 && SearchReplacement()"
+                                                    placeholder="Enter Brand Name">
+                                                <!-- <label class="priceCurrencyLbl"  for="priceTo" >{{CommonObj.priceTo == null ? 0 :CommonObj.priceTo | currency}}</label> -->
+                                            </div>
+
+                                            <a ng-click="SearchReplacement()" class="sbold">Go</a>
+                                            <!-- {
+                                                      border: 0;
+                                                      outline: 0;
+                                                      border-bottom: 2px solid blue;
+                                                  } -->
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 table-responsive "
+                                        infinity-scroll="NextPage()" id="infinity_scroll_table"
+                                        style="max-height:505px;overflow-y:scroll;overflow-x:hidden;">
+                                        <div class="col-md-12 col-lg-12 portlet light  clearfix"
+                                            ng-class="{'borderIsVendorItem':comparable.isvendorItem,'bordered':!comparable.isvendorItem}"
+                                            style="width:100%;padding-bottom:4px;"
+                                            ng-repeat="comparable in GoogleComparableList|orderBy:OrderByPrice track by $index">
+                                            <div class="col-md-4 col-lg-2 col-sm-3 text-center imageHeightComparable">
+                                                <img ng-src="{{comparable.imageURL}}"
+                                                    onerror="this.onerror=null; this.src='assets/global/img/no-image.png';"
+                                                    class="ImageComparable" />
+                                            </div>
+                                            <div class="col-md-8 col-lg-7 col-sm-9 padding1px">
+                                                <div
+                                                    class="col-md-12 col-lg-12 col-sm-12 col-xs-12 styleflex padding1px">
+                                                    <div class="col-md-4 col-sm-3 col-lg-3 padding1px">
+                                                        <label
+                                                            class="text-success">{{"ControlText.Description"|translate}}:
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-md-8 col-lg-9 col-sm-9 col-xs-12 tip ">
+                                                        <span class="Overlay"
+                                                            ng-if="comparable.description.length>55">{{comparable.description}}</span><span>{{comparable.description | limitTo: 55}}{{comparable.description.length >  55 ? '...' : ''}}</span>
+                                                    </div>
+                                                </div>
+                                                <div
+                                                    class="col-md-12 col-lg-12 col-sm-12 col-xs-12 styleflex padding1px">
+                                                    <div class="col-md-4 col-lg-3 col-sm-3 padding1px">
+                                                        <label class="text-success">{{"ControlText.Brand"|translate}}:
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-md-8 col-lg-9 col-sm-9 ">
+                                                        <span class="Overlay"
+                                                            ng-if="comparable.brand.length>25">{{comparable.brand}}</span>
+                                                        <span>
+                                                            {{comparable.brand | limitTo: 25}}{{comparable.brand.length >  25 ? '...' : ''}}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div
+                                                    class="col-md-12 col-lg-12 col-sm-12 col-xs-12 styleflex padding1px">
+                                                    <div class="col-md-4 col-lg-3 col-sm-3  padding1px">
+                                                        <label class="text-success">{{"ControlText.Model"|translate}}:
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-md-8 col-lg-9 col-sm-9 ">
+                                                        <span class="Overlay"
+                                                            ng-if="comparable.model.length>25">{{comparable.model}}</span>
+                                                        <span>
+                                                            {{comparable.model | limitTo: 25}}{{comparable.model.length >  25 ? '...' : ''}}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 col-lg-12 col-sm-12 styleflex padding1px">
+                                                    <div class="col-md-4 col-lg-3 col-sm-3 padding1px">
+                                                        <label class="text-success">{{"ControlText.Price"|translate}}:
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-md-8 col-lg-9 col-sm-9 ">
+                                                        <label>{{comparable.price|USCurrencyFormat}}</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 col-lg-3 col-sm-12 text-center"
+                                                style="padding-left: 0px;padding-right: 0px;">
+                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding1px margin-bottom-10 font-green"
+                                                    style="margin-top: 25px;">
+                                                    <button class="btn-link form-control"
+                                                        ng-click="AddtoComparableList(comparable)"
+                                                        style="padding: 0px!important;">
+                                                        {{"ControlText.AddComparables"|translate}}
+                                                    </button>
+                                                </div>
+                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding1px margin-bottom-10 font-green"
+                                                    style="margin-top: 15px;">
+                                                    <button class="btn-link form-control"
+                                                        ng-click="addToComparableAndMarkAsReplacement(comparable)"
+                                                        style="padding: 0px!important;">
+                                                        {{"Mark as replacement item"|translate}}
+                                                    </button>
+                                                </div>
+                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding1px">
+                                                    <a herf="#" style="color:red;"
+                                                        ng-click="ShopNow(comparable)">{{"ControlText.BuyHere"|translate}}</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div ng-if="IsLoading" class="loading text-center col-sm-12"
+                                            style="position: relative;">
+                                            <div class="text-center">
+                                                <i class="fa fa-spinner fa-spin fa-2x fa-fw"></i>
+                                            </div>
+                                        </div>
+                                        <div ng-show="GoogleComparableList.length===0 && !IsLoading"
+                                            class="col-md-12 col-lg-12 text-center text-danger">
+                                            {{"ControlText.LoderGoogle"|translate}}</div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--End Search Comparables-->
+                </div>
+            </div>
+            <!-- </div> -->
+        </div>
+        <!---End Comparables Item-->
+
+        <!-- CTB-2683 -->
+        <!--Added Comparables-->
+        <div class="col-md-5 col-lg-5 padding1px margin-top-10">
+            <div class="portlet light margin-top-15 "
+                style="padding-bottom: 0px;margin-top: 0px!important; padding-top: 10px;">
+                <div class="portlet-title text-center">
+                    <div class="caption font-green text-center" style="padding-bottom:0px;">
+                        <span class="caption-subject bold">
+                            {{"HeaderText.AddedComparables"|translate}}</span>
+                    </div>
+                    <div class="tools">
+                        <a href="#" class="fullscreen"></a>
+                    </div>
+                </div>
+                <div class="portlet-body responsive">
+                    <div class="row">
+                        <div class="table-responsive  padding1px">
+                            <div class="col-md-12 col-lg-12 col-sm-12 table-responsive original-item-details form-group padding1px"
+                                style="border: 1px solid lightgray; height: 500px;">
+                                <div style="padding-left: 14px;padding-right: 14px;">
+                                    <div ng-repeat="item in Comparables.comparableItems | filter:{ isDelete: false}"
+                                        class="col-box" style="padding:2px;min-width: 49%;margin: 5px 0px 5px 5px;">
+                                        <div ng-show="item.isReplacementItem===false"
+                                            class="col-md-12 col-lg-12 col-sm-12 bordered"
+                                            style="min-height: 190px;padding-right: 5px;padding:5px;  border: 1px solid #c7ccd0 !important;border-radius: 4px;">
+
+                                            <a href="#" title="Remove"
+                                                style="color: red;font-size: 20px;float: right;margin-top: -2px;"
+                                                ng-click="RemoveFromComparableList(item)">
+                                                <span class="glyphicon glyphicon-remove"></span>
+                                            </a>
+                                            <div class="col-md-5 col-sm-6 col-lg-5" style="padding: 0px;">
+                                                <div
+                                                    class="col-md-12 col-sm-12 col-lg-12 text-center imageHeightComparable">
+                                                    <img ng-src="{{item.imageURL}}"
+                                                        onerror="this.onerror=null; this.src='assets/global/img/no-image.png';"
+                                                        class="ImageComparable" /><br />
+                                                </div>
+                                                <div class="col-md-12 col-sm-12 col-lg-12 text-center"
+                                                    style="padding: 0px;">
+                                                    <label>{{item.price |currency}}</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6 col-lg-6 col-sm-6 tip"
+                                                style="max-height: 115px;height: 115px;padding-right: 0px; padding-left: 7px;">
+                                                <span
+                                                    title="{{item.description}}">{{item.description| limitTo : 50}}{{item.description.length>50 ? '...' :''}}
+                                                    <i class="fa fa-info-circle" style="font-size:20px;margin-top:6px"
+                                                        aria-hidden="true"></i>
+                                                </span>
+                                                <!-- {{item.description| limitTo : 50}}{{item.description.length>50 ? '...' :''}}
+                                                                  <span class="Overlay" ng-if="item.description">{{item.description }}</span> -->
+                                            </div>
+                                            <div class="col-lg-12 col-md-12 col-sm-12 text-center">
+                                                <input type="radio" name="replItem" ng-model="item.isReplacementItem"
+                                                    ng-value="true" ng-click="MarkAsReplacement(item)" />
+                                                <label for="replItem"
+                                                    class="mt-checkbox mt-checkbox-outline text-success"
+                                                    ng-click="MarkAsReplacement(item)"
+                                                    style="font-size:13px;padding-left: 5px;vertical-align: top;">{{"Mark as replacement item"|translate}}</label>
+                                            </div>
+                                            <div class="col-lg-12 col-md-12 col-sm-12 text-center col-xs-12"
+                                                ng-click="ShopNow(item)">
+                                                <a herf="#" style="color:red;">{{"ControlText.BuyHere"|translate}}</a>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div ng-if="Comparables.comparableItems==null || (Comparables.comparableItems!=null && Comparables.comparableItems.length==0)"
+                                    style="text-align:center;height:100%;padding:80px;">
+                                    <span class="text-danger">{{"No comparable added yet"|translate}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--End Added Comparables-->
+        <!-- end CTB-2683 -->
+    </div>
+    <!-- </div> -->
+    <!--End Replacement Item-->
+
+    <!-- Attachements Preview Start -->
+    <div class="panel panel-defaul" id="img_preview" draggable ng-show="imgDiv">
+        <div class="col-md-12 col-sm-12" style="padding: 0px 10px;">
+            <label class="col-md-12 col-sm-12 SubHeadingDiv margin-bottom-10"
+                style="font-size: 14px;">{{DocxDetails.FileName}}</label>
+            <div class="col-md-12 col-sm-12 margin-bottom-10" style="text-align: left;">
+                <a class="btn btn-default sbold btnMargin" ng-show="showDownload"
+                    ng-click="downloadAttachment(DocxDetails)">Download</a>
+                <a class="btn btn-default sbold btnMargin" ng-show="showDelete"
+                    ng-click="deleteItemAttachment(DocxDetails)">Delete</a>
+                <a id="previewclose" class="btn btn-default sbold btnMargin" ng-click="close()">Close
+                    Preview</a>
+                <a ng-if="isPDF == 2" id="previewclose" class="btn btn-default sbold btnMargin glyphicon glyphicon-plus"
+                    ng-click="largeMe()"></a>
+                <a ng-if="isPDF == 2" id="previewclose"
+                    class="btn btn-default sbold btnMargin glyphicon glyphicon-minus" ng-click="smallMe()"></a>
+            </div>
+        </div>
+        <div class="col-md-12 col-sm-12">
+            <div class="image-wrapper">
+                <img id="imagepre" ng-if="isPDF == 2"
+                    onerror="this.onerror=null; this.src='assets/global/img/no-image.png';" class="ImageDocx"
+                    ng-src="{{DocxDetails.url}}" alt="Image" />
+                <!-- Show PDF region Render PDF here -->
+                <ng-pdf ng-if="isPDF===1" template-url="views/GlobalSearch/PdfViewer.html" canvasid="pdf"
+                    scale="page-fit" page=1>
+                </ng-pdf>
+                <!--End Show PDF region -->
+                <div ng-if="isPDF == 0" class="col-sm-8 col-md-6 col-xs-12" style="height:230px;width:100%;">
+                    <div class="col-md-12 col-sm-12 col-xs-12 well text-center">
+                        <span
+                            class="text-info">{{"File type does not support preview option. File will start downloading.."|translate}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-defaul" id="video_preview" draggable ng-show="videoDiv">
+        <div class="col-md-12 col-sm-12" style="padding: 0px 10px;">
+            <label class="col-md-12 col-sm-12 SubHeadingDiv margin-bottom-10"
+                style="font-size: 14px;">{{ItemDetails.videoLink}}</label>
+            <a id="previewclose" class="btn btn-default sbold btnMargin" ng-click="closeVideoPreview()">Close
+                Preview</a>
+        </div>
+        <div class="col-md-12 col-sm-12" id="videoPre" style="padding-top:10px;">
+            <iframe id="videoPre" width="600" height="350" src="{{givenURL}}" title="Video Player"
+                allowfullscreen></iframe>
+        </div>
+    </div>
+</div>
+<script type="text/ng-template" id="images">
+    <div class="col-md-12 col-sm-12 padding1px"
+                                    style="text-align: center; width: 100%;">
+                                    <a class="TextDecorationNone"
+                                        style="top:10px;left:40px;position:relative"
+                                        ng-click="deleteItemAttachment(file)">
+                                        <i class="fa fa-times-circle fa-2x text-danger"
+                                            aria-hidden="true"></i></a>
+                                    <div  class="flex-justify-center">
+                                        <img ng-if="isPdf(file.FileName)" ng-src='assets/global/img/pdf-icon.svg'
+                                            class="img-responsive bordered" alt="PDF"/>
+
+                                            <img ng-if="isExcel(file.FileName)" ng-src='assets/global/img/excel-icon.png'
+                                            class="img-responsive bordered " alt="Excel"/>
+
+                                            <img ng-if="isImage(file.FileName)" ng-src="{{file.url ? file.url : file.Image}}" alt="Pictures of the incident"
+                                            class="img-responsive bordered "/>
+
+                                            <img ng-if="isDocx(file.FileName)" ng-src='assets/global/img/docs-file.svg'
+                                            class="img-responsive bordered " alt="Doc" />
+                                    </div>
+                                    <span id="previewDocs" class="sbold"
+                                        style="word-break: break-word;font-family:Calibri; font-size:14px;cursor:pointer"
+                                        ng-click="GetDocxDetails(file)"><a
+                                            title="{{file.FileName}}">{{file.FileName| limitTo:15}}{{file.FileName.length < 15 ? '': ' ...'}}</a></span>
+                                </div>
+
+</script>
+<!-- CTB-2313 -->
+<script>
+    // Floating Item Details Box
+    $(document).scroll(function () {
+        var y = $(this).scrollTop();
+        var wrap = $(".summaryBox");
+        var compTbl = $('#compTbl');
+        var corsor = $(".Cursor");
+        if (y > 610) {
+            wrap.addClass("fix-summaryBox");
+            wrap.removeClass("hide");
+            compTbl.addClass("fix-marginTop");
+            // left and right arrows
+            corsor.addClass("CursorLeft")
+            corsor.removeClass("hide");
+        } else {
+            wrap.removeClass("fix-summaryBox");
+            wrap.addClass("hide");
+            compTbl.removeClass("fix-marginTop");
+            //left and right arrows
+            corsor.removeClass("CursorLeft")
+            corsor.addClass("hide");
+        }
+    });
+
+    $(function () {
+        $('[data-toggle="popover"]').popover()
+    })
+</script>
+<!-- end CTB-2313 -->
+
+<!---------------------------------------------------------------------->

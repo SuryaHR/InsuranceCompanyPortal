@@ -1,0 +1,31 @@
+﻿{
+  "ControlText": {
+    "AssignClaims_title": "Assign",
+    "RejectClaims_title": "Reject"
+
+  },
+
+  "HeaderTitle": {
+    "MyClaims_title": "My Claims"
+
+  },
+  "Label": {
+    "Show_title": "Show",
+    "View_title": "View"
+
+  },
+
+  "Table": {
+    "MyClaimsId": "Id",
+    "MyClaimsType": "Type",
+    "MyClaimsClaim": "Claim Id",
+    "MyClaimsPolicy": "Policy No",
+    "MyClaimsInsuredsName": "Policyholder",
+    "MyClaimsDateOfClaim": "Claim Date",
+    "MyClaimsStatus": "Status"
+  },
+
+  "NoRecordText": "No Records Available",
+  "MainSearchText": "search...Claims #,Policyholder, Vendor",
+  "MyClaimsSearchText":"Search.."
+}

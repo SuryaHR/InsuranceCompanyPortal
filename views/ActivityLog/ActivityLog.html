@@ -1,0 +1,519 @@
+﻿
+<style>
+    .lineThrough{
+        width: 100%;
+       text-align: center;
+       border-bottom: 1px solid #000;
+       line-height: 0.1em;
+       margin: 10px 0 20px;
+    }
+    .lineThrough span{
+        background:#fff;
+        padding:0 10px;
+    }
+    .container{max-width:1170px; margin:auto;}
+    img{ max-width:100%;}
+    .inbox_people {
+      background: #f8f8f8 none repeat scroll 0 0;
+      float: left;
+      overflow: hidden;
+      width: 40%; border-right:1px solid #c4c4c4;
+    }
+    .inbox_msg {
+      border: 1px solid #c4c4c4;
+      clear: both;
+      overflow: hidden;
+    }
+    .top_spac{ margin: 20px 0 0;}
+
+
+    .recent_heading {float: left; width:40%;}
+    .srch_bar {
+      display: inline-block;
+      text-align: right;
+      width: 60%;
+    }
+    .headind_srch{ padding:10px 29px 10px 20px; overflow:hidden; border-bottom:1px solid #c4c4c4;}
+
+    .recent_heading h4 {
+      color: #05728f;
+      font-size: 21px;
+      margin: auto;
+    }
+    .srch_bar input{ border:1px solid #cdcdcd; border-width:0 0 1px 0; width:80%; padding:2px 0 4px 6px; background:none;}
+    .srch_bar .input-group-addon button {
+      background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+      border: medium none;
+      padding: 0;
+      color: #707070;
+      font-size: 18px;
+    }
+    .srch_bar .input-group-addon { margin: 0 0 0 -27px;}
+
+    .chat_ib h5{ font-size:15px; color:#464646; margin:0 0 8px 0;}
+    .chat_ib h5 span{ font-size:13px; float:right;}
+    .chat_ib p{ font-size:14px; color:#989898; margin:auto}
+    .chat_img {
+      float: left;
+      width: 11%;
+    }
+    .chat_ib {
+      float: left;
+      padding: 0 0 0 15px;
+      width: 88%;
+    }
+
+    .chat_people{ overflow:hidden; clear:both;}
+    .chat_list {
+      border-bottom: 1px solid #c4c4c4;
+      margin: 0;
+      padding: 18px 16px 10px;
+    }
+    .inbox_chat { height: 550px; overflow-y: scroll;}
+
+    .active_chat{ background:#ebebeb;}
+
+    .incoming_msg_img {
+      display: inline-block;
+      width: 9%;
+      text-align: center;
+    }
+    .received_msg {
+      display: inline-block;
+      padding: 0 0 0 16px;
+      vertical-align: top;
+      width: 90%;
+     }
+     .received_withd_msg p {
+      border-radius: 3px;
+      color: #646464;
+      font-size: 14px;
+      margin: 0;
+      padding: 5px 10px 5px 12px;
+      width: 100%;
+    }
+    .time_date {
+      color: #747474;
+      display: block;
+      font-size: 12px;
+      margin: 8px 0 0;
+    }
+    .received_withd_msg { width: 57%;}
+    .mesgs {
+      float: left;
+      padding: 30px 15px 0 25px;
+      width: 60%;
+    }
+
+     .sent_msg p {
+      border-radius: 3px;
+      font-size: 14px;
+      margin: 0; color:#fff;
+      padding: 5px 10px 5px 12px;
+      width:100%;
+    }
+    /* .outgoing_msg{ overflow:hidden; margin:26px 0 26px;} */
+    .sent_msg {
+      float: right;
+      width: 46%;
+    }
+    .msgbg_activtyevent p{
+        background: #ecb92d none repeat scroll 0 0;
+        color:#000 !important;
+    }
+    .sent_msgbg_nonactivtyevent p{
+        background: #05728f none repeat scroll 0 0;
+    }
+
+    .received_msg_bg_nonactivtyevent p{
+        background: #ebebeb none repeat scroll 0 0;
+    }
+
+    .input_msg_write input {
+      background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+      border: medium none;
+      color: #4c4c4c;
+      font-size: 15px;
+      min-height: 48px;
+      width: 100%;
+    }
+
+    .type_msg {border-top: 1px solid #c4c4c4;position: relative;}
+    .msg_send_btn {
+      background: #05728f none repeat scroll 0 0;
+      border: medium none;
+      border-radius: 50%;
+      color: #fff;
+      cursor: pointer;
+      font-size: 17px;
+      height: 33px;
+      position: absolute;
+      right: 0;
+      top: 11px;
+      width: 33px;
+    }
+    .messaging { padding: 0 0 50px 0;}
+    .msg_history {
+      height: 516px;
+      overflow-y: auto;
+    }
+
+    .img-responsive {
+        width: 80px;
+        height: 80px;
+    }
+
+    .incoming_img{
+        width: 20%;
+        /* margin-left: -28px;
+        margin-bottom: 10px; */
+        display: inline-block;
+    }
+
+    .outgoing_img{
+        width: 20%;
+        margin-right: -90px;
+        display: inline-block;
+    }
+
+    .msg_attachment {
+        padding: 0px 10px;
+        margin-top: 35px;
+        /* float: right; */
+    }
+
+    .msg_attachment_incoming {
+        padding: 0px 10px;
+        /* margin-top: -30px; */
+        /* float: right; */
+    }
+
+    #img_preview {
+        min-height: 450px !important;
+        width: 675px !important;
+        padding: 10px 0px;
+        position: fixed;
+        z-index: 20;
+    }
+
+    .image-wrapper {
+        max-height: 370px !important;
+        /* padding: 0px 10px; */
+        overflow: auto;
+    }
+
+    #video_preview {
+        min-height: 490px !important;
+        width: 675px !important;
+        padding: 10px 0px;
+        position: fixed;
+        z-index: 20;
+    }
+
+    .toggleButton {
+        padding-top:5px;
+        padding-bottom:5px;
+        margin-top: 20px;
+        text-align: center;
+    }
+    
+    </style>
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding1px">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12  clearfix">
+        <div class="portlet light padding1px">
+            <div class="portlet-title">
+                <div class="caption font-gray-sharp" ng-hide="!ClaimLog">
+                    <span class="caption-subject">{{"Assignment Activity Log"|translate}}</span>
+                </div>
+                <div class="caption font-gray-sharp" ng-hide="ClaimLog">
+                    <span class="caption-subject">{{"Item Activity Log"|translate}}</span>
+                </div>
+            </div>
+
+            <div class="portlet-body">
+                <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 clearfix" style="margin-top: 5px;margin-bottom: 5px;"  ng-hide="!ClaimLog">
+                            <button class = "pull-right" ng-click="exportLogPdf()"
+                                style="padding: 0px!important;">
+                                {{"Download as PDF"|translate}}
+                            </button>
+
+                            <button class = "pull-right" ng-click="AddCustomActivityPopup()"
+                                style="padding: 0px!important; margin-right:10px;">
+                                {{"Add Activity"|translate}}
+                            </button>                            
+                        </div>
+                        <!--Start Claim Activity Log-->
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 clearfix" style="padding: 0px;">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-repeat="item in logs track by $index" style="padding: 0px;">
+                                <span class="col-lg-12 col-md-12 col-sm-12 col-xs-12 options_Background_WithBorder toggleButton" ng-click="toggleAction(item.createdDate)"
+                                ng-if = "item.createdDate != logs[$index-1].createdDate && item.activityType == 'action'">
+                                    <span class="text_options_Label sbold caption ng-binding">{{item.createdDate}}
+                                        <!--Collapse-->
+                                 <i ng-show="toggle[item.createdDate]" class="fa fa-angle-double-up"  style="font-size: 20px;position:relative;float:right;"></i>
+                                    
+                                 <!--Exapand-->
+                                 <i ng-show="!toggle[item.createdDate]" class="fa fa-angle-double-down"  style="font-size: 20px;position:relative;float:right;"></i>
+                                    </span></span>
+                                <div ng-show="!toggle[item.createdDate]">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 0px;">
+                                    <div  ng-show = "item.message != '' && item.message != null" class="incoming_msg" ng-if="item.messageType == 'incoming'">
+                                        <div class="incoming_msg_img"> <img style="height:50px;width:50px; " src="https://ptetutorials.com/images/user-profile.png" alt="profilePic">
+                                            <span>{{item.updatedByUserName}}</span> </div>
+                                        <div class="received_msg">
+                                            <div ng-class="{'msgbg_activtyevent received_withd_msg': item.activityEventName != null , 'received_msg_bg_nonactivtyevent received_withd_msg' : item.activityEventName == null}"
+                                            ng-init="desclimit = desclimit; descMoreShown = false">
+                                                <p>{{(item.message | limitTo: desclimit) + (item.message.length > desclimit ? '...' :
+                                                    '')}}
+                                                    <a style="color: #fff;" ng-show="item.message.length > desclimit && !descMoreShown"
+                                                        stop-propagation ng-click="desclimit=item.message.length; descMoreShown = true">
+                                                        More
+                                                    </a>
+                                                    <a style="color: #fff;" ng-show="descMoreShown" href stop-propagation ng-click="descMoreShown = false; desclimit=200; ">
+                                                        Less </a>
+                                                </p>
+                                            </div>
+                                        <div class="incoming_img" ng-show="item.attachments.length > 0">
+                                            <span class="msg_attachment_incoming margin-top-5"  class="pull-left"
+                                                ng-click="GetDocxDetails(attachment)" ng-repeat="attachment in item.attachments track by $index">                                                
+                                                <img ng-if="isPdf(attachment.name)" ng-src='assets/global/img/pdf-icon.svg'
+                                                    alt="attachment.name" class="img-responsive" title="{{attachment.name}}" />
+                                                <img ng-if="isExcel(attachment.name)" ng-src='assets/global/img/excel-icon.png'
+                                                    alt="attachment.name" class="img-responsive" title="{{attachment.name}}" />
+                                                <img ng-if=isImage(attachment.name) ng-src="{{attachment.url}}"
+                                                    alt="{{attachment.name}}" class="img-responsive bordered"
+                                                    title="{{attachment.name}}" />
+                                                <img ng-if=isDocx(attachment.name) ng-src='assets/global/img/docs-file.svg'
+                                                    alt="attachment.name" class="img-responsive" title="{{attachment.name}}" />
+                                                <img ng-if=isVideo(attachment.name) ng-src='assets/global/img/video-play-button.svg'
+                                                    alt="attachment.name" class="img-responsive" title="{{attachment.name}}" />
+                                                <a class="TextDecorationNone"
+                                                    title="{{attachment.name}}">{{attachment.name| limitTo:10}}{{attachment.name.length < 10 ? '': ' ...'}}</a>
+                                            </span>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    <div  ng-show = "item.message != '' && item.message != null" class="outgoing_msg" ng-if="item.messageType ==  'outgoing'">
+                                        <div class="incoming_msg_img pull-right"> <img style="margin-left:20px;height:50px;width:50px; " src="https://ptetutorials.com/images/user-profile.png" alt="profilePic">
+                                          <span>{{item.updatedByUserName}}</span> 
+                                        </div>
+                                        <div ng-class="{'msgbg_activtyevent sent_msg': item.activityEventName != null , 'sent_msgbg_nonactivtyevent sent_msg' : item.activityEventName == null}"
+                                        ng-init="desclimit = desclimit; descMoreShown = false">
+                                        <div class="sent_withd_msg">
+                                                <p>{{(item.message | limitTo: desclimit) + (item.message.length > desclimit ? '...' :
+                                                    '')}}
+                                                    <a style="color: #fff;" ng-show="item.message.length > desclimit && !descMoreShown"
+                                                        stop-propagation ng-click="desclimit=item.message.length; descMoreShown = true">
+                                                        More
+                                                    </a>
+                                                    <a style="color: #fff;" ng-show="descMoreShown" href stop-propagation ng-click="descMoreShown = false; desclimit=200; ">
+                                                        Less </a>
+                                                </p>
+                                        </div>
+                                        <div class="incoming_img" ng-show="item.attachments.length > 0">
+                                            <span class="msg_attachment margin-top-5"  class="pull-left"
+                                                ng-click="GetDocxDetails(attachment)" ng-repeat="attachment in item.attachments track by $index">                                                
+                                                <img ng-if="isPdf(attachment.name)" ng-src='assets/global/img/pdf-icon.svg'
+                                                    alt="attachment.name" class="img-responsive" title="{{attachment.name}}" />
+                                                <img ng-if="isExcel(attachment.name)" ng-src='assets/global/img/excel-icon.png'
+                                                    alt="attachment.name" class="img-responsive" title="{{attachment.name}}" />
+                                                <img ng-if=isImage(attachment.name) ng-src="{{attachment.url}}"
+                                                    alt="{{attachment.name}}" class="img-responsive bordered"
+                                                    title="{{attachment.name}}" />
+                                                <img ng-if=isDocx(attachment.name) ng-src='assets/global/img/docs-file.svg'
+                                                    alt="attachment.name" class="img-responsive" title="{{attachment.name}}" />
+                                                <img ng-if=isVideo(attachment.name) ng-src='assets/global/img/video-play-button.svg'
+                                                    alt="attachment.name" class="img-responsive" title="{{attachment.name}}" />
+                                                <a class="TextDecorationNone"
+                                                    title="{{attachment.name}}">{{attachment.name| limitTo:10}}{{attachment.name.length < 10 ? '': ' ...'}}</a>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    </div>
+                                    <div class="text-center margin-bottom-5" ng-if="item.activityType == 'action'">
+                                        <span class="time_date text-center">{{item.logCreatedDate | formatDateTimezone}}</span>
+                                        <span class="sbold">{{item.message}}</span>
+                                    </div>
+                                </div>
+                                </div>
+                            <!-- <span>________________________ {{item.date}} ________________________</span> -->
+
+                        </div>
+
+                    </div>
+
+                    <!-- Attachements Preview Start -->
+                    <div class="panel panel-defaul" id="img_preview" draggable ng-show="imgDiv">
+                        <div class="col-md-12 col-sm-12" style="padding: 0px 10px;">
+                            <label class="col-md-12 col-sm-12 SubHeadingDiv margin-bottom-10"
+                                style="font-size: 14px;">{{DocxDetails.FileName}}</label>
+                            <div class="col-md-12 col-sm-12 margin-bottom-10" style="text-align: left;">
+                                <a class="btn btn-default sbold btnMargin" ng-show="showDownload"
+                                    ng-click="downloadAttachment(DocxDetails)">Download</a>
+                                <a class="btn btn-default sbold btnMargin" ng-show="showDelete"
+                                    ng-click="deleteItemAttachment(DocxDetails)">Delete</a>
+                                <a id="previewclose" class="btn btn-default sbold btnMargin" ng-click="close()">Close
+                                    Preview</a>
+                                <a ng-if="isPDF == 2" id="previewclose"
+                                    class="btn btn-default sbold btnMargin glyphicon glyphicon-plus"
+                                    ng-click="largeMe()"></a>
+                                <a ng-if="isPDF == 2" id="previewclose"
+                                    class="btn btn-default sbold btnMargin glyphicon glyphicon-minus"
+                                    ng-click="smallMe()"></a>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-sm-12">
+                            <div class="image-wrapper">
+                                <img id="imagepre" ng-if="isPDF == 2"
+                                    onerror="this.onerror=null; this.src='assets/global/img/no-image.png';"
+                                    class="ImageDocx" ng-src="{{DocxDetails.url}}" alt="Image" />
+                                <!-- Show PDF region Render PDF here -->
+                                <ng-pdf ng-if="isPDF===1" template-url="views/GlobalSearch/PdfViewer.html" canvasid="pdf"
+                                    scale="page-fit" page=1>
+                                </ng-pdf>
+                                <!--End Show PDF region -->
+                                <div ng-if="isPDF == 0" class="col-sm-8 col-md-6 col-xs-12"
+                                    style="height:230px;width:100%;">
+                                    <div class="col-md-12 col-sm-12 col-xs-12 well text-center">
+                                        <span
+                                            class="text-info">{{"File type does not support preview option. File will start downloading.."|translate}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Attachements Preview End -->
+
+                    <!-- <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 clearfix" ng-show="ClaimLog">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 options_Background padding1px">
+
+                            <div class="caption font-green-sharp col-lg-3 col-md-3 col-xs-12 col-sm-3 pull-right padding1px  margin-top-5 margin-bottom-5 manageSearch">
+                                <div class="input-icon left">
+                                    <i class="icon-magnifier"></i>
+                                    <input type="text" class="form-control form-control-solid input-circle input-block-level" ng-model="searchFormData" placeholder={{"Search..."|translate}}>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive padding1px">
+                            <table class="table table-bordered table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th class="text-left" ng-click="SortClaimForm('actionTaken')">
+                                            {{"Table.ActionTaken"|translate}}
+                                        </th>
+                                        <th class="text-left" ng-click="SortClaimForm('status.status')">
+                                            {{"Table.Status"|translate}}
+                                        </th>
+                                        <th class="text-left" ng-click="SortClaimForm('updatedDate')">
+                                            {{"Table.TimeStamp"|translate}}
+                                        </th>
+                                        <th class="text-left" ng-click="SortClaimForm('updatedBy.name')">
+                                            {{"Table.ActionTakenBy"|translate}}
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr dir-paginate="item in LogList|orderBy:sortKey:reverse|filter:searchFormData|itemsPerPage:pagesize" pagination-id="AssignmentItemList">
+                                        <td class="text-left" ng-click="GoToDetails(item)">{{item.actionTaken}}</td>
+                                        <td class="text-left" ng-click="GoToDetails(item)">{{item.status.status | uppercase}}</td>
+                                        <td class="text-left" ng-click="GoToDetails(item)">{{item.updatedDate| MediumDateFilter}}</td>
+                                        <td class="text-left" ng-click="GoToDetails(item)">{{item.updatedBy.name}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div ng-show="!LogList.length" class="col-md-12 text-center text-danger">{{"NoRecordText"|translate}}</div>
+                            <div class="text-center">
+                                <dir-pagination-controls ng-if="LogList!=null" max-size="3"
+                                                         direction-links="true"
+                                                         boundary-links="true" pagination-id="AssignmentItemList">
+                                </dir-pagination-controls>
+                            </div>
+                        </div>
+                    </div> -->
+                    <!--Stop Claim Activity Log-->
+                    <!--Start Item Activity Log-->
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 clearfix" style="padding: 0px;" ng-hide="ClaimLog">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-repeat="item in logs track by $index" style="padding: 0px;">
+                            <span class="col-lg-12 col-md-12 col-sm-12 col-xs-12  options_Background_WithBorder toggleButton"  ng-click="toggleAction(item.createdDate)"
+                             ng-if="item.createdDate != logs[$index-1].createdDate">
+                                <span class="text_options_Label sbold caption ng-binding">{{item.updatedDate |fullDate }}
+                                           <!--Collapse-->
+                                 <i ng-show="toggle[item.createdDate]" class="fa fa-angle-double-up"  style="font-size: 20px;position:relative;float:right;"></i>
+                                    
+                                 <!--Exapand-->
+                                 <i ng-show="!toggle[item.createdDate]" class="fa fa-angle-double-down"  style="font-size: 20px;position:relative;float:right;"></i>
+                                </span></span>
+                                <div ng-show="!toggle[item.createdDate]">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 0px;">
+                                        <div class="text-center">
+                                            <span
+                                                class="time_date text-center">{{item.updatedDate | MediumDateFilter}}</span>
+                                            <span class="sbold" >{{item.actionTaken}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            <!-- <span>________________________ {{item.date}} ________________________</span> -->
+
+                        </div>
+
+                    </div>
+                    <!-- <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 clearfix" ng-hide="ClaimLog">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 options_Background padding1px">
+
+                            <div class="caption font-green-sharp col-lg-3 col-md-3 col-xs-12 col-sm-3 pull-right padding1px  margin-top-5 margin-bottom-5 manageSearch">
+                                <div class="input-icon left">
+                                    <i class="icon-magnifier"></i>
+                                    <input type="text" class="form-control form-control-solid input-circle input-block-level" ng-model="searchFormData" placeholder={{"Search..."|translate}}>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive padding1px">
+                            <table class="table table-bordered table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th class="text-left" ng-click="SortClaimForm('actionTaken')">
+                                            {{"Table.ActionTaken"|translate}}
+                                        </th>
+                                        <th class="text-left" ng-click="SortClaimForm('status.status')">
+                                            {{"Table.Status"|translate}}
+                                        </th>
+                                        <th class="text-left" ng-click="SortClaimForm('updatedDate')">
+                                            {{"Table.TimeStamp"|translate}}
+                                        </th>
+                                        <th class="text-left" ng-click="SortClaimForm('updatedBy.name')">
+                                            {{"Table.ActionTakenBy"|translate}}
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr dir-paginate="item in LogList|orderBy:sortKey:reverse|filter:searchFormData|itemsPerPage:pagesize">
+                                        <td class="text-left" ng-click="GoToDetails(item)">{{item.actionTaken}}</td>
+                                        <td class="text-left" ng-click="GoToDetails(item)">
+                                            {{item.status.status | uppercase}}</td>
+                                        <td class="text-left" ng-click="GoToDetails(item)">
+                                            {{item.updatedDate | DateFormatmedium}}</td>
+                                        <td class="text-left" ng-click="GoToDetails(item)">{{item.updatedBy.name}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div ng-show="!LogList.length" class="col-md-12 text-center text-danger">{{"NoRecordText"|translate}}</div>
+                            <div class="text-center">
+                                <dir-pagination-controls ng-if="LogList!=null" max-size="3"
+                                                         direction-links="true"
+                                                         boundary-links="true" pagination-id="AssignmentItemList">
+                                </dir-pagination-controls>
+                            </div>
+                        </div>
+                    </div> -->
+                    <!--Stop Item Activity Log-->
+                </div>
+            </div>
+            <span style="position: fixed;bottom: 30px;right: 20px;display: block;">
+                <img ng-src='assets/global/img/scrollToTop.png' ng-click="scrollToTop()" style="height: 40px;width: 60px;"
+                                alt="scrollTop" />
+            </span>
+
+        </div>
+    </div>
+
+</div>

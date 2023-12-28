@@ -1,0 +1,96 @@
+﻿<script>
+$(document).ready(function () {
+    $("#select2insidemodal").select2({
+        dropdownParent: $("#myModal")
+    });
+});
+</script>
+<div id="myModal">
+    <div id="responsive">
+        <div class="modal-header">
+            <a class="close" ng-click="cancel()" aria-hidden="true"></a>
+            <h4 class="modal-title">{{"HeaderTitle.CreateEvent"|translate}}</h4>
+        </div>
+        <div class="modal-body">
+            <div class="col-md-12  clearfix  padding1px form-group" ng-form="CreateEventForm" id="CreateEventForm" name="CreateEventForm">
+                <div class="col-md-12 margin-top-5   padding1px form-group clearfix">
+                    <div class="col-md-1 col-sm-1">
+                        <label class="control-label">{{"ControlText.Date"|translate}}</label>
+                    </div>
+                    <div class="col-md-5 col-sm-5">
+                        <div class="input-icon left">
+                            <i class="icon-calendar"></i>
+                            <input class="form-control datepicker" data-date-container='#responsive' required ng-model="CreateEventObject.EventDate" close-on-date-selection="true" data-provide="datepicker" size="16" type="text" placeholder='{{"ControlText.Date"|translate}}' name="EventDate" />
+                            <div class="errormessage">
+                                <div ng-message="required" ng-show="(CreateEventForm.EventDate.$error.required && CreateEventForm.EventDate.$touched)">
+                                    <span class="text-danger">{{"ErrorMessage.DateRequired"|translate}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-1 col-sm-1">
+                        <label class="control-label ">{{"ControlText.Title"|translate}}</label>
+                    </div>
+                    <div class="col-md-5 col-sm-5">
+                        <input class="form-control" required ng-model="CreateEventObject.EventTitle" placeholder='{{"ControlText.Title"|translate}}' name="EventTitle" />
+                        <div class="errormessage">
+                            <div ng-message="required" ng-show="(CreateEventForm.EventTitle.$error.required && CreateEventForm.EventTitle.$touched)">
+                                <span class="text-danger">{{"ErrorMessage.TitleRequired"|translate}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 margin-top-5   padding1px form-group  clearfix">
+                    <div class="col-md-1  margin-top-10 col-sm-1">
+                        <label class="control-label">{{"ControlText.StartTime"|translate}}</label>
+                    </div>
+                    <div class="col-md-5 col-sm-5 col-xs-12">
+                        <uib-timepicker style="margin-top:-6px;" ng-model="CreateEventObject.StartTime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></uib-timepicker>
+                    </div>
+                    <div class="col-md-1 col-sm-1  margin-top-10">
+                        <label class="control-label ">{{"ControlText.EndTime"|translate}}</label>
+                    </div>
+                    <div class="col-md-5 col-sm-5 col-xs-12">
+                        <uib-timepicker style="margin-top:-6px;" ng-model="CreateEventObject.Endtime" ng-change="changed1()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></uib-timepicker>
+                    </div>
+                </div>
+                <div class="col-md-12  margin-top-5  padding1px form-group">
+                    <label class="col-md-3 control-label">{{"ControlText.eventdescription"|translate}}</label>
+                    <div class="col-md-9">
+                        <textarea class="form-control" required ng-model="CreateEventObject.EventNote" placeholder='{{"ControlText.NotePlaceholder"|translate}}' rows="3" name="eventNote"></textarea>
+                        <div class="errormessage">
+                            <div ng-message="required" ng-show="(CreateEventForm.eventNote.$error.required && CreateEventForm.eventNote.$touched)">
+                                <span class="text-danger">{{"ErrorMessage.ClaimNoteRequired"|translate}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12 padding1px">
+                    <label class="col-md-3 control-label">{{"ControlText.selectparticipants"|translate}}</label>
+                    <div class="col-md-9">
+                        <select class="form-control select2me input-large" ng-model="CommonObject.SeletedId" data-placeholder="select" id="select2insidemodal"
+                                ng-change="afterSelectedParticipant()">
+                            <option ng-repeat="item in ClaimParticipantsList" value="{{item.participantId}}">{{item.firstName}} &nbsp; {{item.lastName}}</option>
+                        </select>
+                    </div>
+                    <label class="control-label col-md-3">{{"ControlText.selectedparticipants"|translate}}</label>
+                    <div class="text-info  col-md-9" style="max-height:33px;overflow-y:auto; ">
+                        <span class="valid-status valid text-success">
+                            <i ng-repeat="item in participantsForEvent">{{item.ParticipantName}}<i ng-if="!$last">, &nbsp;</i></i>
+                        </span>
+                        <span class="valid-status invalid text-danger" ng-show="CreateEventForm.person.$invalid">&nbsp;{{"ParticiapntInValidMessage"|translate}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="modal-footer">
+            <button type="button" class="btn sbold btnMargin" ng-click="cancel()">{{"ControlText.Cancel"|translate}}</button>
+            <button type="button" data-dismiss="modal" class="btn sbold btnMargin" ng-click="ok()" ng-disabled="CreateEventForm.$invalid || CreateEventForm.$pristine">{{"ControlText.CreateEvent"|translate}}</button>
+        </div>
+    </div>
+
+</div>
+

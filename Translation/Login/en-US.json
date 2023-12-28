@@ -1,0 +1,54 @@
+﻿{
+  "LoginText": {
+    "LogoText_title": "ARTIGEM",
+    "SignIn_title": "Sign In",
+    "SignUp_title": "Sign Up",
+    "UserName_title": "Username",
+    "Password_title": "Password",
+    "Login":"Login",
+    "Email_title": "Email",
+    "UserName_Agency_title": "Username or Agencycode"
+  },
+  "ErrorMessage": {
+    "UserNameRequired_message": "User name field is required",
+    "ValidEmail_message": "Please enter valid e-mail",
+    "PasswordRequired_message": "Password field is required",
+    "EmailRequired_title": "E-mail required",
+    "FirstNameRequired_message": "First name required",
+    "LastNameRequired_message": "Last name required",
+    "DateBirth_Requird_message": "Date of birth required.",
+    "Email_required": "Email Id required.",
+    "AccNo_required": "Account No required.",
+    "Pas_Required_message": "Password required.",
+    "ConfirmPass_Required": "Confirm password required.",
+    "Password_Mismatch": "Password and Confirm password must be same",
+    "UserName_AgencyCode_Required_message":"User name or Agency code field is required"
+  },
+  "ControlText": {
+    "Login_title": "Login",
+    "Back_title": "Back",
+    "Register_title": "Register",
+    "Submit_title": "Submit",
+    "Remember_title": "Remember",
+    "ForgotPassword_title": "Forgot Your Password?",
+    "ForgotPasswordNote_title": "Provide your email address and we'll send you link to reset your password.",
+    "OrLoginWith_title": "Or Login With",
+    "CreateAnAccount_title": "Create An Account",
+    "CopyrightText_title": " 2016 Artigem. All rights reserved",
+    "FirstName_title": "First Name",
+    "LastName_title": "Last Name",
+    "Account_No": "Account No",
+    "DateOfBirth": "Date Of Birth",
+    "Email": "Email Id",
+
+    "lblEnterYourAccountDetails": "Enter your account details below:",
+    "ConfirmPass": "Re Type Your Password"
+
+  },
+
+  "ForgotPasswordMsg": {
+    "Success" : "An email has been sent to you with details to reset password.",
+    "Error" : "The email entered could not be found in the system. Please verify the email and click on 'Reset Password' button."
+  }
+
+}

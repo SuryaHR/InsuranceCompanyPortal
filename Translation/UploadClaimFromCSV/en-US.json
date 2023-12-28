@@ -1,0 +1,54 @@
+﻿{
+
+  "MainHeader": {
+    "UploadSuccessful": "Upload Successful",
+    "BulkUploadItems": "Bulk Upload Items",
+    "LoadingItems": "Loading Items",
+    "VerifyInformation": "Verify Information"
+  },
+  "ControlText": {
+    "LoadFromFile": "Load from file",
+    "step1": "1. Download the CSV template",
+    "step1.1": "Upload Claims",
+    "step1.2": "to upload claims",
+    "step2": "2. Fill the CSV OR modify existing CSV file.",
+    "step2.1": " Fields marked with a '*' are mandatory.",
+    "step2.2": "If item with same ID already exists, it will be updated.",
+    "step3": " 3. Load updated file and start and click on start upload.",
+    "SelectFile": "Choose File",
+    "NoFileselected": "No File selected",
+    "step": "Steps for uploading claims in bulk:",
+    "LoadingItems": "Loading Items",
+    "FileName": "File Name",
+    "Status": "Status",
+    "StartUpload": "Start Upload",
+    "RowsProcessed": "Rows Processed",
+    "ItemsUpdated": "Items Updated",
+    "NewItemsCreated": "New Items Created",
+    "RowProcessed": "Row Processed",
+    "Done": "Done",
+    "Cancel": "Cancel",
+    "FinishUplolad": "Finish Upload"
+
+  },
+  "Id": "Claim Id",
+  "IncidentDate": "Incident Date",
+  "PolicyNo": "Policy No.",
+  "AccNo": "Account No",
+  "HomeOwnersPolicyType": "Home Owners Policy Type",
+  "PolicyHolderFirstName": "Policy Holder First Name",
+  "PolicyHolderLastName": "Policy Holder Last Name",
+  "Email": "Email",
+  "DayTimePhone": "Day Time Phone",
+  "EveningTimePhone": "Evening Time Phone",
+  "CellPhone": "Cell Phone",
+  "Address": "Address",
+  "ClaimNo": "Claim No.",
+  "TaxRate": "TaxRate",
+  "ReplacementOption": "Replacement Option",
+  "ClaimReportDate": "Claim Report Date",
+  "DamageType": "Damage Type",
+  "ReportDetails": "Report Details",
+  "AdditionalNotes": "Additional Notes"
+
+}

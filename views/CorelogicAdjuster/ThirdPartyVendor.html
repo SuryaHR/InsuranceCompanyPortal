@@ -1,0 +1,115 @@
+﻿<div class="col-md-12 padding1px">
+    <ul class="page-breadcrumb breadcrumb sbold">
+        <li>
+            <a ng-click="GoToHome()">{{"Home"|translate}}</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span>{{"Third Party Vendor"|translate}}</span>
+        </li>
+    </ul>
+</div>
+<!--all claims-->
+<div class="clearfix"></div>
+<div class="portlet light padding1px">
+    <div class="portlet-title">
+        <div class="caption font-grey-sharp">
+            <span class="caption-subject">{{"MainHeaderText"|translate}} </span>
+        </div>
+    </div>
+    <div class="portlet-body">
+        <div class="row">
+            <!--top buttons-->
+            <div class="col-md-12 col-sm-12">
+                <div class="col-md-12 col-sm-12 options_Background padding1px">
+                    <div class="col-md-8 col-sm-6 margin-bottom-5 margin-top-5">
+                        <button id="sample_editable_1_new" class="btn sbold btnMargin btnOptions" ng-click="GoToNewVendor($event)">
+
+                            {{"ControlText.NewVendor"|translate}}
+                        </button>
+                        <button id="sample_editable_1_new" class="btn sbold  btnMargin" ng-click="GoToEmailInvite($event)">
+
+                            {{"ControlText.InviteVendor"|translate}}
+                        </button>
+                        <button id="sample_editable_1_new" class="btn sbold btnMargin" ng-click="UploadVendors()">
+
+                            {{"ControlText.LoadFromFile"|translate}}
+                        </button>
+                        <button id="sample_editable_1_new" class="btn sbold btnMargin">
+
+                            {{"ControlText.Export"|translate}}
+                        </button>
+                    </div>
+                    <div class="col-md-4 col-sm-6  margin-bottom-5 margin-top-5  margin-top-5 margin-bottom-5 ">
+                        <div class="input-icon left btnMargin">
+                            <i class="icon-magnifier"></i>
+                            <input type="text" ng-model="search" class="form-control form-control-solid input-circle input-block-level" placeholder="{{'Label.search'| translate}}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div><div class="clearfix margin-bottom-5 visible-sm"></div>
+            <div class="col-md-12  table-responsive" id="sample_5_wrapper">
+                <table class="table table-striped table-bordered table-hover table-checkable order-column" id="NavigateTable">
+                    <thead>
+                        <tr>
+                            <th style="display:none"></th>
+                            <th ng-click="sort('id')">
+                                {{"Table.Supplier"|translate}}
+                                <span class="glyphicon sort-icon" ng-show="sortKey=='vendorNumber'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                            </th>
+                            <th ng-click="sort('name')">
+                                {{"Table.SupplierName"|translate}}
+                                <span class="glyphicon sort-icon" ng-show="sortKey=='vendorName'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                            </th>
+
+                            <th ng-click="sort('adminFirstName')">
+                                {{"Table.ContactPerson"|translate}}
+                                <span class="glyphicon sort-icon" ng-show="sortKey=='ContactPerson'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                            </th>
+                            <th ng-click="sort('adminDayTimePhone')">
+                                {{"Table.PhoneNo"|translate}}
+                                <span class="glyphicon sort-icon" ng-show="sortKey=='dayTimePhone'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                            </th>
+                            <th ng-click="sort('active')" class="statusHeading">
+                                {{"Table.Status"|translate}}
+                                <span class="glyphicon sort-icon" ng-show="sortKey=='active'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                            </th>
+                            <th>
+                                {{"Table.Action"|translate}}
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr dir-paginate="Vendor in VendorList|orderBy:sortKey:reverse|filter:search|itemsPerPage:pagesize">
+                            <td style="display:none"></td>
+                            <td ng-click="EditVendor(Vendor)">{{Vendor.id}}</td>
+                            <td ng-click="EditVendor(Vendor)">{{ Vendor.name}}</td>
+                            <td class="width20" ng-click="EditVendor(Vendor)">{{vendor.adminLastName+" "+vendor.adminFirstName}}</td>
+                            <td ng-click="EditVendor(Vendor)">{{Vendor.adminDayTimePhone |tel}}</td>
+                            <td>
+                                <span ng-show="Vendor.active===true" class="stage ItemStageSix">Active</span>
+                                <span ng-show="Vendor.active===false" class="stage ItemStageSeven">In-Active</span>
+                            <td>
+                                <div class="btn-group btn-group-circle btn-outline" style="display:flex">
+                                    <span class="btn green btn-sm btn-outline" ng-click="EditVendor(Vendor)">{{"ControlText.Edit"|translate}}</span>
+                                    <span class="btn btn-sm red btn-outline" ng-click="openConfirmDialog(Vendor)">{{"ControlText.Delete"|translate}}</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr ng-if="VendorList.length===0 ||VendorList==null" ng-click="EditVendorNew()">
+                            <td></td>
+                            <td colspan="6" class="text-danger text-center">No records available</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <dir-pagination-controls max-size="3"
+                                         direction-links="true"
+                                         boundary-links="true" class="pull-right">
+                </dir-pagination-controls>
+            </div>
+        </div>
+
+    </div>
+</div>
+

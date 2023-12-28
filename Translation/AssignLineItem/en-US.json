@@ -1,0 +1,36 @@
+﻿{
+  "Labeltext": {
+    "AssignLineItem": "Assign Line Item",
+    "ItemDetails": "Item Details",
+    "itemName": "Item Name",
+    "Brand": "Brand",
+    "Model": "Model",
+    "Category": "Category",
+    "SubCategory": "Sub Category",
+    "ServicesNeeded": "Services Needed",
+    "ContactInsured": "Contact Insured",
+    "Adjuster": "Adjuster",
+    "PricingSpecialists": "Pricing Specialists",
+    "3rdPartyVendor": "3rd Party Vendor",
+    "ItemDteails": "Item Details",
+    "search": "Specialists, Vendor, Adjuster"
+  },
+  "TableContent": {
+    "Match": "Match",
+    "Name": "Name",
+    "ItemsInHand": "Items in Hand",
+    "Specialty": "Specialty",
+    "Role": "Role",
+    "Id": "Id",
+    "Categories": "Categories",
+    "ContactPerson": "Contact Person"
+  },
+  "Btn": {
+    "Assign": "Assign",
+    "Cancel": "Cancel"
+  },
+  "Radio": {
+    "RadioYes": "Yes",
+    "RadioNo": "No"
+  }
+}

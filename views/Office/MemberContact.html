@@ -1,0 +1,108 @@
+﻿
+<div class="row">
+    <div class="col-md-12">
+        <div class="col-md-12">
+            <div class="">
+                <div class="portlet-title text-center ">
+                    {{"Labels.CompanyName" |translate}} : <label class="">United India</label>
+                </div>
+                <div class="portlet-body">
+                    <div class="row">
+
+                        <div class="portlet-body col-md-12">
+                            <div class="col-md-12 margin-bottom-15">
+                                <h4 class="text-primary portlet-title pull-left ">{{"Labels.MemberDetails" | translate}}</h4>
+                                <button type="button" ng-click="AddNewContacts()" class="btn sbold pull-right btnMargin ">
+                                    <i class="fa fa-plus"></i>
+                                    {{"ControlText.btnAddmoreContact" | translate}}
+                                </button>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="col-md-12 table-responsive padding-top-10px">
+                                <table class="table  table-striped table-bordered table-hover table-checkable order-column">
+                                    <thead>
+                                        <tr>
+                                            <td></td>
+                                            <td ng-click="sort('FirstName')">
+                                                {{"Table.FirstName"|translate}}
+                                                <span class="glyphicon sort-icon" ng-show="sortKey=='FirstName'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                            </td>
+                                            <td ng-click="sort('LastName')">
+                                                {{"Table.LastName"|translate}}
+                                                <span class="glyphicon sort-icon" ng-show="sortKey=='LastName'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+
+                                            </td>
+                                            <td ng-click="sort('EmailId')">
+                                                {{"Table.Email"|translate}}
+
+                                                <span class="glyphicon sort-icon" ng-show="sortKey=='EmailId'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                            </td>
+                                            <td ng-click="sort('PhoneNo')">
+                                                {{"Table.Phone"|translate}}
+                                                <span class="glyphicon sort-icon" ng-show="sortKey=='PhoneNo'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                            </td>
+                                            <td ng-click="sort('Role')">
+                                                {{"Table.Role"|translate}}
+                                                <span class="glyphicon sort-icon" ng-show="sortKey=='Role'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-if="AddNewContact">
+                                            <td></td>
+                                            <td><input type="text" ng-model="selected.FirstName" /></td>
+                                            <td><input type="text" ng-model="selected.LastName" /></td>
+                                            <td><input type="text" ng-model="selected.EmailId" /></td>
+                                            <td><input type="text" ng-model="selected.PhoneNo" /></td>
+                                            <td><input type="text" ng-model="selected.Role" /></td>
+                                            <td>
+                                                <div class="btn-group btn-group-circle btn-outline">
+                                                    <button ng-click="saveContact($index)" class="btn green btn-sm btn-outline">Save</button>
+                                                    <button ng-click="CancelAddNewContacts()" class="btn red btn-sm  btn-outline">Cancel</button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr ng-if="data!=null" dir-paginate="item in data|orderBy:sortKey:reverse|filter:search|itemsPerPage:5" ng-include="getTemplate(item)"></tr>
+                                    </tbody>
+                                </table>
+
+                                <div class="clearfix"></div>
+                                <dir-pagination-controls max-size="3" direction-links="true" boundary-links="true" class="pull-right ">
+                                </dir-pagination-controls>
+                            </div>
+                            <script type="text/ng-template" id="display">
+                                <td>{{item.Id}}</td>
+                                <td>{{item.FirstName}}  </td>
+                                <td>{{item.LastName}}</td>
+                                <td>{{item.EmailId}}</td>
+                                <td>{{item.PhoneNo}}</td>
+                                <td>{{item.Role}}</td>
+                                <td>
+                                    <button class="btn green  btn-circle btn-outline" ng-click="editContact(item)">Edit</button>
+                                </td>
+                            </script>
+                            <script type="text/ng-template" id="edit">
+                                <td>{{selected.Id}}</td>
+                                <td><input type="text" ng-model="selected.FirstName" /></td>
+                                <td><input type="text" ng-model="selected.LastName" /></td>
+                                <td><input type="text" ng-model="selected.EmailId" /></td>
+                                <td><input type="text" ng-model="selected.PhoneNo" /></td>
+                                <td><input type="text" ng-model="selected.Role" /></td>
+                                <td>
+                                    <div class="btn-group btn-group-circle btn-outline">
+                                        <button ng-click="saveContact($index)" class="btn green btn-sm btn-outline">Save</button>
+                                        <button ng-click="reset()" class="btn red btn-sm  btn-outline">Cancel</button>
+                                    </div>
+                                </td>
+                            </script>
+
+                            <label class="text-danger"> {{"PersonalInfo_Note_title" | translate}}</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

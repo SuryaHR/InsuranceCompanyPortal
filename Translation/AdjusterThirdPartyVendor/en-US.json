@@ -1,0 +1,41 @@
+﻿{
+  "MainHeaderText": "3rd Party Vendors",
+  "ControlText": {
+    "NewVendor": "Add New Vendor",
+    "LoadFromFile": "Load from file",
+    "Export": "Export",
+    "Edit": "Edit",
+    "Delete": "Delete",
+    "Go": "Go",
+    "InviteVendor": "Invite Vendor"
+  },
+
+  "Label": {
+    "PageSize": "Show",
+    "View": "View",
+    "search": "Search... Supplier #, Supplier's Name"
+  },
+  "Table": {
+    "Supplier": "Supplier #",
+    "SupplierName": "Vendor",
+    "ContactPerson": "Contact Person",
+    "PhoneNo": "Supplier's Phone No",
+    "Status": "Status",
+    "Action": "Action"
+  },
+
+  "DeleteConfirmBox": {
+    "Title": "Delete Third Party Vendor",
+    "Message": "Are you sure you want to delete vendor? Please confirm.",
+    "BtnYes": "Yes",
+    "BtnNo": "No"
+  },
+  "AlertBox": {
+    "SaveTitle": "Save New Vendor",
+    "SaveMessage": "New vendor added to system successfully"
+  },
+  "Home": "Home",
+  "Third Party Vendor": "Third Party Vendor"
+
+
+}

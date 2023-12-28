@@ -1,0 +1,29 @@
+﻿{
+  "HeaderText": {
+    "Inventory": "Inventory"
+  },
+
+  "ControlText": {
+    "LoadFromFile": "Load Form File",
+    "AddItem": "Add Item",
+    "MyClaims": "My Claims"
+  },
+  "Table": {
+    "ItemId": "Item Id",
+    "ItemName": "Item Name",
+    "Model": "Model",
+    "ItemType": "Item Type",
+    "Description": "Description",
+    "Supplier": "Supplier",
+    "AddedOn": "Added On",
+    "LastUpdated": "Last Updated"
+  },
+  "SearchText": "Search item #, name, description etc",
+  "NoRecordText": "No records available",
+  "FileUpload": {
+    "Title": "Upload item catalog",
+    "ErroMessage": "Filed to upload item catalog.",
+    "Message": "Item catalog uploaded successfully.",
+    "InvalidTypeMessage": "Plese select only Excel files."
+  }
+}

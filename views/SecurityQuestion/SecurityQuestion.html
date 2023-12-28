@@ -1,0 +1,189 @@
+<ul class="page-breadcrumb breadcrumb sbold">
+    <li>
+        <a ng-click="GoToHome()">{{"Home"|translate}}</a>
+        <i class="fa fa-circle"></i>
+    </li>
+</ul>
+<!-- Login Security -->
+<div class="col-md-12" ng-form="profile.passResetForm">
+    <!-- Security Question Starts -->
+    <div class="portlet light padding1px">
+        <div class="portlet-title">
+            <div class="caption font-gray-sharp">
+                <span class="caption-subject"></span>
+            </div>
+            <div class="tools">
+            </div>
+        </div>
+        <div class="portlet-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-md-6 col-sm-6 colxs-6 padding5 margin-top-10 margin-bottom-10 table-bordered"
+                        ng-form="profile.securityForm">
+                        <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12 sbold margin-bottom-10 padding1px">
+                            <span>{{"Security Questions"|translate}}</span>
+                        </div>
+
+                        <div class="col-sm-12 col-lg-12 col-md-12">
+                            <div class="well col-md-12 col-lg-12 margin-top-5 col-sm-12">
+                                {{"* Select 3 security questions from the list and answer them. "|translate}}
+                                <br />{{"* These questions and answers will be needed when resetting you password. "|translate}}<br />
+                                {{"* Fields are marked with * symbol are mandatory."}}
+                            </div>
+                        </div>
+
+                        <!-- Question 1 -->
+                        <div class="col-md-12 col-sm-12 col-xs-12 required"
+                            style="padding-left: 20px !important;padding-right:20px !important">
+                            <!-- <strong class="text-danger">*</strong>&nbsp; -->
+                            <label class="control-label">
+                                {{"Question 1"|translate}}
+                            </label>
+                        </div>
+
+                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+                            <div class="col-md-10 col-sm-10 col-xs-10">
+                                <select class="form-control input select2me" name="security1" id="security1" required
+                                    ng-model="first.option" ng-change="getRemoveSelectedValues();resetAnswer1()"
+                                    ng-options="item.id as item.questionName for item in first.list | filter:{selected: false}"
+                                    placeholder='{{"Select questions from the following options"|translate}}'></select>
+                                <!-- item.attributeValueId as item.atttibuteValue for item in diamondClarityList -->
+                                <div class="errormessage">
+                                    <span class="text-danger"
+                                        ng-show="profile.securityForm.security1.$error.required && profile.securityForm.security1.$touched">{{"Please select questions from dropdown."|translate}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 col-sm-12 col-xs-12"
+                            style="padding-left: 30px !important;padding-right:30px !important">
+                            <label class="control-label">
+                                {{"Answer"|translate}}
+                            </label>
+                        </div>
+
+                        <!-- Answer 1 -->
+                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-group">
+                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                <input type="text" name="answerOne" id="answerOne" required ng-model="answers.answerOne"
+                                    class="form-control" placeholder='{{"Answer"|translate}}' />
+                                <div class="errormessage">
+                                    <span class="text-danger"
+                                        ng-show="profile.securityForm.answerOne.$error.required && profile.securityForm.answerOne.$touched">{{"Answer 1 is required."|translate}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Question 2 -->
+                        <div class="col-md-12 col-sm-12 col-xs-12 required"
+                            style="padding-left: 20px !important;padding-right:20px !important">
+                            <label class="control-label">
+                                {{"Question 2"|translate}}
+                            </label>
+                        </div>
+
+                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+                            <div class="col-md-10 col-sm-10 col-xs-10">
+                                <select class="form-control input select2me" required name="security2" id="security2"
+                                    ng-model="second.option" ng-change="getRemoveSelectedValues();resetAnswer2()"
+                                    ng-options="item.id as item.questionName for item in second.list | filter:{selected: false}"
+                                    placeholder='{{"Select questions from the following options"|translate}}'></select>
+                                <!-- item.attributeValueId as item.atttibuteValue for item in diamondClarityList -->
+                                <div class="errormessage">
+                                    <span class="text-danger"
+                                        ng-show="profile.securityForm.security2.$error.required && profile.securityForm.security2.$touched">{{"Please select questions from dropdown."|translate}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 col-sm-12 col-xs-12"
+                            style="padding-left: 30px !important;padding-right:30px !important">
+                            <label class="control-label">
+                                {{"Answer"|translate}}
+                            </label>
+                        </div>
+
+                        <!-- Answer 2 -->
+                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-group">
+                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                <input type="text" name="answerTwo" id="answerTwo" required ng-model="answers.answerTwo"
+                                    class="form-control" placeholder='{{"Answer"|translate}}' />
+                                <div class="errormessage">
+                                    <span class="text-danger"
+                                        ng-show="profile.securityForm.answerTwo.$error.required && profile.securityForm.answerTwo.$touched">{{"Answer 2 is required."|translate}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- Question 3 -->
+                        <div class="col-md-12 col-sm-12 col-xs-12 required"
+                            style="padding-left: 20px !important;padding-right:20px !important">
+                            <label class="control-label">
+                                {{"Question 3"|translate}}
+                            </label>
+                        </div>
+
+                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+                            <div class="col-md-10 col-sm-10 col-xs-10">
+                                <select class="form-control input select2me" required name="security3" id="security3"
+                                    ng-model="third.option" ng-change="getRemoveSelectedValues();resetAnswer3()"
+                                    ng-options="item.id as item.questionName for item in third.list | filter:{selected: false}"
+                                    placeholder='{{"Select questions from the following options"|translate}}'></select>
+                                <!-- item.attributeValueId as item.atttibuteValue for item in diamondClarityList -->
+                                <div class="errormessage">
+                                    <span class="text-danger"
+                                        ng-show="profile.securityForm.security3.$error.required && profile.securityForm.security3.$touched">{{"Please select questions from dropdown."|translate}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 col-sm-12 col-xs-12"
+                            style="padding-left: 30px !important;padding-right:30px !important">
+                            <label class="control-label">
+                                {{"Answer"|translate}}
+                            </label>
+                        </div>
+
+                        <!-- Answer 3 -->
+                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-group">
+                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                <input type="text" name="answerThree" id="answerThree" required
+                                    ng-model="answers.answerThree" class="form-control"
+                                    placeholder='{{"Answer"|translate}}' ng-keyup="$event.keyCode == 13 && saveSecurityQuestionsAndAnswers()" />
+                                <div class="errormessage">
+                                    <span class="text-danger"
+                                        ng-show="profile.securityForm.answerThree.$error.required && profile.securityForm.answerThree.$touched">{{"Answer 3 is required."|translate}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- Buttons -->
+            <div class="col-md-6 col-sm-6 col-xs-6" style="padding: 0px !important">
+                <button type="button" class="btn btnMargin sbold margin-top-10 pull-right"
+                    ng-click="saveSecurityQuestionsAndAnswers()"
+                    ng-disabled="profile.securityForm.$invalid||profile.securityForm.$pristine">
+                    {{"I'm Ready"|translate}}
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- Security Question End -->
+</div>
+
+
+<style>
+    @keyframes animate-stripes {
+        to {
+            background-position: -50px 0;
+        }
+    }
+
+    .required:before {
+        content: " *";
+        color: red;
+    }
+</style>

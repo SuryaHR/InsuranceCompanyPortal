@@ -1,0 +1,110 @@
+﻿{
+  "NewThirdPartyVendorTitle": "Third Party Vendor ",
+  "InviteThirdPartyVendor": "Send Email Invite",
+  "Logo": "Artigem",
+  "Newvendor": "New vendor Registration",
+  "ContactInfo": " Contact Information",
+
+  "ControlText": {
+
+
+    "Save": "Register"
+  },
+  "FormControl": {
+    "Fax": "Fax",
+    "Mobile": "Mobile",
+    "EmailId": "Email Id",
+    "BodyOfInvite": "Body Of Invite",
+    "ParticipantType": "Participant Type",
+    "Supplier": "Supplier#",
+    "SupplierName": "Supplier Name",
+    "CompanyWebsite": "Company Website",
+    "ContactPerson": "Contact Person",
+    "SuppliersPhone": "Supplier's Phone",
+    "FirstName": "First Name",
+    "LastName": "Last Name",
+    "Phone": "Phone",
+    "Email": "Email",
+    "ShippingAddress": "Shipping Address",
+    "BillingAddress": "Billing Address",
+    "AddressLine1": "Address Line 1",
+    "AddressLine2": "Address Line 2",
+    "City": "City",
+    "State": "State",
+    "ZipCode": "ZipCode",
+    "Name": "Name",
+    "Reason": "Reason To Be Involved In The claim",
+    "Address": "Address",
+    "Clear": "Clear",
+    "AddVendor": "Add Vendor"
+
+
+  },
+  "Label": {
+    "Heading": "Supplier #",
+    "CompanyWebsite": "Company Website",
+    "ContactPerson": "Contact Person",
+    "FirstName": "First Name",
+    "LastName": "LastName",
+    "Phone": "Phone #",
+    "Email": "Email",
+    "SuppliersPhone": "Supplier's Phone #",
+    "PhoneType": "Phone Type",
+    "ShippingAddress": "Shipping Address",
+    "BillingAddress": "Billing Address",
+    "AddressLine1": "Address Line 1",
+    "AddressLine2": "Address Line 2",
+    "City": "City",
+    "State": "State",
+    "ZipCode": "Zip Code",
+    "Status": "Status",
+    "SupplierName": "Supplier Name"
+  },
+  "HeadingText": {
+    "CategoryExpertise": "Category Expertise"
+  },
+  "AlertBox": {
+    "SaveTitle": "Save New Vendor",
+    "SaveMessage": "New Vendor Added To System Successfully..!!"
+  },
+  "ErrorMessage": {
+    "SearchTextRquired": "Please enter value to search",
+    "ContactPersonDetailsRequired": "All details are required",
+    "FirstNameRequired": "Enter First Name",
+    "LastNameRequired": "Enter Last Name",
+    "SelectVendorFromList": "Please select vendor from list.",
+    "SelectEmployeeFromList": "Please select employee from list. ",
+    "EmailIdRequired": "Enter Email Id",
+    "EmailBodyRequired": "Enter Message",
+    "EmailCorrect": "Enter Valid Email Id",
+    "ValidNumbers": "Enter Valid Phone No"
+  },
+  "AlertMessage": {
+    "ExternalParticiapnt": "External Participant",
+    "NewVendor": "New Vendor",
+    "ExistingVendor": "Existing Vendor",
+    "InternalEmployee": "Internal Employee",
+    "VendorInvitation": "Invite Vendor"
+
+  },
+  "Day time phone": "Day time phone",
+  "Evening time phone": "Evening time phone",
+  "Schema": "Schema",
+  "Date Of Birth": "Date Of Birth",
+  "Registration Number": "Registration Number",
+  "Insurance Company Details": "Insurance Company Details",
+  "Company Name": "Company Name",
+  "Website": "Website",
+  "Please enter schema": "Please enter schema",
+  "Please enter website": "Please enter website",
+  "Please enter registration number": "Please enter registration number",
+  "Please enter date of birth": "Please enter date of birth",
+  "Please enter Insurance company name.": "Please enter Insurance company name.",
+  "Please enter phone number.": "Please enter phone number.",
+  "Web Site": "Web Site",
+  "Please enter eamilID": "Please enter eamilID",
+  "Admin Contact Information": "Admin Contact Information",
+  "Vendor Company Details": "Vendor Company Details",
+  "New Vendor Registration": "New Vendor Registration",
+  "Please enter valid emailID.": "Please enter valid emailID."
+}

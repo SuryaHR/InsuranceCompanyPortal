@@ -1,0 +1,77 @@
+﻿{
+
+  "HeadingText": {
+    "AvailableVendors": "Available Vendors:",
+    "NewServiceRequest": "New Service Request",
+    "Notes": "Notes"
+
+  },
+  "Dashboard": "Dashboard",
+  "ControlText": {
+    "Service RequestId": "Service RequestId",
+    "ServiceDescription": "Service Description",
+    "ServiceCategory": "Service Category",
+    "TargetDate": "Target Date",
+    "Attachments": "Attachments",
+    "AddFile": "Add File",
+    "Delete": "Delete",
+    "Save": "Save",
+    "Back": "Back",
+    "Cancel": "Cancel",
+    "ServiceId": "Service Id",
+    "Status": "Status",
+    "Invoice": "Invoice",
+    "CreateAt": "Created on",
+    "AddNote": "Add Note",
+    "AssignedTo": "Assigned To",
+    "DateOfAssignMent": "Date Of Assignment",
+    "CreatedBy": "Created By",
+    "SelectedVendor": "Selected Vendor",
+    "MinimumCostofServices": "Minimum Cost of Services",
+    "Date": "Target Date",
+    "DateofCompletion": "Date of Completion",
+    "Reject": "Reject",
+    "Assign": "Assign",
+    "RaiseInvoice": "Create Invoice",
+    "MyClaims": "My Claims",
+    "ServiceNumber": "Service Number"
+  },
+
+  "Table": {
+    "ClaimsInHand": "Claims In Hand",
+    "Name": "Specialist's Name",
+    "Role": "Role",
+    "Services": "Services Provided",
+    "Participant": "Participant (Yes/No)",
+    "Action": "Action",
+    "Speciality": "Speciality",
+    "SpecialistName": "Specialist Name",
+    "Description": "Description",
+    "Match": "Match"
+
+  },
+  "AlertMessage": {
+    "AvailableVendors": "Available Vendors:",
+    "NewServiceRequest": "New Service Request",
+    "Notes": "Notes",
+    "Update": "Service request",
+    "UpdateMessage": "Service Request updated successfully.",
+    "Status": "Current status: ",
+    "UpdateErrorMessage": "Fail to update service details, please try again.",
+    "ConfirmReject": "Are you sure you want to reject the service request? <b> Please Confirm!",
+    "YesBtn": "Yes",
+    "NoBtn": "No",
+    "RejectError": "Fail to reject the service. please try again.",
+    "Rejectservice": "Reject service",
+    "DeleteserviceError": "Fail to delete the service. please try again.",
+    "ConfirmDelete": "Are you sure you want to delete the service request? <b> Please Confirm!",
+    "Deleteservice": "Service request"
+  },
+
+  "NoRecordText": "No Records Available",
+  "SearchText": "Search..",
+  "LostDamagedSearchText": "search..",
+  "ServiceRequest": "Service Request",
+  "Home": "Home"
+
+}

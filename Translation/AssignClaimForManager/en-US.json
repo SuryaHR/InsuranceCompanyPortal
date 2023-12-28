@@ -1,0 +1,21 @@
+﻿{
+
+  "MainHeader": {
+    "AdjusterHed": "Adjuster"
+  },
+  "ControlText": {
+    "CancelAdj": "Cancel",
+    "AssignAdj": "Assign"
+
+  },
+  "Label": {
+    "searchAdj": "Search.."
+  },
+  "Table": {
+    "AdjusterName": "Adjuster",
+    "CasesInHand": "Cases in Hand",
+    "Role": "Role",
+    "Speciality": "Specialty",
+    "Norecord": "No records available"
+  }
+}

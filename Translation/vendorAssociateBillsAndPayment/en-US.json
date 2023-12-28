@@ -1,0 +1,27 @@
+﻿{
+  "HeaderText": {
+    "InvoiceSubmitted": "Invoice Submitted",
+    "InvoiceApproved": "Invoice Approved"
+  },
+  "ControlText": {
+    "MyClaims": "My Claims",
+    "BillsAndPayment": "Bills And Payment"
+  },
+  "Table": {
+    "InvoiceNo": "Invoice #",
+    "InvoiceAmount": "Invoice Amount",
+    "ClaimNo": "Claim #",
+    "InsuranceCompany": "Insurance Company",
+    "AdjusterName": "Adjuster's Name",
+    "NoOfItem": "# Of items",
+    "ServiceRequested": "Service Requested",
+    "Status": "Status",
+    "LastUpdate": "Last Updated",
+    "LastNote": "Last Note",
+    "NoRecord": "No record's to show"
+  },
+  "GlobalSearchText": "Serach ...Any Claim #, Policyholder",
+  "SearchText": "Claim #, Adjuster Name, Insurance Company",
+  "SearchResult": "Search Result For ",
+  "Back": "Back"
+}

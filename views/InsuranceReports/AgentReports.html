@@ -1,0 +1,1218 @@
+<style>
+    .CursorLeft {
+        cursor: pointer !important;
+    }
+
+    .ReplacedClass {
+        border: 2px solid #6bbae0 !important;
+        padding: 12px 15px 15px 15px !important;
+        border-radius: 4px !important;
+        margin-bottom: 10px !important;
+    }
+
+     #btnAddCustomItem:hover {
+        color: ghostwhite;
+    }
+
+    .mandatory {
+        color: red;
+    }
+
+    .NoDecoration {
+        text-decoration: none !important;
+        color: black;
+    }
+
+    .angucomplete-dropdown {
+        bottom: 100% !important;
+    }
+
+    .table tfoot tr th
+    {
+        border: none !important;
+        font-weight: 650 !important;
+        font-size: 13px !important;
+    }
+
+      .panel-border
+        {
+            border-color:#ddd;
+            border-radius: 0 !important;
+        }
+
+
+    @media (min-device-width:768px) {
+        .width14 {
+            width: 16% !important;
+        }
+
+        .width16 {
+            width: 17.6%;
+            height: 4px;
+        }
+
+        .StatusNumber {
+            margin-left: 2% !important;
+        }
+
+        .StatusHorizontalLine {
+            margin-left: 9% !important;
+        }
+    }
+
+    @media (max-device-width:768px) {
+        .width14 {
+            width: 14% !important;
+        }
+
+        .width16 {
+            width: 15%;
+            height: 4px;
+        }
+
+        .StatusNumber {
+            margin-left: 13% !important;
+        }
+
+        .StatusHorizontalLine {
+            margin-left: 18% !important;
+        }
+    }
+
+     .btn-default {
+        color: #333;
+        background-color: #c2cad8;
+        border-color: #adadad;
+    }
+
+    .btn-default:focus,
+    .btn-default.active,
+    .btn-default:hover,
+    .focus,
+    .active {
+        color: rgb(248, 244, 244) !important;
+        background-color: #4b4848 !important;
+        border-color: #3a3737 !important;
+    }
+
+    .btn-fonts
+    {
+        font-size: 10px!important;
+        font-weight: 600 !important;
+    }
+
+    @media only screen and (min-width: 769px)
+    {
+    .sc-incoming button
+    {
+        width: 100px !important;
+        padding: 2px 0px !important;
+        font-size: 10px!important;
+    }
+
+    .sc-incoming button.quarter-btn
+    {
+        width: 140px !important;
+    }
+
+    }
+
+    @media only screen and (max-width: 767px)
+    {
+        .chart-content-body{
+            padding : 10px 1px  !important;
+        }
+
+        .chart-panel-body
+        {
+            padding: 10px 1px !important;
+        }
+
+        .report-body
+        {
+            margin-top: 15px !important;
+            padding:1px !important;
+        }
+
+         .line-chart-box
+        {
+         max-height: 790px;
+        }
+}
+
+
+    .performance-indicators
+       {
+           margin-top: -8px !important;
+       }
+
+        .input-box {
+        outline: none !important;
+        box-shadow: none !important;
+        display: block;
+        width: 100%;
+        height: 25px;
+        padding: 6px 12px;
+        padding-bottom: 8px;
+        font-size: 12px;
+        line-height: 1.42857;
+        color: #555555;
+        background-color: #fff;
+        background-image: none;
+        border: 1px solid #c2cad8;
+        border-radius: 4px;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+        -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+        -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+        transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+    }
+
+     .input-group-addon {
+        padding: 3px 9px !important;
+    }
+
+    .form-control
+    {
+      border-radius: 4px !important;
+    }
+
+     .control-label {
+        text-align: right !important;
+        margin-bottom: 0 !important;
+        padding-top: 2px !important;
+    }
+
+    .active-link
+    {
+     color: #23527c;
+     text-decoration: underline;
+    }
+
+    /* Start - Button dropdown styles */
+    .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            /*background-color: #f9f9f9;*/
+            background-color: #FFFFFF;
+            min-width: 90px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            /*border-radius: 5px;*/
+        }
+        .dropdown-content a {
+            color: black;
+            background-color: #FFFFFF;
+            padding: 0px;
+            text-decoration: none;
+            display: block;
+            border: none;
+            width: 87px;
+        }
+        .dropdown-content a:hover {
+            /*background-color: #edecec*/
+            background: #cce7f3 !important;
+            color: #339FFF!important;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        .dropdown:disabled .dropdown-content,
+        .dropdown[disabled] .dropdown-content
+        {
+            display:none !important;
+        }
+        /* End - Button dropdown styles */
+
+        li.active {
+            background-color: #33aae5!important;
+            color: #7fa5c6 !important;
+        }
+        
+
+</style>
+<script type="text/javascript">
+    $(function () {
+        iOSHandler();
+        $(window).on("orientationchange", function (event) {
+            iOSHandler();
+        });
+    });
+    function iOSHandler() {
+        var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        var width = screen.width;
+
+        if (iOS) {
+
+            var orientation;
+            if (window.orientation == undefined) {
+                orientation = window.screen.orientation.angle;
+            }
+            else {
+                orientation = window.orientation;
+            }
+
+            if (orientation != 0) {
+                if (screen.width < screen.height) {
+                    width = screen.height;
+                }
+            }
+            //iPhone4-Landscape
+            if (width > 475 && width < 485) {
+                $(".comparablesDivDB").css("height", "auto");
+                $(".addedComp").css("width", "100%");
+                $(".addedComp").css("overflow", "scroll");
+                $(".addedComp").css("-webkit-overflow-scrolling", "touch");
+
+            }
+
+            //iPhone5-Landscape
+            else if (width > 562 && width < 572) {
+                $(".comparablesDivDB").css("height", "auto");
+                $(".addedComp").css("width", "100%");
+                $(".addedComp").css("overflow", "scroll");
+                $(".addedComp").css("-webkit-overflow-scrolling", "touch");
+
+            }
+            //iPhone4,5-Portrait
+            else if (width > 315 && width < 325) {
+                $(".comparablesDivDB").css("height", "auto");
+                $(".addedComp").css("width", "100%");
+                $(".addedComp").css("overflow", "scroll");
+                $(".addedComp").css("-webkit-overflow-scrolling", "touch");
+
+            }
+
+            //iPhone6-Landscape
+            else if (width > 660 && width < 670) {
+                $(".comparablesDivDB").css("height", "auto");
+                $(".addedComp").css("width", "100%");
+                $(".addedComp").css("overflow", "scroll");
+                $(".addedComp").css("-webkit-overflow-scrolling", "touch");
+
+            }
+            //iPhone6-Portrait
+            else if (width > 370 && width < 380) {
+                $(".comparablesDivDB").css("height", "auto");
+                $(".addedComp").css("width", "100%");
+                $(".addedComp").css("overflow", "scroll");
+                $(".addedComp").css("-webkit-overflow-scrolling", "touch");
+
+            }
+
+            //iPhone6+-Landscape
+            else if (width > 730 && width < 740) {
+                $(".comparablesDivDB").css("height", "auto");
+                $(".addedComp").css("width", "100%");
+                $(".addedComp").css("overflow", "scroll");
+                $(".addedComp").css("-webkit-overflow-scrolling", "touch");
+
+            }
+            //iPhone6+-Portrait
+            else if (width > 410 && width < 420) {
+                $(".comparablesDivDB").css("height", "auto");
+                $(".addedComp").css("width", "100%");
+                $(".addedComp").css("overflow", "scroll");
+                $(".addedComp").css("-webkit-overflow-scrolling", "touch");
+
+            }
+
+            //ipad
+            else if (width > 1020 && width < 1025) {
+                $(".comparablesDivDB").css("height", "958px");
+                $(".googleComparableBodyHeight").css("height", "729px");
+                $(".googleSerachResultDiv").css("height", "632px");
+                $(".noteDiv").css("height", "215px");
+                $(".addedComp").css("height", "215px");
+                $(".addedComp").css("width", "100%");
+                $(".addedComp").css("overflow", "scroll");
+                $(".addedComp").css("-webkit-overflow-scrolling", "touch");
+
+
+            }
+
+            //else if (width > 760 && width < 769) {
+
+            //    $(".googleComparableBodyHeight").css("height", "680px");
+
+            //}
+            else if (width > 1360 && width < 1367) {
+                $(".googleComparableBodyHeight").css("height", "540px");
+                $(".comparablesDivDB").css("height", "853px");
+
+            }
+        }
+    }
+
+    $(document).ready(function () {
+        $selectElement = $("#select1").select2({});
+        $selectElement = $("#select2").select2({});
+    });
+
+    $(function () {
+        $(':input[type=number]').on('mousewheel', function (e) { $(this).blur(); });
+    });
+
+    $(".readonly").on('keydown paste', function (e) {
+        e.preventDefault();
+    });
+
+    //btn-groups
+    //Common all reports
+    $(".btn-group-report-chart > .btn").click(function () {
+        $(".btn-group-report-chart > .btn").removeClass("active");
+        $(this).addClass("active");
+    });
+
+    //Artile Trends - Premium Trends
+    $(".btn-group-artile-premium > .btn").click(function () {
+        $(".btn-group-artile-premium > .btn").removeClass("active");
+        $(this).addClass("active");
+    });
+
+    // Item Category
+    $(".btn-group-item-category > .btn").click(function () {
+        $(".btn-group-item-category > .btn").removeClass("active");
+        $(this).addClass("active");
+    });
+
+    // Policyholder Review
+    $(".btn-group-policyholder > .btn").click(function () {
+        $(".btn-group-policyholder > .btn").removeClass("active");
+        $(this).addClass("active");
+    });
+
+    // Agency-Performance
+    $(".btn-group-agency-performance > .btn").click(function () {
+        $(".btn-group-agency-performance > .btn").removeClass("active");
+        $(this).addClass("active");
+    });
+
+    $("a").click(function () {
+        $("a.active-link").removeClass("active-link");
+        $(this).addClass("active-link");
+    });
+</script>
+
+<div class="container-fluid padding1px">
+
+    <div class="col-md-12 home-breadcrumb">
+        <ul ng-if="!isFromManager" class="page-breadcrumb breadcrumb sbold">
+            <li>
+                <a ng-click="gotoDashboard()">{{"Home"|translate}}</a>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <span>{{"HeaderText.Reports"|translate}}</span>
+            </li>
+        </ul>
+
+        <ul ng-if="isFromManager" class="page-breadcrumb breadcrumb sbold">
+            <li>
+                <a ng-click="gotoManagerDashboard()">{{"Dashboard"|translate}}</a>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <span>{{agent.agentName}}&nbsp;({{agent.ageny}})</span>
+            </li>
+        </ul>
+    </div>
+
+    <div class="panel-body report-body">
+        <div ng-if="isFromManager" class="portlet-title" style="border-bottom: 1px solid #666; margin-bottom: 5px;">
+            <div class="caption font-gray-sharp ">
+                <span class="caption-subject ng-binding" style="font-size: 18px;">{{agent.agentName}}&nbsp;({{agent.ageny}})</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-lg-12 col-sm-12 col-xs-12">
+                <div class="row">
+                    <!-- first -->
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding1px">
+                        <div class="panel panel-default line-chart-box" style="border-color: #3598dc; border-radius: 0 !important;">
+                            <div class="panel-body" style="padding: 10px 0px;">
+
+                                <!--START - Common All Reports Period filters-->
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 text-center" data-toggle="buttons">
+                                        <div id="commonFiltersBtns" style="padding: 10px;" class="btn-group btn-group-report-chart"
+                                            role="group" aria-label="...">
+                                            <button type="button" ng-click="populateReportsChart(1)"
+                                                class="btn btn-default btn-fonts active">{{"LabelText.ThisMonth"|translate}}({{yearValues.thisMonth}}
+                                                '{{yearValues.thisSplitYear}})</button>
+                                            <button type="button" ng-click="populateReportsChart(2)"
+                                                class="btn btn-default btn-fonts">{{"LabelText.ThisQuarter"|translate}}({{yearValues.thisQuaterFirstMonth}}
+                                                - {{yearValues.thisQuaterLastMonth}} '{{yearValues.thisSplitYear}})</button>
+                                            <button type="button" ng-click="populateReportsChart(3)"
+                                                class="btn btn-default btn-fonts">{{"LabelText.ThisYear"|translate}}({{yearValues.thisYear}})</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--END - Common All Reports Period filters-->
+
+                                <div class="col-md-12 col-sm-12" style="padding: 0px 10px;">
+                                    <div class="col-md-12 col-sm-12 SubHeadingDiv margin-bottom-10">
+                                        <span class="caption-subject" style="font-size: 14px; font-weight: 700;">{{"LabelText.ArtileAndPremium"|translate}}</span>
+
+                                        <div class="col-lg-3 col-md-3 col-sm-6 margin-bottom-5 margin-top-5 pull-right dropdown"
+                                            style="display:initial;width:95px;padding:0px;margin-top: -5px;"
+                                            ng-disabled="isDisable">
+                                            <button class="btn btn-default sbold btnMargin" type="button" data-toggle="dropdown"><span
+                                                    class="glyphicon glyphicon-download-alt"></span>&nbsp;{{"Export"|translate}}
+                                                <span class="caret"></span>
+                                            </button>
+                                            <div class="dropdown-content" style="left: 5px;padding:0px;z-index: 9;">
+                                                <a ng-click="exportCoverageAndPremium('PDF');" class="btn btn-default sbold btnMargin"
+                                                    style="padding: 0px!important;padding-bottom: 4px!important; padding-top: 2px !important;padding-left: 12px !important;text-align: left">{{"PDF"
+                                                    | translate}} <i class="fa fa-file-pdf-o" style="font-size:14px;color:red"></i></a>
+                                                <!-- <a ng-click="exportCoverageAndPremium('CSV');" class="btn btn-default sbold btnMargin"
+                                                    style="padding: 0px !important;
+                                                        padding-bottom: 4px !important;padding-top: 2px !important;padding-left: 12px !important;text-align: left">{{"CSV"
+                                                    | translate}} <i class="fa fa-file-text-o" style="font-size:14px;color:blue;"></i></a> -->
+                                                <a ng-click="exportCoverageAndPremium('Excel');" class="btn btn-default sbold btnMargin"
+                                                    style="padding: 0px !important; padding-bottom: 4px !important;padding-top: 2px !important;padding-left: 12px !important;text-align: left">{{"Excel"
+                                                    | translate}} <i class="fa fa-file-excel-o" style="font-size:14px;color:green;"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- <div class="row">
+                                    <div class="col-lg-12 col-md-12 text-center" data-toggle="buttons">
+                                        <div id="ArticleCoveragePremiumBtns" style="padding: 10px;" class="btn-group btn-group-artile-premium"
+                                            role="group" aria-label="...">
+                                            <button type="button" ng-click="populateArticleCoveragePremiumTrendChart(1)"
+                                                class="btn btn-default btn-fonts active">{{"LabelText.ThisMonth"|translate}}({{yearValues.thisMonth}}
+                                                '{{yearValues.thisSplitYear}})</button>
+                                            <button type="button" ng-click="populateArticleCoveragePremiumTrendChart(2)"
+                                                class="btn btn-default btn-fonts">{{"LabelText.ThisQuarter"|translate}}({{yearValues.thisQuaterFirstMonth}}
+                                                - {{yearValues.thisQuaterLastMonth}} '{{yearValues.thisSplitYear}})</button>
+                                            <button type="button" ng-click="populateArticleCoveragePremiumTrendChart(3)"
+                                                class="btn btn-default btn-fonts">{{"LabelText.ThisYear"|translate}}({{yearValues.thisYear}})</button>
+                                        </div>
+                                    </div>
+                                </div> -->
+
+                                <!-- article coverage trend starts here -->
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 chart-content-body">
+                                    <div class="panel panel-default" style="border:none;">
+                                        <div class="chart-panel-body" style=" margin-top: 15px; text-align:center;">
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding1px container">
+                                                <div class="row options_Background" style="margin: -1px;">
+                                                    <div class="caption" style="padding: 5px 5px 5px 10px;">
+                                                        <span class="caption-subject ng-binding" style="color: #ffffff;font-size:14px;line-height:14px;">{{"LabelText.ArticleCoverageTrend"|translate}}</span>
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="panel panel-default" style="border-color: #3598dc; border-radius: 0 !important;margin-top: 0px;height: 300px;">
+                                                    <span style="font-size:16px;margin-top:10px; position:absolute; right: 15px;">{{totalThisYearCoverage}}</span>
+                                                    <canvas id="ArticleCoverageGraph" class="chart chart-line"  style="padding: 20px;"
+                                                        chart-data="coverageTrendData" chart-labels="coverageTrendLabels"
+                                                        chart-series="coverageTrendSeries" chart-options="coverageTrendOptions"
+                                                        legend="true" chart-dataset-override="coverageTrendDatasetOverride"
+                                                        chart-colors="coverageTrendColors">
+                                                    </canvas>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- article coverage trend ends here -->
+                                <!-- premium trend starts here-->
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 chart-content-body">
+                                    <div class="panel panel-default" style="border:none;">
+                                        <div class="chart-panel-body" style="margin-top: 15px; text-align:center;">
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding1px container">
+                                                <div class="row options_Background" style="margin: -1px;">
+                                                    <div class="caption" style="padding: 5px 5px 5px 10px;">
+                                                        <span class="caption-subject ng-binding" style="color: #ffffff;font-size:14px;line-height:14px;">{{"LabelText.PremiumTrend"|translate}}</span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="panel panel-default " style="border-color: #3598dc; border-radius: 0 !important;margin-top: 0px;height: 300px;">
+                                                    <span style="font-size:16px;margin-top:10px; margin-right:10px; position:absolute; right: 15px;">{{totalThisYearPremium}}</span>
+                                                    <canvas id="premiumGraph" class="chart chart-line" chart-data="premiumTrendData" style="padding: 20px;"
+                                                        chart-labels="premiumTrendLabels" chart-series="premiumTrendSeries"
+                                                        chart-options="premiumTrendOptions" legend="true"
+                                                        chart-dataset-override="premiumTrendDatasetOverride"
+                                                        chart-colors="premiumTrendColors">
+                                                    </canvas>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- premium trend Ends here-->
+                                <div class="col-md-12 col-sm-12 text-center hide">
+                                    <span>{{"LabelText.ArtileAndPremiumChartNote"|translate}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end first -->
+
+
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding1px container">
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 padding1px container">
+                            <div class="panel panel-default" style="border-color: #3598dc; border-radius: 0 !important;margin-top: 0px;height: 350px;">
+                                <div class="panel-body" style="padding: 10px 0px;">
+
+                                    <div class="col-md-12 col-sm-12" style="padding: 0px 10px;">
+                                        <div class="col-md-12 col-sm-12 SubHeadingDiv">
+                                            <span class="caption-subject" style="font-size: 14px; font-weight: 700;">
+                                                {{"LabelText.itemCategory"|translate}}
+                                            </span>
+                                            <div class="col-lg-3 col-md-3 col-sm-6 margin-bottom-5 margin-top-5 pull-right dropdown"
+                                                style="display:initial;width:95px;padding:0px;margin-top: -5px;"
+                                                ng-disabled="isDisable">
+                                                <button class="btn btn-default sbold btnMargin" type="button"
+                                                    data-toggle="dropdown"><span class="glyphicon glyphicon-download-alt"></span>&nbsp;{{"Export"|translate}}
+                                                    <span class="caret"></span>
+                                                </button>
+                                                <div class="dropdown-content" style="left: 5px;padding:0px;z-index: 9;">
+                                                    <a ng-click="exportItemCategorySplit('PDF');" class="btn btn-default sbold btnMargin"
+                                                        style="padding: 0px!important;padding-bottom: 4px!important; padding-top: 2px !important;padding-left: 12px !important;text-align: left">{{"PDF"
+                                                        | translate}} <i class="fa fa-file-pdf-o" style="font-size:14px;color:red"></i></a>
+                                                    <!-- <a ng-click="exportItemCategorySplit('CSV');" class="btn btn-default sbold btnMargin"
+                                                        style="padding: 0px !important;
+                                                            padding-bottom: 4px !important;padding-top: 2px !important;padding-left: 12px !important;text-align: left">{{"CSV"
+                                                        | translate}} <i class="fa fa-file-text-o" style="font-size:14px;color:blue;"></i></a> -->
+                                                    <a ng-click="exportItemCategorySplit('Excel');" class="btn btn-default sbold btnMargin"
+                                                        style="padding: 0px !important; padding-bottom: 4px !important;padding-top: 2px !important;padding-left: 12px !important;text-align: left">{{"Excel"
+                                                        | translate}} <i class="fa fa-file-excel-o" style="font-size:14px;color:green;"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <!-- <div class="col-lg-12 col-md-12 text-center sc-incoming" data-toggle="buttons">
+                                            <div id="ItemCategorySplitBtns" style="padding: 10px;" class="btn-group btn-group-item-category"
+                                                role="group" aria-label="...">
+                                                <button type="button" ng-click="populategetItemCategorySplitChart(1,catogorySplit.status)"
+                                                    class="btn btn-default btn-fonts active">{{"LabelText.ThisMonth"|translate}}({{yearValues.thisMonth}}
+                                                    '{{yearValues.thisSplitYear}})</button>
+                                                <button type="button" ng-click="populategetItemCategorySplitChart(2,catogorySplit.status)"
+                                                    class="btn btn-default btn-fonts quarter-btn">{{"LabelText.ThisQuarter"|translate}}({{yearValues.thisQuaterFirstMonth}}
+                                                    -
+                                                    {{yearValues.thisQuaterLastMonth}} '{{yearValues.thisSplitYear}})</button>
+                                                <button type="button" ng-click="populategetItemCategorySplitChart(3,catogorySplit.status)"
+                                                    class="btn btn-default btn-fonts">{{"LabelText.ThisYear"|translate}}({{yearValues.thisYear}})</button>
+                                            </div>
+                                        </div> -->
+
+                                        <div class="col-lg-12 col-md-12 text-center sc-incoming">
+                                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 pull-right" style="margin-top:10px;">
+                                                <select id="catogorySplitChartSel" class="form-control" ng-model="catogorySplit.status"
+                                                    ng-change="populategetItemCategorySplitChart(statusFlag,catogorySplit.status)">
+                                                    <!-- Removed Category-wise from Coverage and Premium -->
+                                                    <option value="1">Coverage</option>
+                                                    <option value="2">Premium</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <canvas ng-if="showItemCategoryChart" id="itemCategoryGraph" class="chart chart-doughnut"
+                                        chart-data="itemCategorySplitData" chart-labels="itemCategorySplitLabels"
+                                        chart-colors="itemCategorySplitColor" chart-options="itemCategorySplitOptions"
+                                        chart-dataset-override="itemCategorySplitDataSetOverride" style="margin-top: 10px;"></canvas>
+
+                                    <div class="col-md-12 col-lg-12 text-center " ng-if="!showItemCategoryChart">
+                                        <span class="text-center text-danger">No data found</span>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 padding1px container ">
+
+                            <div class="panel panel-default" style="border-color: #3598dc; border-radius: 0 !important;margin-top: 0px;height: 350px;">
+                                <div class="panel-body" style="padding: 10px 0px;">
+
+                                    <div class="col-md-12 col-sm-12" style="padding: 0px 10px;">
+                                        <div class="col-md-12 col-sm-12 SubHeadingDiv">
+                                            <span class="caption-subject" style="font-size: 14px; font-weight: 700;">
+                                                {{"LabelText.PolicyholderReviewResults"|translate}}
+                                            </span>
+                                            <div class="col-lg-3 col-md-3 col-sm-6 margin-bottom-5 margin-top-5 pull-right dropdown"
+                                                style="display:initial;width:95px;padding:0px;margin-top: -5px;"
+                                                ng-disabled="isDisable">
+                                                <button class="btn btn-default sbold btnMargin" type="button"
+                                                    data-toggle="dropdown"><span class="glyphicon glyphicon-download-alt"></span>&nbsp;{{"Export"|translate}}
+                                                    <span class="caret"></span>
+                                                </button>
+                                                <div class="dropdown-content" style="left: 5px;padding:0px;z-index: 9;">
+                                                    <a ng-click="exportPolicyholderReviewReport('PDF');" class="btn btn-default sbold btnMargin"
+                                                        style="padding: 0px!important;padding-bottom: 4px!important; padding-top: 2px !important;padding-left: 12px !important;text-align: left">{{"PDF"
+                                                        | translate}} <i class="fa fa-file-pdf-o" style="font-size:14px;color:red"></i></a>
+                                                    <!-- <a ng-click="exportPolicyholderReviewReport('CSV');" class="btn btn-default sbold btnMargin"
+                                                        style="padding: 0px !important;
+                                                            padding-bottom: 4px !important;padding-top: 2px !important;padding-left: 12px !important;text-align: left">{{"CSV"
+                                                        | translate}} <i class="fa fa-file-text-o" style="font-size:14px;color:blue;"></i></a> -->
+                                                    <a ng-click="exportPolicyholderReviewReport('Excel');" class="btn btn-default sbold btnMargin"
+                                                        style="padding: 0px !important; padding-bottom: 4px !important;padding-top: 2px !important;padding-left: 12px !important;text-align: left">{{"Excel"
+                                                        | translate}} <i class="fa fa-file-excel-o" style="font-size:14px;color:green;"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- <div class="row">
+                                        <div class="col-lg-12 col-md-12 text-center sc-incoming" data-toggle="buttons" style="padding-bottom: 35px;">
+                                            <div id="PolicyHoldersReviewBtns" class="btn-group btn-group-policyholder"
+                                                style="padding: 10px;" role="group" aria-label="...">
+                                                <button type="button" ng-click="getPolicyHoldersReviewStatus(1)" class="btn btn-default btn-fonts active">{{"LabelText.ThisMonth"|translate}}({{yearValues.thisMonth}}
+                                                    '{{yearValues.thisSplitYear}})</button>
+                                                <button type="button" ng-click="getPolicyHoldersReviewStatus(2)" class="btn btn-default btn-fonts quarter-btn">{{"LabelText.ThisQuarter"|translate}}({{yearValues.thisQuaterFirstMonth}}
+                                                    - {{yearValues.thisQuaterLastMonth}} '{{yearValues.thisSplitYear}})
+                                                </button>
+                                                <button type="button" ng-click="getPolicyHoldersReviewStatus(3)" class="btn btn-default btn-fonts">{{"LabelText.ThisYear"|translate}}({{yearValues.thisYear}})</button>
+                                            </div>
+                                        </div>
+                                    </div> -->
+
+                                    <canvas ng-if="showPolicyholderChart" id="policyholderReviewGraph" class="chart chart-doughnut"
+                                        chart-data="policyholderReviewGraphData" chart-labels="labels" chart-colors="Color" chart-options="options"
+                                        chart-dataset-override="DataSetOverride" style="margin-top: 70px;"></canvas>
+
+                                    <div class="col-md-12 col-lg-12 text-center " ng-if="!showPolicyholderChart">
+                                        <span class="text-center text-danger">No data found</span>
+
+                                    </div>
+                                    <!-- <div class="col-md-12 col-lg-12 text-center " ng-if="PolicyHoldersReviewStatus && PolicyHoldersReviewStatus.approvedCount==0 || PolicyHoldersReviewStatus.declinedCount==0 || PolicyHoldersReviewStatus.optedCount==0">
+                                        <span class="text-center text-danger">No data found</span>
+
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 padding1px container ">
+
+                            <div class="panel panel-default" style="border-color: #3598dc; border-radius: 0 !important;margin-top: 0px; height: 350px;">
+                                <div class="panel-body" style="padding: 10px 0px;">
+
+                                    <div class="col-md-12 col-sm-12" style="padding: 0px 10px;">
+                                        <div class="col-md-12 col-sm-12 SubHeadingDiv margin-bottom-10">
+                                            <span class="caption-subject" style="font-size: 14px; font-weight: 700;">
+                                                {{"LabelText.AgencyPerformance"|translate}}
+                                            </span>
+
+                                            <div class="col-lg-3 col-md-3 col-sm-6 margin-bottom-5 margin-top-5 pull-right dropdown"
+                                                style="display:initial;width:95px;padding:0px;margin-top: -5px;"
+                                                ng-disabled="isDisable">
+                                                <button class="btn btn-default sbold btnMargin" type="button"
+                                                    data-toggle="dropdown"><span class="glyphicon glyphicon-download-alt"></span>&nbsp;{{"Export"|translate}}
+                                                    <span class="caret"></span>
+                                                </button>
+                                                <div class="dropdown-content" style="left: 5px;padding:0px;z-index: 9;">
+                                                    <a ng-click="exportAgencyPerformanceReport('PDF');" class="btn btn-default sbold btnMargin"
+                                                        style="padding: 0px!important;padding-bottom: 4px!important; padding-top: 2px !important;padding-left: 12px !important;text-align: left">{{"PDF"
+                                                        | translate}} <i class="fa fa-file-pdf-o" style="font-size:14px;color:red"></i></a>
+                                                    <!-- <a ng-click="exportAgencyPerformanceReport('CSV');" class="btn btn-default sbold btnMargin"
+                                                        style="padding: 0px !important;
+                                                            padding-bottom: 4px !important;padding-top: 2px !important;padding-left: 12px !important;text-align: left">{{"CSV"
+                                                        | translate}} <i class="fa fa-file-text-o" style="font-size:14px;color:blue;"></i></a> -->
+                                                    <a ng-click="exportAgencyPerformanceReport('Excel');" class="btn btn-default sbold btnMargin"
+                                                        style="padding: 0px !important; padding-bottom: 4px !important;padding-top: 2px !important;padding-left: 12px !important;text-align: left">{{"Excel"
+                                                        | translate}} <i class="fa fa-file-excel-o" style="font-size:14px;color:green;"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- <div class="row">
+                                        <div class="col-lg-12 col-md-12 text-center sc-incoming" data-toggle="buttons">
+                                            <div class="btn-group btn-group-agency-performance" role="group" aria-label="...">
+                                                <button type="button" ng-click="getAgencyPerformance(1)" class="btn btn-default btn-fonts active">{{"LabelText.ThisMonth"|translate}}({{yearValues.thisMonth}}
+                                                    '{{yearValues.thisSplitYear}})</button>
+                                                <button type="button" ng-click="getAgencyPerformance(2)" class="btn btn-default btn-fonts quarter-btn">{{"LabelText.ThisQuarter"|translate}}({{yearValues.thisQuaterFirstMonth}}
+                                                    - {{yearValues.thisQuaterLastMonth}} '{{yearValues.thisSplitYear}})
+                                                </button>
+                                                <button type="button" ng-click="getAgencyPerformance(3)" class="btn btn-default btn-fonts">{{"LabelText.ThisYear"|translate}}({{yearValues.thisYear}})</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br> -->
+
+                                    <div style="height: 275px;">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                                <div class="panel panel-default panel-border" style="height:140px;">
+                                                    <div class="panel-body" style="text-align:center;">
+                                                        <strong>
+                                                            <h4 style="font-weight: 500;">{{totalAppraisalsCreated}}</h4>
+                                                        </strong>
+                                                        <h6>{{"LabelText.TotalAppraisalsCreated"|translate}}</h6>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- SPEED-1045 -->
+                                            <!-- <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 ">
+                                                <div class="panel panel-default panel-border" style="height:140px;">
+                                                    <div class="panel-body" style="text-align:center;">
+                                                        <strong>
+                                                            <h4 style="font-weight: 500;">{{AppraisalsCreatedPerDay}}</h4>
+                                                        </strong>
+                                                        <h6>{{"LabelText.AppraisalsCreatedPerDay"|translate}}</h6>
+                                                    </div>
+                                                </div>
+                                            </div> -->
+
+                                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 ">
+                                                <div class="panel panel-default panel-border" style="height:140px;">
+                                                    <div class="panel-body" style="text-align:center;">
+                                                        <strong>
+                                                            <h4 style="font-weight: 500;">{{AvgEvaluationTime}}</h4>
+                                                        </strong>
+                                                        <h6>{{"LabelText.AvgEvaluationTime"|translate}}</h6>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 ">
+                                                <div class="panel panel-default panel-border" style="height:140px;">
+                                                    <div class="panel-body" style="text-align:center;">
+                                                        <strong>
+                                                            <h4 style="font-weight: 500;">{{appraisalsSentToArtigem}}</h4>
+                                                        </strong>
+                                                        <h6>{{"LabelText.SentToArtigemReview"|translate}}</h6>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- SPEED-1045 -->
+                                        <!-- <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 ">
+                                                <div class="panel panel-default panel-border" style="height:140px;">
+                                                    <div class="panel-body" style="text-align:center;">
+                                                        <strong>
+                                                            <h4 style="font-weight: 500;">{{AppraisalsEvaluatedPerDay}}</h4>
+                                                        </strong>
+                                                        <h6>{{"LabelText.AppraisalsEvaluatedPerDay"|translate}}</h6>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> -->
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+                       
+            <!-- Appraisal report starts here -->            
+            <!-- <div class="portlet light padding1px" style="margin-bottom: 0px !important;"> -->
+                <div class="portlet-body">
+                    <div class="row">
+                        <div class="col-md-12 colsm-12">
+                            <div class="portlet-title" style="border-bottom: 1px solid #666; margin-bottom: 5px;">
+                                <div class="caption font-gray-sharp ">
+                                    <span class="caption-subject ng-binding" style="font-size: 18px;color: #666;">{{"LabelText.AppraisalsReport"|translate}}</span>
+                                </div>
+                            </div>               
+                            
+                            <!-- SPEED-1048 -->
+                            <!-- <div class="row">
+                                <div class="col-lg-12 col-md-12 caption-subject" style="font-size: 14px; font-weight: 700;">
+                                    {{"Date Range"|translate}}
+                                </div>
+                                <div class="col-lg-12 col-md-12" data-toggle="buttons">
+                                    <div style="padding-top: 10px; padding-bottom: 10px;" class="btn-group btn-group-artile-premium"
+                                        role="group" aria-label="...">
+                                        <button type="button" ng-click="populateAppraisalReports(1)"
+                                            class="btn btn-default btn-fonts active">{{"LabelText.ThisMonth"|translate}}({{yearValues.thisMonth}}
+                                            '{{yearValues.thisSplitYear}})</button>
+                                        <button type="button" ng-click="populateAppraisalReports(2)"
+                                            class="btn btn-default btn-fonts">{{"LabelText.ThisQuarter"|translate}}({{yearValues.thisQuaterFirstMonth}}
+                                            - {{yearValues.thisQuaterLastMonth}} '{{yearValues.thisSplitYear}})</button>
+                                        <button type="button" ng-click="populateAppraisalReports(3)"
+                                            class="btn btn-default btn-fonts">{{"LabelText.ThisYear"|translate}}({{yearValues.thisYear}})</button>
+                                    </div>
+                                </div>
+                            </div> -->
+                            
+                            <!-- filter by policy effective date / appraisal status / Policyholder name -->
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding1px container">
+                                <div class="panel panel-default" style="border-color: #3598dc; border-radius: 0 !important;margin-top: 0px;margin-bottom: 10px;">
+                                    <div class="panel-body">
+                                        <div class="caption font-gray-sharp ">
+                                            <span class="caption-subject ng-binding" style="font-size: 15px;color: black;font-weight: bold;margin-left: 10px;">{{"LabelText.Filters"|translate}}</span>
+                                        </div>
+                                        <br />
+                                        <form class="form-horizontal" name="policyReportFilters">
+                                            <!-- Policy effective date-->
+                                            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+                                                <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+                                                    <label class="control-label ">
+                                                        {{"LabelText.PolicyEffectiveDate"|translate}}
+                                                    </label>
+                                                </div>
+                                                <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12" style="display:flex">
+                                                    <div class=" p_left_zero" id="calFrom">
+                                                        <div class="input-icon left">
+                                                            <i class="icon-calendar"></i>
+
+                                                            <input class="form-control datepicker" data-date-container='#calFrom' data-date-end-date="+0d"
+                                                            ng-model="fromDate" data-provide="datepicker" size="16" type="text"
+                                                            placeholder="{{'From'|translate}} " name="fromDate" id="fromDate" ng-change="changeDate()"
+                                                            autocomplete="fakeFromDate" readonly/>
+                                                            <!-- <input class="form-control datepicker fromDateCls" data-date-container='#calFrom' style="width:275px" data-date="{{policyReport.fromDate}}"
+                                                                ng-model="policyReport.fromDate" data-provide="datepicker" size="16" type="text" placeholder="{{'From'|translate}} "
+                                                                name="fromDate" id="fromDate" autocomplete="fakeFromDate" readonly />                                         -->
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-1 bold">To</div>
+                                                    <div class="col-lg-3 col-md-5 col-sm-6 p_left_zero" id="calTo">
+                                                        <div class="input-icon left">
+                                                            <i class="icon-calendar"></i>
+                                                            <input class="form-control datepicker" data-date-container='#calTo' data-date-end-date="+0d"
+                                                            ng-model="toDate" data-provide="datepicker" size="16" type="text" data-date-start-date="{{fromDate}}"
+                                                            placeholder="{{'To'|translate}} " name="toDate" id="toDate" autocomplete="fakeToDate" readonly />
+                                                           
+                                                            <!-- <input class="form-control datepicker toDateCls" data-date-container='#cal_to' data-date-start-date="{{policyReport.fromDate}}"  style="width:275px"
+                                                                ng-model="policyReport.toDate" data-provide="datepicker" size="16" type="text" data-date="{{policyReport.toDate}}" placeholder="{{'To'|translate}} "
+                                                                name="toDate" id="toDate" autocomplete="fakeToDate" readonly />                                         -->
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+                                                <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 ">
+                                                    <label class="control-label ">
+                                                        {{"LabelText.AppraisalStatus"|translate}}
+                                                    </label>
+                                                </div>
+                                                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12" ng-mouseover="func('status')" ng-mouseout="funz('status')" style="margin-left: 15px;">
+                                                    <div class="col-lg-12 col-md-12 col-sm-12 form-group" style="padding: 0px;">
+                                                        <div class="mulSelBox">
+                                                            <div class="" style="width: 98%;overflow-y: scroll;display: flex;padding: 0px;flex-wrap: wrap;max-height: 30px;">
+                                                                <div class="sin_opt" ng-repeat="status in statusIds"><div class="tabs" >{{findStatus(status)}}</div>
+                                                                    <span class="k-icon k-i-close" ng-click="clearStatus(status);"></span>
+                                                                </div>
+                                                            </div>
+                                                            <div style="position: sticky;left:100%">
+                                                                <span class="k-icon k-i-close" ng-if="statusIds.length>0" ng-click="clearAllStatus();"></span>
+                                                            </div>
+                                                        </div>
+                                                        <select class="selectpicker form-controls"
+                                                            ng-mousedown="fun('status')" ng-click="fun('status')" ng-placeholder="select status"
+                                                                ng-model="statusIds" multiple >
+                                                                <option class="opt" style="display: none;" ng-repeat="status in appraisalStatus"  value="status.id">{{status.status}}</option>
+                                                        </select>
+                                                        <div style="background-color:white;position: absolute;;z-index:10000;border: 1px solid #ddd;width: 100%;" ng-show="dispStatus" >
+                                                            <ul class="list" style="list-style-type:none;">
+                                                              <li class="">
+                                                              <input type="text" class="searchBar form-control" ng-model="statusSearch" ng-change="searchStatus()" placeholder="Search" />
+                                                             </li>
+                                                              <li class="pfixed" style="top:2px" ng-show="statusArr.length>0">
+                                                                 <input type="checkbox" value="selectAll" id="select-All"  class ="custom-checkbox" onchange="handleStatusSelectAll(event)" > &nbsp;Select all
+                                                             </li>
+                                                            <li class="pfixed" ng-repeat="status in statusArr" >
+                                                                <input type="checkbox" value="{{status.id}}" id="{{'checkStatus'+status.id}}" class="status_check  custom-checkbox " ng-checked="checkValues(status.id)" onchange="handleStatusChange(event)">
+                                                                &nbsp;{{status.status}}</li>
+                                                                <li class="pfixed" ng-show="statusArr.length==0">
+                                                                 <span class="red">No results available</span>
+                                                             </li>
+                                                         </ul> 
+                                                     </div>
+                                                    </div>
+                                                    <!-- <select class="form-control" ng-model="policyReport.appraisalStatus" style="width:275px"
+                                                        data-placeholder="State" ng-options="option.id as option.status for option in appraisalStatus">
+                                                        <option></option>
+                                                    </select> -->
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+                                                <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 ">
+                                                    <label class="control-label ">
+                                                        {{"LabelText.State"|translate}}
+                                                    </label>
+                                                </div>
+                                                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12" ng-mouseover="func('state')" ng-mouseout="funz('state')" style="margin-left: 15px;">
+                                                    <div class="col-lg-12 col-md-12 col-sm-12 form-group" style="padding: 0px;">
+                                                        <div class="mulSelBox">
+                                                            <div class="" style="width: 98%;overflow-y: scroll;display: flex;padding: 0px;flex-wrap: wrap;max-height: 30px;">
+                                                                <div class="sin_opt" ng-repeat="state in stateIds"><div class="tabs" >{{findState(state)}}</div>
+                                                                    <span class="k-icon k-i-close" ng-click="clearState(state);"></span>
+                                                                </div>
+                                                            </div>
+                                                            <div style="position: sticky;left:100%">
+                                                                <span class="k-icon k-i-close" ng-if="stateIds.length>0" ng-click="clearAllState();"></span>
+                                                            </div>
+                                                        </div>
+                                                        <select class="selectpicker form-controls"
+                                                            ng-mousedown="fun('state')" ng-click="fun('state')" ng-placeholder="select state"
+                                                                ng-model="stateIds" multiple >
+                                                                <option class="opt" style="display: none;" ng-repeat="state in StateList"  value="status.id">{{state.state}}</option>
+                                                        </select>
+                                                        <div style="background-color:white;position: absolute;;z-index:10000;border: 1px solid #ddd;width: 100%;" ng-show="dispState" >
+                                                            <ul class="list" style="list-style-type:none;">
+                                                              <li class="">
+                                                              <input type="text" class="searchBar form-control" ng-model="stateSearch" ng-change="searchState()" placeholder="Search" />
+                                                             </li>
+                                                              <li class="pfixed" style="top:2px" ng-show="stateArr.length>0">
+                                                                 <input type="checkbox" value="selectAll" id="select-All-State"  class ="custom-checkbox" onchange="handleStateSelectAll(event)" > &nbsp;Select all
+                                                             </li>
+                                                            <li class="pfixed" ng-repeat="state in stateArr" >
+                                                                <input type="checkbox" value="{{state.id}}" id="{{'checkstate'+state.id}}" class="status_check  custom-checkbox " ng-checked="checkStateValues(state.id)" onchange="handleStateChange(event)">
+                                                                &nbsp;{{state.state}}</li>
+                                                                <li class="pfixed" ng-show="stateArr.length==0">
+                                                                 <span class="red">No results available</span>
+                                                             </li>
+                                                         </ul> 
+                                                     </div>
+                                                    </div>
+                                                    <!-- <select class="form-control" ng-model="policyReport.state" style="width:275px"
+                                                        data-placeholder="State" ng-options="option.id as option.state for option in StateList">
+                                                        <option></option>
+                                                    </select>  -->
+                                                </div>
+
+             
+                                            </div>
+
+                                            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 hide form-group">
+                                                <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+                                                    <label class="control-label ">
+                                                        {{"LabelText.ViewOptions"|translate}}
+                                                    </label>
+                                                </div>
+                                                <div class="col-md-4 col-sm-8">
+                                                    <!-- <select class="form-control select2me" name="associates" multiple required ng-model="CommonObj.Role" placeholder='{{"ControlText.Office"|translate}}'
+                                                            id="select2insidemodal" ng-options="item.employeeNumber as item.name for item in RoleList "></select> -->
+                                                    <a class="active-link" ng-click="SearchByAppraisal()">{{"LabelText.ViewByAppraisal"|translate}}</a>&nbsp;&nbsp;
+                                                    <a ng-disabled="true" ng-click="SearchByPolicy()">{{"LabelText.ViewByPolicy"|translate}}</a>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+                                                <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+                                                </div>
+                                                <div class="col-lg-2 col-md-2 col-sm-6 col-xs-6" style="width: auto;">
+                                                    <button class="btn btn-default sbold" ng-click="filterReports()">{{"LabelText.Submit"|translate}}</button>
+                                                </div>
+                                                <div class="col-lg-2 col-md-2 col-sm-6 col-xs-6">
+                                                    <button class="btn btn-default sbold" ng-click="resetFilter()">{{"Reset"|translate}}</button>
+                                                </div>
+                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Filter ends here -->
+
+                        </div>
+                    </div>
+                </div>
+            <!-- </div> -->
+            <!-- filter ends here -->        
+            <!-- <div class="portlet light padding1px"> -->
+                <div class="portlet-body">
+                    <div class="row">
+                        <div class="col-md-12 colsm-12">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 options_Background padding1px">
+                                <div class="col-lg-3 col-md-3 col-sm-6 margin-bottom-5 margin-top-5 pull-left dropdown"
+                                    style="display:initial;width:95px;padding:0px;margin-left:10px;" ng-disabled="isDisable">
+                                    <button class="btn btn-default sbold btnMargin" type="button" data-toggle="dropdown"><span
+                                            class="glyphicon glyphicon-download-alt"></span>&nbsp;{{"Export"|translate}}
+                                        <span class="caret"></span>
+                                    </button>
+                                    <div class="dropdown-content" style="left: 5px;padding:0px;z-index: 9;">
+                                        <a ng-click="exportPolicyReport('PDF');" class="btn btn-default sbold btnMargin"
+                                            style="padding: 0px!important;padding-bottom: 4px!important; padding-top: 2px !important;padding-left: 12px !important;text-align: left">{{"PDF"
+                                            | translate}} <i class="fa fa-file-pdf-o" style="font-size:14px;color:red"></i></a>
+                                        <!-- <a ng-click="exportPolicyReport('CSV');" class="btn btn-default sbold btnMargin"
+                                            style="padding: 0px !important;
+                                                padding-bottom: 4px !important;padding-top: 2px !important;padding-left: 12px !important;text-align: left">{{"CSV"
+                                            | translate}} <i class="fa fa-file-text-o" style="font-size:14px;color:blue;"></i></a> -->
+                                        <a ng-click="exportPolicyReport('Excel');" class="btn btn-default sbold btnMargin"
+                                            style="padding: 0px !important; padding-bottom: 4px !important;padding-top: 2px !important;padding-left: 12px !important;text-align: left">{{"Excel"
+                                            | translate}} <i class="fa fa-file-excel-o" style="font-size:14px;color:green;"></i></a>
+                                        <a id="someID" class="hide"></a>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3 col-md-3 col-sm-6 margin-bottom-5  margin-top-5  pull-right">
+                                    <div class="input-icon left">
+                                        <i class="icon-magnifier"></i>
+                                        <input type="text" ng-model="policyReport.searchQuery" class="form-control form-control-solid input-circle input-block-level "
+                                            placeholder="{{'Table.placeholder' | translate}}" ng-keyup="policyReport.searchQuery.length > 0 ? ($event.keyCode == 13 && searchAppraisalReportBykey(policyReport.searchQuery)) : searchAppraisalReportBykey('')">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 table-responsive padding1px" style="background-color: white;">
+                                <table class="table  table-striped table-bordered table-hover table-checkable order-column"
+                                    width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th ng-click="sort('appraisal_number')">
+                                                {{"Table.Appraisal#"|translate}}
+                                                <span class="glyphicon sort-icon" ng-show="sortKey==='appraisal_number'"
+                                                    ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                            </th>
+                                            <th ng-click="sort('item_type')">
+                                                {{"Table.ItemCategory"|translate}}
+                                                <span class="glyphicon sort-icon" ng-show="sortKey==='item_type'"
+                                                    ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                            </th>
+                                            <th ng-click="sort('policy_number')">
+                                                {{"Table.Policy#"|translate}}
+                                                <span class="glyphicon sort-icon" ng-show="sortKey==='policy_number'"
+                                                    ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                            </th>
+
+                                            <th ng-click="sort('state')">
+                                                {{"State"|translate}}
+                                                <span class="glyphicon sort-icon" ng-show="sortKey==='state'"
+                                                    ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                            </th>
+
+                                            <th ng-click="sort('policyholder')">
+                                                {{"Table.PriPolicyholder"|translate}}
+                                                <span class="glyphicon sort-icon" ng-show="sortKey==='policyholder'"
+                                                    ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                            </th>
+                                            <th ng-click="sort('appraisal_old_appraisal_date')">
+                                                {{"Table.OldAppraisalDate"|translate}}
+                                                <span class="glyphicon sort-icon" ng-show="sortKey==='appraisal_old_appraisal_date'"
+                                                    ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                            </th>
+                                            <th ng-click="sort('appraisal_old_value')">
+                                                {{"Table.OldAppraisalValue"|translate}}
+                                                <span class="glyphicon sort-icon" ng-show="sortKey==='appraisal_old_value'"
+                                                    ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                            </th>
+
+                                            <th ng-click="sort('sc_insuranceReplacement_value')">
+                                                {{"Table.SpeedcheckValue"|translate}}
+                                                <span class="glyphicon sort-icon" ng-show="sortKey==='sc_insuranceReplacement_value'"
+                                                    ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                            </th>
+
+                                            <th ng-click="sort('changeInCoverage')">
+                                                {{"Table.ChangeInCoverage"|translate}}
+                                                <span class="glyphicon sort-icon" ng-show="sortKey==='changeInCoverage'"
+                                                    ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                            </th>
+
+                                            <th ng-click="sort('new_insurance_premium_cost')">
+                                                {{"Table.AnnualPremium"|translate}}
+                                                <span class="glyphicon sort-icon" ng-show="sortKey==='new_insurance_premium_cost'"
+                                                    ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                            </th>
+
+                                            <th ng-click="sort('status')">
+                                                {{"Table.Status"|translate}}
+                                                <span class="glyphicon sort-icon" ng-show="sortKey==='status'"
+                                                    ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                            </th>
+
+                                            <th ng-click="sort('created_date')">
+                                                {{"Table.CreatedDate"|translate}}
+                                                <span class="glyphicon sort-icon" ng-show="sortKey==='created_date'"
+                                                    ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                            </th>
+
+                                            <th ng-click="sort('approved_date')">
+                                                {{"Table.ApprovedDate"|translate}}
+                                                <span class="glyphicon sort-icon" ng-show="sortKey==='approved_date'"
+                                                    ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                            </th>
+
+                                            <th ng-click="sort('evaluationTime')">
+                                                {{"Table.EvaluationTime"|translate}}
+                                                <span class="glyphicon sort-icon" ng-show="sortKey==='evaluationTime'"
+                                                    ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                            </th>
+
+                                            <th ng-click="sort('setToArtigem')">
+                                                {{"Table.SetToArtigem"|translate}}
+                                                <span class="glyphicon sort-icon" ng-show="sortKey==='setToArtigem'"
+                                                    ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                            </th>
+
+                                        
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-click="openAppraisalDetailsPage(item)" dir-paginate="item in appraisals | itemsPerPage:pageSize track by $index"
+                                            pagination-id="appraisalPage" total-items="totalItems" current-page="currentPage" style="cursor: pointer;">
+                                            <td>{{item.appraisalNumber}}</td>
+                                            <td>{{item.itemCategory.atttibuteValue}}</td>
+                                            <td>{{item.policyNumber}}</td>
+                                            <td>{{item.policyholderDetails.state.stateName}}</td>
+                                            <td>{{item.policyholderName}}</td>
+                                            <td>{{item.appraisalEffectiveDate | formatDate}}</td>
+                                            <td>{{item.appraisalOldValue | USCurrencyFormat}}</td>
+                                            <td>{{item.sc_insuranceReplacementValue | USCurrencyFormat}}</td>
+                                            <td ng-if='item.isNegativeValue' ng-style="{'color': 'rgb(214, 20, 20)'}">(-)&nbsp;{{item.changeInCoverage
+                                                | USCurrencyFormat}}</td>
+                                            <td ng-if='!item.isNegativeValue' ng-style="{'color': 'rgb(8, 117, 8)'}">(+)&nbsp;{{item.changeInCoverage
+                                                |
+                                                USCurrencyFormat}}</td>
+                                            <td>{{item.approvalDate != null ? item.newInsurancePremiumCost : 0 | USCurrencyFormat}}</td>
+                                            <td>{{item.status.status | titleCase}}</td>
+                                            <td>{{item.createdDate | formatDate}}</td>
+                                            <td>{{item.approvedDetails.reviewedDate | formatDate}}</td>
+                                            <td>{{item.approvedDetails.evaluationTime}}</td>
+                                            <td>{{item.artigemReviewStatus == 0 ? "No" : "Yes"}}</td>
+                                        </tr>
+                                        <tr ng-if="appraisals.length === 0 || appraisals === null">
+                                            <td colspan="13" class="text-center text-danger" style="text-align: center;">{{"Table.NoAppraisalText"|translate}}</td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot ng-if="appraisals.length > 0">
+                                        <tr>
+                                            <th colspan="5"> </th>
+                                            <th>Total</th>
+                                            <th>{{totalValues.totalOldAppraisalValue | USCurrencyFormat}}</th>
+                                            <th>{{totalValues.totalSpeedCheckValue | USCurrencyFormat}}</th>
+                                            <th ng-if="totalValues.isNegativeValue" style="color: rgb(214, 20, 20)">(-)&nbsp;{{totalValues.totalChangeInCoverage
+                                                | USCurrencyFormat}}</th>
+                                            <th ng-if="!totalValues.isNegativeValue" style="color: rgb(8, 117, 8)">(+)&nbsp;{{totalValues.totalChangeInCoverage
+                                                | USCurrencyFormat}}</th>
+                                            <th>{{totalValues.totalCoverageApproved | USCurrencyFormat}}</th>
+                                            <th colspan="4"> </th>
+                                        </tr>
+                                    </tfoot>
+                                </table>                                
+                            </div>
+                            <div class="clearfix"></div>
+                                <dir-pagination-controls pagination-id="appraisalPage" max-size="20" on-page-change="pageChanged(newPageNumber)"
+                                    direction-links="true" boundary-links="true" class="pull-right">
+                                </dir-pagination-controls>
+                            <span ng-if="appraisals != null && appraisals.length > 0" class="bold" style="color: #337ab7;"> Showing {{ (pageSize * (currentPage - 1))+1 }} to {{toShowingPage}} of {{totalItems}} records </span>
+                        </div>
+                    </div>
+                </div>
+            <!-- </div> -->
+            <!---End Branches/Office-->
+        </div>
+    </div>
+</div>
+<script type="application/javascript">
+    $( document ).ready(function() {
+        var $injector = angular.element(document.body).injector();
+        var calService = $injector.get('CalendarUtility');
+        calService.calPastDateSetting("fromDateCls", "toDateCls"); // Policy Effective Dates
+    });
+</script>

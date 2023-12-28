@@ -1,0 +1,74 @@
+﻿<div class="">
+    <div id="responsive  " style="width:auto">
+        <div class="modal-header">
+            <a  class="close" ng-click="cancel()" aria-hidden="true"></a>
+            <h4 class="modal-title">New Item</h4>
+        </div>
+        <div class="modal-body">
+            <div class="col-md-12">
+                <div class="form-group  clearfix">
+                    <div class="col-md-6">
+                        <label class="control-label">Item Name</label>
+                        <input type="text" class="form-control" placeholder="Item Name" n-model="">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="col-md-offset-1 control-label"> Brand</label>
+                        <input type="text" class="form-control" placeholder="Brand">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group  clearfix">
+                    <div class="col-md-6">
+                        <label class="control-label">Model</label>
+                        <input type="text" class="form-control" placeholder="Model">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="col-md-offset-1 control-label">Price</label>
+                        <input type="number" class="form-control" placeholder="Price">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group  clearfix">
+                    <div class="col-md-6">
+                        <label class="control-label">Category</label>
+                        <select class="form-control  select2me" data-placeholder="Select Category" ng-model="Common.Category" ng-change="getSubCategory()">
+                            <option value="{{category.categoryId}}" ng-repeat="category in category">{{category.categoryName}}</option>                           
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="col-md-offset-1 control-label">Sub-Category</label>
+                        <select class="form-control  select2me" data-placeholder="Select Sub-Category">
+                            <option value="{{SubCategory.id}}" ng-repeat="SubCategory in SubCategory">{{SubCategory.name}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group  clearfix">
+                    <div class="col-md-6">
+                        <label class="control-label">Age</label>
+                        <input type="text" class="form-control" placeholder="Age">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="control-label">Status</label>
+                        <select class="form-control  select2me" data-placeholder="Select Status">
+                            <option value="All">All</option>
+                            <option value="AL">Test</option>
+                            <option value="WY">Test</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="modal-footer">
+            <button type="button" class="btn btnMargin sbold" ng-click="cancel()">Cancel</button>
+            <button type="button" data-dismiss="modal" class="btn btnMargin sbold" ng-click="SaveNewItem()">Save</button>
+        </div>
+    </div>
+
+</div>
+
+

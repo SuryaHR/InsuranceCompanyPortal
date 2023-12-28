@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Create New Claim Contents</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+.names{
+  display: flex;
+  flex-direction: row;
+  column-gap: 10px;
+  padding: 5px;
+}
+.fieldSet{
+   padding: 0;
+    column-gap: 10px;
+    /* display: flex; */
+    /* flex-direction: row; */
+    border:0;
+    align-items: left;
+}
+
+.fields{
+  display: flex;
+  flex-direction: column;
+  column-gap: 10px;
+  text-align: left;
+  width:100%;
+  color: #000;
+  padding:0px;
+}
+
+.title{
+  align-items: center;
+    column-gap: 1ex;
+    display: flex;
+    flex-wrap: wrap;
+}
+/* Style the header */
+.header {
+  background-color: #292461;
+  padding: 30px;
+  text-align: left;
+  color:white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.dollar{
+  color: #6d6d6d;
+    left: 0;
+    padding: 10px;
+    position: absolute;
+}
+
+.currency-wrap{
+		position:relative;
+	}
+
+	
+	.text-currency{
+		padding:10px;
+		border:solid 1px #ccc;
+    height: 45px;
+    width:30% !important;
+	}
+
+/* Container for flexboxes */
+.row {
+  display: -webkit-flex;
+  display: flex;
+}
+
+/* Create three unequal columns that sits next to each other */
+.column {
+  padding: 10px;
+}
+
+/* Left and right column */
+.column.side {
+   -webkit-flex: 1;
+   -ms-flex: 1;
+   flex: 1;
+   color:white;
+}
+
+/* Middle column */
+.column.middle {
+  -webkit-flex: 2;
+  -ms-flex: 2;
+  flex: 2;
+  color:white;
+  text-align:center;
+}
+
+.buttonStyle{
+  height: 60px;
+  width:25% !important;
+  background-color: #41b1f1;
+  color:white;
+  border-radius: 30px;
+}
+
+/* Style the footer */
+.footer {
+  background-color: #292461;
+  padding: 10px;
+  text-align: center;
+  color:white;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    width: 25px;
+    height: 25px;
+    padding: 0px;
+    margin: 0px;
+}
+
+.radio {
+  padding-bottom: 10px;
+  color:white !important;
+  margin-left: 15px;
+}
+
+.allSet {
+  background-color: white;
+  border-radius: 20px;
+  height: 290px;
+  width: 19%;
+  text-align: center;
+  margin-right: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+    
+}
+
+.allSetMain {
+  display: flex;
+  flex-direction: row;
+  align-content: space-around;
+  align-items: center;
+  justify-content: center;
+  padding-top:50px;
+  padding-bottom:70px;
+}
+
+.successButtonStyle{
+  height: 60px;
+    width: 30% !important;
+    background-color: #41b1f1;
+    color: white;
+    border-radius: 30px;
+    margin-top: 15px;
+}
+
+.largeLogo{
+  width:70% !important;
+}
+
+.smallLogo{
+  width:55% !important;
+}
+
+.fieldsHalf{
+  display: flex;
+  flex-direction: column;
+  column-gap: 10px;
+  text-align: left;
+  width:50%;
+  color: #000;
+  padding:0px;
+}
+
+/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+@media (max-width: 600px) {
+  .row {
+    -webkit-flex-direction: column;
+    flex-direction: column;
+  }
+}
+</style>
+</head>
+<script>
+  function selectedState() {  
+    var mylist = document.getElementById("statelist");  
+  }  
+  </script>  
+<body style="margin: 0px;">
+
+<div class="header">
+  <h2 ng-class="!successPageContents ? 'largeLogo' : 'smallLogo'"><img style="width: 35%;" src="assets/global/img/artigem-streamline-rev-solid2.png" alt="Artigem Streamline"/></h2>
+  
+</div>
+<form method="post" id="ContentClaimForm" name="ContentClaimForm">
+  <div class="row" ng-if="!successPageContents">
+    <div class="column side" style="background-color:#292461;"></div>
+    <div class="column middle" style="background-color:#292461;">
+    <h2 style="font-weight: 600;">Submit a claim</h2>
+    <p style="font-size: 14px;">Please fill in all the required fields and upload the Streamline template excel with the description of the claim items. </p>
+    <div style="margin-bottom:15px">
+        <div class="names">
+          <span>Adjuster's Name</span><span>(required)</span>
+        </div>
+        <div class="names">
+          <div class="fields">
+            <label style="color:white !important;" for="fname">First Name</label>
+            <input style="height: 45px;" required ng-model="adjusterFname" name="adjusterFname" id="adjusterfname" type="text" value="">
+            <div message="required"
+              ng-show="(ContentClaimForm.adjusterFname.$touched && ContentClaimForm.adjusterFname.$error.required )||ContentClaimForm.adjusterFname.$error.pattern">
+              <span class="text-danger">{{"ErrorMessage.FirstName"|translate}}</span>
+          </div>          </div>
+          <div class="fields">
+            <label style="color:white !important;" for="lname">Last Name</label>
+            <input style="height: 45px;"  required ng-model="adjusterLname" name="adjusterLname" id="adjusterlname" type="text" value="">
+            <div message="required"
+              ng-show="(ContentClaimForm.adjusterLname.$touched && ContentClaimForm.adjusterLname.$error.required )||ContentClaimForm.adjusterLname.$error.pattern">
+              <span class="text-danger">{{"ErrorMessage.lastName"|translate}}</span>
+          </div>          </div>
+        </div>
+    </div>
+    <div style="margin-bottom:15px">
+      <div class="names">
+        <span>Adjuster's Email</span><span>(required)</span>
+      </div>
+      <div class="names">
+        <div class="fieldsHalf">
+          <input style="height: 45px;" ng-pattern="/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/" 
+          required ng-model="adjusterEmail" name="adjusterEmail" id="adjusteremail" type="text" value="">
+          <div message="required"
+              ng-show="(ContentClaimForm.adjusterEmail.$touched && ContentClaimForm.adjusterEmail.$error.required )||ContentClaimForm.adjusterEmail.$error.pattern">
+              <span class="text-danger">{{"ErrorMessage.ValidEmail"|translate}}</span>
+          </div>        
+        </div>
+      </div>
+    </div>
+    <div style="margin-bottom:15px">
+      <div class="names">
+        <span>Adjuster's Phone #</span><span>(required)</span>
+      </div>
+      <div class="names">
+        <div class="fieldsHalf">
+          <input required style="height: 45px;" maxlength="15" phone-input ng-model="adjusterPhone" ng-pattern="/^([0-9-,()\s+]{15})$/" name="adjusterPhone" id="adjusterphone" required type="text" value="">
+          <div message="required"
+              ng-show="(ContentClaimForm.adjusterPhone.$touched && ContentClaimForm.adjusterPhone.$error.required )||ContentClaimForm.adjusterPhone.$error.pattern">
+              <span class="text-danger">{{"Please enter valid phone number"}}</span>
+          </div> 
+        </div>
+      </div>
+    </div>
+    <div style="margin-bottom:15px">
+      <div class="names">
+        <span>Insurance Carrier or Agency Name</span><span>(required)</span>
+      </div>
+      <div class="names">
+        <div class="fields">
+          <input style="height: 45px;" required ng-model="agencyName" name="agencyName" id="agencyname" type="text" value="">
+          <div message="required"
+              ng-show="(ContentClaimForm.agencyName.$touched && ContentClaimForm.agencyName.$error.required )||ContentClaimForm.agencyName.$error.pattern">
+              <span class="text-danger">{{"Please enter agency name or insurance carrier" }}</span>
+          </div>        </div>
+      </div>
+    </div>
+    <h2 class="names" style="margin-bottom: 0px;font-size:25px !important;font-weight: 600;">Claim Information</h2>
+    <hr> 
+    <div style="margin-bottom:15px">
+      <div class="names">
+        <span>Claim # or Reference #</span><span>(required)</span>
+      </div>
+      <div class="names">
+        <div class="fields">
+          <input style="height: 45px;" required ng-model="claimReference" name="claimReference" id="claimreference" type="text" value="">
+          <div message="required"
+          ng-show="(ContentClaimForm.claimReference.$touched && ContentClaimForm.claimReference.$error.required )||ContentClaimForm.claimReference.$error.pattern">
+          <span class="text-danger">{{"Please enter claim number or Reference number"}}</span>
+      </div>        </div>
+      </div>
+    </div>
+    <div style="margin-bottom:15px">
+      <div class="names">
+        <span>Claim Date</span><span>(required)</span>
+      </div>
+      <div class="names">
+        <div class="fields">
+          <input style="height: 45px;width:30% !important" required ng-model="claimDate" name="claimDate" id="claimdate" type="date" value="">
+          <div ng-message="required"
+              ng-show="(ContentClaimForm.claimDate.$touched && ContentClaimForm.claimDate.$error.required )||ContentClaimForm.claimDate.$error.pattern">
+              <span class="text-danger">{{"Please enter claim date"|translate}}</span>
+          </div>        </div>
+      </div>
+    </div>
+    <div style="margin-bottom:15px">
+      <div class="names">
+        <span>Policyholder's Name</span><span>(required)</span>
+      </div>
+      <div class="names">
+        <div class="fields">
+          <label style="color:white !important;" for="fname">First Name</label>
+          <input style="height: 45px;" required aria-invalid="false" ng-model="policyholderFname" name="policyholderFname" aria-required="true" id="policyholderfname" type="text" value="">
+          <div message="required"
+              ng-show="(ContentClaimForm.policyholderFname.$touched && ContentClaimForm.policyholderFname.$error.required )||ContentClaimForm.policyholderFname.$error.pattern">
+              <span class="text-danger">{{"ErrorMessage.FirstName"|translate}}</span>
+          </div>        </div>
+        <div class="fields">
+          <label style="color:white !important;" for="lname">Last Name</label>
+          <input style="height: 45px;" required aria-invalid="false" ng-model="policyholderLname" name="policyholderLname" aria-required="true" id="policyholderlname" type="text" value="">
+          <div message="required"
+              ng-show="(ContentClaimForm.policyholderLname.$touched && ContentClaimForm.policyholderLname.$error.required )||ContentClaimForm.policyholderLname.$error.pattern">
+              <span class="text-danger">{{"Please enter last name"|translate}}</span>
+          </div>        </div>
+      </div>
+    </div>
+    <div style="margin-bottom:15px">
+      <div class="col-lg-12" style="padding: 0px;">
+        <div class="col-lg-3 names" style="width:31% !important; margin-right: 10px;">
+          <span>State</span><span>(required)</span>
+        </div>
+        <div class="col-lg-3 names" style="width:31% !important; margin-left: 10px;">
+          <span>Zip Code</span><span>(required)</span>
+        </div>
+      </div>
+      <div class="col-lg-12" style="padding: 0px;">
+        <div class="col-lg-3 names" style="width:31% !important; margin-right: 10px;">
+          <div class="fields">
+              <select style="height: 45px;" id ="statelist" ng-model="stateList" name="stateList" required onchange = "selectedState()" >  
+                <option value="" disabled selected>Select State</option>
+                <option value="AL">AL</option><option value="AK">AK</option><option value="AR">AR</option>
+                <option value="AZ">AZ</option><option value="CA">CA</option><option value="CO">CO</option>
+                <option value="CT">CT</option><option value="DC">DC</option><option value="DE">DE</option>
+                <option value="FL">FL</option><option value="GA">GA</option><option value="HI">HI</option>
+                <option value="IA">IA</option><option value="ID">ID</option><option value="IL">IL</option>
+                <option value="IN">IN</option><option value="KS">KS</option><option value="KY">KY</option>
+                <option value="MA">MA</option><option value="MD">MD</option><option value="ME">ME</option>
+                <option value="MI">MI</option><option value="MN">MN</option><option value="MO">MO</option>
+                <option value="MS">MS</option><option value="MT">MT</option><option value="NC">NC</option>
+                <option value="ND">ND</option><option value="NE">NE</option><option value="NJ">NJ</option>
+                <option value="NM">NM</option><option value="NY">NY</option><option value="OH">OH</option>
+                <option value="OK">OK</option><option value="OR">OR</option><option value="PA">PA</option>
+                <option value="RI">RI</option><option value="SC">SC</option><option value="SD">SD</option>
+                <option value="TN">TN</option><option value="TX">TX</option><option value="UT">UT</option>
+                <option value="VA">VA</option><option value="VT">VT</option><option value="WA">WA</option>
+                <option value="WI">WI</option><option value="WV">WV</option><option value="WY">WY</option>
+                </select>  
+                <div ng-message="pattern"
+                      ng-show="(ContentClaimForm.stateList.$touched && ContentClaimForm.stateList.$error.required )||ContentClaimForm.stateList.$error.pattern">
+                      <span class="text-danger">{{"Please select state"|translate}}</span>
+                  </div> 
+          </div>
+        </div>
+        <div class="col-lg-3 names" style="width:31% !important; margin-left: 10px;">
+          <div class="fields">
+            <input style="height: 45px;" maxlength="5" required onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+            ng-model="zipCode" name="zipCode" id="zipcode" type="text" value="">
+            <div message="required"
+              ng-show="(ContentClaimForm.zipCode.$touched && ContentClaimForm.zipCode.$error.required )||ContentClaimForm.zipCode.$error.pattern">
+              <span class="text-danger">{{"Please enter zip code"}}</span>
+            </div>        
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="margin-bottom:15px">
+        <div class="names">
+          <span>Contents List</span>
+        </div>
+        <div class="fields">
+          <div class="col-md-12 margin-bottom-10" style="padding:5px;">
+            <span class="control-label" style="color:white !important;">{{"Download the CSV template"|translate}} <a download style="color:#88C6F4"
+                    href="{{TemplateURL}}">&nbsp;{{'ControlText.step1.1'|translate}}
+                    &nbsp;</a>{{'ControlText.step1.2'|translate}}</span>
+          </div>
+          <input id="FileUploadexcel" ng-model="FileuploadExcel" name="FileuploadExcel" type="file" multiple
+          onchange="angular.element(this).scope().getContentListDetails(event)"
+          style="display: none;" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+          <button class="buttonStyle" ng-click="AddContentList($event)">Click to upload excel</button>            
+        </div>
+        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-group" style="text-align: left;"
+           ng-show="ContentList != null && ContentList.length > 0">
+          <div class="margin-bottom-10 clearfix"
+              style="padding:0px;" ng-repeat="file in ContentList">
+              <div class="col-md-12 col-sm-12 padding1px"
+                  style="padding-top:10px;"> 
+                  <span id="previewDocs" class="sbold"
+                      style="word-break: break-word;cursor:pointer; color:#88C6F4"
+                      ng-click="GetDocxDetails(file)">{{file.FileName}}
+                      </span>
+                  <span class="fa fa-times-circle fa-lg text-danger " ng-click="removeItemContentList(ContentList,$index)"
+                   style="margin-left:3px;"> </span>                 
+              </div>
+          </div>
+      </div>
+    </div>
+    <div style="margin-bottom:15px">
+      <div class="names">
+        <span>Policy Limits</span><span>(required)</span>
+      </div>
+      <div class="names">
+        <div class="fields">
+          <div class="currency-wrap">
+            <input type="text" input-currency decimal-only required ng-model="policyLimits" name="policyLimits" id="policylimits" class="text-currency"/>
+            <div ng-message="pattern"
+                ng-show="ContentClaimForm.policyLimits.$error.required && ContentClaimForm.policyLimits.$touched">
+                <span class="text-danger">{{"Please enter policy limits"}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="margin-bottom:15px">
+        <div class="names">
+          <span>Special Limits</span>
+        </div>
+        <div class="names">
+          <div class="fields">
+            <textarea style="height: 100px;" type= "text" id="speciallimits" name="note">
+              </textarea>
+          </div>
+        </div>
+      </div>
+    <div style="margin-bottom:15px">
+      <div class="names">
+        <span>Min $ item to price</span><span>(required)</span>
+      </div>
+      <div>
+        <p style="text-align: left;margin-bottom: 5px;margin-left: 5px;margin-top: 5px;">
+            (Anything below the $ listed here will be accepted at the item's stated value, depreciation table will still be applied)
+        </p>
+      </div>
+      <div class="names">
+        <div class="fields">
+          <div class="currency-wrap">
+            <input required type="text" input-currency decimal-only ng-model="minitemPrice" name="minitemPrice" id="minitemprice" class="text-currency"/>
+            <div ng-message="pattern"
+            ng-show="(ContentClaimForm.minitemPrice.$touched && ContentClaimForm.minitemPrice.$error.required )||ContentClaimForm.minitemPrice.$error.pattern">
+            <span class="text-danger">{{"Please enter minimum item price"}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+        <div class="names" style="padding-bottom: 0px;">
+          <span>Desired claim summary format</span><span>(required)</span>
+        </div>
+        <div class="names" style="padding-top: 0px;">
+            <div class="fields">
+                <div class="radio">
+                    <input style="margin-top: 2px;" type="radio" id="excel" ng-model="exportMethod" name="exportMethod" value="Excel" required><span>Excel</span>
+                </div>
+                <div class="radio">
+                    <input style="margin-top: 2px;" type="radio" id="pdf"ng-model= "exportMethod" name="exportMethod" value="PDF" required><span>PDF</span>
+                </div>
+                <div class="radio">
+                    <input style="margin-top: 2px;" type="radio" id="both" ng-model="exportMethod" name="exportMethod" value="Both Excel and PDF" required><span>Both Excel and PDF</span>
+                </div>
+                <div ng-message="required"
+                ng-show="(ContentClaimForm.exportMethod.$touched && ContentClaimForm.exportMethod.$error.required )||ContentClaimForm.exportMethod.$error.pattern">
+                <span class="text-danger">{{"Please select claim summary format"}}</span>
+                </div>
+            </div>
+          </div>
+    </div>
+    <div style="margin-bottom:15px">
+      <div class="names">
+        <span>Attachments</span>
+      </div>
+      <div class="fields">
+        <input id="FileUpload" type="file" multiple
+          onchange="angular.element(this).scope().getAttachmentDetails(event)"
+          style="display: none;" accept="image/*|.pdf|.xls|.xlsx">
+          <button class="buttonStyle" ng-click="AddAttachment($event)">Click to upload</button>
+            <!-- <input id="uploadattachments" type="file" ng-model="uploaditemlist" multiple
+            style="display: none;"> -->
+            <div ng-show="invalidAttachment">
+              <span class="text-danger">Please Upload file less than 20mb</span>
+          </div>
+      </div>
+      
+      <div
+      class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-group" style="text-align: left;"
+      ng-show="attachmentList != null && attachmentList.length > 0">
+          <div class="margin-bottom-10 clearfix"
+              style="padding:0px;" ng-repeat="file in attachmentList">
+              <div class="col-md-12 col-sm-12 padding1px"
+                  style="padding-top:10px">    
+                  <span id="previewDocs" class="sbold"
+                      style="word-break: break-word;cursor:pointer; color:#88C6F4"
+                      ng-click="GetDocxDetails(file)">{{file.FileName}}
+                      </span>
+                      <span class="fa fa-times-circle fa-lg text-danger " ng-click="removeItemattachment(attachmentList,$index)"
+                   style="margin-left:3px;"> </span>  
+              </div>
+          </div>
+      </div>
+  
+    </div>
+    <div style="margin-bottom:15px">
+      <div class="names">
+        <span>Note for Artigem</span>
+      </div>
+      <div class="names">
+        <div class="fields">
+          <textarea style="height: 100px;" id="note" name="note">
+            </textarea>
+        </div>
+      </div>
+    </div>
+    <div class="fields" style="align-items: center;">
+      <input class="buttonStyle" type="button" value="Submit" 
+      ng-click="CheckAllFormValidationContent()" />
+    </div>
+    </div>
+    <div class="column side" style="background-color:#292461;"></div>
+  </div>
+</form>
+<div class="col-md-12 col-lg-12 allSetMain"   ng-if="successPageContents">
+  <div class="col-md-6 col-lg-6 allSet">
+    <div><i class="fa fa-check-circle" style="font-size:75px;color:green"></i></div>
+    <h2 style="font-weight: 600;">You're all set</h2>
+    
+  </div>
+  <div class="col-md-6 col-lg-6">
+    <h2 style="margin-bottom: 0px;font-size:25px !important; font-weight: 600;color:white !important;">Thank you!</h2>
+      <hr>
+    <h3 style="color:white !important;font-weight: 600;"> Your claim has been submitted to Artigem, a claim specialist will contact you shortly.</h3>
+    <div style="text-align: center;margin-top: 10px;">
+      <button class="successButtonStyle" ng-click="goBackToContentClaimSubmit()">Click to submit another claim</button>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <h2><img src="assets/global/img/artigem-logo.png" alt="Artigem Streamline"/></h2>
+  <h2 style="font-weight: 600">Your job just got a lot easier.</h2>
+  <p>Copyright © 2023 Artigem. All rights reserved.</p>
+</div>
+
+
+ 
+
+
+</body>
+</html>
+
+

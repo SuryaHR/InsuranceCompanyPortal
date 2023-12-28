@@ -1,0 +1,52 @@
+﻿{
+  "Labeled": {
+    "ClaimForms": "Claim Forms",
+    "New": "New",
+    "Upload": "Upload",
+    "Export": "Export",
+    "btnBack": "Back",
+    "btnSave": "Save",
+    "btnCancel": "Cancel",
+    "lblSearch": "Search..",
+    "View": "View",
+    "Column": "Attribute Name",
+    "Type": "Type",
+    "PageSize": "Show",
+    "DescriptionOfClaimForm": "Description Of Claim Form",
+    "LabelFOrClaimType": "Label For Claim Type",
+    "ApplicablePolicyType": "Applicable Policy Type"
+
+
+  },
+  "ControlText": {
+    "Edit": "Edit",
+    "Delete": "Delete",
+    "SelectType": "Select Type",
+    "ColumnTitle": "Attribute Title"
+
+  },
+
+  "Table": {
+    "FormId": "Form Id",
+    "FromName": "From Name",
+    "Description": "Description",
+    "PolicyType": "PolicyType",
+    "Action": "Action"
+
+  },
+  "HeaderText": {
+    "ClaimForms": "Claim Forms",
+    "AddClaimForms": "Add new Claim Form",
+    "EditClaimForms": "Edit Claim Form"
+
+  },
+  "Please enter claim form label..": "Please enter claim form label..",
+  "Please select policy type..": "Please select policy type..",
+  "Please select type.": "Please select type.",
+  "Delete": "Delete claim form",
+  "Are you sure to delete claim form?": "Are you sure to delete claim form?",
+  "Yes": "Yes",
+  "No": "No",
+  "Claim From Id": "Claim From Id :"
+
+}

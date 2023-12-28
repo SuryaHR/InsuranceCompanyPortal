@@ -1,0 +1,11 @@
+{
+    "Home": "Home",
+    "ReportSettings": "Report Settings",
+    "Monthly": "Email report at end of every month",
+    "Quaterly": "Email report at end of every quater",
+    "Settings" : "Settings",
+    "Buttons": {
+        "Reset": "Reset to Default",
+        "Update": "Update Settings"
+    }
+}

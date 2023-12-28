@@ -1,0 +1,322 @@
+﻿<div class="row login  nomargin clearfix  clear">
+    <div class="logo">
+        <a href="" style="text-decoration:none;">
+            <h3 class="form-title font-green">{{"Logo"|translate}}</h3>
+        </a>
+    </div>
+    <div class="">
+        <div class="col-md-12">
+            <form class="" id="NewVendorForm" name="NewVendorForm">
+                <div class="col-md-12">
+                    <div class="col-md-12 portlet light bordered">
+                        <div class="portlet-title margin-top-20">
+                            <div class="caption font-grey-sharp">
+                                <span class="caption-subject">
+                                    {{"New Vendor Registration"|translate}}
+                                </span>
+                            </div>
+                            <div class="tools">
+
+                            </div>
+                        </div>
+                        <div class="portlet-body " ng-form="RegisterVendor">
+                            <div class="row">
+                                <div class="col-md-12 margin-bottom-10 margin-top-10 ">
+                                    <div class="col-md-12">
+                                        <button class="btn btnMargin sbold pull-right" ng-disabled="RegisterVendor.$invalid || RegisterVendor.$pristine" ng-click="AddNewVendor()">{{"ControlText.Save"|translate}}</button>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="portlet">
+                                        <div class="SubHeadingDiv">
+
+
+                                            <div class="caption-subject">
+
+                                                {{"Vendor Company Details"|translate}}
+                                            </div>
+                                            <div class="tools">
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group col-md-12 col-sm-6">
+                                        <div class="col-md-6">
+                                            <div class="Label_Text_Right col-md-5 col-sm-5 ">
+                                                <label class="control-label ">{{"FormControl.SupplierName"|translate}}</label>
+                                            </div>
+                                            <div class="col-md-6 col-sm-7">
+                                                <input type="text" required name="SupplierName" class="form-control" ng-model="NewVendor.SupplierName" placeholder='{{"FormControl.SupplierName"|translate}}' />
+                                                <div ng-message="required" ng-show="(RegisterVendor.SupplierName.$error.required && RegisterVendor.SupplierName.$touched)">
+                                                    <span class="text-danger">{{"Please enter supplier name."|translate}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-md-12 col-sm-6">
+                                        <div class="col-md-6">
+                                            <div class="Label_Text_Right col-md-5 col-sm-5">
+                                                <label class="control-label ">{{"FormControl.CompanyWebsite"|translate}}</label>
+                                            </div>
+                                            <div class="col-md-6 col-sm-7">
+                                                <input type="text" name="Website" required class="form-control" ng-model="NewVendor.Website" placeholder='{{"FormControl.CompanyWebsite"|translate}}' />
+                                                <div ng-message="required" ng-show="(RegisterVendor.Website.$error.required && RegisterVendor.Website.$touched)">
+                                                    <span class="text-danger">{{"Please enter website"|translate}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="clear"></div>
+                                    
+
+                                    <div class="clear"></div>
+                                    <div class="form-group col-md-12 col-sm-6">
+                                        <div class="col-md-6">
+                                            <div class="Label_Text_Right col-md-5 col-sm-5">
+                                                <label class="control-label ">{{"Registration Number"|translate}}</label>
+                                            </div>
+                                            <div class="col-md-6 col-sm-7">
+                                                <input type="text" required name="VRegistrationNumber" class="form-control" ng-model="NewVendor.VendorRegistrationNumber" placeholder='{{"Registration Number"|translate}}' />
+                                                <div ng-message="required" ng-show="(RegisterVendor.VRegistrationNumber.$error.required && RegisterVendor.VRegistrationNumber.$touched)">
+                                                    <span class="text-danger">{{"Please enter registration number."|translate}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!--Shipping Address-->
+                                    <div class="form-group col-md-12">
+                                        <!--<div class="col-md-6">
+                                            <div class="col-md-4 col-sm-12 form-group">
+                                                <label class="control-label ">{{"FormControl.ShippingAddress"|translate}}</label>
+                                            </div>
+                                            <div class="col-md-6 col-sm-6 form-group">
+                                                <input type="text" class="form-control btnMargin" ng-model="NewVendor.ShippingAddressLine1" placeholder='{{"FormControl.AddressLine1"|translate}}' />
+                                            </div>
+                                            <div class="col-md-6 col-sm-6 col-md-offset-4 form-group">
+                                                <input type="text" class="form-control btnMargin" ng-model="NewVendor.ShippingAddressLine2" placeholder='{{"FormControl.AddressLine2"|translate}}' />
+                                            </div>
+                                            <div class="col-md-6 col-sm-6 col-md-offset-4 form-group">
+                                                <input type="text" class="form-control btnMargin" ng-model="NewVendor.ShippingCity" placeholder='{{"FormControl.City"|translate}}' />
+                                            </div>
+                                            <div class="col-md-3 col-sm-4 col-md-offset-4 form-group">
+                                                <select class="form-control select2me btnMargin" ng-model="commObj.ShippingState" placeholder='{{"FormControl.State"|translate}}'
+                                                        ng-options="item.id as item.state for item in ddlStateList "></select>
+                                            </div>
+                                            <div class="col-md-3 col-sm-2 form-group">
+                                                <input type="text" class="form-control btnMargin" ng-model="NewVendor.ShippingZipCode" placeholder='{{"FormControl.ZipCode"|translate}}' />
+                                            </div>
+                                        </div>-->
+                                        <!--Billing Address-->
+                                        <!--<div class="col-md-6">
+                                            <div class="col-md-4 col-sm-12 form-group">
+                                                <label class="control-label ">{{"FormControl.BillingAddress"|translate}}</label>
+                                            </div>
+                                            <div class="col-md-6 col-sm-6 form-group">
+                                                <input type="text" class="form-control btnMargin" ng-model="NewVendor.BillingAddressLine1" placeholder='{{"FormControl.AddressLine1"|translate}}' />
+                                            </div>
+                                            <div class="col-md-6 col-md-offset-4 col-sm-6 form-group">
+                                                <input type="text" class="form-control btnMargin" ng-model="NewVendor.BillingAddressLine2" placeholder='{{"FormControl.AddressLine2"|translate}}' />
+                                            </div>
+                                            <div class="col-md-6 col-md-offset-4 col-sm-6 form-group">
+                                                <input type="text" class="form-control btnMargin" ng-model="NewVendor.BillingCity" placeholder='{{"FormControl.City"|translate}}' />
+                                            </div>
+                                            <div class="col-md-3 col-md-offset-4 col-sm-4 form-group">
+                                                <select class="form-control select2me btnMargin" ng-model="commObj.BillingState" placeholder='{{"FormControl.State"|translate}}'
+                                                        ng-options="item.id as item.state for item in ddlStateList "></select>
+                                            </div>
+                                            <div class="col-md-3 col-sm-2 form-group">
+                                                <input type="text" class="form-control btnMargin" ng-model="NewVendor.BillingZipCode" placeholder='{{"FormControl.ZipCode"|translate}}' />
+                                            </div>
+                                        </div>-->
+                                        <!--End Billing Address-->
+
+                                    </div>
+                                    <!--End Shipping Address-->
+                                    <!--Dynamically Added Phone numbers-->
+                                    <div class="clear clearfix"></div>
+                                    <!--<div class="col-md-12 form-group clearfix" ng-repeat="phone in PhoneNumbers">
+                                        <div class="col-md-6">
+                                            <div class="col-md-4 col-sm-12">
+                                                <label class="control-label " ng-hide="$index!=0">{{"FormControl.SuppliersPhone"|translate}}<span class="text-danger">*</span></label>
+                                            </div>
+                                            <div class="col-md-6 col-sm-5 form-group">
+                                                <select class="form-control select2me col-md-6" ng-model="phone.Type" placeholder='{{"FormControl.PhoneType"|translate}}' name="PhoneType_{{$index}}" required>
+
+                                                    <option value="Work" selected>Work</option>
+                                                    <option value="Other">Other</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6 col-sm-5 form-group col-md-offset-4">
+                                                <input type="text" class="form-control col-md-6"  ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" ng-model="phone.PhoneNo" placeholder='{{"FormControl.SuppliersPhone"|translate}}' required name="PhoneNumber_{{$index}}" />
+
+                                            </div>
+                                            <div class="col-md-2 col-sm-2 text-right visible-sm">
+                                                <span id="btnRemovePhone" class="btn btn-circle green" ng-show="$index!=0" ng-click="RemovePhone($index)">
+                                                    <i class="fa fa-remove"></i>
+                                                </span>
+                                                <span id="btnAddPhone" class="btn btn-circle blue" ng-show="$index==0" ng-click="AddPhone($index)">
+                                                    <i class="fa fa-plus"></i>
+                                                </span>
+                                            </div>
+                                            <div class="col-md-2 col-sm-2  visible-lg visible-md visible-xs">
+                                                <span id="btnRemovePhone" class="btn btn-circle green" ng-show="$index!=0" ng-click="RemovePhone($index)">
+                                                    <i class="fa fa-remove"></i>
+                                                </span>
+                                                <span id="btnAddPhone" class="btn btn-circle blue" ng-show="$index==0" ng-click="AddPhone($index)">
+                                                    <i class="fa fa-plus"></i>
+                                                </span>
+                                            </div>
+                                            <div class="errormessage col-md-12 col-sm-12 col-md-offset-2">
+                                                <div class="col-md-offset-2 col-sm-offset-2" ng-message="required" ng-show="(RegisterVendor['PhoneNumber_'+$index].$error.required)&&(RegisterVendor['PhoneNumber_'+$index].$touched)">
+                                                    <span class="text-danger">&nbsp;{{"Please enter contact number"|translate}}</span>
+                                                </div>
+                                                <div class="col-md-offset-2 col-sm-offset-2" ng-message="required" ng-show="(RegisterVendor['PhoneType_'+$index].$error.required)&&(RegisterVendor['PhoneType_'+$index].$touched)">
+                                                    <span class="text-danger">&nbsp;{{"Please select contact type"|translate}}</span>
+                                                </div>
+
+                                            </div>
+                                            <div class="errormessage col-md-12 col-sm-12 col-md-offset-2">
+                                                <div class="col-md-offset-2 col-sm-offset-2" ng-message="required" ng-show="(RegisterVendor['PhoneNumber_'+$index].$error.pattern)">
+                                                    <span class="text-danger">&nbsp;{{"Please enter valid number."|translate}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>-->
+                                    <!--End Dynamically Dynamically Added Phone numbers-->
+                                    <div class="portlet">
+                                        <div class="SubHeadingDiv">
+
+
+                                            <div class="caption-subject">
+
+                                                {{"Admin Contact Information"|translate}}
+                                            </div>
+                                            <div class="tools">
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div class="form-group col-md-12 col-sm-6">
+                                        <div class="col-md-6">
+                                            <div class="Label_Text_Right col-md-5 col-sm-5">
+                                                <label class="control-label ">{{"FormControl.FirstName"|translate}}</label>
+                                            </div>
+                                            <div class="col-md-6 col-sm-7">
+                                                <input type="text" class="form-control" required name="firstname" ng-model="NewVendor.FirstName" placeholder='{{"FormControl.FirstName"|translate}}' />
+                                                <div ng-message="required" ng-show="(RegisterVendor.firstname.$error.required && RegisterVendor.firstname.$touched)">
+                                                    <span class="text-danger">{{"Please enter first name."|translate}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-12 col-sm-6">
+                                        <div class="col-md-6">
+                                            <div class="Label_Text_Right col-md-5 col-sm-5">
+                                                <label class="control-label ">{{"FormControl.LastName"|translate}}</label>
+                                            </div>
+                                            <div class="col-md-6 col-sm-7">
+                                                <input type="text" required name="lastname" class="form-control" ng-model="NewVendor.LastName" placeholder='{{"FormControl.LastName"|translate}}' />
+                                                <div ng-message="required" ng-show="(RegisterVendor.lastname.$error.required && RegisterVendor.lastname.$touched)">
+                                                    <span class="text-danger">{{"Please enter last name."|translate}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-md-12 col-sm-6 ">
+                                        <div class="col-md-6">
+                                            <div class="Label_Text_Right col-md-5 col-sm-5">
+                                                <label class="control-label ">{{"Date Of Birth"|translate}}</label>
+                                            </div>
+                                            <div class="col-md-6 col-sm-7" id="cal">
+                                                <input type="text" required name="DOB" data-date-container='#cal' data-provide="datepicker" size="16" class="form-control datepicker" ng-model="NewVendor.DOB" placeholder='{{"Date Of Birth"|translate}}' />
+                                                <div ng-message="required" ng-show="(RegisterVendor.DOB.$error.required && RegisterVendor.DOB.$touched)">
+                                                    <span class="text-danger">{{"Please enter date of birth"|translate}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-md-12 col-sm-6">
+                                        <div class="col-md-6">
+                                            <div class="Label_Text_Right col-md-5 col-sm-5">
+                                                <label class="control-label ">{{"FormControl.Email"|translate}}</label>
+                                            </div>
+                                            <div class="col-md-6 col-sm-7">
+                                                <input type="text" required name="useremail" class="form-control" pattern="[a-z0-9A-Z._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" ng-model="NewVendor.Email" placeholder='{{"FormControl.Email"|translate}}' />
+                                                <div ng-message="required" ng-show="(RegisterVendor.useremail.$error.required && RegisterVendor.useremail.$touched)">
+                                                    <span class="text-danger">{{"Please enter eamilID."|translate}}</span>
+                                                </div>
+                                                <span class="text-danger col-sm-12 col-xs-12 col-lg-12 col-md-12" ng-message="pattern"
+                                                      ng-show="(RegisterVendor.useremail.$touched && RegisterVendor.useremail.$error.pattern)">
+                                                    {{"Please enter valid emailID."|translate}}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-md-12 col-sm-6">
+                                        <div class="col-md-6">
+                                            <div class="Label_Text_Right col-md-5 col-sm-5">
+                                                <label class="control-label ">{{"FormControl.Phone"|translate}}</label>
+                                            </div>
+                                            <div class="col-md-6 col-sm-7">
+                                                <input type="text" required name="userPhoneNo" ng-pattern="/^([0-9-,()\s+]{15})$/" ng-trim="false" maxlength="15" phone-input class="form-control" ng-model="NewVendor.Phone" placeholder='{{"FormControl.Phone"|translate}}' />
+                                                <div ng-message="required" ng-show="(RegisterVendor.userPhoneNo.$error.required && RegisterVendor.userPhoneNo.$touched)">
+                                                    <span class="text-danger"> {{"Please enter phone number."|translate}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-md-12 col-sm-6">
+                                        <div class="col-md-6">
+                                            <div class="Label_Text_Right col-md-5 col-sm-5">
+                                                <label class="control-label ">{{"FormControl.Mobile"|translate}}</label>
+                                            </div>
+                                            <div class="col-md-6 col-sm-7">
+                                                <input type="text" required ng-pattern="/^([0-9-,()\s+]{15})$/" ng-trim="false" maxlength="15" phone-input name="usermobileno" class="form-control" ng-model="NewVendor.Mobile" placeholder='{{"FormControl.Mobile"|translate}}' />
+                                                <div ng-message="required" ng-show="(RegisterVendor.usermobileno.$error.required && RegisterVendor.usermobileno.$touched)">
+                                                    <span class="text-danger">{{"Please enter mobile number."|translate}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-md-12 col-sm-6">
+                                        <div class="col-md-6">
+                                            <div class="Label_Text_Right col-md-5 col-sm-5">
+                                                <label class="control-label ">{{"Evening time phone"|translate}}</label>
+                                            </div>
+                                            <div class="col-md-6 col-sm-7">
+                                                <input type="text" required class="form-control" ng-pattern="/^([0-9-,()\s+]{15})$/" ng-trim="false" maxlength="15" phone-input name="eveningTime" ng-model="NewVendor.EveningTimePhone" placeholder='{{"Evening time phone"|translate}}' />
+                                                <div ng-message="required" ng-show="(RegisterVendor.eveningTime.$error.required && RegisterVendor.eveningTime.$touched)">
+                                                    <span class="text-danger">{{"Please enter phone number."|translate}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                    <div class="clearfix"></div>
+                                  
+                                </div>
+                                <div class="col-md-12 margin-bottom-10 margin-top-10 ">
+                                    <div class="col-md-12">
+                                        <button class="btn btnMargin sbold pull-right" ng-disabled="RegisterVendor.$invalid || RegisterVendor.$pristine" ng-click="AddNewVendor()">{{"ControlText.Save"|translate}}</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

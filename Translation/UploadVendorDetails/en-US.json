@@ -1,0 +1,35 @@
+﻿{
+  "UploadSuccessful": "Upload Status",
+  "Bulk Upload Vendor Details": "Bulk Upload Vendor Details",
+  "LoadingItems": "Loading Items",
+  "VerifyInformation": "Verify Information",
+
+  "ControlText": {
+    "LoadFromFile": "Load from file",
+    "step1": "1. Download the CSV template",
+    "step1.1": "Upload Vendor Details",
+    "step1.2": "to upload vendor details",
+    "step2": "2. Fill the CSV OR modify existing CSV file.",
+    "step2.1": " Fields marked with a '*' are mandatory.",
+    "step2.2": "If a vendor with same ID already exists, it will be updated.",
+    "step3": " 3. Load updated file and start and click on start upload.",
+    "SelectFile": "Choose File",
+    "NoFileselected": "No File selected",
+    "step": "Steps for uploading Vendor Details in bulk:",
+    "LoadingItems": "Loading Records",
+    "FileName": "File Name",
+    "Status": "Status",
+    "StartUpload": "Start Upload",
+    "RowsProcessed": "Rows Processed",
+    "ItemsUpdated": "Records Updated",
+    "NewItemsCreated": "New Records Created",
+    "RowProcessed": "Row Processed",
+    "FailedItem": "Failed Item",
+    "Done": "Done",
+    "Cancel": "Cancel",
+    "FinishUplolad": "Finish Uplolad"
+
+  }
+
+
+}

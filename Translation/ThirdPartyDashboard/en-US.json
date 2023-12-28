@@ -1,0 +1,40 @@
+﻿{
+  "HeaderText": {
+    "NewSubmissions": "New Submissions",
+    "NewClaims": "New Claims",
+    "InProgress": "In Progress",
+    "WaitingForApproval": "Waiting For Approval",
+    "Orders": "Orders",
+    "MyClaims_title": "My Claims",
+    "Alert_title": "Alert Box",
+    "UpcomingEvents": "Upcoming Events"
+  },
+  "ControlText": {
+    "Show": "Show",
+    "View": "View",
+    "Dashboard": "Dashboard"
+  },
+  "Table": {
+    "Claim": "Claim #",
+    "InsurenceCompany": "Insurance Company",
+    "Adjustername": "Adjuster Name",
+    "#Item": "Item #",
+    "ServiceRequested": "Service Requested",
+    "Status": "Status",
+    "ReportDate": "Report Date",
+    "LastUpdate": "Last Update",
+    "LastNote": "Last Note",
+    "Date": "Date",
+    "Participant": "Participant",
+    "ScheduledAction": "Scheduled Action",
+    "StartTime": "Start Time",
+    "Title": "Title",
+    "Subject": "Subject"
+  },
+  "SearchText": "Search Reference #, Insured's Name, Phone #",
+  "GlobalSearchText": "Search ...Any Claim #, Policyholder",
+  "NoRecordText": "No Records Available",
+  "NoAlertText": "No new messages available",
+  "NoEventsText": "No events scheduled in next month"
+
+}

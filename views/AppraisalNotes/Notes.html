@@ -1,0 +1,196 @@
+﻿<style>
+    .NoDecoration {
+        text-decoration: none !important;
+        color: black;
+    }    
+    .marginTop5px {
+        margin-top: 5px;
+    }
+    .innerNotesPnl{
+        background-color: #2472b8;
+    }
+    
+</style>
+
+
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0px margin-top-20">
+    <div class="col-md-12   col-sm-12">
+        <div class="col-md-12 col-sm-12 SubHeadingDiv margin-bottom-10">
+            <span class="caption-subject  ">{{"Appraisal Notes"|translate}}</span>
+        </div>
+    </div>       
+
+    <div class="col-md-12 col-xs-12 col-sm-12 portlet light">
+        <div class="portlet-title innerNotesPnl" >
+            <div class="caption font-grey-sharp" style="padding: 10px 5px!important;color: #ffffff!important;">
+                <span  class="caption-subject font-grey-sharp" style="font-size: 15px!important;font-weight: 600!important;">  {{"Notes"|translate}}</span>
+            </div>
+            <div class="tools" style="padding: 5px 5px!important;">
+                <button ng-disabled="isAppraisalActive == 'false' || policyStatus == 'InActive'" class="btn sbold btnMargin" ng-click="AddNotePopup()">
+                    {{"New Note"|translate}}
+                </button>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <div class="row">
+                <div class="col-md-5 col-sm-5 col-xs-12">
+                    <div class="portlet light bordered">
+                        <div class="portlet-title" style="height: 32px;">
+                            <div class="caption sbold font-green">
+                            </div>
+                            <div class="tools col-sm-11 col-md-8">
+                                <div class="input-icon left">
+                                    <i class="icon-magnifier"></i>
+                                    <input type="text" class="form-control form-control-solid input-circle btnMargin input-block-level" ng-model="searchNote" placeholder={{"Search"|translate}}>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="portlet-body">
+                            <div class="row" style="max-height: 500px;overflow-y: auto;">
+                                <div class="col-md-12 col-sm-12 col-xs-12  margin-bottom-5"   ng-class="{'well': $index===NoteIndex}" style="border-bottom:groove" ng-repeat="note in NoteList|filter:searchNote" ng-click="GetNoteDetails(note,$index)">
+                                    <a class="col-md-12 col-sm-12 col-xs-12 sbold margin-bottom-5 NoDecoration  ">{{note.groupTitle !==null?note.groupTitle:'Note Subject'}}</a>
+                                    <a class="col-md-12 col-sm-12 col-xs-12 margin-bottom-5 NoDecoration  ">
+                                        <span ng-repeat="item in note.participants">
+                                            <span>{{item.firstName}}, {{item.lastName}}<span ng-if="!$last">, &nbsp;</span></span>
+                                        </span>
+                                        <!-- <span ng-if="note.participants.length>2">...</span> -->
+                                    </a>
+                                    <a class="col-md-12 col-sm-12 col-xs-12 margin-bottom-5 NoDecoration  text-right">{{note.updateDate |DateFormatMMddyyyyHHmm}}</a>
+                                    <!-- <a class="col-md-12 col-sm-12 col-xs-12 margin-bottom-5 NoDecoration  text-right">{{note.updateDate |DateFormatMMddyyyyHHmmTimeGMT}}</a> -->
+                                </div>
+
+                                <div class="col-md-12 text-center text-danger" ng-show="!NoteList.length||NoteList===null">{{"NoRecordText"|translate}}</div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-md-7 col-sm-7 col-xs-12">
+                    <div class="portlet light bordered">
+                        <div class="portlet-title" style="height: 32px;">
+                            <div class="caption  font-grey-sharp">
+                                <span class="caption-subject font-grey-sharp">
+                                    {{NoteDetails.groupTitle}}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="portlet-body">                            
+                            <!-- Attachements Preview Start -->
+                            <div class="row panel panel-default" id="img_preview" draggable ng-if="imgDiv" style="margin-top: 0px;margin-left: 0px;width:100%;top: 0px;left: 0px;margin-bottom: 10px;">
+                                <div class="col-md-12 col-sm-12" style="padding: 0px 10px;">
+                                    <label class="col-md-12 col-sm-12 SubHeadingDiv margin-bottom-10" style="font-size: 14px;">{{DocxDetails.name}}</label>
+                                    <div class="col-md-12 col-sm-12 margin-bottom-10" style="text-align: left;">
+                                        <!-- <a class="btn btn-default sbold btnMargin" ng-if="showButton" ng-click="getAttachements(DocxDetails.fileData)">Download</a> -->
+                                        <a class="btn btn-default sbold btnMargin" ng-show="showDownload"
+                                        ng-click="downloadAttachment(DocxDetails)">Download</a>
+                                        <!-- <a class="btn btn-default sbold btnMargin" ng-if="showButton" download href="{{DocxDetails.url}}">Download</a> -->
+                                        <a id="previewclose" class="btn btn-default sbold btnMargin" ng-click="close()">Close Preview</a>
+                                        <a ng-if="isPDF == 2" id="previewclose" class="btn btn-default sbold btnMargin glyphicon glyphicon-plus" ng-click="largeMe()"></a>
+                                        <a ng-if="isPDF == 2" id="previewclose" class="btn btn-default sbold btnMargin glyphicon glyphicon-minus" ng-click="smallMe()"></a>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 col-sm-12" style="padding: 0px 10px;overflow: auto;" ng-if="isPDF == 2">
+                                    <div class="col-md-12 col-sm-12">
+                                        <img id = "imagepre" class="image-wrapper" height="400" width="520" onerror="this.onerror=null; this.src='assets/global/img/no-image.png';" class="ImageDocx" ng-src="{{DocxDetails.url}}"
+                                            alt="Image" />
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-sm-12 col-xs-12" id="PdfView" ng-if="isPDF===1" >
+                                    <!-- Show PDF region Render PDF here -->
+                                    <div class="col-md-12" id="load_receipts">
+                                        <ng-pdf template-url="views/GlobalSearch/PdfViewer.html" canvasid="pdf" scale="page-fit" page=1></ng-pdf>
+                                    </div>
+                                    <!--End Show PDF region  -->
+                                </div>
+                                <div class="col-md-12 col-sm-12 col-xs-12 text-center" ng-if="isPDF===0">
+                                    <div class="col-sm-8 col-md-6 col-xs-12 text-center" style="height:230px;width:100%;">
+                                        <div class="col-md-12 col-sm-12 col-xs-12 well text-center">
+                                            <span class="text-info">{{"File type does not support preview option. File will start downloading.."|translate}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Attachments Preview End -->
+                            <div class="row" style="max-height: 500px;overflow-y: auto;">
+                                <div class="col-md-12 col-sm-12 col-xs-12 margin-bottom-10 well" ng-repeat="item in NoteDetails.messages">
+                                    <label class="col-md-2 col-sm-3 col-xs-12 margin-bottom-5 NoDecoration ">Author:</label>
+                                    <span class="col-md-10 col-sm-9 col-xs-12 margin-bottom-5 NoDecoration ">{{item.addedBy.firstName}}, {{item.addedBy.lastName}}</span>
+                                    <div class="clearfix margin-bottom-5"></div>
+                                    <label class="col-md-2 col-sm-3 col-xs-12  NoDecoration ">Message:</label>
+                                    <span class="col-md-10 col-sm-9 col-xs-12  NoDecoration ">{{item.message}}</span>
+                                    <div class="clearfix margin-bottom-5"></div>
+                                    <label class="col-md-2 col-sm-3 col-xs-12 NoDecoration margin-bottom-5">Attachments:</label>
+                                                                 
+                                    <div class="col-md-10 col-sm-9 col-xs-12 " >
+                                        <span ng-show="item.attachments==null">No attachment for the message</span>
+
+                                        <font ng-repeat="file in item.attachments">
+                                            <span id="previewDocs" class="sbold" style="font-family:Calibri; font-size:14px;cursor:pointer" ng-click="GetDocxDetails(file)">
+                                                <a>{{file.name}}</a>
+                                            </span>
+                                            <span ng-if="!$last">, </span>
+                                        </font>                                       
+
+                                    </div>      
+                                   
+                                    <div class="clearfix"></div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12  NoDecoration  text-right">
+                                        {{ item.updateDate ? (item.updateDate|DateFormatMMddyyyyHHmm) : (item.createDate|DateFormatMMddyyyyHHmm) }}
+                                    </div>
+
+                                    <!-- <div class="col-md-12 col-sm-12 col-xs-12  NoDecoration  text-right">
+                                        {{ item.updateDate ? (item.updateDate|DateFormatMMddyyyyHHmmTimeGMT) : (item.createDate|DateFormatMMddyyyyHHmmTimeGMT) }}
+                                    </div> -->
+                                </div>
+                                <div class="col-md-12 text-center text-danger" ng-show="!NoteList.length||NoteList===null">{{"NoRecordText"|translate}}</div>
+                             </div>                            
+                             
+                             <div ng-show="NoteDetails.messages!=null" class="row margin-top-10">
+                                <div ng-form="ReplyNoteForm">                                   
+                                    <div class="col-md-12 col-sm-12 padding1px ">
+                                        <input ng-disabled="isAppraisalActive == 'false' || policyStatus == 'InActive'" id="NoteFileUpload" type="file" ng-model="CommonObj.Attachment" multiple onchange="angular.element(this).scope().getNoteFileDetails(event)" style="display: none;" accept="image/*">
+                                        <div class="col-md-12 col-sm-12" style="display:flex">
+                                            <textarea id="appraisalNoteId" class="form-control" ng-model="CommonObj.appraisalNote" placeholder='{{"Description"|translate}}' rows="3" name="appraisalNote" required></textarea>
+                                            <span style="line-height:75px;margin-left:15px;" ng-click="SelectNoteFile(); ">
+                                                <i class="fa fa-paperclip fa-2x"></i>
+                                            </span>
+                                        </div>
+                                        <div class="errormessage" style="margin-left: 15px;">
+                                            <div ng-message="required" ng-show="(ReplyNoteForm.appraisalNote.$error.required)">
+                                                <span class="text-danger">{{"Description field is required."|translate}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 margin-top-5 margin-bottom-5 padding1px clearfix form-group">
+                                        <div class="col-md-2">
+                                            <label class="control-label">{{"Attachment"|translate}}</label>
+                                        </div>
+                                        <div class="col-md-10 text-left">
+                                            <div class="col-md-6" ng-repeat="item in files" style="margin-top:5px;">
+                                                <span class="control-label">{{item.FileName}}</span>
+                                                <span class="fa fa-times-circle fa-lg text-danger " ng-click="RemoveImage(item)" style="margin-left:3px;">
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 text-right">
+                                        <div class="col-md-12 col-sm-12 ">
+                                            <div class="col-md-12 col-sm-12">
+                                                <button type="button" data-dismiss="modal" class="btn sbold btnMargin" ng-click="ReplyToNote()" ng-disabled="ReplyNoteForm.$invalid || ReplyNoteForm.$pristine">{{"Save"|translate}}</button>
+
+                                            </div>
+                                            </div>
+                                        </div>
+                                </div>
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+</div>
+
+

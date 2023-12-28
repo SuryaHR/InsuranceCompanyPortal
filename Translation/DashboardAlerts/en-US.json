@@ -1,0 +1,8 @@
+{
+    "Table": {
+        "Date": "Date",
+        "Policy_Details": "Policy Details",
+        "Message": "Message",
+        "NoAlertText": "No new messages available"
+    }
+}

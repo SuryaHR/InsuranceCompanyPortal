@@ -1,0 +1,48 @@
+﻿{
+
+  "HeadingText": {
+    "AvailableVendors": "Available Vendors",
+    "NewServiceRequest": "New Service Request"
+
+  },
+  "ControlText": {
+    "Back": "Back",
+    "ServiceDescription": "Service Description",
+    "ServiceCategory": "Service Category",
+    "TargetDate": "Target Date",
+    "Attachments": "Attachments",
+    "AddFile": "Add File",
+    "Delete": "Delete",
+    "Save": "Save",
+    "CreatedBy": "Created By",
+    "SelectedVendor": "Selected Vendor",
+    "MinimumCostofServices": "Minimum Cost of Services",
+    "Date": "Target Date"
+  },
+
+  "Table": {
+    "ClaimsInHand": "Claims In Hand",
+    "Name": "Specialist's Name",
+    "Role": "Role",
+    "Services": "Services Provided",
+    "Participant": "Participant (Yes/No)",
+    "Action": "Action",
+    "Speciality": "Speciality",
+    "SpecialistName": "Specialist Name",
+    "Description": "Description",
+    "Match": "Match"
+
+  },
+  "AlertMessage": {
+    "SaveRequest": "Service Request",
+    "SuccessMessage": "New service request created with Id: ",
+    "Status": "Current status: "
+  },
+  "NoRecordText": "No Records Available",
+  "SearchText": "Search..",
+  "LostDamagedSearchText": "search..",
+  "TargetDateRequired": "Enter Target Date",
+  "DescriptionRequired": "Enter Description",
+  "Home": "Home"
+
+}

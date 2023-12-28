@@ -1,0 +1,74 @@
+﻿<script>
+    $(document).ready(function () {
+        $("#select2insidemodal").select2({
+            dropdownParent: $("#myModal")
+        });
+    });
+</script>
+<div id="myModal">
+    <div id="responsive">
+        <div class="modal-header">
+            <a class="close" ng-click="cancel()" aria-hidden="true"></a>
+            <h5 class="modal-title sbold">{{"Update /  Invite User"|translate}}</h5>
+        </div>
+        <div class="modal-body">
+            <div class="col-md-12 padding1px " ng-form="updateInviteUserForm">
+                <div class="col-md-12 col-sm-12 form-group">
+                    <div class="col-md-2 col-sm-2 col-xs-12 Label_Text_Right" style="padding-left: 0px">
+                        <label class="control-label">{{"Email"|translate}}</label>
+                    </div>
+                    <div class="col-md-10 col-sm-10 col-xs-12" style="max-height:80px;overflow-y:auto">       
+                        <input type="text" name="email" required ng-model="CommonObj.participant.emailId"
+                            ng-pattern="/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/"
+                            class="form-control" placeholder="{{'Enter Email Id'|translate}}" autocomplete="nofill" />
+                        <div ng-message="pattern" ng-show="(updateInviteUserForm.email.$error.pattern)">
+                            <span class="text-danger">{{"Please enter valid email"|translate}}</span>
+                        </div>
+                        <div ng-message="pattern"
+                            ng-show="updateInviteUserForm.email.$error.required && updateInviteUserForm.email.$touched">
+                            <span class="text-danger">{{"Please enter email address"|translate}}</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- <div class="col-md-12 col-sm-12 form-group">
+                    <div class="col-md-2 col-sm-2 col-xs-12 Label_Text_Right" style="padding-left: 0px">
+                        <label class="control-label">{{"First Name"|translate}}</label>
+                    </div>
+                    <div class="col-md-10 col-sm-10 col-xs-12" style="max-height:80px;overflow-y:auto">                        
+                        <input type="text" class="form-control" ng-model="CommonObj.participant.firstName"
+                                placeholder='{{"First Name"|translate}}' id="firstName" name="firstName" />
+                    </div>
+                </div>
+
+                <div class="col-md-12 col-sm-12 form-group">
+                    <div class="col-md-2 col-sm-2 col-xs-12 Label_Text_Right" style="padding-left: 0px">
+                        <label class="control-label">{{"Last Name"|translate}}</label>
+                    </div>
+                    <div class="col-md-10 col-sm-10 col-xs-12" style="max-height:80px;overflow-y:auto">                        
+                        <input type="text" class="form-control" ng-model="CommonObj.participant.lastName"
+                                placeholder='{{"Last Name"|translate}}' id="lastName" name="lastName" />
+                    </div>
+                </div>
+
+                <div class="col-md-12 col-sm-12 form-group">
+                    <div class="col-md-2 col-sm-2 col-xs-12 Label_Text_Right" style="padding-left: 0px">
+                        <label class="control-label">{{"Phone No"|translate}}</label>
+                    </div>
+                    <div class="col-md-10 col-sm-10 col-xs-12" style="max-height:80px;overflow-y:auto">                        
+                        <input type="text" class="form-control" ng-model="CommonObj.participant.phoneNum"
+                                placeholder='{{"Last Name"|translate}}' id="phoneNo" name="phoneNo" />
+                    </div>
+                </div>               -->                              
+                    
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline dark"
+                ng-click="cancel()">{{"Cancel"|translate}}</button>
+            <button type="button" data-dismiss="modal" class="btn sbold btnMargin" ng-click="update()"
+                ng-disabled="updateInviteUserForm.$invalid">{{"Update / Invite"|translate}}</button>
+        </div>
+    </div>
+</div>

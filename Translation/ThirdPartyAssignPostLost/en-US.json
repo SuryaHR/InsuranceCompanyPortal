@@ -1,0 +1,89 @@
+﻿{
+  "Model": {
+    "Header_AdjusterList": "Assign Item"
+  },
+
+  "HeadingText": {
+    "Specialists": "Specialists",
+    "Claim": "Claim # :",
+    "LineItemDetails": "Selected Items Snapshot"
+  },
+  "ControlText": {
+    "Search_title": "Search",
+    "AssignAdjuster_title": "Assign",
+    "Cancel_title": "Cancel",
+    "item#": "Item # :",
+    "ItemCategory": "Item Category :",
+    "Services": "Services Needed",
+    "ContactInsure": "Contact Insured",
+    "ItemDetails": "Item Details",
+    "MinimumCostOfservice": "Minimum Cost Of services",
+    "RdoYes": "yes",
+    "RdoNo": "No",
+    "AddItem": "Add Item",
+    "Delete": "Delete",
+    "View": "View",
+    "Show": "Show",
+    "Back": "Back",
+    "Save": "Save",
+    "Cancel": "Cancel"
+  },
+  "AssignNoItem": {
+    "Assigned": "Assigned",
+    "of": "of",
+    "items": "items claimed",
+    " claimed": "claimed"
+  },
+  "Table": {
+    "Match": "Match",
+    "ItemsInHand": "Items In Hand",
+    "Name": "Specialist's Name",
+    "Speciality": "Speciality",
+    "Role": "Role",
+    "InternalExternal": "Internal/External",
+    "Services": "Services Provided",
+    "Id": "Id",
+    "Author": "Author",
+    "Date": "Date",
+    "EventType": "Event Type",
+    "Message": "Message",
+    "Reminder": "Reminder",
+    "ItemName": "ItemName",
+    "Brand": "Brand",
+    "Model": "Model",
+    "Price": "Price",
+    "Category": "Category",
+    "SubCategory": "SubCategory",
+    "Age": "Age",
+    "Status": "Status",
+    "ReplacedValue": "ReplacedValue",
+    "RCV": "RCV",
+    "ACV": "ACV",
+    "PayoutCheck": "Patout Check #",
+    "Holdover": "Holdover",
+    "VendorName": "Vendor Name",
+    "StartDate": "Start Date",
+    "EndDate": "End Date",
+    "Participant": "Participant(Yes/No)",
+    "Action": "Action",
+    "SpecialistName": "Specialist's Name",
+    "InsuredPrice": "Insured's Unit Cost",
+    "Description": "Description",
+    "ScheduledItem": "Scheduled Item"
+
+  },
+  "PostLost_Delete": {
+    "Title": "Delete Lost/Damaged Item",
+    "Message": "Are you sure you want to delete,this item? Please Confirm!",
+    "BtnYes": "Yes",
+    "BtnNo": "No"
+  },
+  "AlertMessage": {
+    "AddNoteTitle": "Add Note ",
+    "Update": "Update"
+  },
+  "NoRecordText": "No Records Available",
+  "SearchText": "Search..",
+  "LostDamagedSearchText": "search.."
+
+}

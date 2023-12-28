@@ -1,0 +1,46 @@
+﻿<div class="col-md-12">
+    <div class="col-md-12 portlet light bordered">
+        <div class="portlet-title">
+            <div class="caption bold font-green">
+                {{"InviteTitle"|translate}}
+            </div>
+            <buton class="btn sbold btnMargin green pull-right" ng-click="GoBack($event)">
+                <i class="fa fa-arrow-left"></i>
+                {{"ControlText.Back"|translate}}
+            </buton>
+        </div>
+        <div class="portlet-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-md-12 form-group">
+                        <div class="col-md-2">
+                            <label class="control-label">{{"FormControlText.EmailId"|translate}}</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" placeholder='{{"FormControlText.EmailId"|translate}}' />
+                        </div>
+                    </div>
+                    <div class="col-md-12 form-group">
+                        <div class="col-md-2">
+                            <label class="control-label">{{"FormControlText.BodyOfInvite"|translate}}</label>
+                        </div>
+                        <div class="col-md-6">
+                            <textarea class="form-control" placeholder='{{"FormControlText.BodyOfInvite"|translate}}'></textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-12 form-group">
+                        <div class="col-md-2">
+                        
+                        </div>
+                        <div class="col-md-6">
+                            <buton class="btn sbold btnMargin blue pull-left" ng-click="InviteVendor()">
+                                
+                                {{"ControlText.SendInvite"|translate}}
+                            </buton>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

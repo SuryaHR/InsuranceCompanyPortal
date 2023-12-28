@@ -1,0 +1,273 @@
+﻿
+<!-- Begin Contact Tab -->
+<div class="col-md-12">
+    <div class="col-md-12 portlet">
+        <!--Contact List-->
+        <div id="ContactList" ng-if="displaycontactlist">
+           
+            <div class="col-md-12 col-lg-12 padding1px">
+                <!--top buttons-->
+                <div class="col-md-12 col-lg-12 clearfix">
+                    <button id="btnNewContact" class="btn sbold btnMargin " ng-click="NewContact($event)">
+                        {{"ControlText.CreateNewContact_title"|translate}}
+                    </button>
+                    <button id="btnUploadContact" class="btn sbold btnMargin" ng-click="UploadContact($event)">
+                        {{"ControlText.UploadContacts_title"|translate}}
+                    </button>
+                    <div class="col-md-4 pull-right margin-bottom-5 margin-top-5">
+                        <div class="input-icon left ">
+                            <i class="icon-magnifier"></i>
+                            <input type="text" ng-model="search" class="form-control form-control-solid input-circle input-block-level " placeholder="Search...">
+                        </div>
+                    </div>
+                </div>
+                <!--end top buttons-->
+                <div class="col-md-12 table-responsive">
+                    <table class="table  table table-striped table-bordered table-hover order-column margin-top-20 col-md-12" id="NavigateTable">
+                        <thead>
+                            <tr>
+                                <th ng-click="sort('firstName')">
+                                    {{"Table.Name"|translate}}
+                                    <span class="glyphicon sort-icon" ng-show="sortKey=='firstName'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                </th>
+                                <th ng-click="sort('designation')">
+                                    {{"Table.Designation"|translate}}
+                                    <span class="glyphicon sort-icon" ng-show="sortKey=='designation'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                </th>
+                                <th ng-click="sort('')">
+                                    {{"Table.BranchOffice"|translate}}
+                                    <span class="glyphicon sort-icon" ng-show="sortKey==''" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                </th>
+                                <th ng-click="sort('email')">
+                                    {{"Table.EmailId"|translate}}
+                                    <span class="glyphicon sort-icon" ng-show="sortKey=='email'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                </th>
+                                <th ng-click="sort('cellPhone')">
+                                    {{"Table.PhoneNo"|translate}}
+                                    <span class="glyphicon sort-icon" ng-show="sortKey=='cellPhone'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                </th>
+                              
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr dir-paginate="contact in ContactsList|filter:search|itemsPerPage:10">
+                                <td ng-click="EditContact(contact)">{{contact.firstName +" "+ contact.lastName}}</td>
+                                <td ng-click="EditContact(contact)">{{contact.designation}}</td>
+                                <td ng-click="EditContact(contact)"></td>
+                                <td ng-click="EditContact(contact)">{{contact.email}}</td>
+                                <td ng-click="EditContact(contact)">{{contact.cellPhone}}</td>
+                            </tr>
+                            <tr ng-if="!ContactsList.length||ContactsList===null">
+                                <td colspan="5" class="text-danger text-center">{{"NoRecordText"|translate}}</td>
+                               
+                            </tr>
+                        </tbody>
+                    </table>
+                    <dir-pagination-controls max-size="3"
+                                             direction-links="true"
+                                             boundary-links="true" class="pull-right">
+                    </dir-pagination-controls>
+                </div>
+            </div>
+        </div>
+        <!--End Contact List-->
+        <!--New Contacts-->
+        <div class="col-md-12" ng-if="displaynewcontacts" ng-form="NewContactForm">
+            <div class="portlet ">
+                <div class="portlet-title">
+                    <h4 class="text-primary"><b>{{AddEditTitle}}</b> </h4>
+                </div>
+                <div class="portlet-body">
+                    <div class="row">
+
+                        <!--First Row-->
+                        <div class="form-group col-md-6">
+                            <div class="col-md-4 col-sm-3">
+                                <label>{{"FormControlText.FirstName"|translate}}</label>
+                            </div>
+                            <div class="col-md-8 col-sm-9">
+                                <input type="text" required class="form-control" ng-model="NewContact.FirstName" placeholder='{{"FormControlText.FirstName"|translate}}' name="FirstName" />
+                                <div class="col-md-12  padding1px">
+                                    <span class="text-danger" ng-show="NewContactForm.FirstName.$error.required && NewContactForm.FirstName.$touched">{{"FirstNameRequired"|translate}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="visible-sm clearfix col-sm-12 margin-bottom-10 "></div>
+                        <div class="form-group col-md-6">
+                            <div class="col-md-4 col-sm-3">
+                                <label>{{"FormControlText.LastName"|translate}}</label>
+                            </div>
+                            <div class="col-md-8 col-sm-9 ">
+                                <input type="text" class="form-control"  required ng-model="NewContact.LastName" placeholder='{{"FormControlText.LastName"|translate}}' name="LastName" />
+                                <div class="col-md-12  padding1px">
+                                    <span class="text-danger" ng-show="NewContactForm.LastName.$error.required && NewContactForm.LastName.$touched">{{"LastNameRequired"|translate}}</span>
+                                </div>
+                             </div>
+                        </div>
+                        <div class="visible-sm clearfix col-sm-12 margin-bottom-10 "></div>
+                        <div class="form-group col-md-6">
+                            <div class="col-md-4 col-sm-3">
+                                <label>{{"FormControlText.Email"|translate}}</label>
+                            </div>
+                            <div class="col-md-8 col-sm-9">
+                                <input  type="email" class="form-control" required ng-model="NewContact.Email" placeholder='{{"FormControlText.Email"|translate}}' name="Email" />
+                                <div class="col-md-12  padding1px">
+                                    <span class="text-danger" ng-show="NewContactForm.Email.$error.required && NewContactForm.Email.$touched">{{"EmailRequired"|translate}}</span>
+                                </div>
+                                <div class="col-md-12  padding1px">
+                                    <span class="text-danger" ng-show="NewContactForm.Email.$error.email">{{"CorrectEmail"|translate}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="visible-sm clearfix col-sm-12 margin-bottom-10 "></div>
+                        <div class="form-group col-md-6">
+                            <div class="col-md-4 col-sm-3">
+                                <label>{{"FormControlText.PhoneNumber"|translate}}</label>
+                            </div>
+                            <div class="col-md-8 col-sm-9">
+                                <input type="text" class="form-control" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" required ng-model="NewContact.PhoneNo" placeholder='{{"FormControlText.PhoneNumber"|translate}}' name="PhoneNo"/>
+                                <div class="col-md-12  padding1px">
+                                    <span class="text-danger" ng-show="NewContactForm.PhoneNo.$error.required && NewContactForm.PhoneNo.$touched">{{"PhoneNoRequired"|translate}}</span>
+                                </div>
+                                <div class="col-md-12  padding1px">
+                                    <span class="text-danger" ng-show="NewContactForm.PhoneNo.$error.pattern">{{"CorrectPhoneNo"|translate}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!---End First Row--->
+                        <div class="visible-sm clearfix col-sm-12 margin-bottom-10 "></div>
+                    
+                             <div class="col-md-12 hidden-sm">
+                             <div class="portlet">
+                                 <div class="portlet-title"></div>
+                             </div>
+                         </div>
+                        <!--second Row-->
+                        <div class="form-group col-md-6">
+                            <div class="col-md-4 col-sm-3">
+                                <label>{{"FormControlText.Designation"|translate}}</label>
+                            </div>
+                            <div class="col-md-8 col-sm-9">
+                                <select class="form-control input-block-level " required ng-model="NewContact.Designation" data-placeholder="Select.." name="Designation" ng-options="Design.id as Design.name for Design in DesignationList"> </select>
+                                   
+                               
+                                <div class="col-md-12  padding1px">
+                                    <span class="text-danger" ng-show="NewContactForm.Designation.$error.required && NewContactForm.Designation.$touched">{{"DesignationRequired"|translate}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="visible-sm col-sm-12 margin-bottom-10 "></div>
+                        <div class="form-group col-md-6">
+                            <div class="col-md-4 col-sm-3">
+                                <label>{{"FormControlText.ReportingManager"|translate}}</label>
+                            </div>
+                            <div class="col-md-8 col-sm-9">
+                                <select class="form-control input-block-level select2me" required ng-model="NewContact.ReportingMgnr" data-placeholder="Select.." name="ReportingMgnr" ng-options="Mgnr.id as Mgnr.name for Mgnr in ReportingManagerList"></select>
+                                 
+                                <div class="col-md-12  padding1px">
+                                    <span class="text-danger" ng-show="NewContactForm.ReportingMgnr.$error.required && NewContactForm.ReportingMgnr.$touched">{{"ReoprtingMgnrRequired"|translate}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="visible-sm clearfix col-sm-12 margin-bottom-10 "></div>
+                        <div class="form-group col-md-6">
+                            <div class="col-md-4 col-sm-3">
+                                <label>{{"FormControlText.Role"|translate}}</label>
+                            </div>
+                            <div class="col-md-7 col-sm-8">
+                                <span class="font-sm" ng-repeat="Role in SelectedRoles">{{Role.name}}<span ng-if="!$last">,&nbsp;</span></span>
+                            </div>
+                            <div class="col-md-1 col-sm-1">
+
+                                <span id="btnNext" class="btn btn-circle blue pull-right" ng-click="openRoleModel()">
+
+                                    <i class="fa fa-plus"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="visible-sm col-sm-12 margin-bottom-10 "></div>
+                        <div class="form-group col-md-6">
+                            <div class="col-md-4 col-sm-3">
+                                <label>{{"FormControlText.BranchOffice"|translate}}</label>
+                            </div>
+                            <div class="col-md-8 col-sm-9">
+                                <select class="form-control input-block-level select2me" required ng-model="NewContact.Branch" data-placeholder="Select.." name="Branch" ng-options="Branch.id as Branch.name for Branch in BranchList">   </select>
+                                                                
+                                <div class="col-md-12  padding1px">
+                                    <span class="text-danger" ng-show="NewContactForm.Branch.$error.required && NewContactForm.Branch.$touched">{{"BranchRequired"|translate}}</span>
+                                </div>
+                            </div>
+                        </div>
+                      
+                        <!--End Second Row-->
+
+                    </div>
+
+                    <div class="col-md-12 portlet">
+                        <div class="portlet-title">
+                        </div>
+                    </div>
+                        <div class="col-md-12 clearfix">
+                            <div class="form-group col-md-8 pull-left text-left">
+                                <span class="text-danger">{{"NewContactNote_title"|translate}}</span>
+                            </div>
+                           
+                                    <button id="btnCreate" class="btn sbold blue btnMargin pull-right" ng-disabled="NewContactForm.$invalid || NewContactForm.$pristine" ng-click="AddContact()">
+                                        <i class="fa fa-plus"></i>
+                                        {{"ControlText.Create_title"|translate}}
+                                    </button>
+                              
+                                    <button id="btnBack" class="btn sbold green btnMargin pull-right"  ng-click="Back($event)">
+                                        <i class="fa fa-arrow-left"></i>
+                                        {{"ControlText.Back_title"|translate}}
+                                    </button>
+                           
+                        </div>
+                    
+                </div><!--end portlet body-->
+            </div><!--end portlet-->
+        </div>
+        <!--End New Contacts-->
+        <!--Upload Contacts-->
+        <div class="col-md-12" ng-if="displayuploadcontacts">
+            <div class="portlet">
+                <div class="portlet-title">
+                    <h4 class="text-primary"><b>{{"HeaderText.UploadContact_title" |translate}}</b> </h4>
+                </div>
+                <div class="portlet-body">
+                    <div class="row">
+                        <div class="col-md-offset-3 col-md-6 portlet" style="box-shadow:0px 1px 8px 1px grey;">
+                            <div class="form-group">
+                                <div class="col-md-12 text-center margin-top-20">
+                                    <span class="text-primary bold">{{"HeaderText.UploadContactNote"|translate}}</span>
+                                </div>
+                                <div class="col-md-offset-3 col-md-6 margin-top-20">
+                                    <div class="col-md-12">
+                                        <input type="file"  placeholder="select File" />
+                                    </div>
+                                </div>
+                                <div class="col-md-12 margin-top-20 margin-bottom-20 text-center">
+                                  
+                                        <button id="btnBack" class="btn sbold green btnMargin" ng-click="UploadBack($event)">
+                                            <i class="fa fa-arrow-left"></i>
+                                            {{"ControlText.Back_title"|translate}}
+                                        </button>
+                              
+                                   
+                                        <button id="btnUpload" class="btn sbold blue btnMargin" ng-click="UploadContactPopup()">
+                                            <i class="fa fa-upload"></i>
+                                            {{"ControlText.UploadContact_title"|translate}}
+                                        </button>
+                                  
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--End Upload Contacts-->
+    </div>
+</div>
+<!--End Contact Tab-->

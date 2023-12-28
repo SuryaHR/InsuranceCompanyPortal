@@ -1,0 +1,42 @@
+﻿{
+  "MainHeader": {
+    "ItemDetails": "Item Details"
+  },
+  "ControlText": {
+    "MyClaims": "My Claims",
+    "Inventory": "Inventory"
+  },
+  "Label": {
+    "ItemId": "Item Id",
+    "ItemName": "Item Name",
+    "Model": "Model",
+    "ItemType": "Item Type",
+    "PricePerUnit": "Price Per Unit",
+    "Discount": "Discount %",
+    "TaxRate": "Tax Rate",
+    "Description": "Description Of Item",
+    "Supplier": "Supplier",
+    "AddedOn": "Added On",
+    "isAvailable": "Is available",
+    "stockUnit": "Stock Unit"
+  },
+  "btn": {
+    "update": "Save",
+    "back": "Back"
+  },
+  "Save": {
+    "Title": "Item details",
+    "Message": "Item details saved successfully.",
+    "ErroMessage": "Failed to save the item details."
+  },
+  "ErrorMessage": {
+    "ItemName": "Please enter item name",
+    "Model": "Please enter model name",
+    "ItemType": "Please select item type",
+    "price": "Please enter price per unit",
+    "ValidNumbers": "Please enter valid numbers",
+    "Isavaliable": "Please select item is available Or not"
+
+  }
+
+}

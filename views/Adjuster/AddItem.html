@@ -1,0 +1,1200 @@
+﻿<style>
+    #img_preview {
+        min-height: 490px !important;
+        width: 675px !important;
+        padding: 10px 0px;
+        position: fixed;
+        z-index: 20;
+    }
+
+    .image-wrapper {
+        max-height: 350px !important;
+        overflow: auto !important;
+        display: block;
+    }
+
+    .Highlighted_Row {
+        background-color: #a8f2fb !important;
+    }
+
+    /* Start -Added for Currency format for input field */
+    label.currencyLbl {
+        position: absolute;
+        background: white;
+        left: 15px;
+        top: 0px;
+        cursor: pointer;
+        padding: 3px 5px !important;
+        max-width: inherit;
+    }
+
+    input.currency {
+        position: relative;
+        width: 70px !important;
+    }
+
+    input.currency {
+        padding: 0;
+        border: 1px solid #c2cad8;
+        width: 70px !important;
+        font-family: Arial;
+        line-height: 20px;
+    }
+
+    label.currencyLbl {
+        padding: 0;
+        border: 1px solid #c2cad8;
+        width: 70px !important;
+        font-family: Arial;
+        line-height: 19px;
+        height: 25px;
+        font-weight: 400 !important;
+        color: #555555;
+        font-size: 12px !important;
+    }
+
+    input.currency:focus+label.currencyLbl {
+        display: none !important;
+    }
+
+    /* Added for the selection disable */
+    label.currencyLbl::selection {
+        display: none !important;
+    }
+    .datepicker {
+        left:771.469px !important;
+    }
+</style>
+<script>
+    function numeric_only(event, input) {
+        if ((event.which < 32) || (event.which > 126)) return true;
+        return jQuery.isNumeric($(input).val() + String.fromCharCode(event.which));
+    }// numeric_only;
+</script>
+<ul class="page-breadcrumb breadcrumb sbold">
+    <li>
+        <a ng-click="back()">{{CommonObj.UserRole === "POLICYHOLDER" ? "My Claims" : "Home"}}</a>
+        <i class="fa fa-circle"></i>
+    </li>
+    <li>
+        <a ng-click="GoToClaim()">{{CommonObj.ClaimNumber}}</a>
+        <i class="fa fa-circle"></i>
+    </li>
+    <li>
+        <span>{{"Add New Item"|translate}}</span>
+    </li>
+</ul>
+<div class="col-md-12 col-sm-12 col-lg-12">
+    <div class="col-md-12 col-sm-12 col-lg-12 clearfix padding1px">
+        <div class="portlet">
+            <div class="portlet-body">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-lg-12 options_Background_WithBorder">
+                        <div class="col-md-6 col-sm-4 col-lg-4 margin-top-5 margin-bottom-5">
+                            <span class="text_options_Label sbold">{{"Add New Item"|translate}}</span>
+                        </div>
+                    </div>
+                    <!---For Jewelry Claim profile-->
+                    <div class="col-md-12 col-sm-12 col-lg-12" style="border:1px solid #DCDCDC;"
+                        ng-show="CommonObj.ClaimProfile == 'Jewelry'" ng-form="AddItemForm">
+
+                        <div class="col-md-12 col-sm-12 col-lg-12 pull-right padding1px margin-top-5 margin-bottom-5">
+                            <button id="sample_editable_1_new pull-right" ng-click="reset()"
+                                class="btn sbold btnMargin pull-right"
+                                ng-disabled="AddItemForm.$pristine && !selected.id">
+                                {{(selected.id ? "Cancel" : "Reset") | translate}}
+                            </button>
+                            <button id="sample_editable_1_new" ng-if="selected.id"
+                                ng-click="SaveItemDetails(selected.id)"
+                                ng-disabled="AddItemForm.$invalid||AddItemForm.$pristine"
+                                class="btn sbold btnMargin pull-right">
+                                {{"Update Item"|translate}}
+                            </button>
+                            <button id="sample_editable_2_new" ng-if="!selected.id"
+                                ng-click="SaveItemDetails(selected.id)"
+                                ng-disabled="AddItemForm.$invalid||AddItemForm.$pristine"
+                                class="btn sbold btnMargin pull-right">
+                                {{"Add Item"|translate}}
+                            </button>
+                        </div>
+
+                        <div class="col-md-12 form-group clearfix margin-top-10">
+                            <div class="col-md-2 col-sm-3 text-right">
+                                <label class="control-label"><span class="text-danger">*</span>Item Description</label>
+                            </div>
+                            <div class="col-md-6 col-sm-3">
+                                <textarea rows="3" type="text" required name="Description"
+                                    class="form-control btnMargin" ng-model="selected.description"
+                                    placeholder="{{'ControlText.Description'|translate}}"></textarea>
+                                <div class="errormessage">
+                                    <span class="text-danger"
+                                        ng-show="AddItemForm.Description.$error.required && AddItemForm.Description.$touched">{{"Please enter description"|translate}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 form-group clearfix">
+                            <div class="col-md-2 col-sm-3 text-right">
+                                <label class="control-label"><span class="text-danger">*</span>Quantity</label>
+                            </div>
+                            <div class="col-md-2 col-sm-2">
+                                <input type="text" name="quantity" numbers-Only required ng-model="selected.quantity"
+                                    class="form-control btnMargin" placeholder="{{'ControlText.Quantity'|translate}}">
+                                <div class="errormessage">
+                                    <span class="text-danger"
+                                        ng-show="AddItemForm.quantity.$error.required && AddItemForm.quantity.$touched">{{"Please enter quantity"|translate}}</span>
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-sm-3 text-right">
+                                <label class="control-label"><span class="text-danger"
+                                        ng-if="selected.isScheduledItem==false">*</span>Price</label>
+                            </div>
+                            <div class="col-md-2 col-sm-2">
+                                <input type="text" ng-required="selected.isScheduledItem==false" id="Price" name="Price"
+                                    class="form-control" style="width:149px !important" input-currency decimal-only
+                                    ng-model="selected.insuredPrice" placeholder='{{"$0.00"|translate}}' />
+                                <div class="errormessage">
+                                    <span class="text-danger"
+                                        ng-show="AddItemForm.Price.$error.required && AddItemForm.Price.$touched">{{"Please enter price"|translate}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!--<div class="col-md-12 form-group clearfix">
+                            <div class="col-md-2 col-sm-3 text-right">
+                                <label class="control-label">Age(Years)</label>
+                            </div>
+                            <div class="col-md-2 col-sm-2">
+                                <input type="text" name="AgeYears" numbers-Only class="form-control btnMargin" ng-model="selected.ageYears" placeholder="{{'ControlText.Years'|translate}}" />
+                                <div class="errormessage">
+                                    <span class="text-danger" ng-show="AddItemForm.AgeYears.$error.required && AddItemForm.AgeYears.$touched">{{"Age In Years"|translate}}</span>
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-sm-3 text-right">
+                                <label class="control-label">Age(Months)</label>
+                            </div>
+                            <div class="col-md-2 col-sm-2">
+                                <input type="text" name="AgeMonths" numbers-Only class="form-control btnMargin" ng-model="selected.ageMonths" placeholder="{{'ControlText.Months'|translate}}" />
+                                <div class="errormessage">
+                                    <span class="text-danger" ng-show="AddItemForm.AgeMonths.$error.required && AddItemForm.AgeMonths.$touched">{{"Age In Months"|translate}}</span>
+                                </div>
+                            </div>
+                        </div>-->
+                        <div class="col-md-12 form-group  clearfix">
+                            <!--<div class="col-md-2 col-sm-3 text-right">
+                                <label class="control-label">Category</label>
+                            </div>
+                            <div class="col-md-2 col-sm-2">
+                                <select class="input-small select2me form-control" ng-disabled="CommonObj.ClaimProfile == 'Jewelry'" required name="Category" data-placeholder="Select..." ng-model="selected.category.id" ng-change="GetSubCategory()"
+                                        ng-options="option.categoryId as option.categoryName for option in DdlSourceCategoryList"></select>
+                                <div class="errormessage">
+                                    <span class="text-danger" ng-show="AddItemForm.Category.$error.required && AddItemForm.Category.$touched">{{"Please Select Category"|translate}}</span>
+                                </div>
+                            </div>-->
+                            <div class="col-md-2 col-sm-3 text-right">
+                                <label class="control-label"><span
+                                        class="text-danger">*</span>{{"Jewelry Type"|translate}}</label>
+                            </div>
+                            <div class="col-md-2 col-sm-2">
+                                <select class="input-small select2me form-control" name="SubCategory"
+                                    data-placeholder="Select" ng-model="selected.subCategory.id" ng-required="true"
+                                    ng-options="option.id as option.name for option in SubCategory">
+                                    <option value="">select</option>
+                                </select>
+                                <div class="errormessage">
+                                    <span class="text-danger"
+                                        ng-show="AddItemForm.SubCategory.$error.required && AddItemForm.SubCategory.$touched">{{"Please select sub category"|translate}}</span>
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-sm-3 text-right">
+                                <label class="control-label"><span
+                                        class="text-danger">*</span>{{"Individual Limit"|translate}}</label>
+                            </div>
+                            <div class="col-md-2 col-sm-2">
+                                <input type="text" id="IndividualLimit" name="IndividualLimit" class="form-control"
+                                    style="width:149px !important" input-Currency="" decimal-only
+                                    ng-model="selected.individualLimitAmount" placeholder='{{"$0.00"|translate}}' />
+                                <div class="errormessage">
+                                    <span class="text-danger"
+                                        ng-show="AddItemForm.IndividualLimit.$error.required && AddItemForm.IndividualLimit.$touched">{{"Please individual amount"|translate}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 form-group clearfix" ng-if="CommonObj.ClaimProfile !=='Contents'">
+                            <div class="col-md-2 col-sm-3 text-right">
+                                <label class="control-label"><span class="text-danger">*</span>Scheduled Item</label>
+                            </div>
+                            <div class="col-md-2 col-sm-2">
+                                <label class="mt-radio mt-radio-outline mt-radio-single ">
+                                    <input type="radio" name="ContactInsured"
+                                        ng-click="SetScheduledStatus(selected,true)"
+                                        ng-checked="selected.isScheduledItem==true" value="{{true}}"
+                                        ng-model="selected.isScheduledItem" />
+                                    <span></span>
+                                </label>Yes
+
+                                <label class="mt-radio mt-radio-outline mt-radio-single " style="margin-left: 12%;">
+                                    <input type="radio" value="{{false}}" ng-click="SetScheduledStatus(selected,false)"
+                                        ng-checked="selected.isScheduledItem==false" name="ContactInsured"
+                                        ng-model="selected.isScheduledItem" />
+                                    <span></span>
+                                </label>No
+                            </div>
+                            <div ng-show="selected.isScheduledItem==true">
+                            <div class="col-md-2 col-sm-3 text-right">
+                                <label class="control-label"><span class="text-danger"
+                                        ng-if="selected.isScheduledItem==true">*</span>Scheduled Amount</label>
+                            </div>
+                            <div class="col-md-2 col-sm-2">
+                                <input type="text" name="Scheduled_Amount" id="Scheduled_Amount" ng-model="selected.scheduleAmount" decimal-Only class="form-control currency" placeholder='{{"$0.00"|translate}}' />
+                                <label class="form-control currencyLbl"  for="Scheduled_Amount">{{selected.scheduleAmount == null ? 0 : selected.scheduleAmount | currency}}</label>
+                                <div class="errormessage">
+                                    <span class="text-danger"
+                                        ng-show="AddItemForm.Scheduled_Amount.$error.required && AddItemForm.Scheduled_Amount.$touched">{{"Please Enter Scheduled Amount"|translate}}</span>
+                                </div>
+                            </div></div>
+                        </div>
+                        <!--<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+                            <div class="col-md-2 col-sm-3 text-right">
+                                <label class="control-label ">{{"Invidiual Limit"|translate}}</label>
+                            </div>
+                            <div class="col-md-2 col-sm-2">
+                                <input type="text" name="IndividualLimit" numbers-Only required ng-model="selected.individualLimitAmount" onkeypress="return numeric_only (event, this);" class="form-control" placeholder='{{"Invidiual Limit"|translate}}' />
+                                <div class="errormessage">
+                                    <span class="text-danger" ng-show="AddItemForm.IndividualLimit.$error.required && AddItemForm.IndividualLimit.$touched">{{"Please individual amount"|translate}}</span>
+                                </div>
+                              </div>
+                            <div class="col-md-2 col-sm-3 text-right">
+                                <label class="control-label ">{{"CategoryLimit"|translate}}</label>
+                            </div>
+                            <div class="col-md-2 col-sm-2">
+                                <input type="text" readonly class="form-control" numbers-Only onkeypress="return numeric_only (event, this);" ng-model="selected.category.aggregateLimit" placeholder='{{"CategoryLimit"|translate}}' />
+                            </div>
+                        </div>-->
+                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group"
+                            ng-if="CommonObj.ClaimProfile !=='Contents'">
+                            <div class="col-md-2 col-sm-3 text-right">
+                                <label class="control-label ">{{"Appraisal Value"|translate}}</label>
+                            </div>
+                            <div class="col-md-2 col-sm-2">
+                                <input type="text" id="Appraisal_Value" name="Appraisal_Value" input-Currency=""
+                                    decimal-Only ng-model="selected.appraisalValue" style="width:149px !important"
+                                    onkeypress="return numeric_only (event, this);" class="form-control"
+                                    placeholder='{{"$0.00"|translate}}' />
+                            </div>
+                            <div class="col-md-2 col-sm-3 text-right">
+                                <label class="control-label ">{{"Appraisal Date"|translate}}</label>
+                            </div>
+                            <div class="col-md-2 col-sm-3" id="appraisalCal">
+                                <div class="input-icon left ">
+                                    <i class="icon-calendar"></i>
+                                    <input class="form-control datepicker" data-date-container='#appraisalCal'
+                                        name="Pickdt" ng-model="selected.appraisalDate" data-provide="datepicker"
+                                        size="16" type="text" placeholder="{{'Date'|translate}}"
+                                        autocomplete="fakeAppraisalDate" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 form-group"
+                            ng-show="CommonObj.ClaimProfile !=='Contents'">
+                            <div class="col-md-2 xol-sm-3 text-right">
+                                <label class="control-label"><span
+                                        class="text-danger">*</span>{{"Label.ShippingDate"|translate}}</label>
+                            </div>
+                            <div class="col-md-2 col-sm-3" id="cal3">
+                                <div class="input-icon left">
+                                    <i class="icon-calendar"></i>
+                                    <input class="form-control datepicker" required data-date-container='#cal3'
+                                        data-date-start-date="+0d" ng-model="selected.shippingDate"
+                                        data-provide="datepicker" size="16" type="text"
+                                        placeholder="{{'mm/dd/yyyy'|translate}}" name="ShippingDate"
+                                        autocomplete="fakeShippingDate" />
+                                    <div class="errormessage">
+                                        <span class="text-danger"
+                                            ng-show="AddItemForm.ShippingDate.$error.required && AddItemForm.ShippingDate.$touched">
+                                            {{"Please select shipping date"|translate}}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-2 col-sm-3 text-right" ng-if="CommonObj.ClaimProfile !=='Contents'">
+                                <label class="control-label"><span
+                                        class="text-danger">*</span>{{"Label.ShippingMethod"|translate}}</label>
+                            </div>
+                            <div class="col-md-2 col-sm-3">
+                                <select class="input-small select2me form-control" required style="height:25px;"
+                                    name="ShippingMethod" id="shipping_method" ng-model="selected.shippingMethod.id"
+                                    ng-options="item.id as item.name for item in shippingMethodsList"
+                                    data-placeholder="Select" ng-focus="clearShippingMethod();">
+                                    <option value="">select</option>
+                                </select>
+                                <div class="errormessage">
+                                    <span class="text-danger"
+                                        ng-show="AddItemForm.ShippingMethod.$error.required && AddItemForm.ShippingMethod.$touched">
+                                        {{"Please select shipping method"|translate}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- <div class="col-md-12 form-group clearfix" ng-if="selected.id">
+                            <div class="col-md-2 col-sm-3 text-right">
+                                <label class="control-label">Attachments</label>
+                            </div>
+                            <div class="col-md-3 col-sm-3">
+                                <div class="col-md-12 col-sm-12">
+                                    <font ng-repeat="Attachment in selected.attachments"><a href="{{Attachment.url}}" download>{{Attachment.name}}</a><span ng-if="!$last"> , </span></font>
+                                </div>
+                            </div>
+                        </div> -->
+
+                        <div class="col-md-12 form-group clearfix">
+                            <div class="col-md-2 col-sm-3 text-right">
+                                <button class="btn sbold btnMargin" ng-click="SelectItemFile()">Add Attachments</button>
+                                <input id="ItemFileUpload" type="file" ng-model="CommonObj.Attachment" multiple
+                                    onchange="angular.element(this).scope().getItemFileDetails(event)"
+                                    style="display: none;" accept="image/*">
+                            </div>
+                            <!--<div class="col-md-3 col-sm-3">
+                                <div class="col-md-12 col-sm-12">
+                                    <font ng-repeat="Attachments in ItemFiles"><a href="#" class="font-green">{{Attachments.FileName}}</a><span ng-if="!$last"> , </span></font>
+                                </div>
+                            </div>-->
+                        </div>
+                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+                            <div class="col-md-12 col-sm-12 col-xs-12 portlet light bordered table-responsive"
+                                style="height:160px !important;-webkit-overflow-scrolling: touch; overflow-y: auto; overflow-x:auto; white-space:nowrap; scrollbar-arrow-color:black;">
+                                <div class="col-md-12 col-sm-12 text-center" ng-if="ItemFiles.length==0">
+                                    <label class="text-danger">{{"No attachments available for this item"|translate}}
+                                    </label>
+                                </div>
+
+                                <div class="col-md-2 col-sm-4 col-xs-10 margin-bottom-10 clearfix"
+                                    style="padding:0px; height: 115px; padding-right:20px ;"
+                                    ng-repeat="item in ItemFiles">
+                                    <div class="col-md-12 col-sm-12 " style="text-align: center; width: 115px;">
+                                        <a class="TextDecorationNone" style="top:14px;left:44px;position:relative"
+                                            ng-click="removeattchment($index)">
+                                            <i class="fa fa-times-circle fa-2x text-danger" aria-hidden="true"></i></a>
+                                        <img ng-click="GetDocxDetails(item)" ng-src="{{item.Image}}" alt="Item"
+                                            class="img-responsive bordered "
+                                            style="width:120px; height:100px;padding:5px;border:1px groove;" />
+                                        <span id="previewDocs" class="sbold"
+                                            style="word-break: break-word;font-family:Calibri; font-size:14px;cursor:pointer"
+                                            ng-click="GetDocxDetails(item)"><a
+                                                title="{{item.FileName}}">{{item.FileName| limitTo:15}}{{item.FileName.length < 15 ? '': ' ...'}}</a></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Attachements Preview Start -->
+                        <div class="panel panel-defaul" id="img_preview" draggable ng-if="imgDiv"
+                            style="margin-top: -360px !important">
+                            <div class="col-md-12 col-sm-12" style="padding: 0px 10px;">
+                                <label class="col-md-12 col-sm-12 SubHeadingDiv margin-bottom-10"
+                                    style="font-size: 14px;">{{DocxDetails.FileName}}</label>
+                                <div class="col-md-12 col-sm-12 margin-bottom-10" style="text-align: left;">
+                                    <a class="btn btn-default sbold btnMargin" ng-if="showButton"
+                                        ng-click="getAttachments(DocxDetails)">Download</a>
+                                    <a class="btn btn-default sbold btnMargin" ng-if="showButton"
+                                        ng-click="deteteClaimAttachment(DocxDetails)">Delete</a>
+                                    <a id="previewclose" class="btn btn-default sbold btnMargin"
+                                        ng-click="close()">Close Preview</a>
+                                    <a ng-if="isPDF == 2" id="previewclose"
+                                        class="btn btn-default sbold btnMargin glyphicon glyphicon-plus"
+                                        ng-click="largeMe()"></a>
+                                    <a ng-if="isPDF == 2" id="previewclose"
+                                        class="btn btn-default sbold btnMargin glyphicon glyphicon-minus"
+                                        ng-click="smallMe()"></a>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 col-sm-12" style="padding: 0px 10px;overflow: auto"
+                                ng-if="isPDF == 2">
+                                <div class="col-md-12 col-sm-12">
+                                    <img id="imagepre" class="image-wrapper"
+                                        onerror="this.onerror=null; this.src='assets/global/img/no-image.png';"
+                                        class="ImageDocx" ng-src="{{DocxDetails.url}}" alt="Image" />
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-xs-12 margin-bottom-10" id="PdfView" ng-if="isPDF===1">
+                                <!-- Show PDF region Render PDF here -->
+                                <div class="col-md-12" id="load_receipts">
+                                    <ng-pdf template-url="views/GlobalSearch/PdfViewer.html" canvasid="pdf"
+                                        scale="page-fit" page=1></ng-pdf>
+                                </div>
+                                <!--End Show PDF region  -->
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-xs-12 text-center" ng-if="isPDF===0">
+                                <div class="col-sm-8 col-md-6 col-xs-12 text-center" style="height:230px;width:100%;">
+                                    <div class="col-md-12 col-sm-12 col-xs-12 well text-center">
+                                        <span
+                                            class="text-info">{{"File type does not support preview option. File will start downloading.."|translate}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Attachments Preview End -->
+
+                        <div class="col-md-12 col-sm-12 col-lg-12 pull-right padding1px margin-top-5 margin-bottom-5">
+                            <button id="sample_editable_1_new pull-right" ng-click="reset()"
+                                class="btn sbold btnMargin pull-right"
+                                ng-disabled="AddItemForm.$pristine && !selected.id">
+                                {{(selected.id ? "Cancel" : "Reset") | translate}}
+                            </button>
+                            <button id="sample_editable_1_new" ng-if="selected.id"
+                                ng-click="SaveItemDetails(selected.id)"
+                                ng-disabled="AddItemForm.$invalid||AddItemForm.$pristine"
+                                class="btn sbold btnMargin pull-right">
+                                {{"Update Item"|translate}}
+                            </button>
+                            <button id="sample_editable_2_new" ng-if="!selected.id"
+                                ng-click="SaveItemDetails(selected.id)"
+                                ng-disabled="AddItemForm.$invalid||AddItemForm.$pristine"
+                                class="btn sbold btnMargin pull-right">
+                                {{"Add Item"|translate}}
+                            </button>
+                        </div>
+                    </div>
+                    <!--End For Jewelry Claim Profile-->
+
+                    <!---For Contents Claim profile-->
+                    <div class="col-md-12 col-sm-12 col-lg-12" style="border:1px solid #DCDCDC;"
+                        ng-show="CommonObj.ClaimProfile == 'Contents'" ng-form="AddContentsItemForm">
+
+                        <div class="col-md-12 col-sm-12 col-lg-12 pull-right padding1px margin-top-5 margin-bottom-5">
+                            <button id="sample_editable_1_new pull-right" ng-click="reset()"
+                                class="btn sbold btnMargin pull-right"
+                                ng-disabled="AddContentsItemForm.$pristine && !selected.id">
+                                {{(selected.id ? "Cancel" : "Reset") | translate}}
+                            </button>
+                            <button id="sample_editable_1_new" ng-if="selected.id"
+                                ng-click="SaveItemDetails(selected.id)"
+                                ng-disabled="AddContentsItemForm.$invalid || AddContentsItemForm.$pristine"
+                                class="btn sbold btnMargin pull-right">
+                                {{"Update Item"|translate}}
+                            </button>
+                            <button id="sample_editable_2_new" ng-if="!selected.id"
+                                ng-click="SaveItemDetails(selected.id)"
+                                ng-disabled="AddContentsItemForm.$invalid || AddContentsItemForm.$pristine"
+                                class="btn sbold btnMargin pull-right">
+                                {{"Add Item"|translate}}
+                            </button>
+                        </div>
+
+                        <div class="col-md-12 form-group clearfix margin-top-10">
+                            <div class="col-md-2 col-sm-3 text-right">
+                                <label class="control-label"><span class="text-danger">*</span>Item Description</label>
+                            </div>
+                            <div class="col-md-6 col-sm-3">
+                                <textarea rows="3" type="text" required name="Description"
+                                    class="form-control btnMargin" ng-model="selected.description"
+                                    placeholder="{{'ControlText.Description'|translate}}"></textarea>
+                                <div class="errormessage">
+                                    <span class="text-danger"
+                                        ng-show="AddContentsItemForm.Description.$error.required && AddContentsItemForm.Description.$touched">{{"Please Enter Description"|translate}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 form-group clearfix">
+                            <div class="col-md-2 col-sm-3 text-right">
+                                <label class="control-label"><span class="text-danger">*</span>Quantity</label>
+                            </div>
+                            <div class="col-md-2 col-sm-2">
+                                <input type="text" name="quantity" numbers-Only required ng-model="selected.quantity"
+                                    class="form-control btnMargin" placeholder="{{'ControlText.Quantity'|translate}}">
+                                <div class="errormessage">
+                                    <span class="text-danger"
+                                        ng-show="AddContentsItemForm.quantity.$error.required && AddContentsItemForm.quantity.$touched">{{"Please Enter Quantity"|translate}}</span>
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-sm-3 text-right">
+                                <label class="control-label"><span class="text-danger"
+                                        ng-if="selected.isScheduledItem==false">*</span>Price</label>
+                            </div>
+                            <div class="col-md-2 col-sm-2">
+                                <input type="text" ng-required="selected.isScheduledItem==false" name="Price"
+                                    decimal-Only input-currency ng-model="selected.insuredPrice"
+                                    class="form-control btnMargin" placeholder="{{'ControlText.Price'|translate}}">
+                                <div class="errormessage">
+                                    <span class="text-danger"
+                                        ng-show="AddContentsItemForm.Price.$error.required && AddContentsItemForm.Price.$touched">{{"Please Enter Price"|translate}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- Purchased from and Room -->
+                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group"
+                            ng-show="CommonObj.ClaimProfile == 'Contents'">
+                            <div class="col-md-2 col-sm-3 text-right">
+                                <label class="control-label ">{{"Room"|translate}} </label>
+                            </div>
+                            <div class="col-md-2 col-sm-3">
+                                <select class="form-control select2me" ng-model="selected.room.id"
+                                    ng-change="selectRoom((RoomsList|filter:{id:selected.room.id})[0])"
+                                    data-placeholder="select"
+                                    ng-options="option.id as option.roomName for option in RoomsList"></select>
+                            </div>
+
+                            <div class="col-md-2 col-sm-3 text-right">
+                                <label class="control-label ">{{"Purchase Method"|translate}} </label>
+                            </div>
+                            <div class="col-md-2 col-sm-3">
+                                <select class="form-control select2me col-md-12 col-sm-12 col-xs-12"
+                                    ng-model="selected.purchaseMethod"
+                                    ng-change="selectPaymentmethod(selected.purchaseMethod)" data-placeholder="select"
+                                    ng-options="option for option in paymentTypes"></select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group"
+                            ng-show="CommonObj.ClaimProfile == 'Contents' && selected.purchaseMethod != 'Gift'">
+                            <div class="col-md-2 col-sm-3 text-right">
+                                <label class="control-label">{{"Originally Purchased From"|translate}}</label>
+                            </div>
+                            <div class="col-md-2 col-sm-3">
+                                <select class="form-control select2me col-md-12 col-sm-12 col-xs-12"
+                                    ng-model="selected.originallyPurchasedFrom.id"
+                                    ng-change="selectRetailer((Retailers|filter:{id:selected.originallyPurchasedFrom.id})[0])"
+                                    data-placeholder="select"
+                                    ng-options="option.id as option.name for option in Retailers"></select>
+                                <input type="text" ng-show="addOtherRetailer" ng-model="selected.newRetailer"
+                                    class="form-control col-md-12 col-sm-12 margin-top-5"
+                                    placeholder='{{"Specify"|translate}}' />
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group"
+                            ng-show="CommonObj.ClaimProfile == 'Contents' && selected.purchaseMethod === 'Gift'">
+                            <div class="col-md-2 col-sm-3 text-right">
+                                <label class="control-label">{{"Gift From"|translate}}</label>
+                            </div>
+                            <div class="col-md-6 col-sm-12 col-xs-12">
+                                <input type="text" ng-model="selected.giftedFrom"
+                                    class="form-control col-md-12 col-sm-12 margin-top-5"
+                                    placeholder='{{"Name and Address"|translate}}' />
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-12 form-group clearfix">
+                            <div class="col-md-2 col-sm-3 text-right">
+                                <label class="control-label">Age(Years)</label>
+                            </div>
+                            <div class="col-md-2 col-sm-2">
+                                <input type="text" name="AgeYears" numbers-Only class="form-control btnMargin"
+                                    ng-model="selected.ageYears" placeholder="{{'ControlText.Years'|translate}}" />
+                                <div class="errormessage hide">
+                                    <span class="text-danger"
+                                        ng-show="AddContentsItemForm.AgeYears.$error.required && AddContentsItemForm.AgeYears.$touched">{{"Age In Years"|translate}}</span>
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-sm-3 text-right">
+                                <label class="control-label">Age(Months)</label>
+                            </div>
+                            <div class="col-md-2 col-sm-2">
+                                <input type="text" name="AgeMonths" numbers-Only class="form-control btnMargin"
+                                    ng-model="selected.ageMonths" ng-pattern="/^(1[0-2]|[0-9])$/"
+                                    placeholder="{{'ControlText.Months'|translate}}" />
+                                <div class="errormessage hide">
+                                    <span class="text-danger"
+                                        ng-show="AddContentsItemForm.AgeMonths.$error.required && AddContentsItemForm.AgeMonths.$touched">{{"Age In Months"|translate}}</span>
+                                </div>
+                                <div ng-message="pattern" ng-show="AddContentsItemForm.AgeMonths.$error.pattern">
+                                    <span class="text-danger">{{"Please enter a valid month"|translate}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 form-group  clearfix">
+                            <div class="col-md-2 col-sm-3 text-right">
+                                <label class="control-label"><span class="text-danger hide">*</span>Category</label>
+                            </div>
+                            <div class="col-md-2 col-sm-2">
+                                <select class="input-small select2me form-control"
+                                    ng-disabled="CommonObj.ClaimProfile == 'Jewelry'" name="Category"
+                                    data-placeholder="Select" ng-model="selected.category.id"
+                                    ng-change="GetSubCategory()"
+                                    ng-options="option.categoryId as option.categoryName for option in DdlSourceCategoryList"></select>
+                                <div class="errormessage hide">
+                                    <span class="text-danger"
+                                        ng-show="AddContentsItemForm.Category.$error.required && AddContentsItemForm.Category.$touched">{{"Please Select Category"|translate}}</span>
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-sm-3 text-right">
+                                <label class="control-label">{{"Sub Category"|translate}}</label>
+                            </div>
+                            <div class="col-md-2 col-sm-2">
+                                <select class="input-small select2me form-control" name="SubCategory"
+                                    data-placeholder="Select..." ng-model="selected.subCategory.id"
+                                    ng-options="option.id as option.name for option in SubCategory"></select>
+                                <div class="errormessage hide">
+                                    <span class="text-danger"
+                                        ng-show="AddContentsItemForm.SubCategory.$error.required && AddContentsItemForm.SubCategory.$touched">{{"Please Select Sub Category"|translate}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 form-group clearfix" ng-if="CommonObj.ClaimProfile !=='Contents'">
+                            <div class="col-md-2 col-sm-3 text-right">
+                                <label class="control-label"><span class="text-danger">*</span>Scheduled Item</label>
+                            </div>
+                            <div class="col-md-2 col-sm-2">
+                                <label class="mt-radio mt-radio-outline mt-radio-single ">
+                                    <input type="radio" name="ContentsContactInsured"
+                                        ng-click="SetScheduledStatus(selected,true)"
+                                        ng-checked="selected.isScheduledItem==true" value="{{true}}"
+                                        ng-model="selected.isScheduledItem" />
+                                    <span></span>
+                                </label>Yes
+
+                                <label class="mt-radio mt-radio-outline mt-radio-single " style="margin-left: 12%;">
+                                    <input type="radio" value="{{false}}" ng-click="SetScheduledStatus(selected,false)"
+                                        ng-checked="selected.isScheduledItem==false" name="ContentsContactInsured"
+                                        ng-model="selected.isScheduledItem" />
+                                    <span></span>
+                                </label>No
+                            </div>
+                            <div class="col-md-2 col-sm-3 text-right">
+                                <label class="control-label"><span class="text-danger"
+                                        ng-if="selected.isScheduledItem==true">*</span>Scheduled Amount</label>
+                            </div>
+                            <div class="col-md-2 col-sm-2">
+                                <input type="text" name="Amount" decimal-Only
+                                    ng-required="selected.isScheduledItem==true" ng-model="selected.scheduleAmount"
+                                    input-currency class="form-control btnMargin"
+                                    placeholder='{{"Scheduled Amount"|translate}}'>
+                                <div class="errormessage">
+                                    <span class="text-danger"
+                                        ng-show="AddContentsItemForm.Amount.$error.required && AddContentsItemForm.Amount.$touched">{{"Please Enter Scheduled Amount"|translate}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group"
+                            ng-if="CommonObj.UserRole != 'POLICYHOLDER'">
+                            <div class="col-md-2 col-sm-3 text-right">
+                                <label class="control-label"><span
+                                        class="text-danger">*</span>{{"Individual Limit"|translate}}</label>
+                            </div>
+                            <div class="col-md-2 col-sm-2">
+                                <input type="text" id="IndividualLimit" name="IndividualLimit" class="form-control"
+                                    input-currency decimal-Only required ng-model="selected.individualLimitAmount"
+                                    placeholder='{{"Individual Limit"|translate}}' />
+                                <!-- <label class="currencyLbl" style="width:149px !important" for="IndividualLimit">{{selected.individualLimitAmount == null ? 0.00 : selected.individualLimitAmount | currency}}</label> -->
+                                <!-- <input type="text" id="IndividualLimit" name="IndividualLimit" class="form-control currency" style="width:149px !important" decimal-only ng-model="selected.individualLimitAmount" placeholder='{{"0.00"|translate}}' /> -->
+                                <div class="errormessage">
+                                    <span class="text-danger"
+                                        ng-show="AddContentsItemForm.IndividualLimit.$error.required && AddContentsItemForm.IndividualLimit.$touched">{{"Please enter individual amount"|translate}}</span>
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-sm-3 text-right">
+                                <label class="control-label">{{"CategoryLimit"|translate}}</label>
+                            </div>
+                            <div class="col-md-2 col-sm-2">
+                                <input type="text" readonly class="form-control" numbers-Only
+                                    onkeypress="return numeric_only (event, this);"
+                                    ng-model="selected.category.aggregateLimit"
+                                    placeholder='{{"CategoryLimit"|translate}}' />
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 form-group clearfix" ng-if="CommonObj.ClaimProfile =='Contents'">
+                            <div class="col-md-2 col-sm-3 text-right">
+                                <label class="control-label"><span class="text-danger">*</span>Scheduled Item</label>
+                            </div>
+                            <div class="col-md-2 col-sm-2">
+                                <label class="mt-radio mt-radio-outline mt-radio-single ">
+                                    <input type="radio" name="ContentsContactInsured"
+                                        ng-click="SetScheduledStatus(selected,true)"
+                                        ng-checked="selected.isScheduledItem==true" value="{{true}}"
+                                        ng-model="selected.isScheduledItem" />
+                                    <span></span>
+                                </label>Yes
+
+                                <label class="mt-radio mt-radio-outline mt-radio-single " style="margin-left: 12%;">
+                                    <input type="radio" value="{{false}}" ng-click="SetScheduledStatus(selected,false)"
+                                        ng-checked="selected.isScheduledItem==false" name="ContentsContactInsured"
+                                        ng-model="selected.isScheduledItem" />
+                                    <span></span>
+                                </label>No
+                            </div>
+                            <div ng-show="selected.isScheduledItem==true">
+                            <div class="col-md-2 col-sm-3 text-right">
+                                <label class="control-label"><span class="text-danger"
+                                        ng-if="selected.isScheduledItem==true">*</span>Scheduled Amount</label>
+                            </div>
+                            <div class="col-md-2 col-sm-2">
+                                <input type="text" name="Scheduled_Amount" id="Scheduled_Amount" ng-model="selected.scheduleAmount" decimal-Only class="form-control currency" placeholder='{{"$0.00"|translate}}' ng-readonly="selected.isScheduledItem==false" />
+                                <label class="form-control currencyLbl"  for="Scheduled_Amount">{{selected.scheduleAmount == null ? 0 : selected.scheduleAmount | currency}}</label>
+                                <div class="errormessage">
+                                    <span class="text-danger"
+                                        ng-show="AddContentsItemForm.Amount.$error.required && AddContentsItemForm.Amount.$touched">{{"Please Enter Scheduled Amount"|translate}}</span>
+                                </div>
+                            </div></div>
+                        </div>
+                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group"
+                            ng-if="CommonObj.ClaimProfile =='Contents' && selected.category.id == 31">
+                            <div class="col-md-2 col-sm-3 text-right">
+                                <label class="control-label ">{{"Appraisal Value"|translate}}</label>
+                            </div>
+                            <div class="col-md-2 col-sm-2">
+                                <input type="text" decimal-Only ng-model="selected.appraisalValue"
+                                    onkeypress="return numeric_only (event, this);" class="form-control"
+                                    placeholder='{{"0.00"|translate}}' input-currency/>
+                            </div>
+                            <div class="col-md-2 col-sm-3 text-right">
+                                <label class="control-label ">{{"Appraisal Date"|translate}}</label>
+                            </div>
+                            <div class="col-md-2 col-sm-3">
+                                <div class="input-icon left ">
+                                    <i class="icon-calendar"></i>
+                                    <input class="form-control datepicker" name="Pickdt"
+                                        ng-model="selected.appraisalDate" close-on-date-selection="true"
+                                        data-provide="datepicker" size="16" type="text"
+                                        placeholder='{{"Date"|translate}}' autocomplete="off"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 hide form-group clearfix" ng-if="selected.id">
+                            <div class="col-md-2 col-sm-3 text-right">
+                                <label class="control-label">Attachments</label>
+                            </div>
+                            <div class="col-md-3 col-sm-3">
+                                <div class="col-md-12 col-sm-12">
+                                    <font ng-repeat="Attachment in selected.attachments"><a href="{{Attachment.url}}"
+                                            download>{{Attachment.name}}</a><span ng-if="!$last"> , </span></font>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 form-group clearfix">
+                            <div class="col-md-2 col-sm-3 text-right">
+                                <button class="btn sbold btnMargin" ng-click="SelectItemFile()">Add Attachments</button>
+                                <input id="ItemFileUpload" type="file" ng-model="CommonObj.Attachment" multiple
+                                    onchange="angular.element(this).scope().getItemFileDetails(event)"
+                                    style="display: none;" accept="image/*">
+                            </div>
+                            <!--<div class="col-md-3 col-sm-3">
+                                <div class="col-md-12 col-sm-12">
+                                    <font ng-repeat="Attachments in ItemFiles"><a href="#" class="font-green">{{Attachments.FileName}}</a><span ng-if="!$last"> , </span></font>
+                                </div>
+                            </div>-->
+                        </div>
+
+                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+                            <div class="col-md-12 col-sm-12 col-xs-12 portlet light bordered table-responsive"
+                                style="height:131px !important;-webkit-overflow-scrolling: touch; overflow-y: auto; overflow-x:auto; white-space:nowrap; scrollbar-arrow-color:black;">
+                                <div class="col-md-12 col-sm-12 text-center" ng-if="ItemFiles.length==0">
+                                    <label class="text-danger">{{"No attachments available for this item"|translate}}
+                                    </label>
+                                </div>
+                                <div ng-repeat="file in ItemFiles" class="col-md-2 col-sm-4 col-xs-6"
+                                    style="padding: 3px;padding-right: 10px;">
+                                    <span>
+                                        <a class="TextDecorationNone" style="top:-44px;left:114px;position:relative"
+                                            ng-click="removeattchment($index)"> <i
+                                                class="fa fa-times-circle fa-2x text-danger" aria-hidden="true"></i></a>
+                                        <a href="{{file.url}}" download><img ng-src="{{file.Image}}"
+                                                class="img-responsive img-thumbnail"
+                                                style="height:100px;width:100px;" /></a>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 col-sm-12 col-lg-12 pull-right padding1px margin-top-5 margin-bottom-5">
+                            <button id="sample_editable_1_new pull-right" ng-click="reset()"
+                                class="btn sbold btnMargin pull-right"
+                                ng-disabled="AddContentsItemForm.$pristine && !selected.id">
+                                {{(selected.id ? "Cancel" : "Reset") | translate}}
+                            </button>
+                            <button id="sample_editable_1_new" ng-if="selected.id"
+                                ng-click="SaveItemDetails(selected.id)"
+                                ng-disabled="AddContentsItemForm.$invalid || AddContentsItemForm.$pristine"
+                                class="btn sbold btnMargin pull-right">
+                                {{"Update Item"|translate}}
+                            </button>
+                            <button id="sample_editable_2_new" ng-if="!selected.id"
+                                ng-click="SaveItemDetails(selected.id)"
+                                ng-disabled="AddContentsItemForm.$invalid || AddContentsItemForm.$pristine"
+                                class="btn sbold btnMargin pull-right">
+                                {{"Add Item"|translate}}
+                            </button>
+                        </div>
+                    </div>
+                    <!--End For Contents Claim Profile-->
+                </div>
+                <!--Items Grid-->
+                <div class="row">
+                    <div class="col-md-12 padding1px clearfix margin-top-10">
+                        <div class="SubHeadingDiv margin-bottom-10">
+                            <span class="caption-subject">{{"Contents List"|translate}}</span>
+                        </div>
+                        <!--Start Options Div-->
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 options_Background">
+                            <div class="col-md-5 col-sm-12 col-xs-12 col-lg-5 margin-top-5 margin-bottom-5 padding1px">
+                                <button id="btnLoadFile" class="btn sbold btnMargin btnOptions"
+                                    ng-click="UploadPostLossItem($event)">
+                                    {{"ControlText.LoadFromFile"|translate}}
+                                </button>
+                                <button id="btnAssign" class="btn sbold btnMargin"
+                                    ng-if="CommonObj.UserRole != 'POLICYHOLDER'"
+                                    ng-click="GoToClaimDetailsFromItemPage()">
+                                    {{"Create Assignment"|translate}}
+                                </button>
+                                <button id="btnMapReceipts" ng-show="CommonObj.ClaimProfile == 'Contents'"
+                                    ng-click="GotoReceiptMapperHome()" class="btn sbold btnMargin">
+                                    {{"ControlText.MapReceipts"|translate}}
+                                </button>
+                            </div>
+                            <div
+                                class="pull-right col-lg-5 col-md-5 col-sm-12 margin-top-5 margin-bottom-5 manageSearch padding1px">
+                                <div
+                                    class="caption font-green-sharp col-lg-6 col-md-6 col-xs-12 col-sm-12 pull-right padding1px">
+                                    <div class="input-icon left">
+                                        <i class="icon-magnifier"></i>
+                                        <input type="text"
+                                            class="form-control form-control-solid input-circle input-block-level"
+                                            ng-model="searchDamagedContent" ng-change="getItemsByKeyword()"
+                                            placeholder='{{"AddItemsSearchText"|translate}}'>
+                                    </div>
+                                </div>
+                                <div ng-show="CommonObj.ClaimProfile === 'Contents'"
+                                    class="col-lg-5 col-md-6 col-xs-12 col-sm-5  pull-right">
+                                    <select class="input-small select2me form-control" name="Categories"
+                                        ng-model="CommonObj.Categories" data-placeholder="CategoryList..."
+                                        ng-change="GetItemsByCategory()">
+                                        <option value="ALL">All</option>
+                                        <option ng-repeat="category in DdlSourceCategoryList"
+                                            value="{{category.categoryId}}">{{category.categoryName}}</option>
+                                    </select>
+                                </div>
+                                <div ng-show="CommonObj.ClaimProfile === 'Contents'"
+                                    class="col-lg-1 col-md-1 col-sm-1 padding1px pull-right">
+                                    <label class="control-label"
+                                        style="color:#ffffff;">{{"ControlText.View_title"|translate}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <!--End Options Div-->
+                        <div class="table-responsive col-md-12 padding1px   ">
+                            <table
+                                class="table dataTable table-striped table-bordered table-hover table-checkable order-column"
+                                id="NavigateTable">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <label class="mt-checkbox mt-checkbox-outline mt-checkbox-single ">
+                                                <input type="checkbox" ng-model="selectedAll" ng-click="checkAll()" />
+                                                <span></span>
+                                            </label>
+                                        </th>
+                                        <th ng-click="sortpostlostitem('claimItem.itemNumber')">
+                                            {{"Table.ItemNumber"|translate}}
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='claimItem.itemNumber'"
+                                                ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                        </th>
+                                        <th ng-click="sortpostlostitem('claimItem.description')">
+                                            {{"Table.ItemDescription"|translate}}
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='claimItem.description'"
+                                                ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                        </th>
+                                        <th ng-click="sortpostlostitem('claimItem.status.status')">
+                                            {{"Table.Status"|translate}}
+                                            <span class="glyphicon sort-icon"
+                                                ng-show="sortKey=='claimItem.status.status'"
+                                                ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                        </th>
+                                        <th ng-click="sortpostlostitem('claimItem.insuredPrice')">
+                                            {{"Table.InsuredsUnitCost"|translate}}
+                                            <span class="glyphicon sort-icon"
+                                                ng-show="sortKey=='claimItem.insuredPrice'"
+                                                ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                        </th>
+                                        <th ng-click="sortpostlostitem('claimItem.quantity')">
+                                            {{"Table.Qty"|translate}}
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='claimItem.quantity'"
+                                                ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                        </th>
+                                        <th ng-click="sortpostlostitem('claimItem.category.name')">
+                                            {{"Table.Category"|translate}}
+                                            <span class="glyphicon sort-icon"
+                                                ng-show="sortKey=='claimItem.category.name'"
+                                                ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                        </th>
+                                        <th ng-click="sortpostlostitem('claimItem.ageYears')">
+                                            {{"Table.Age"|translate}}
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='claimItem.ageYears'"
+                                                ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                        </th>
+
+                                        <!--<th ng-show="AddNewItem===true || EditItem===true" ng-click="sortpostlostitem('claimItem.subCategory.name')">
+                                            {{"Table.SubCategory"|translate}}
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='claimItem.subCategory.name'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                        </th>-->
+                                        <!--<th ng-show="AddNewItem===true|| EditItem===true">
+                                            {{"Table.ItemName"|translate}}
+                                        </th>-->
+                                        <!--<th>
+                                            <span><i class="font-green fa fa-plus-circle fa-2x" ng-click="AddNewItemToList()"></i></span>
+                                        </th>-->
+                                        <!--<th ng-click="sortpostlostitem('claimItem.isScheduledItem')">
+                                            {{"Table.ScheduledItem"|translate}}
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='claimItem.isScheduledItem'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                        </th>-->
+                                        <!--<th ng-show="AddNewItem===false && EditItem===false" ng-click="sortpostlostitem('comparableItems[0].supplier')">
+                                            {{"Table.Vendor"|translate}}
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='comparableItems[0].supplier'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                        </th>-->
+                                        <!--<th ng-show="AddNewItem===false && EditItem===false">
+                                            {{"Table.ReplacementDescription"|translate}}
+                                        </th>-->
+                                        <!--<th ng-show="AddNewItem===false && EditItem===false" ng-click="sortpostlostitem('comparableItems[0].unitPrice')">
+                                            {{"Table.UnitCost"|translate}}
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='comparableItems[0].unitPrice'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                        </th>-->
+                                        <!--<th ng-show="AddNewItem===false && EditItem===false" ng-click="sortpostlostitem('claimItem.depriciationRate')">
+                                            {{"Table.Depriciation"|translate}}
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='claimItem.depriciationRate'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                        </th>-->
+                                        <!--<th ng-show="AddNewItem===false && EditItem===false" ng-click="sortpostlostitem('claimItem.acv')">
+                                            {{"Table.ACV"|translate}}
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='claimItem.acv'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                        </th>-->
+                                        <!--<th ng-show="AddNewItem===false && EditItem===false" ng-click="sortpostlostitem('claimItem.rcv')">
+                                            {{"Table.RCV"|translate}}
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='claimItem.rcv'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                        </th>-->
+                                        <!--<th ng-show="AddNewItem===false && EditItem===false" ng-click="sortpostlostitem('claimItem.isScheduledItem')">
+                                            {{"Table.Replaced"|translate}}
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='claimItem.isScheduledItem'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                        </th>-->
+                                        <th>
+                                            {{"Table.Action"|translate}}
+                                        </th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-if="AddNewItem===true">
+                                        <!--<td></td>-->
+                                        <td></td>
+                                        <td>
+                                            <input type="text" class="form-control " ng-model="selected.itemNumber"
+                                                placeholder="{{'Table.ItemName'|translate}}">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control setwidth"
+                                                ng-model="selected.description"
+                                                ng-attr-placeholder="{{'Table.Description'|translate}}">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control " ng-model="selected.status.status"
+                                                placeholder="{{'Table.Status'|translate}}" readonly>
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control setwidth"
+                                                ng-model="selected.insuredPrice"
+                                                ng-attr-placeholder="{{'Table.Cost'|translate}}">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control setwidth"
+                                                ng-model="selected.quantity"
+                                                ng-attr-placeholder="{{'Table.Qty'|translate}}">
+                                        </td>
+                                        <td>
+                                            <select class="input-small select2me form-control "
+                                                data-placeholder="Select..." ng-model="selected.category.id"
+                                                ng-change="GetSubCategory()"
+                                                ng-options="option.categoryId as option.categoryName for option in DdlSourceCategoryList"></select>
+                                        </td>
+                                        <td>
+                                            <div style="display:flex;width:130px;">
+                                                <div class="pull-left text-center" style="margin-left:5px"><input
+                                                        type="text" class="form-control" style="width:60px;"
+                                                        ng-model="selected.ageYears"
+                                                        ng-attr-placeholder="{{'Table.Year'|translate}}"></div>
+                                                <div class="pull-right text-center"><input type="text"
+                                                        class="form-control" style="width:60px;"
+                                                        ng-model="selected.ageMonths"
+                                                        ng-attr-placeholder="{{'Table.Months'|translate}}"></div>
+                                            </div>
+                                        </td>
+
+                                        <!--<td>
+                                            <select class="input-small select2me form-control  " data-placeholder="Select..." ng-model="selected.subCategory.id"
+                                                    ng-options="option.id as option.name for option in SubCategory"></select>
+                                        </td>-->
+                                        <!--<td>
+                                            <select class="input-small select2me form-control  " data-placeholder="Select..." ng-model="selected.isScheduledItem">
+                                                <option value="true" ng-selected="selected.scheduled">Yes</option>
+                                                <option value="false" ng-selected="!selected.scheduled">No</option>
+                                            </select>
+                                        </td>-->
+                                        <!--<td>
+                                            <input type="text" class="form-control " ng-model="selected.itemName" placeholder="{{'Table.ItemName'|translate}}">
+                                        </td>-->
+                                        <!--<td>
+                                            <input type="text" class="form-control setwidth" ng-model="selected.description" ng-attr-placeholder="{{'Table.Description'|translate}}">
+                                        </td>-->
+
+                                        <td>
+                                            <div class="btn-group btn-group-circle btn-outline"
+                                                style="display:flex !important;">
+                                                <span ng-click="SaveItemDetails()"
+                                                    class="btn green btn-sm btn-outline">Save</span>
+                                                <span ng-click="reset()"
+                                                    class="btn red btn-sm  btn-outline">Cancel</span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!--<tr dir-paginate="item in FiletrLostDamageList|orderBy:sortKey:reverse|filter:searchDamagedContent|itemsPerPage:itemPageSize" ng-include="getTemplate(item)" pagination-id="FiletrLostDamageList"></tr>-->
+                                    <tr ng-show="FiletrLostDamageList!=null"
+                                        dir-paginate="item in FiletrLostDamageList | orderBy:sortKey:reverse | itemsPerPage:FiletrLostDamageList.length"
+                                        ng-include="getTemplate(item)" pagination-id="FiletrLostDamageListControl"
+                                        ng-class="{'Highlighted_Row':item.claimItem.id==NewlyAddedItemId}"></tr>
+                                
+                                        <tr ng-show="FiletrLostDamageList == null || FiletrLostDamageList.length <= 0">
+                                            <td colspan="9" class="text-danger" style="text-align: center;">
+                                                {{"No items available"|translate}}
+                                            </td>
+                                        </tr>                                        
+                                    </tbody>
+                                
+                            </table>
+                            <!--Display template-->
+                            <script type="text/ng-template" id="display">
+                                <td>
+                                    <label class="mt-checkbox mt-checkbox-outline mt-checkbox-single ">
+                                        <input type="checkbox" ng-click="SelectPostLostItem(item)" ng-model="item.Selected" ng-disabled="item.claimItem.status.id==2||item.claimItem.status.id ==3" />
+                                        <span></span>
+                                    </label>
+                                </td>
+                                <td ng-click="GoToDetails(item)">{{item.claimItem.itemNumber}}</td>
+                                <td ng-click="GoToDetails(item)">{{item.claimItem.description}}</td>
+                                <td ng-click="GoToDetails(item)">
+                                    <!--<span ng-class="{'stage ItemStageTwo':item.claimItem.status.status==='ASSIGNED',
+                                                                                           'stage ItemStageOne':item.claimItem.status.status==='CREATED',
+                                                                                  'stage ItemStageThree':item.claimItem.status.status==='UNDER REVIEW',
+                                                                                  'stage ItemStageFour':item.claimItem.status.status==='APPROVED',
+                                                                                  'stage ItemStageFive':item.claimItem.status.status==='VALUED',
+                                                                                  'stage ItemStageSix':item.claimItem.status.status==='SETTLED'}">
+                                        {{item.claimItem.status.status|limitTo: 15}}
+                                        <span>{{item.claimItem.status.status.length >  15 ? '...' : ''}}</span>
+                                    </span>-->
+
+                                    <span>
+                                        {{item.claimItem.status.status|limitTo: 15}}
+                                        <span>{{item.claimItem.status.status.length >  15 ? '...' : ''}}</span>
+                                    </span>
+                                </td>
+                                <td ng-click="GoToDetails(item)" class="text-right">{{item.claimItem.insuredPrice !=null ? item.claimItem.insuredPrice : item.claimItem.totalStatedAmount == null ? 0 : item.claimItem.totalStatedAmount |currency}}</td>
+                                <td ng-click="GoToDetails(item)" class="text-right">{{item.claimItem.quantity}}</td>
+                                <td ng-click="GoToDetails(item)">{{item.claimItem.category.name}}</td>
+                                <td ng-click="GoToDetails(item)" class="text-right">
+                                    <span ng-if="(item.claimItem.ageYears!=0 && item.claimItem.ageYears!=null)&&(item.claimItem.ageMonths!=0 && item.claimItem.ageMonths!=null)">
+                                        {{item.claimItem.ageYears+'yr' + item.claimItem.ageMonths +'mo'}}
+                                    </span>
+                                    <span ng-if="(item.claimItem.ageYears==0||item.claimItem.ageYears==null) && (item.claimItem.ageMonths!=0 && item.claimItem.ageMonths!=null )">{{item.claimItem.ageMonths+'mo'}}</span>
+                                    <span ng-if="(item.claimItem.ageYears!=0 && item.claimItem.ageYears!=null) && (item.claimItem.ageMonths==0 || item.claimItem.ageMonths==null )">{{item.claimItem.ageYears+'yr'}}</span>
+                                    <span ng-if="(item.claimItem.ageYears==0||item.claimItem.ageYears==null )&& (item.claimItem.ageMonths==0||item.claimItem.ageMonths==null)">NA</span>
+                                </td>
+
+                                <!--<td style="text-decoration:none;colorn :black;"><sapn class="fa fa-pencil-square-o fa-lg" aria-hidden="true" ng-click="EditItemDetails(item)"></sapn></td>-->
+                                <!--<td ng-click="GoToDetails(item)">{{item.claimItem.itemName}}</td>-->
+                                <!--<td ng-show="AddNewItem===true || EditItem===true"></td>-->
+                                <!--<td ng-click="GoToDetails(item)"><span ng-if="item.claimItem.isScheduledItem===true">Yes</span><span ng-if="item.claimItem.isScheduledItem===false">No</span></td>-->
+                                <!--<td ng-click="GoToDetails(item)">{{item.claimItem.subCategory.name}}</td>-->
+                                <!--<td ng-show="AddNewItem===false && EditItem===false" ng-click="GoToDetails(item)">{{item.comparableItems[0].supplier}}</td>-->
+                                <!--<td ng-show="AddNewItem===false && EditItem===false" ng-click="GoToDetails(item)">{{item.comparableItems[0].description}}</td>-->
+                                <!--<td ng-show="AddNewItem===false && EditItem===false" ng-click="GoToDetails(item)" class="text-right">{{item.comparableItems[0].unitPrice |currency}}</td>-->
+                                <!--<td ng-show="AddNewItem===false && EditItem===false" ng-click="GoToDetails(item)" class="text-right">{{item.claimItem.depriciationRate}}</td>-->
+                                <!--<td ng-show="AddNewItem===false && EditItem===false" ng-click="GoToDetails(item)" class="text-right">{{item.claimItem.acv |currency}}</td>-->
+                                <!--<td ng-show="AddNewItem===false && EditItem===false" ng-click="GoToDetails(item)" class="text-right">{{item.claimItem.rcv |currency}}</td>-->
+                                <!--<td ng-show="AddNewItem===false && EditItem===false" ng-click="GoToDetails(item)"><span ng-if="item.claimItem.isReplaced===true"></span><span ng-if="item.claimItem.isReplaced===false">No</span></td>-->
+                                <!--<td ng-show="AddNewItem===true || EditItem===true"></td>-->
+                                <!--<td ng-show="AddNewItem===false && EditIte===true"></td>-->
+
+                                <td ng-show="AddNewItem===false && EditItem===false" class="text-center TextDecorationNone" style="display:flex;">
+                                    <a ng-click="EditItemDetails(item)" class="text-success font-sm sbold"> Edit</a> |
+                                    <a ng-click="DeletItem(item)" class="text-danger font-sm sbold"> Delete</a>
+                                </td>
+                                <td ng-show="AddNewItem===true || EditItem===true"></td>
+                            </script>
+                            <!--End Dispaly template-->
+                            <!--Edit template-->
+                            <script type="text/ng-template" id="edit">
+                                <td></td>
+                                <td><input type="text" class="form-control " ng-model="selected.number" placeholder="{{'Table.ItemName'|translate}}"></td>
+                                <td>
+                                    <input type="text" class="form-control setwidth" ng-model="selected.description" ng-attr-placeholder="{{'Table.Description'|translate}}">
+                                </td>
+
+                                <td>
+                                    <input type="text" readonly class="form-control " ng-model="selected.status.status" placeholder="{{'Table.Status'|translate}}">
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control setwidth" ng-model="selected.insuredPrice" ng-attr-placeholder="{{'Table.Cost'|translate}}">
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control setwidth" ng-model="selected.quantity" ng-attr-placeholder="{{'Table.Qty'|translate}}">
+                                </td>
+                                <td>
+                                    <select class="input-small select2me form-control " data-placeholder="Select..." ng-model="selected.category.id" ng-change="GetSubCategory()"
+                                            ng-options="option.categoryId as option.categoryName for option in DdlSourceCategoryList"></select>
+                                </td>
+                                <td>
+                                    <div style="display:flex;width:110px;">
+                                        <div class="pull-left text-center" style="margin-left:5px"><input type="text" class="form-control" style="width:50px;" ng-model="selected.ageYears" ng-attr-placeholder="{{'Table.AgeInYear'|translate}}"></div>
+                                        <div class="pull-right text-center"><input type="text" class="form-control" style="width:50px;" ng-model="selected.ageMonths" ng-attr-placeholder="{{'Table.AgeInMonths'|translate}}"></div>
+                                    </div>
+                                </td>
+
+                                <!--<td>
+                                    <select class="input-small select2me form-control  " data-placeholder="Select..." ng-model="selected.subCategory.id"
+                                            ng-options="option.id as option.name for option in SubCategory"></select>
+                                </td>-->
+                                <!--<td>
+                                    <input type="text" class="form-control " ng-model="selected.itemName" placeholder="{{'Table.ItemName'|translate}}">
+                                </td>-->
+                                <!--<td>
+                                    <select class="input-small select2me form-control  " data-placeholder="Select..." ng-model="selected.isScheduledItem">
+                                        <option value="true" ng-selected="selected.isScheduledItem">Yes</option>
+                                        <option value="false" ng-selected="!selected.isScheduledItem">No</option>
+                                    </select>
+                                </td>-->
+
+                                <td>
+                                    <div class="btn-group btn-group-circle btn-outline" style="display:flex !important;">
+                                        <span ng-click="SaveItemDetails(selected.id)">Save</span>
+                                        <span ng-click="reset()">Cancel</span>
+                                    </div>
+                                </td>
+                            </script>
+                            <!--End Edit template-->
+
+                            <!--Pagination-->
+                            <div class="text-center">
+                                <dir-pagination-controls class="pull-right" max-size="3"
+                                    on-page-change="pageChangeHandler(newPageNumber)" direction-links="true"
+                                    boundary-links="true" pagination-id="FiletrLostDamageListControl">
+                                </dir-pagination-controls>
+    
+                                <span ng-if="FiletrLostDamageList.length > 0" class="bold pull-left"
+                                    style="color: #337ab7;">
+                                    Showing
+                                    1 to
+                                    {{FiletrLostDamageList.length}}
+                                    of
+                                    {{FiletrLostDamageList.length}}
+                                    Items </span>
+                            </div>
+
+                        </div>
+                       
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>

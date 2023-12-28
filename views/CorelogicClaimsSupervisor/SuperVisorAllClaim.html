@@ -1,0 +1,259 @@
+﻿<div class="headerFreez border_bottom col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-bottom-5">
+    <div class="mainHeadingDiv">
+        <div class="caption font-gray-sharp">
+            <span class="caption-subject">{{"MainHeader.Claim_Ttile" | translate}} ({{totalClaims}})</span>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-12 col-xs-12" id="content-tab-body">
+    <!-- Filter start -->
+    <div class="col-md-12 col-xs-12 clearfix well mobile_view_padding">
+        <div class="col-md-12 col-sm-12 sbold form-group">
+            {{"Filters"|translate}}
+        </div>
+        <div class="col-lg-8 col-md-12 col-xs-12 form-group">
+            <div class="col-lg-2 col-md-2 col-sm-3 sbold res_label_placement">{{"ControlText.Show" | translate}}</div>
+            <div class="col-lg-6 col-md-9 col-sm-9">
+                <ul class="nav nav-pills">
+                    <li class="All" ng-class="searchBy=='All' ? 'active' : ''">
+                        <a data-toggle="tab" ng-click="searchByDate('All')" aria-expanded="false">{{"ControlText.AllClaims"
+                            | translate}}</a>
+                    </li>
+                    <li class="ThisMonth" ng-class="searchBy=='ThisMonth' ? 'active' : ''">
+                        <a data-toggle="tab" ng-click="searchByDate('ThisMonth')" aria-expanded="true">
+                            {{"ControlText.ThisMonth" | translate}}</a>
+                    </li>
+                    <li class="Last3Month" ng-class="searchBy=='Last3Month' ? 'active' : ''">
+                        <a data-toggle="tab" ng-click="searchByDate('Last3Month')" aria-expanded="true">{{"ControlText.Last3Months"
+                            | translate}} </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-lg-8 col-md-12 col-xs-12 form-group" id="cal">
+            <div class="col-lg-2 col-md-2 col-sm-3 sbold res_label_placement"> {{"ControlText.ReportDate" | translate}}</div>
+            <div class="col-lg-3 col-md-2 col-sm-3">
+                <div class="input-icon left ">
+                    <i class="icon-calendar"></i>
+                    <input class="form-control datepicker" data-date-container='#cal' data-date-end-date="+0d"
+                        ng-model="fromDate" data-provide="datepicker" size="16" type="text"
+                        placeholder='{{"ControlText.Date"|translate}}' name="fromDate" id="fromDate"
+                        ng-change="changeDate()" autocomplete="fakeFromDate" />
+                    <!-- <input class="form-control datepicker" ng-model="fromDate" data-date-container='#cal' required close-on-date-selection="true" data-provide="datepicker" size="16" type="text" placeholder='{{"ControlText.Date"|translate}}' name="fromDate" /> -->
+                </div>
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-2 text-center">
+                <span class="sbold">{{"ControlText.To" | translate}}</span>
+            </div>
+            <div class="col-lg-3 col-md-2 col-sm-3">
+                <div class="input-icon left">
+                    <i class="icon-calendar"></i>
+                    <input class="form-control datepicker" data-date-container='#cal' data-date-end-date="+0d"
+                        ng-model="toDate" data-provide="datepicker" size="16" type="text"
+                        placeholder='{{"ControlText.Date"|translate}}' name="toDate" id="toDate"
+                        autocomplete="fakeToDate" />
+                    <!-- <input class="form-control datepicker" ng-model="toDate" data-date-container='#cal' required close-on-date-selection="true" data-provide="datepicker" size="16" type="text" placeholder='{{"ControlText.Date"|translate}}' name="toDate" /> -->
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8 col-md-12 col-xs-12 form-group">
+            <div class="col-lg-2 col-md-2 col-sm-3 sbold res_label_placement">
+                {{"Adjuster" | translate}}
+            </div>
+            <div class="col-lg-7 col-md-5 col-sm-8">
+                <select class="select2me form-control" multiple ng-model="Adjuster"
+                    ng-options="item.userId as item.lastName+','+item.firstName for item in AdjusterList"></select>
+            </div>
+        </div>
+        <div class="col-lg-8 col-md-12 col-xs-12 form-group">
+            <div class="col-lg-2 col-md-2 col-sm-3 sbold res_label_placement">
+                {{"Status" | translate}}
+            </div>
+            <div class="col-lg-7 col-md-5 col-sm-8">
+                <select class="select2me form-control" multiple ng-model="status"
+                    ng-options="item.id as item.status for item in claimStatusList"></select>
+            </div>
+        </div>
+        <div class="col-lg-8 col-md-12 col-xs-12 form-group ">
+            <div class="col-lg-2 col-md-2 col-sm-3">
+            </div>
+            <div class="col-lg-5 col-md-5 col-sm-3 pull-right">
+                <button id="sample_editable_1_new" class="btn sbold btnMargin" ng-click="getAllSupervisorClaims()">
+                    <i class="fa fa-search"></i>
+                    {{"Search"|translate}}
+                </button> </div>
+
+        </div>
+    </div>
+    <!-- Filter End -->
+    <!-- Claims grid start -->
+    <!--claims datatable-->
+    <div class="col-md-12 col-xs-12 padding1px">
+        <div class="col-md-12 col-xs-12 options_Background padding1px">
+            <div class="col-md-6 col-sm-5 col-xs-12 padding10">
+                <div class="col-md-3 col-sm-6 col-xs-5">
+                    <div class="input-icon right">
+                        <button id="sample_editable_1_new" class="btn sbold btnMargin btnOptions"
+                            ng-click="exportAllClaims()">
+                            {{"ControlText.Export"|translate}}
+                        </button>
+                    </div>
+                </div>
+                <div class="col-md-5 col-sm-5 col-xs-6 hide">
+                    <div class="input-icon left">
+                        <select class="input-sm select2me" data-placeholder="select" ng-model="ClaimRowFilter"
+                            ng-change="ClaimRowFilterfun()">
+                            <option value="10">10 Claims</option>
+                            <option value="20">20 Claims</option>
+                            <option value="30">30 Claims</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-7 col-xs-12 padding10">
+                
+                <div class="col-md-3 col-sm-4 col-xs-3 padding1px">
+                        <!-- <select class="input-sm select2me" data-placeholder="select" ng-model="ClaimFilter"
+                            ng-change="FilterList()">
+                            <option value="ALL">All</option>
+                            <option value="HOME">Home</option>
+                            <option value="AUTO">Auto</option>
+                        </select> -->
+                </div>
+                <div class="col-md-1 col-sm-2 col-xs-2 text_options_Label padding1px">
+                    <label class="control-label ">{{"ControlText.ViewDropDown_Title" | translate}}
+                    </label>
+                </div>
+                <div class="col-md-8 col-sm-6 col-xs-7">
+                    <div class="input-icon left">
+                        <i class="icon-magnifier"></i>
+                        <input type="text" ng-model="searchKeyword"
+                            class="form-control form-control-solid input-circle input-block-level btnMargin"
+                            placeholder="{{'ControlText.Search_Placeholder' | translate}}"
+                            ng-keyup="checkKeyCode($event,searchKeyword)">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 table-responsive padding1px ">
+            <table class="table table-striped table-bordered table-hover order-column" id="NavigateTable">
+                <thead>
+                    <tr>
+                        <!-- <th ng-click="sort('claimType')">
+                            {{"Table.Type_Title" | translate}}
+                            <span class="glyphicon sort-icon" ng-show="sortKey=='claimType'"
+                                ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                        </th> -->
+                        <th ng-click="sort('claimNumber')">
+                            {{"Table.Claim_Title" | translate}}
+                            <span class="glyphicon sort-icon" ng-show="sortKey=='claimNumber'"
+                                ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                        </th>
+                        <th ng-click="sort('firstName')">
+                            {{"Table.InsuredName_Title" | translate}}
+                            <span class="glyphicon sort-icon" ng-show="sortKey=='firstName'"
+                                ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                        </th>
+                        <th ng-click="sort('adjuster.name')">
+                            {{"Table.Adjuster" | translate}}
+                            <span class="glyphicon sort-icon" ng-show="sortKey=='adjuster.name'"
+                                ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                        </th>
+                        <th ng-click="sort('Vendor')">
+                            {{"Table.Vendor" | translate}}
+                            <span class="glyphicon sort-icon" ng-show="sortKey=='Vendor'"
+                                ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                        </th>
+                        <!--<th ng-click="sort('insuredDetails.cellPhone')">
+                                            {{"Table.InsuredPhone" | translate}}
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='insuredDetails.cellPhone'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                        </th>-->
+                        <th ng-click="sort('createDate')">
+                            {{"Table.AssignedDate" | translate}}
+                            <span class="glyphicon sort-icon" ng-show="sortKey=='createDate'"
+                                ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                        </th>
+
+                        <th ng-click="sort('lastActivity')">
+                            Last Activity
+                            <span class="glyphicon sort-icon" ng-show="sortKey=='lastActivity'"
+                                ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                        </th>
+                        <th ng-click="sort('claimStatus')">
+                            {{"Table.Status_Title" | translate}}
+                            <span class="glyphicon sort-icon" ng-show="sortKey=='claimStatus'"
+                                ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                        </th>
+                        <th ng-click="sort('lastUpdate')">
+                            {{"Table.LastUpdate" | translate}}
+                            <span class="glyphicon sort-icon" ng-show="sortKey=='lastUpdate'"
+                                ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr dir-paginate="item in claimList|orderBy:sortKey:reverse|itemsPerPage:20"
+                        total-Items="totalClaims" pagination-id="AllClaims">
+
+                        <!-- <td ng-click="GoTOClaimDetails(item)"><span
+                                ng-class="{'HOME':'fa fa-home fa-lg', 'AUTO':'fa fa-bus fa-lg'}[item.claimType]"></span>
+                        </td> -->
+                        <td ng-click="GoTOClaimDetails(item)">{{item.claimNumber}}</td>
+                        <td ng-click="GoTOClaimDetails(item)">
+                            {{item.insuredDetails.lastName+", "+item.insuredDetails.firstName}}
+                        </td>
+                        <td ng-click="GoTOClaimDetails(item)">{{item.adjusterName}}</td>
+                        <td ng-click="GoTOClaimDetails(item)"><span
+                                ng-repeat="assignment in item.assignments  | unique : 'vendor.vendorName'">{{assignment.vendor.vendorName}}<span
+                                    ng-if="!$last">, </span></span></td>
+                        <!--<td ng-click="GoTOClaimDetails(item)">{{item.insuredDetails.cellPhone|tel}}</td>-->
+                        <td ng-click="GoTOClaimDetails(item)">
+                            {{item.createDate |  DateFormatMMddyyyy}}</td>
+
+                        <td ng-click="GoTOClaimDetails(item)" class="tip">
+                            {{item.lastActivity | limitTo : 60}}{{item.lastActivity.length>60 ? '...' :''}}
+                            <span class="Overlay" ng-if="item.lastActivity">{{item.lastActivity }}</span>
+                        </td>
+                        <td ng-click="GoTOClaimDetails(item)">
+                            <span>
+                                {{item.status.status|limitTo:15}}<span
+                                    class="left">{{item.status.status.length>15?'...':''}}</span>
+                            </span>
+                        <td ng-click="GoTOClaimDetails(item)">
+                            {{item.lastUpdateDate | DateFormatMMddyyyy}}</td>
+                        <!--<span ng-class="{'stage ClaimStageTwo':item.status.status==='ASSIGNED',
+                                                                         'stage ClaimStageOne':item.status.status==='CREATED',
+                                                                         'stage ClaimStageSix':item.status.status==='REJECTED',
+                                                                         'stage ClaimStageThree':item.status.status==='UNDER REVIEW',
+                                                                         'stage ClaimStageFour':item.status.status==='APPROVED',
+                                                                         'stage ClaimStageFive':item.status.status==='SETTLED',
+                                                                         'stage ClaimStageThree':item.status.status==='3rd PARTY VENDOR' }">
+                                                {{item.status.status|limitTo:15}}<span class="left">{{item.status.status.length>15?'...':''}}</span>
+                                            </span>-->
+                        </td>
+
+                    </tr>
+                    <tr ng-if="(claimList===null )||(claimList.length === 0)">
+                        <td colspan="16" class="text-center text-danger" style="text-align: center;">No
+                            records available</td>
+                    </tr>
+                </tbody>
+                <foot>
+                </foot>
+            </table>
+        </div>
+        <div class="col-md-12 col-sm-12 col-xs-12 padding1px" ng-show="claimList != null && claimList.length > 0 ">
+            <span ng-if="claimList.length > 0" class="mobile_view_center bold" style="color: #337ab7;"> Showing
+                {{ (claimsPerpage * (pageNumber - 1))+1 }} to {{toShowingPage}} of
+                {{totalClaims}} records </span>
+            <dir-pagination-controls max-size="3" pagination-id="AllClaims" direction-links="true"
+                ng-hide="claimList === null || claimList.length === 0" on-page-change="pageChanged(newPageNumber)"
+                boundary-links="true" class="pull-right">
+            </dir-pagination-controls>
+        </div>
+    </div>
+    <!--claims datatable end-->
+    <!-- Claims grid end -->
+</div>

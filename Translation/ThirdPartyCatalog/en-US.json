@@ -1,0 +1,53 @@
+﻿{
+  "HeaderText": {
+    "Catalogs": "Catalogs",
+    "NewCatalog": "New Catalog",
+    "UpdateCatalog": "Update Catalog",
+    "ItemsInCatalog": "Items In Catalog"
+  },
+
+  "ControlText": {
+    "LoadFromFile": "Load Form file",
+    "AddItem": "New Item",
+    "CreateDate": "Create Date",
+    "StartDate": "Start Date",
+    "CatalogId": "Catalog Id",
+    "Staus": "Staus",
+    "ExpirationDate": "Expiration Date",
+    "CatalogName": "Catalog Name",
+    "Export": "Export",
+    "Back": "Back",
+    "Save": "Save",
+    "NewCatalog": "New"
+  },
+  "Table": {
+    "ItemId": "Item Id",
+    "ItemName": "Item Name",
+    "Model": "Model",
+    "ItemType": "Item Type",
+    "Description": "Description",
+    "Supplier": "Supplier",
+    "AddedOn": "Added On",
+    "Prise": "Price",
+    "CatalogId": "Catalog Id",
+    "CatalogName": "Catalog Name",
+    "ofItems": "of Items",
+    "CreatedDate": "Created Date",
+    "StartDate": "Start Date",
+    "ExpirationDate": "Expiration Date",
+    "Status": "Status",
+    "Action": "Action",
+    "LastUpdated": "Last Updated",
+    "ItemNumber": "Item No."
+  },
+  "SearchText": "Search item #, name, description etc",
+  "NoRecordText": "No records available",
+  "FileUpload": {
+    "Title": "Upload item catalog",
+    "ErroMessage": "Filed to upload item catalog.",
+    "Message": "Item catalog uploaded successfully.",
+    "InvalidTypeMessage": "Plese select only Excel files."
+  },
+  "Home": "Home",
+  "Catalog": "Inventory / Catalog"
+}

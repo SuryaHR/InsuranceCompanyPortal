@@ -1,0 +1,12 @@
+﻿{
+  "HeadText": {
+    "Reject": "Reject",
+    "Approve": "Approve"
+  },
+  "ControlText": {
+    "btnReject": "Reject",
+    "btnApprove": "Approve",
+    "Cancel": "Cancel",
+    "Message": "Are you sure you want to reject this claim?"
+  }
+}

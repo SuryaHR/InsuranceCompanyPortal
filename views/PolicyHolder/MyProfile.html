@@ -1,0 +1,298 @@
+﻿<!--<script type="text/javascript">
+    document.getElementsByClassName("toast-close-button").style.minWidth = "400px";
+</script>-->
+<div class="row">
+    <div class="col-md-12">
+        <div class="col-md-12">
+            <uib-tabset active="" type="pills" Justified="true">
+                <!-- Personal Details -->
+                <uib-tab tabindex="4" heading={{"UserProfile"|translate}}>
+                    <div class="portlet light bordered ">
+                        <div class="portlet-title">
+                            <div class="caption font-green-sharp">
+                                <span class="caption-subject ">  {{"Profile"|translate}}</span>
+                            </div>
+                            <div class="tools">
+
+                            </div>
+                        </div>
+                        <div class="portlet-body">
+                            <div class="row" ng-form="PersonalDetailsForm">
+                                <div class="col-md-12 col-sm-12 col-xs-12 col-lg-1 col-lg-12 light bordered">
+                                    <div class="col-md-6 col-sm-6 col-lg-6">
+                                        <span class="col-sm-12 col-md-12 col-lg-12 col-xs-12 sbold margin-bottom-10 padding1px">{{"Personal Details"|translate}}</span>
+                                        <label class="control-label col-sm-5 col-md-3 col-lg-3 form-group">{{"First Name"|translate}}</label>
+                                        <div class="col-sm-7 col-md-6 col-lg-6 form-group">
+                                            <input type="text" name="firstName" required class="form-control" ng-if="IsEditPersonalDetails" ng-model="personalDetails.firstName" />
+                                            <label class="control-label" ng-if="!IsEditPersonalDetails">{{personalDetails.firstName}}</label>
+
+                                            <span class="text-danger col-sm-12 col-xs-12 col-lg-12 col-md-12" ng-message="required"
+                                                  ng-show="(PersonalDetailsForm.firstName.$error.required && PersonalDetailsForm.firstName.$touched)">
+                                                {{"Please enter first name."|translate}}
+                                            </span>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        <label class="control-label col-sm-5 col-md-3 col-lg-3 form-group">{{"Last Name"|translate}}</label>
+                                        <div class="col-sm-7 col-md-6 col-lg-6 form-group">
+                                            <label class="control-label" ng-if="!IsEditPersonalDetails">{{personalDetails.lastName}}</label>
+                                            <input type="text" name="lastName" required ng-model="personalDetails.lastName" class="form-control" ng-if="IsEditPersonalDetails" />
+                                            <span class="text-danger col-sm-12 col-xs-12 col-lg-12 col-md-12" ng-message="required"
+                                                  ng-show="(PersonalDetailsForm.lastName.$error.required && PersonalDetailsForm.lastName.$touched)">
+                                                {{"Please enter last name."|translate}}
+                                            </span>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        <label class="control-label col-sm-5 col-md-3 col-lg-3 form-group">{{"Date Of Birth"|translate}}</label>
+                                        <div class="col-sm-7 col-md-6 col-lg-6 form-group" id="cal">
+                                            <label class="control-label" ng-if="!IsEditPersonalDetails">{{personalDetails.dateOfBirth }}</label>
+
+                                            <input type="text" name="dateOfBirth" data-date-container='#cal' required ng-model="personalDetails.dateOfBirth" data-provide="datepicker" size="16" class="form-control datepicker" ng-if="IsEditPersonalDetails" />
+                                            <span class="text-danger col-sm-12 col-xs-12 col-lg-12 col-md-12" ng-message="required"
+                                                  ng-show="(PersonalDetailsForm.dateOfBirth.$error.required && PersonalDetailsForm.dateOfBirth.$touched)">
+                                                {{"Please enter date of birth."|translate}}
+                                            </span>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        <label class="control-label col-sm-5 col-md-3 col-lg-3 form-group">{{"Mobile Phone"|translate}}</label>
+                                        <div class="col-sm-7 col-md-6 col-lg-6 form-group" id="cal">
+                                            <label class="control-label" ng-if="!IsEditPersonalDetails">{{personalDetails.cellPhone }}</label>
+
+                                            <input type="text" name="MobilePhone" required ng-model="personalDetails.cellPhone" class="form-control" ng-if="IsEditPersonalDetails" />
+                                            <span class="text-danger col-sm-12 col-xs-12 col-lg-12 col-md-12" ng-message="required"
+                                                  ng-show="(PersonalDetailsForm.MobilePhone.$error.required && PersonalDetailsForm.MobilePhone.$touched)">
+                                                {{"Please enter mobile number"|translate}}
+                                            </span>
+                                        </div>
+                                        <div class="clearfix">
+                                            <span class="col-sm-12 col-md-12 col-lg-12 col-xs-12 sbold margin-bottom-10 margin-top-10 padding1px">{{"Communication Details"|translate}}</span>
+                                            <div class="clearfix"></div>
+                                            <label class="control-label col-sm-5 col-md-3 col-lg-3 form-group">{{"Employee Id"|translate}}</label>
+                                            <div class="col-sm-7 col-md-6 col-lg-6 form-group">
+                                                <input type="text" name="EmployeeId" readonly ng-model="personalDetails.policyHolderId" class="form-control" ng-if="IsEditPersonalDetails" />
+                                                <label class="control-label" ng-if="!IsEditPersonalDetails">{{personalDetails.policyHolderId}}</label>
+                                                <span class="text-danger col-sm-12 col-xs-12 col-lg-12 col-md-12" ng-message="required"
+                                                      ng-show="(PersonalDetailsForm.EmployeeId.$error.required && PersonalDetailsForm.EmployeeId.$touched)">
+                                                    {{"Please enter mobile phone."|translate}}
+                                                </span>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                            <label class="control-label col-sm-5 col-md-3 col-lg-3 form-group">{{"Email ID"|translate}}</label>
+                                            <div class="col-sm-7 col-md-6 col-lg-6 form-group">
+                                                <input type="text" readonly name="emailID" required ng-model="personalDetails.email" pattern="[a-z0-9A-Z._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" class="form-control" ng-if="IsEditPersonalDetails" />
+                                                <span class="text-danger col-sm-12 col-xs-12 col-lg-12 col-md-12" ng-message="required"
+                                                      ng-show="(PersonalDetailsForm.emailID.$error.required && PersonalDetailsForm.emailID.$touched)">
+                                                    {{"Please enter emailID."|translate}}
+                                                </span>
+                                                <span class="text-danger col-sm-12 col-xs-12 col-lg-12 col-md-12" ng-message="pattern"
+                                                      ng-show="(PersonalDetailsForm.emailID.$touched && PersonalDetailsForm.emailID.$error.pattern)">
+                                                    {{"Please enter valid emailID."|translate}}
+                                                </span>
+                                                <label class="control-label" ng-if="!IsEditPersonalDetails">{{personalDetails.email}}</label>
+                                            </div>
+
+                                            <div class="clearfix"></div>
+                                            <label class="control-label col-sm-5 col-md-3 col-lg-3 form-group">{{"Work Phone"|translate}}</label>
+                                            <div class="col-sm-7 col-md-6 col-lg-6 form-group">
+                                                <label class="control-label" ng-if="!IsEditPersonalDetails">{{personalDetails.dayTimePhone}}</label>
+                                                <input type="text" name="workPhone" required ng-model="personalDetails.dayTimePhone" class="form-control" ng-if="IsEditPersonalDetails" />
+                                                <span class="text-danger col-sm-12 col-xs-12 col-lg-12 col-md-12" ng-message="required"
+                                                      ng-show="(PersonalDetailsForm.workPhone.$error.required && PersonalDetailsForm.workPhone.$touched)">
+                                                    {{"Please enter work phone."|translate}}
+                                                </span>
+                                            </div><div class="clearfix"></div>
+                                            <label class="control-label col-sm-5 col-md-3 col-lg-3 form-group">{{"Home Phone"|translate}}</label>
+                                            <div class="col-sm-7 col-md-6 col-lg-6 form-group">
+                                                <label class="control-label" ng-if="!IsEditPersonalDetails">{{personalDetails.eveningTimePhone}}</label>
+                                                <input type="text" name="homePhone" required ng-model="personalDetails.eveningTimePhone" class="form-control" ng-if="IsEditPersonalDetails" />
+                                                <span class="text-danger col-sm-12 col-xs-12 col-lg-12 col-md-12" ng-message="required"
+                                                      ng-show="(PersonalDetailsForm.homePhone.$error.required && PersonalDetailsForm.homePhone.$touched)">
+                                                    {{"Please enter home phone."|translate}}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 col-sm-6 form-group">
+                                        <span class="col-sm-12 col-md-12 col-lg-12 col-xs-12 sbold margin-bottom-10 padding1px">{{"Mailing Address"|translate}}</span>
+                                        <label class="control-label col-sm-5 col-md-3 col-lg-3 form-group ">{{"Street Address 1"|translate}}</label>
+                                        <div class="col-sm-7 col-md-6 col-lg-6 form-group form-group">
+                                            <label class="control-label" ng-if="!IsEditPersonalDetails">{{personalDetails.address.streetAddressOne}}</label>
+
+                                            <input type="text" name="streetAddress1" ng-model="personalDetails.address.streetAddressOne" class="form-control " ng-if="IsEditPersonalDetails" />
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        <label class="control-label col-sm-5 col-md-3 col-lg-3 form-group ">{{"Street Address 2"|translate}}</label>
+                                        <div class="col-sm-7 col-md-6 col-lg-6 form-group form-group">
+                                            <label class="control-label" ng-if="!IsEditPersonalDetails">{{personalDetails.address.streetAddressTwo}}</label>
+
+                                            <input type="text" name="streetAddress2" ng-model="personalDetails.address.streetAddressTwo" class="form-control" ng-if="IsEditPersonalDetails" />
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        <label class="control-label col-sm-5 col-md-3 col-lg-3 form-group">{{"City"|translate}}</label>
+                                        <div class="col-sm-7 col-md-6 col-lg-6 form-group">
+                                            <label class="control-label" ng-if="!IsEditPersonalDetails">{{personalDetails.address.city}}</label>
+
+                                            <input type="text" name="city" ng-model="personalDetails.address.city" class="form-control" ng-if="IsEditPersonalDetails" />
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        <label class="control-label col-sm-5 col-md-3 col-lg-3 form-group">{{"State"|translate}}</label>
+                                        <div class="col-sm-7 col-md-6 col-lg-6 form-group">
+                                            <label class="control-label" ng-if="!IsEditPersonalDetails">{{personalDetails.address.state.state}}</label>
+
+                                            <select class="input-sm form-control btnMargin select2me" ng-model="personalDetails.address.state.id" data-placeholder="Select State" ng-if="IsEditPersonalDetails"
+                                                    ng-options="option.id as option.state for option in StateList"></select>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        <label class="control-label col-sm-5 col-md-3 col-lg-3 form-group">{{"Zip Code"|translate}}</label>
+                                        <div class="col-sm-7 col-md-6 col-lg-6 form-group">
+                                            <label class="control-label" ng-if="!IsEditPersonalDetails">{{personalDetails.address.zipcode}}</label>
+
+                                            <input type="text" maxlength="5" onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="zipCode" ng-model="personalDetails.address.zipcode" class="form-control" ng-if="IsEditPersonalDetails" />
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 margin-top-10  topBorder margin-bottom-10">
+
+                                        <a class="text-info sbold margin-top-10" ng-if="!IsEditPersonalDetails" ng-click="EditPersonalDetails()"><br />{{"Edit"|translate}}</a>
+                                        <button type="button" class="btn sbold btnMargin margin-top-10" ng-if="IsEditPersonalDetails" ng-click="SaveProfileDetails()">
+                                            {{"Save"|translate}}
+                                        </button>
+                                        <button type="button" class="btn sbold btnMargin margin-top-10" ng-if="IsEditPersonalDetails" ng-click="CancelEditPersonalDetails()">
+                                            {{"Cancel"|translate}}
+                                        </button>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </uib-tab>
+
+                <!-- Login Security -->
+                <uib-tab tabindex="4" heading={{"Security"|translate}}>
+                    <div class="portlet light bordered ">
+                        <div class="portlet-title">
+                            <div class="caption font-green-sharp">
+                                <span class="caption-subject ">  {{"Login Security"|translate}}</span>
+
+                            </div>
+                            <div class="tools">
+                            </div>
+                        </div>
+                        <div class="portlet-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <!--<div class="col-md-5 col-sm-12 col-xs-12 col-lg-5">
+                                        <div class="col-md-12 col-lg-12 col-sm-12 colxs-12  padding5 margin-top-10 margin-bottom-10 table-bordered" ng-form="EditEmailIdForm">
+                                            <span class="col-sm-12 col-md-12 col-lg-12 col-xs-12 sbold margin-bottom-10 padding1px">
+                                                {{"Email"|translate}} &nbsp;{{"(This is also your user-id)"|translate}}
+                                            </span>
+                                            <label class="control-label col-sm-12 col-md-12 col-lg-12 form-group"></label>
+                                            <div class="col-md-8 col-sm-8 col-lg-6 col-xs-12">
+                                                <label class="control-label" ng-if="!IsEditEmailId">{{personalDetails.email}}</label>
+                                                <input type="text" name="ResetEmail" ng-model="personalDetails.email" class="form-control" ng-if="IsEditEmailId" />
+                                            </div>
+                                            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 margin-top-10  topBorder margin-bottom-10">
+                                                <a class="text-info sbold margin-top-20" ng-if="!IsEditEmailId" ng-click="EditEmailId()"><br />{{"Edit"|translate}}</a>
+                                                <button type="button" class="btn green margin-top-10" ng-if="IsEditEmailId">
+                                                    {{"Send a verification link"|translate}}
+                                                </button>
+                                                <button type="button" class="btn blue margin-top-10" ng-if="IsEditEmailId" ng-click="CancelEditEmailId()">
+                                                    {{"Cancel"|translate}}
+                                                </button>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  padding5 margin-top-10 margin-bottom-10 table-bordered" ng-form="EditPhoneForm">
+                                            <span class="col-sm-12 col-md-12 col-lg-12 col-xs-12 sbold margin-bottom-10 padding1px">
+                                                {{"Phone Number"|translate}}
+                                            </span>
+                                            <label class="control-label col-sm-12 col-md-12 col-lg-12 form-group"></label>
+                                            <div class="col-md-8 col-sm-8 col-lg-6 col-xs-12">
+                                                <label class="control-label" ng-if="!IsEditPhone">{{personalDetails.cellPhone}}</label>
+                                                <input type="text" name="ResetEmail" ng-model="personalDetails.cellPhone" class="form-control" ng-if="IsEditPhone" />
+                                            </div>
+                                            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 margin-top-10  topBorder margin-bottom-10">
+                                                <a class="text-info sbold margin-top-20" ng-if="!IsEditPhone" ng-click="EditPhone()"><br />{{"Edit"|translate}}</a>
+                                                <button type="button" class="btn green margin-top-10" ng-if="IsEditPhone">
+                                                    {{"Save"|translate}}
+                                                </button>
+                                                <button type="button" class="btn blue margin-top-10" ng-if="IsEditPhone" ng-click="CancelEditPhone()">
+                                                    {{"Cancel"|translate}}
+                                                </button>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>-->
+                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                        <div class="col-md-12 col-lg-12 col-sm-12 colxs-12  padding5 margin-top-10 margin-bottom-10 table-bordered" ng-form="EditPassForm">
+                                            <span class="col-sm-12 col-md-12 col-lg-12 col-xs-12 sbold margin-bottom-10 padding1px">
+                                                {{"Password"|translate}}
+                                            </span>
+                                            <div class="col-md-6 col-sm-8 col-lg-6 col-xs-12" ng-if="!IsEditPassword">
+                                                <label class="control-label" ng-if="!IsEditPassword">************</label>
+
+                                            </div>
+                                            <div class="col-md-12 col-sm-10 col-lg-12 col-xs-12" ng-if="IsEditPassword">
+                                                <label class="control-label form-group col-md-5 col-lg-3 col-sm-4">{{"Current Password"|translate}}</label>
+                                                <div class="col-md-7 col-lg-6 col-sm-8">
+                                                    <input type="password" name="Currentpass" required ng-model="PasswordSecurity.CurrentPassword" class="form-control form-group " />
+                                                    <span class="text-danger" ng-show="EditPassForm.Currentpass.$error.required && EditPassForm.Currentpass.$touched">
+                                                        {{"Please enter your current password"|translate}}
+                                                    </span>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                                <div class="col-sm-12 col-lg-9 col-md-12">
+                                                    <div class="well col-md-12 col-lg-12 col-sm-12">
+                                                        {{"New Password Requirement"|translate}} <br />{{"* 8-16 character long"|translate}}<br />
+                                                        {{"* contains a number and special character"|translate}}
+                                                    </div>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                                <label class="control-label form-group col-lg-3 col-md-5 col-sm-4">{{"New Password"|translate}}</label>
+                                                <div class="col-md-7 col-lg-6 col-sm-8">
+                                                    <input type="password" data-ng-blur="checkPass()" required pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$" name="Newpass" ng-model="PasswordSecurity.NewPassword" class="form-control form-group col-lg-2" />
+                                                    <span class="text-danger" ng-show="EditPassForm.Newpass.$error.required && EditPassForm.Newpass.$touched">
+                                                        {{"Please enter new password"|translate}}
+                                                    </span>
+                                                    <span class="text-danger" ng-show="(EditPassForm.Newpass.$touched && EditPassForm.Newpass.$error.pattern)">
+                                                        {{"Password must be 8-16 character long and contains at least 1 number and 1 special character"|translate}}
+                                                    </span>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                                <label class="control-label form-group col-lg-3 col-md-5 col-sm-4">{{"Confirm New Password"|translate}}</label>
+                                                <div class="col-md-7 col-lg-6 col-sm-8">
+                                                    <input type="password" data-ng-blur="checkPass()" required name="Confirmpass" ng-model="PasswordSecurity.ConfirmPassword" class="form-control form-group" ng-keyup="$event.keyCode == 13 && ChangePassword()" />
+                                                    <span class="text-danger" ng-show="EditPassForm.Confirmpass.$error.required && EditPassForm.Confirmpass.$touched">
+                                                        {{"Please retype your new password"|translate}}
+                                                    </span>
+                                                    <span class="text-danger" ng-show="PasswordMissmatch">
+                                                        {{"Password and confirm password does not match."|translate}}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 margin-top-10  topBorder margin-bottom-10">
+                                                <a class="text-info sbold margin-top-20" ng-if="!IsEditPassword" ng-click="EditPassword()"><br />{{"Edit"|translate}}</a>
+                                                <button type="button" class="btn sbold btnMargin margin-top-10" ng-click="ChangePassword()" ng-if="IsEditPassword" ng-disabled="EditPassForm.$invalid || EditPassForm.$pristine ||PasswordMissmatch">
+                                                    {{"Save"|translate}}
+                                                </button>
+                                                <button type="button" class="btn sbold btnMargin margin-top-10" ng-if="IsEditPassword" ng-click="CancelEditPassword()">
+                                                    {{"Cancel"|translate}}
+                                                </button>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </uib-tab>
+            </uib-tabset>
+        </div>
+    </div>
+
+</div>

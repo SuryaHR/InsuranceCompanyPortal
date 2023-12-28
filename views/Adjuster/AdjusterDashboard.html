@@ -1,0 +1,901 @@
+﻿<style>
+    .to-do-div-height {
+        /* max-height: 360px; */
+        min-height: 210px;
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+
+    .To-do-list {
+        border: 1px solid gray;
+        margin: 2px;
+        height: 80px !important;
+
+    }
+
+    .To-do-list-title {
+        display: block;
+        padding: 5px;
+        font-weight: bold;
+        font-size: 20px;
+    }
+
+    .finish {
+        background-color: #cde3f3;
+    }
+    .AlertBox {
+        min-height: 227px !important;
+        max-height: 227px !important;
+        overflow-y: hidden;
+    }
+
+    .finish {
+        background-color: #cde3f3;
+    }
+
+    .widget-thumb.bordered {
+        border: 1px solid #e7ecf1;
+        box-shadow: 2px 1px 3px 0px grey;
+    }
+
+    .widget-thumb {
+        padding: 10px 1px 10px 1px !important;
+        border-radius: 4px;
+        min-height: 113px;
+        max-height: 114px;
+    }
+
+    .widget-thumb .widget-thumb-heading {
+        font-size: 13px;
+        font-weight: bold;
+        color: #8a7979;
+        margin: 10px 0 10px 0 !important;
+    }
+
+    .DigitDashbord {
+        margin-top: 5px !important;
+        margin-bottom: 16px !important;
+        font-weight: 600 !important;
+        font-size: 24px !important;
+    }
+
+    .padding-top10 {
+        padding-top: 10px;
+    }
+
+    .marginLeft10px {
+        margin-left: 10px !important;
+    }
+
+    .height-thumbord {
+        background: #f1f4f7 !important;
+        overflow: hidden;
+    }
+
+    .custombox {
+        width: 100px;
+        height: 100px;
+        background-color: #d2d2d2;
+        margin: 5px;
+        border: 1px solid #928a8a;
+        box-shadow: 2px 2px 3px 1px #929292;
+        border: none;
+    }
+
+    .customHight {
+        height: 350px;
+
+    }
+
+    .table-fixed tbody {
+        height: 230px;
+        overflow-y: auto;
+        width: 100%;
+    }
+
+    .select2-all-header {
+        padding-left: 7px !important;
+        font-size: 15px !important;
+    }
+
+    .select2-none-header {
+        padding-left: 7px !important;
+        font-size: 15px !important;
+    }
+
+    .select2-results {
+        margin-top: 8px !important;
+    }
+
+    .select2-container--bootstrap .select2-selection--multiple .select2-search--inline .select2-search__field {
+        height: 28px !important;
+    }
+    .truncateText{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+    max-width: 100%;
+    }
+
+    .table_Row_Heading {
+        border-left: 5px solid #b3b3b3 !important;
+    }
+
+    .All_Items_Priced {
+        border-left: 5px solid #65bf5f !important;
+    }
+    .Partial_Items_Priced {
+        border-left: 5px solid #feb467 !important;
+    }
+    .No_Items_Priced {
+        border-left: 5px solid #FA0C04 !important;
+    }
+
+    .nav > li > a:hover, .nav > li > a:focus {
+    text-decoration: none;
+    background-color: #eeeeee !important;
+}
+
+</style>
+
+<script type="text/javascript">
+    $(function () {
+        $(".widthclass").css("width", "25%");
+        iOSHandler();
+        $(window).on("orientationchange", function (event) {
+            iOSHandler();
+        });
+    });
+    function iOSHandler() {
+        var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        var width = screen.width;
+
+
+        if (iOS) {
+
+            var orientation;
+            if (window.orientation == undefined) {
+                orientation = window.screen.orientation.angle;
+            }
+            else {
+                orientation = window.orientation;
+            }
+
+            if (orientation != 0) {
+                if (screen.width < screen.height) {
+                    width = screen.height;
+                }
+            }
+            //iPhone4-Landscape
+            if (width > 475 && width < 485) {
+
+            }
+
+            //iPhone5-Landscape
+            else if (width > 562 && width < 572) {
+
+
+            }
+            //iPhone4,5-Portrait
+            else if (width > 315 && width < 325) {
+
+
+            }
+
+            //iPhone6-Landscape
+            else if (width > 660 && width < 670) {
+
+
+            }
+            //iPhone6-Portrait
+            else if (width > 370 && width < 380) {
+
+            }
+
+            //iPhone6+-Landscape
+            else if (width > 730 && width < 740) {
+
+
+            }
+            //iPhone6+-Portrait
+            else if (width > 410 && width < 420) {
+
+            }
+
+            //ipad
+            else if (width > 1020 && width < 1025) {
+
+                $(".widthclass").css("width", "30%");
+
+            }
+
+        }
+    }
+
+</script>
+<div class="row">
+    <div class="col-md-12" ng-hide=hideRegularClaims>
+        <!--Start Alerts and Upcoming Events-->
+        <div class="col-md-12 col-sm-12 col-lg-12 padding1px">
+            <div class="col-md-6 col-sm-12 col-lg-6"  style="padding: 0px 0px 0px 10px!important;"
+            ng-include="'views/CommonTemplates/DashboardAlerts.html'"
+            ng-controller="DashboardAlertsController">
+            </div>
+            <div class="col-md-6 col-sm-6 col-lg-6" style="height: 380px;">
+                <!-- <div class="col-md-12 col-sm-12 col-xs-12 margin-bottom-5 text-center" style="margin-top: 130px;">
+                    <button class="btn btn-link bold" ng-click="NewClaim()" style="background-color: #fff!important; text-decoration: underline;">{{"Click to Start a New Claim"|translate}}</button>
+                </div> -->
+                <!-- <div class="portlet box blue ">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <span class="caption-subject">{{"KPI's"|translate}}</span>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12 col-lg-12">
+                                <div class="col-md-12 table-responsive " style="height:290px">
+                                    <div class="tableDashboard">
+                                        <div>
+                                            <div class="col-md-3">
+                                                <div class="border custombox text-center">
+                                                    <h5 class="col-md-12 sbold margin-top-20">10</h5>
+                                                    <p>New Claims Assigned</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="border custombox text-center">
+                                                    <h5 class="col-md-12 sbold margin-top-20">38</h5>
+                                                    <span class="col-md-12">Open Claims</span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div>
+                                            <div class="col-md-3">
+                                                <div class="border custombox text-center">
+                                                    <h5 class="col-md-12 sbold margin-top-20">18.5</h5>
+                                                    <p>Avg. Claim Closing</p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+
+
+                <div class="portlet box" style="border: 1px solid #ddd;box-shadow: 0px 3px 6px 0px #ddd;">
+
+                    <div class="portlet-body to-do-div-height">
+                        <div class="row">
+                            <!-- <div class="col-md-12 col-sm-12 col-lg-12">
+                                <div class="col-md-12 table-responsive padding1px margin-top-10">
+                                    <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
+                                        <div class="col-md-12 text-center To-do-list">
+                                            <label class="To-do-list-title">{{newInvoicesToReview}}</label>
+                                            <label
+                                                style="margin-left: -20px;">{{"New Invoices to Review"|translate}}</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
+
+                                    </div>
+                                </div>
+                            </div> -->
+                            <div class="col-md-12 col-sm-12 col-lg-12 margin-top-10">
+                                <div class="col-md-12 col-sm-12 col-lg-12">
+                                    <div class="SubHeadingDiv">
+                                        <div class="caption">
+                                            <span class="sbold caption-subject">{{"My Scorecard"|translate}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-sm-12 tabbable-custom" style="padding-top:10px;padding-right:20px;padding-left:20px;">
+                                    <ul class="nav nav-tabs text-center">
+                                        <li class="active">
+                                            <a data-toggle="tab" ng-class="{selected:CurrentKPITab=='Month'}"
+                                                ng-click="getClaimScoreCard('Month')"
+                                                aria-expanded="false">{{"This Month"|translate}}</a>
+                                        </li>
+                                        <li class="">
+                                            <a data-toggle="tab" ng-class="{selected:CurrentKPITab=='Quater'}"
+                                                ng-click="getClaimScoreCard('Quater')" aria-expanded="true">
+                                                {{"This Quarter"|translate}}({{yearValues.thisQuaterFirstMonth}}
+                                                    - {{yearValues.thisQuaterLastMonth}})</a>
+                                        </li>
+                                        <li class="">
+                                            <a data-toggle="tab" ng-class="{selected:CurrentKPITab=='Year'}"
+                                                ng-click="getClaimScoreCard('Year')"
+                                                aria-expanded="true">{{"This Year"|translate}}({{yearValues.thisYear}}) </a>
+                                        </li>
+                                    </ul>
+                                <div class="col-md-12 col-sm-12 col-lg-12 padding1px bordered" style="height:110px;">
+                                    <div class="col-md-12 table-responsive padding1px margin-top-10">
+                                        <div class="col-md-4 col-sm-4 col-lg-4 col-xs-4">
+                                            <div class="col-md-12 text-center To-do-list">
+                                                <label class="To-do-list-title" style="font-size: 16px;">{{newClaims}}</label>
+                                                <label>{{"New Claims"|translate}}</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4 col-lg-4 col-xs-4">
+                                            <div class="col-md-12 text-center To-do-list">
+                                                <label class="To-do-list-title" style="font-size: 16px;">{{closedClaims}}</label>
+                                                <label>{{"Closed Claims"|translate}}</label>
+                                            </div>
+                                        </div>
+                                        <!-- <div class="col-md-4 col-sm-4 col-lg-4 col-xs-4">
+                                            <div class="col-md-12 text-center To-do-list">
+                                                <label class="To-do-list-title">{{openClaims}}</label>
+                                                <label>{{"Open Claims"|translate}}</label>
+                                            </div>
+                                        </div> -->
+
+                                        <div class="col-md-4 col-sm-4 col-lg-4 col-xs-4">
+                                                <div class="col-md-12 text-center To-do-list">
+                                                    <label class="To-do-list-title" style="font-size: 16px;">{{avgClosingClaim}}</label>
+                                                    <label>{{"Avg. Closing Time"|translate}}</label>
+                                                </div>
+                                            </div>
+                                    </div>
+
+                                    <!-- <div class="col-md-12 table-responsive padding1px margin-top-10"
+                                        ng-show="CurrentKPITab=='Quater'">
+                                        <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
+                                            <div class="col-md-12 text-center To-do-list">
+                                                <label class="To-do-list-title">{{45000|currency}}</label>
+                                                <label>{{"Total Invoiced"|translate}}</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
+                                            <div class="col-md-12 text-center To-do-list">
+                                                <label class="To-do-list-title">17%</label>
+                                                <label>{{"Replacements %"|translate}}</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12 table-responsive padding1px margin-top-10"
+                                        ng-show="CurrentKPITab=='Year'">
+                                        <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
+                                            <div class="col-md-12 text-center To-do-list">
+                                                <label class="To-do-list-title">{{45000|currency}}</label>
+                                                <label>{{"Total Invoiced"|translate}}</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
+                                            <div class="col-md-12 text-center To-do-list">
+                                                <label class="To-do-list-title">17%</label>
+                                                <label>{{"Replacements %"|translate}}</label>
+                                            </div>
+                                        </div>
+                                    </div> -->
+                                </div>
+                            </div>
+
+                            </div>
+                        </div>
+                  </div>
+                  <div class="col-md-6 col-sm-12 col-lg-6" style="padding-top:10px; padding-right: 10px; padding-left: 0px;">
+                    <div class="portlet">
+                        <div class="portlet-body bordered" style="border-radius: 4px; padding:10px;border: 1px solid #ddd;box-shadow: 0px 3px 6px 0px #ddd;">
+                            <div class="SubHeadingDiv">
+                                <div class="caption">
+                                    <span class="caption-subject ng-binding sbold">Claims Needing Attention
+                                        ({{immediateClaimsCount ? immediateClaimsCount : 0}})</span>
+                                </div>
+                            </div>
+                            <div class="list-group" style="padding: 5px 0 5px 0;height: 85px;">
+                                <a href="#" ng-click="GotToClaimDetailsScreen(claim)"
+                                    class="list-group-item list-group-item-action "
+                                    ng-repeat=" claim in immediateClaims | limitTo:1"
+                                    style="padding-left: 0px !important;padding-right:0px !important;height: 80px !important;">
+                                    <div class="">
+                                        <div class="col-sm-12 col-md-12 col-lg-12">
+                                            <div class="col-sm-7 col-md-7 col-lg-7"
+                                                style="padding-left: 0px !important; padding-right: 10px !important;">
+                                                <span class="pull-left truncateText"
+                                                    style="font-size: 15px;"
+                                                    data-toggle="tooltip" data-placement="bottom" title="{{claim.claimNumber}}">{{claim.claimNumber}}</span>
+                                            </div>
+                                            <div class="col-sm-3 col-md-3 col-lg-3"
+                                                style="padding-left: 0px !important;padding-right: 10px !important;">
+                                                <span style="font-size: 15px;" ng-style="{ color: (claim.daysToClose < 0)?'red':''}">
+                                                    {{(claim.daysToClose < 0) ? -(claim.daysToClose):claim.daysToClose}}</span><span
+                                                    style="font-size:12px">&nbsp;days</span>
+                                            </div>
+                                            <div class="col-sm-2 col-md-2 col-lg-2"
+                                                style="padding-left: 10px !important;">
+                                                <span style="font-size: 15px;" ng-style="{ color: (claim.daysToClose < 0)?'red':''}">
+                                                    {{claim.noOfItems }}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12 col-md-12 col-lg-12">
+                                            <div class="col-sm-7 col-md-7 col-lg-7" style="padding-left: 0px !important; padding-right: 10px !important;">
+                                                <small>{{claim.adjusterName}}</small>
+                                            </div>
+                                            <div class="col-sm-3 col-md-3 col-lg-3" style="padding-left: 0px !important;padding-right: 10px !important;">
+                                                <div class=" align-items-right">
+                                                    <small ng-if="claim.daysToClose > 0"> To close</small>
+                                                    <small ng-if="claim.daysToClose < 0"> Over Due</small>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-2 col-md-2 col-lg-2" style="padding-left: 10px !important;">
+                                                <span
+                                                    style="font-size:12px">&nbsp;items</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                                <div ng-if="immediateClaims.length ==0" class="text-danger text-center">No records available</div>
+                                <a ng-if="immediateClaims.length !=0" href="#" ng-click="goToAllUrgentClaims()"
+                                 class="pull-right" style="padding-top: 5px!important; text-decoration: underline !important;">View All Urgent
+                                    Claims</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12 col-lg-6" style="padding-top:10px; padding-right: 0px; padding-left: 10px;">
+                    <div class="portlet">
+                        <div class="portlet-body bordered"  style="border-radius: 4px; padding:10px;border: 1px solid #ddd;box-shadow: 0px 3px 6px 0px #ddd;">
+                            <div class="SubHeadingDiv">
+                                <div class="caption">
+                                    <span class="caption-subject ng-binding sbold">Pending Vendor Invoices ({{pendingVendorInvoicesCount ? pendingVendorInvoicesCount:0}})</span>
+                                </div>
+                            </div>
+                                <div class="list-group" style="padding: 5px 0 5px 0;height: 85px;" >
+                                    <a href="#" ng-click="goToInvoiceDetailsPage(invoice)" class="list-group-item list-group-item-action " ng-repeat=" invoice in pendingVendorInvoices |limitTo:1" ng-if="$index<3" style="padding-left: 0px !important;padding-right:0px !important;height: 80px !important;">
+                                        <div class="">
+                                            <div class="col-sm-12 col-md-12 col-lg-12">
+                                                <div class="col-sm-12 col-md-12 col-lg-12" style="padding-left: 0px !important;">
+                                                    <span class="pull-left" style="font-size: 11px;">Pay {{invoice.vendorName}} {{invoice.amount |currency}} for claim #{{invoice.claimNumber}} ({{invoice.insuredName}})</span>
+                                                </div>
+                                                <!-- <div class="col-sm-5 col-md-5 col-lg-5 pull-right" style="padding-left: 0px !important;padding-right: 0px !important;">
+                                                    <span style="font-size: 22px;">{{claim.daysToClose}}</span><span style="font-size:18px">&nbsp;days</span>
+                                                </div> -->
+                                            </div>
+                                            <!-- <div class="col-sm-12 col-md-12 col-lg-12">
+                                                <div class="col-sm-7 col-md-7 col-lg-7" style="padding-left: 0px !important;">
+                                                    <small>{{claim.adjusterName}}</small>
+                                                </div>
+                                                <div class="d-flex justify-content-end col-sm-5 col-md-5 col-lg-5 pull-right" style="padding-left: 0px !important;">
+                                                    <div  class=" d-flex w-100  align-items-right"><small> To close</small> </div>
+                                                </div>
+                                            </div> -->
+                                        </div>
+                                    </a>
+                                    <!-- <a href="#" class="list-group-item list-group-item-action ">
+                                        <div class="d-flex w-100 justify-content-between align-items-center">
+                                            <h5>Claim #EVL09202020BC</h5>
+                                            <small>Davis kathrin</small>
+                                            <div class="d-flex justify-content-end">
+                                                <span  style="font-size: 22px;">3</span>
+                                                <span style="font-size:18px">&nbsp;days</span>
+                                                <div  class=" d-flex w-100  align-items-right"><small> To close</small> </div>
+                                            </div>
+                                        </div>
+                                    </a> -->
+                                    <a href="#" ng-click="goToAllCompanyInvoices()"
+                                     class="pull-right" style="padding-top: 5px!important; text-decoration: underline !important;">View All Pending Invoices</a>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+
+                <!-- <div class="col-md-6 col-sm-12 col-lg-6">
+                    <div class="portlet">
+                        <div class="portlet-body bordered">
+                                <div class="row options_Background" style="margin: -2px;">
+                                    <div class="caption" style="padding: 5px 5px 5px 5px;">
+                                        <span class="caption-subject ng-binding" style="color: #ffffff;font-size:14px;line-height:14px;">Pending Vendor invoices (4)</span>
+                                    </div>
+                                </div>
+                                <div class="list-group" style="padding: 5px 5px 5px 5px;">
+                                    <div class="list-group-item list-group-item-action"> <a href="#ljkl">http://127.0.0.1:5500/#/AdjusterDashboard</a></div>
+                                    <div class="list-group-item list-group-item-action"> <a href="#ljkl">http://127.0.0.1:5500/#/AdjusterDashboard</a></div>
+
+
+                                </div>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+        <!--End Alerts and Upcoming Events-->
+
+        <!--Start Open Claims Section-->
+        <div class="col-md-12 col-sm-12 col-lg-12">
+            <div class="portlet light padding1px">
+                <div class="portlet-title">
+                    <div class="caption font-grey-sharp">
+                        <label class="caption-subject ">{{"TabHeaderTitle.OpenClaims" | translate}}
+                            {{"("+NewClaimCount+")"}}</label>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 options_Background padding1px">
+                                <div class="col-md-2 col-sm-6 col-xs-6 margin-top-5 margin-bottom-5">
+                                    <button ng-show="!isCoreLogic" class="btn sbold pull-left btnMargin btnOptions"
+                                        ng-click="NewClaim()">{{"New Claim"|translate}}</button>
+                                </div>
+                                <div
+                                    class="col-md-6 col-xs-12 col-sm-5 margin-top-5 margin-bottom-5 responsive-padding">
+                                    <label class="col-md-6 col-sm-4 control-label text-right padding1px"
+                                        style="color:#fff; margin-top: 5px;">{{"ClaimStatus"|translate}}</label>
+                                    <div class="col-md-6 col-sm-8 col-xs-12 responsive-padding">
+                                        <select class="form-control select2me input-large" style="width:100%;"
+                                            data-placeholder="Select" multiple ng-model="SeletedStatus"
+                                            id="select2insidemodal" name="status"
+                                            ng-change="afterSelectedStatus()">
+                                            <option value='0'>All</option>
+                                            <option ng-repeat="item in StatusList" value="{{item.id}}">{{item.status}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div
+                                    class="col-md-4 col-xs-12 col-sm-5 margin-top-5 margin-bottom-5 responsive-padding pull-right">
+                                    <div class="input-icon left">
+                                        <i class="icon-magnifier"></i>
+                                        <input type="text" ng-model="searchKeyword"
+                                            class="form-control form-control-solid input-circle input-block-level btnMargin"
+                                            placeholder="{{'SearchText' | translate}}"
+                                            ng-keyup="searchKeyword.length > 0 ? ($event.keyCode == 13 && customSearch(searchKeyword)) : customSearch('')">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 table-responsive padding1px ">
+                                <table
+                                    class="table table-striped table-bordered table-hover table-checkable order-column"
+                                    id="NavigateTable" aria-describedby="Claims Datatable">
+                                    <thead>
+                                        <tr class="table_Row_Heading">
+                                            <th ng-click="sort('Claim_Number')" class="Width9P">
+                                                {{"Table.ClaimId"|translate}}
+                                                <span class="glyphicon sort-icon" ng-show="sortKey==='Claim_Number'"
+                                                    ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                            </th>
+                                            <th ng-click="sort('Status')" class="Width12P statusHeading">
+                                                {{"Table.Status"|translate}}
+                                                <span class="glyphicon sort-icon" ng-show="sortKey==='Status'"
+                                                    ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                            </th>
+                                            <th class="width12P" ng-click="sort('itemNumber')">
+                                                {{"# of Items"|translate}}
+                                                <span class="glyphicon sort-icon" ng-show="sortKey==='itemNumber'"
+                                                    ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                            </th>
+                                            <th class="width12P">
+                                                {{"# of Items Priced"|translate}}
+                                            </th>
+                                            <th ng-click="sort('Insured_Name')" class="width16P">
+                                                {{"Table.InsuredsName"|translate}}
+                                                <span class="glyphicon sort-icon" ng-show="sortKey==='Insured_Name'"
+                                                    ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                            </th>
+                                            <th ng-click="sort('Create_Date')" class="width12P">
+                                                {{"Table.DateOfClaim"|translate}}
+                                                <span class="glyphicon sort-icon" ng-show="sortKey==='Create_Date'"
+                                                    ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                            </th>
+
+
+                                            <th class="width16P">
+                                                {{"Table.LastActivity"|translate}}
+                                            </th>
+                                            <th ng-click="sort('Last_Update_Date')" class="width12P">
+                                                {{"Table.LastUpdated"|translate}}
+                                                <span class="glyphicon sort-icon" ng-show="sortKey==='Last_Update_Date'"
+                                                    ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr dir-paginate="item in NewClaims | itemsPerPage:pagesize track by $index"
+                                            total-items="totalItems" current-page="pagination.current"
+                                            pagination-id="NewClaims"
+                                            ng-class="{'All_Items_Priced':item.noOfItems == item.noOfItemsPriced,
+                                                'Partial_Items_Priced': item.noOfItemsPriced != 0 && item.noOfItems > item.noOfItemsPriced,
+                                                'No_Items_Priced': item.noOfItemsPriced == 0 && item.noOfItems != 0 }">
+                                            <td ng-click="GotToClaimDetailsScreen(item)">{{item.claimNumber}}</td>
+                                            <td ng-click="GotToClaimDetailsScreen(item)">
+                                                <span>{{item.status.status|limitTo: 30}}<span>
+                                                        {{item.status.status.length > 30 ? '...' : ''}}</span></span>
+                                            </td>
+                                            <td ng-click="GotToClaimDetailsScreen(item)">
+                                                {{item.noOfItems}}
+                                            </td>
+                                            <td ng-click="GotToClaimDetailsScreen(item)">
+                                                {{item.noOfItemsPriced}}
+                                            </td>
+                                            <td ng-click="GotToClaimDetailsScreen(item)">{{item.insuredDetails.lastName+",
+                                            "+item.insuredDetails.firstName}}</td>
+                                            <td ng-click="GotToClaimDetailsScreen(item)">{{item.createDate |
+                                            DateFormatMMddyyyyHHmm}}</td>
+
+
+                                            <td ng-click="GotToClaimDetailsScreen(item)" class="col-xs-3"
+                                                ng-init="limit = limit; moreShown = false">{{
+                                            item.lastActivity ? (item.lastActivity
+                                            | limitTo: limit) + (item.lastActivity.length > limit ?
+                                            '...' :
+                                            '') : ''
+                                        }}
+                                                <a ng-show="item.lastActivity.length > limit && !moreShown"
+                                                    stop-propagation
+                                                    ng-click="limit=item.lastActivity.length; moreShown = true">
+                                                    More
+                                                </a>
+                                                <a ng-show="moreShown" href stop-propagation
+                                                    ng-click="moreShown = false; limit=50; ">
+                                                    Less </a>
+                                            </td>
+                                            <td ng-click="GotToClaimDetailsScreen(item)">{{item.lastUpdateDate
+                                                | DateFormatMMddyyyyHHmm}}</td>
+                                        </tr>
+                                        <tr ng-if="NewClaims.length === 0 || NewClaims === null">
+                                            <td colspan="10" class="text-center text-danger"
+                                                style="text-align: center;">{{"NoClaims"|translate}}</td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                    </tfoot>
+                                </table>
+                            </div>
+                            <div class="col-md-12 col-sm-12 padding1px"
+                                ng-show="NewClaims != null && NewClaims.length > 0 ">
+                                <div class="col-md-6 col-sm-6 col-xs-12 bold padding1px align_center">
+                                    <span style="color: #337ab7;" ng-show="totalItems!=0">
+                                        Showing {{ (pagesize * (pagination.current - 1))+1 }} to {{lastRecord}} of
+                                        {{totalItems}}
+                                        Claims </span>
+                                </div>
+                                <div class="col-md-6 col-sm-6 col-xs-12 text-right padding1px">
+                                    <dir-pagination-controls ng-show="totalItems > 20"
+                                        on-page-change="setCurrentPage(newPageNumber)" max-size="10"
+                                        pagination-id="NewClaims" direction-links="true" boundary-links="true">
+                                    </dir-pagination-controls>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--End Open Claims Section-->
+    </div>
+    <div ng-hide="hideAllImmediateClaims">
+        <div class="headerFreez border_bottom col-md-12 col-xs-12 margin-bottom-5">
+            <ul class="page-breadcrumb breadcrumb sbold">
+                <li>
+                    <a ng-click="goToRegularClaims()">{{"Home"|translate}}</a>
+                    <i class="fa fa-circle"></i>
+                </li>
+
+                <li>
+                    <a>{{"Claims Exceeding Time limits "|translate}}</a>
+                    <!-- <i class="fa fa-circle"></i> -->
+                </li>
+            </ul>
+        </div>
+        <!--Start Open Claims Section-->
+        <div class="col-md-12 col-sm-12 col-lg-12">
+            <div class="portlet light padding1px">
+                <div class="portlet-title">
+                    <div class="caption font-grey-sharp">
+                        <label class="caption-subject ">{{"TabHeaderTitle.ClaimExceedingTimeLimits" | translate}}
+                            {{"("+(allImmediateClaimsCount ? allImmediateClaimsCount :0)+")"}}</label>
+                    </div>
+                    <!-- <label class="caption-subject ">{{"TabHeaderTitle.ClaimExceedingTimeLimits" | translate}}
+                        {{allImmediateClaimsCount ? allImmediateClaimsCount :0}}</label>
+                </div> -->
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-12 table-responsive padding1px ">
+                        <table class="table table-striped table-bordered table-hover table-checkable order-column"
+                            id="NavigateTable" aria-describedby="Claims Datatable">
+                            <thead>
+                                <tr>
+                                    <th ng-click="sort('Claim_Number')" class="Width9P">
+                                        {{"Table.ClaimId"|translate}}
+                                        <span class="glyphicon sort-icon" ng-show="sortKey==='Claim_Number'"
+                                            ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                    </th>
+                                    <th ng-click="sort('Status')" class="Width16P statusHeading">
+                                        {{"Table.Status"|translate}}
+                                        <span class="glyphicon sort-icon" ng-show="sortKey==='Status'"
+                                            ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                    </th>
+                                    <th class="width12P">
+                                        {{"Table.ContractedEndTime"|translate}}
+                                        <span class="glyphicon sort-icon"></span>
+                                    </th>
+                                    <th class="width12P">
+                                        {{"# of Items"|translate}}
+                                        <span class="glyphicon sort-icon"></span>
+                                    </th>
+
+                                    <th ng-click="sort('Insured_Name')" class="width16P">
+                                        {{"Table.InsuredsName"|translate}}
+                                        <span class="glyphicon sort-icon" ng-show="sortKey==='Insured_Name'"
+                                            ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                    </th>
+                                    <th ng-click="sort('Create_Date')" class="width12P">
+                                        {{"Table.DateOfClaim"|translate}}
+                                        <span class="glyphicon sort-icon" ng-show="sortKey==='Create_Date'"
+                                            ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                    </th>
+                                    <th ng-click="sort('Last_Update_Date')" class="width10P">
+                                        {{"Table.ElapsedTime"|translate}} Days
+                                        <span class="glyphicon sort-icon" ng-show="sortKey==='Last_Update_Date'"
+                                            ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                    </th>
+                                    <th class="width20P">
+                                        {{"Table.LastNote"|translate}}
+                                    </th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in allImmediateClaims">
+                                    <td ng-click="GotToClaimDetailsScreen(item)">{{item.claimNumber}}</td>
+                                    <td ng-click="GotToClaimDetailsScreen(item)">
+                                        <span>{{item.claimStatus}}</span>
+                                    </td>
+                                    <td ng-click="GotToClaimDetailsScreen(item)">Contracted Times</td>
+                                    <td ng-click="GotToClaimDetailsScreen(item)">
+                                        {{item.noOfItems}}
+                                    </td>
+                                    <td ng-click="GotToClaimDetailsScreen(item)">{{item.policyHolderName}}</td>
+                                    <td ng-click="GotToClaimDetailsScreen(item)">{{item.createDate |
+                            DateFormatMMddyyyy}}</td>
+                                    <td ng-click="GotToClaimDetailsScreen(item)">{{item.elapsedTime}}</td>
+                                    <td ng-click="GotToClaimDetailsScreen(item)" class="col-xs-3"
+                                        ng-init="limit = limit; moreShown = false">{{
+                                    item.lastNote.message ? (item.lastNote.message
+                                    | limitTo: limit) + (item.lastNote.message.length > limit ?
+                                    '...' :
+                                    '') : ''
+                                }}
+                                        <a ng-show="item.lastNote.message.length > limit && !moreShown" stop-propagation
+                                            ng-click="limit=item.lastNote.message.length; moreShown = true">
+                                            More
+                                        </a>
+                                        <a ng-show="moreShown" href stop-propagation
+                                            ng-click="moreShown = false; limit=50; ">
+                                            Less </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div ng-hide="hideAllCompanyInvoices">
+    <div class="headerFreez border_bottom col-md-12 col-xs-12 margin-bottom-5">
+        <ul class="page-breadcrumb breadcrumb sbold">
+            <li>
+                <a ng-click="goToRegularClaims()">{{"Home"|translate}}</a>
+                <i class="fa fa-circle"></i>
+            </li>
+
+            <li>
+                <span>{{"Pending Vendor Invoices "|translate}}</span>
+
+            </li>
+        </ul>
+    </div>
+    <!--Start Open Claims Section-->
+    <div class="col-md-12 col-sm-12 col-lg-12" >
+        <div class="portlet light padding1px">
+            <div class="portlet-title">
+                <div class="caption font-grey-sharp">
+                    <label class="caption-subject ">Pending Vendor Invoices ({{pendingVendorInvoicesCount ? pendingVendorInvoicesCount :0}})</label>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-12 table-responsive padding1px ">
+                    <table class="table table-striped table-bordered table-hover table-checkable order-column"
+                        id="NavigateTable" aria-describedby="Claims Datatable">
+                        <thead>
+                            <tr>
+                                <th ng-click="sort('Claim_Number')" class="Width9P">
+                                    {{"Table.ClaimId"|translate}}
+                                    <span class="glyphicon sort-icon" ng-show="sortKey==='Claim_Number'"
+                                        ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                </th>
+                                <th ng-click="sort('Status')" class="Width16P statusHeading">
+                                    {{"Invoice Number"|translate}}
+                                    <span class="glyphicon sort-icon" ng-show="sortKey==='Status'"
+                                        ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                </th>
+                                <th class="width12P">
+                                    {{"Vendor"|translate}}
+                                    <span class="glyphicon sort-icon"></span>
+                                </th>
+                                <th class="width12P">
+                                    {{"Created By"|translate}}
+                                    <span class="glyphicon sort-icon"></span>
+                                </th>
+
+                                <th ng-click="sort('Insured_Name')" class="width16P">
+                                    {{"Invoice Amount"|translate}}
+                                    <span class="glyphicon sort-icon" ng-show="sortKey==='Insured_Name'"
+                                        ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                </th>
+                                <th ng-click="sort('Create_Date')" class="width12P">
+                                    {{"Invoice Date"|translate}}
+                                    <span class="glyphicon sort-icon" ng-show="sortKey==='Create_Date'"
+                                        ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                </th>
+                                <th ng-click="sort('Last_Update_Date')" class="width10P">
+                                    {{"Status"|translate}} Days
+                                    <span class="glyphicon sort-icon" ng-show="sortKey==='Last_Update_Date'"
+                                        ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                </th>
+
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in pendingVendorInvoices">
+                                <td ng-click="goToInvoiceDetailsPage(item)">{{item.claimNumber}}</td>
+                                <td ng-click="goToInvoiceDetailsPage(item)">
+                                    <span>{{item.invoiceNumber}}</span>
+                                </td>
+                                <td ng-click="goToInvoiceDetailsPage(item)">{{item.vendorName}}</td>
+                                <td ng-click="goToInvoiceDetailsPage(item)">
+                                    {{item.createdBy}}
+                                </td>
+                                <td ng-click="goToInvoiceDetailsPage(item)">{{'$'+item.amount.toFixed(2) }}</td>
+                                <td ng-click="goToInvoiceDetailsPage(item)">{{item.createDate |
+                            DateFormatMMddyyyy}}</td>
+                                <td ng-click="goToInvoiceDetailsPage(item)">{{item.status.name}}</td>
+                                <!-- <td ng-click="GotToClaimDetailsScreen(item)" class="col-xs-3"
+                                    ng-init="limit = limit; moreShown = false">{{
+                                    item.lastNote.message ? (item.lastNote.message
+                                    | limitTo: limit) + (item.lastNote.message.length > limit ?
+                                    '...' :
+                                    '') : ''
+                                }}
+                                    <a ng-show="item.lastNote.message.length > limit && !moreShown" stop-propagation
+                                        ng-click="limit=item.lastNote.message.length; moreShown = true">
+                                        More
+                                    </a>
+                                    <a ng-show="moreShown" href stop-propagation
+                                        ng-click="moreShown = false; limit=50; ">
+                                        Less </a>
+                                </td> -->
+                            </tr>
+                            <tr
+                                ng-if="!pendingVendorInvoices.length||pendingVendorInvoices===null">
+                                <td colspan="10" class="text-center text-danger"
+                                style="text-align: center;">
+                                    {{"NoRecordText"|translate}}</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    </div>

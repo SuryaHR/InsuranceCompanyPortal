@@ -1,0 +1,117 @@
+﻿<div class="row">
+    <div class="col-md-12">
+
+        <ul class="page-breadcrumb breadcrumb sbold">
+            <li>
+                <a ng-click="back()">{{"Home"|translate}}</a>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <span>{{"Claim Specialist"|translate}}</span>
+            </li>
+        </ul>
+
+        <div class="col-md-12 col-sm-12 col-lg-12 padding1px">
+            <div class="portlet light padding1px">
+                <div class="portlet-title">
+                    <div class="caption font-grey-sharp">
+                        <span class="caption-subject">{{"TabHeaderText.ClaimSpecialists" | translate}}</span>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="row">
+                        <div class="col-md-12 ">                                                 
+                                <div class="col-md-12 padding1px">
+                                    <div class="col-md-12 col-sm-12 options_Background_WithBorder padding1px">
+                                        <div class="col-md-4 col-sm-6 margin-bottom-5 margin-top-5 ">
+                                            <button class="btn sbold btnMargin btnOptions" ng-click="NewSpecialists($event,null)">
+
+                                                {{"ControlText.NewSpecialists"|translate}}
+                                            </button>
+                                        </div>
+                                        <!--<div class="col-md-1 col-lg-1 col-sm-3 col-xs-12 text_options_Label margin-bottom-5 margin-top-5  text-right">
+                    <label class="">{{"ControlText.Show" | translate}}</label>
+                </div>
+
+                  <div class="col-md-3 col-sm-4 col-xs-12 padding1px margin-bottom-5 margin-top-5 ">
+                      <select class="input-sm select2me btnMargin" ng-model="PageLength">
+                          <option value="10">10 Specialists</option>
+                          <option value="15">15 Specialists</option>
+                          <option value="20">20 Specialists</option>
+                      </select>
+                  </div>-->
+                                        <div class="col-md-4 col-sm-6 col-xs-12 margin-bottom-5 margin-top-5 pull-right">
+                                            <div class="input-icon left">
+                                                <i class="icon-magnifier"></i>
+                                                <input type="text" ng-model="search" class="form-control form-control-solid input-circle input-block-level btnMargin" placeholder="{{'ControlText.Search' | translate}}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                         
+                            <!--Start Table Data-->
+                            <div class="col-md-12 padding1px table-responsive">
+                                <div class="clearfix"> </div>
+                                <table class="table table-striped table-bordered table-hover table-checkable order-column" id="NavigateTable">
+                                    <thead>
+                                        <tr>
+                                            <th ng-click="sort('id')">
+                                                {{"Table.EmployeeId" | translate}}
+                                                <span class="glyphicon sort-icon" ng-show="sortKey=='id'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                            </th>
+                                            <th ng-click="sort('name')">
+                                                {{"Table.Name" | translate}}
+                                                <span class="glyphicon sort-icon" ng-show="sortKey=='name'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                            </th>
+                                            <th ng-click="sort('casesInHand')">
+                                                {{"Table.ClaimsInHand" | translate}}
+                                                <span class="glyphicon sort-icon" ng-show="sortKey=='casesInHand'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                            </th>
+                                            <th ng-click="sort('designation.name')">
+                                                {{"Table.Designation" | translate}}
+                                                <span class="glyphicon sort-icon" ng-show="sortKey=='designation.name'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                            </th>
+                                            <th ng-click="sort('internal')">
+                                                {{"Table.Type" | translate}}
+                                                <span class="glyphicon sort-icon" ng-show="sortKey=='internal'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                            </th>
+                                            <th ng-click="sort('status')" class="statusHeading">
+                                                {{"Table.Status" | translate}}
+                                                <span class="glyphicon sort-icon" ng-show="sortKey=='status'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr dir-paginate="item in PricingSpecialistList|orderBy:sortKey:reverse|filter:search|itemsPerPage:PageLength">
+                                            <td ng-click="EditSpecialists($event,item.id)">{{item.id}}</td>
+                                            <td ng-click="EditSpecialists($event,item.id)">{{item.name}}</td>
+                                            <td ng-click="EditSpecialists($event,item.id)">{{item.casesInHand}}</td>
+                                            <td ng-click="EditSpecialists($event,item.id)">{{item.designation.name}}</td>
+                                            <td>
+                                                <span ng-if="item.internal">Internal</span>
+                                                <span ng-if="!item.internal">External</span>
+                                            </td>
+                                            <td>
+                                                <span class="btn btn-circle  btn-md green " ng-if="item.status">Active</span>
+                                                <span class="btn btn-circle  btn-md red" ng-if="!item.status">In-Active</span>
+                                            </td>
+                                        </tr>
+                                        <tr ng-if="(PricingSpecialistList===null)||(PricingSpecialistList.length ===0)">
+                                            <td colspan="6" class="text-center text-danger" style="text-align: center;">No records available</td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                    </tfoot>
+                                </table>
+                                <dir-pagination-controls max-size="3" ng-if="(PricingSpecialistList!==null)||(PricingSpecialistList.length > 0)"
+                                                         direction-links="true"
+                                                         boundary-links="true" class="pull-right">
+                                </dir-pagination-controls>
+                            </div>
+                            <!--End Table data-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

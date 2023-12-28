@@ -1,0 +1,10 @@
+{
+    "Label" : {
+        "newlyCreaetd" : "Cost of creating a new appraisal (one time fee)",
+        "updated":"Cost of updating an existing appraisal (charged yearly)",
+        "artigemReviewed":"Cost of Artigem review (as requested)",
+        "artigemReviewed-1":"Item priced between $1.00 and $30,000.00",
+        "artigemReviewed-2":"Item priced between $30,000.00 and $1,00,000.00",
+        "artigemReviewed-3":"tem priced $100,000.00 and above"
+    }
+}

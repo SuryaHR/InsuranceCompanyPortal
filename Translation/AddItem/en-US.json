@@ -1,0 +1,19 @@
+﻿{
+
+  "ControlText": {
+    "CatagoryId": "Category Id",
+    "CatagoryName": "Name",
+    "CoverageLimit": "Coverage Limit",
+    "Description": "Description",
+    "SubCategory": "Sub Category",
+    "SubCategoryName": "Name",
+    "AnnualDepreciation": "Annual Depreciation",
+    "UsefulYears": "Useful Years"
+
+  },
+  "HeaderText": {
+    "NewCat": "Category",
+    "CatDesc": "Category Details",
+    "SubCat": "Sub-Category"
+  }
+}

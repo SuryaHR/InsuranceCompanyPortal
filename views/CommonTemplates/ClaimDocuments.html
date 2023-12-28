@@ -1,0 +1,661 @@
+<style>
+    .attachment-container {
+        height: fit-content;
+        max-height: 310px;
+        margin: 5px 0px;
+        -webkit-overflow-scrolling: touch;
+        overflow-y: auto;
+        overflow-x: auto;
+        /* white-space: nowrap; */
+        scrollbar-arrow-color: black;
+    }
+
+    .img-responsive {
+        display: inline-block;
+    }
+
+    .SubHeadingDiv {
+        border-bottom: none !important;
+        background-color: #DCDCDC;
+    }
+
+    .rgtDiv {
+        min-height: 110px;
+        width: 100%;
+        outline: none;
+        border: none;
+        resize: none;
+    }
+
+    .remove-btn {
+        position: absolute;
+        color: white;
+        top: -6px;
+        right: -15px;
+    }
+
+    .filename {
+        word-break: break-word;
+        font-family: Calibri;
+        font-size: 14px;
+        cursor: pointer
+    }
+
+    .attachment-wrapper {
+        height: 160px;
+    }
+
+    .attachment-wrapper img {
+        width: 90px;
+        height: 90px;
+        padding: 5px;
+        border: 1px solid #dddddd;
+    }
+
+    .loader {
+        position: relative;
+        animation: rotation 1s infinite linear;
+        height: 40px;
+        width: 40px;
+        left: 50%;
+        top: 40%;
+        border-radius: 100%;
+        border: 3px solid #fcfcfc;
+        border-style: outset;
+    }
+
+    .loading-text {
+        line-height: 1.3125rem;
+        left: 45%;
+        top: 40%;
+        color: rgb(250, 250, 250);
+        position: relative;
+        font-weight: bold;
+    }
+
+    .upload-overlay {
+        position: absolute;
+        top: 0px;
+        z-index: 2;
+        left: 0px;
+        width: 100%;
+        height: 100%;
+        background: rgb(148, 145, 145);
+        opacity: .6;
+    }
+
+    /* Safari */
+    @-webkit-keyframes spin {
+        from {
+            -webkit-transform: rotate(0deg);
+        }
+
+        to {
+            -webkit-transform: rotate(360deg);
+        }
+    }
+
+    @keyframes rotation {
+        from {
+            transform: rotate(0deg);
+        }
+
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    #img_preview {
+        min-height: 450px !important;
+        width: 675px !important;
+        padding: 10px 0px;
+        position: fixed;
+        z-index: 20;
+    }
+
+    .image-wrapper {
+        max-height: 370px !important;
+        /* padding: 0px 10px; */
+        overflow: auto;
+    }
+
+    #video_preview {
+        min-height: 490px !important;
+        width: 675px !important;
+        padding: 10px 0px;
+        position: fixed;
+        z-index: 20;
+    }
+</style>
+<div class="col-md-12 col-sm-12 col-lg-12 margin-top-5">
+    <div class="col-xs-12 items-align-center" style="justify-content: center;">
+        <div class="caption font-green-sharp col-lg-4 col-md-5 col-sm-6 col-xs-12 ">
+            <div class="input-icon left">
+                <i class="icon-magnifier"></i>
+                <input type="text" class="form-control form-control-solid input-circle input-block-level"
+                    ng-model="searchDocuments.keyword"
+                    ng-keyup="searchDocuments.keyword.length > 0 ? ($event.keyCode == 13 && searchDocuments()) : searchDocuments()"
+                    placeholder='{{"Document name, uploaded by.."|translate}}' style="border: 1px solid #777;">
+            </div>
+        </div>
+    </div>
+    <!-- Service request start -->
+    <div class="mainHeadingDiv border_bottom caption form-group">
+        <span
+            class="caption-subject">{{"HeaderTitle.ClaimDocuments"|translate}}&nbsp;({{claimAttachments.totalAttachments + claimItemsAttachments.totalAttachments + receiptAttachments.totalAttachments +  invoiceAttachments.totalAttachments + otherAttachments.totalAttachments}})</span>
+    </div>
+    <input id="claimFileUpload" type="file" multiple onchange="angular.element(this).scope().addClaimAttachments(this)"
+        style="display: none;" accept="image/*|video/*|application/*">
+    <input id="receiptFileUpload" type="file" multiple
+        onchange="angular.element(this).scope().addClaimAttachments(this)" style="display: none;"
+        accept="application/pdf">
+    <!-- Policy Attachments -->
+    <div class="col-md-12 col-xs-12 margin-top-5 padding1px">
+        <div class="SubHeadingDiv col-xs-12 caption font-gray-sharp">
+            <span class="caption-subject">Policy &amp; Claim
+                Documents&nbsp;({{claimAttachments.totalAttachments ? claimAttachments.totalAttachments : 0}})</span>
+        </div>
+        <div class="col-lg-2 col-md-3 col-sm-12 col-xs-12 form-group padding1px items-align-center">
+            <a ng-click="SelectClaimFile($event, 'CLAIM')" class="round-button"><i class="fa fa-plus"
+                    aria-hidden="true"></i></a>
+            <a ng-click="SelectClaimFile($event, 'CLAIM')"
+                class="noTextDecoration font-size-13">{{"ControlText.AddNewDocument"|translate}}</a>
+        </div>
+        <div class="col-lg-10 col-md-9 col-sm-12 col-xs-12 padding1px" style="position: relative;">
+            <div class="col-xs-12 padding1px items-align-center" ng-show="currentAttchment === 'CLAIM'" ng-include
+                src="'uploadImg-tpl'">
+            </div>
+            <div class="custom_scroll_bar attachment-container padding1px"
+                infinity-scroll="nextClaimDocuments(claimAttachments.totalAttachments);" id="infinity_scroll_table">
+                <div class="col-md-12 col-sm-12 text-center" ng-show="!claimAttachments.attachments.length"
+                    style="padding:10px; color: red;background-color: #ffffff;">
+                    <em class="glyphicon glyphicon-exclamation-sign"></em>
+                    &nbsp;No documents available
+                </div>
+                <div id="policyAttachments-{{$index}}" ng-repeat="file in claimAttachments.attachments track by $index"
+                    class="col-lg-2 col-md-3 col-sm-3 col-xs-6 margin-bottom-5 text-center" style="padding:0px;"
+                    ng-include src="'displayChildAttachements'">
+                </div>
+                <div id="claimDocsLoad" class="loading hide text-center col-sm-12" style="position: relative;">
+                    <i class="fa fa-spinner fa-spin fa-2x fa-fw"></i>
+                </div>
+            </div>
+            <div class="upload-overlay hide">
+                <div class="loader">
+                </div>
+                <span class="loading-text">Uploading documents...</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Item Attachments -->
+    <div class="col-md-12 col-xs-12 margin-top-5 padding1px">
+        <div class="SubHeadingDiv col-xs-12 caption font-gray-sharp">
+            <span
+                class="caption-subject">{{"Line Item Documents"|translate}}&nbsp;({{claimItemsAttachments.totalAttachments ? claimItemsAttachments.totalAttachments : 0}})</span>
+        </div>
+        <div class="col-lg-2 col-md-3 col-sm-12 col-xs-12 form-group padding1px items-align-center">
+            <a ng-click="SelectClaimFile($event, 'CLAIM_ITEM')" class="round-button"><i class="fa fa-plus"
+                    aria-hidden="true"></i></a>
+            <a ng-click="SelectClaimFile($event, 'CLAIM_ITEM')"
+                class="noTextDecoration font-size-13">{{"ControlText.AddNewDocument"|translate}}</a>
+        </div>
+        <div class="col-lg-10 col-md-9 col-sm-12 col-xs-12 padding1px">
+            <div class="col-xs-12 padding1px items-align-center"
+                ng-show="currentAttchment === 'CLAIM_ITEM' && attachmentList.length > 0" ng-include
+                src="'uploadImg-tpl'">
+            </div>
+            <div class="custom_scroll_bar attachment-container padding1px"
+                infinity-scroll="nextItemDocuments(claimItemsAttachments.totalAttachments);" id="infinity_scroll_table">
+                <div class="col-xs-12 text-center" ng-show="!claimItemsAttachments.attachments.length"
+                    style="padding:10px;text-align: center;color: red;background-color: #ffffff;">
+                    <em class="glyphicon glyphicon-exclamation-sign"></em>
+                    &nbsp;No documents available
+                </div>
+                <div id="itemAttachments-{{$index}}"
+                    ng-repeat="file in claimItemsAttachments.attachments track by $index"
+                    class="col-lg-2 col-md-3 col-sm-3 col-xs-6 margin-bottom-10 text-center" style="padding:0px;"
+                    ng-include src="'displayChildAttachements'">
+                </div>
+                <div id="itemDocsLoad" class="loading hide text-center col-sm-12" style="position: relative;">
+                    <i class="fa fa-spinner fa-spin fa-2x fa-fw"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Receipts Attachments -->
+    <div class="col-md-12 col-xs-12 margin-top-5 padding1px">
+        <div class="SubHeadingDiv col-xs-12 caption font-gray-sharp">
+            <span
+                class="caption-subject">{{"All Receipts"|translate}}&nbsp;({{receiptAttachments.totalAttachments ? receiptAttachments.totalAttachments : 0}})</span>
+        </div>
+        <div class="col-lg-2 col-md-3 col-sm-12 col-xs-12 form-group padding1px items-align-center">
+            <a ng-click="SelectClaimFile($event, 'CLAIM_RECEIPT')" class="round-button"><i class="fa fa-plus"
+                    aria-hidden="true"></i></a>
+            <a ng-click="SelectClaimFile($event, 'CLAIM_RECEIPT')"
+                class="noTextDecoration font-size-13">{{"ControlText.AddNewReceipt"|translate}}</a>
+        </div>
+        <div class="col-lg-10 col-md-9 col-sm-12 col-xs-12 padding1px">
+            <div class="col-xs-12 padding1px items-align-center"
+                ng-show="currentAttchment === 'CLAIM_RECEIPT' && attachmentList.length > 0" ng-include
+                src="'uploadImg-tpl'">
+            </div>
+            <div class="custom_scroll_bar attachment-container padding1px"
+                infinity-scroll="nextReceiptDocuments(receiptAttachments.totalAttachments);" id="infinity_scroll_table">
+                <div class="col-xs-12 text-center" ng-show="!receiptAttachments.attachments.length"
+                    style="padding:10px;text-align: center;color: red;background-color: #ffffff;">
+                    <em class="glyphicon glyphicon-exclamation-sign"></em>
+                    &nbsp;No receipts available
+                </div>
+                <div id="receiptAttachments-{{$index}}"
+                    ng-repeat="file in receiptAttachments.attachments track by $index"
+                    class="col-lg-2 col-md-3 col-sm-3 col-xs-6 margin-bottom-10 text-center" style="padding:0px;"
+                    ng-include src="'displayChildAttachements'">
+                </div>
+                <div id="receiptsDocsLoad" class="loading hide text-center col-sm-12" style="position: relative;">
+                    <i class="fa fa-spinner fa-spin fa-2x fa-fw"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Invoice Attachments -->
+    <div class="col-md-12 col-xs-12 margin-top-5 padding1px">
+        <div class="SubHeadingDiv col-xs-12 caption font-gray-sharp">
+            <span
+                class="caption-subject">{{"Invoices Attachments"|translate}}&nbsp;({{invoiceAttachments.totalAttachments ? invoiceAttachments.totalAttachments : 0}})</span>
+        </div>
+        <div class="col-lg-2 col-md-3 col-sm-12 col-xs-12 form-group padding1px items-align-center">
+            <a ng-click="SelectClaimFile($event, 'CLAIM_INVOICE')" class="round-button"><i class="fa fa-plus"
+                    aria-hidden="true"></i></a>
+            <a ng-click="SelectClaimFile($event, 'CLAIM_INVOICE')"
+                class="noTextDecoration font-size-13">{{"ControlText.AddNewDocument"|translate}}</a>
+        </div>
+        <div class="col-lg-10 col-md-9 col-sm-12 col-xs-12 padding1px">
+            <div class="col-xs-12 padding1px items-align-center"
+                ng-show="currentAttchment === 'CLAIM_INVOICE' && attachmentList.length > 0" ng-include
+                src="'uploadImg-tpl'">
+            </div>
+            <div class="custom_scroll_bar attachment-container padding1px"
+                infinity-scroll="nextInvoiceDocuments(invoiceAttachments.totalAttachments);" id="infinity_scroll_table">
+                <div class="col-xs-12 text-center" ng-show="!invoiceAttachments.attachments.length"
+                    style="padding:10px;text-align: center;color: red;background-color: #ffffff;">
+                    <em class="glyphicon glyphicon-exclamation-sign"></em>
+                    &nbsp;No documents available
+                </div>
+                <div id="invoiceAttachments-{{$index}}"
+                    ng-repeat="file in invoiceAttachments.attachments track by $index"
+                    class="col-lg-2 col-md-3 col-sm-3 col-xs-6 margin-bottom-10 text-center" style="padding:0px;"
+                    ng-include src="'displayChildAttachements'">
+                </div>
+                <div id="invoicesDocsLoad" class="loading hide text-center col-sm-12" style="position: relative;">
+                    <i class="fa fa-spinner fa-spin fa-2x fa-fw"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Others -->
+    <div class="col-md-12 col-xs-12 margin-top-5 padding1px">
+        <div class="SubHeadingDiv col-xs-12 caption font-gray-sharp">
+            <span
+                class="caption-subject">{{"Others"|translate}}&nbsp;({{otherAttachments.totalAttachments ? otherAttachments.totalAttachments : 0}})</span>
+        </div>
+        <div class="col-lg-2 col-md-3 col-sm-12 col-xs-12 form-group padding1px items-align-center">
+            <a ng-click="SelectClaimFile($event, 'CLAIM_OTHER')" class="round-button"><i class="fa fa-plus"
+                    aria-hidden="true"></i></a>
+            <a ng-click="SelectClaimFile($event, 'CLAIM_OTHER')"
+                class="noTextDecoration font-size-13">{{"ControlText.AddNewDocument"|translate}}</a>
+        </div>
+        <div class="col-lg-10 col-md-9 col-sm-12 col-xs-12 padding1px">
+            <div class="col-xs-12 padding1px items-align-center"
+                ng-show="currentAttchment === 'CLAIM_OTHER' && attachmentList.length > 0" ng-include
+                src="'uploadImg-tpl'">
+            </div>
+            <div class="custom_scroll_bar attachment-container padding1px"
+                infinity-scroll="nextOtherDocuments(otherAttachments.totalAttachments);" id="infinity_scroll_table">
+                <div class="col-xs-12 text-center" ng-show="!otherAttachments.attachments.length"
+                    style="padding:10px;text-align: center;color: red;background-color: #ffffff;">
+                    <em class="glyphicon glyphicon-exclamation-sign"></em>
+                    &nbsp;No documents available
+                </div>
+                <div id="otherAttachments-{{$index}}" ng-repeat="file in otherAttachments.attachments track by $index"
+                    class="col-lg-2 col-md-3 col-sm-3 col-xs-6 margin-bottom-10 text-center" style="padding:0px;"
+                    ng-include src="'displayChildAttachements'">
+                </div>
+                <div id="othersDocsLoad" class="loading hide text-center col-sm-12" style="position: relative;">
+                    <i class="fa fa-spinner fa-spin fa-2x fa-fw"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reports Attachments -->
+    <div class="col-md-12 col-xs-12 margin-top-5 hide">
+        <div class="SubHeadingDiv col-xs-12 caption font-gray-sharp">
+            <span
+                class="caption-subject">{{"Report Documents"|translate}}&nbsp;({{ClaimAttachments.reportAttachments ? ClaimAttachments.reportAttachments.length : 0}})</span>
+        </div>
+        <!-- <div class="col-xs-12 padding1px"> -->
+        <div class="col-lg-2 col-md-3 col-sm-12 form-group padding1px items-align-center">
+            <a ng-click="SelectClaimFile()" class="round-button"><i class="fa fa-plus" aria-hidden="true"></i></a>
+            <a ng-click="SelectClaimFile()"
+                class="noTextDecoration font-size-13">{{"ControlText.AddNewDocument"|translate}}</a>
+        </div>
+        <div class="col-lg-10 col-md-9 col-sm-12 custom_scroll_bar attachment-container">
+            <div class="col-xs-12 text-center" ng-show="!ClaimAttachments.reportAttachments.length"
+                style="padding:10px;text-align: center;color: red;background-color: #ffffff;">
+                <em class="glyphicon glyphicon-exclamation-sign"></em>
+                &nbsp;No documents available
+            </div>
+            <div id="reportAttachments-{{$index}}"
+                ng-repeat="file in ClaimAttachments.reportAttachments track by $index"
+                class="col-md-2 margin-bottom-10 col-sm-2 text-center" style="padding:0px;" ng-include
+                src="'displayChildAttachements'">
+            </div>
+        </div>
+        <!-- </div> -->
+    </div>
+
+    <!-- Claim Form Attachments -->
+    <div class="col-md-12 col-xs-12 margin-top-5 hide">
+        <div class="SubHeadingDiv col-xs-12 caption font-gray-sharp">
+            <span
+                class="caption-subject">{{"Tasks"|translate}}&nbsp;({{ClaimAttachments.claimFormAttachments ? ClaimAttachments.claimFormAttachments.length : 0}})</span>
+        </div>
+        <div class="col-xs-12 padding1px items-align-center">
+            <div class="col-lg-2 col-md-3 col-sm-12 form-group padding1px items-align-center">
+                <a ng-click="SelectClaimFile()" class="round-button"><i class="fa fa-plus" aria-hidden="true"></i></a>
+                <a ng-click="SelectClaimFile()"
+                    class="noTextDecoration font-size-13">{{"ControlText.AddNewDocument"|translate}}</a>
+            </div>
+            <div class="col-lg-10 col-md-9 col-sm-12  custom_scroll_bar attachment-container">
+                <div class="col-xs-12 text-center" ng-show="!ClaimAttachments.claimFormAttachments.length"
+                    style="padding:10px;text-align: center;color: red;background-color: #ffffff;">
+                    <em class="glyphicon glyphicon-exclamation-sign"></em>
+                    &nbsp;No documents available
+                </div>
+                <div id="claimFormAttachments-{{$index}}"
+                    ng-repeat="file in ClaimAttachments.claimFormAttachments track by $index"
+                    class="col-md-2 margin-bottom-10 col-sm-2 text-center" style="padding:0px;" ng-include
+                    src="'displayChildAttachements'">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Incident Attachments -->
+    <div class="col-md-12 col-xs-12 margin-top-5 hide">
+        <div class="SubHeadingDiv col-xs-12 caption font-gray-sharp">
+            <span
+                class="caption-subject">{{"Incident Attachments"|translate}}&nbsp;({{ClaimAttachments.incidentPicturesAttachments ? ClaimAttachments.incidentPicturesAttachments.length : 0}})</span>
+        </div>
+        <div class="col-xs-12 padding1px items-align-center">
+            <div class="col-lg-2 col-md-3 col-sm-12 form-group padding1px items-align-center">
+                <a ng-click="SelectClaimFile()" class="round-button"><i class="fa fa-plus" aria-hidden="true"></i></a>
+                <a ng-click="SelectClaimFile()"
+                    class="noTextDecoration font-size-13">{{"ControlText.AddNewDocument"|translate}}</a>
+            </div>
+            <div class="col-lg-10 col-md-9 col-sm-12 custom_scroll_bar attachment-container">
+                <div class="col-xs-12 text-center" ng-show="!ClaimAttachments.incidentPicturesAttachments.length"
+                    style="padding:10px;text-align: center;color: red;background-color: #ffffff;">
+                    <em class="glyphicon glyphicon-exclamation-sign"></em>
+                    &nbsp;No documents available
+                </div>
+                <div id="incidentAttachments-{{$index}}"
+                    ng-repeat="file in ClaimAttachments.incidentPicturesAttachments track by $index"
+                    class="col-md-2 margin-bottom-10 col-sm-2 text-center" style="padding:0px;" ng-include
+                    src="'displayChildAttachements'">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Message Attachments -->
+    <div class="col-md-12 col-xs-12 margin-top-5 hide">
+        <div class="SubHeadingDiv col-xs-12 caption font-gray-sharp">
+            <span
+                class="caption-subject">{{"Message Attachments"|translate}}&nbsp;({{ClaimAttachments.noteAttachments ? ClaimAttachments.noteAttachments.length : 0}})</span>
+        </div>
+        <div class="col-xs-12 padding1px items-align-center">
+            <div class="col-lg-2 col-md-3 col-sm-12 form-group padding1px items-align-center">
+                <a ng-click="SelectClaimFile()" class="round-button"><i class="fa fa-plus" aria-hidden="true"></i></a>
+                <a ng-click="SelectClaimFile()"
+                    class="noTextDecoration font-size-13">{{"ControlText.AddNewDocument"|translate}}</a>
+            </div>
+            <div class="col-lg-10 col-md-9 col-sm-12 custom_scroll_bar attachment-container">
+                <div class="col-xs-12 text-center" ng-show="!ClaimAttachments.noteAttachments.length"
+                    style="padding:10px;text-align: center;color: red;background-color: #ffffff;">
+                    <em class="glyphicon glyphicon-exclamation-sign"></em>
+                    &nbsp;No documents available
+                </div>
+
+                <div id="messageAttachments-{{$index}}"
+                    ng-repeat="file in ClaimAttachments.noteAttachments track by $index"
+                    class="col-md-2 margin-bottom-10 col-sm-2 text-center" style="padding:0px;" ng-include
+                    src="'displayChildAttachements'">
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Purchase Order Attachments -->
+    <div class="col-md-12 col-xs-12 margin-top-5 hide">
+        <div class="SubHeadingDiv col-xs-12 caption font-gray-sharp">
+            <span
+                class="caption-subject">{{"Purchase Order Documents"|translate}}&nbsp;({{ClaimAttachments.purchaseOrderAttachments ? ClaimAttachments.purchaseOrderAttachments.length : 0}})</span>
+        </div>
+        <div class="col-xs-12 padding1px items-align-center">
+            <div class="col-lg-2 col-md-3 col-sm-12 form-group padding1px items-align-center">
+                <a ng-click="SelectClaimFile()" class="round-button"><i class="fa fa-plus" aria-hidden="true"></i></a>
+                <a ng-click="SelectClaimFile()"
+                    class="noTextDecoration font-size-13">{{"ControlText.AddNewDocument"|translate}}</a>
+            </div>
+            <div class="col-lg-10 col-md-9 col-sm-12 custom_scroll_bar attachment-container">
+                <div class="col-xs-12 text-center" ng-show="!ClaimAttachments.purchaseOrderAttachments.length"
+                    style="padding:10px;text-align: center;color: red;background-color: #ffffff;">
+                    <em class="glyphicon glyphicon-exclamation-sign"></em>
+                    &nbsp;No documents available
+                </div>
+                <div id="purchaseOrderAttachments-{{$index}}"
+                    ng-repeat="file in ClaimAttachments.purchaseOrderAttachments track by $index"
+                    class="col-md-2 margin-bottom-10 col-sm-2 text-center" style="padding:0px;" ng-include
+                    src="'displayChildAttachements'">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gemlab Purchase order Attachments -->
+    <div class="col-md-12 col-xs-12 margin-top-5 hide">
+        <div class="SubHeadingDiv col-xs-12 caption font-gray-sharp">
+            <span
+                class="caption-subject">{{"Gemlab Purchase Order Documents"|translate}}&nbsp;({{ClaimAttachments.gemlabPurchaseOrderAttachments ? ClaimAttachments.gemlabPurchaseOrderAttachments.length : 0}})</span>
+        </div>
+        <div class="col-xs-12 padding1px items-align-center">
+            <div class="col-lg-2 col-md-3 col-sm-12 form-group padding1px items-align-center">
+                <a ng-click="SelectClaimFile()" class="round-button"><i class="fa fa-plus" aria-hidden="true"></i></a>
+                <a ng-click="SelectClaimFile()"
+                    class="noTextDecoration font-size-13">{{"ControlText.AddNewDocument"|translate}}</a>
+            </div>
+            <div class="col-lg-10 col-md-9 col-sm-12 custom_scroll_bar attachment-container">
+                <div class="col-xs-12 text-center" ng-show="!ClaimAttachments.gemlabPurchaseOrderAttachments.length"
+                    style="padding:10px;text-align: center;color: red;background-color: #ffffff;">
+                    <em class="glyphicon glyphicon-exclamation-sign"></em>
+                    &nbsp;No documents available
+                </div>
+                <div id="gemlabPurchaseOrderAttachments-{{$index}}"
+                    ng-repeat="file in ClaimAttachments.gemlabPurchaseOrderAttachments track by $index"
+                    class="col-md-2 margin-bottom-10 col-sm-2 text-center" style="padding:0px;" ng-include
+                    src="'displayChildAttachements'">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gemlab purchase order item Attachments -->
+    <div class="col-md-12 col-xs-12 margin-top-5 hide">
+        <div class="SubHeadingDiv col-xs-12 caption font-gray-sharp">
+            <span
+                class="caption-subject">{{"Gemlab Purchase Order Item Documents"|translate}}&nbsp;({{ClaimAttachments.gemlabPurchaseOrderItemAttachments ? ClaimAttachments.gemlabPurchaseOrderItemAttachments.length : 0}})</span>
+        </div>
+        <div class="col-xs-12 padding1px items-align-center">
+            <div class="col-lg-2 col-md-3 col-sm-12 form-group padding1px items-align-center">
+                <a ng-click="SelectClaimFile()" class="round-button"><i class="fa fa-plus" aria-hidden="true"></i></a>
+                <a ng-click="SelectClaimFile()"
+                    class="noTextDecoration font-size-13">{{"ControlText.AddNewDocument"|translate}}</a>
+            </div>
+            <div class="col-lg-10 col-md-9 col-sm-12 custom_scroll_bar attachment-container">
+                <div class="col-xs-12 text-center" ng-show="!ClaimAttachments.gemlabPurchaseOrderItemAttachments.length"
+                    style="padding:10px;text-align: center;color: red;background-color: #ffffff;">
+                    <em class="glyphicon glyphicon-exclamation-sign"></em>
+                    &nbsp;No documents available
+                </div>
+                <div id="gemlabPurchaseOrderItemAttachments-{{$index}}"
+                    ng-repeat="file in ClaimAttachments.gemlabPurchaseOrderItemAttachments track by $index"
+                    class="col-md-2 margin-bottom-10 col-sm-2 text-center" style="padding:0px;" ng-include
+                    src="'displayChildAttachements'">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Img preview -->
+    <div class="panel panel-defaul" id="img_preview" draggable ng-if="imgDiv">
+        <div class="col-md-12 col-sm-12" style="padding: 0px 10px;">
+            <label class="col-md-12 col-sm-12 SubHeadingDiv margin-bottom-10"
+                style="font-size: 14px;">{{DocxDetails.name ? DocxDetails.name : DocxDetails.FileName}}</label>
+            <div class="col-md-12 col-sm-12 margin-bottom-10" style="text-align: left;">
+                <a class="btn btn-default sbold btnMargin" ng-show="showDownload"
+                    ng-click="downloadFile(DocxDetails)">Download</a>
+                <a class="btn btn-default sbold btnMargin" ng-show="showDelete"
+                    ng-click="deleteClaimAttachment(DocxDetails)">Delete</a>
+                <a id="previewclose" class="btn btn-default sbold btnMargin" ng-click="close()">Close
+                    Preview</a>
+                <a ng-if="isPDF == 2" id="previewclose" class="btn btn-default sbold btnMargin glyphicon glyphicon-plus"
+                    ng-click="largeMe()"></a>
+                <a ng-if="isPDF == 2" id="previewclose"
+                    class="btn btn-default sbold btnMargin glyphicon glyphicon-minus" ng-click="smallMe()"></a>
+            </div>
+        </div>
+        <div class="col-md-12 col-sm-12">
+            <div class="image-wrapper">
+                <div ng-show="isPDF === 0" class="col-sm-8 col-md-6 col-xs-12" style="height:230px;width:100%;">
+                    <div class="col-md-12 col-sm-12 col-xs-12 well text-center">
+                        <span
+                            class="text-info">{{"File type does not support preview option. File will start downloading.."|translate}}</span>
+                    </div>
+                </div>
+                <!-- Image -->
+                <img id="imagepre" ng-show="isPDF === 2"
+                    onerror="this.onerror=null; this.src='assets/global/img/no-image.png';" class="ImageDocx"
+                    ng-src="{{DocxDetails.url | trustUrl}}" alt="Image" />
+                <!-- Show PDF region Render PDF here -->
+                <ng-pdf ng-show="isPDF===1" template-url="views/GlobalSearch/PdfViewer.html" canvasid="pdf"
+                    scale="page-fit" page=1>
+                </ng-pdf>
+                <!--End Show PDF region -->
+                <!--Video render-->
+                <video id="video-attachment" name="video-attachment" disableRemotePlayback controls
+                    disablepictureinpicture preload=auto autoplay ng-show="isPDF === 3">
+                    <source ng-src="{{DocxDetails.url | trustUrl}}"
+                        type="{{DocxDetails.FileType ? DocxDetails.FileType : DocxDetails.type}}">
+                    <img ng-src="assets/global/img/video-play-button.svg"
+                        alt="{{DocxDetails.name ? DocxDetails.name : DocxDetails.FileName}}">
+                </video>
+            </div>
+        </div>
+        <div ng-if="DocxDetails.isLocal !== true">
+            <div class="text-center" style="padding-bottom: 5px;">
+                <div class="font-size-14">
+                    <span>{{DocxDetails.description}}</span>
+                </div>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12 display-block font-size-14 text-center">
+                <div class="col-md-6 col-sm-6 col-cs-6 Label_Text_Right" style="padding: 0px;">
+                    <label>{{"Uploaded"| translate}}</label>
+                </div>
+                <div class="col-md-4 col-sm-4 col-cs-4 text-left" style="padding-right: 5px;">
+                    <span>{{DocxDetails.uploadDate | DateTimeFormatShort}}</span>
+                </div>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12 display-block font-size-14 text-center">
+                <div class="col-md-6 col-sm-6 col-cs-6 Label_Text_Right" style="padding: 0px;">
+                    <label>{{"Uploaded By"| translate}}</label>
+                </div>
+                <div class="col-md-4 col-sm-4 col-cs-4 text-left" style="padding-right: 5px;">
+                    <span>{{DocxDetails.uploadBy.lastName}}, {{DocxDetails.uploadBy.firstName}}</span><span
+                        ng-if="(DocxDetails.companyDetails!= null && DocxDetails.companyDetails.name!= null)">
+                        ({{DocxDetails.companyDetails.name}})</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Common Template to show attachments -->
+    <script type="text/ng-template" id="displayChildAttachements">
+        <!-- Adjsuter and Claim supervisor can delete all attachments. -->
+    <a class="TextDecorationNone" ng-show="CommonObj.UserRole != 'POLICYHOLDER')"
+        style="top:6px;right:2.5rem;position:absolute;z-index:1;" ng-click="deleteClaimAttachment(file)">
+        <i class="fa fa-times-circle fa-2x text-danger" aria-hidden="true"></i></a>
+    <div class="col-md-12 margin-top-15 attachment-wrapper">
+        <div ng-if=isPdf(file.name)>
+            <img src='assets/global/img/pdf-icon.svg' class="img-responsive bordered" />
+        </div>
+        <div ng-if=isExcel(file.name)>
+            <img src='assets/global/img/excel-icon.png' class="img-responsive bordered" />
+        </div>
+        <div ng-if=isImage(file.name)>
+            <img ng-src="{{file.url}}" alt="Pictures of the incident" class="img-responsive bordered" />
+        </div>
+        <div ng-if=isVideo(file.name)>
+            <img ng-src='assets/global/img/video-play-button.svg' alt="file.FileName" class="img-responsive"
+                title="{{file.FileName}}" />
+        </div>
+        <span id="previewDocs" class="sbold filename" ng-click="GetDocxDetails(file)"><a
+                title="{{file.name}}">{{file.name| limitTo:15}}{{file.name.length < 15 ? '': ' ...'}}</a></span>
+        <div class="tip font-size-11">
+            {{file.description | limitTo:45}}{{file.description.length > 45 ? '...' : ''}}
+            <span class="Overlay" ng-if="file.description.length > 45">{{file.description}}</span>
+        </div>
+        <span class="display-block font-size-11">{{file.uploadDate | DateTimeFormatShort}}</span>
+    </div>
+    </script>
+    <script type="text/ng-template" id="uploadImg-tpl">
+        <!-- upload image start -->
+    <div class="col-md-10 col-xs-10 custom_scroll_bar attachment-container">
+        <div class="col-md-6 col-sm-6 col-xs-12 margin-top-10 margin-bottom-10"
+            ng-repeat="file in attachmentList track by $index">
+            <div class="col-xs-12 padding1px bordered items-align-center">
+                <a class="TextDecorationNone remove-btn" ng-click="RemoveAttachment($index)">
+                    <i class="fa fa-times-circle fa-2x text-danger" aria-hidden="true"></i></a>
+                <div class="col-md-4 col-sm-4 col-xs-5 padding5">
+                    <img ng-if=isPdf(file.FileName) src='assets/global/img/pdf-icon.svg' class="img-responsive "
+                        style="width:90px; height:90px;" />
+                    <img ng-if=isExcel(file.FileName) src='assets/global/img/excel-icon.png' class="img-responsive"
+                        style="width:90px; height:90px;" />
+                    <img ng-if=isImage(file.FileName) ng-src="{{file.Image}}" alt="Pictures of the incident"
+                        class="img-responsive bordered" style="width:90px; height:90px;" />
+                    <img ng-if=isVideo(file.FileName) ng-src='assets/global/img/video-play-button.svg'
+                        alt="file.FileName" class="img-responsive" title="{{file.FileName}}" />
+                </div>
+                <div class="col-md-8 col-sm-8 col-xs-7 padding5">
+                    <a class="TextDecorationNone display-block sbold filename" ng-click="GetDocxDetails(file)"
+                        title="{{file.FileName}}">{{file.FileName| limitTo:30}}{{file.FileName.length < 30 ? '': ' ...'}}</a>
+                    <textarea placeholder="Add a note..." ng-model="file.description" class="rgtDiv" maxlength="1000">
+                    </textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2 col-xs-2 padding1px" ng-show="attachmentList.length > 0">
+        <div class="sbold">upload {{attachmentList.length}} new
+            {{currentAttchment === 'CLAIM_RECEIPT' ? 'receipt(s)' : 'document(s)'}}</div>
+        <a ng-click="AddClaimAttachment()" class="noTextDecoration sbold">{{"Save"|translate}}</a>&nbsp;&nbsp;
+        <a ng-click="cancelAttachment()" class="noTextDecoration sbold">{{"Cancel"|translate}}</a>&nbsp;&nbsp;
+    </div>
+
+    <!-- upload image end -->
+    </script>

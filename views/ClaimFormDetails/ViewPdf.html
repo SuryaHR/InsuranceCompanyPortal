@@ -1,0 +1,143 @@
+﻿<style type="text/css">
+    .btnclass {
+        min-width: 46px !important;
+        min-height: 28px !important;
+        padding: 2px !important;
+    }
+
+    /*#pdf {
+        position: relative;
+        cursor: crosshair;
+    }*/
+
+    .mapItem {
+        /*display: table !important;*/
+        padding: 5px;
+        border: none;
+        background: transparent;
+        position: absolute;
+        z-index: 2;
+    }
+
+        .mapItem input[type="number"] {
+            border: 1px solid #000;
+            padding-left: 5px;
+            width: 70px;
+            height: 25px;
+        }
+
+
+    input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
+
+    .rowmapped {
+        background-color: #a1caa1 !important;
+        /*border: 2px solid green;*/
+    }
+
+    .plotbox input[disabled] {
+        background-color: #fff;
+    }
+
+    .plotbox {
+        position: absolute;
+        margin: auto 20px;
+    }
+
+        .plotbox .mapItem {
+            padding: 3px;
+            display: table !important;
+        }
+
+    .itemBorder .text-danger {
+    }
+
+    .actions_btns {
+        display: none;
+    }
+
+    .itemBorder .actions_btns {
+        position: absolute;
+        top: -25px;
+        /*right: 0;*/
+        display: block;
+        cursor: pointer;
+    }
+
+    .itemBorder {
+        border: 2px solid #f00;
+        z-index: 1;
+    }
+
+    .table-hover > tbody > tr.rowmapped:hover, .table-hover > tbody > tr.rowmapped:hover > td {
+        background: #a1caa1 !important;
+    }
+
+    .addnew_receipt span {
+        font-family: "Open Sans", sans-serif;
+        font-weight: 600;
+        margin-left: 3px;
+    }
+
+    .actions {
+        text-align: center;
+    }
+
+        .actions i {
+            margin: 0 6px;
+            cursor: pointer;
+        }
+
+    #mapItem {
+        z-index: 3;
+    }
+
+</style>
+
+
+<!-- PDF nevigation -->
+<div class="text-center visible-sm margin-bottom-5">
+    <span class="sbold text-info">{{"Receipt"|translate}}</span>
+</div>
+<div class="text-center col-sm-12 col-md-12 col-xs-12 bottomBorder ">
+    <span class="glyphicon glyphicon-menu-left font-lg" style="cursor:pointer;" ng-click="PreviousReceipt()"></span>
+    <span class="font-md sbold">( {{ReceiptIndex +1}}/{{ReceiptList.length}} )</span>
+    <span ng-click="NextReceipt()" style="cursor:pointer;" class="glyphicon glyphicon-menu-right font-lg"></span>
+</div>
+
+<!--End PDF nevigation-->
+<!--PDF page Handler-->
+<div class="col-md-12 ">
+    <div class="col-md-8 col-sm-8 col-xs-12 col-lg-8 margintop5">
+        <button class="btnclass btn-sm glyphicon glyphicon-menu-left" ng-click="goPrevious()"></button>
+        <button ng-click="zoomIn()" class="btnclass btn-sm glyphicon glyphicon-plus"></button>
+        <button ng-click="fit()" class="btnclass btn-sm">100%</button>
+        <button ng-click="zoomOut()" class="btnclass btn-sm glyphicon glyphicon-minus"></button>
+        <button class="btnclass btn-sm glyphicon glyphicon-menu-right" ng-click="goNext()"></button>
+    </div>
+    <div class="col-md-4 col-lg-4 col-sm-4 text-right col-xs-12 margintop5 padding1px">
+        <!--<span>Page: </span><input type="text" min=1 ng-model="pageNum"><span> / {{pageCount}}</span>-->
+        <span>Page:</span>
+        <label class="" type="text" min=1 ng-model="pageNum" id="page_num">{{pageNum}} / {{ pageCount }}</label>
+        <!--<span> /{{ pageCount }}</span>-->
+    </div>
+</div>
+<!--End PDF page Handler-->
+<!-- Render PDF -->
+<div class="col-md-12 col-sm-12 col-xs-12 padding1px" style="max-height:350px;overflow:auto;" id="load_canvas">
+    {{loading}}
+   
+        <canvas id="pdf" class="col-md-12 col-sm-12" title={{popupMessage}} ng-click="drawPopupBox($event)"></canvas>
+ 
+</div>
+<div class="col-md-12 col-sm-12 col-xs-12" id="receiptName">
+    <p class="" style="text-align:center">{{receiptName}}</p>
+</div>
+<!--End Render PDF -->

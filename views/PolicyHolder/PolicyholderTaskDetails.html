@@ -1,0 +1,138 @@
+<style>
+    /* Remove extra left and right margins, due to padding */
+    .row {
+        margin: 0 -5px;
+    }
+
+    /* Clear floats after the columns */
+    .row:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+</style>
+<div class="headerFreez border_bottom col-md-12 col-xs-12 margin-bottom-5">
+    <ul class="page-breadcrumb breadcrumb sbold">
+        <li>
+            <a ng-click="GoToHome()">{{"Home"|translate}}</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <a ng-click="GoBack()">{{CommonObj.claimNumber}}</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span>{{"Claim Tasks"|translate}}</span>
+        </li>
+    </ul>
+    <div class="mainHeadingDiv">
+        <div class="caption font-grey-sharp">
+            <span class="caption-subject font-grey-sharp">{{"Tasks to complete" | translate}}</span>
+        </div>
+    </div>
+</div>
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group" style="margin-top: 20px;">
+    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+        <div class="tabbable-custom customTabs" style="margin-bottom: 0px;overflow: inherit;">
+            <div class="tab-content">
+                <div class="row">
+                    <div class="table-responsive col-md-12 PostLossItemList padding1px ServiceRequestheight">
+                        <table class="table dataTable table-striped table-bordered table-hover table-checkable order-column"
+                          id="NavigateTable" style="width: auto;border: 1px solid #dbd6d6;">
+                          <thead class="tableHeader" id="tableHeader">
+                              <tr>
+                                <th class="text-center" class="Width2P">
+                                    {{"Form #"|translate}}
+                                </th>
+                                <th class="text-center" class="Width4P">
+                                    {{"Form Type" | translate}}
+                                </th>
+                                <th class="text-center" class="Width6P">
+                                    {{"Discription" | translate}}
+                                </th>
+                                <th class="text-center" class="Width2P">
+                                    {{"Status" | translate}}
+                                </th>
+                                <th class="text-center" class="Width3P">
+                                    {{"Created By" | translate}}
+                                </th>
+                                <th class="text-center" class="Width4P">
+                                    {{"Assigned Date" | translate}}
+                                </th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                            <tr ng-repeat="task in PendingTaskList" ng-show="task.status.status == 'PENDING'">
+                                <td class="text-center" ng-click="completeTaskPopup(task)">{{$index+1}}</td>
+                                <td class="text-center" ng-click="completeTaskPopup(task)">{{task.taskName}}</td>
+                                <td class="text-center" ng-click="completeTaskPopup(task)">{{task.comment}}</td>
+                                <td class="text-center" ng-click="completeTaskPopup(task)">{{task.status.status}}</td>
+                                <td class="text-center" ng-click="completeTaskPopup(task)">{{task.createdBy}}</td>
+                                <td class="text-center" ng-click="completeTaskPopup(task)">{{task.newAssignedDate}}</td>
+                            </tr>
+                          </tbody>
+                          </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="headerFreez border_bottom col-md-12 col-xs-12 margin-bottom-5">
+    <div class="mainHeadingDiv">
+        <div class="caption font-grey-sharp">
+            <span class="caption-subject font-grey-sharp">{{"Completed Tasks" | translate}}</span>
+        </div>
+    </div>
+</div>
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group" style="margin-top: 20px;">
+    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10"> 
+        <div class="tabbable-custom customTabs" style="margin-bottom: 0px;overflow: inherit;">
+            <div class="tab-content">
+                <div class="row">
+                    <div class="table-responsive col-md-12 PostLossItemList padding1px ServiceRequestheight">
+                        <table class="table dataTable table-striped table-bordered table-hover table-checkable order-column"
+                        id="NavigateTable" style="width: auto;border: 1px solid #dbd6d6;">
+                        <thead class="tableHeader" id="tableHeader">
+                            <tr>
+                                <th class="text-center" class="Width2P">
+                                    {{"Form #"|translate}}
+                                </th>
+                                <th class="text-center" class="Width4P">
+                                    {{"Form Type" | translate}}
+                                </th>
+                                <th class="text-center" class="Width6P">
+                                    {{"Discription" | translate}}
+                                </th>
+                                <th class="text-center" class="Width2P">
+                                    {{"Status" | translate}}
+                                </th>
+                                <th class="text-center" class="Width3P">
+                                    {{"Created By" | translate}}
+                                </th>
+                                <th class="text-center" class="Width4P">
+                                    {{"Assigned Date" | translate}}
+                                </th>
+                                <th class="text-center" class="Width4P">
+                                    {{"Completed Date" | translate}}
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="task in PendingTaskList" ng-show="task.status.status != 'PENDING'">
+                                <td class="text-center" ng-click="completeTaskPopup(task)">{{$index+1}}</td>
+                                <td class="text-center" ng-click="completeTaskPopup(task)">{{task.taskName}}</td>
+                                <td class="text-center" ng-click="completeTaskPopup(task)">{{task.comment}}</td>
+                                <td class="text-center" ng-click="completeTaskPopup(task)">{{task.status.status}}</td>
+                                <td class="text-center" ng-click="completeTaskPopup(task)">{{task.createdBy}}</td>
+                                <td class="text-center" ng-click="completeTaskPopup(task)">{{task.newAssignedDate}}</td>
+                                <td class="text-center" ng-click="completeTaskPopup(task)">{{task.completedDate}}</td>
+                            </tr>
+                        </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

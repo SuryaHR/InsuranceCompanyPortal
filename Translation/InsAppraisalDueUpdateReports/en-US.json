@@ -1,0 +1,53 @@
+﻿{
+  "LabelText":{
+    "AgencyReports": "Agency Reports",
+    "AgencyCode":"Agency Code",
+    "AgencyName" : "Agency Name",
+    "ActivePolicies":"Active Policies",
+    "TotalValueAppraisals":"Total Value of Appraisals",
+    "YearlyInsurancePremium":"Yearly Insurance Premium",
+    "Appraisal" : "Appraisal #",    
+    "Date":"Date",
+    "Action":"Action",
+    "NoAlertText": "No new messages available",
+    "NoAppraisalText": "No appraisals found",
+    "ViewAll":"View All",
+    "AppraisalsNeedUpdate":"Appraisals Need Update",
+    "AvgApprovalTime": "Avg. Approval Time",
+    "ItemRenewal":"Item Renewal %",
+    "Alerts":"Alerts",
+    "KPIs":"KPI's" ,
+    "InsuranceCompanyName":"Insurance Company",
+    "PolicyholderReviewResults" : "Policyholder Appraisals Review Results",
+    "AppraisalsDue" : "Appraisals Due for Update",
+    "TotalAppraisals" : "Total # Appraisals",
+    "OverdueAppraisals" : "Overdue Appraisals",
+    "ValuablesExpiring" : "Valuables Expiring",
+    "Dashboard":"Dashboard",
+
+    "ItemType" : " Item Type",
+    "CreatedDate" : "Created Date",
+    "Policy": "Policy #",
+    "Policyholder" : "Policyholder",
+    "SpeedCheckAppraisalDate" : "SpeedCheck Appraisal Date",
+    "InsuranceReplacementValue" : "Insurance Replacement Value",
+    "Status" : "Status",
+    "PolicyExpiryDate" : "Policy Expiry Date",
+    
+    "placeholder_need_update" : "Appraisal #, Policy #, Agency Code, Policyholder Name",
+    "placeholder_expiring" : "Appraisal #, Policy #, Agency Code, Agent Name"
+
+  },
+  
+  "ControlText": {
+    "Back_title": "Back",
+    "Assign_title": "Assign",
+    "SortBy": "Sort By",    
+    "Accept": "Accept"
+  }
+
+  
+   
+}
+
+

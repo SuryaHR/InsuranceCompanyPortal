@@ -1,0 +1,680 @@
+<style>
+    .select2-container {
+        width: auto !important;
+    }
+
+    #img_preview {
+        min-height: 490px;
+        width: 675px !important;
+        padding: 10px 0px;
+        position: fixed;
+        z-index: 20;
+    }
+
+    #video_preview {
+        min-height: 490px !important;
+        width: 675px !important;
+        padding: 10px 0px;
+        position: fixed;
+        z-index: 20;
+    }
+
+    .image-wrapper {
+        max-height: 350px !important;
+        overflow: auto !important;
+        display: block;
+    }
+
+    .input-remove {
+        line-height: 25px !important;
+    }
+</style>
+<div id="myModal">
+    <div id="responsive">
+        <div class="modal-header clearfix">
+            <a class="TextDecorationNone pull-right" ng-click="cancel()">
+                <i class="fa fa-times-circle fa-2x text-danger" aria-hidden="true"></i></a>
+            <h5 class="modal-title sbold">
+                {{!isEditItem ? ("Title.AddNewItem"|translate) : ("Title.Item#"|translate)+" "+selected.itemNumber }}
+            </h5>
+        </div>
+        <div class="col-md-12 clearfix" ng-show="isEditItem">
+            <span class="pull-left CursorLeft" ng-if="PrevStep" ng-click="ChangePreviousItem()"
+                style="position: fixed;z-index: 1000;top: 50vh; left: 5px;cursor:pointer;">
+                <i class="fa fa-chevron-circle-left fa-4x" title="Previous Item"></i>
+            </span>
+            <span class="pull-left CursorLeft" ng-if="!PrevStep"
+                style="height:50px;width:50px;position: fixed;z-index: 1000;top: 50vh; left: 5px;color: #716969; cursor:not-allowed!important">
+                <i class="fa fa-chevron-circle-left fa-4x"></i>
+            </span>
+            <span class="pull-right CursorLeft" ng-if="NextStep" ng-click="ChangeNextItem($event)"
+                style="position: fixed;z-index: 1000;top:50vh; right: 2px;cursor:pointer;">
+                <i class="fa fa-chevron-circle-right fa-4x" title="Next Item"></i>
+            </span>
+            <span class="pull-right CursorLeft" ng-if="!NextStep"
+                style="height:50px;width:50px;position: fixed;z-index: 1000;top:50vh; right: 2px;color:#716969;cursor:not-allowed!important">
+                <i class="fa fa-chevron-circle-right fa-4x"></i>
+            </span>
+        </div>
+        <div class="modal-body clearfix">
+            <!---For Contents Claim profile-->
+            <div class="col-md-12 col-sm-12 col-xs-12" ng-form="AddItemForm">
+                <div class="col-md-12 col-sm-12 col-xs-12 hide text-right">
+                    <button id="sample_editable_1_new" ng-show="selected.id" ng-click="SaveItemDetails(selected.id)"
+                        class="btn sbold btnMargin" ng-disabled="AddItemForm.$invalid">
+                        {{"Label.UpdateItem"|translate}}
+                    </button>
+                    <button id="sample_editable_1_new" ng-show="!selected.id" ng-click="SaveItemDetails(null, cancel)"
+                        class="btn sbold btnMargin" ng-disabled="AddItemForm.$invalid || AddItemForm.$pristine">
+                        {{"Label.AddItem"|translate}}
+                    </button>
+                    <button id="sample_editable_1_new" ng-click="selected.id ? cancel() : resetForm()"
+                        class="btn sbold btnMargin" ng-disabled="AddItemForm.$pristine && !selected.id">
+                        {{(selected.id ? "Cancel" : "Reset") | translate}}
+                    </button>
+                </div>
+                <!-- Item Description -->
+                <div class="col-md-12 col-xs-12 form-group clearfix margin-top-10">
+                    <div class="col-md-3 col-sm-3 col-xs-12 item-align">
+                        <label class="control-label"><span class="text-danger">*</span>Item Description</label>
+                    </div>
+                    <div class="col-md-9 col-sm-9 col-xs-12 ">
+                        <textarea rows="3" type="text" required id="Description" name="Description"
+                            class="form-control btnMargin" ng-model="selected.description"
+                            placeholder="{{'ControlText.Description'|translate}}"></textarea>
+                        <div class="errormessage">
+                            <span class="text-danger"
+                                ng-show="AddItemForm.Description.$error.required && AddItemForm.Description.$touched">{{"Please Enter Description"|translate}}</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Quantity -->
+                <div ng-if="popupObj.ClaimProfile != 'Jewelry'" class="col-md-12 col-xs-12 form-group clearfix">
+                    <div class="col-md-3 col-sm-3 item-align">
+                        <label class="control-label">Quantity</label>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-12">
+                        <input type="text" id="quantity" name="quantity" numbers-Only
+                            ng-model="selected.quantity" class="form-control btnMargin"
+                            placeholder="{{'ControlText.Quantity'|translate}}">
+                        <div class="errormessage">
+                            <span class="text-danger"
+                                ng-show="AddItemForm.quantity.$error.required && AddItemForm.quantity.$touched">{{"Please Enter Quantity"|translate}}</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-3 item-align col-xs-12">
+                        <label class="control-label">
+                            <!-- <span class="text-danger" ng-show="selected.isScheduledItem==false">*</span> -->
+                            Price
+                        </label>
+                    </div>
+                    <div  class="col-md-3 col-sm-3 col-xs-12">
+                        <input type="text" id="Price" name="Price"
+                            decimal-Only input-currency ng-model="selected.insuredPrice" class="form-control btnMargin"
+                            placeholder="$0.00">
+                       
+                    </div>
+                </div>
+
+                <!-- Category and Sub Category -->
+                <div class="row">
+                    <div class="col-md-6 col-xs-12 form-group clearfix" id="category" ng-show="popupObj.ClaimProfile === 'Contents'" style="display: flex"> 
+                        <!-- Category -->
+                        <div class="col-md-6 col-sm-6 col-xs-12 item-align" style="
+                        margin-left: 10%;
+                    ">
+                            <label class="control-label"><span class="text-danger hide">*</span>Category</label>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <select class="form-control select2me" ng-model="selected.category.id" id="contentsCategory"
+                                ng-change="changeSelection('category')" data-placeholder="select"
+                                ng-options="option.categoryId as option.categoryName for option in categoryList"></select>
+                        </div>
+                        <!-- <div class="errormessage hide">
+                            <span class="text-danger" ng-show="AddItemForm.contentsCategory.$error.required && AddItemForm.contentsCategory.$touched">
+                                {{"Please Select Category"|translate}}
+                            </span>
+                        </div> -->
+                        <i class="fa fa-info-circle" data-container="body" data-toggle="popover" data-placement="right"
+                            popover-append-to-body="true"
+                            data-content='{{selected.category.id ? (selected.category.description ? selected.category.description : selected.category.name) : "Select a category"}}'
+                            data-trigger="hover" style="font-size:20px;margin-top:6px;" aria-hidden="true"></i>
+                    </div>
+                
+                    <div class="col-md-6 col-xs-12 form-group clearfix" ng-show="popupObj.ClaimProfile == 'Contents'" style="display:flex">
+                        <!-- Sub Category -->
+                        <div class="col-md-6 col-sm-6 col-xs-12 item-align">
+                            <label class="control-label">{{"Label.SubCategory"|translate}}</label>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <select class="form-control select2me" ng-model="selected.subCategory.id" id="contentsSubCategory"
+                                ng-change="changeSelection('subCategory')" data-placeholder="select"
+                                ng-options="option.id as option.name for option in SubCategory"></select>
+                        </div>
+                        <!-- <div class="errormessage hide">
+                            <span class="text-danger"
+                                ng-show="AddItemForm.contentsSubCategory.$error.required && AddItemForm.contentsSubCategory.$touched">
+                                {{"Please Select Sub Category"|translate}}
+                            </span>
+                        </div> -->
+                        <i class="fa fa-info-circle" data-container="body" data-toggle="popover" data-placement="right"
+                            data-content='{{selected.subCategory.id ? (selected.subCategory.description ? selected.subCategory.description : selected.subCategory.name) : "Select a sub category"}}'
+                            popover-append-to-body="true" data-trigger="hover" style="font-size:20px;margin-top:6px;" aria-hidden="true"></i>
+                    </div>
+                </div>
+
+                 <!-- Age and Month -->
+                 <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group"
+                 ng-show="popupObj.ClaimProfile == 'Contents'">
+                 <div class="col-md-3 col-sm-3 item-align">
+                     <label class="control-label ">{{"Age"|translate}}
+                     </label>
+                 </div>
+                 <div class="col-md-5 col-sm-7" style="padding-right:5px;padding-left: 14px;">
+                     <div class="col-md-3 col-sm-3" style="padding: 0px 5px 0px 0px;">
+                         <input type="text" name="AgeYears" numbers-Only class="form-control btnMargin"
+                             ng-model="selected.ageYears" placeholder="{{'ControlText.Years'|translate}}" />
+                         <div class="errormessage hide">
+                             <span class="text-danger"
+                                 ng-show="AddItemForm.AgeYears.$error.required && AddItemForm.AgeYears.$touched">{{"Age In Years"|translate}}</span>
+                         </div>
+                     </div>
+                     <div class="col-md-2 col-sm-2" style="padding:0px 5px 0px 0px;">
+                         <span style="vertical-align: middle;font-weight: 600;">{{"(Years)"|translate}}</span>
+                     </div>
+                     <div class="col-md-3 col-sm-3" style="padding: 0px 5px 0px 0px;">
+                         <input type="text" id="AgeMonths" name="AgeMonths" numbers-Only maxlength="2" months limit="11"
+                             class="form-control btnMargin" ng-model="selected.ageMonths"
+                             ng-pattern="/^(1[0-1]|[0-9])$/" placeholder="{{'ControlText.Months'|translate}}" />
+                         <div class="errormessage hide">
+                             <span class="text-danger"
+                                 ng-show="AddItemForm.AgeMonths.$error.required && AddItemForm.AgeMonths.$touched">{{"Age In Months"|translate}}</span>
+                         </div>
+                         <div ng-message="pattern" ng-show="AddItemForm.AgeMonths.$error.pattern">
+                             <span class="text-danger">{{"Please enter a valid month"|translate}}</span>
+                         </div>
+                     </div>
+                     <div class="col-md-2 col-sm-2" style="padding: 0px;">
+                         <span style="vertical-align: middle;font-weight: 600;">{{"(Months)"|translate}}</span>
+                     </div>
+                 </div>
+             </div>
+
+
+        
+                <!-- Jewelry contents and Individual limit -->
+                <div class="col-md-12 col-xs-12 form-group clearfix" ng-show="popupObj.ClaimProfile == 'Jewelry'">
+                    <div class="col-md-3 col-sm-3 item-align">
+                        <label class="control-label"><span
+                                class="text-danger">*</span>{{"Jewelry Type"|translate}}</label>
+                    </div>
+                    <div class="col-md-3 col-sm-8 col-xs-10">
+                        <span>
+                            <select class="select2me form-control" id="jewelrySubCategory" name="jewelrySubCategory"
+                                data-placeholder="Select" ng-model="selected.subCategory.id" ng-required="popupObj.ClaimProfile == 'Jewelry'"
+                                ng-change="changeSelection('subCategory')"
+                                ng-options="option.id as option.name for option in SubCategory"></select>
+                        </span>
+                        <div class="errormessage">
+                            <span class="text-danger"
+                                ng-show="AddItemForm.jewelrySubCategory.$error.required && AddItemForm.jewelrySubCategory.$touched">{{"Please select jewelry type"|translate}}</span>
+                        </div>
+                    </div>
+                    <div class="col-md-1 col-sm-1 col-xs-2" style="padding-left: 0px;">
+                        <i class="fa fa-info-circle" data-container="body" data-toggle="popover" data-placement="right"
+                            data-content='{{selected.subCategory.id ? (selected.subCategory.description ? selected.subCategory.description : selected.subCategory.name) : "Select a jewelry type"}}'
+                            popover-append-to-body="true" data-trigger="hover" style="font-size:20px;margin-top:6px;"
+                            aria-hidden="true"></i>
+                    </div>
+
+                    <div ng-if="popupObj.ClaimProfile != 'Jewelry'" class="col-md-2 col-sm-3 col-xs-12 item-align">
+                        <label class="control-label"><span
+                                class="text-danger">*</span>{{"Individual Limit"|translate}}</label>
+                    </div>
+                    <div ng-if="popupObj.ClaimProfile != 'Jewelry'" class="col-md-3 col-sm-3 col-xs-12">
+                        <input type="text" id="Jewelry_IndividualLimit" name="Jewelry_IndividualLimit" 
+                            class="form-control" input-currency decimal-only ng-model="selected.individualLimitAmount"
+                            placeholder='{{"$0.00"|translate}}' />
+                        <!-- <div class="errormessage">
+                            <span class="text-danger"
+                                ng-show="AddItemForm.Jewelry_IndividualLimit.$error.required && AddItemForm.Jewelry_IndividualLimit.$touched">{{"Please individual amount"|translate}}</span>
+                        </div> -->
+                    </div>
+                </div>
+
+                <!-- Purchased from and Room -->
+                <div class="col-md-12 col-sm-12 col-xs-12 form-group" ng-show="popupObj.ClaimProfile == 'Contents'">
+                    <div class="col-md-3 col-sm-3 col-xs-12 item-align">
+                        <label class="control-label ">{{"Room"|translate}} </label>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-12">
+                        <select class="form-control select2me" ng-model="addRoom" id="room"
+                            ng-change="selectRoom((RoomsList|filter:{id:selected.room.id})[0])"
+                            data-placeholder="select"
+                            ng-options="option.id as option.roomName for option in RoomsList">{{"RoomsList"|translate}}</select>
+                            
+                    </div>     
+                            <div class="col-md-5 col-sm-6 col-xs-12">
+                            <a ng-show="!newRoom" ng-click="getroomTypes()">
+                                Click to add new Room</a>
+                                <div class="col-md-8 col-xs-11 padding1px" style="display: flex;" ng-show="newRoom">
+                                    <input type="text" ng-model="newRoomName" class="form-control" placeholder='{{"Room Name"|translate}}' />
+                                    <span>
+                                        <a href="#" class="cancel-room-link" ng-click="cancelAddedRoom()" style="color:red">Cancel</a>
+                                    </span>
+                                </div>
+                                <div class="col-md-8 col-xs-11 padding1px" style="display:flex;" ng-show="newRoom">
+                                    <select class="form-control" ng-model="selected.roomType" id="roomType" name="roomType"
+                                        ng-options="option.id as option.name for option in roomTypes" style="margin-top: 3%; " >
+                                        <option ng-if="!selected.room.id" value="" disabled selected >Room Type</option>
+                                    </select>
+                                    <span>
+                                        <a href="#" class="add-room-link" ng-click="getnewRoom()" style="color:green";>Create</a>
+                                    </span>
+                                </div>
+                   </div>
+                </div>
+
+                 <!-- <div class="col-md-3 col-sm-3 col-xs-12 item-align">
+                        <label class="control-label ">{{"Purchase Method"|translate}} </label>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-12">
+                        <select class="form-control select2me col-md-12 col-sm-12 col-xs-12" id="purchaseMethod"
+                            ng-model="selected.purchaseMethod" ng-change="selectPaymentmethod(selected.purchaseMethod)"
+                            data-placeholder="select" ng-options="option for option in paymentTypes"></select>
+                    </div>
+                </div>
+                -->  
+                
+                
+                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-group" >
+                    <!-- Apply Taxes -->
+                    <div ng-show="popupObj.ClaimProfile == 'Contents'" class="col-md-3 col-sm-3 item-align">
+                        <label class="control-label">Apply Taxes({{ItemDetails.taxRate}}%)</label>
+                    </div>
+                    <div ng-show="popupObj.ClaimProfile == 'Contents'" class="col-md-3 col-sm-3 col-xs-12">
+                        <label class="mt-radio mt-radio-outline mt-radio-single">
+                            <input type="radio" name="tax-true" id="tax-true" ng-checked="selected.applyTax==true"
+                                ng-click="SetApplyTaxesStatus(selected,true)" value="{{true}}" ng-model="selected.applyTax" />
+                            <span></span>
+                        </label>Yes
+                        <label class="mt-radio mt-radio-outline mt-radio-single" style="margin-left: 12%;">
+                            <input type="radio" value="{{false}}" ng-click="SetApplyTaxesStatus(selected,false)"
+                                ng-checked="selected.applyTax==false" name="tax-false" ng-model="selected.applyTax" />
+                            <span></span>
+                        </label>No
+                    </div>
+                
+                    <!-- Condition -->
+                    <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3 item-align">
+                        <label class="control-label">{{"Condition"|translate}}</label>
+                    </div>
+                    <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3">
+                        <select id="floatCondtionSel" class="form-control select2me" ng-model="selected.condition.conditionId"
+                            ng-change="changeSelection('condition')" data-placeholder="select"
+                            ng-options="option.conditionId as option.conditionName for option in ConditionList"></select>
+                    </div>
+                
+                </div>
+
+                <!-- Originally purchased from -->
+                <div class="col-md-12 col-sm-12 col-xs-12 form-group"
+                    ng-show="selected.purchaseMethod != 'Gift' && popupObj.ClaimProfile == 'Contents'">
+                    <div class="col-md-3 col-sm-3 col-xs-12 item-align">
+                        <label class="control-label">{{"Originally Purchased From"|translate}}</label>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-12">
+                        <select class="form-control select2me" ng-model="selected.originallyPurchasedFrom.id"
+                            id="originallyPurchasedFrom"
+                            ng-change="selectRetailer((Retailers|filter:{id:selected.originallyPurchasedFrom.id})[0])"
+                            data-placeholder="select"
+                            ng-options="option.id as option.name for option in Retailers"></select>
+                    </div>
+                    <div class="col-md-5 col-sm-6 col-xs-12">
+                        <a ng-show="!selected.addOtherRetailer" ng-click="addNewRetailerField()">
+                            Not found? click to add new retailer</a>
+                        <div ng-if="selected.addOtherRetailer">
+                            <div class="col-md-8 col-xs-11 padding1px">
+                                <input type="text" ng-model="selected.newRetailer" class="form-control"
+                                    placeholder='{{"Add Retailer"|translate}}' />
+                            </div>
+                            <span class="text-danger glyphicon glyphicon-remove input-remove"
+                                ng-click="selected.addOtherRetailer = false; selected.newRetailer=null"
+                                style="cursor: pointer;"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12 form-group"
+                    ng-show="selected.originallyPurchasedFrom.name === 'Gift' && popupObj.ClaimProfile == 'Contents'">
+                    <div class="col-md-3 col-sm-3 col-xs-12 item-align">
+                        <label class="control-label">{{"Gift From"|translate}}</label>
+                    </div>
+                    <div class="col-md-9 col-sm-12 col-xs-12">
+                        <input type="text" ng-model="selected.giftedFrom"
+                            class="form-control col-md-12 col-sm-12 margin-top-5"
+                            placeholder='{{"Name and Address"|translate}}' />
+                    </div>
+                </div>
+
+                <!-- Individual and category limit -->
+                <div class="col-md-12 col-sm-12 col-xs-12 form-group "
+                    ng-if="popupObj.UserRole != 'POLICYHOLDER' && popupObj.ClaimProfile == 'Contents'">
+                    <!-- <div class="col-md-3 col-sm-3 col-xs-12 item-align">
+                        <label class="control-label"><span
+                                class="text-danger">*</span>{{"Label.IndividualLimit"|translate}}</label>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-12">
+                        <input type="text" id="Contents_IndividualLimit" name="Contents_IndividualLimit"
+                            class="form-control" input-currency decimal-Only 
+                            ng-model="selected.individualLimitAmount" placeholder='{{"Individual Limit"|translate}}' /> -->
+                        <!-- <div class="errormessage">
+                            <span class="text-danger"
+                                ng-show="AddItemForm.Contents_IndividualLimit.$error.required && AddItemForm.Contents_IndividualLimit.$touched">{{"Please enter individual amount"|translate}}</span>
+                        </div> -->
+                    </div>
+                    <!-- <div class="col-md-3 col-sm-3 col-xs-12 item-align">
+                        <label class="control-label">{{"Label.CategoryLimit"|translate}}</label>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-12 ">
+                        <input type="text" class="form-control" decimal-Only input-currency
+                            ng-model="selected.categoryLimit" placeholder='{{"CategoryLimit"|translate}}' />
+                    </div> -->
+                </div>
+                <!--Scheduled Item  -->
+                <div class="col-md-12 col-xs-12 form-group clearfix">
+                    <div class="col-md-3 col-sm-3 col-xs-12 item-align">
+                        <label class="control-label">Scheduled Item</label>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-12">
+                        <label class="mt-radio mt-radio-outline mt-radio-single ">
+                            <input type="radio" name="Contents_ScheduledItem" id="Contents_ScheduledItem"
+                                ng-click="SetScheduledStatus(selected,true)" ng-checked="selected.isScheduledItem==true"
+                                value="{{true}}" ng-model="selected.isScheduledItem" />
+                            <span></span>
+                        </label>Yes
+                        <label class="mt-radio mt-radio-outline mt-radio-single " style="margin-left: 12%;">
+                            <input type="radio" value="{{false}}" ng-click="SetScheduledStatus(selected,false)"
+                                ng-checked="selected.isScheduledItem==false" name="ContentsContactInsured"
+                                ng-model="selected.isScheduledItem" />
+                            <span></span>
+                        </label>No
+                    </div>
+
+                 <!-- Item Condition
+                    <div class="col-md-3 col-sm-3 col-xs-12 item-align">
+                        <label class="control-label ">{{"Condition"|translate}} </label>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-12">
+                        <select id="itemConditionSel" class="form-control select2me"
+                            ng-model="selected.condition.conditionId" ng-change="changeSelection('condition')"
+                            data-placeholder="select"
+                            ng-options="option.conditionId as option.conditionName for option in ConditionList"></select>
+                    </div>-->
+
+                    <div ng-show="selected.isScheduledItem===true">
+                        <div class="col-md-3 col-sm-3 col-xs-12 item-align">
+                            <label class="control-label"><span class="text-danger"
+                                    ng-show="selected.isScheduledItem==true">*</span>Scheduled Amount</label>
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-12">
+                            <input type="text" name="Contents_ScheduledAmount" id="Contents_ScheduledAmount"
+                                decimal-Only ng-required="selected.isScheduledItem==true"
+                                ng-model="selected.scheduleAmount" input-currency class="form-control btnMargin"
+                                placeholder='{{"Scheduled Amount"|translate}}'>
+                            <div class="errormessage">
+                                <span class="text-danger"
+                                    ng-show="AddItemForm.Contents_ScheduledAmount.$error.required && AddItemForm.Contents_ScheduledAmount.$touched">{{"Please Enter Scheduled Amount"|translate}}</span>
+                            </div>
+                        </div>
+                    </div> 
+
+                </div>
+
+                <!--Appraisal Value  -->
+                <div class="col-md-12 col-sm-12 col-xs-12 form-group"
+                    ng-show="selected.category.id == 30 || popupObj.ClaimProfile == 'Jewelry'">
+                    <div class="col-md-3 col-sm-3 col-xs-12 text-right">
+                        <label class="control-label ">{{"Label.AppraisalValue"|translate}}</label>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-12">
+                        <input type="text" decimal-Only ng-model="selected.appraisalValue" class="form-control"
+                            placeholder='{{"$0.00"|translate}}' input-currency />
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-12 item-align">
+                        <label class="control-label ">{{"Label.AppraisalDate"|translate}}</label>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-12">
+                        <div class="input-icon" id="contents_Appraisal_Date">
+                            <i class="icon-calendar"></i>
+                            <input class="form-control datepicker" name="Pickdt" ng-model="selected.appraisalDate"
+                                data-date-container="#contents_Appraisal_Date" close-on-date-selection="true"
+                                data-provide="datepicker" size="16" type="text" placeholder='{{"Date"|translate}}'
+                                autocomplete="off" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12 form-group">
+                    <!-- <div class="col-md-3 col-sm-3 col-xs-12 item-align">
+                        <label class="control-label ">{{"Video Link"|translate}}</label>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-12">
+                        <input type="text" ng-model="selected.videoLink" class="form-control" ng-if="videoLinkEditable"
+                            placeholder='{{"Video Link"|translate}}' ng-dblclick="playVideoOnDblClick()"
+                            ng-blur="playVideo()" />
+                        <span class="control-label" title="{{selected.videoLink}}">
+                            <a href="#" ng-click="playVideoOnDblClick()"
+                                ng-show="!videoLinkEditable"><label>{{selected.videoLink | limitTo : 20}}{{selected.videoLink.length>20 ? "..." : ""}}</label></a>
+                        </span>
+                    </div> -->
+                    <!-- <div class="col-md-1 form-group">
+                        <a href="#" title="Remove" style="font-size: 20px;margin-top: -2px;" ng-click="clearVideoLink()"
+                            ng-if="videoLinkEditable"> <span class="glyphicon glyphicon-remove text-danger"></span> </a>
+                        <a href="#" title="Edit" style="color:#337ab7;font-size: 20px;margin-top: -2px;"
+                            ng-click="editVideoLink()" ng-if="!videoLinkEditable"> <span
+                                class="glyphicon glyphicon-pencil"></span> </a>
+                    </div> -->
+                </div>
+
+                <!--Shipping Date and method  - temp hidden not displaying-->
+                <div ng-if="false" class="col-md-12 col-sm-12 col-xs-12 form-group" >
+                    <div class="col-md-3 col-sm-3 item-align">
+                        <label class="control-label"><span
+                                class="text-danger">*</span>{{"Label.ShippingDate"|translate}}</label>
+                    </div>
+                    <div class="col-md-3 col-sm-3">
+                        <div class="input-icon" id="cal3">
+                            <i class="icon-calendar"></i>
+                            <input class="form-control datepicker" ng-required="popupObj.ClaimProfile == 'Jewelry'"  data-date-container='#cal3'
+                                data-date-start-date="+0d" ng-model="selected.shippingDate" data-provide="datepicker"
+                                size="16" type="text" placeholder="{{'mm/dd/yyyy'|translate}}" name="ShippingDate"
+                                id="ShippingDate" autocomplete="off" />
+                            <div class="errormessage">
+                                <span class="text-danger"
+                                    ng-show="AddItemForm.ShippingDate.$error.required && AddItemForm.ShippingDate.$touched">
+                                    {{"Please select shipping date"|translate}}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-sm-3 item-align">
+                        <label class="control-label"><span
+                                class="text-danger">*</span>{{"Label.ShippingMethod"|translate}}</label>
+                    </div>
+                    <div class="col-md-3 col-sm-3">
+                        <span>
+                            <select class="select2me form-control" ng-required="popupObj.ClaimProfile == 'Jewelry'"  id="ShippingMethod" name="ShippingMethod"
+                                id="ShippingMethod" ng-model="selected.shippingMethod.id"
+                                ng-options="item.id as item.name for item in shippingMethods" data-placeholder="Select"
+                                ng-focus="clearShippingMethod();">
+                                <option value="">select</option>
+                            </select>
+                        </span>
+                        <div class="errormessage">
+                            <span class="text-danger"
+                                ng-show="AddItemForm.ShippingMethod.$error.required && AddItemForm.ShippingMethod.$touched">
+                                {{"Please select shipping method"|translate}}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Attachments -->
+                <div class="col-md-12 col-xs-12 hide form-group clearfix" ng-show="selected.id">
+                    <div class="col-md-3 col-sm-3 col-xs-12 item-align">
+                        <label class="control-label">Attachments</label>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-12">
+                        <div class="col-md-12 col-sm-12">
+                            <font ng-repeat="Attachment in selected.attachments"><a href="{{Attachment.url}}"
+                                    download>{{Attachment.name}}</a><span ng-show="!$last"> , </span></font>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-xs-12 form-group clearfix">
+                    <div class="col-md-3 col-sm-3 col-xs-12 item-align">
+                        <button class="btn sbold btnMargin" ng-click="SelectItemFile()">Add Attachments</button>
+                        <input id="ItemFileUpload" type="file" ng-model="popupObj.Attachment" multiple
+                            onchange="angular.element(this).scope().getItemFileDetails(event)" style="display: none;"
+                            accept="image/*|.pdf|.xls|.xlsx">
+                    </div>
+                    <!--<div class="col-md-3 col-sm-3">
+                                <div class="col-md-12 col-sm-12">
+                                    <font ng-repeat="Attachments in ItemFiles"><a href="#" class="font-green">{{Attachments.FileName}}</a><span ng-if="!$last"> , </span></font>
+                                </div>
+                            </div>-->
+                </div>
+                <div class="col-md-12 col-xs-12 col-sm-12 col-xs-12 margin-top-5 form-group">
+                    <div class="col-md-12 col-sm-12 col-xs-12 portlet light bordered table-responsive"
+                        style="height:131px !important;-webkit-overflow-scrolling: touch; overflow-y: auto; overflow-x:auto; white-space:nowrap; scrollbar-arrow-color:black;">
+                        <div class="col-md-12 col-sm-12 text-center" ng-show="ItemFiles.length==0">
+                            <label class="text-danger">{{"No attachments available for this item"|translate}}
+                            </label>
+                        </div>
+                        <div ng-repeat="file in ItemFiles" class="col-md-2 margin-bottom-10 col-sm-2"
+                            style="padding:0px;">
+                            <a class="TextDecorationNone" style="top:8px;left:100px;position:relative"
+                                ng-click="removeattchment(file)">
+                                <i class="fa fa-times-circle fa-2x text-danger" aria-hidden="true"></i></a>
+                            <div class="col-md-12">
+                                <div ng-if=isPdf(file.FileName)>
+                                    <img src='assets/global/img/pdf-icon.svg' class="img-responsive bordered "
+                                        style="width:90px; height:90px;padding:5px;border:1px groove;" />
+                                </div>
+                                <div ng-if=isExcel(file.FileName)>
+                                    <img src='assets/global/img/excel-icon.png' class="img-responsive bordered "
+                                        style="width:90px; height:90px;padding:5px;border:1px groove;" />
+                                </div>
+                                <div ng-if=isImage(file.FileName)>
+                                    <img ng-src="{{file.Image}}" alt="Pictures of the incident"
+                                        class="img-responsive bordered "
+                                        style="width:90px; height:90px;padding:5px;border:1px groove;" />
+                                </div>
+                                <div ng-if=isDocx(file.FileName)>
+                                    <img ng-src='assets/global/img/docs-file.svg'
+                                        class="img-responsive bordered "
+                                        style="width:120px; height:120px;padding:5px;border:1px groove;" />
+                                </div>
+                                <span id="previewDocs" class="sbold"
+                                    style="word-break: break-word;font-family:Calibri; font-size:14px;cursor:pointer"
+                                    ng-click="GetDocxDetails(file)"><a
+                                        title="{{file.FileName}}">{{file.FileName| limitTo:10}}{{file.FileName.length < 10 ? '': ' ...'}}</a></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Buttons -->
+                <div class="col-md-12 col-sm-12 col-xs-12 text-right">
+                    <a id="sample_editable_1_new" ng-show="!selected.id" ng-click="SaveItemDetails()"
+                        style="text-decoration: underline;" ng-disabled="AddItemForm.$invalid || AddItemForm.$pristine">
+                        {{"Label.AddAnotherItem"|translate}}</a>
+                    <button id="sample_editable_1_new" ng-show="selected.id" ng-click="CalculateRCV(selected.id)"
+                        class="btn sbold btnMargin" ng-disabled="AddItemForm.$invalid">
+                        {{"Label.UpdateItem"|translate}}
+                    </button>
+                    <button id="sample_editable_1_new" ng-show="!selected.id" ng-click="SaveItemDetails(null, cancel)"
+                        class="btn sbold btnMargin" ng-disabled="AddItemForm.$invalid || AddItemForm.$pristine">
+                        {{"Label.AddItem"|translate}}
+                    </button>
+                    <button id="sample_editable_1_new" ng-click="selected.id ? cancel() : resetForm()"
+                        class="btn sbold btnMargin" ng-disabled="AddItemForm.$pristine && !selected.id">
+                        {{(selected.id ? "Cancel" : "Reset") | translate}}
+                    </button>
+                </div>
+            </div>
+            <!--End For Contents Claim Profile-->
+        </div>
+        <!-- Attachements Preview Start -->
+        <div class="panel panel-default" id="img_preview" draggable ng-show="imgDiv">
+            <div class="col-md-12 col-sm-12" style="padding: 0px 10px;">
+                <label class="col-md-12 col-sm-12 SubHeadingDiv margin-bottom-10"
+                    style="font-size: 14px;">{{DocxDetails.FileName}}</label>
+                <div class="col-md-12 col-sm-12 margin-bottom-10" style="text-align: left;">
+                    <a class="btn btn-default sbold btnMargin" ng-show="showButton"
+                        ng-click="downloadFile(DocxDetails)">Download</a>
+                    <a class="btn btn-default sbold btnMargin" ng-show="showButton"
+                        ng-click="removeattchment(DocxDetails)">Delete</a>
+                    <a id="previewclose" class="btn btn-default sbold btnMargin" ng-click="close()">Close
+                        Preview</a>
+                    <a ng-show="isPDF == 2" id="previewclose"
+                        class="btn btn-default sbold btnMargin glyphicon glyphicon-plus" ng-click="largeMe()"></a>
+                    <a ng-show="isPDF == 2" id="previewclose"
+                        class="btn btn-default sbold btnMargin glyphicon glyphicon-minus" ng-click="smallMe()"></a>
+                </div>
+            </div>
+
+            <div class="col-md-12 col-sm-12" style="padding: 0px 10px;overflow: auto" ng-show="isPDF == 2">
+                <div class="col-md-12 col-sm-12">
+                    <img id="imagepre" class="image-wrapper"
+                        onerror="this.onerror=null; this.src='assets/global/img/no-image.png';" class="ImageDocx"
+                        ng-src="{{DocxDetails.url}}" alt="Image" />
+                </div>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12 margin-bottom-10" id="PdfView" ng-show="isPDF===1">
+                <!-- Show PDF region Render PDF here -->
+                <div class="col-md-12" id="load_receipts">
+                    <ng-pdf template-url="views/GlobalSearch/PdfViewer.html" canvasid="pdf" scale="page-fit" page=1>
+                    </ng-pdf>
+                </div>
+                <!--End Show PDF region  -->
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12 text-center" ng-show="isPDF===0">
+                <div class="col-sm-8 col-md-6 col-xs-12 text-center" style="height:230px;width:100%;">
+                    <div class="col-md-12 col-sm-12 col-xs-12 well text-center">
+                        <span
+                            class="text-info">{{"File type does not support preview option. File will start downloading.."|translate}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Attachments Preview End -->
+        <!-- video preview -->
+        <div class="panel panel-defaul" id="video_preview" draggable ng-show="videoDiv">
+            <div class="col-md-12 col-sm-12" style="padding: 0px 10px;">
+                <label class="col-md-12 col-sm-12 SubHeadingDiv margin-bottom-10"
+                    style="font-size: 14px;">{{selected.videoLink}}</label>
+                <a id="previewclose" class="btn btn-default sbold btnMargin" ng-click="closeVideoPreview()">Close
+                    Preview</a>
+            </div>
+            <div class="col-md-12 col-sm-12" id="videoPre" style="padding-top:10px;">
+                <iframe id="videoPre" width="600" height="350" src="{{givenURL}}" frameborder="0"
+                    allowfullscreen></iframe>
+            </div>
+        </div>
+        <div class="modal-footer hide">
+        </div>
+    </div>
+</div>
+<script>
+    $("#room").select2();
+    $("#purchaseMethod").select2();
+    $("#originallyPurchasedFrom").select2();
+    //$("#contentsCategory").select2();
+    $("#contentsSubCategory").select2();
+    $('#itemConditionSel').select2();
+    $('#jewelrySubCategory').select2();
+    $('#ShippingMethod').select2();
+
+    $(function () {
+        $('[data-toggle="popover"]').popover();
+    })
+</script>

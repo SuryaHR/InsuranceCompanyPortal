@@ -1,0 +1,19 @@
+﻿{
+  "InviteTitle": "Send Email Invite",
+
+  "ControlText": {
+    "SendInvite": "Send Invite",
+    "Back": "Back",
+    "Save": "Save",
+    "Update": "Update"
+  },
+  "FormControlText": {
+    "EmailId": "Email Id",
+    "BodyOfInvite": "Body Of Invite"
+
+  },
+  "AlertBox": {
+    "InviteTitle": "Invitation",
+    "InviteMessage": "Vendor invitation was sent successfully"
+  }
+}

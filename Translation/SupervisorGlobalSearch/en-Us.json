@@ -1,0 +1,43 @@
+﻿{
+  "ControlText": {
+    "Assign_title": "Assign",
+    "Reject_title": "Reject",
+    "Back": "Back",
+    "View": "View"
+  },
+
+  "HeaderTitle": {
+    "Alert_title": "Alert",
+    "LineItemNotification_title": "Line Item Notification",
+    "MyClaims_title": "My Claims",
+    "UpcomingEvents": "Upcoming Events",
+    "SearchResult": "Search Result"
+  },
+  
+  "Table": {
+    "Id": "Id",
+    "ClaimId": "Claim Id",
+    "Type": "Type",
+    "Claim": "Claim",
+    "InsuredsName": "Insured's Name",
+    "LastUpdated": "Last Updated",
+    "Status": "Status",
+    "LastNote": "Last Note",
+    "DateOfClaim": "Date Of Claim",
+    "PolicyNo": "Policy No",
+    "Date": "Date",
+    "Participant": "Participant",
+    "ScheduledAction": "Scheduled Action"
+  },
+
+  "SearchText": "My claims #,Policyholder,Vendor",
+  "MainSearchText": "Search... Any Claim #,Policyholder,Vendor",
+  "NoRecordText": "No records available",
+  "NoAlertText": "You don't have any alerts...!!!",
+  "NoEventsText": "There is no any upcoming event for you.",
+  "Result": "result",
+  "For": "for",
+  "Of": "of"
+
+}
+

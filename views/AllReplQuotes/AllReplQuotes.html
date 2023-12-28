@@ -1,0 +1,2283 @@
+﻿<style>
+    .table-scroll-container {
+        display: block;
+        position: relative;
+        height: fit-content;
+        max-height: 450px;
+        overflow: auto;
+    }
+
+    .table-scroll-container>table {
+        margin-bottom: 0px !important;
+    }
+
+    .footer>tr>td {
+        position: sticky;
+        bottom: 0;
+        z-index: 2;
+        background: #DCDCDC !important;
+    }
+
+    .fixed {
+        background-color: white;
+        position: sticky !important;
+    }
+
+    .fixed-top {
+        top: -1px;
+        z-index: 1;
+    }
+
+    .fixed-left {
+        left: -1px;
+        z-index: 1;
+    }
+
+    .fixed-top-left {
+        z-index: 2;
+        left: -1px;
+        top: -1px;
+    }
+
+    .left-shadow {
+        box-shadow: 5px 3px 5px 0px rgba(0, 0, 0, 0.2);
+    }
+
+    .noShadow {
+        box-shadow: none;
+    }
+</style>
+<div class="portlet padding1px">
+    <div class="portlet-body">
+        <div class="tabbable-custom">
+            <!-- <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="col-lg-4 col-lg-offset-4 col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-12 text-center">
+                        <img ng-src="assets/global/img/no-image.png" height="150px" width="150px" alt="company logo" />
+                        <label class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-10 sbold">< Insurance Company Name ></label>
+                    </div>
+                </div> -->
+            <ul class="nav nav-tabs">
+              <li ng-class="{'active': CurrentTab=='Vendor Assignments'}">
+                  <a href="#" data-toggle="tab" ng-class="{selected:CurrentTab=='Vendor Assignments'}"
+                      ng-click="ShowVendors();CurrentTab = 'Vendor Assignments'"> &nbsp;{{"Assignments"|translate}}&nbsp;
+                  </a>
+              </li>
+                <!-- <li >
+                    <a href="#" data-toggle="tab" ng-class="{selected:CurrentTab=='quotesSummarized'}"
+                        ng-click="CurrentTab ='quotesSummarized'">&nbsp;{{"Summarized Replacement Quotes"|translate}}&nbsp;</a>
+                </li> -->
+                <li ng-class="{'active': CurrentTab=='quotesByAssignments'}">
+                    <a href="#" data-toggle="tab" ng-class="{selected:CurrentTab=='quotesByAssignments'}"
+                        ng-click="CurrentTab = 'quotesByAssignments'"> &nbsp;{{"Quote By Assignments"|translate}}&nbsp;
+                    </a>
+                </li>
+                <li ng-class="{'active': CurrentTab=='Invoices'}">
+                    <a href="#" data-toggle="tab" ng-class="{selected:CurrentTab=='Invoices'}"
+                        ng-click="ShowInvoicesTab();CurrentTab = 'Invoices'">&nbsp;{{"Invoices"|translate}}&nbsp;</a>
+                </li>
+
+            </ul>
+            <div class="tab-content">
+                <div class="row">
+
+                  <!--Vendor Assignments-->
+                  <div class="padding1px" id="Vendors" ng-show="CurrentTab=='Vendor Assignments'">
+
+                  <div class="col-md-12 padding1px" ng-show="ShowAssignments">
+                      <div class="portlet light">
+                          <div class="portlet-title">
+                              <div class="caption font-gray-sharp ">
+                                  <span class="caption-subject">{{"New Vendor Assignment"|translate}}</span>
+                              </div>
+                          </div>
+                          <div class="portlet-body">
+                              <div class="col-md-12 padding1px">
+                                  <div class="col-md-12 portlet">
+                                      <div class="bordered col-md-12 col-sm-12 padding1px Section">
+                                          <div class="col-md-12 col-sm-12 padding1px margin-top-5 text-right">
+                                              <button type="button" style="margin-right: 5px;" class="btn sbold"
+                                                  ng-click="Cancel()">{{"Cancel"|translate}}</button>
+                                              <button type="button"
+                                                  ng-disabled="Servicetype == null || Servicetype.length == 0 || !SelectedVendorPostLossItem.length"
+                                                  ng-click="AssignItemToVendor()"
+                                                  class="btn sbold">{{"Submit"|translate}}</button>
+                                          </div>
+                                          <div class="col-md-12 col-sm-12 padding1px">
+                                              <div class="col-md-3 col-sm-6 col-xs-12">
+                                                  <label
+                                                      class="control-label SectionHeading">{{"1) Select the billable branch"|translate}}</label>
+                                              </div>
+                                              <div class="col-md-3 col-sm-6 col-xs-12 padding1px">
+                                                  <select class="select2me form-control" name="BranchList"
+                                                      ng-options="item.branchCode as item.branchName +', '+ item.branchCode for item in BranchList"
+                                                      ng-model="CommonObj.BranchCode"></select>
+                                              </div>
+                                          </div>
+                                          <div class="col-md-12 col-sm-12 padding1px">
+                                              <div class="col-md-2">
+                                                  <label
+                                                      class="control-label SectionHeading">{{"2) Items To Assign"|translate}}</label>
+                                              </div>
+                                          </div>
+                                          <div class="options_Background col-md-12 col-sm-12 col-lg-12 col-xs-12 ">
+                                              <div
+                                                  class="pull-right col-lg-7 col-md-5 col-sm-12 margin-top-5 margin-bottom-5 manageSearch">
+                                                  <div
+                                                      class="caption font-green-sharp col-lg-5 col-md-5 col-xs-12 col-sm-5 pull-right padding1px">
+                                                      <div class="input-icon left">
+                                                          <i class="icon-magnifier"></i>
+                                                          <input type="text"
+                                                              class="form-control form-control-solid input-circle input-block-level ng-pristine ng-untouched ng-valid ng-empty"
+                                                              ng-model="searchContentAssign"
+                                                              ng-change="filterItemsInAssignmentBySearch()"
+                                                              placeholder="search..">
+                                                      </div>
+                                                  </div>
+                                                  <div ng-show="CommonObj.ClaimProfile === 'Contents'"
+                                                      class="col-lg-5 col-md-6 col-xs-12 col-sm-5  pull-right">
+                                                      <select class="select2me form-control" name="Categories"
+                                                          ng-model="searchVendorItem.category.id"
+                                                          ng-change="filterItemsByCategoryInAssignment(searchVendorItem.category)"
+                                                          data-placeholder="CategoryList...">
+                                                          <option value="{{undefined}}">
+                                                              All</option>
+                                                          <option ng-repeat="category in DdlSourceCategoryList"
+                                                              value="{{category}}">
+                                                              {{category.categoryName}}
+                                                          </option>
+                                                      </select>
+                                                  </div>
+                                                  <div ng-show="CommonObj.ClaimProfile === 'Contents'"
+                                                      class="col-lg-1 col-md-1 col-sm-1 padding1px pull-right">
+                                                      <label class="control-label ng-binding"
+                                                          style="color:#ffffff;">View</label>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <!--Table data-->
+                                          <div class="table-responsive col-md-12 padding1px">
+                                              <table
+                                                  class="table table-striped table-bordered table-hover table-checkable order-column"
+                                                  id="sample_5">
+                                                  <thead>
+                                                      <tr>
+                                                          <th>
+                                                              <label
+                                                                  class="mt-checkbox mt-checkbox-outline mt-checkbox-single ">
+                                                                  <input type="checkbox"
+                                                                      ng-model="selectedAllVendorItem"
+                                                                      ng-click="checkAllVendorItem()" />
+                                                                  <span></span>
+                                                              </label>
+                                                          </th>
+                                                          <th ng-click="sortpostlostitem('itemNumber')">
+                                                              {{"Table.Item#"|translate}}
+                                                              <span class="glyphicon sort-icon"
+                                                                  ng-show="sortKey=='itemNumber'"
+                                                                  ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                          </th>
+                                                          <th ng-click="sortpostlostitem('description')">
+                                                              {{"Table.Description"|translate}}
+                                                              <span class="glyphicon sort-icon"
+                                                                  ng-show="sortKey=='description'"
+                                                                  ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                          </th>
+                                                          <th ng-click="sortpostlostitem('quantity')">
+                                                              {{"Table.Quantity"|translate}}
+                                                              <span class="glyphicon sort-icon"
+                                                                  ng-show="sortKey=='quantity'"
+                                                                  ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                          </th>
+                                                          <th ng-click="sortpostlostitem('insuredPrice')">
+                                                              {{"Table.StatedValue"|translate}}
+                                                              <span class="glyphicon sort-icon"
+                                                                  ng-show="sortKey=='insuredPrice'"
+                                                                  ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                          </th>
+                                                          <th ng-click="sortpostlostitem('ageYears')">
+                                                              {{"Table.Age"|translate}}
+                                                              <span class="glyphicon sort-icon"
+                                                                  ng-show="sortKey=='ageYears'"
+                                                                  ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                          </th>
+                                                          <th ng-click="sortpostlostitem('category.name')">
+                                                              {{"Table.Category"|translate}}
+                                                              <span class="glyphicon sort-icon"
+                                                                  ng-show="sortKey=='category.name'"
+                                                                  ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                          </th>
+                                                          <th ng-click="sortpostlostitem('individualLimitAmount')">
+                                                              {{"Table.IndividualLimit"|translate}}
+                                                              <span class="glyphicon sort-icon"
+                                                                  ng-show="sortKey=='individualLimitAmount'"
+                                                                  ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                          </th>
+                                                          <th ng-click="sortpostlostitem('isScheduledItem')">
+                                                              {{"Table.ScheduledItem"|translate}}
+                                                              <span class="glyphicon sort-icon"
+                                                                  ng-show="sortKey=='isScheduledItem'"
+                                                                  ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                          </th>
+                                                          <th ng-click="sortpostlostitem('status.status')">
+                                                              {{"Table.Status"|translate}}
+                                                              <span class="glyphicon sort-icon"
+                                                                  ng-show="sortKey=='status.status'"
+                                                                  ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                          </th>
+                                                      </tr>
+                                                  </thead>
+                                                  <tbody>
+                                                      <tr ng-repeat="item in VendorAssignmentList | orderBy:sortKey:reverse | limitTo : 10"
+                                                          ng-class="{true:'trBackgroundSeleted', false:''}[item.Selected]">
+                                                          <td>
+                                                              <label
+                                                                  class="mt-checkbox mt-checkbox-outline mt-checkbox-single">
+                                                                  <input type="checkbox"
+                                                                      ng-click="SelectVendorPostLostItem(item)"
+                                                                      ng-model="item.Selected"
+                                                                      ng-disabled="item.status.id==2||item.status.id ==5||item.status.id ==6||item.status.id ==7" />
+                                                                  <span></span>
+                                                              </label>
+                                                          </td>
+                                                          <td>{{item.itemNumber}}
+                                                          </td>
+                                                          <td>{{item.description}}
+                                                          </td>
+                                                          <td>{{item.quantity}}
+                                                          </td>
+                                                          <td>{{item.rcv!=null?item.rcv : item.totalStatedAmount==null ? 0 : item.totalStatedAmount |currency}}
+                                                          </td>
+                                                          <td>
+                                                              <span
+                                                                  ng-show="item.ageYears > 0  || item.ageMonths > 0">
+                                                                  {{item.ageYears > 0 ? item.ageYears+'yr ' : ""}}
+                                                                  {{item.ageMonths > 0 ? item.ageMonths + 'mo' : ""}}
+                                                              </span>
+                                                              <span
+                                                                  ng-show="item.ageYears <= 0 && item.ageMonths <=0">NA</span>
+                                                          </td>
+                                                          <td>{{item.category.name}}
+                                                          </td>
+                                                          <td>{{item.individualLimitAmount}}
+                                                          </td>
+                                                          <td><span
+                                                                  ng-if="item.isScheduledItem===true">Yes</span><span
+                                                                  ng-if="item.isScheduledItem===false">No</span>
+                                                          </td>
+                                                          <td>{{item.status.status}}
+                                                          </td>
+                                                      </tr>
+                                                      <tr
+                                                          ng-if="VendorAssignmentList ===null || VendorAssignmentList.length ==0">
+                                                          <td colspan="10" class="text-danger"
+                                                              style="text-align: center;">
+                                                              {{"No items available"|translate}}
+                                                          </td>
+                                                      </tr>
+                                                  </tbody>
+                                                  <tfoot>
+                                                  </tfoot>
+                                              </table>
+                                              <div>
+                                                  <dir-pagination-controls max-size="5" direction-links="true"
+                                                      boundary-links="true" class="pull-right">
+                                                  </dir-pagination-controls>
+                                              </div>
+                                          </div>
+                                          <!--Table data end-->
+                                          <!-- more than 10 Items -->
+                                          <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 text-center"
+                                              ng-if="VendorAssignmentList.length > 10">
+                                              <a ng-click="viewAllItems()">View all items</a>
+                                          </div>
+                                          <!--Item Count,Category,Services Required-->
+                                          <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 padding1px form-group margin-top-10 well"
+                                              style="padding:10px !important;">
+                                              <label
+                                                  class="col-md-12 col-lg-12  col-sm-12 col-xs-12">{{"Item Summary"|translate}}</label>
+                                              <div class="col-lg-4 col-md-5 col-sm-6 col-xs-12">
+                                                  <div class="col-xs-12 padding1px">
+                                                      <label
+                                                          class="control-label">{{"Total Items Selected"|translate}}&nbsp;:</label>
+                                                      <span>{{SelectedVendorPostLossItem.length}}</span>
+                                                  </div>
+
+                                                  <div class="col-xs-12 padding1px">
+                                                      <label
+                                                          class="control-label">{{"Total Stated Value"|translate}}&nbsp;:</label>
+                                                      <span>{{TotalStatedValue|currency}}</span>
+                                                  </div>
+                                              </div>
+                                              <div class="col-lg-8 col-md-9 col-sm-8 col-xs-12">
+                                                  <div class="col-lg-4 col-md-4 text-right">
+                                                      <label
+                                                          class="control-label ">{{"Selected Item Categories"|translate}}&nbsp;:</label>
+                                                  </div>
+                                                  <div class="col-lg-8 col-md-9 padding1px">
+                                                      <span ng-if="!SelectedCategories.length">0</span>
+                                                      <span ng-repeat="catname in SelectedCategories">{{catname.name}}
+                                                          <span ng-if="!$last">,
+                                                              &nbsp; </span></span>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                      <!--Item Count,Category,Services Required End-->
+                                  </div>
+                                  <div class="clearfix"></div>
+                                  <div class="clearfix margin-bottom-10"></div>
+                                  <!----Pricing Specialist List-->
+                                  <div class="clearfix"></div>
+                                  <div class="bordered col-md-12 col-sm-12 padding1px Section">
+                                      <label
+                                          class="col-md-3 col-lg-3  col-sm-4 col-xs-6  margin-bottom-5 margin-top-5 SectionHeading">{{"3) Select vendor"|translate}}</label>
+                                      <div class="options_Background col-md-12 col-sm-12 col-lg-12 col-xs-12 ">
+                                          <div
+                                              class="pull-right col-lg-7 col-md-5 col-sm-12 margin-top-5 margin-bottom-5 manageSearch">
+                                              <div
+                                                  class="caption font-green-sharp col-lg-5 col-md-5 col-xs-12 col-sm-5 pull-right padding1px">
+                                                  <div class="input-icon left">
+                                                      <i class="icon-magnifier"></i>
+                                                      <input type="text" id="searchVendorsKeyword" restrict-keypress
+                                                          ng-model="searchVendorsKeyword"
+                                                          class="form-control form-control-solid input-circle input-block-level"
+                                                          placeholder='{{"Label.SearchVendors"|translate}}'
+                                                          ng-keyup="searchVendorsKeyword.length > 0 ? ($event.keyCode == 13 && searchVendors()) : ($event.keyCode == 8 && searchVendors())" />
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                      <div class="table-responsive col-md-12 padding1px">
+                                          <table
+                                              class="table table-striped table-bordered table-hover table-checkable order-column"
+                                              id="sample_5">
+                                              <thead>
+                                                  <tr>
+                                                      <th class="table-checkbox" style="width:2%">
+                                                      </th>
+                                                      <th ng-click="sortVendors('vendorName')">
+                                                          {{"Table.VendorName"|translate}}
+                                                          <span class="glyphicon sort-icon pull-right"
+                                                              ng-show="vendorSortKey == 'vendorName'"
+                                                              ng-class="{'glyphicon-chevron-up':!reverseVendorsList,'glyphicon-chevron-down':reverseVendorsList}"></span>
+                                                      </th>
+                                                      <th ng-click="sortVendors('assignmentsInHand')">
+                                                          {{"Table.AssignmentsInHand"|translate}}
+                                                          <span class="glyphicon sort-icon pull-right"
+                                                              ng-show="vendorSortKey == 'assignmentsInHand'"
+                                                              ng-class="{'glyphicon-chevron-up':!reverseVendorsList,'glyphicon-chevron-down':reverseVendorsList}"></span>
+                                                      </th>
+                                                      <th ng-click="sortVendors('itemsInHand')">
+                                                          {{"Table.ItemsInHand"|translate}}
+                                                          <span class="glyphicon sort-icon pull-right"
+                                                              ng-show="vendorSortKey == 'itemsInHand'"
+                                                              ng-class="{'glyphicon-chevron-up':!reverseVendorsList,'glyphicon-chevron-down':reverseVendorsList}"></span>
+                                                      </th>
+                                                      <th ng-click="sortVendors('specialities')" style="width:15%">
+                                                          {{"Table.Specialities"|translate}}
+                                                          <span class="glyphicon sort-icon pull-right"
+                                                              ng-show="vendorSortKey == 'specialities'"
+                                                              ng-class="{'glyphicon-chevron-up':!reverseVendorsList,'glyphicon-chevron-down':reverseVendorsList}"></span>
+                                                      </th>
+                                                      <th ng-click="sortVendors('city')" style="width:15%">
+                                                          {{"Table.City"|translate}}
+                                                          <span class="glyphicon sort-icon pull-right"
+                                                              ng-show="vendorSortKey == 'city'"
+                                                              ng-class="{'glyphicon-chevron-up':!reverseVendorsList,'glyphicon-chevron-down':reverseVendorsList}"></span>
+                                                      </th>
+                                                  </tr>
+                                              </thead>
+                                              <tbody>
+                                                  <tr dir-paginate="Specialist in PricingSpecialist | itemsPerPage:PageSize track by $index"
+                                                      pagination-id="SpecialistList" total-items="totalVendors"
+                                                      current-page="vendorPage">
+                                                      <td>
+                                                          <label class="mt-radio mt-radio-outline mt-radio-single">
+                                                              <input type="radio" class="radio" name="specialists"
+                                                                  ng-checked="Specialist.isSelectedVendor" value="1"
+                                                                  ng-click="Specialist.isSelectedVendor = true; selectVendor(Specialist)" />
+                                                              <span></span>
+                                                          </label>
+                                                      </td>
+                                                      <td>{{Specialist.name}}</td>
+                                                      <td class="text-center">
+                                                          {{Specialist.assignmentsInHand}}
+                                                      </td>
+                                                      <td class="text-center">
+                                                          {{Specialist.itemsInHand}}
+                                                      </td>
+                                                      <td class="col-xs-3" ng-init="limit = limit; moreShown = false">{{(Specialist.specializedCategories
+                                                                                              | limitTo: limit) + (Specialist.specializedCategories.length > limit ? '...' :
+                                                                                              '')}}
+                                                          <a ng-show="Specialist.specializedCategories.length > limit && !moreShown"
+                                                              href
+                                                              ng-click="limit=Specialist.specializedCategories.length; moreShown = true">
+                                                              More
+                                                          </a>
+                                                          <a ng-show="moreShown" href
+                                                              ng-click="moreShown=false; limit=30; ">
+                                                              Less </a>
+                                                      </td>
+                                                      <td>{{Specialist.shippingAddress.city}}
+                                                      </td>
+                                                  </tr>
+                                                  <tr ng-show="!PricingSpecialist.length">
+                                                      <td colspan="12" class="text-danger"
+                                                          style="text-align: center;">
+                                                          {{"NoVendorsText"|translate}}
+                                                      </td>
+                                                  </tr>
+                                              </tbody>
+                                          </table>
+                                      </div>
+                                      <div class="col-lg-12 col-md-12 col-sm-12 padding1px">
+                                          <dir-pagination-controls max-size="3" pagination-id="SpecialistList"
+                                              direction-links="true" boundary-links="true" class="pull-right"
+                                              on-page-change="pageChanged(newPageNumber)">
+                                          </dir-pagination-controls>
+                                          <span ng-if="PricingSpecialist != null && PricingSpecialist.length > 0"
+                                              class="bold" style="color: #337ab7;">
+                                              Showing
+                                              {{ (pagesize * (vendorPage - 1))+1 }} to
+                                              {{lastRowCount}} of
+                                              {{totalVendors}} vendors </span>
+                                      </div>
+                                      <div class="clearfix"></div>
+
+                                      <!--Services Needed Start-->
+                                      <div class="col-md-12 col-sm-12 padding1px">
+                                          <label
+                                              class="col-md-3 col-lg-3  col-sm-4 col-xs-6  margin-bottom-5 margin-top-5 SectionHeading">{{"4) Services"|translate}}</label>
+                                          <div class="clearfix"></div>
+                                          <div
+                                              class="col-md-12 col-sm-12 col-xs-12 col-lg-12 padding1px margin-top-10 form-group">
+                                              <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                                                  <label
+                                                      class="col-md-2 col-sm-3 control-label Label_Text_Right"><span
+                                                          class="text-danger">*</span>{{"Services Needed"|translate}}</label>
+                                                  <div class="col-md-3 col-sm-6">
+                                                      <select class="select2me form-control" name="Service"
+                                                          ng-model="Servicetype" data-placeholder="Service..."
+                                                          ng-options="item.id as item.service for item in ContentServiceList"
+                                                          ng-change="SelectServicetype(Servicetype)"></select>
+                                                  </div>
+                                                  <div ng-if="(ContentServiceList==null || ContentServiceList.length===0)"
+                                                      class="text-danger">
+                                                      {{"No matching service request found"}}
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 clearfix"
+                                                  ng-show="Servicetype && ServiceTypeDiv === 'Quote No Contact'">
+                                                  <div
+                                                      class="col-md-10 col-sm-12 col-xs-12 col-lg-10 col-md-offset-2 col-sm-offset-3 clearfix padding1px hide">
+                                                      <div ng-repeat="item in ContentServiceList">
+                                                          <div class="col-md-3 col-sm-6"
+                                                              ng-show="item.subServices && item.service === 'Quote No Contact'"
+                                                              ng-repeat="subService in item.subServices">
+                                                              <label
+                                                                  class="mt-checkbox mt-checkbox-outline mt-checkbox-single margin-top-10">
+                                                                  <input type="checkbox"
+                                                                      ng-click="SelectSubservice(subService)"
+                                                                      ng-selected="false"
+                                                                      ng-model="subService.Selected" />
+                                                                  <span></span>
+                                                              </label>
+                                                              <label ng-disabled="true">{{subService.service}}</label>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                                  <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group">
+                                                      <label
+                                                          class="col-md-2 col-sm-3 control-label Label_Text_Right">{{"Minimum Cost of Services"|translate}}</label>
+                                                      <div class="col-md-3 col-sm-6">
+                                                          <span>{{minCost | currency}}</span>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 clearfix"
+                                                  ng-show="Servicetype && ServiceTypeDiv === 'Quote With Contact'">
+                                                  <div
+                                                      class="col-md-10 col-sm-12 col-xs-12 col-lg-10 col-md-offset-2 col-sm-offset-3 clearfix padding1px">
+                                                      <div ng-repeat="item in ContentServiceList">
+                                                          <div class="col-md-3 col-sm-6"
+                                                              ng-show="item.subServices && item.service === 'Quote With Contact' "
+                                                              ng-repeat="subService in salvageContentService">
+                                                              <label
+                                                                  class="mt-checkbox mt-checkbox-outline mt-checkbox-single margin-top-10">
+                                                                  <input type="checkbox"
+                                                                      ng-click="SelectSubservice(subService)"
+                                                                      ng-selected="false"
+                                                                      ng-model="subService.Selected" />
+                                                                  <span></span>
+                                                              </label>
+                                                              <label ng-disabled="true">{{subService.service}}</label>
+                                                              <span ng-if="CommonObj.ClaimProfile === 'Jewelry'">
+                                                              <i class="fa fa-info-circle hidden-xs" data-container="body" data-toggle="popover" data-placement="right"
+                                                                data-content="{{subService.service}}" data-trigger="hover" style="font-size:15px;margin-top:6px;padding-left: 10px;"
+                                                                ></i>
+                                                                </span>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                                  <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                                                      <label
+                                                          class="col-md-2 col-sm-3 control-label Label_Text_Right">{{"Minimum Cost of Services"|translate}}</label>
+                                                      <div class="col-md-3 col-sm-6">
+                                                          <span>{{minCost | currency}}</span>
+                                                      </div>
+                                                  </div>
+                                                  <div class="clearfix"></div>
+                                                  <!-- <label
+                                                      class="text-info col-sm-12 col-md-12 col-lg-12 col-xs-12 padding1px bottomBorder ">{{"Policyholder Details"|translate}}</label>
+                                                  <div
+                                                      class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group margin-top-10">
+
+                                                      <label
+                                                          class="col-md-2 col-sm-3  control-label Label_Text_Right">{{"First Name"|translate}}</label>
+                                                      <div class="col-md-3 col-sm-6 ">
+                                                          <input type="text" class="form-control" readonly required
+                                                              name="Firstname"
+                                                              ng-model="PolicyDetails.policyHolder.firstName"
+                                                              placeholder="{{'First Name'|translate}}">
+                                                          <div ng-message="required"
+                                                              ng-show="(Form.Firstname.$error.required && Form.Firstname.$touched)">
+                                                              <span
+                                                                  class="text-danger">{{"ErrorMessage.FirstName"|translate}}</span>
+                                                          </div>
+                                                      </div>
+
+                                                      <label
+                                                          class="col-md-2 col-sm-3 control-label Label_Text_Right">{{"Last Name"|translate}}</label>
+                                                      <div class="col-md-3 col-sm-6">
+                                                          <input type="text" readonly
+                                                              ng-model="PolicyDetails.policyHolder.lastName" required
+                                                              name="lastName" class="form-control"
+                                                              placeholder="{{'Last Name'|translate}}">
+                                                          <div ng-message="required"
+                                                              ng-show="(Form.lastName.$error.required && Form.lastName.$touched)">
+                                                              <span
+                                                                  class="text-danger">{{"ErrorMessage.lastName"|translate}}</span>
+                                                          </div>
+                                                      </div>
+
+                                                  </div>
+                                                  <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group">
+
+                                                      <label
+                                                          class="col-md-2 col-sm-3 control-label Label_Text_Right">{{"Primary Phone#"|translate}}</label>
+                                                      <div class="col-md-3 col-sm-6  ">
+                                                          <input type="text" readonly name="dayTimepHoneNo"
+                                                              ng-pattern="/^([0-9-,()\s+]{15})$/" ng-trim="false"
+                                                              maxlength="15"
+                                                              ng-model="PolicyDetails.policyHolder.dayTimePhone"
+                                                              placeholder="XXX-XXX-XXXX" phone-input
+                                                              class="input-phone form-control" />
+                                                          <div class="col-md-12" ng-message="pattern">
+                                                              <span class="text-danger"
+                                                                  ng-show="(Form.dayTimepHoneNo.$touched && Form.dayTimepHoneNo.$error.pattern)">{{"Enter valid phone number."|translate}}</span>
+                                                          </div>
+                                                      </div>
+
+                                                      <label
+                                                          class="col-md-2 col-sm-3  control-label Label_Text_Right">{{"EmailID"|translate}}</label>
+                                                      <div class="col-md-3 col-sm-6 ">
+                                                          <input type="text" readonly name="email"
+                                                              ng-model="PolicyDetails.policyHolder.email"
+                                                              pattern="[a-z0-9A-Z._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+                                                              required class="form-control"
+                                                              placeholder="{{'EmailID'|translate}}"
+                                                              ng-blur="GetPolicyHolderInfo()">
+                                                          <div ng-message="required"
+                                                              ng-show="(Form.email.$error.required && Form.email.$touched)">
+                                                              <span
+                                                                  class="text-danger">{{"ErrorMessage.EmailRequired"|translate}}</span>
+                                                          </div>
+                                                          <div ng-message="pattern"
+                                                              ng-show="(Form.email.$touched && Form.email.$error.pattern)">
+                                                              <span
+                                                                  class="text-danger">{{"ErrorMessage.ValidEmail"|translate}}</span>
+                                                          </div>
+                                                      </div>
+
+                                                  </div>
+                                                  <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group">
+
+                                                      <label
+                                                          class="col-md-2 col-sm-3 control-label Label_Text_Right">{{"Label.Address"|translate}}</label>
+                                                      <div class="col-md-3 col-sm-6">
+                                                          <input type="text" class="form-control form-group" readonly
+                                                              ng-model="PolicyDetails.policyHolder.address.streetAddressOne"
+                                                              ng-attr-placeholder="{{'Label.Streetadd1'|translate}}" />
+
+                                                          <input type="text" class="form-control form-group" readonly
+                                                              ng-model="PolicyDetails.policyHolder.address.streetAddressTwo"
+                                                              ng-attr-placeholder="{{'Label.Streetadd2'|translate}}" />
+                                                          <div class="col-sm-12 col-sm-12 clearfix">
+                                                          </div>
+
+                                                          <input type="text" class="form-control form-group" readonly
+                                                              ng-model="PolicyDetails.policyHolder.address.city"
+                                                              placeholder="{{'Label.City/town'|translate}}">
+                                                          <div class="col-sm-12 col-sm-12 clearfix">
+                                                          </div>
+
+                                                          <div class="col-md-6 col-sm-6"
+                                                              style="padding-left:0px !important">
+                                                              <select class="input-sm select2me"
+                                                                  ng-attr-placeholder="Select State" disabled
+                                                                  ng-model="PolicyDetails.policyHolder.address.state.id"
+                                                                  ng-options="option.id as option.state for option in DdlStateList"></select>
+                                                          </div>
+
+                                                          <div class="col-md-6 col-sm-6"
+                                                              style="padding-right:0px !important">
+                                                              <input type="text" class="form-control form-group"
+                                                                  name="ZipCode" readonly
+                                                                  ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/"
+                                                                  ng-maxlength="8"
+                                                                  ng-model="PolicyDetails.policyHolder.address.zipcode"
+                                                                  placeholder="{{'Label.Zip'|translate}}">
+                                                              <div ng-message="pattern"
+                                                                  ng-show="(Form.ZipCode.$error.pattern)">
+                                                                  <span
+                                                                      class="text-danger">{{"ErrorMessage.ZipCode"|translate}}</span>
+                                                              </div>
+                                                              <div ng-message="pattern"
+                                                                  ng-show="(Form.ZipCode.$error.maxlength)">
+                                                                  <span
+                                                                      class="text-danger">{{"ErrorMessage.ZipCodeMax"|translate}}</span>
+                                                              </div>
+                                                          </div>
+                                                      </div>
+
+                                                  </div>
+                                                  <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 padding1px">
+                                                      <label
+                                                          class="text-info col-sm-12 col-md-12 col-lg-12 col-xs-12 padding1px bottomBorder ">{{"Details of Coverage Limit"|translate}}</label>
+                                                      <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group">
+                                                          <label
+                                                              class="col-md-2 col-sm-3  control-label Label_Text_Right margin-top-10">{{"Tax Rate"|translate}}</label>
+                                                          <div class="col-md-3 col-sm-6 margin-top-10">
+                                                              <input type="text" name="tax" readonly
+                                                                  ng-model="ClaimStatusContent.taxRate" required
+                                                                  class="form-control form-group"
+                                                                  placeholder="{{'Tax Rate'|translate}}">
+                                                              <div ng-message="required"
+                                                                  ng-show="(Form.tax.$error.required && Form.tax.$touched)">
+                                                                  <span
+                                                                      class="text-danger">{{"Please enter tax rate."|translate}}</span>
+                                                              </div>
+                                                          </div>
+                                                      </div>
+                                                  </div> -->
+                                              </div>
+                                              <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 clearfix"
+                                                  ng-show="Servicetype && ServiceTypeDiv === 'Salvage Only'">
+                                                  <div
+                                                      class="col-md-10 col-sm-12 col-xs-12 col-lg-10 col-md-offset-2 col-sm-offset-3 clearfix padding1px">
+                                                      <div>
+                                                          <div class="col-md-3 col-sm-6"
+                                                              ng-repeat="subService in salvageContentService">
+                                                              <label
+                                                                  class="mt-checkbox mt-checkbox-outline mt-checkbox-single margin-top-10">
+                                                                  <input type="checkbox"
+                                                                      ng-click="SelectSubservice(subService)"
+                                                                      ng-selected="false"
+                                                                      ng-model="subService.Selected" />
+                                                                  <span></span>
+                                                              </label>
+                                                              <label ng-disabled="true">{{subService.service}}</label>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                                  <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group">
+                                                      <label
+                                                          class="col-md-2 col-sm-3 control-label Label_Text_Right">{{"Minimum Cost of Services"|translate}}</label>
+                                                      <div class="col-md-3 col-sm-6">
+                                                          <span>{{minCost | currency}}</span>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                      <!-- End Services Needed -->
+                                  </div>
+                                  <!----End Pricing Specialist List-->
+
+                                  <!-- Start Remarks or Instruction -->
+                                  <div class="bordered col-md-12 col-sm-12 padding1px margin-top-10 Section">
+                                      <label
+                                          class="col-md-3 col-lg-3 col-sm-4 col-xs-6 margin-bottom-5 margin-top-5 SectionHeading">{{"5) Remarks / Special Instruction"|translate}}</label>
+                                      <div class="clearfix"></div>
+                                      <div class="col-md-12 col-sm-12 margin-bottom-10">
+                                          <textarea onchange="bindRemarksToRootScope(event)"
+                                              class="form-control col-md-12 col-sm-12 col-lg-12 col-xs-12" rows="4"
+                                              maxlength="1000" typpe="text"
+                                              placeholder="{{'Remarks / Special Instruction'|translate}}"></textarea>
+                                          <span
+                                              style="color:#666; font-weight: 500;">{{"Max. 1000 characters"|translate}}</span>
+                                      </div>
+                                  </div>
+                                  <!--End Remarks / Instruction-->
+
+                                  <div class="text-right margin-top-10">
+                                      <button type="button" style="margin-right: 5px;" class="btn sbold margin-top-10"
+                                          ng-click="Cancel()">{{"Cancel"|translate}}</button>
+                                      <button
+                                          ng-disabled="Servicetype == null || Servicetype.length == 0 || !SelectedVendorPostLossItem.length"
+                                          type="button" ng-click="AssignItemToVendor()"
+                                          class="btn sbold margin-top-10">{{"Submit"|translate}}</button>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <!--End Vendor Assignments-->
+                  <!--VendorAssignment list-->
+                  <div class="col-md-12 clearfix" ng-if="ShowAssignmentsList">
+                      <div class="col-md-2 col-sm-3 col-xs-6 column">
+                          <div class="card card-border-top" style="height: 70px;">
+                              <h5 class="sbold">{{ClaimStatusContent.itemsAssignedToVendors}}</h5>
+                              <h6 class="sbold">{{"Label.itemVendor"|translate}}</h6>
+                          </div>
+                      </div>
+                      <div class="col-md-2 col-sm-3 col-xs-6 column">
+                          <div class="card card-border-top" style="height: 70px;">
+                              <h5 class="sbold">{{ClaimStatusContent.itemProcessedByVendor}}</h5>
+                              <h6 class="sbold">{{"Label.itemProcessed"|translate}}</h6>
+                          </div>
+                      </div>
+                      <div class="col-md-2 col-sm-3 col-xs-6 column hide">
+                          <div class="card card-border-top" style="height: 70px;">
+                              <h5 class="sbold">{{ClaimStatusContent.itemsNotProcessed}}</h5>
+                              <h6 class="sbold">{{"Label.itemToBeProcessed"|translate}}</h6>
+                          </div>
+                      </div>
+                      <div class="col-md-2 col-sm-3 col-xs-6 column hide">
+                          <div class="card card-border-top" style="height: 70px;">
+                              <h5 class="sbold">{{ClaimStatusContent.claimInvoiceDetails.paidToVendors|currency}}</h5>
+                              <h6 class="sbold">{{"Label.PaidToVendors"|translate}}</h6>
+                          </div>
+                      </div>
+                      <div class="col-md-2 col-sm-3 col-xs-6 column hide">
+                          <div class="card card-border-top" style="height: 70px;">
+                              <h5 class="sbold">{{ClaimStatusContent.claimInvoiceDetails.paidFromVendors|currency}}
+                              </h5>
+                              <h6 class="sbold">{{"Label.ReceivedFromVendors"|translate}}</h6>
+                          </div>
+                      </div>
+                      <div class="col-md-2 col-sm-3 col-xs-6 column hide">
+                          <div class="card card-border-top" style="height: 70px;">
+                              <h5 class="sbold">{{ClaimStatusContent.claimInvoiceDetails.unPaidToVendors|currency}}
+                              </h5>
+                              <h6 class="sbold">{{"Label.BalanceToBePaid"|translate}}</h6>
+                          </div>
+                      </div>
+                  </div>
+                  <!--End Vendor Assignment list-->
+                  <!--Vendor Invoices-->
+                  <div class="col-md-12 col-lg-12 col-sm-12 padding1px margin-top-20" ng-if="ShowAssignmentsList">
+                      <div class="col-md-12 col-sm-12 col-lg-12 table-responsive">
+                          <table class="table table-bordered table-striped table-hover" style="cursor: pointer;">
+                              <thead>
+                                  <tr>
+                                      <th ng-click="sortVendorList('')">
+                                          {{"Table.AssignmentId"|translate}}
+                                      </th>
+                                      <th ng-click="sortVendorList('')">
+                                          {{"Table.VendorNames"|translate}}
+                                      </th>
+                                      <th ng-click="sortVendorList('')">
+                                          {{"Table.items"|translate}}
+                                      </th>
+                                      <th ng-click="sortVendorList('')">
+                                          {{"Table.ServiceRequested"|translate}}
+                                      </th>
+                                      <th ng-click="sortVendorList('')">
+                                          {{"Table.Status"|translate}}
+                                      </th>
+                                      <th ng-click="sortVendorList('')">
+                                          {{"Table.StartDate"|translate}}
+                                      </th>
+                                      <th ng-click="sortVendorList('')">
+                                          {{"Table.FirstTouch"|translate}}
+                                      </th>
+                                      <th ng-click="sortVendorList('')">
+                                          {{"Table.MaxClaimTime"|translate}}
+                                          <span ng-show="sortVendorKey==''"></span>
+                                      </th>
+                                      <th ng-click="sortVendorList('')">
+                                          {{"Table.TimeTaken"|translate}}
+                                      </th>
+                                      <!-- <th ng-click="sortVendorList('')">
+                                          {{"Table.Invoicedollar"|translate}}
+                                      </th> -->
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  <tr
+                                      ng-repeat="item in ItemAssignmentList|orderBy:sortVendorKey:sortVendorreverse track by $index">
+                                      <td ng-click="GotoAssignmentDetails(item)">
+                                          {{item.assignmentNumber}} </td>
+                                      <td ng-click="GotoAssignmentDetails(item)">
+                                          {{item.vendorDetails.vendorName}}</td>
+                                      <td ng-click="GotoAssignmentDetails(item)">
+                                          {{item.noOfAssignedItems}} </td>
+                                      <td ng-click="GotoAssignmentDetails(item)">
+                                          <font ng-repeat="service in item.requestedServices">
+                                              <span>{{service.name}}</span><span ng-if="!$last">,
+                                              </span>
+                                              <p>
+                                                  <span
+                                                      ng-if="service.subServicesRequested != null && service.subServicesRequested.length>0">(</span>
+                                                  <span
+                                                      ng-repeat="subService in service.subServicesRequested">{{subService.service}}<span
+                                                          ng-if="!$last">,&nbsp;</span></span>
+                                                  <span
+                                                      ng-if="service.subServicesRequested != null && service.subServicesRequested.length>0">)</span>
+                                              </p>
+                                          </font>
+                                      </td>
+                                      <td ng-click="GotoAssignmentDetails(item)">
+                                          {{item.assignmentStatus.name}} </td>
+                                      <td ng-click="GotoAssignmentDetails(item)">
+                                          {{item.startDate|DateFormatMMddyyyyHHmm}} </td>
+                                      <td ng-click="GotoAssignmentDetails(item)">
+                                          {{item.firstTouch|DateFormatMMddyyyyHHmm}}</td>
+                                      <td ng-click="GotoAssignmentDetails(item)"></td>
+                                      <td ng-click="GotoAssignmentDetails(item)">{{item.timeTaken}}</td>
+                                      <!-- <td ng-click="GotoAssignmentDetails(item)">
+                                          {{item.invoiceDollarValue}}</td> -->
+                                  </tr>
+                                  <tr>
+                                      <td colspan="10" class="text-danger text-center"
+                                          ng-if="ItemAssignmentList.length==0 ||ItemAssignmentList==null">
+                                          {{"NoAssignmentText"|translate}}</td>
+                                  </tr>
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+                  <div class="clearfix"></div>
+                  <!--Assignment Details-->
+                  <div class="col-md-12 col-sm-12" ng-show="ShowAssignmentDetails">
+                      <div class="portlet light padding1px">
+                          <div class="portlet-title">
+                              <div class="caption font-gray-sharp">
+                                  <span class="caption-subject">{{"Asssignment#"|translate}}
+                                      &nbsp;-
+                                      &nbsp;{{AssginmentDetails.assignmentNumber}}</span>
+                              </div>
+                          </div>
+                          <div class="portlet-body">
+                              <div class="row">
+                                  <div class="col-md-12 col-sm-12 margin-top-10" style="padding: 0px;">
+                                      <div class="col-md-4" style="padding: 0px;">
+                                          <div class="col-md-12 col-sm-12 portlet light bordered padding1px AssignMentDiv">
+                                            <div class="col-md-12 col-sm-12 form-group">
+                                                <div class="col-md-2 col-sm-6 text-right">
+                                                    <label class="control-label">{{"Status"|translate}}</label>
+                                                </div>
+                                                <div class="col-md-3 col-sm-6">
+                                                    <span
+                                                        class="control-label">{{AssginmentDetails.status.status}}</span>
+                                                </div>
+                                                <div class="col-md-4 col-sm-4 text-right"
+                                                    style="padding-left: 0px;">
+                                                    <label class="control-label">Assignment
+                                                        Rating</label>
+                                                </div>
+                                                <div class="col-md-3 col-sm-4 text-left" style="padding: 0px;">
+                                                    <ul class="rate-area" style="padding: 0px;">
+                                                       
+                                                        <input type="radio" id="5-star" name="rating5"
+                                                            ng-model="assignmentRating" value="5"
+                                                            ng-click="sendAssignmentRating(AssginmentDetails.assignmentNumber,assignmentRating)"><label
+                                                            for="5-star" title="Amazing">5
+                                                            stars</label>
+                                                        <input type="radio" id="4-star" name="rating4"
+                                                            ng-model="assignmentRating"
+                                                            ng-click="sendAssignmentRating(AssginmentDetails.assignmentNumber,assignmentRating)"
+                                                            value="4" /><label for="4-star" title="Good">4
+                                                            stars</label>
+                                                        <input type="radio" id="3-star" name="rating3"
+                                                            ng-model="assignmentRating"
+                                                            ng-click="sendAssignmentRating(AssginmentDetails.assignmentNumber,assignmentRating)"
+                                                            value="3" /><label for="3-star" title="Average">3
+                                                            stars</label>
+                                                        <input type="radio" id="2-star" name="rating3"
+                                                            ng-model="assignmentRating"
+                                                            ng-click="sendAssignmentRating(AssginmentDetails.assignmentNumber,assignmentRating)"
+                                                            value="2" /><label for="2-star" title="Not Good">2
+                                                            stars</label>
+                                                        <input type="radio" id="1-star" name="rating1"
+                                                            ng-model="assignmentRating"
+                                                            ng-click="sendAssignmentRating(AssginmentDetails.assignmentNumber,assignmentRating)"
+                                                            value="1" /><label for="1-star" title="Bad">1
+                                                            star</label>
+                                                    </ul>
+                                                </div>
+                                            </div>
+
+                                              <div class="col-md-12 col-sm-12 form-group">
+                                                  <div class="col-md-2 col-sm-6 text-right">
+                                                      <label class="control-label">{{"Vendor Name"|translate}}</label>
+                                                  </div>
+                                                  <div class="col-md-3 col-sm-6">
+                                                      <span
+                                                          class="control-label">{{AssginmentDetails.vendor.vendorName}}</span>
+                                                  </div>
+
+                                                  <div class="col-md-3 col-sm-6 text-right">
+                                                      <label class="control-label">{{"Address"|translate}}</label>
+                                                  </div>
+                                                  <div class="col-md-4 col-sm-6">
+                                                      <span class="control-label">
+                                                          {{AssginmentDetails.vendor.billingAddress.streetAddressOne}}
+                                                          <br />
+                                                          {{AssginmentDetails.vendor.billingAddress.streetAddressTwo}}
+                                                          <br />
+                                                          {{AssginmentDetails.vendor.billingAddress.city}}
+                                                          <br />
+                                                          {{AssginmentDetails.vendor.billingAddress.zipcode}}
+                                                          <br />
+
+                                                      </span>
+                                                  </div>
+                                                  <div class="col-md-3 col-sm-6 text-right">
+                                                      <label class="control-label">Contracted Claim Time</label>
+                                                  </div>
+                                                  <div class="col-md-3 col-sm-6">
+                                                      <span class="control-label">{{AssginmentDetails.maxClaimTime}}
+                                                          <span ng-if="AssginmentDetails.maxClaimTime >1">days</span>
+                                                          <span ng-if="AssginmentDetails.maxClaimTime == 1">day</span>
+                                                      </span>
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-12 col-sm-12 form-group"
+                                                  ng-if="AssginmentDetails.associate.email != null || AssginmentDetails.associate.email == ''">
+                                                  <div class="col-md-3 col-sm-6 text-right">
+                                                      <label class="control-label"></label>
+                                                  </div>
+                                                  <div class="col-md-9 col-sm-6">
+                                                      <span
+                                                          class="control-label">{{AssginmentDetails.associate.email}}</span>
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-12 col-sm-12 form-group"
+                                                  ng-if="AssginmentDetails.associate.cellPhone != null || AssginmentDetails.associate.cellPhone == ''">
+                                                  <div class="col-md-3 col-sm-6 text-right">
+                                                      <label class="control-label"></label>
+                                                  </div>
+                                                  <div class="col-md-9 col-sm-6">
+                                                      <span
+                                                          class="control-label">{{AssginmentDetails.associate.cellPhone}}</span>
+                                                  </div>
+                                              </div>
+
+                                              <div class="col-md-12 col-sm-12 form-group padding1px">
+                                                  <div class="col-md-12 col-sm-12 padding1px">
+                                                      <div class="col-md-3 text-right">
+                                                          <label
+                                                              class="control-label">{{"Service Requested "|translate}}</label>
+                                                      </div>
+
+                                                      <div class="col-md-9 text-left" ng-if="!editServicesRequested">
+                                                          <label
+                                                              class="control-label">{{AssginmentDetails.contentService.service}}
+                                                              &nbsp;&nbsp;<span ng-click="editServices('1')"
+                                                                  class="fa fa-pencil fa-2x UpdateServices"
+                                                                  style="font-size: 1.5em;"></span></label>
+
+                                                          <span
+                                                              ng-if="AssginmentDetails.contentService.subServices != null && AssginmentDetails.contentService.subServices.length>0">(</span>
+                                                          <span
+                                                              ng-repeat="service in AssginmentDetails.contentService.subServices">{{service.service}}<span
+                                                                  ng-if="!$last">,&nbsp;</span></span>
+                                                          <span
+                                                              ng-if="AssginmentDetails.contentService.subServices != null && AssginmentDetails.contentService.subServices.length>0">)</span>
+                                                      </div>
+
+                                                      <div class="col-md-9 text-left" ng-if="editServicesRequested">
+                                                          <select class="select2me form-control col-md-12"
+                                                              style="height:25px;width:160px !important"
+                                                              name="Service" ng-required="true" ng-model="Servicetype"
+                                                              data-placeholder="Service..."
+                                                              ng-options="item.id as item.service for item in ContentServiceList"
+                                                              ng-change="selectAssignmentContentServices((ContentServiceList|filter:{id:Servicetype})[0])"></select>
+                                                          &nbsp;&nbsp;<span
+                                                              class="fa fa-check font-green-dark UpdateServices"
+                                                              ng-click="updateServices()"
+                                                              style="font-size:20px;line-height:24px;"></span><span
+                                                              class="fa fa-close text-danger UpdateServices"
+                                                              ng-click="editServices('0')"
+                                                              style="font-size:20px"></span>
+                                                          <div ng-show="ServiceTypeDiv == 'Quote No Contact'">
+                                                              <div
+                                                                  class="col-md-12 col-sm-12 col-xs-12 margintop5 clearfix form-group padding1px">
+                                                                  <div ng-repeat="item in ContentServiceList">
+                                                                      <div class="col-md-6 col-sm-6"
+                                                                          style="padding-left : 0px !important;padding-right : 0px !important;"
+                                                                          ng-show="item.subServices && item.service=='Quote No Contact'"
+                                                                          ng-repeat="subService in item.subServices">
+                                                                          <div>
+                                                                              <label
+                                                                                  class="mt-checkbox mt-checkbox-outline mt-checkbox-single">
+                                                                                  <input type="checkbox"
+                                                                                      ng-model="subService.Selected"
+                                                                                      ng-click="SelectSubservice(subService)" />
+                                                                                  <span></span>
+                                                                              </label>
+                                                                              <label
+                                                                                  ng-disabled="true">{{subService.service|translate}}</label>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                          <div ng-show="ServiceTypeDiv == 'Quote With Contact'">
+                                                              <div
+                                                                  class="col-md-12 col-sm-12 col-xs-12 clearfix form-group padding1px">
+                                                                  <div ng-repeat="item in ContentServiceList">
+                                                                      <div class="col-md-6 col-sm-6"
+                                                                          style="padding-left : 0px !important;padding-right : 0px !important;"
+                                                                          ng-show="item.subServices && item.service=='Quote With Contact' "
+                                                                          ng-repeat="subService in item.subServices">
+                                                                          <label
+                                                                              class="mt-checkbox mt-checkbox-outline mt-checkbox-single">
+                                                                              <input type="checkbox"
+                                                                                  ng-click="SelectSubservice(subService)"
+                                                                                  ng-model="subService.Selected" />
+                                                                              <span></span>
+                                                                          </label>
+                                                                          <label
+                                                                              ng-disabled="true">{{subService.service|translate}}</label>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                      </div>
+                                                      <div ng-message="required"
+                                                          ng-show="ContentsForm.JewelryServicesNeeded.$error.required">
+                                                          <span style="margin-left: 15px !important"
+                                                              class="text-danger">{{"Select services needed"|translate}}</span>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-12 col-sm-12 form-group padding1px"
+                                                  ng-show="(ServiceTypeDiv == 'Quote with Contact')||(ServiceTypeDiv == 'Quote No Contact')">
+                                                  <div class="col-md-12 col-sm-12 padding1px">
+                                                      <div class="col-md-3 text-right">
+                                                          <label
+                                                              class="control-label">{{"Minimum Cost of Services"|translate}}</label>
+                                                      </div>
+                                                      <div class="col-md-8 text-left">
+                                                          <span class="control-label">{{minCost | currency}}</span>
+                                                      </div>
+                                                  </div>
+                                              </div>
+
+                                              <div class="col-md-12 col-sm-12 form-group">
+                                                  <div class="col-md-3 col-sm-6 text-right">
+                                                      <label
+                                                          class="control-label">{{"Date Assigned"|translate}}</label>
+                                                  </div>
+                                                  <div class="col-md-3 col-sm-6">
+                                                      <span
+                                                          class="control-label">{{AssginmentDetails.startDate|DateTimeMMddyyyyhmmTime}}</span>
+                                                  </div>
+                                                  <div class="col-md-3 col-sm-6 text-right padding1px">
+                                                      <label class="control-label">{{"End Date"|translate}}</label>
+                                                  </div>
+
+                                                  <div class="col-md-3 col-sm-6">
+                                                      <span
+                                                          class="control-label">{{AssginmentDetails.endDate | DateTimeMMddyyyyhmmTime}}</span>
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-12 col-sm-12 form-group  padding1px">
+                                                  <div class="col-md-3 col-sm-6 text-right">
+                                                      <label class="control-label">{{"First Touch"|translate}}</label>
+                                                  </div>
+                                                  <div class="col-md-3 col-sm-6">
+                                                      <span
+                                                          class="control-label">{{AssginmentDetails.firstTouchTime | DateTimeMMddyyyyhmmTime}}
+                                                      </span><br>
+                                                      <span class="control-label"
+                                                          ng-if=AssginmentDetails.firstTouchDuration!=null>
+                                                          ({{AssginmentDetails.firstTouchDuration}})
+                                                      </span>
+                                                  </div>
+                                                  <div class="col-md-3 col-sm-6 text-right">
+                                                      <label
+                                                          class="control-label">{{"Time Elapsed"|translate}}</label>
+                                                  </div>
+                                                  <div class="col-md-3 col-sm-6">
+                                                      <span
+                                                          class="control-label">{{AssginmentDetails.timeTakenFormatted}}</span>
+                                                  </div>
+                                              </div>
+
+                                              <div class="col-md-12 col-sm-12 form-group">
+                                                  <div class="col-md-3 col-sm-6 text-right">
+                                                      <label class="control-label">{{"Tax"|translate}}</label>
+                                                  </div>
+                                                  <div class="col-md-9 col-sm-6">
+                                                      <span class="control-label">{{AssginmentDetails.taxRate}}</span>
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-12 col-sm-12">
+                                                  <div class="col-md-3 Div_Space text-center padding1px">
+                                                      <div class="card card-border-top ">
+                                                          <h5 class="sbold ng-binding">
+                                                              {{AssginmentDetails.numberOfItems}}</h5>
+                                                          <h6 class="sbold ng-binding">{{"#items assigned"|translate}}
+                                                          </h6>
+                                                      </div>
+
+                                                  </div>
+                                                  <div class="col-md-3 Div_Space text-center padding1px">
+                                                      <div class="card card-border-top ">
+                                                          <h5 class="sbold ng-binding">
+                                                              {{AssginmentDetails.itemProcessed}}</h5>
+                                                          <h6 class="sbold ng-binding">
+                                                              {{"#items processed"|translate}}</h6>
+                                                      </div>
+
+                                                  </div>
+                                                  <div class="col-md-3 Div_Space text-center padding1px">
+                                                      <div class="card card-border-top ">
+                                                          <h5 class="sbold ng-binding"> {{totalQuote | currency}}</h5>
+                                                          <h6 class="sbold ng-binding">Total Quote</h6>
+                                                      </div>
+                                                  </div>
+                                                  <div class="col-md-3 Div_Space text-center padding1px">
+                                                    <div class="card card-border-top ">
+                                                        <h5 class="sbold ng-binding"> {{AssginmentDetails.invoiceTotal | currency}}</h5>
+                                                        <h6 class="sbold ng-binding">Total Invoice</h6>
+                                                    </div>
+                                                </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                      <div class="col-md-3" style="padding-right: 0px;">
+                                          <div class="col-md-12 portlet light bordered bordered">
+                                              <div class="SubHeadingDiv col-xs-12 caption font-gray-sharp">
+                                                  Replacement Quote
+                                              </div>
+                                              <div class="col-md-12 form-group"
+                                                  ng-repeat="quoteNumber in AssginmentDetails.quoteNumbers">
+                                                  <a href="$"
+                                                      ng-click="GoToViewQuote(AssginmentDetails.assignmentNumber,quoteNumber)">{{quoteNumber}}</a>
+
+                                              </div>
+                                              <div class="col-md-12 "
+                                                  ng-hide="AssginmentDetails.quoteNumbers.length>0">
+                                                  <span class="text-danger">No Records found</span>
+                                              </div>
+                                          </div>
+                                          <div class="col-md-12 portlet light bordered bordered">
+                                              <div class="SubHeadingDiv col-xs-12 caption font-gray-sharp">
+                                                  Vendor Invoices
+                                              </div>
+                                              <div class="col-md-12 form-group padding1px"
+                                                  ng-repeat="invoice in AssginmentDetails.invoices">
+                                                  <a href="#" ng-click="GotoInvoiceDetails(invoice)">
+                                                      {{invoice.amount|currency}} crated by
+                                                      {{invoice.createdByContact.lastName}},{{invoice.createdByContact.firstName}}
+                                                      on
+                                                      {{invoice.createDate | DateFormatMMddyyyy}}
+                                                  </a>
+                                              </div>
+                                              <div class="col-md-12 " ng-hide="AssginmentDetails.invoices.length>0">
+                                                  <span class="text-danger">No Records found</span>
+                                              </div>
+                                          </div>
+                                          <div class="col-md-12 portlet light bordered bordered">
+                                              <div class="SubHeadingDiv col-xs-12 caption font-gray-sharp">
+                                                  Vendor Team
+                                              </div>
+                                              <!--  -->
+                                              <div class="col-md-12 form-group padding1px"
+                                                  ng-repeat="participant in AssginmentDetails.participants">
+                                                  <span data-toggle="tooltip" data-placement="top"
+                                                      title="{{participant.email}},{{participant.dayTimePhone}}">
+                                                      {{participant.lastName}},{{participant.firstName}}
+                                                      ({{participant.roleName}})
+                                                  </span>
+                                                  <i style="font-size:15px" class="fa" data-toggle="tooltip"
+                                                      data-placement="top"
+                                                      title="{{participant.email}},{{participant.dayTimePhone}}">&nbsp;&nbsp;&nbsp;&#9432;</i>
+                                              </div>
+                                              <div class="col-md-12 "
+                                                  ng-hide="AssginmentDetails.participants.length>0">
+                                                  <span class="text-danger">No Records found</span>
+                                              </div>
+                                          </div>
+                                      </div>
+
+
+
+                                      <div class="col-md-5  AssignMentDiv tabbable-customNew"
+                                          style="height: 430px !important;">
+                                          <ul class="nav nav-tabs">
+                                              <li ng-class="{'active': graphTab=='LineGraph'}">
+                                                  <a href="#" data-toggle="tab"
+                                                      ng-click="graphTab = 'LineGraph'">Assignment
+                                                      Life Cycle</a></li>
+                                              <li ng-class="{'active': graphTab=='barGraph'}">
+                                                  <a href="#" data-toggle="tab"
+                                                      ng-click="graphTab = 'barGraph'">Contract
+                                                      Compliance</a></li>
+                                          </ul>
+                                          <div class="tab-content text-center">
+                                              <div class="row ">
+                                                  <div class="col-md-12 col-sm-12" ng-show="graphTab=='LineGraph'">
+                                                      <div id="lineChart"></div>
+                                                  </div>
+
+                                                  <div class="col-md-12 col-sm-12" ng-show="graphTab=='barGraph'">
+                                                      <div class="col-md-2 col-sm-12"> </div>
+                                                      <div class="col-md-8 col-sm-12">
+                                                          <div id='barGraph'></div>
+                                                      </div>
+
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+
+                                      <div class="col-md-12 padding1px">
+                                          <div class="portlet light padding1px">
+                                              <div class="portlet-title">
+                                                  <div class="caption font-gray-sharp">
+                                                      <span
+                                                          class="caption-subject">{{"Contents List"|translate}}&nbsp;({{AssignmentItemList.length}})</span>
+                                                  </div>
+                                              </div>
+                                              <div class="portlet-body">
+                                                  <!--Start Options Div-->
+                                                  <div
+                                                      class="col-lg-12 col-md-12 col-sm-12 col-xs-12 options_Background padding1px">
+                                                      <div
+                                                          class="pull-right col-lg-7 col-md-5 col-sm-12 margin-top-5 margin-bottom-5 manageSearch">
+                                                          <div
+                                                              class="caption font-green-sharp col-lg-5 col-md-5 col-xs-12 col-sm-5 pull-right padding1px">
+                                                              <div class="input-icon left">
+                                                                  <i class="icon-magnifier"></i>
+                                                                  <input type="text"
+                                                                      class="form-control form-control-solid input-circle input-block-level"
+                                                                      ng-model="searchDamagedContent"
+                                                                      placeholder="{{'ItemsOrReplacementDesc'|translate}}">
+                                                              </div>
+                                                          </div>
+                                                          <div ng-show="CommonObj.ClaimProfile === 'Contents'"
+                                                              class="col-lg-5 col-md-6 col-xs-12 col-sm-5  pull-right">
+                                                              <select class="select2me form-control" name="Categories"
+                                                                  ng-model="CommonObj.Categories"
+                                                                  data-placeholder="CategoryList..."
+                                                                  ng-change="GetItemsByCategory()">
+                                                                  <option value="ALL">
+                                                                      All</option>
+                                                                  <option
+                                                                      ng-repeat="category in DdlSourceCategoryList"
+                                                                      value="{{category.categoryId}}">
+                                                                      {{category.categoryName}}
+                                                                  </option>
+                                                              </select>
+                                                          </div>
+                                                          <div ng-show="CommonObj.ClaimProfile === 'Contents'"
+                                                              class="col-lg-1 col-md-1 col-sm-1 padding1px pull-right">
+                                                              <label class="control-label"
+                                                                  style="color:#ffffff;">{{"ControlText.View_title"|translate}}</label>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                                  <!--End Options Div-->
+                                                  <div
+                                                      class="table-responsive col-md-12 PostLossItemList padding1px ServiceRequestheight">
+                                                      <table
+                                                          class="table dataTable table-striped table-bordered table-hover table-checkable order-column"
+                                                          id="NavigateTable">
+                                                          <thead>
+                                                              <tr>
+                                                              <tr>
+                                                                  <th class="Width4P"
+                                                                      ng-click="sortpostlostitem('claimItem.itemNumber')">
+                                                                      {{"Table.ItemNumber"|translate}}
+                                                                      <span class="glyphicon sort-icon"
+                                                                          ng-show="sortKey=='claimItem.itemNumber'"
+                                                                          ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                                  </th>
+                                                                  <th ng-show="AddNewItem===true|| EditItem===true">
+                                                                      {{"Table.ItemName"|translate}}
+                                                                  </th>
+                                                                  <th ng-click="sortpostlostitem('claimItem.description')"
+                                                                      class="Width10P">
+                                                                      {{"Table.ItemDescription"|translate}}
+                                                                      <span class="glyphicon sort-icon"
+                                                                          ng-show="sortKey=='claimItem.description'"
+                                                                          ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                                  </th>
+                                                                  <th class="Width6P statusHeading"
+                                                                      ng-click="sortpostlostitem('claimItem.status.status')">
+                                                                      {{"Table.Status"|translate}}
+                                                                      <span class="glyphicon sort-icon"
+                                                                          ng-show="sortKey=='claimItem.status.status'"
+                                                                          ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                                  </th>
+                                                                  <th class="Width9P"
+                                                                      ng-click="sortpostlostitem('claimItem.category.name')">
+                                                                      {{"Table.Category"|translate}}
+                                                                      <span class="glyphicon sort-icon"
+                                                                          ng-show="sortKey=='claimItem.category.name'"
+                                                                          ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                                  </th>
+                                                                  <th ng-show="AddNewItem===true || EditItem===true"
+                                                                      ng-click="sortpostlostitem('claimItem.subCategory.name')">
+                                                                      {{"Table.SubCategory"|translate}}
+                                                                      <span class="glyphicon sort-icon"
+                                                                          ng-show="sortKey=='claimItem.subCategory.name'"
+                                                                          ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                                  </th>
+                                                                  <th class="Width3P"
+                                                                      ng-click="sortpostlostitem('claimItem.ageYears')">
+                                                                      {{"Table.Age"|translate}}
+                                                                      <span class="glyphicon sort-icon"
+                                                                          ng-show="sortKey=='claimItem.ageYears'"
+                                                                          ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                                  </th>
+                                                                  <th class="Width3P"
+                                                                      ng-click="sortpostlostitem('claimItem.quantity')">
+                                                                      {{"Table.Qty"|translate}}
+                                                                      <span class="glyphicon sort-icon"
+                                                                          ng-show="sortKey=='claimItem.quantity'"
+                                                                          ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                                  </th>
+                                                                  <th class="Width7P"
+                                                                      ng-click="sortpostlostitem('claimItem.totalStatedAmount')">
+                                                                      {{"Table.InsuredsUnitCost"|translate}}
+                                                                      <span class="glyphicon sort-icon"
+                                                                          ng-show="sortKey=='claimItem.totalStatedAmount'"
+                                                                          ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                                  </th>
+                                                                  <th class="Width7P"
+                                                                      ng-click="sortpostlostitem('claimItem.totalStatedAmount')">
+                                                                      {{"Assigned To"|translate}}
+                                                                      <span class="glyphicon sort-icon"
+                                                                          ng-show="sortKey=='claimItem.totalStatedAmount'"
+                                                                          ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                                  </th>
+                                                                  <th class="Width10P"
+                                                                      ng-click="sortpostlostitem('claimItem.adjusterDescription')"
+                                                                      ng-show="AddNewItem===false && EditItem===false">
+                                                                      {{"Table.ReplacementDescription"|translate}}
+                                                                      <span class="glyphicon sort-icon"
+                                                                          ng-show="sortKey=='claimItem.adjusterDescription'"
+                                                                          ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                                  </th>
+
+                                                                  <th class="Width6P"
+                                                                      ng-show="AddNewItem===false && EditItem===false"
+                                                                      ng-click="sortpostlostitem('claimItem.rcvTotal')">
+                                                                      {{"Table.ReplacementCost"|translate}}
+                                                                      <span class="glyphicon sort-icon"
+                                                                          ng-show="sortKey=='claimItem.rcvTotal'"
+                                                                          ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                                  </th>
+                                                                  <th class="Width6P"
+                                                                      ng-show="AddNewItem===false && EditItem===false"
+                                                                      ng-click="sortpostlostitem('claimItem.depriciationRate')">
+                                                                      {{"Table.Depriciation"|translate}}
+                                                                      <span class="glyphicon sort-icon"
+                                                                          ng-show="sortKey=='claimItem.depriciationRate'"
+                                                                          ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                                  </th>
+                                                                  <th class="Width4P"
+                                                                      ng-show="AddNewItem===false && EditItem===false"
+                                                                      ng-click="sortpostlostitem('claimItem.acv')">
+                                                                      {{"Table.ACV"|translate}}
+                                                                      <span class="glyphicon sort-icon"
+                                                                          ng-show="sortKey=='claimItem.acv'"
+                                                                          ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                                  </th>
+                                                                  <!-- <th class="Width4P"
+                                                                      ng-show="AddNewItem===false && EditItem===false">
+                                                                      {{"Table.Quote"|translate}}
+                                                                  </th> -->
+                                                                  <th class="Width4P">
+                                                                      {{"Table.MER"|translate}}
+                                                                  </th>
+
+                                                              </tr>
+                                                          </thead>
+                                                          <tbody>
+                                                              <tr
+                                                                  dir-paginate="item in AssignmentItemList|orderBy:sortKey:reverse|filter:searchDamagedContent|itemsPerPage:AssignmentItemList.length">
+                                                                  <td ng-click="GoToDetails(item.claimItem)">
+                                                                      {{item.claimItem.itemNumber}}
+                                                                  </td>
+
+                                                                  <td ng-click="GoToDetails(item.claimItem)">
+                                                                      {{item.claimItem.description}}
+                                                                  </td>
+                                                                  <td ng-click="GoToDetails(item.claimItem)">
+                                                                      <span>
+                                                                          {{item.claimItem.status.status|limitTo: 15}}
+                                                                          <span>{{item.claimItem.status.status.length >  15 ? '...' : ''}}</span>
+                                                                      </span>
+                                                                  </td>
+                                                                  <td ng-click="GoToDetails(item.claimItem)">
+                                                                      {{item.claimItem.category.name}}
+                                                                  </td>
+                                                                  <td ng-click="GoToDetails(item.claimItem)"
+                                                                      class="text-right">
+                                                                      <span
+                                                                          ng-if="(item.claimItem.ageYears!=0 && item.claimItem.ageYears!=null)&&(item.claimItem.ageMonths!=0 && item.claimItem.ageMonths!=null)">
+                                                                          {{item.claimItem.ageYears+'yr' + item.claimItem.ageMonths +'mo'}}
+                                                                      </span>
+                                                                      <span
+                                                                          ng-if="(item.claimItem.ageYears==0||item.claimItem.ageYears==null) && (item.claimItem.ageMonths!=0 && item.claimItem.ageMonths!=null )">{{item.claimItem.ageMonths+'mo'}}</span>
+                                                                      <span
+                                                                          ng-if="(item.claimItem.ageYears!=0 && item.claimItem.ageYears!=null) && (item.claimItem.ageMonths==0 || item.claimItem.ageMonths==null )">{{item.claimItem.ageYears+'yr'}}</span>
+                                                                      <span
+                                                                          ng-if="(item.claimItem.ageYears==0||item.claimItem.ageYears==null )&& (item.claimItem.ageMonths==0||item.claimItem.ageMonths==null)">NA</span>
+                                                                  </td>
+                                                                  <td ng-click="GoToDetails(item.claimItem)"
+                                                                      class="text-right">
+                                                                      {{item.claimItem.quantity}}
+                                                                  </td>
+                                                                  <td ng-click="GoToDetails(item.claimItem)"
+                                                                      class="text-right">
+                                                                      {{item.claimItem.totalStatedAmount ? item.claimItem.totalStatedAmount : 0 | currency}}
+                                                                  </td>
+                                                                  <td ng-click="GoToDetails(item.claimItem)"
+                                                                      class="text-right">
+                                                                      {{item.vendorAssociate.lastName}},{{item.vendorAssociate.firstName}}
+                                                                  </td>
+                                                                  <td ng-click="GoToDetails(item.claimItem)"
+                                                                      class="col-xs-3"
+                                                                      ng-init="desclimit = desclimit; descMoreShown = false">{{
+                                                                                                              item.claimItem.adjusterDescription ?
+                                                                                                              ((item.claimItem.adjusterDescription
+                                                                                                          | limitTo: desclimit) + (item.claimItem.adjusterDescription.length > desclimit ?
+                                                                                                          '...' :
+                                                                                                          '')) : ''}}
+                                                                      <a ng-show="item.claimItem.adjusterDescription.length > desclimit && !descMoreShown"
+                                                                          stop-propagation
+                                                                          ng-click="desclimit=item.claimItem.adjusterDescription.length; descMoreShown = true">
+                                                                          More
+                                                                      </a>
+                                                                      <a ng-show="descMoreShown" href stop-propagation
+                                                                          ng-click="descMoreShown = false; desclimit=30; ">
+                                                                          Less
+                                                                      </a>
+                                                                  </td>
+                                                                  <td ng-click="GoToDetails(item.claimItem)"
+                                                                      class="text-right">
+                                                                      {{item.claimItem.rcvTotal ? item.claimItem.rcvTotal : 0 | currency }}
+                                                                  </td>
+                                                                  <td ng-click="GoToDetails(item.claimItem)"
+                                                                      class="text-right">
+                                                                      {{item.claimItem.depreciationAmount ? item.claimItem.depreciationAmount : 0 | currency }}
+                                                                  </td>
+                                                                  <td>
+                                                                      {{item.claimItem.acv ? item.claimItem.acv : 0| currency}}
+                                                                  </td>
+                                                                  <!-- <td>
+                                                                      <a
+                                                                          ng-click="GoToViewQuote(AssginmentDetails.assignmentNumber,commonViewQouteNumber)">Quote</a>
+                                                                  </td> -->
+                                                                  <td>
+                                                                      <a ng-click="GoToMER(item.claimItem)">MER</a>
+                                                                  </td>
+                                                              </tr>
+                                                          </tbody>
+                                                      </table>
+                                                      <div ng-show="!AssignmentItemList.length"
+                                                          class="col-md-12 text-center text-danger">
+                                                          {{"NoRecordText"|translate}}
+                                                      </div>
+                                                      <div class="text-center hide">
+                                                          <dir-pagination-controls max-size="3" direction-links="true"
+                                                              boundary-links="true"
+                                                              pagination-id="AssignmentItemList">
+                                                          </dir-pagination-controls>
+                                                      </div>
+                                                      <!--Display template-->
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <!--End Assignment Details-->
+                      <div class="clearfix">
+                          <!--View Quote-->
+                          <div class="col-md-12 col-sm-12" ng-if="ShowViewQuote">
+                              <div class="portlet light padding1px">
+                                  <div class="portlet-title">
+                                      <div class="caption font-gray-sharp">
+                                          <span class="caption-subject">{{"Quote#"|translate}}</span>
+                                      </div>
+                                  </div>
+                                  <div class="col-md-12 col-sm-12 margin-top-5 text-right">
+                                      <button class="btn btnMargin sbold"
+                                          ng-click="CancelViewQuote()">{{"Cancel"|translate}}</button>
+                                      <button class="btn btnMargin sbold"
+                                          ng-click="CancelViewQuote()">{{"Accept"|translate}}</button>
+                                      <button class="btn btnMargin sbold">{{"ExportToPDF"|translate}}</button>
+                                  </div>
+                                  <div class="portlet-body">
+                                      <div class="row">
+                                          <div class="col-md-6 col-sm-12">
+                                              <div class="col-md-12 col-sm-12 form-group margin-top-20">
+                                                  <label
+                                                      class="col-md-4 col-sm-6 Label_Text_Right control-label sbold">{{"Quote ID"|translate}}</label>
+                                                  <div class="col-md-7 col-sm-6">
+                                                      <span class="control-label"
+                                                          name="Name">{{QuoteDetails.id}}</span>
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-12 col-sm-12 form-group margin-top-20">
+                                                  <label
+                                                      class="col-md-4 col-sm-6 Label_Text_Right control-label sbold">{{"InsuranceCompany"|translate}}</label>
+                                                  <div class="col-md-7 col-sm-6">
+                                                      <span class="control-label"
+                                                          name="Name">{{QuoteDetails.companyDetails.name}}</span>
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-12 col-sm-12 form-group">
+                                                  <label
+                                                      class="col-md-4 col-sm-6 Label_Text_Right control-label">{{"Address"|translate}}</label>
+                                                  <div class="col-md-7 col-sm-6 form-group">
+                                                      <span class="control-label col-md-12 padding1px"
+                                                          name="Name">{{QuoteDetails.companyDetails.address.streetAddressOne}}</span>
+                                                      <span class="control-label col-md-12 padding1px"
+                                                          name="Name">{{QuoteDetails.companyDetails.address.streetAddressTwo}}</span>
+                                                      <span class="control-label col-md-12 padding1px"
+                                                          name="Name">{{QuoteDetails.companyDetails.address.city}}</span>
+                                                      <span class="control-label col-md-12 padding1px"
+                                                          name="Name">{{QuoteDetails.companyDetails.address.zipcode}}</span>
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-12 col-sm-12 form-group">
+                                                  <label
+                                                      class="col-md-4 col-sm-6 Label_Text_Right control-label sbold">{{"Adjuster"|translate}}</label>
+                                                  <div class="col-md-7 col-sm-6">
+                                                      <span class="control-label"
+                                                          name="Name">{{QuoteDetails.adjsuterBaseDetails.lastName+ ", "+QuoteDetails.adjsuterBaseDetails.firstName}}</span>
+                                                  </div>
+                                              </div>
+                                          </div>
+
+                                          <div class="col-md-6 col-sm-12">
+                                              <div class="col-md-12 col-sm-12 form-group margin-top-20">
+                                                  <label
+                                                      class="col-md-4 col-sm-6 Label_Text_Right control-label sbold">{{"Date"|translate}}</label>
+                                                  <div class="col-md-7 col-sm-6">
+                                                      <span class="control-label"
+                                                          name="Name">{{QuoteDetails.createDate}}</span>
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-12 col-sm-12 form-group ">
+                                                  <label
+                                                      class="col-md-4 col-sm-6 Label_Text_Right control-label sbold">{{"Claim#"|translate}}</label>
+                                                  <div class="col-md-7 col-sm-6">
+                                                      <span class="control-label"
+                                                          name="Name">{{QuoteDetails.claimNumber}}</span>
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-12 col-sm-12 form-group ">
+                                                  <label
+                                                      class="col-md-4 col-sm-6 Label_Text_Right control-label sbold">{{"InsuredName"|translate}}</label>
+                                                  <div class="col-md-7 col-sm-6">
+                                                      <span class="control-label"
+                                                          name="Name">{{QuoteDetails.insuredBaseDetails.lastName+", "+QuoteDetails.insuredBaseDetails.firstName}}</span>
+                                                  </div>
+                                              </div>
+
+                                              <div class="col-md-12 col-sm-12 form-group">
+                                                  <label
+                                                      class="col-md-4 col-sm-6 Label_Text_Right control-label">{{"Address"|translate}}</label>
+                                                  <div class="col-md-7 col-sm-6">
+                                                      <span class="control-label col-md-12 padding1px"
+                                                          name="Name">{{QuoteDetails.insuredBaseDetails.address.streetAddressOne}}</span>
+                                                      <span class="control-label col-md-12 padding1px"
+                                                          name="Name">{{QuoteDetails.insuredBaseDetails.address.streetAddressTwo}}</span>
+                                                      <span class="control-label col-md-6 padding1px"
+                                                          name="Name">{{QuoteDetails.insuredBaseDetails.address.city}}</span>
+                                                      <div class="col-md-6 col-sm-6 padding1px">
+                                                          <select class="form-control select2me"
+                                                              ng-model="QuoteDetails.insuredBaseDetails.address.state.id"
+                                                              placeholder='{{"State"|translate}}'
+                                                              ng-options="item.id as item.state for item in DdlStateList"></select>
+                                                      </div>
+                                                      <span class="control-label col-md-12 padding1px"
+                                                          name="Name">{{QuoteDetails.insuredBaseDetails.address.zipcode}}</span>
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-12 col-sm-12 form-group ">
+                                                  <label
+                                                      class="col-md-4 col-sm-6 Label_Text_Right control-label sbold">{{"Phone"|translate}}</label>
+                                                  <div class="col-md-7 col-sm-6">
+                                                      <span class="control-label"
+                                                          name="Name">{{QuoteDetails.insuredBaseDetails.cellPhone}}</span>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="col-md-12">
+                                              <div class="portlet padding1px">
+                                                  <div class="portlet-title"></div>
+                                              </div>
+                                          </div>
+
+                                          <div class="col-md-12 col-sm-12 padding1px margin-bottom-20"
+                                              ng-repeat="item in QuoteDetails.itemComparables">
+                                              <div class="col-md-12 col-sm-12">
+                                                  <div class="col-md-6 col-sm-12">
+                                                      <div class="SubHeadingDiv">
+                                                          <span>{{"Origional Item#"|translate}}
+                                                              &nbsp;{{item.claimItem.itemNumber}}</span>
+                                                      </div>
+                                                      <div class="col-md-12 col-sm-12 MinHeight  margin-top-10"
+                                                          style="border:1px solid #c7ccd0">
+                                                          <textarea rows="5"
+                                                              class="form-control margin-top-10 margin-bottom-10"
+                                                              ng-model="item.claimItem.description"></textarea>
+                                                      </div>
+                                                  </div>
+                                                  <div class="col-md-6 col-sm-12  pull-right">
+                                                      <div class="col-md-12 col-sm-12"
+                                                          ng-repeat="replacementitem in item.comparableItems">
+                                                          <div class="SubHeadingDiv">
+                                                              <span>{{"Replacement Item"|translate}}
+                                                                  &nbsp;{{replacementitem.id}}</span>
+                                                          </div>
+                                                          <div class="col-md-12 col-sm-12 MinHeight  margin-top-10"
+                                                              style="border:1px solid #c7ccd0">
+                                                              <div class="col-md-9"
+                                                                  style="border-right:1px solid #c7ccd0">
+                                                                  <textarea rows="5"
+                                                                      class="form-control margin-top-10 margin-bottom-10"
+                                                                      ng-model="replacementitem.description"></textarea>
+                                                              </div>
+                                                              <div class="col-md-3">
+                                                                  <span
+                                                                      style="line-height: 90px;">{{replacementitem.unitPrice}}</span>
+                                                              </div>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                          </div>
+
+                                          <div class="col-md-6 col-sm-12 margin-top-20 margin-bottom-10">
+                                              <div class="SubHeadingDiv">
+                                                  <span>{{"Additional Comments"|translate}}</span>
+                                              </div>
+                                              <div class="col-md-12 col-sm-12 margin-top-10"
+                                                  style="min-height:70px;border:1px solid #c7ccd0">
+                                                  <textarea class="form-control margin-top-10"></textarea>
+                                              </div>
+                                          </div>
+                                          <div class="col-md-6 col-sm-12 margin-top-20 margin-bottom-10">
+                                              <div class="col-md-4 col-sm-12 pull-right">
+                                                  <table class="table table-bordered table-striped table-hover">
+                                                      <tr>
+                                                          <td style="width:50%;">SubTotal
+                                                          </td>
+                                                          <td style="width:50%;">
+                                                              {{QuoteDetails.subTotal | number : 2}}
+                                                          </td>
+                                                      </tr>
+                                                      <tr>
+                                                          <td style="width:50%;">Tax Rate
+                                                          </td>
+                                                          <td style="width:50%;">
+                                                              {{QuoteDetails.taxRate| number : 2}}
+                                                          </td>
+                                                      </tr>
+                                                      <tr>
+                                                          <td style="width:50%;">Tax</td>
+                                                          <td style="width:50%;">
+                                                              {{QuoteDetails.tax| number : 2}}
+                                                          </td>
+                                                      </tr>
+                                                      <tr>
+                                                          <td style="width:50%;">Shipping
+                                                          </td>
+                                                          <td style="width:50%;">
+                                                              {{QuoteDetails.shippingCost| number : 2}}
+                                                          </td>
+                                                      </tr>
+                                                      <tr>
+                                                          <td style="width:50%;">
+                                                              Deductible
+                                                          </td>
+                                                          <td style="width:50%;">
+                                                              {{QuoteDetails.deductible| number : 2}}
+                                                          </td>
+                                                      </tr>
+                                                      <tr>
+                                                          <td style="width:50%;">Total
+                                                          </td>
+                                                          <td style="width:50%;">
+                                                              {{QuoteDetails.total| number : 2}}
+                                                          </td>
+                                                      </tr>
+                                                  </table>
+
+                                              </div>
+                                          </div>
+                                          <div class="col-md-12 margin-top-10 margin-bottom-10">
+                                              <div class="portlet padding1px">
+                                                  <div class="portlet-title"></div>
+                                              </div>
+                                          </div>
+
+                                          <div class="col-md-6 col-sm-12 margin-top-10">
+                                              <div class="SubHeadingDiv">
+                                                  <span>{{"Quote Prepared By"|translate}}</span>
+                                              </div>
+                                              <div class="col-md-12 col-sm-12 margin-top-10"
+                                                  style="border:1px solid #c7ccd0">
+                                                  <div class="col-md-12 col-sm-12 form-group margin-top-20">
+                                                      <label
+                                                          class="col-md-4 col-sm-6 Label_Text_Right control-label sbold">{{"Claim Associate Name"|translate}}</label>
+                                                      <div class="col-md-7 col-sm-6">
+                                                          <span
+                                                              class="control-label">{{QuoteDetails.vendor.vendorName}}</span>
+                                                      </div>
+                                                  </div>
+
+                                                  <div class="col-md-12 col-sm-12 form-group">
+                                                      <label
+                                                          class="col-md-4 col-sm-6 Label_Text_Right control-label">{{"Vendor Address"|translate}}</label>
+                                                      <div class="col-md-7 col-sm-6">
+                                                          <span class="control-label col-md-12 padding1px"
+                                                              name="Name">{{QuoteDetails.vendor.shippingAddress.streetAddressOne}}</span>
+                                                          <span class="control-label col-md-12 padding1px"
+                                                              name="Name">{{QuoteDetails.vendor.shippingAddress.streetAddressTwo}}</span>
+                                                          <span class="control-label col-md-6 padding1px"
+                                                              name="Name">{{QuoteDetails.vendor.shippingAddress.city}}</span>
+                                                          <div class="col-md-6 col-sm-6 padding1px">
+                                                              <select class="form-control select2me"
+                                                                  ng-model="QuoteDetails.vendor.shippingAddress.state.id"
+                                                                  placeholder='{{"State"|translate}}'
+                                                                  ng-options="item.id as item.state for item in DdlStateList"></select>
+                                                          </div>
+                                                          <span class="control-label col-md-12 padding1px"
+                                                              name="Name">{{QuoteDetails.vendor.shippingAddress.zipcode}}</span>
+                                                      </div>
+                                                  </div>
+                                                  <div class="col-md-12 col-sm-12 form-group ">
+                                                      <label
+                                                          class="col-md-4 col-sm-6 Label_Text_Right control-label sbold">{{"Phone"|translate}}</label>
+                                                      <div class="col-md-7 col-sm-6">
+                                                          <span
+                                                              class="control-label">{{QuoteDetails.vendor.cellPhone}}</span>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="col-md-12 col-sm-12 margin-top-5 text-right">
+                                              <button class="btn btnMargin sbold"
+                                                  ng-click="CancelViewQuote()">{{"Cancel"|translate}}</button>
+                                              <button class="btn btnMargin sbold"
+                                                  ng-click="CancelViewQuote()">{{"Accept"|translate}}</button>
+                                              <button class="btn btnMargin sbold">{{"ExportToPDF"|translate}}</button>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <!--End View Quote-->
+                      </div>
+                  </div>
+                  <!--End Vendors-->
+                  </div>
+
+                  <!--Invoices tab-->
+                  <div class="padding1px" id="Invoices" ng-show="CurrentTab=='Invoices'">
+                      <div class="col-md-12 col-md-offset-2 clearfix">
+                          <div class="col-md-2 col-sm-3 col-xs-6 column">
+                              <div class="card card-border-top">
+                                  <h2><a href="#" ng-click="GotoVendorInvoices()">{{countOfinvoces}}</a></h2>
+                                  <h5 class="sbold">Total # Vendor Invoices</h5>
+                                  <h6 class="sbold" style="color:rgb(13 173 7)">
+                                      {{paidInvoiceCount}} Invoices paid</h6>
+                              </div>
+                          </div>
+
+                          <!-- <div class="col-md-2 col-sm-3 col-xs-6 column">
+                              <div class="card card-border-top">
+                                  <h5><a href="#"
+                                      ng-click="GotoVendorInvoices()">{{ClaimStatusContent.claimInvoiceDetails.unPaidVendorInvoices}}</a></h5>
+                                  <h6 class="sbold">{{"Label.VendorInvoicesRemainingToBePaid"|translate}}</h6>
+                              </div>
+                          </div> -->
+                          <div class="col-md-2 col-sm-3 col-xs-6 column">
+                              <div class="card card-border-top" style="height: 114px;">
+                                  <h2>{{totalInvoiceAmount | currency}}</h2>
+                                  <h5 class="sbold">Total $ of Invoices</h5>
+                              </div>
+                          </div>
+                          <div class="col-md-2 col-sm-3 col-xs-6 column">
+                              <div class="card card-border-top">
+                                  <h2>{{totalInvoicePaidAmount | currency}}</h2>
+                                  <h5 class="sbold">Total Paid</h5>
+                                  <h6 class="sbold" style="color:red">
+                                      {{(totalInvoiceAmount - totalInvoicePaidAmount)  | currency}} to be paid</h6>
+                              </div>
+                          </div>
+
+                          <!-- <div class="col-md-2 col-sm-3 col-xs-6 column">
+                              <div class="card card-border-top">
+                                  <h5 class="sbold">{{ClaimStatusContent.claimInvoiceDetails.paidToVendors|currency}}</h5>
+                                  <h6 class="sbold">{{"Label.PaidToVendors"|translate}}</h6>
+                              </div>
+                          </div>
+
+                          <div class="col-md-2 col-sm-3 col-xs-6 column">
+                              <div class="card card-border-top">
+                                  <h5 class="sbold">{{ClaimStatusContent.claimInvoiceDetails.unPaidToVendors|currency}}</h5>
+                                  <h6 class="sbold">{{"Label.BalanceToBePaidToVendors"|translate}}</h6>
+                              </div>
+                          </div> -->
+                      </div>
+                      <!--Top 10 Vendor-->
+                      <div class="col-md-6 col-sm-6 padding1px clearfix hide">
+                          <label class="control-label col-md-12 col-sm-12">{{"Top 10 Vendors"|translate}}</label>
+                          <!--- Start Table Data-->
+                          <div class="col-md-12 col-sm-12 table-responsive" style="min-height: 222px !important;">
+                              <table class="col-md-12 col-sm-12 col-xs-12 table table-bordered table-hover table-striped">
+                                  <thead>
+                                      <tr>
+                                          <th ng-click="SortVendor('vendor.vendorName')" class="alignTop">
+                                              {{"Table.VendorName"|translate}}
+                                              <span class="glyphicon sort-icon"
+                                                  ng-show="sortClaimDetailsKey=='category.name'"
+                                                  ng-class="{'glyphicon-chevron-up pull-right':reverseClaimDetails,'glyphicon-chevron-down pull-right':!reverseClaimDetails}"></span>
+                                          </th>
+                                          <th ng-click="SortVendor('numberOfItems')" class="alignTop">
+                                              {{"Table.Items"|translate}}
+                                              <span class="glyphicon sort-icon"
+                                                  ng-show="sortClaimDetailsKey=='sumOfCoverageAndSpecialLimit'"
+                                                  ng-class="{'glyphicon-chevron-up pull-right':reverseClaimDetails,'glyphicon-chevron-down pull-right':!reverseClaimDetails}"></span>
+                                          </th>
+                                          <th ng-click="SortVendor('allInvoicesAmount')" class="alignTop ">
+                                              {{"Table.TotalInvoice"|translate}}
+                                              <span class="glyphicon sort-icon" ng-show="sortClaimDetailsKey=='ACV'"
+                                                  ng-class="{'glyphicon-chevron-up pull-right':reverseClaimDetails,'glyphicon-chevron-down pull-right':!reverseClaimDetails}"></span>
+                                          </th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                      <tr ng-repeat="Vendor in VendorList|limitTo:10|orderBy:sortVendorKey:reverseVendor">
+                                          <td>
+                                              {{Vendor.vendor.vendorName}}
+                                          </td>
+                                          <td class="text-right">
+                                              {{Vendor.numberOfItems}}
+                                          </td>
+                                          <td class="text-right">
+                                              {{Vendor.allInvoicesAmount|currency}}
+                                          </td>
+                                      </tr>
+                                      <tr ng-if="VendorList===null||VendorList.length==0">
+                                          <td class="text-center text-danger" colspan="3">
+                                              {{"NoRecordText"|translate}}</td>
+                                      </tr>
+                                  </tbody>
+                              </table>
+                          </div>
+                          <div class="col-md-12 col-sm-12 col-lg-12 text-right">
+                              <a class="col-md-12 col-sm-12 pull-right" href="#">{{"View All Vendors"|translate}}</a>
+                          </div>
+                          <!--- End Table Data-->
+                      </div>
+                      <!--End Top 10 Vendor-->
+                      <!--Vendor Invoices-->
+                      <div class="col-md-12 col-lg-12 col-sm-12 padding1px margin-top-20">
+                          <div class="col-md-12 col-sm-12 col-lg-12 table-responsive">
+                              <table class="table table-bordered table-striped table-hover">
+                                  <thead>
+                                      <tr>
+                                          <th ng-click="SortVendorInvoice('id')">
+                                              {{"Invoice Id"|translate}}</th>
+                                          <th ng-click="SortVendorInvoice('amount')">
+                                              {{"Amount"|translate}}</th>
+                                          <th ng-click="SortVendorInvoice('createDate')">
+                                              {{"Invoice Date"|translate}}</th>
+                                          <th ng-click="SortVendorInvoice('dueDate')">
+                                              {{"Due Date"|translate}}</th>
+                                          <th ng-click="SortVendorInvoice('status.status')">
+                                              {{"Status"|translate}}</th>
+                                          <th ng-click="SortVendorInvoice('vendorNote')">
+                                              {{"Vendor Note"|translate}}</th>
+                                          <th>{{"Attachments"|translate}}</th>
+                                          <th>{{"Action"|translate}}</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                      <tr ng-repeat-start="Vendor in AllInvoices">
+                                          <td colspan="8" class="text-left sbold font-white"
+                                              style="background-color: gray;color: white;font-weight: bold;padding-left:10px;">
+                                              {{Vendor.vendorName}}&nbsp;({{+Vendor.invoices.length}})
+                                          </td>
+                                      </tr>
+                                      <tr ng-repeat="Invoice in Vendor.invoices|orderBy:sortInvoiceKey:reverseInvoice">
+                                          <td ng-click="GotoInvoiceDetails(Invoice)">
+                                              {{Invoice.invoiceNumber}} </td>
+                                          <td ng-click="GotoInvoiceDetails(Invoice)" class="text-right">
+                                              {{Invoice.amount|currency}}
+                                          </td>
+                                          <td ng-click="GotoInvoiceDetails(Invoice)">
+                                              {{Invoice.createDate|DateFormatMMddyyyy}} </td>
+                                          <td ng-click="GotoInvoiceDetails(Invoice)">
+                                              {{Invoice.dueDate|DateFormatMMddyyyy}} </td>
+                                          <td ng-click="GotoInvoiceDetails(Invoice)" class="text-center">
+                                              <span>
+                                                  {{Invoice.status.status|limitTo: 13}}<span>{{Invoice.status.status.length >  13 ? '...' : ''}}</span>
+                                              </span>
+                                          </td>
+                                          <td ng-click="GotoInvoiceDetails(Invoice)">
+                                              {{Invoice.vendorNote}}</td>
+                                          <td ng-click="GotoInvoiceDetails(Invoice)">
+                                              <font ng-repeat="attachment in Invoice.invoiceAttachments">
+                                                  <span><a href={{attachment.url}}
+                                                          download>{{attachment.name}}</a></span><span ng-if="!$last">
+                                                      ,
+                                                  </span></font>
+                                          </td>
+                                          <td class="text-center sbold">
+                                              <a class="btn-circle btn green btn-sm btn-outline text-primary"
+                                                  ng-click="ApproveInvoiceFromAllInvoices(Invoice)" href="#"
+                                                  ng-if="Invoice.status.status===constants.invoiceStatus.created">{{"Approve"|translate}}</a>
+                                              <a class="btn-circle btn green btn-sm btn-outline text-primary"
+                                                  ng-click="OpenPaymentPopUp(Vendor,Invoice)" href="#"
+                                                  ng-if="Invoice.status.status===constants.invoiceStatus.approved">{{"Pay Now"|translate}}</a>
+                                          </td>
+                                      </tr>
+                                      <tr ng-repeat-end>
+                                          <td></td>
+                                          <td class="sbold text-right">{{"Total"|translate}}
+                                          </td>
+                                          <td class="sbold text-right">
+                                              {{Vendor.totalAmount|currency}}</td>
+                                          <td colspan="5"></td>
+                                      </tr>
+
+                                  </tbody>
+
+                                  <tbody ng-if="AllInvoices.length==0 || AllInvoices==null">
+                                      <tr>
+                                          <td colspan="9" class="text-center text-danger">
+                                              {{"0 Invoices available"|translate}}</td>
+                                      </tr>
+                                  </tbody>
+                              </table>
+                          </div>
+                      </div>
+                      <!--End Vendor Invoices-->
+                  </div>
+                  <!--End Invoices tab-->
+
+                    <div class="col-lg-12 col-xs-12 padding1px" ng-show="CurrentTab=='quotesSummarized'">
+                        <div class="portlet light padding1px">
+                            <div class="portlet-title">
+                                <div class="caption font-gray-sharp">
+                                    <span
+                                        class="caption-subject">{{"HeaderTitle.AllReplQuotesSummary"|translate}}</span>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-xs-12 padding1px margin-top-5">
+                                <button class="btn btn btn-default sbold pull-right"
+                                    ng-click="exportReplacementEstimate('PDF')">
+                                    {{"DownloadPDF"|translate}}
+                                </button>
+                            </div>
+                            <div class="portlet-body">
+                                <!--Start All Replacement Quotes Summary-->
+                                <div class="col-md-12 col-xs-12 padding1px">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 options_Background padding1px">
+                                        <div
+                                            class="caption font-green-sharp col-lg-3 col-md-3 col-xs-12 col-sm-3 pull-right padding1px  margin-top-5 margin-bottom-5 manageSearch">
+                                            <div class="input-icon left">
+                                                <i class="icon-magnifier"></i>
+                                                <input type="text"
+                                                    class="form-control form-control-solid input-circle input-block-level"
+                                                    ng-model="searchFormData" placeholder="{{'Search...'|translate}}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive padding1px">
+                                        <table class="table table-bordered table-striped table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-left" ng-click="SortClaimForm('Item')">
+                                                        {{"Table.Item"|translate}}
+                                                        <span class="glyphicon sort-icon" ng-show="sortKey==='Item'"
+                                                            ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                    </th>
+                                                    <th class="text-left" ng-click="SortClaimForm('OriginItemDesc')">
+                                                        {{"Table.OriginItemDesc"|translate}}
+                                                        <span class="glyphicon sort-icon"
+                                                            ng-show="sortKey==='OriginItemDesc'"
+                                                            ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                    </th>
+                                                    <th class="text-left" ng-click="SortClaimForm('Status')">
+                                                        {{"Table.Status"|translate}}
+                                                        <span class="glyphicon sort-icon" ng-show="sortKey==='Status'"
+                                                            ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                    </th>
+                                                    <th class="text-left" ng-click="SortClaimForm('OriginalCost')">
+                                                        {{"Table.OriginalCost"|translate}}
+                                                        <span class="glyphicon sort-icon"
+                                                            ng-show="sortKey==='OriginalCost'"
+                                                            ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                    </th>
+
+                                                    <th class="text-left" ng-click="SortClaimForm('ReplItemDesc')">
+                                                        {{"Table.ReplItemDesc"|translate}}
+                                                        <span class="glyphicon sort-icon"
+                                                            ng-show="sortKey==='ReplItemDesc'"
+                                                            ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                    </th>
+                                                    <th class="text-left" ng-click="SortClaimForm('ReplCost')">
+                                                        {{"Table.ReplCost"|translate}}
+                                                        <span class="glyphicon sort-icon" ng-show="sortKey==='ReplCost'"
+                                                            ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                    </th>
+                                                    <th class="text-left" ng-click="SortClaimForm('QuoteDate')">
+                                                        {{"Table.QuoteDate"|translate}}
+                                                        <span class="glyphicon sort-icon"
+                                                            ng-show="sortKey==='QuoteDate'"
+                                                            ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                    </th>
+                                                    <th class="text-left" ng-click="SortClaimForm('QuotedBy')">
+                                                        {{"Table.QuotedBy"|translate}}
+                                                        <span class="glyphicon sort-icon" ng-show="sortKey==='QuotedBy'"
+                                                            ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr dir-paginate="item in FiletrLostDamageList|orderBy:sortKey:reverse|filter:searchFormData|itemsPerPage:pagesize"
+                                                    pagination-id="AssignmentItemList" style="cursor: pointer;">
+                                                    <td class="text-left" ng-click="GoToDetails(item)">
+                                                        {{item.itemNumber}}
+                                                    </td>
+                                                    <td class="text-left" ng-click="GoToDetails(item)"
+                                                        ng-init="desclimit = desclimit; descMoreShown = false">
+                                                        {{(item.description | limitTo: desclimit) + (item.description.length > desclimit ?
+                                                    '...' :
+                                                    '')}}
+                                                        <a ng-show="item.description.length > desclimit && !descMoreShown"
+                                                            stop-propagation
+                                                            ng-click="desclimit=item.description.length; descMoreShown = true">
+                                                            More
+                                                        </a>
+                                                        <a ng-show="descMoreShown" href stop-propagation
+                                                            ng-click="descMoreShown = false; desclimit=30; ">
+                                                            Less </a>
+                                                    </td>
+                                                    <td class="text-left" ng-click="GoToDetails(item)">
+                                                        <span> {{item.status.status|limitTo: 15}} </span>
+                                                        <span>{{item.status.status.length >  15 ? '...' : ''}}</span>
+                                                    </td>
+                                                    <td class="text-left" ng-click="GoToDetails(item)">
+                                                        {{item.quantity*item.insuredPrice |currency}}
+                                                    </td>
+                                                    <td class="text-left" ng-click="GoToDetails(item)"
+                                                        ng-init="limit = limit; moreShown = false">
+                                                        {{item.adjusterDescription != null ? ((item.adjusterDescription
+                                                    | limitTo: limit) + (item.adjusterDescription.length > limit ?
+                                                    '...' :
+                                                    '')) : ''
+                                                }}
+
+                                                        <a ng-show="item.adjusterDescription.length > limit && !moreShown"
+                                                            stop-propagation
+                                                            ng-click="limit=item.adjusterDescription.length; moreShown = true">
+                                                            More
+                                                        </a>
+                                                        <a ng-show="moreShown" href stop-propagation
+                                                            ng-click="moreShown = false; limit=30; ">
+                                                            Less </a>
+                                                    </td>
+                                                    <td class="text-left" ng-click="GoToDetails(item)">
+                                                        <span>{{item.rcvTotal ? item.rcvTotal : 0.00 | currency}}</span>
+                                                    </td>
+                                                    <td class="text-left" ng-click="GoToDetails(item)">
+                                                        {{item.quoteDate }}
+                                                    </td>
+                                                    <td class="text-left" ng-click="GoToDetails(item)">
+                                                        {{item.quotedBy}}
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <div ng-show="FiletrLostDamageList==null || FiletrLostDamageList.length ==0 "
+                                            class="col-md-12 text-center text-danger">
+                                            {{"NoRecordText"|translate}}</div>
+                                    </div>
+                                    <div class="text-right">
+                                        <dir-pagination-controls ng-if="FiletrLostDamageList!=null || FiletrLostDamageList.length ==0" max-size="3"
+                                            direction-links="true" boundary-links="true"
+                                            pagination-id="AssignmentItemList">
+                                        </dir-pagination-controls>
+                                    </div>
+                                </div>
+                                <!--Stop All Replacement Quotes Summary-->
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-12" ng-show="CurrentTab=='quotesByAssignments'">
+                        <div class="portlet light padding1px">
+                            <div class="portlet-title">
+                                <div class="caption font-gray-sharp">
+                                    <span
+                                        class="caption-subject">{{"HeaderTitle.AllReplQuotesSummary"|translate}}</span>
+                                </div>
+                            </div>
+                            <!-- <div class="col-md-12 col-xs-12 padding1px margin-top-5">
+                                <button class="btn btn btn-default sbold pull-right"
+                                    ng-click="exportReplacementEstimate('PDF')">
+                                    {{"DownloadPDF"|translate}}
+                                </button>
+                            </div> -->
+                            <div class="portlet-body">
+                                <!--Start All Replacement Quotes Summary-->
+                                <div class="col-md-12 col-xs-12 padding1px">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 options_Background padding1px">
+                                        <div
+                                            class="caption font-green-sharp col-lg-3 col-md-3 col-xs-12 col-sm-3 pull-right padding1px  margin-top-5 margin-bottom-5 manageSearch">
+                                            <!-- <div class="input-icon left">
+                                                <i class="icon-magnifier"></i>
+                                                <input type="text"
+                                                    class="form-control form-control-solid input-circle input-block-level"
+                                                    ng-model="searchFormData"
+                                                    placeholder="{{'Search...'|translate}}">
+                                            </div> -->
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive padding1px">
+                                        <table class="table table-bordered table-striped table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-left" ng-click="SortClaimForm('Item')">
+                                                        {{"Assignment #"|translate}}
+                                                        <span class="glyphicon sort-icon" ng-show="sortKey==='Item'"
+                                                            ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                    </th>
+                                                    <th class="text-left" ng-click="SortClaimForm('OriginItemDesc')">
+                                                        Assignment Start Date
+                                                        <span class="glyphicon sort-icon"
+                                                            ng-show="sortKey==='OriginItemDesc'"
+                                                            ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                    </th>
+                                                    <th class="text-left" ng-click="SortClaimForm('Status')">
+                                                        {{"Vendor Company"|translate}}
+                                                        <span class="glyphicon sort-icon" ng-show="sortKey==='Status'"
+                                                            ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                    </th>
+                                                    <th class="text-left" ng-click="SortClaimForm('OriginalCost')">
+                                                        {{"Status"|translate}}
+                                                        <span class="glyphicon sort-icon"
+                                                            ng-show="sortKey==='OriginalCost'"
+                                                            ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                    </th>
+
+                                                    <th class="text-left" ng-click="SortClaimForm('ReplItemDesc')">
+                                                        {{"Assignment End Date"|translate}}
+                                                        <span class="glyphicon sort-icon"
+                                                            ng-show="sortKey==='ReplItemDesc'"
+                                                            ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                    </th>
+                                                    <th class="text-left" ng-click="SortClaimForm('ReplCost')">
+                                                        {{"Original Cost"|translate}}
+                                                        <span class="glyphicon sort-icon" ng-show="sortKey==='ReplCost'"
+                                                            ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                    </th>
+                                                    <th class="text-left" ng-click="SortClaimForm('QuoteDate')">
+                                                        {{"Replacement Cost"|translate}}
+                                                        <span class="glyphicon sort-icon"
+                                                            ng-show="sortKey==='QuoteDate'"
+                                                            ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                    </th>
+                                                    <th class="text-left" ng-click="SortClaimForm('QuotedBy')">
+                                                        {{"Quote Date"|translate}}
+                                                        <span class="glyphicon sort-icon" ng-show="sortKey==='QuotedBy'"
+                                                            ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                    </th>
+                                                    <th class="text-left" ng-click="SortClaimForm('QuotedBy')">
+                                                        {{"Final Quote"|translate}}
+                                                        <span class="glyphicon sort-icon" ng-show="sortKey==='QuotedBy'"
+                                                            ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr dir-paginate="quote in quotesByAssignment|orderBy:sortKey:reverse|filter:searchFormData|itemsPerPage:pagesize"
+                                                    pagination-id="quotesByAssignment" style="cursor: pointer;">
+                                                    <td class="text-left" ng-click="GoToDetails(item)">
+                                                        {{quote.assignmentNumber}}
+                                                    </td>
+                                                    <td class="text-left"
+                                                        ng-init="desclimit = desclimit; descMoreShown = false">
+                                                        {{quote.assignmentStartDate | DateFormatMMddyyyyHHmm}}
+
+
+                                                    </td>
+                                                    <td class="text-left">
+                                                        <span> {{quote.vendorCompany}} </span>
+
+                                                    </td>
+                                                    <td class="text-left">
+                                                        {{quote.status}}
+                                                    </td>
+                                                    <td class="text-left">
+                                                        {{quote.assignmentEndDate | DateFormatMMddyyyyHHmm}}
+                                                    </td>
+                                                    <td class="text-left">
+                                                        <span>{{quote.originalCost | currency}}</span>
+                                                    </td>
+                                                    <td class="text-left">
+                                                        {{quote.finalQuote | currency}}
+                                                    </td>
+                                                    <td class="text-left">
+                                                        {{quote.quoteDate | DateFormatMMddyyyyHHmm}}
+                                                    </td>
+                                                    <td class="text-left"
+                                                        ng-click="GoToViewQuote(quote.assignmentNumber,quote.quoteNumber)">
+                                                        <a href="#">{{quote.quoteNumber}} </a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <div ng-show="quotesByAssignment==null || quotesByAssignment.length ==0 "
+                                            class="col-md-12 text-center text-danger">
+                                            {{"NoRecordText"|translate}}</div>
+                                    </div>
+                                    <div class="text-right">
+                                        <dir-pagination-controls ng-if="quotesByAssignment!=null || quotesByAssignment.length > 0" max-size="3"
+                                            direction-links="true" boundary-links="true"
+                                            pagination-id="quotesByAssignment">
+                                        </dir-pagination-controls>
+                                    </div>
+                                </div>
+                                <!--Stop All Replacement Quotes Summary-->
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

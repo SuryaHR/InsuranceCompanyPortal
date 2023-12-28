@@ -1,0 +1,239 @@
+<style>
+    .age {
+        padding: 0px 10px 0px 0px;
+    }
+
+    #addItemForm textarea {
+        width: 100px;
+        border: 1px solid #c2cad8;
+        width: 95%;
+        white-space: pre-wrap;
+        resize: vertical;
+        outline: none;
+        min-height: 60px;
+    }
+
+    #img_preview {
+        min-height: 490px;
+        width: 675px !important;
+        padding: 10px 0px;
+        position: fixed;
+        z-index: 20;
+    }
+
+    #video_preview {
+        min-height: 490px !important;
+        width: 675px !important;
+        padding: 10px 0px;
+        position: fixed;
+        z-index: 20;
+    }
+
+    .image-wrapper {
+        max-height: 350px !important;
+        overflow: auto !important;
+        display: block;
+    }
+
+    .img-responsive {
+        width: 90px;
+        height: 90px;
+        padding: 5px;
+        border: 1px groove;
+    }
+</style>
+<div id="myModal">
+    <div id="responsive">
+        <div class="modal-header clearfix">
+            <a class="TextDecorationNone pull-right" id="item-modal-close-icon" ng-click="itemModal.dismiss()">
+                <i class="fa fa-times-circle fa-2x text-danger" aria-hidden="true"></i></a>
+            <h5 class="modal-title sbold">
+                {{item.id ? ("Title.Item#"|translate)+" "+item.itemNumber : ("Title.NewItem"|translate) }}
+            </h5>
+        </div>
+        <div class="modal-body clearfix">
+            <div class="col-xs-12 padding1px" id="addItemForm" ng-form="form.addItem">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <input id="ItemFileUpload" type="file" ng-model="popupObj.Attachment" multiple
+                        onchange="angular.element(this).scope().getItemFileDetails(event)" style="display: none;"
+                        accept="image/*|.pdf|.xls|.xlsx">
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12" ng-show="ItemFiles.length > 0"
+                    style="height:140px !important;-webkit-overflow-scrolling: touch; overflow-y: auto; overflow-x:auto; white-space:nowrap; scrollbar-arrow-color:black;">
+                    <div ng-repeat="file in ItemFiles" class="col-md-3 col-sm-4 margin-bottom-10 " style="padding:0px;">
+                        <div class="col-md-12 col-sm-12 padding1px" style="text-align: center; width: 100%;">
+                            <a class="TextDecorationNone" style="top:10px;left:45px;position:relative"
+                                ng-click="removeattchment(file)">
+                                <i class="fa fa-times-circle fa-2x text-danger" aria-hidden="true"></i></a>
+                            <div class="flex-justify-center">
+                                <img ng-if="isPdf(file.FileName)" ng-src='assets/global/img/pdf-icon.svg'
+                                    class="img-responsive bordered" alt="PDF" />
+
+                                <img ng-if="isExcel(file.FileName)" ng-src='assets/global/img/excel-icon.png'
+                                    class="img-responsive bordered " alt="Excel" />
+
+                                <img ng-if="isImage(file.FileName)" ng-src="{{file.url ? file.url : file.Image}}"
+                                    alt="Pictures of the incident" class="img-responsive bordered " />
+
+                                <img ng-if="isDocx(file.FileName)" ng-src='assets/global/img/docs-file.svg'
+                                    class="img-responsive bordered " alt="Doc" />
+                            </div>
+                            <span id="previewDocs" class="sbold"
+                                style="word-break: break-word;font-family:Calibri; font-size:14px;cursor:pointer"
+                                ng-click="GetDocxDetails(file)"><a
+                                    title="{{file.FileName}}">{{file.FileName| limitTo:15}}{{file.FileName.length < 15 ? '': ' ...'}}</a></span>
+                        </div>
+                        <!-- </div> -->
+                    </div>
+                </div>
+                <!-- Item Description -->
+                <div class="col-md-12 col-xs-12 form-group">
+                    <textarea rows="3" type="text" required id="description" name="description" class="vertical"
+                        ng-model="item.description" placeholder="{{'ControlText.Desc'|translate}}"></textarea>
+                    <span class="pull-right" title="choose photos to upload" style="line-height: 5;">
+                        <i class="fa fa-paperclip fa-2x" id="item-attachs-paperclip" ng-click="SelectItemFile()"></i>
+                    </span>
+                    <div class="errormessage">
+                        <span class="text-danger"
+                            ng-show="form.addItem.description.$error.required && form.addItem.description.$touched">{{"Please Enter Description"|translate}}</span>
+                    </div>
+                </div>
+
+                <!-- Unit Cost, Quantity, Age-->
+                <div class="col-xs-12 form-group padding1px">
+                    <div class="col-sm-4 col-xs-6">
+                        <label class="control-label">Unit Cost</label>
+                        <input type="text" id="unitCost" name="unitCost" decimal-Only input-currency
+                            ng-model="item.unitPrice" class="form-control btnMargin" placeholder="$0.00">
+                    </div>
+                    <div class="col-sm-4 col-xs-6">
+                        <label class="control-label">Quantity</label>
+                        <input type="text" id="quantity" name="quantity" numbers-Only ng-model="item.quantity"
+                            class="form-control btnMargin" placeholder="{{'Quantity'|translate}}">
+                    </div>
+                    <div class="col-sm-4 col-xs-6">
+                        <label class="control-label">Age (Yrs, months)</label>
+                        <div class="col-xs-12 padding1px">
+                            <span class="col-xs-6 age">
+                                <input type="text" id="years" name="years" numbers-Only ng-model="item.ageYears"
+                                    class="form-control btnMargin" placeholder="{{'ControlText.Year'|translate}}" />
+                            </span>
+                            <span class="col-xs-6 padding1px">
+                                <input type="text" id="months" name="months" numbersOnly ng-model="item.ageMonths"
+                                    ng-pattern="/^(1[0-1]|[0-9])$/" class="form-control btnMargin"
+                                    placeholder="{{'ControlText.Month'|translate}}" />
+                                <div ng-message="pattern" ng-show="form.addItem.months.$error.pattern">
+                                    <span class="text-danger">{{"Please enter a value less than 12"|translate}}</span>
+                                </div>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Category and sub Category -->
+                <div class="col-md-12 col-xs-12 form-group padding1px" id="categories">
+                    <div class="col-md-6 col-xs-12">
+                        <label class="control-label">Category</label>
+                        <div class="col-md-10 col-xs-10 padding1px">
+                            <select class="form-control select2me" ng-model="item.category.id" id="category"
+                                ng-change="changeSelection('category')" data-placeholder="select"
+                                ng-options="option.categoryId as option.categoryName for option in categoryList"></select>
+                        </div>
+                        <div class="col-md-2 col-xs-2">
+                            <i class="fa fa-info-circle pull-right" data-container="body" data-toggle="popover"
+                                data-placement="right" popover-append-to-body="true"
+                                data-content='{{item.category.id ? (item.category.description ? item.category.description : item.category.name) : "Select a category"}}'
+                                data-trigger="hover" style="font-size:20px;margin-top:6px;" aria-hidden="true"></i>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-xs-12">
+                        <label class="control-label ">{{"Sub Category"|translate}} </label>
+                        <div class="col-md-10 col-xs-10 padding1px">
+                            <select class="form-control select2me" ng-model="item.subCategory.id" id="subCategory"
+                                ng-change="changeSelection('subCategory')" data-placeholder="select"
+                                ng-options="option.id as option.name for option in subCategory"></select>
+                        </div>
+                        <div class="col-md-2 col-xs-2">
+                            <i class="fa fa-info-circle pull-right" data-container="body" data-toggle="popover"
+                                data-placement="left"
+                                data-content='{{item.subCategory.id ? (item.subCategory.description ? item.subCategory.description : item.subCategory.name) : "Select a sub category"}}'
+                                popover-append-to-body="true" data-trigger="hover"
+                                style="font-size:20px;margin-top:6px;" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Brand & Model-->
+                <div class="col-xs-12 form-group padding1px">
+                    <div class="col-xs-6">
+                        <label class="control-label">Brand or Manufacturer</label>
+                        <input type="text" id="brand" name="brand" ng-model="item.brand" class="form-control btnMargin"
+                            placeholder="Brand">
+                    </div>
+                    <div class="col-xs-6">
+                        <label class="control-label">Model</label>
+                        <input type="text" id="model" name="model" ng-model="item.model" class="form-control btnMargin"
+                            placeholder="{{'Model'|translate}}">
+                    </div>
+                </div>
+
+                <!-- Purchased from and Room -->
+                <div class="col-xs-12 form-group">
+                    <label class="control-label ">{{"Purchase From"|translate}} </label>
+                    <div class="col-xs-12 padding1px">
+                        <span class="col-xs-6" style="padding-left: 0px;">
+                            <select class="form-control select2me" ng-model="item.originallyPurchasedFrom.id"
+                                id="originallyPurchasedFrom"
+                                ng-change="selectRetailer((retailers|filter:{id:item.originallyPurchasedFrom.id})[0])"
+                                data-placeholder="select"
+                                ng-options="option.id as option.name for option in retailers"></select>
+                        </span>
+                        <span class="col-xs-6">                            
+                            <a ng-show="!addOtherRetailer" ng-click="addNewRetailerField()">
+                                Not found? click to add new retailer</a>                            
+                            <div ng-show="addOtherRetailer">
+                                <div class="col-xs-11 padding1px">
+                                    <input type="text" ng-model="item.newRetailer" id="newRetailer" class="form-control"
+                                        placeholder='{{"Add new retailer"|translate}}' />
+                                </div>
+                                <span class="text-danger glyphicon glyphicon-remove input-remove"
+                                    ng-click="removeNewRetailerField()"
+                                    style="cursor: pointer;"></span>
+                            </div>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-xs-6 form-group" id="condition">
+                    <label class="control-label ">{{"Condition"|translate}} </label>
+                    <select id="itemCondition" class="form-control select2me" ng-model="item.condition.conditionId"
+                        ng-change="changeSelection('condition')" data-placeholder="select"
+                        ng-options="option.conditionId as option.conditionName for option in conditionList"></select>
+                </div>
+
+                <!-- Buttons -->
+                <div class="col-xs-12 margin-top-10 text-right">
+                    <a id="sample_editable_1_new" ng-click="itemModal.dismiss()" id="item-modal-close-link"
+                        style="text-decoration: underline;">
+                        {{"Label.Cancel"|translate}}</a>
+                    <button id="sample_editable_1_new" id="modal-item-add" ng-disabled="itemModal.$invalid"
+                        ng-click="SaveItemDetails()" class="btn sbold btnMargin">
+                        {{item.id ? "Label.Update" : "Label.SaveItem"|translate}}
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer hide">
+        </div>
+    </div>
+</div>
+<script>
+    $("#originallyPurchasedFrom").select2();
+    $("#category").select2();
+    $("#subCategory").select2();
+    $('#itemCondition').select2();
+    $(function () {
+        $('[data-toggle="popover"]').popover();
+    })
+</script>

@@ -1,0 +1,37 @@
+﻿{
+  "TabHeaderText": {
+    "Home_title": "Home",
+    "Company_title": "Company",
+    "Contacts_title": "Contacts",
+    "Categories_title": "Categories",
+    "Coverage_title": "Coverage",
+    "Administration_title": "Administration"
+
+  },
+  "ControlText": {
+    "Next_title": "Next",
+    "Back_title": "Back",
+    "Register_title": "Register"
+  },
+  "HeaderText": {
+    "NewCompany_title": "New Company",
+    "PersonalContactsDetails_Title": "Personal Contact Details"
+  },
+  "FormControlText": {
+    "CompanyId_title": "Company Id",
+    "CompanyName_title": "Company Name",
+    "CompanyWebsite_title": "Company Website",
+    "CompanyAddress_title": "Address",
+    "City_title": "City",
+    "CompanyZip_title": "Zip",
+    "CompanyPhoneNumber_title": "Phone Number",
+    "CompanyFax_title": "Fax",
+    "PersonalInfo_FirstName_title": "First Name",
+    "PersonalInfo_LastName_title": "Last Name",
+    "PersonalInfo_EmailId_title": "Email Id",
+    "PersonalInfo_PhoneNumber_title": "Phone Number",
+    "PersonalInfo_AssignAsCompAdmn_title": "Assign As Company Admin?",
+    "PersonalInfo_Note_title": "* An email will be sent to admin to complete profile.",
+     "newdemo": "newdemo"
+  }
+}

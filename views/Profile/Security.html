@@ -1,0 +1,232 @@
+﻿<ul class="page-breadcrumb breadcrumb sbold">
+    <li>
+        <a ng-click="GoToHome()">{{"Home"|translate}}</a>
+        <i class="fa fa-circle"></i>
+    </li>
+    <li>
+        <span>{{"Security"|translate}}</span>
+    </li>
+</ul>
+
+<!-- Login Security -->
+<div class="portlet light padding1px" ng-form="profile.passResetForm">
+    <div class="portlet-title">
+        <div class="caption font-gray-sharp">
+            <span class="caption-subject">{{"Login Security"|translate}}</span>
+        </div>
+        <div class="tools">
+        </div>
+    </div>
+    <div class="portlet-body">
+        <div class="row">
+            <div class="col-md-12">
+                <!--<div class="col-md-5 col-sm-12 col-xs-12 col-lg-5">
+                    <div class="col-md-12 col-lg-12 col-sm-12 colxs-12  padding5 margin-top-10 margin-bottom-10 table-bordered" ng-form="EditEmailIdForm">
+                        <span class="col-sm-12 col-md-12 col-lg-12 col-xs-12 sbold margin-bottom-10 padding1px">
+                            {{"Email"|translate}} &nbsp;{{"(This is also your user-id)"|translate}}
+                        </span>
+                        <label class="control-label col-sm-12 col-md-12 col-lg-12 form-group"></label>
+                        <div class="col-md-8 col-sm-8 col-lg-6 col-xs-12">
+                            <label class="control-label" ng-if="!IsEditEmailId">{{personalDetails.email}}</label>
+                            <input type="text" name="ResetEmail" ng-model="personalDetails.email" class="form-control" ng-if="IsEditEmailId" />
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 margin-top-10  topBorder margin-bottom-10">
+                            <a class="text-info sbold margin-top-20" ng-if="!IsEditEmailId" ng-click="EditEmailId()"><br />{{"Edit"|translate}}</a>
+                            <button type="button" class="btn green margin-top-10" ng-if="IsEditEmailId">
+                                {{"Send a verification link"|translate}}
+                            </button>
+                            <button type="button" class="btn blue margin-top-10" ng-if="IsEditEmailId" ng-click="CancelEditEmailId()">
+                                {{"Cancel"|translate}}
+                            </button>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  padding5 margin-top-10 margin-bottom-10 table-bordered" ng-form="EditPhoneForm">
+                        <span class="col-sm-12 col-md-12 col-lg-12 col-xs-12 sbold margin-bottom-10 padding1px">
+                            {{"Phone Number"|translate}}
+                        </span>
+                        <label class="control-label col-sm-12 col-md-12 col-lg-12 form-group"></label>
+                        <div class="col-md-8 col-sm-8 col-lg-6 col-xs-12">
+                            <label class="control-label" ng-if="!IsEditPhone">{{personalDetails.cellPhone}}</label>
+                            <input type="text" name="ResetEmail" ng-model="personalDetails.cellPhone" class="form-control" ng-if="IsEditPhone" />
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 margin-top-10  topBorder margin-bottom-10">
+                            <a class="text-info sbold margin-top-20" ng-if="!IsEditPhone" ng-click="EditPhone()"><br />{{"Edit"|translate}}</a>
+                            <button type="button" class="btn green margin-top-10" ng-if="IsEditPhone">
+                                {{"Save"|translate}}
+                            </button>
+                            <button type="button" class="btn blue margin-top-10" ng-if="IsEditPhone" ng-click="CancelEditPhone()">
+                                {{"Cancel"|translate}}
+                            </button>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>-->
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <div class="col-md-12 col-sm-12 padding1px">
+                            <button ng-if ="previous!=null && previous!='/login' && previous!=''"id="sample_editable_1_new" ng-click="cancel()"
+                            type="button" class="btn btnMargin sbold margin-top-10 pull-right">
+                                    {{"cancel"|translate}}
+                                </button>
+                        <button type="button" class="btn btnMargin sbold margin-top-10 pull-right"
+                            ng-click="ChangePassword()" ng-if="IsEditPassword"
+                            ng-disabled="EditPassForm.$invalid || EditPassForm.$pristine || PasswordMissmatch">
+                            {{"Change Password"|translate}}
+                        </button>
+                       
+                        <!-- <button type="button" class="btn btnMargin sbold margin-top-10 pull-right"
+                            ng-if="IsEditPassword" ng-click="CancelEditPassword()">
+                            {{"Cancel"|translate}}
+                        </button> -->
+                    </div>
+
+                    <div class="col-md-12 col-lg-12 col-sm-12 colxs-12  padding5 margin-top-10 margin-bottom-10 table-bordered"
+                        ng-form="EditPassForm">
+                        <span class="col-sm-12 col-md-12 col-lg-12 col-xs-12 sbold margin-bottom-10 padding1px">
+                            {{"Password"|translate}}
+                        </span>
+                        <div class="col-md-6 col-sm-8 col-lg-6 col-xs-12" ng-if="!IsEditPassword">
+                            <label class="control-label" ng-if="!IsEditPassword">************</label>
+                        </div>
+                        <div class="col-md-12 col-sm-10 col-lg-12 col-xs-12" ng-if="IsEditPassword">
+                            <label
+                                class="control-label form-group col-md-5 col-lg-3 col-sm-4 Label_Text_Right">{{"Current Password"|translate}}</label>
+                            <div class="col-md-7 col-lg-6 col-sm-8">
+                                <input type="password" name="Currentpass" autofocus required id="Currentpass"
+                                    ng-model="PasswordSecurity.CurrentPassword" class="form-control form-group "
+                                    autocomplete="falseCurPass" />
+
+                                <span class="text-danger"
+                                    ng-show="EditPassForm.Currentpass.$error.required && EditPassForm.Currentpass.$touched">
+                                    {{"Please enter your current password"|translate}}
+                                </span>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="col-sm-12 col-lg-9 col-md-12">
+                                <div class="well col-md-12 col-lg-12 col-sm-12">
+                                    {{"New Password Requirement"|translate}}
+                                    <br />{{"* 8-16 character long"|translate}}
+                                    <br />{{"* Should contain atleast one number and one special character"|translate}}
+                                    <br />{{"* Should have a mixture of uppercase and lowercase letters"|translate}}
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <label
+                                class="control-label form-group col-lg-3 col-md-5 col-sm-4 Label_Text_Right">{{"New Password"|translate}}</label>
+                            <div class="col-md-7 col-lg-6 col-sm-8">
+                                <input type="password" stop-cut-copy-paste ng-change="test()"
+                                    placeholder='{{"New Password"|translate}}' required name="Newpass" id="NewPass"
+                                    ng-model="PasswordSecurity.NewPassword" class="form-control form-group col-lg-2"
+                                    ng-pattern="/^(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,16}$/"
+                                    pw-diff-check="Currentpass" autocomplete="falseNewPass" />
+                                <div class="col-md-12 padding1px"
+                                    ng-show="StrengthDiv && !EditPassForm.Newpass.$error.pwdiff">
+                                    <div style="height:24px;width:100%;background-color:lightgray;">
+                                        <div
+                                            style="height:24px;width:{{WidthPercentage}}%;background-color:{{BackGround}};">
+                                        </div>
+                                    </div>
+                                    <span class="sbold">{{Strength}}</span>
+                                </div>
+                                <span class="text-danger"
+                                    ng-if="EditPassForm.Newpass.$error.required && EditPassForm.Newpass.$touched">
+                                    {{"Please enter new password"|translate}}
+                                </span>
+                                <span class="text-danger"
+                                    ng-if="(EditPassForm.Newpass.$dirty && EditPassForm.Newpass.$error.pwdiff)">
+                                    {{"New password should be different from current password"|translate}}
+                                </span>
+                                <div ng-message="pattern" ng-if="(EditPassForm.Newpass.$error.pattern)">
+                                    <span
+                                        class="text-danger">{{"The entered password does not meet the above requirements"|translate}}</span>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <label
+                                class="control-label form-group col-lg-3 col-md-5 col-sm-4 Label_Text_Right">{{"Confirm Password"|translate}}</label>
+                            <div class="col-md-7 col-lg-6 col-sm-8">
+                                <input type="password" stop-cut-copy-paste pw-same-check="NewPass" required
+                                    name="Confirmpass" placeholder='{{"Confirm Password"|translate}}'
+                                    ng-model="PasswordSecurity.ConfirmPassword" class="form-control form-group" ng-keyup="$event.keyCode == 13 && ChangePassword()"
+                                    autocomplete="falseConfPass" />
+                                <span class="text-danger"
+                                    ng-if="EditPassForm.Confirmpass.$error.required && EditPassForm.Confirmpass.$touched">
+                                    {{"Please retype your new password"|translate}}
+                                </span>
+                                <span class="text-danger"
+                                    ng-if="EditPassForm.Confirmpass.$error.pwmatch && !EditPassForm.Confirmpass.$error.required">
+                                    {{"New Password and confirm password does not match."|translate}}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12" style="padding: 0px !important">
+                        <!-- <a class="text-info sbold margin-top-20" ng-if="!IsEditPassword"
+                            ng-click="EditPassword()"><br />{{"Edit"|translate}}</a> -->
+
+                            <button ng-if ="previous!=null && previous!='/login' && previous!=''"id="sample_editable_1_new" ng-click="cancel()"
+                        type="button" class="btn btnMargin sbold pull-right">
+                                {{"cancel"|translate}}
+                            </button>
+                        <button type="button" class="btn btnMargin sbold pull-right" ng-click="ChangePassword()"
+                            ng-if="IsEditPassword" ng-disabled="EditPassForm.$invalid || EditPassForm.$pristine">
+                            {{"Change Password"|translate}}
+                        </button>
+                        
+                        <!-- <button type="button" class="btn btnMargin sbold margin-top-10 pull-right"
+                            ng-if="IsEditPassword" ng-click="CancelEditPassword()">
+                            {{"Cancel"|translate}}
+                        </button> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<style>
+    @keyframes animate-stripes {
+        to {
+            background-position: -50px 0;
+        }
+    }
+
+    .required:before {
+        content: " *";
+        color: red;
+    }
+</style>
+
+
+<script>
+// $(function () {
+//     var sec = $('.security');
+//     sec.change(function () {
+//         sec.find('option').show().end().each(function(){
+//             $('option[value="'+$(this).val()+'"]:not(:selected):not([value="0"])', sec).hide();
+//         });
+//     }).change();
+// });
+</script>
+<!--<div class="col-md-12">
+    <label>
+        password:
+        <input autofocus
+               type="text"
+               ng-model="pass" />
+    </label>
+
+    <label>
+        strength:
+        <meter min="0"
+               max="4"
+               value="{{v()}}"></meter>
+        <span>{{v()}}</span><label>{{Strength}}</label>
+    </label>
+
+</div>-->

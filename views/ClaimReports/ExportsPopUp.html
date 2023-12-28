@@ -1,0 +1,40 @@
+<div id="myModal" style="height: 500%;">
+    <div id="responsive">
+        <div class="modal-header">
+            <a class="close" ng-click="cancel()" aria-hidden="true"></a>
+            <h5 class="modal-title sbold">{{"Select the Columns to Export"|translate}}</h5>
+        </div>
+        <div class="modal-body">
+            <div class="col-md-12 padding1px">
+                <div class="col-md-12 col-sm-12" style="padding-top: 10px;">
+                    <label class="mt-checkbox mt-checkbox-outline mt-checkbox-single margin-top-6">
+                    <input type="checkbox" value="selectAll" ng-model="selectAll" ng-click="selectAllColumns($event)"/>
+                    <h4 style="font-weight: bold;margin-top: 0px;margin-bottom: 0px;">Select All</h4>
+                    <!-- <span style="font-size: 10px;">Select All</span> -->
+                    <span></span>
+                    </label>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="col-md-12 padding1px">
+                <div class="col-md-6 col-sm-6" ng-repeat="label in lables" style="padding-top: 5px;">
+                    <label class="mt-checkbox mt-checkbox-outline mt-checkbox-single margin-top-6">
+                    <input type="checkbox" value="select" ng-click="addLabelToList(label,$event)"
+                    ng-model="select"/>{{label}}
+                    <span></span>
+                    </label>
+                </div>
+            </div>
+            
+        </div>
+        <div class="clearfix"></div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline dark"
+                ng-click="cancel()">{{"Cancel"|translate}}</button>
+            <button type="button" data-dismiss="modal" class="btn sbold btnMargin" ng-click="ok()"
+            ng-disabled="columnList.length <= 0 ">
+            {{"Export as Excel"|translate}}
+        </button>
+        </div>
+    </div>
+</div>

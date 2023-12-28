@@ -1,0 +1,12 @@
+﻿{
+  "HeaderTitle": {
+    "ActivityLog": "Activity Log"
+  },
+  "Table": {
+    "Id": "Id",
+    "ActionTaken": "Action Taken",
+    "Status": "Status",
+    "TimeStamp": "Time Stamp",
+    "ActionTakenBy": "Action Taken By"    
+  }
+}

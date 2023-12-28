@@ -1,0 +1,54 @@
+<div class="col-md-12 col-lg-12 padding1px">
+    <ul class="page-breadcrumb breadcrumb sbold">
+        <li>
+            <a ng-click="GoToHome()">{{"Home"|translate}}</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span>{{"ClaimTimes"|translate}}</span>
+        </li>
+    </ul>
+    <div class="portlet light padding1px">
+        <div class="portlet-title">
+            <div class="caption font-gray-sharp">
+                <span class="caption-subject">{{"ClaimTimes"|translate}}</span>
+            </div>
+        </div>
+        <div class="col-lg-12 col-sm-12 col-md-12 margin-top-10 margin-bottom-10">
+            <div class="col-lg-8 col-md-12 col-sm-12 text-right">
+                <button class="btn sbold btnMargin " ng-click="saveClaimTimes(claimTimes)">{{"Save Changes"|translate}}</button>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 margin-top-10" ng-form="StateTaxForm">
+
+                    <div class="col-md-12 col-sm-12">
+                        <div class="col-md-12 clearfix padding1px">
+                            <label class="control-label col-md-2">Claim time limit for items &le; 50 </label>
+                            <div class="col-md-2 form-group" style="display:flex">
+                                <input type="number" min="0" max="2000"  class="form-control" ng-model="claimTimes.daysFor50itemsOrLess" ng-click="" />
+                            </div>
+                            <label class="control-label col-md-2">Days </label>
+                        </div>
+                        <div class="col-md-12 clearfix padding1px">
+                            <label class="control-label col-md-2">Claim time limit for items &le; 200 </label>
+                            <div class="col-md-2 form-group" style="display:flex">
+                                <input type="number" min="0" max="2000" class="form-control" ng-model="claimTimes.daysFor200itemsOrLess" ng-click="" />
+                            </div>
+                            <label class="control-label col-md-2">Days </label>
+                        </div>
+                        <div class="col-md-12 clearfix padding1px">
+                            <label class="control-label col-md-2">Claim time limit for items &gt; 200  </label>
+                            <div class="col-md-2 form-group" style="display:flex">
+                                <input type="number" min="0" max="2000" class="form-control" ng-model="claimTimes.daysFor200itemsOrMore" ng-click="" />
+                            </div>
+                            <label class="control-label col-md-2">Days </label>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

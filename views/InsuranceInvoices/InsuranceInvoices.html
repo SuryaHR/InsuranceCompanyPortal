@@ -1,0 +1,806 @@
+<style>
+    /* START - Multi Select Dropdown style */
+    .multiSelectDropdownStyle {
+        height: 34px;
+        padding: 0px;
+
+        overflow-x: auto;
+        margin-bottom: 5px;
+        border: #f0f0f0 solid 1px;
+    }
+
+    .k-multiselect-wrap {
+        border: none;
+        padding-right: 10px;
+    }
+
+    .paddingLeft0px {
+        padding-left: 0px;
+    }
+
+    /* END - Multi Select Dropdown style */
+</style>
+<style>
+    option {
+        background-color: rgba(243, 236, 243, 0.973);
+        color: black;
+    }
+
+    @media (min-width: 1024px) {
+
+        .col-lg-5-pai,
+        .col-md-3-pai {
+            width: 36.5%;
+        }
+
+        .col-lg-3-bar,
+        .col-md-3-bar {
+            width: 35%;
+        }
+    }
+
+    @media (min-width: 1200px) {
+
+        .col-lg-5-pai,
+        .col-md-3-pai {
+            width: 37%;
+        }
+
+        .col-lg-3-bar,
+        .col-md-3-bar {
+            width: 35.5%;
+        }
+    }
+
+    @media (min-width: 1200px) {}
+
+
+    @media only screen and (min-width: 768px) {
+        .reportBtns button {
+            min-width: 83px !important;
+            padding: 2px 0px !important;
+        }
+    }
+
+    .fixed_header tbody {
+        width: 100% !important;
+        overflow-y: auto;
+    }
+
+    th.action {
+        width: 56% !important;
+    }
+
+    .count-indicator {
+        padding-right: 8px !important;
+    }
+
+    .empty-table {
+        text-align: center !important;
+    }
+
+    .paddingNone {
+        padding: 0px !important;
+    }
+
+    .input-group {
+
+        margin-left: -14px;
+    }
+
+
+    input {
+        border-radius: 3px !important;
+    }
+
+    .input-box {
+        outline: none !important;
+        box-shadow: none !important;
+        display: block;
+        width: 100%;
+        height: 25px;
+        padding: 6px 12px;
+        padding-bottom: 8px;
+        font-size: 13px;
+        line-height: 1.42857;
+        color: #555555;
+        background-color: #fff;
+        background-image: none;
+        border: 1px solid #c2cad8;
+        border-radius: 4px;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+        -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+        -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+        transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+    }
+
+    .control-label {
+        text-align: right !important;
+        margin-bottom: 0 !important;
+        padding-top: 2px !important;
+    }
+
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    input[readonly] {
+        background-color: #fff !important;
+    }
+
+    input:focus {
+        border: 1px solid #2980B9;
+    }
+
+    .input-group-addon {
+        padding: 3px 9px !important;
+    }
+
+    .btn-default {
+        color: #333;
+        background-color: #c2cad8;
+        border-color: #adadad;
+    }
+
+    .btn-default:focus,
+    .btn-default.active,
+    .btn-default:hover,
+    .focus,
+    .active {
+        color: rgb(248, 244, 244) !important;
+        background-color: #4b4848 !important;
+        border-color: #3a3737 !important;
+    }
+
+    .btn-fonts {
+        font-size: 12px !important;
+        font-weight: 600 !important;
+    }
+
+    .reportBtns button {
+        width: 21px !important;
+        text-align: center;
+        font-size: 12px !important;
+        font-weight: 600 !important;
+        padding: 0px;
+    }
+
+    .comp-performance .panel-body {
+        padding: 2px 15px !important;
+    }
+
+
+    @media only screen and (min-width: 768px) {
+        .sc-incoming button {
+            min-width: 74px !important;
+            padding: 2px 0px !important;
+            font-size: 12px !important;
+        }
+    }
+
+    li.active {
+        background-color: #33aae5 !important;
+        color: #7fa5c6 !important;
+    }
+
+    /* Start - Select2me multi-select dropdown css */
+    span.select2-selection--multiple {
+        min-height: 23px !important;
+    }
+
+    input.select2-search__field {
+        height: 28px !important;
+        padding: 0px 5px !important;
+    }
+
+    .select2-selection__rendered {
+        overflow-y: scroll !important;
+        height: 28px !important;
+    }
+
+    /* End - Select2me multi-select dropdown css */
+</style>
+<script>
+
+    //btn-groups
+    // Invoices filter
+    $(".btn-group-invoices-filter > .btn").click(function () {
+        $(".btn-group-invoices-filter > .btn").removeClass("active");
+        $(this).addClass("active");
+    });
+
+    //Incoming Appraisals
+    $(".btn-group-incoming-appraisals > .btn").click(function () {
+        $(".btn-group-incoming-appraisals > .btn").removeClass("active");
+        $(this).addClass("active");
+    });
+
+    // Company performance
+    $(".btn-group-company-performance > .btn").click(function () {
+        $(".btn-group-company-performance > .btn").removeClass("active");
+        $(this).addClass("active");
+    });
+
+    // Insurance company report
+    $(".btn-group-insurance-companies > .btn").click(function () {
+        $(".btn-group-insurance-companies > .btn").removeClass("active");
+        $(this).addClass("active");
+    });
+
+    // $(document).ready(function () {
+    //     $("#select2insidemodal").select2();
+    // });
+
+    // incomingAppraisal
+    $(".btn-group-incoming-appraisal > .btn").click(function () {
+        $(".btn-group-incoming-appraisal > .btn").removeClass("active");
+        $(this).addClass("active");
+    });
+
+
+    // company-performance
+    $(".btn-group-company-performance > .btn").click(function () {
+        $(".btn-group-company-performance > .btn").removeClass("active");
+        $(this).addClass("active");
+    });
+
+    //btn-group-insurance-company-report
+    $(".btn-group-insurance-company-report > .btn").click(function () {
+        $(".btn-group-insurance-company-report > .btn").removeClass("active");
+        $(this).addClass("active");
+    });
+
+</script>
+
+<div id="myModal" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding1px">
+    <!--Invoices Information-->
+    <div class="portlet light padding1px" style="padding-top: 0px;">
+
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 paddingNone">
+            <div class="panel-body paddingNone">
+                <!-- Start-Invoices - Insurance Account Manager-->
+                <div class="form-group" ng-show="UserType == 'INSURANCE ACCOUNT MANAGER'">
+                    <!-- Start Invoices Charts-->
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="row">
+                            <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12 container"
+                                style="padding: 0px 5px 0px 0px; border-radius: 4px;">
+                                <div class="row options_Background" style="margin: -1px;">
+                                    <div class="caption" style="padding: 5px 5px 5px 10px;">
+                                        <span class="caption-subject ng-binding"
+                                            style="color: #ffffff;font-size:14px;line-height:14px;">{{"HeaderText.Invoices"|translate}}</span>
+                                    </div>
+                                </div>
+
+                                <div class="panel panel-default"
+                                    style="border-color: #3598dc; border-radius: 0 !important;margin-top: 0px;height: 568px;">
+
+                                    <div class="row" style="padding-bottom:30px;">
+                                        <div class="col-lg-12 col-md-12 margin-top-10 text-center sc-incoming"
+                                            data-toggle="buttons">
+                                            <div class="btn-group btn-group-invoices-filter text-center" role="group"
+                                                aria-label="..." style="width:98%">
+                                                <!-- <button type="button" ng-click="speedCheckIncomingApparaisal(1)" class="btn btn-default btn-fonts active">{{"Today"|translate}}</button> 
+                                                    <button type="button" ng-click="speedCheckIncomingApparaisal(2)" class="btn btn-default btn-fonts">{{"This Week"|translate}}</button> -->
+                                                <button type="button" ng-click="populateBarGraph(1)"
+                                                    class="btn btn-default btn-fonts active"
+                                                    style="width: 20%;padding: 5px!important;float: none; margin: -5px;">{{"This Month"|translate}}({{yearValues.thisMonth}})</button>
+                                                <button type="button" ng-click="populateBarGraph(3)"
+                                                    class="btn btn-default btn-fonts"
+                                                    style="width: 25%;padding: 5px!important;float: none; margin: -5px;">{{"This Quarter"|translate}}({{yearValues.thisQuaterFirstMonth}}
+                                                    - {{yearValues.thisQuaterLastMonth}})</button>
+                                                <button type="button" ng-click="populateBarGraph(12)"
+                                                    class="btn btn-default btn-fonts"
+                                                    style="width: 20%;padding: 5px!important;float: none; margin: -5px;">{{"This Year"|translate}}({{yearValues.thisYear}})</button>
+                                                <!-- <div  tabindex="1" style="width: 35%;padding: 0px;float: left;">
+                                                        <select class="form-control select2me " style="width:100%;" multiple ng-model="years" data-placeholder="Select Year" id="select2insidemodal" 
+                                                        name="person" ng-change="scrollTop()" ng-required="yearList.length<=0" ng-options="item.year as item.year for item in yearList"></select>
+                                                    </div> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div id='myDiv'></div>
+                                    </div>
+                                    <!-- <div ng-show="!showCanvas" class="col-md-12 col-lg-12 text-center " >
+                                                <span class="text-center text-danger">{{"MsgText.NoDataFound" |translate}}</span>
+
+                                            </div> -->
+                                    <div class="col-lg-12 col-md-12 pull-left count-indicator margin-top-10"
+                                        style="padding-left: 5px;">
+                                        {{"LabelText.TotalAppraisalsCrt" |translate}}
+                                        <strong>{{newAppraisalsCount}}</strong>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 pull-left count-indicator"
+                                        style="padding-left: 5px;">
+                                        {{"LabelText.TotalArtigemReviews" |translate}}
+                                        <strong>{{artigemReviewsCount}}</strong>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 container"
+                                style="padding: 0px 0px 0px 5px;">
+                                <!--Start - Subscription Section -->
+                                <div class="col-md-12 col-sm-12 col-xs-12"
+                                    style="padding: 5px 10px;min-height: 110px; border-radius: 4px;"
+                                    ng-style="(subscriptionInfo != null) ? (subscriptionInfo.contractExpiry ? {'border':'1px solid rgb(202, 23, 32)'}:{'border':'1px solid #7BD47D'}) : {'border':'1px solid #3598dc'};">
+                                    <div ng-if="subscriptionInfo != null">
+                                        <!-- Subscription Active -->
+                                        <div class="col-md-12 col-sm-12 col-xs-12 SubHeadingDiv margin-bottom-10"
+                                            ng-if="!subscriptionInfo.contractExpiry"
+                                            style="border-bottom: 2px solid #7BD47D !important;">
+                                            <span class="caption-subject"
+                                                style="font-size: 14px; font-weight: 700;color:#7BD47D;">{{"HeaderText.SubscriptionActive"|translate}}</span>
+                                        </div>
+                                        <div class="col-md-10 col-sm-8 col-xs-9"
+                                            ng-if="!subscriptionInfo.contractExpiry">
+                                            {{"MsgText.SubscriptionPlanActive"|translate}}
+                                            <u>{{subscriptionInfo.endDate | formatDate}}</u>
+                                        </div>
+                                        <!-- Subcription Inactive -->
+                                        <div class="col-md-12 col-sm-12 col-xs-12 SubHeadingDiv margin-bottom-10"
+                                            ng-if="subscriptionInfo.contractExpiry"
+                                            style="border-bottom: 2px solid rgb(202, 23, 32) !important;">
+                                            <span class="caption-subject"
+                                                style="font-size: 14px; font-weight: 700;color:rgb(202, 23, 32);">{{"HeaderText.SubscriptionExpired"|translate}}</span>
+                                        </div>
+                                        <div class="col-md-10 col-sm-8 col-xs-9" ng-if="subscriptionInfo.contractExpiry"
+                                            style="color:rgb(202, 23, 32);">
+                                            {{"MsgText.SubscriptionPlanExpired"|translate}}
+                                            <u>{{subscriptionInfo.endDate | formatDate}}</u>
+                                        </div>
+                                        <div class="col-md-2 col-sm-4 col-xs-3" style="padding-top: 15px;">
+                                            <span class="glyphicon glyphicon-calendar" style="font-size: 40px;"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12 col-sm-12 col-xs-12 text-center"
+                                        ng-if="subscriptionInfo == null" style="padding-top: 15px;">
+                                        <i class="fa fa-warning text-danger"></i>
+                                        &nbsp;{{"MsgText.NoActiveSubcription"|translate}}
+                                    </div>
+                                </div>
+                                <!--End - Subscription Section -->
+
+                                <!--Start - Billing Contact Section -->
+                                <div class="col-md-12 col-sm-12 col-xs-12"
+                                    style="padding: 5px 10px;border:1px solid #3598dc;min-height: 195px;margin-top: 20px; border-radius: 4px;    ">
+                                    <div class="col-md-12 col-sm-12 col-xs-12 SubHeadingDiv margin-bottom-10"
+                                        style="border-bottom: 2px solid #666 !important;">
+                                        <span class="caption-subject"
+                                            style="font-size: 14px; font-weight: 700;">{{"HeaderText.BillingContact"|translate}}</span>
+                                    </div>
+
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group margin-top-10">
+                                        <label
+                                            class="col-lg-5 col-md-5 col-sm-4 col-xs-4 text-right">{{"LabelText.PrimaryContact"|translate}}</label>
+                                        <div class="col-lg-7 col-md-7 col-sm-8 col-xs-8">
+                                            <span>{{invoiceData.primaryContact}}</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group margin-top-10">
+                                        <label
+                                            class="col-lg-5 col-md-5 col-sm-4 col-xs-4 text-right">{{"LabelText.PrimaryEmailID"|translate}}</label>
+                                        <div class="col-lg-7 col-md-7 col-sm-8 col-xs-8">
+                                            <span>{{invoiceData.primaryEmailId}}</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group margin-top-10">
+                                        <label
+                                            class="col-lg-5 col-md-5 col-sm-4 col-xs-4 text-right">{{"LabelText.PhoneNumber"|translate}}</label>
+                                        <div class="col-lg-7 col-md-7 col-sm-8 col-xs-8">
+                                            <span>{{invoiceData.primaryPhoneNumber | tel}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--End - Billing Contact Section -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Invoices Charts-->
+
+                    <!-- Start Invoice Datatable for SpeedCheck Manager / Supervisor / Associate -->
+                    <div class="col-md-12 col-sm-12 col-xs-12 SubHeadingDiv margin-bottom-10"
+                        style="border-bottom: 1px solid #666 !important;">
+                        <span class="caption-subject"
+                            style="font-size: 14px; font-weight: 700;">{{"HeaderText.AllInvoices"|translate}}</span>
+                    </div>
+
+
+                    <div class="portlet light padding1px" style="padding-top: 0px!important;">
+                        <div class="portlet-body">
+                            <div class="row">
+                                <div class="col-md-12 colsm-12">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 options_Background padding1px">
+                                        <div class="col-lg-3 col-md-3 col-sm-6 margin-bottom-5 margin-top-5"
+                                            style="padding: 10px;">
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12 table-responsive padding1px" style="background-color: white;">
+                                        <table
+                                            class="table  table-striped table-bordered table-hover table-checkable order-column"
+                                            id="NavigateTable">
+                                            <thead>
+                                                <tr>
+                                                    <th ng-click="sort('InvoiceNum')">
+                                                        {{"LabelText.InvoiceNo"|translate}}
+                                                        <span class="glyphicon sort-icon"
+                                                            ng-show="sortKey==='InvoiceNum'"
+                                                            ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                    </th>
+                                                    <th ng-click="sort('billingPeriod')">
+                                                        {{"LabelText.BillingPeriod"|translate}}
+                                                        <span class="glyphicon sort-icon"
+                                                            ng-show="sortKey==='billingPeriod'"
+                                                            ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                    </th>
+                                                    <th ng-click="sort('invoiceDate')">
+                                                        {{"LabelText.InvoiceDate"|translate}}
+                                                        <span class="glyphicon sort-icon"
+                                                            ng-show="sortKey==='invoiceDate'"
+                                                            ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                    </th>
+
+                                                    <th ng-click="sort('invoiceAmount')">
+                                                        {{"LabelText.InvoiceAmount"|translate}}
+                                                        <span class="glyphicon sort-icon"
+                                                            ng-show="sortKey==='invoiceAmount'"
+                                                            ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                    </th>
+
+                                                    <th ng-click="sort('Status')">
+                                                        {{"LabelText.Status"|translate}}
+                                                        <span class="glyphicon sort-icon" ng-show="sortKey==='Status'"
+                                                            ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                    </th>
+
+                                                    <th>
+                                                        {{"LabelText.Action"|translate}}
+                                                    </th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-click="openInvoiceDetailsPage(item)"
+                                                    dir-paginate="item in invoiceList|itemsPerPage:pageSize track by $index"
+                                                    pagination-id="invoiceList" total-items="totalItems"
+                                                    current-page="currentPage">
+                                                    <td>{{item.invoiceNumber}}</td>
+                                                    <td>{{item.billingPeriod}}</td>
+                                                    <td>{{item.invoiceDate}}</td>
+                                                    <td>{{item.invoiceAmount | currency}}</td>
+                                                    <td>{{item.invoiceStatus}}</td>
+                                                    <td class="not-clickable-cell" ng-click="$event.stopPropagation()"
+                                                        style="cursor:default!important;">
+                                                        <a href="#" ng-click="getMonthlyInvoicePDF(item.invoiceNumber)">
+                                                            <span class="glyphicon glyphicon-download-alt"
+                                                                style="font-size:15px;color:red"></span>
+                                                            {{"Download"|translate}}
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                                <tr
+                                                    ng-if="invoiceList == 'undefined' || invoiceList==null || invoiceList.length==0 ">
+                                                    <td colspan="6" class="text-center text-danger"
+                                                        style="text-align: center;">
+                                                        {{"MsgText.NoInvoiceFound"|translate}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <span>
+
+
+                                        </span>
+                                        <div class="clearfix"></div>
+                                        <dir-pagination-controls pagination-id="invoiceList" max-size="10"
+                                            on-page-change="pageChangedMonthly(newPageNumber)" direction-links="true"
+                                            boundary-links="true" class="pull-right">
+                                        </dir-pagination-controls>
+                                        <span ng-if="invoiceList!=null && invoiceList.length>0" class="bold pull-left"
+                                            style="color: #337ab7;"> Showing {{ (pageSize * (currentPage - 1))+1 }} to
+                                            {{toShowingPage}} of {{totalItems}} records </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Invoice Datatable for SpeedCheck Manager / Supervisor / Associate -->
+
+                </div>
+                <!-- End-Invoices - Insurance Account Manager-->
+
+                <!-- Start-Invoices - Insurance Agent -->
+                <div class="form-group" ng-show="UserType == 'INSURANCE AGENT'">
+                    <!-- Start Itemized Invoices filters -->
+                    <div class="portlet light padding1px"
+                        style="margin-bottom: 0px!important; padding-bottom: 0px!important;padding: 0px 10px 10px 10px;">
+                        <div class="portlet-body">
+                            <div class="row">
+                                <div class="col-md-12 colsm-12">
+                                    <div class="portlet-title"
+                                        style="border-bottom: 1px solid #666; margin-bottom: 5px;">
+                                        <div class="caption font-gray-sharp ">
+                                            <span class="caption-subject ng-binding"
+                                                style="font-size: 18px;color: #666;">{{"HeaderText.ItemizedInvoices"|translate}}</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding1px container">
+                                        <div class="panel panel-default well"
+                                            style="border-color: #3598dc; border-radius: 0 !important;margin-top: 0px;">
+                                            <div class="panel-body" style="padding: 0px;">
+
+                                                <!-- Start - Invoices button group -->
+                                                <div class="row">
+                                                    <div class="col-lg-12 col-md-12 text-center" data-toggle="buttons">
+                                                        <div class="col-md-3 col-sm-2 col-xs-3 caption font-gray-sharp">
+                                                            <span class="caption-subject ng-binding pull-left"
+                                                                style="font-size: 15px;color: black;font-weight: bold;margin-left: 10px;">{{"HeaderText.Filters"|translate}}</span>
+                                                        </div>
+                                                        <div id="invoicesBtns" style="padding: 0px 10px 10px 23px;"
+                                                            class="col-md-8 col-sm-8 col-xs-12 btn-group btn-group-invoices-filter"
+                                                            role="group" aria-label="...">
+                                                            <button type="button" ng-click="updateInvoiceDate(1)"
+                                                                class="btn btn-default btn-fonts active">{{"LabelText.ThisMonth"|translate}}({{yearValues.thisMonth}}
+                                                                '{{yearValues.thisSplitYear}})</button>
+                                                            <button type="button" ng-click="updateInvoiceDate(2)"
+                                                                class="btn btn-default btn-fonts">{{"LabelText.ThisQuarter"|translate}}({{yearValues.thisQuaterFirstMonth}}
+                                                                - {{yearValues.thisQuaterLastMonth}}
+                                                                '{{yearValues.thisSplitYear}})</button>
+                                                            <button type="button" ng-click="updateInvoiceDate(3)"
+                                                                class="btn btn-default btn-fonts">{{"LabelText.ThisYear"|translate}}({{yearValues.thisYear}})</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- End - Invoices button group -->
+
+                                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group" id='cal'>
+                                                    <div class="col-md-3 col-sm-2 col-xs-3 Label_Text_Right">
+                                                        <label class="control-label ">
+                                                            {{"LabelText.InvoiceCreatedDate" |translate}}
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-md-8 col-sm-8 col-xs-12">
+                                                        <div class="col-md-3 col-sm-6 p_left_zero">
+                                                            <div class="input-icon left">
+                                                                <i class="icon-calendar"></i>
+                                                                <input class="form-control datepicker fromDateCls" data-date-container='#cal'
+                                                                    ng-model="filter.invoiceFromDate" data-date="{{filter.invoiceFromDate}}" data-provide="datepicker" size="16" type="text" placeholder="{{'From'|translate}} "
+                                                                    name="fromDate" id="fromDate" autocomplete="fakeFromDate" readonly />                                        
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-2 col-md-2 col-sm-1 col-xs-2 p_left_zero"
+                                                            style="width:13%;text-align:center;">
+                                                            <label class="control-label ">
+                                                                {{"LabelText.To"|translate}}
+                                                            </label>
+                                                        </div>
+                                                        <div class=" col-lg-3 col-md-4 col-sm-6 p_left_zero">
+                                                            <div class="input-icon left">
+                                                                <i class="icon-calendar"></i>
+                                                                <input class="form-control datepicker toDateCls" data-date-container='#cal' 
+                                                                    ng-model="filter.invoiceToDate" data-date-start-date="{{filter.invoiceFromDate}}" data-date="{{filter.invoiceToDate}}" data-provide="datepicker" size="16" type="text" placeholder="{{'To'|translate}} "
+                                                                    name="toDate" id="toDate" autocomplete="fakeToDate" readonly />                                        
+                                                            </div>
+                                                        </div>
+                                                        <div class=" col-lg-3 col-md-4 col-sm-6 text-danger"
+                                                            ng-show=dateRangeInvalid>created Date should be less than to
+                                                            date</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+                                                    <div class="col-md-3 col-sm-12 col-xs-12 Label_Text_Right">
+                                                        <label class="control-label ">
+                                                            {{"LabelText.ItemCategory"|translate}}
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-8" ng-mouseover="func()" ng-mouseout="funz()" >
+                                                        <div class="col-lg-12 col-md-12 col-sm-12 form-group" style="padding: 0px;">
+                                                            <div class="mulSelBox">
+                                                                <div class="" style="width: 98%;overflow-y: scroll;display: flex;padding: 0px;flex-wrap: wrap;max-height: 30px;">
+                                                                    <div class="sin_opt" ng-repeat="category in itemCategoryIds"><div class="tabs" >{{findItemCategory(category)}}</div>
+                                                                    <span class="k-icon k-i-close" ng-click="clearItemCategory(category);"></span>
+                                                                    </div>
+                                                                </div>
+                                                                <div style="position: sticky;left:100%">
+                                                                    <span class="k-icon k-i-close" ng-if="itemCategoryIds.length>0" ng-click="clearAllItemCategory();"></span>
+                                                                </div>
+                                                            </div>
+                                                            <!-- <select class="selectpicker form-controls"
+                                                                ng-mousedown="fun()" ng-click="fun()" ng-placeholder="select status"
+                                                                ng-model="itemCategoryIds" multiple >
+                                                                <option class="opt" style="display: none;" ng-repeat="category in itemCategoryList"  value="category.id">{{category.atttibuteValue}}</option>
+                                                            </select> -->
+                                                            <div style="background-color:white;position: absolute;;z-index:10000;border: 1px solid #ddd;width: 100%;" ng-show="dispItemCategory" >
+                                                                <ul class="list" style="list-style-type:none;">
+                                                                  <li class="">
+                                                                  <input type="text" class="searchBar form-control" ng-model="itemCategorySearch" ng-change="searchItemCategory()" placeholder="Search" />
+                                                                 </li>
+                                                                  <li class="pfixed" style="top:2px" ng-show="itemCategoryArr.length>0">
+                                                                 <input type="checkbox" value="selectAll" id="select-All-category"  class ="custom-checkbox" onchange="handleItemCategorySelectAll(event)" > &nbsp;Select all
+                                                                 </li>
+                                                                <li class="pfixed" ng-repeat="category in itemCategoryArr" >
+                                                                <input type="checkbox" value="{{category.id}}" id="{{'check'+category.id}}" class="status_check  custom-checkbox " ng-checked="checkCategoryValues(category.id)" onchange="handleItemCategoryChange(event)">
+                                                                &nbsp;{{category.atttibuteValue}}</li>
+                                                                <li class="pfixed" ng-show="itemCategoryArr.length==0">
+                                                                 <span class="red">No results available</span>
+                                                                 </li>
+                                                             </ul> 
+                                                            </div>
+                                                        </div>
+                                                        <!-- <select class="form-control select2me" name="itemCategory"
+                                                            multiple ng-model="filter.itemCategoryIds"
+                                                            placeholder='{{"ControlText.Office"|translate}}'
+                                                            id="select2insidemodal"
+                                                            ng-options="item.id as item.atttibuteValue for item in itemCategoryList"></select> -->
+                                                    </div>
+                                                </div>
+
+                                                <div
+                                                    class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-group margin-top-10">
+                                                    <div class="col-md-3 col-sm-8">
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-8">
+                                                        <button class="btn btn-default sbold pull-left"
+                                                            style="margin-right: 20px;"
+                                                            ng-click="getSubInvoicesForMonthly()">{{"ControlText.SearchBtn"|translate}}</button>
+                                                        <button class="btn btn-default sbold pull-left"
+                                                            ng-click="resetFilters()">{{"ControlText.ResetBtn"|translate}}</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Itemized Invoices filters -->
+
+                    <!-- Start Invoice details list for Agent -->
+                    <div class="portlet light padding1px" style="padding-top: 0px!important;">
+                        <div class="portlet-body">
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 options_Background padding1px">
+                                        <div class="col-lg-3 col-md-3 col-sm-6 margin-bottom-5 margin-top-5"
+                                            style="padding-left: 10px;">
+                                            <a ng-click="downloadAppraisalInvociesExcel();"
+                                                class="btn btn-default sbold btnMargin"
+                                                style="padding-bottom: 2px !important;padding-top: 3px !important;padding-left: 7px !important;text-align: left;padding-right: 7px!important;">
+                                                <label style="vertical-align: middle;">
+                                                    {{"LabelText.ExportAsExcel" | translate}} </label>
+                                                <i class="fa fa-file-excel-o"
+                                                    style="font-size:18px;color:green;margin-top: 5px;"></i>
+                                            </a>
+                                        </div>
+                                        <div class="col-md-4 col-xs-9 col-sm-8 margin-top-10 pull-right">
+                                            <div class="input-icon left">
+                                                <i class="icon-magnifier"></i>
+                                                <input type="text" id="searchInvoicesKeyword" restrict-keypress
+                                                    ng-model="searchInvoicesKeyword"
+                                                    class="form-control form-control-solid input-circle input-block-level"
+                                                    placeholder='{{"LabelText.AgentSearchText"|translate}}'
+                                                    ng-keyup="searchInvoicesKeyword.length > 0 ? ($event.keyCode == 13 && searchInvoices(searchInvoicesKeyword)) : ($event.keyCode == 8 && searchInvoices(searchInvoicesKeyword))">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12 table-responsive padding1px" style="background-color: white;">
+                                        <table
+                                            class="table table-striped table-bordered table-hover table-checkable order-column"
+                                            id="NavigateTable">
+                                            <thead>
+                                                <tr>
+                                                    <th ng-click="sort('invoiceNum')">
+                                                        {{"LabelText.InvoiceNo"|translate}}
+                                                        <span class="glyphicon sort-icon"
+                                                            ng-show="sortKey==='invoiceNum'"
+                                                            ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                    </th>
+
+                                                    <th ng-click="sort('invoiceDate')">
+                                                        {{"LabelText.InvoiceDate"|translate}}
+                                                        <span class="glyphicon sort-icon"
+                                                            ng-show="sortKey==='invoiceDate'"
+                                                            ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                    </th>
+
+                                                    <th ng-click="sort('invoiceReason')">
+                                                        {{"Invoice Reason"}}
+                                                        <span class="glyphicon sort-icon"
+                                                            ng-show="sortKey==='invoiceReason'"
+                                                            ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                    </th>
+                                                    <th ng-click="sort('appraisalNumber')">
+                                                        {{"LabelText.Appraisal#"|translate}}
+                                                        <span class="glyphicon sort-icon"
+                                                            ng-show="sortKey==='appraisalNumber'"
+                                                            ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                    </th>
+
+                                                    <th ng-click="sort('itemCategory')">
+                                                        {{"LabelText.ItemCategory"|translate}}
+                                                        <span class="glyphicon sort-icon"
+                                                            ng-show="sortKey==='itemCategory'"
+                                                            ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                    </th>
+
+                                                    <th ng-click="sort('policyNumber')">
+                                                        {{"LabelText.Policy#"|translate}}
+                                                        <span class="glyphicon sort-icon"
+                                                            ng-show="sortKey==='policyNumber'"
+                                                            ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                    </th>
+
+                                                    <th ng-click="sort('speedCheckValue')">
+                                                        {{"LabelText.SpeedCheckValue"|translate}}
+                                                        <span class="glyphicon sort-icon"
+                                                            ng-show="sortKey==='speedCheckValue'"
+                                                            ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                    </th>
+                                                    <th ng-click="sort('invoiceAmount')">
+                                                        {{"LabelText.InvoiceAmount"|translate}}
+                                                        <span class="glyphicon sort-icon"
+                                                            ng-show="sortKey==='invoiceAmount'"
+                                                            ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                    </th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr dir-paginate="appraisalInvoice in appraisalInvoices | itemsPerPage:pageSize track by $index"
+                                                    total-items="totalItems" current-page="currentPage"
+                                                    pagination-id="appraisalInvoicesId">
+                                                    <td>{{appraisalInvoice.invoiceNumber}}</td>
+                                                    <td>{{appraisalInvoice.createDate | formatDate}}</td>
+                                                    <td>{{appraisalInvoice.appraisalInvoiceItem.category.name}}</td>
+                                                    <td>{{appraisalInvoice.appraisal.appraisalNumber}}</td>
+                                                    <td>{{appraisalInvoice.appraisal.itemCategory.atttibuteValue}}</td>
+                                                    <td>{{appraisalInvoice.appraisal.policyNumber}}</td>
+                                                    <td>{{appraisalInvoice.appraisal.sc_insuranceReplacementValue | currency}}
+                                                    </td>
+                                                    <td>{{appraisalInvoice.amount | currency}}</td>
+                                                </tr>
+                                                <tr ng-if="appraisalInvoices==null || appraisalInvoices.length==0">
+                                                    <td colspan="12" class="empty-table text-danger">
+                                                        {{"MsgText.NoInvoiceFound"|translate}}
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <dir-pagination-controls pagination-id="appraisalInvoicesId" max-size="20"
+                                        on-page-change="pageChanged(newPageNumber)" direction-links="true"
+                                        boundary-links="true" class="pull-right">
+                                    </dir-pagination-controls>
+                                    <span ng-if="appraisalInvoices != null && appraisalInvoices.length > 0" class="bold"
+                                        style="color: #337ab7;"> Showing
+                                        {{ (pageSize * (currentPage - 1))+1 }} to {{toShowingPage}} of
+                                        {{totalItems}} records </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- End-Invoices - Insurance Agent -->
+            </div>
+        </div>
+    </div>
+</div>
+<script type="application/javascript">
+    $( document ).ready(function() {
+        var $injector = angular.element(document.body).injector();
+        var calService = $injector.get('CalendarUtility');
+        calService.calPastDateSetting("fromDateCls", "toDateCls"); // Policy Effective Dates
+    });
+</script>

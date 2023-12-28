@@ -1,0 +1,27 @@
+﻿{
+  "RolesAndBudget": "Roles And Budget",
+  "Invoice": "Invoice",
+  "Claims": "Claims",
+  "Role": "Role",
+  "IndividualInvoiceLimit": "Individual Invoice Limit",
+  "IndividualClaimLimit": "Individual Claim Limit",
+  "AnnualLimit": "Annual Limit",
+  "Save": "Save",
+  "Invoices": "Invoices",
+  "PaymentTerms": "Payment Terms",
+  "Description": "Description",
+  "Status": "Status",
+  "Action": "Action",
+  "PaymentOption": "Payment Options",
+  "New Payment Term": "New Payment Term",
+  "New Payment Option": "New Payment Option",
+  "Export": "Export",
+  "IndividualInvoiceLimitRequired": "Enter Invoice Limit",
+  "IndividualClaimLimitRequired": "Enter Individual Claim Limit",
+  "AnnualLimitRequired": "Enter Annual Limit",
+  "Name": "Name",
+  "StateTaxes": "State Taxes",
+  "ClaimTimes": "Claim Times"
+
+
+}

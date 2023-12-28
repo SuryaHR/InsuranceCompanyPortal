@@ -1,0 +1,42 @@
+﻿{
+  "HeaderTitle": {
+    "Alert_title": "Alert",
+    "LineItemNotification_title": "Line Item Notification",
+    "MyClaims_title": "My Claims",
+    "UpcomingEvents": "Upcoming Events",
+    "ClosedClaims": "Closed Claims"
+  },
+  "HeaderText": {
+    "NewAssignments": "New Assignments",
+    "ClosedAssignments": "Closed Assignments",
+    "AssignmentsPendingPolicyholderAction": "Assignments Pending Policyholder Action",
+    "AssignmentsPendingSupervisorAction": "Assignments Pending Supervisor Action",
+    "AssignmentWorkInprogress": "Assignments- Work In Progress",
+    "Assignment- Work In Progress": "Assignment- Work In Progress",
+    "Assignment Pending PolicyHolder Action": "Assignment Pending PolicyHolder Action",
+    "Assignments Pending Supervisor Action": "Assignments Pending Supervisor Action"
+  },
+  "TabHeaderTitle": {
+    "ClosedClaims": "Closed Claims",
+    "ClosedAssignments": "Closed Assignments",
+    "OpenAssignMents": "Open AssignMents",
+    "OpenClaims": "Open Claims"
+  },
+  "Table": {
+    "Assignment#": "Assignment#",
+    "Policy#": "Policy#",
+    "InsuredsName": "Insured's Name",
+    "ItemType": "Item Type",
+    "RequestDate": "Request Date",
+    "Date": "Date",
+    "Participant": "Participant",
+    "ScheduledAction": "Scheduled Action",
+    "LastNote": "Last Note"
+
+  },
+  "SearchText": "Search... ",
+  "MainSearchText": "Search... ",
+  "NoRecordText": "No records available",
+  "NoAlertText": "You don't have any alerts.",
+  "NoEventsText": "There is no any upcoming event for you."
+}

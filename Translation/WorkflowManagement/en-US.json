@@ -1,0 +1,11 @@
+﻿{
+  "Home": "Home",
+  "Workflow Management": "Workflow Management",
+  "Item Workflow": "Item Workflow",
+  "Claim Workflow": "Claim Workflow",
+  "ClaimTextFirst": "Start by adding new stage.",
+  "ClaimTextSecond": "Once stage is created add the statuses a claim can take at every stage.",
+  "ClaimTextThird": "You can edit previoulsy created stages.",
+  "Save": "Save"
+
+}

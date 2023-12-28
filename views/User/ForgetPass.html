@@ -1,0 +1,122 @@
+﻿<div class="portlet row login  nomargin clearfix  clear">
+    <div class="portlet-title logo">
+        <a href="" style="text-decoration:none;">
+            <img ng-if = "companyInfo" ng-src="{{companyInfo.logo}}" alt="" style="height: 140px; width:180px" />
+            
+            <h3 ng-if = "!companyInfo" class="form-title font-green logo-default">ARTIGEM STREAMLINE</h3>
+        </a>
+    </div>
+    <div class="">
+        <div class="col-md-3"></div>
+        <div class="col-md-6" style="padding-top:7%">
+            <!-- style="box-shadow: 0px 1px 17px 0px #808080;" -->
+            <form class="" id="NewVendorForm" name="NewVendorForm">
+                <div class="col-md-12">
+                    <div class="col-md-12 portlet light bordered"
+                        style="box-shadow: 2px 0px 16px 0px lightgrey;">
+                        <div class="portlet-title margin-top-20">
+                            <div class="caption font-blue-sharp sbold">
+                                <i class="font-green-sharp"></i>
+                                {{"Forgot Password?"|translate}}
+                            </div>
+                            <div class="tools">
+                            </div>
+                        </div>
+                        <div class="portlet-body margin-top-20" ng-form="forgotePassword">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <p> {{"ControlText.ForgotPasswordNote_title"|translate}} </p>
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12">                                
+                                <div class="col-lg-12 col-md-12 col-sm-12" style="min-height:56px" ng-if="errormsg">
+                                    <div ng-click="EmptyError()" ng-if="errormsg"
+                                        style="width: 36%;margin: auto; padding: 10px 14px 10px 50px !important;border-radius: 0px !important;background-color: #bd362f;opacity: 0.9 !important;    margin: 0 0 6px;
+padding: 15px 15px 15px 50px;width: 100%;-moz-border-radius: 3px 3px 3px 3px;-webkit-border-radius: 3px 3px 3px 3px;border-radius: 3px 3px 3px 3px;background-position: 15px center;    background-repeat: no-repeat;
+-moz-box-shadow: 0 0 12px #999;-webkit-box-shadow: 0 0 12px #999;box-shadow: 0 0 12px #999;color: #fff; margin-bottom:10px">
+                                        <button class="toast-close-button" role="button"
+                                            ng-click="EmptyError()">×</button>
+                                        <div class="toast-title">Error</div>
+                                        <div class="toast-message">
+                                            {{errormessage}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12 col-sm-12">
+                                <div class="col-md-12">
+                                    <div class="col-md-4 col-sm-4 Label_Text_Right">
+                                        <label class="control-label ">{{"Email Address"|translate}}</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-8">
+                                        <input class="form-control placeholder-no-fix form-group" type="text"
+                                            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" ng-model="email"
+                                            autocomplete="off" placeholder="{{'LoginText.Email_title'|translate}}"
+                                            name="email" required />
+                                        <div class="errormessage text-danger">
+                                            <div ng-message="required"
+                                                ng-show="(forgotePassword.email.$error.required && forgotePassword.email.$touched)">
+                                                <span>{{"Please enter email ID."|translate}}</span>
+                                            </div>
+                                            <div ng-message="pattern"
+                                                ng-show="(forgotePassword.email.$touched && forgotePassword.email.$error.pattern)">
+                                                <span>{{"ErrorMessage.ValidEmail_message"|translate}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12" ng-show="!hideCaptcha">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4 col-sm-4 col-lg-4"></label>
+                                        <div class="margin-top-15 col-sm-8 col-md-8 col-lg-8"
+                                            style="padding-right: 0px;">
+                                            <img style="width: 50%; height: 35px;"
+                                                data-ng-src="data:image/jpeg;base64,{{captcha.captchaImage}}"
+                                                data-err-src="images/png/avatar.png" />
+                                            <span style="padding-left:10px; " ng-click="getForGotPassWordCaptcha()"><i
+                                                    style="color: black;" class="fa fa-refresh fa-2x"></i></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4 col-sm-4 col-lg-4 text-right"></label>
+                                        <div class="margin-top-15 col-sm-8 col-md-8 col-lg-8"
+                                            style="padding-right: 0px;">
+                                            <input type="text" style="width: 50%; height: 35px;" class="placeholdersize"
+                                                ng-model="captchCode" maxlength="6" placeholder="Enter captcha"
+                                                name="captcha" autocomplete="off" required />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 margin-top-10 hide">
+                                    <div class="col-md-4 col-sm-4">
+                                    </div>
+                                    <div class="col-md-6 col-sm-8">
+                                        <button type="button" ng-click="goToLoginPage()" id="back-btn" class="btn btn-outline">{{"ControlText.Back_title"|translate}}</button>
+                                        <button type="button" class="btn btn-outline" id="back-btn" ng-click="ResetPassword($event)"
+                                            >{{"Reset"|translate}}</button>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 margin-top-10">
+                                    <div class="col-md-4 col-sm-4">
+                                    </div>
+                                    <div class="col-md-6 col-sm-8">
+                                        <a ng-click="goToLoginPage()">Back to Login Page</a>
+                                        <button type="button" class="btn btn-outline" id="back-btn" ng-click="ResetPassword($event)"
+                                            >{{"Reset"|translate}}</button>
+                                    </div>
+                                </div> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+
+                </div>
+            </form>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+</div>
+<script>
+    jQuery(document).ready(function () {
+        Login.init()
+    });
+</script>

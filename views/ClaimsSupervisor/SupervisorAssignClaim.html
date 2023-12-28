@@ -1,0 +1,79 @@
+﻿<div>
+    <div id="responsive">
+        <div class="modal-header">
+            <a class="close" ng-click="cancel()" aria-hidden="true"></a>
+            <h4 class="modal-title">{{"MainHeader.AdjusterHed"|translate}}</h4>
+        </div>
+        <div class="modal-body">
+
+            <div class="padding-top-10px table-responsive" id="sample_5_wrapper">
+                <div class="col-md-12 options_Background">
+                    <div class="col-md-6 margin-bottom-5 margin-top-5 pull-right">
+                        <div class="input-icon  ">
+                            <i class="icon-magnifier"></i>
+                            <input type="text" ng-model="search" class="form-control form-control-solid input-circle input-block-level btnMargin" placeholder="{{'Label.searchAdj'|translate}}">
+                        </div>
+                    </div>
+                </div>
+                <table class="table   table-bordered table-hover  " id="sample_5">
+                    <thead>
+                        <tr>
+                            <th style="width: 7%;">
+                            </th>
+                            <th ng-click="sort('firstName')" style="width: 40%;">
+                                {{"Table.AdjusterName"|translate}}
+                                <span class="glyphicon sort-icon" ng-show="sortKey=='firstName'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                            </th>
+                            <th ng-click="sort('casesInHand')" style="width: 20%;">
+                                {{"Table.CasesInHand"|translate}}
+                                <span class="glyphicon sort-icon" ng-show="sortKey=='casesInHand'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+
+                            </th>
+                            <th style="width: 30%;">
+                                {{"Table.Speciality"|translate}}
+                            </th>
+
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-if="AdjusterList!=null" dir-paginate="item in AdjusterList|orderBy:sortKey:reverse|filter:search|itemsPerPage:10">
+                            <td>
+                                <label class="mt-radio mt-radio-outline mt-radio-single ">
+                                    <input type="radio" name="selectAdjuster" ng-click="getAdjusterId(item.userId)" />
+                                    <span></span>
+                                </label>
+                            </td>
+                            <td>{{item.firstName}} &nbsp;&nbsp;{{item.lastName}} </td>
+                            <td class="text-right">{{item.casesInHand}}</td>
+                            <td><font ng-repeat="specialities in item.specialities ">{{specialities.speciality}}<font ng-if="!$last">, &nbsp; </font></font></td>
+
+                        </tr>
+                        <tr ng-if="(AdjusterList.length ===0)||(AdjusterList===null)">
+                            <td></td>
+                            <td colspan="3" class="text-danger text-center">{{"Table.Norecord"|translate}}</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+
+                    </tfoot>
+                </table>
+
+                <div class="clearfix"></div><dir-pagination-controls max-size="3"
+                                                                     direction-links="true"
+                                                                     boundary-links="true" class="pull-right ">
+                </dir-pagination-controls>
+            </div>
+            <div class="col-md-12">
+                <div ng-show="Error!=''" class="text-danger">{{Error}}</div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="modal-footer">
+            <button type="button" class="btn sbold btnMargin" ng-click="cancel()">{{"ControlText.CancelAdj"|translate}}</button>
+            <button type="button" data-dismiss="modal" class="btn sbold btnMargin" ng-click="ok()">{{"ControlText.AssignAdj"|translate}}</button>
+        </div>
+    </div>
+
+</div>
+

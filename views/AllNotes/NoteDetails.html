@@ -1,0 +1,84 @@
+﻿<style>
+   .circle {
+        height: 70px;
+        width: 70px;
+        border-radius: 50%!important;
+        display: inline-block;
+        border: 1px solid black;
+    }
+
+    .circle span.text{
+        font-size: 30px!important;
+    }
+</style>
+
+<div id="myModal" >
+    <div id="responsive">
+        <div class="modal-header">
+            <a class="close" ng-click="cancel()" aria-hidden="true"></a>
+            <h5 class="modal-title" style="color: mediumturquoise;"><b>{{NoteDetails.groupTitle | titleCase}}</b></h5>
+        </div>
+        <div class="modal-body">
+            <div class="col-md-12 padding1px" style="overflow-y:auto; max-height:500px;padding: 5px;">  
+                <div class="col-md-12 col-sm-12 col-xs-12 margin-bottom-10 well" ng-repeat="item in NoteDetails.messages" style="font-weight: normal; padding: 5px;  border: 1px solid darkgray;">
+                    <!--Left Section -->
+                    <div class="col-md-4 col-lg-3 col-sm-12" style="padding:0px">
+                        <div class="col-md-12 col-lg-12 col-sm-12 " style="padding: 10px 0px 0px 0px; text-align: -webkit-center;">
+                            <div class="circle" ng-style="{ 'background-color' : '#ABB5BE', 'margin-left' : '0px' , 'z-index': '10'}" title="{{item.addedBy.name}}" style="position: relative;padding:12px 0px 5px 0px;font-weight: bold;">                                                
+                                <span class="text">
+                                    {{item.addedBy.name.split(" ")[0].charAt(0).toUpperCase() + str.split(" ")[1].charAt(0).toUpperCase()}}
+                                    {{item.addedBy.name.split(" ")[1].charAt(0).toUpperCase() + str.split(" ")[1].charAt(0).toUpperCase()}}
+                                </span>                                                
+                            </div>                                        
+                            <div>{{item.addedBy.name | titleCase}}</div>
+                        </div>
+                    </div>
+
+                    <!--Right Section -->
+                    <div class="col-md-8 col-lg-9 col-sm-12" style="padding:0px">
+                        <div class="col-md-12 col-lg-12 col-sm-12" style="padding: 10px 0px 0px 0px;">
+                            <!--img ng-src="assets/global/img/no-image.png" ng-show="item.attachments==null"  class="img-responsive bordered"  title="Attachment" 
+                                style="width:90px; height:90px;padding:1px;border: 1px solid lightgray;" / -->
+                            <span class="col-md-3 col-lg-3 col-sm-3" ng-repeat="attachment in item.attachments" style="padding-left: 10px; padding-right: 10px;">
+                                <img ng-src="{{attachment.url}}" ng-show="item.attachments!=null" class="img-responsive bordered"  title="Attachment" 
+                                    style="width:90px; height:90px;padding:1px;border: 1px solid lightgray;" />
+                                <!-- <span>{{attachment.name}}</span> -->
+                            </span>                                        
+                        </div>
+                        <div class="col-md-12 col-lg-12 col-sm-12" style="padding: 10px 0px 0px 10px;">
+                            <!--textarea class="form-control" ng-model="item.message" ng-readonly="true" rows="3" name="msgtext" style="overflow:auto;resize:none;background:#ffffff;" title="Message"></textarea-->
+                            <div class="col-md-12 col-lg-12 col-sm-12" style="padding: 5px;min-height:60px;overflow:auto;margin-top: 5px;border: 1px solid lightgray;">
+                                {{item.message}}
+                                </div>
+                        </div>
+                    </div>
+                    
+                    
+                    <!-- <label class="col-md-2 col-sm-3 col-xs-12 margin-bottom-5 NoDecoration ">Author:</label>
+                    <span class="col-md-10 col-sm-9 col-xs-12 margin-bottom-5 NoDecoration ">{{item.addedBy.name}}</span>
+                    <div class="clearfix margin-bottom-5"></div>
+                    <label class="col-md-2 col-sm-3 col-xs-12  NoDecoration ">Message:</label>
+                    <span class="col-md-10 col-sm-9 col-xs-12  NoDecoration ">{{item.message}}</span>
+                    <div class="clearfix margin-bottom-5"></div>
+                    <label class="col-md-2 col-sm-3 col-xs-12 NoDecoration margin-bottom-5" ng-show="item.attachments.length>0">Attachments:</label>
+
+                    <div class="col-md-10 col-sm-9 col-xs-12 " ng-show="item.attachments.length>0">
+                        <a class="col-md-12 col-sm-12 col-xs-12 padding1px margin-bottom-5" ng-repeat="attachment in item.attachments" download href="{{attachment.url}}">{{attachment.name}}</a>
+                    </div> -->
+
+                    <div class="clearfix"></div>
+                    <div class="col-md-12 col-sm-12 col-xs-12  NoDecoration  text-right">
+                        {{ item.lastVisitDate ? (item.lastVisitDate|DateFormatMMddyyyyHHmm) : (item.createDate) }}
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12  NoDecoration  text-right margin-top-5">
+                        <button type="button" class="btn btn-outline dark" ng-if="UserId.toString()==item.addedBy.id.toString()" ng-click="DeleteNote(item,NoteDetails.participants)">{{"Delete"|translate}}</button>                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline dark" ng-click="cancel()">{{"Cancel"|translate}}</button>
+        </div>
+    </div>
+</div>

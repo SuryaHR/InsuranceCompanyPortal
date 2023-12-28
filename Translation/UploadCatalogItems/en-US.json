@@ -1,0 +1,36 @@
+﻿{
+
+  "MainHeader": {
+    "UploadSuccessful": "Upload Successful",
+    "BulkUploadItems": "Bulk Upload Items",
+    "LoadingItems": "Loading Items",
+    "VerifyInformation": "Verify Information"
+  },
+  "ControlText": {
+    "LoadFromFile": "Load from file",
+    "step1": "1. Download the CSV template",
+    "step1.1": "Upload items to catalog",
+    "step1.2": "to upload items",
+    "step2": "2. Fill the CSV OR modify existing CSV file.",
+    "step2.1": " Fields marked with a '*' are mandatory.",
+    "step2.2": "If item with same ID already exists, it will be updated.",
+    "step3": " 3. Load updated file and start and click on start upload.",
+    "SelectFile": "Choose File",
+    "NoFileselected": "No File selected",
+    "step": "Steps for uploading catalog items in bulk:",
+    "LoadingItems": "Loading Items",
+    "FileName": "File Name",
+    "Status": "Status",
+    "StartUpload": "Start Upload",
+    "RowsProcessed": "Rows Processed",
+    "ItemsUpdated": "Items Updated",
+    "NewItemsCreated": "New Items Created",
+    "RowProcessed": "Row Processed",
+    "Done": "Done",
+    "Cancel": "Cancel",
+    "FinishUplolad": "Finish Upload"
+
+  }
+  
+
+}

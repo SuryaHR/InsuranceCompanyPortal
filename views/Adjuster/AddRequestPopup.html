@@ -1,0 +1,205 @@
+<style>
+    select {
+        /* for Firefox */
+        -moz-appearance: none;
+        /* for Safari, Chrome, Opera */
+        -webkit-appearance: none;
+      }
+</style>
+<script>
+    $(document).ready(function () {
+        $("#select2insidemodal").select2({
+            dropdownParent: $("#myModal")
+        });
+    });
+</script>
+
+<div id="myModal">
+    <div id="responsive">
+        <div class="modal-header">
+            <a class="close" ng-click="cancel()" aria-hidden="true"></a>
+            <h4 class="modal-title">{{"HeaderTitle.CreateEvent"|translate}}</h4>
+        </div>
+        <div class="modal-body">
+            <div class="col-md-12  clearfix  padding1px form-group" ng-form="CreateEventForm" id="CreateEventForm">
+              <div class="col-md-12 margin-top-5 padding1px form-group clearfix">
+
+                  <label class="control-label col-md-2 col-sm-4 Label_Text_Right" style="padding-left: 0px"><span class="text-danger">*</span>{{"ControlText.Subject"|translate}}</label>
+                  <div class="col-md-10 col-sm-8">
+                      <input class="form-control" required ng-model="CreateEventObject.EventTitle"
+                          placeholder='{{"ControlText.Subject"|translate}}' name="EventTitle" autocomplete="off" />
+                      <div class="errormessage">
+                          <div ng-message="required"
+                              ng-show="(CreateEventForm.EventTitle.$error.required && CreateEventForm.EventTitle.$touched)">
+                              <span class="text-danger">{{"ErrorMessage.RequestTitleRequired"|translate}}</span>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+                <div class="col-md-12 margin-top-5 padding1px form-group clearfix">
+                  <div class = "col-md-2 col-sm-2 Label_Text_Right" style="padding-left: 0px">
+                    <label class="control-label"><span
+                            class="text-danger">*</span>{{"Table.StartDate"|translate}}</label>
+                  </div>
+                  <div class = "col-md-3 col-sm-3">
+                    <input class="form-control datepicker" readonly required
+                        ng-model="CreateEventObject.requestStartDate" data-date-container='#responsive'
+                        close-on-date-selection="true" data-provide="datepicker" size="16" type="text"
+                        placeholder='{{"Table.Date"|translate}}' autocomplete="off"
+                        data-date-start-date="{{todaysDate | date:'MM/dd/yyyy'}}"
+                        ng-init="CreateEventObject.requestStartDate = (todaysDate | date:'MM/dd/yyyy')"
+                        name="RequestDate" />
+                    <div class="errormessage">
+                        <div ng-message="required" ng-show="(CreateEventForm.RequestDate.$error.required)">
+                            <span class="text-danger">{{"ErrorMessage.RequestDateRequired"|translate}}</span>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="col-md-3 col-sm-3" style="padding-left: 0px;display:flex;">
+                    <!-- <input type="time" ng-model="CreateEventObject.DueTime"
+                    placeholder='{{"EndTime"|translate}}'
+                    ng-init="CreateEventObject.DueTime = (todaysDate | date:'hh:mm a')"
+                    class="form-control timepicker timepicker-no-seconds" autocomplete="off">
+                     -->
+                     <select class="form-control" 
+                     style="padding: 0px !important;padding-left:10px !important;margin-left: 5px"
+                     ng-model="CreateEventObject.StartTime.hr"
+                     required>
+                         <option ng-repeat="hr in hrs" value={{hr}} >{{hr}}</option>
+                     </select>
+                     <span style="margin-left: 5px">:</span>
+                     <select class="form-control" 
+                     style="padding: 0px !important;margin-left: 5px;padding-left:10px !important"
+                     ng-model="CreateEventObject.StartTime.min">
+                      <option ng-repeat="min in mins" value={{min}} >{{min}}</option>
+
+                  </select>
+                  <select class="form-control" 
+                  style="padding: 0px !important;margin-left: 8px;padding-left:5px !important"
+                  ng-model="CreateEventObject.StartTime.mod">
+                      <option>AM</option>
+                      <option>PM</option>
+                  </select>
+                </div>
+                </div>
+                <div>
+                  <div class = "col-md-2 col-sm-2 Label_Text_Right" style="padding-left: 12px">
+                    <label class="control-label"><span
+                            class="text-danger">*</span>{{"Table.EndDate"|translate}}</label>
+                  </div>
+                  <div class = "col-md-3 col-sm-3">
+                    <input class="form-control datepicker" readonly required
+                        ng-model="CreateEventObject.requestDueDate" data-date-container='#responsive'
+                        close-on-date-selection="true" data-provide="datepicker" size="16" type="text"
+                        placeholder='{{"Table.Date"|translate}}' autocomplete="off"
+                        ng-init="CreateEventObject.requestDueDate = (todaysDate | date:'MM/dd/yyyy')"
+                        data-date-start-date="{{CreateEventObject.requestStartDate}}"
+                        name="RequestDueDate" />
+                    <div class="errormessage">
+                        <div ng-message="required" ng-show="CreateEventForm.RequestDate.$error.endBeforeStart">
+                            <span class="text-danger" style="position: absolute; width: 245px;  left: 11px;">
+                                {{"ErrorMessage.DueDateBeforeStartDate"|translate}} </span>
+                        </div>
+                        <div ng-message="required"
+                            ng-show="(CreateEventForm.RequestDueDate.$error.required && CreateEventForm.RequestDueDate.$touched)">
+                            <span class="text-danger">{{"ErrorMessage.RequestDueDateRequired"|translate}}</span>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="col-md-3 col-sm-3" style="padding-left: 0px;display:flex;">
+                      <!-- <input type="time" ng-model="CreateEventObject.DueTime"
+                      placeholder='{{"EndTime"|translate}}'
+                      ng-init="CreateEventObject.DueTime = (todaysDate | date:'hh:mm a')"
+                      class="form-control timepicker timepicker-no-seconds" autocomplete="off">
+                       -->
+                       <select class="form-control" 
+                       style="padding: 0px !important;margin-left: 5px;padding-left:10px !important"
+                       ng-model="CreateEventObject.DueTime.hr"
+                       required>
+                           <option ng-repeat="hr in hrs" value={{hr}} >{{hr}}</option>
+                       </select>
+                      <span style="margin-left: 5px">: </span> 
+                       <select class="form-control"
+                       style="padding: 0px !important;margin-left: 5px;padding-left:10px !important"
+                       ng-model="CreateEventObject.DueTime.min">
+                        <option ng-repeat="min in mins" value={{min}} >{{min}}</option>
+
+                    </select>
+                    <select class="form-control" 
+                    style="padding: 0px !important;margin-left: 8px;padding-left:5px !important"
+                    ng-model="CreateEventObject.DueTime.mod">
+                        <option>AM</option>
+                        <option>PM</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-12 margin-top-5   padding1px form-group clearfix">
+                    <label class="control-label col-md-2 col-sm-4 Label_Text_Right" style="padding-left: 0px"><span class="text-danger">*</span>{{"ControlText.From"|translate}}</label>
+                    <div class="col-md-10 col-sm-8">
+                        {{Name}}
+                        <input type="hidden" ng-model="CreateEventObject.requester" name="Requester" />
+
+                        <!-- <input class="form-control" required ng-model="CreateEventObject.EventTitle"
+                            placeholder='{{"ControlText.From"|translate}}' name="EventTitle" /> -->
+                    </div>
+                </div>
+
+                <div class="col-md-12 margin-top-5 padding1px form-group clearfix">
+                    <label class="col-md-2 col-sm-4 control-label Label_Text_Right" style="padding-left: 0px"><span class="text-danger">*</span>{{"ControlText.To"|translate}}</label>
+                    <div class="col-md-10 col-sm-8">
+                        <select class="form-control select2me input-large" style="width:100%;"
+                            data-placeholder="Participants" multiple ng-model="SelectedParticipants"
+                            id="select2insidemodal" name="person"
+                            ng-options="item.id as item.firstName+' '+item.lastName for item in ClaimParticipantsList | filter:{lastName :'!null'} "
+                            required>
+                        </select>
+                    </div>
+                    <div class="col-md-12 col-sm-12">
+                        <span class="col-md-offset-2 col-sm-offset-2 valid-status invalid text-danger"
+                            ng-show="(CreateEventForm.person.$invalid  && CreateEventForm.person.$touched)">&nbsp;{{"ParticiapntInValidMessage"|translate}}</span>
+                    </div>
+                </div>
+                <div class="col-md-12  col-sm-12  padding1px form-group clearfix">
+                    <label class="col-md-2 col-sm-4 control-label Label_Text_Right" style="padding-left: 0px"><span class="text-danger">*</span>{{"EventDescription"|translate}}</label>
+                    <div class="col-md-10 col-sm-8">
+                        <textarea class="form-control" required ng-model="CreateEventObject.EventNote"
+                            placeholder='{{"EventDescription"|translate}}' rows="3" name="eventNote"></textarea>
+                        <div class="errormessage">
+                            <div ng-message="required"
+                                ng-show="(CreateEventForm.eventNote.$error.required && CreateEventForm.eventNote.$touched)">
+                                <span class="text-danger">{{"ErrorMessage.ClaimNoteRequired"|translate}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-12 margin-top-5  padding1px form-group clearfix">
+                    <label class="col-md-2 col-sm-4 control-label Label_Text_Right" style="padding-left: 0px"><span class="text-danger">*</span>{{"ControlText.Priority"|translate}}</label>
+                    <div class="col-md-10 col-sm-8">
+                        <select class="form-control select2me input-large" style="width:100%;"
+                            data-placeholder='{{"ControlText.Priority"|translate}}' ng-model="SelectedPriority"
+                            id="select2insidemodal" name="priority" required>
+                            <option value="" ng-selected="selected">{{"ControlText.SelectPriority"|translate}}</option>
+                            <option value="Urgent">Urgent</option>
+                            <option value="Normal">Normal</option>
+                            <option value="Minor">Minor</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="modal-footer">
+
+            <button type="button" data-dismiss="modal" class="btn btnMargin sbold" ng-click="ok()"
+                ng-disabled="CreateEventForm.$invalid || CreateEventForm.$pristine">{{"ControlText.SendRequest"|translate}}</button>
+            <button type="button" class="btn btnMargin sbold"
+                ng-click="cancel()">{{"ControlText.Cancel"|translate}}</button>
+        </div>
+    </div>
+
+</div>
+<!-- <script>
+    ComponentsDateTimePickers.init(); // init todo page
+</script> -->

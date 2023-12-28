@@ -1,0 +1,640 @@
+<style>
+    .CursorLeft {
+        cursor: pointer !important;
+    }
+
+    .ReplacedClass {
+        border: 2px solid #6bbae0 !important;
+        padding: 12px 15px 15px 15px !important;
+        border-radius: 4px !important;
+        margin-bottom: 10px !important;
+    }
+     /* Start - Button dropdown styles */
+     .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            /*background-color: #f9f9f9;*/
+            background-color: #FFFFFF;
+            min-width: 90px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            /*border-radius: 5px;*/
+        }
+        .dropdown-content a {
+            color: black;
+            background-color: #FFFFFF;
+            padding: 0px;
+            text-decoration: none;
+            display: block;
+            border: none;
+            width: 87px;
+        }
+        .dropdown-content a:hover {
+            /*background-color: #edecec*/
+            background: #cce7f3 !important;
+            color: #339FFF!important;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        .dropdown:disabled .dropdown-content,
+        .dropdown[disabled] .dropdown-content,
+        
+        /* End - Button dropdown styles */
+
+        li.active {
+            background-color: #33aae5!important;
+            color: #7fa5c6 !important;
+        }
+</style>
+<script type="text/javascript">
+    $(function () {
+        iOSHandler();
+        $(window).on("orientationchange", function (event) {
+            iOSHandler();
+        });
+    });
+    function iOSHandler() {
+        var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        var width = screen.width;
+
+        if (iOS) {
+
+            var orientation;
+            if (window.orientation == undefined) {
+                orientation = window.screen.orientation.angle;
+            }
+            else {
+                orientation = window.orientation;
+            }
+
+            if (orientation != 0) {
+                if (screen.width < screen.height) {
+                    width = screen.height;
+                }
+            }
+            //iPhone4-Landscape
+            if (width > 475 && width < 485) {
+                $(".comparablesDivDB").css("height", "auto");
+                $(".addedComp").css("width", "100%");
+                $(".addedComp").css("overflow", "scroll");
+                $(".addedComp").css("-webkit-overflow-scrolling", "touch");
+
+            }
+
+            //iPhone5-Landscape
+            else if (width > 562 && width < 572) {
+                $(".comparablesDivDB").css("height", "auto");
+                $(".addedComp").css("width", "100%");
+                $(".addedComp").css("overflow", "scroll");
+                $(".addedComp").css("-webkit-overflow-scrolling", "touch");
+
+            }
+            //iPhone4,5-Portrait
+            else if (width > 315 && width < 325) {
+                $(".comparablesDivDB").css("height", "auto");
+                $(".addedComp").css("width", "100%");
+                $(".addedComp").css("overflow", "scroll");
+                $(".addedComp").css("-webkit-overflow-scrolling", "touch");
+
+            }
+
+            //iPhone6-Landscape
+            else if (width > 660 && width < 670) {
+                $(".comparablesDivDB").css("height", "auto");
+                $(".addedComp").css("width", "100%");
+                $(".addedComp").css("overflow", "scroll");
+                $(".addedComp").css("-webkit-overflow-scrolling", "touch");
+
+            }
+            //iPhone6-Portrait
+            else if (width > 370 && width < 380) {
+                $(".comparablesDivDB").css("height", "auto");
+                $(".addedComp").css("width", "100%");
+                $(".addedComp").css("overflow", "scroll");
+                $(".addedComp").css("-webkit-overflow-scrolling", "touch");
+
+            }
+
+            //iPhone6+-Landscape
+            else if (width > 730 && width < 740) {
+                $(".comparablesDivDB").css("height", "auto");
+                $(".addedComp").css("width", "100%");
+                $(".addedComp").css("overflow", "scroll");
+                $(".addedComp").css("-webkit-overflow-scrolling", "touch");
+
+            }
+            //iPhone6+-Portrait
+            else if (width > 410 && width < 420) {
+                $(".comparablesDivDB").css("height", "auto");
+                $(".addedComp").css("width", "100%");
+                $(".addedComp").css("overflow", "scroll");
+                $(".addedComp").css("-webkit-overflow-scrolling", "touch");
+
+            }
+
+            //ipad
+            else if (width > 1020 && width < 1025) {
+                $(".comparablesDivDB").css("height", "958px");
+                $(".googleComparableBodyHeight").css("height", "729px");
+                $(".googleSerachResultDiv").css("height", "632px");
+                $(".noteDiv").css("height", "215px");
+                $(".addedComp").css("height", "215px");
+                $(".addedComp").css("width", "100%");
+                $(".addedComp").css("overflow", "scroll");
+                $(".addedComp").css("-webkit-overflow-scrolling", "touch");
+
+
+            }
+
+            //else if (width > 760 && width < 769) {
+
+            //    $(".googleComparableBodyHeight").css("height", "680px");
+
+            //}
+            else if (width > 1360 && width < 1367) {
+                $(".googleComparableBodyHeight").css("height", "540px");
+                $(".comparablesDivDB").css("height", "853px");
+
+            }
+        }
+    }
+
+</script>
+<style>
+    .pr_pl {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+
+.ml {
+    margin-left: 5px !important;
+}
+
+.mt {
+  margin-top: 5px !important;
+}
+
+.mt_10 {
+  margin-top: 10px !important;
+}
+
+li.active {
+    background-color: #33aae5!important;
+    color: #7fa5c6 !important;
+}
+
+/* START - Multi Select Dropdown style */
+  .multiSelectDropdownStyle{
+    height: 34px;
+    padding:0px;
+    margin-left:20px!important;
+    overflow-x:auto;
+    margin-bottom: 5px;
+    border: #f0f0f0 solid 1px;
+  }
+  .k-multiselect-wrap{
+    border: none;
+    padding-right: 10px!important;
+  }
+    #btnAddCustomItem:hover {
+        color: ghostwhite;
+    }
+
+    .mandatory {
+        color: red;
+    }
+
+    .NoDecoration {
+        text-decoration: none !important;
+        color: black;
+    }
+
+    .angucomplete-dropdown {
+        bottom: 100% !important;
+    }
+
+    @media (min-device-width:768px) {
+        .width14 {
+            width: 16% !important;
+        }
+
+        .width16 {
+            width: 17.6%;
+            height: 4px;
+        }
+
+        .StatusNumber {
+            margin-left: 2% !important;
+        }
+
+        .StatusHorizontalLine {
+            margin-left: 9% !important;
+        }
+    }
+
+    @media (max-device-width:768px) {
+        .width14 {
+            width: 14% !important;
+        }
+
+        .width16 {
+            width: 15%;
+            height: 4px;
+        }
+
+        .StatusNumber {
+            margin-left: 13% !important;
+        }
+
+        .StatusHorizontalLine {
+            margin-left: 18% !important;
+        }
+    }
+     /* Start - Select2me multi-select dropdown css */
+     span.select2-selection--multiple {
+            min-height: 23px !important;
+            width: 89% !important;
+        }
+
+        input.select2-search__field {
+            height: 28px !important;
+            padding: 0px 5px !important;
+        }
+
+        .select2-selection__rendered {
+            overflow-y: scroll !important;
+            height: 28px !important;
+        }
+        /* End - Select2me multi-select dropdown css */
+</style>
+
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding1px">
+        <div class="portlet light padding1px" style="padding-top: 0px;">
+            <div class="form-group">
+
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+                    <ul class="page-breadcrumb breadcrumb sbold">
+                        <li>
+                            <a ng-click="GoToHome()">{{"Nav.Home"|translate}}</a>
+                            <i class="fa fa-circle"></i>
+                        </li>
+                        <li>
+                            <span>{{"Nav.AllAppraisals"|translate}}</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+                    <div class="row">
+                        <div class="col-md-12 colsm-12">
+                            <div class="portlet-title" style="border-bottom: 1px solid #666; margin-bottom: 5px;">
+                                <div class="caption font-gray-sharp ">
+                                    <span class="caption-subject ng-binding" style="font-size: 18px;color: #666;">{{"Nav.AllAppraisals"|translate}}</span>
+                                </div>
+                            </div>
+                                <!-- Search start -->
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12">
+                                        <div class="col-md-12 col-sm-12 " style="padding:4px!important;">
+                                        <div class="col-md-12 col-sm-12">
+                                            <h4 class="sbold">{{"Filters"|translate}}</h4>
+                                        </div>
+                                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 container form-group">
+                                            <!-- by Assigned date -->
+                                            <!-- <div class="col-md-2 col-sm-2 col-xs-3 Label_Text_Right pr_pl"> -->
+                                            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+                                                <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 Label_Text_Right pr_pl">
+                                                    <label class="control-label mt_10">
+                                                        {{"Submitted Date"|translate}}
+                                                    </label>
+                                                </div>
+                                                <div class="col-md-8 col-sm-12 col-xs-12 mt pr_pl" style="margin-bottom: 5px; padding-left: 10px">
+                                                <div class="col-lg-3 col-md-5 col-sm-6" id="calFrom">
+                                                    <div class="input-icon left">
+                                                    <i class="icon-calendar"></i>
+                                                    <input class="form-control datepicker fromDateCls" data-date-container='#calFrom' data-date="{{filter.fromDate}}" data-date-end-date="+0d"
+                                                            ng-model="filter.fromDate" data-provide="datepicker" size="16" type="text" placeholder="{{'From'|translate}} "
+                                                            name="fromDate" id="fromDate" ng-change="changeDate()" autocomplete="fakeFromDate" readonly /> 
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-1 bold" style="text-align: center">To</div>
+                                                <div class="col-lg-3 col-md-5 col-sm-6" id="cal_to">
+                                                    <div class="input-icon left">
+                                                    <i class="icon-calendar"></i>
+                                                    <input class="form-control datepicker toDateCls" data-date-container='#cal_to'  data-date-start-date="{{filter.fromDate}}"
+                                                        ng-model="filter.toDate" data-provide="datepicker" size="16" type="text" placeholder="{{'To'|translate}} " data-date="{{filter.toDate}}"
+                                                        name="toDate" id="toDate" autocomplete="off" data-date-end-date="+0d" readonly />
+                                                    </div>
+                                                </div>
+                                                </div>
+                                            </div>
+                                                <!-- By Agency -->
+                                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 ">
+                                                    <div class="col-md-2 col-sm-2 col-xs-3 Label_Text_Right pr_pl">
+                                                    <label class="control-label mt_10">
+                                                    {{"Agency"|translate}}
+                                                    </label>
+                                                </div>
+                                                <!-- <div class="col-md-8 col-sm-12 col-xs-12">
+                                                    <div id="statusDropdownDiv" tabindex="1" class="col-md-8 col-sm-8 ml mt">
+                                                    <select class="select2me form-control" multiple name="agency" id="agency"
+                                                        ng-model="filter.agency"
+                                                        data-placeholder="Select Agency Code"
+                                                        ng-options="item.agencyCode as item.agencyCode for item in agencyCode.agencyCode">
+                                                    </select>
+                                                </div>
+                                                </div> -->
+                                                <div class="col-md-5 col-sm-7"  >
+                                                    <div class="col-lg-12 col-md-12 col-sm-12 form-group" style="padding: 0px;" ng-mouseover="openAgencyDropDown()" ng-mouseout="closeAgencyDropDown()">
+                                                        <div class="mulSelBox">
+                                                            <!-- selected options are shown side by side in a div -->
+                                                           <div class="" ng-click="closeAgencyDropDown()" style="width: 98%;overflow-y: scroll;display: flex;padding: 0px;flex-wrap: wrap;max-height: 30px;">
+                                                             <div class="sin_opt" ng-repeat="agency in Agencies"><div class="tabs" >{{findAgencies(agency)}}</div>
+                                                                <span class="k-icon k-i-close" ng-click="clearAgencies(agency);"></span>
+                                                            </div>
+                                                         </div>
+                                                        <div style="position: sticky;left:100%">
+                                                            <span class="k-icon k-i-close" ng-if="Agencies.length>0" ng-click="clearAllAgencies();"></span>
+                                                        </div>
+                                                     </div>
+                                                        <!-- <select class="selectpicker form-controls"
+                                                         ng-mousedown="openAgencyDropDown()" ng-click="closeAgencyDropDown()" 
+                                                            ng-model="Agencies" multiple >
+                                                            <option class="opt" style="display: none;" ng-repeat="agency in agencyCodes"  value="agency.agencyCode">{{agency.agencyCode}}</option>
+                                                       </select> -->
+                                                       <!-- dropdown with search and select all . use which ever required only-->
+                                                        <div style="background-color:white;position: absolute;;z-index:10000;border: 1px solid #ddd;width: 100%;" ng-show="AgencyDisp" >
+                                                           <ul class="list" style="list-style-type:none;">
+                                                             <li class="">
+                                                             <input type="text" class="searchBar form-control" ng-model="AgencySearch" ng-change="searchAgency()" placeholder="Agency code" />
+                                                            </li>
+                                                             <li class="pfixed" style="top:2px" ng-show="agencyCodeArr.length>0">
+                                                                <input type="checkbox" value="selectAll" id="select-All-Agency"  class ="custom-checkbox" ng-click="handleAgencySelectAll($event)" > &nbsp;Select all
+                                                            </li>
+                                                           <li class="pfixed" ng-repeat="agency in agencyCodeArr" >
+                                                               <input type="checkbox" value="{{agency.agencyCode}}" id="{{'check'+agency.agencyCode}}" class="status_check  custom-checkbox " ng-checked="checkAgencyValues(agency.agencyCode)" ng-click="handleAgencyChange($event)">
+                                                               &nbsp;{{agency.agencyCode}}</li>
+                                                               <li class="pfixed" ng-show="agencyCodeArr.length==0">
+                                                                <span class="red">No results available</span>
+                                                            </li>
+                                                        </ul> 
+                                                    </div>
+                                                    </div> 
+                                                </div>
+                                                </div>
+                                                <!-- By Status -->
+                                            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group ">
+                                                <div class="col-md-2 col-sm-12 col-xs-12 Label_Text_Right pr_pl">
+                                                <label class="control-label mt_10">
+                                                    {{"Status"|translate}}
+                                                </label>
+                                                </div>
+                                                <!-- <div class="col-md-8 col-sm-12 col-xs-12">
+                                                <div id="statusDropdownDiv" tabindex="1" class="col-md-8 col-sm-8 ml mt">
+                                                    <select class="select2me form-control" multiple name="status" id="status"
+                                                        ng-model="filter.statusIds"
+                                                        data-placeholder="Select Status"
+                                                        ng-options="item.id as item.status for item in appraisalStatus">
+                                                    </select>
+                                                </div>
+                                                </div> -->
+                                                <div class="col-md-5 col-sm-7" >
+                                                    <div class="col-lg-12 col-md-12 col-sm-12 form-group" style="padding: 0px;" ng-mouseover="openDropDown()" ng-mouseout="closeDropDown()">
+                                                        <div class="mulSelBox">
+                                                            <!-- selected options are shown side by side in a div -->
+                                                           <div class="" ng-click="closeDropDown()" style="width: 98%;overflow-y: scroll;display: flex;padding: 0px;flex-wrap: wrap;max-height: 30px;">
+                                                             <div class="sin_opt" ng-repeat="status in statusIds"><div class="tabs" >{{findStatus(status)}}</div>                                                                <span class="k-icon k-i-close" ng-click="clearStatus(status);"></span>
+                                                            </div>
+                                                         </div>
+                                                        <div style="position: sticky;left:100%">
+                                                            <span class="k-icon k-i-close" ng-if="statusIds.length>0" ng-click="clearAllStatus();"></span>
+                                                        </div>
+                                                     </div>
+                                                        <!-- <select class="selectpicker form-controls"
+                                                         ng-mousedown="openDropDown()" ng-click="closeDropDown()" 
+                                                            ng-model="statusIds" multiple >
+                                                            <option class="opt" style="display: none;" ng-repeat="status in appraisalStatus"  value="status.id">{{status.status}}</option>
+                                                       </select> -->
+                                                       <!-- dropdown with search and select all . use which ever required only-->
+                                                        <div style="background-color:white;position: absolute;;z-index:10000;border: 1px solid #ddd;width: 100%;" ng-show="disp" >
+                                                           <ul class="list" style="list-style-type:none;">
+                                                             <li class="">
+                                                             <input type="text" class="searchBar form-control" ng-model="statusSearch" ng-change="searchStatus()" placeholder="Search" />
+                                                            </li>
+                                                             <li class="pfixed" style="top:2px" ng-show="statusArr.length>0">
+                                                                <input type="checkbox" value="selectAll" id="select-All-Status"  class ="custom-checkbox" ng-click="handleStatusSelectAll($event)" > &nbsp;Select all
+                                                            </li>
+                                                           <li class="pfixed" ng-repeat="status in statusArr" >
+                                                               <input type="checkbox" value="{{status.id}}" id="{{'check'+status.id}}" class="status_check  custom-checkbox " ng-checked="checkValues(status.id)" ng-click="handleStatusChange($event)">
+                                                               &nbsp;{{status.status}}</li>
+                                                               <li class="pfixed" ng-show="statusArr.length==0">
+                                                                <span class="red">No results available</span>
+                                                            </li>
+                                                        </ul> 
+                                                    </div>
+                                                    </div> 
+                                                </div>
+                                                </div>
+                                                <!-- By Item category -->
+                                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-group ">
+                                                    <div class="col-md-2 col-sm-2 col-xs-2 Label_Text_Right pr_pl">
+                                                    <label class="control-label mt_10">
+                                                        {{"Item category"|translate}}
+                                                    </label>
+                                                    </div>
+                                                    <!-- <div class="col-md-8 col-sm-12 col-xs-12">
+                                                        <div id="statusDropdownDiv" tabindex="1" class="col-md-8 col-sm-8 ml mt">
+                                                        <select class="select2me form-control" multiple name="Inscompany" id="Inscompany"
+                                                            ng-model="filter.categoryType"
+                                                            data-placeholder="Select category type"
+                                                            ng-options="item.id as item.atttibuteValue for item in itemCategoryList">
+                                                        </select>
+                                                        </div>
+                                                    </div> -->
+                                                    <div class="col-md-5 col-sm-7" >
+                                                        <div class="col-lg-12 col-md-12 col-sm-12 form-group" style="padding: 0px;" ng-mouseover="openCategoryDropDown()" ng-mouseout="closeCategoryDropDown()">
+                                                            <div class="mulSelBox">
+                                                                <!-- selected options are shown side by side in a div -->
+                                                               <div class="" ng-click="closeCategoryDropDown()" style="width: 98%;overflow-y: scroll;display: flex;padding: 0px;flex-wrap: wrap;max-height: 30px;">
+                                                                 <div class="sin_opt" ng-repeat="type in categoryType"><div class="tabs" >{{findTypes(type)}}</div>
+                                                                    <span class="k-icon k-i-close" ng-click="clearTypes(type);"></span>
+                                                                </div>
+                                                             </div>
+                                                            <div style="position: sticky;left:100%">
+                                                                <span class="k-icon k-i-close" ng-if="categoryType.length>0" ng-click="clearAllTypes();"></span>
+                                                            </div>
+                                                         </div>
+                                                            <!-- <select class="selectpicker form-controls"
+                                                             ng-mousedown="openCategoryDropDown()" ng-click="closeCategoryDropDown()" 
+                                                                ng-model="categoryType" multiple >
+                                                                <option class="opt" style="display: none;" ng-repeat="type in itemCategoryList"  value="type.id">{{type.atttibuteValue}}</option>
+                                                           </select> -->
+                                                           <!-- dropdown with search and select all . use which ever required only-->
+                                                            <div style="background-color:white;position: absolute;;z-index:10000;border: 1px solid #ddd;width: 100%;" ng-show="categoryDisp" >
+                                                               <ul class="list" style="list-style-type:none;">
+                                                                 <li class="">
+                                                                 <input type="text" class="searchBar form-control" ng-model="categoryTypeSearch" ng-change="searchCategoryType()" placeholder="categorycType" />
+                                                                </li>
+                                                                 <li class="pfixed" style="top:2px" ng-show="categoryTypeArr.length>0">
+                                                                    <input type="checkbox" value="selectAll" id="select-All-Category"  class ="custom-checkbox" ng-click="handlecategoryTypeSelectAll($event)" > &nbsp;Select all
+                                                                </li>
+                                                               <li class="pfixed" ng-repeat="type in categoryTypeArr" >
+                                                                   <input type="checkbox" value="{{type.id}}" id="{{'checkCat'+type.id}}" class="status_check  custom-checkbox " ng-checked="checkCategoryValues(type.id)" ng-click="handlecategoryTypeChange($event)">
+                                                                   &nbsp;{{type.atttibuteValue}}</li>
+                                                                   <li class="pfixed" ng-show="categoryTypeArr.length==0">
+                                                                    <span class="red">No results available</span>
+                                                                </li>
+                                                            </ul> 
+                                                        </div>
+                                                        </div> 
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group pull-right">
+                                                    <div class="col-md-6 col-sm-8" style="margin-left: 100px !important">
+                                                      <button class="btn btn-default sbold pull-right" style="margin-left : 5px !important" ng-click="searchFilter(filter)">{{"Search"}}</button>&nbsp;
+                                                      <button class="btn btn-default sbold pull-right" ng-click="cancel()">{{"Reset"|translate}}</button>
+                                                    </div>
+                                                  </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                                <!-- search End -->
+
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 options_Background padding1px">
+                                <div class="col-lg-3 col-md-3 col-sm-6 margin-bottom-5 margin-top-5 pull-left dropdown"
+                                style="display:initial;width:95px;padding:0px;margin-left:10px;" ng-disabled="isDisable">
+                                <button class="btn btn-default sbold btnMargin" type="button" data-toggle="dropdown"><span
+                                        class="glyphicon glyphicon-download-alt"></span>&nbsp;{{"Export"|translate}}
+                                    <span class="caret"></span>
+                                </button>
+                                <div class="dropdown-content" style="left: 5px;padding:0px;z-index: 9;">
+                                    <a ng-click="exportPolicyReport('PDF');" class="btn btn-default sbold btnMargin"
+                                        style="padding: 0px!important;padding-bottom: 4px!important; padding-top: 2px !important;padding-left: 12px !important;text-align: left">{{"PDF"
+                                        | translate}} <i class="fa fa-file-pdf-o" style="font-size:14px;color:red"></i></a>
+                                    <!-- <a ng-click="exportPolicyReport('CSV');" class="btn btn-default sbold btnMargin"
+                                        style="padding: 0px !important;
+                                            padding-bottom: 4px !important;padding-top: 2px !important;padding-left: 12px !important;text-align: left">{{"CSV"
+                                        | translate}} <i class="fa fa-file-text-o" style="font-size:14px;color:blue;"></i></a> -->
+                                    <a ng-click="exportPolicyReport('Excel');" class="btn btn-default sbold btnMargin"
+                                        style="padding: 0px !important; padding-bottom: 4px !important;padding-top: 2px !important;padding-left: 12px !important;text-align: left">{{"Excel"
+                                        | translate}} <i class="fa fa-file-excel-o" style="font-size:14px;color:green;"></i></a>
+                                    <a id="someID" class="hide"></a>
+                                </div>
+                            </div>
+                                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 margin-bottom-5 margin-top-5 pull-right">
+                                    <div class="input-icon left">
+                                        <i class="icon-magnifier"></i>
+                                        <input type="text" ng-model="search" class="form-control form-control-solid input-circle input-block-level "
+                                            placeholder="{{'Table.placeholder'| translate}}" 
+                                            ng-keyup="search.length > 0 ? ($event.keyCode == 13 && searchAppraisalsByKeyword(search)) : searchAppraisalsByKeyword('')">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 table-responsive padding1px" style="background-color: white;">
+                                <table class="table  table-striped table-bordered table-hover table-checkable order-column"
+                                id="NavigateTable" >
+                                    <thead>
+                                        <tr>
+                                            <th ng-click="sort('agency_name')">
+                                                {{"Table.AgencyName"|translate}}
+                                                <span class="glyphicon sort-icon" ng-show="sortKey==='agency_name'" ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                            </th>
+                                            <th ng-click="sort('appraisal_number')">
+                                                {{"Table.Appraisal"|translate}}
+                                                <span class="glyphicon sort-icon" ng-show="sortKey==='appraisal_number'" ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                            </th>
+                                            <th ng-click="sort('item_type')">
+                                                {{"Table.ItemType"|translate}}
+                                                <span class="glyphicon sort-icon" ng-show="sortKey==='item_type'" ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                            </th>
+                                            <th ng-click="sort('submitted_date')">
+                                                {{"Table.SubmittedDate"|translate}}
+                                                <span class="glyphicon sort-icon" ng-show="sortKey==='submitted_date'" ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                            </th>
+                                            <th ng-click="sort('policy_number')">
+                                                {{"Table.Policy"|translate}}
+                                                <span class="glyphicon sort-icon" ng-show="sortKey==='policy_number'" ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                            </th>
+                                            <th ng-click="sort('policyholder')">
+                                                {{"Table.Policyholder"|translate}}
+                                                <span class="glyphicon sort-icon" ng-show="sortKey==='policyholder'" ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                            </th>
+                                            <th ng-click="sort('speedcheck_appraisal_date')">
+                                                {{"Table.SpeedCheckAppraisalDate"|translate}}
+                                                <span class="glyphicon sort-icon" ng-show="sortKey==='speedcheck_appraisal_date'" ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                            </th>
+                                            <th ng-click="sort('underwriter_reviewed_date')">
+                                                {{"Table.ReviewedDate"|translate}}
+                                                <span class="glyphicon sort-icon" ng-show="sortKey==='underwriter_reviewed_date'" ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                            </th>
+                                            <th ng-click="sort('new_insurance_premium_cost')">
+                                                {{"Table.Premium"|translate}}
+                                                <span class="glyphicon sort-icon" ng-show="sortKey==='new_insurance_premium_cost'" ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                            </th>
+                                            <th ng-click="sort('sc_insuranceReplacementValue')">
+                                                {{"Table.InsuranceReplacementValue"|translate}}
+                                                <span class="glyphicon sort-icon" ng-show="sortKey==='sc_insuranceReplacementValue'" ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                            </th>
+                                            <th  ng-click="sort('status')">
+                                                {{"Table.Status"|translate}}
+                                                <span class="glyphicon sort-icon" ng-show="sortKey==='status'" ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                            </th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-click="openAppraisalDetails(item)" dir-paginate="item in appraisals | itemsPerPage:pageSize track by $index"
+                                        total-items="totalItems" current-page="currentPage" pagination-id="approvedAppraisals">
+                                            <td>{{item.agentDetails.agencyCode}}</td>
+                                            <td>{{item.appraisalNumber}}</td>
+                                            <td>{{item.itemCategory.atttibuteValue}}</td>
+                                            <td>{{item.submittedToUnderwriter | formatDate}}</td>
+                                            <td>{{item.policyNumber}}</td>
+                                            <td>{{item.policyholderName}}</td>
+                                            <td>{{item.speedcheckAppraisalDate | formatDate}}</td>
+                                            <td>{{item.underwriterReviewedDate | formatDate}}</td>
+                                            <td>{{item.approvalDate != null ? item.newInsurancePremiumCost : 0 | USCurrencyFormat}}</td>
+                                            <td>{{item.sc_insuranceReplacementValue  | USCurrencyFormat}}</td>
+                                            <td>{{item.status.status | titleCase }}</td>
+                                            <!-- <td ng-if="(item.status.status == 'DEACTIVATED')">Deactivated</td>
+                                            <td ng-if="!(item.status.status == 'DEACTIVATED')">Approved</td> -->
+                                          </tr>
+
+                                        <tr ng-if="appraisals.length===0 || appraisals===null">
+                                            <td colspan="11" class="text-center text-danger" style="text-align: center;">{{"Table.NoAppraisals"|translate}}</td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>                                   
+                            </div>
+                            <div class="clearfix"></div>
+                            <dir-pagination-controls pagination-id="approvedAppraisals" max-size="10" on-page-change="pageChangeHandler(newPageNumber)" direction-links="true" boundary-links="true"
+                                class="pull-right ">
+                            </dir-pagination-controls>
+                            <span ng-if="appraisals != null && appraisals.length > 0" class="bold" style="color: #337ab7;"> Showing {{ (pageSize * (currentPage - 1))+1 }} to {{toShowingPage}} of {{totalItems}} records </span>
+                        </div>
+                    </div>
+                </div>
+                <!---End Branches/Office-->
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<script type="application/javascript">
+    $( document ).ready(function() {
+        var $injector = angular.element(document.body).injector();
+        var calService = $injector.get('CalendarUtility');
+        calService.calPastDateSetting("fromDateCls", "toDateCls"); // Policy Effective Dates
+    });
+</script>

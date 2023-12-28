@@ -1,0 +1,57 @@
+﻿<div class="col-md-12 padding1px">
+
+    <ul class="page-breadcrumb breadcrumb sbold">
+        <li>
+            <a ng-click="GoToHome()">{{"Home"|translate}}</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span>{{"Payment History"|translate}}</span>
+        </li>
+    </ul>
+</div>
+<div class="portlet light padding1px clearfix">
+    <!--<div class="portlet-title">-->
+    <div class="SubHeadingDiv ">
+        <div class="caption">
+            <span class="caption-subject font-grey-sharp">{{"ControlText.YourRecentPayments"|translate}}</span>
+        </div>
+    </div>
+    <div class="portlet">
+
+    </div>
+    <div class="portlet-body">
+        <div class="col-md-12 col-lg-12 table-responsive">
+            {{"DescriptionText"|translate}}
+        </div>
+
+        <div class="col-md-12 col-lg-12 margin-top-10 text-right font-blue bold margin-bottom-10">
+            <a>{{"ControlText.ApplyFilters"|translate}}</a>
+        </div>
+        <div class="col-md-12 col-lg-12 padding1px table-responsive">
+            <table class="table table-responsive table-striped table-hover table-bordered" id="NavigateTable">
+                <thead>
+                    <tr>
+                        <th>{{"ControlText.Account"|translate}}</th>
+                        <th>{{"ControlText.Date"|translate}}</th>
+                        <th>{{"ControlText.AmountPaid"|translate}}</th>
+                        <th class="statusHeading">{{"ControlText.Status"|translate}}</th>
+                        <th>{{"ControlText.ConfirmationCode"|translate}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="5" class="text-center text-danger">{{"NoRecordText"|translate}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!--Your Agent-->
+<div class="row" ng-include="'views/PolicyHolder/YourAgent.html'">
+
+
+</div>
+<!--End Your Agent-->

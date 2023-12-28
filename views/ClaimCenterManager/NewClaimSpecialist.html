@@ -1,0 +1,268 @@
+﻿<div class="row">
+    <div class="col-md-12 col-sm-12 padding1px" ng-form="Specialist">
+        <div class="col-md-12 ">
+            <ul class="page-breadcrumb breadcrumb sbold">
+                <li>
+                    <a ng-click="GoBack()">{{"Claim Specialist"|translate}}</a>
+                    <i class="fa fa-circle"></i>
+                </li>
+                <li>
+                    <span>{{"New Specialists" | translate}}</span>
+                </li>
+            </ul>
+        </div>
+
+
+        <div class="col-md-12 padding1px">
+
+            <div class="portlet light ">
+                <div class="portlet-title ">
+                    <div class="caption font-gray-sharp ">
+                        <span class="caption-subject">{{"New Claim Specialist" | translate}}</span>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-12 padding1px col-lg-12 margin-top-5 margin-bottom-5 text-right ">
+                    <button id="sample_editable_1_new " class="btn sbold btnMargin" ng-click="GoBack()">
+
+                        {{"Cancel"|translate}}
+                    </button>
+                    <button id="sample_editable_1_new " class="btn sbold btnMargin" ng-click="SaveClaimSpecialist()" ng-disabled="Specialist.$invalid || Specialist.$pristine">
+
+                        {{"ControlText.Save"|translate}}
+                    </button>
+
+                </div>
+                <div class="clearfix"></div>
+                <div class="SubHeadingDiv ">
+                    <!--<div class="portlet-title ">-->
+                    <div class="caption font-gray-sharp ">
+                        <span class="caption-subject">{{"TabHeaderText.ContactInformation" | translate}}</span>
+                    </div>
+                </div>
+
+
+                <div class="portlet-body">
+                    <div class="row">
+                        <div class="col-md-12 form-group Label_Text_Right clearfix">
+                            <label class="col-md-2 col-sm-2 control-label">{{"ControlText.FirstName"|translate}} </label>
+                            <div class="col-md-3 col-sm-4">
+                                <input type="text" required name="Firstname" ng-model="ContactDetails.firstName" class="form-control" placeholder="{{'ControlText.FirstName'|translate}}">
+                                <div ng-message="required" ng-show="(Specialist.Firstname.$error.required && Specialist.Firstname.$touched)">
+                                    <span class="text-danger">{{"ErrorMessage.FirstName"|translate}}</span>
+                                </div>
+                            </div>
+                            <label class="col-md-2 col-sm-2 col-md-offset-2 control-label">{{"ControlText.LastName"|translate}} </label>
+                            <div class="col-md-3 col-sm-4">
+                                <input type="text" required name="lastName" ng-model="ContactDetails.lastName" class="form-control" placeholder="{{'ControlText.LastName'|translate}}">
+                                <div ng-message="required" ng-show="(Specialist.lastName.$error.required && Specialist.lastName.$touched)">
+                                    <span class="text-danger">{{"ErrorMessage.lastName"|translate}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 form-group clearfix">
+                            <label class="col-md-2 col-sm-2 control-label Label_Text_Right">{{"ControlText.EmailId"|translate}} </label>
+                            <div class="col-md-3 col-sm-4">
+                                <input type="text" name="email" pattern="[a-z0-9A-Z._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required ng-model="ContactDetails.email" class="form-control" placeholder="{{'ControlText.EmailId'|translate}}">
+                                <div ng-message="required" ng-show="(Specialist.email.$error.required && Specialist.email.$touched)">
+                                    <span class="text-danger">{{"ErrorMessage.EmailRequired"|translate}}</span>
+                                </div>
+                                <div ng-message="pattern" ng-show="(Specialist.email.$touched && Specialist.email.$error.pattern)">
+                                    <span class="text-danger">{{"ErrorMessage.ValidEmail"|translate}}</span>
+                                </div>
+                            </div>
+                            <label class="col-md-5 col-sm-6 control-label">{{"TabHeaderText.UserNameNote"|translate}} </label>
+                        </div>
+                        <div class="col-md-12 form-group clearfix">
+                            <label class="col-md-2 col-sm-2 control-label Label_Text_Right">{{"ControlText.DayTimePhone"|translate}}</label>
+                            <div class="col-md-3 col-sm-4">
+                                <input type="text" name="DayTimephone" ng-pattern="/^([0-9-,()\s+]{15})$/" ng-trim="false" maxlength="15" ng-model="DayTimePhone" placeholder="(XXX)XXX-XXXX" phone-input class="input-phone form-control" />
+                                <div ng-message="pattern" ng-show="(Specialist.DayTimephone.$touched && Specialist.DayTimephone.$error.pattern)">
+                                    <span class="text-danger">{{"ErrorMessage.ValidPhoneNumbers"|translate}}</span>
+                                </div>
+                            </div>
+                            <label class="col-md-2 col-sm-2 col-md-offset-2 Label_Text_Right control-label">{{"ControlText.MobilePhone"|translate}} </label>
+                            <div class="col-md-3 col-sm-4 ">
+                                <input type="text" name="Mobilephone" ng-pattern="/^([0-9-,()\s+]{15})$/" ng-trim="false" maxlength="15" ng-model="Cellphone" placeholder="(XXX)XXX-XXXX" phone-input class="input-phone form-control" />
+                                <div ng-message="pattern" ng-show="(Specialist.Mobilephone.$touched && Specialist.Mobilephone.$error.pattern)">
+                                    <span class="text-danger">{{"ErrorMessage.ValidPhoneNumbers"|translate}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 form-group  clearfix">
+                            <label class="col-md-2 col-sm-2  control-label Label_Text_Right">{{"ControlText.Branch/Office"|translate}} </label>
+                            <div class="col-md-3 col-sm-4">
+                                <select class="input-sm select2me" name="BranchId" ng-model="ProfessionalDetails.branch.id" data-placeholder="Select Branch/Office"
+                                        ng-change="GetReportingmanager()" ng-options="option.id as option.branchName for option in Branch"></select>
+                                <!--<div ng-message="required" ng-show="(Specialist.BranchId.$error.required && Specialist.BranchId.$touched)">
+                                <span class="text-danger">{{"Please select branch."|translate}}</span>    </div>-->
+
+                            </div>
+                            <label class="col-md-2 col-sm-2 col-md-offset-2 control-label Label_Text_Right">{{"ControlText.ReportingManager"|translate}} </label>
+                            <div class="col-md-3 col-sm-4 ">
+                                <select class="input-sm select2me" name="reportingmanager" ng-model="ProfessionalDetails.reportingManager.id" data-placeholder="Select Reporting Manager"
+                                        ng-options="option.id as option.name for option in Reportingmanagers"></select>
+                                <!--<div ng-message="required" ng-show="(Specialist.reportingmanager.$error.required && Specialist.reportingmanager.$touched)">
+                                    <span class="text-danger">{{"Please select reporting manager."|translate}}</span>
+                                </div>-->
+                            </div>
+                           
+                        </div>
+                        <div class="col-md-12 form-group  clearfix">
+                            <label class="col-md-2 col-sm-2 control-label Label_Text_Right">{{"ControlText.Role"|translate}} </label>
+                            <div class="col-md-3 col-sm-4">
+                                <select class="input-sm select2me" name="roles" required ng-model="ProfessionalDetails.roles.roleId" data-placeholder='Select Role'
+                                        ng-options="option.id as option.name for option in Roles"></select>
+                                <div ng-message="required" ng-show="(Specialist.roles.$error.required && Specialist.roles.$touched)">
+                                    <span class="text-danger">{{"Please select role."|translate}}</span>
+                                </div>
+                            </div>
+                            <label class="col-md-2 col-md-offset-2 col-sm-2 control-label Label_Text_Right">{{"ControlText.Designation"|translate}} </label>
+                            <div class="col-md-3 col-sm-4">
+                                <select class="input-sm select2me" name="designation" required ng-model="ProfessionalDetails.designation.id" data-placeholder="Select Designation"
+                                        ng-options="option.id as option.name for option in Designations"></select>
+                                <div ng-message="required" ng-show="(Specialist.designation.$error.required && Specialist.designation.$touched)">
+                                    <span class="text-danger">{{"Please select designation."|translate}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 form-group  clearfix">
+                            <label class="col-md-2 col-sm-2 control-label Label_Text_Right">{{"ControlText.Address"|translate}} </label>
+                            <div class="col-md-3 col-sm-4">
+                                <textarea class="form-control btnMargin" ng-model="ContactDetails.address.streetAddressOne" placeholder="{{'ControlText.AddressLine2'|translate}}"></textarea>
+                            </div>
+                            <div class="col-md-12 clearfix"></div>
+                            <div class="col-md-3 col-md-offset-2 col-sm-offset-2 col-sm-4">
+                                <textarea class="form-control btnMargin" ng-model="ContactDetails.address.streetAddressTwo" placeholder="{{'ControlText.AddressLine2'|translate}}"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-12 form-group  clearfix">
+                            <div class="col-md-3 col-sm-4 col-md-offset-2 col-sm-offset-2">
+                                <input type="text" class="form-control btnMargin" ng-model="ContactDetails.address.city" placeholder="{{'ControlText.Town'|translate}}">
+                            </div>
+                            <div class="col-md-12 clearfix"></div>
+                            <div class="col-md-2 col-md-offset-2 col-sm-2 col-sm-offset-2">
+                                <select class="input-sm btnMargin select2me" ng-model="ContactDetails.address.state.id" data-placeholder="Select State"
+                                        ng-options="option.id as option.state for option in State"></select>
+                            </div>
+                            <div class="col-md-1 col-sm-2">
+                                <input type="text" maxlength="5" onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="ZipCode" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" ng-maxlength="8" ng-model="ContactDetails.address.zipcode" class="form-control btnMargin" placeholder="{{'ControlText.Zip'|translate}}">
+                                <div ng-message="pattern" ng-show="(Specialist.ZipCode.$error.pattern)">
+                                    <span class="text-danger">{{"ErrorMessage.ZipCode"|translate}}</span>
+                                </div>
+                                <div ng-message="pattern" ng-show="(Specialist.ZipCode.$error.maxlength)">
+                                    <span class="text-danger">{{"ErrorMessage.ZipCodeMax"|translate}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- End row -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Category Specilists -->
+        <div class="col-md-12 padding1px">
+            <div class="portlet light ">
+                <div class="SubHeadingDiv ">
+                    <!--<div class="portlet-title">-->
+                    <div class="caption font-gray-sharp">
+                        <span class="caption-subject ">{{"TabHeaderText.CategorySpecialities" | translate}}</span>
+                    </div>
+
+                    <div class="tools">
+                        <a href="" class="collapse"> </a>
+
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="row">
+                        <div class="col-md-12 ">
+                            <div class="col-md-12">
+
+                                <!--Start Table Data-->
+                                <div class="col-md-12 padding-top-10px table-responsive">
+                                    <div class="clearfix"> </div>
+                                    <!--<div class="col-md-3 col-sm-6 col-md-offset-2">
+                                        <div class="input-icon left">
+                                            <i class="icon-magnifier"></i>
+                                            <input type="text" ng-model="searchCategory" class="form-control form-control-solid input-circle input-block-level btnMargin margin-bottom-10" placeholder="{{'CategorySpecialistsTable.search' | translate}}">
+                                        </div>
+                                    </div>-->
+                                    <div class="clearfix"></div>
+                                    <div class="col-md-offset-2 col-md-5 col-sm-8 col-sm-offset-2 table-responsive">
+                                        <table class="table">
+                                            <tr>
+                                                <td class="width45" style="border:none;">
+                                                    <div class="input-icon left">
+                                                        <i class="icon-magnifier"></i>
+                                                        <input type="text" ng-model="searchCategory" class="form-control form-control-solid input-circle input-block-level btnMargin margin-bottom-10" placeholder="{{'CategorySpecialistsTable.search' | translate}}">
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="width45">
+                                                    <div class="col-md-12 table-responsive expertise">
+                                                        <table class="table table-bordered table-hover table-striped">
+                                                            <tr ng-repeat="category in CategoryList|filter:searchCategory">
+                                                                <!--<td>
+                                                                    <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline" ng-click="">
+                                                                        <input type="checkbox" class="checkboxes" ng-click="AddCategoryToExpert(category)" ng-checked="GetIsChecked(AddSpecialtyList,category)" />
+                                                                        <span></span>
+                                                                    </label>
+                                                                </td>-->
+                                                                <td ng-click="AddCategoryToExpert(category)">{{category.categoryName}}</td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </td>
+                                                <td rowspan="5" class="text-center" style="width:2%;">
+                                                    <!--<a href="#" style="text-decoration:none;" ng-click="AddToExpertCategory()"><h1 class="text-muted">&gt;</h1></a>
+                                                    <a href="#" style="text-decoration:none;" ng-click="RemoveFromExpertCategory()">  <h1 class="text-muted">&lt;</h1></a>-->
+                                                    <center>
+                                                        <i class="fa fa-exchange " style="margin-top:127px;font-size:24px" aria-hidden="true"></i>
+                                                    </center>
+                                                </td>
+                                                <td class="width45">
+                                                    <div class="col-md-12 table-responsive expertise">
+                                                        <table class="table table-bordered table-hover table-striped">
+                                                            <tr ng-repeat="specialty in  SpecialtyOfSpecialist">
+                                                                <!--<td>
+                                                                    <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
+                                                                        <input type="checkbox" class="checkboxes" ng-click="RemoveExpertCategory(specialty)" ng-checked="GetIsChecked(RemoveSpecialtyList,specialty)" />
+                                                                        <span></span>
+                                                                    </label>
+                                                                </td>-->
+                                                                <td ng-click="RemoveExpertCategory(specialty)">{{specialty.speciality}}</td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                                <!--End Table data-->
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="col-sm-12 col-md-12 col-lg-12 margin-top-5 margin-bottom-20 text-right padding1px topBorder">
+               <div class="margin-bottom-5 col-md-12"></div>
+                 <button id="sample_editable_1_new " class="btn sbold btnMargin " ng-click="GoBack()">
+
+                    {{"Cancel"|translate}}
+                </button>
+                <button id="sample_editable_1_new " class="btn sbold btnMargin " ng-click="SaveClaimSpecialist()" ng-disabled="Specialist.$invalid || Specialist.$pristine">
+
+                    {{"ControlText.Save"|translate}}
+                </button>
+
+            </div>
+        </div>
+    </div>
+</div>

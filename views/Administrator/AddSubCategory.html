@@ -1,0 +1,204 @@
+﻿<div>
+    <div id="responsive" ng-form="frmSubCategory">
+        <div class="modal-header">
+            <a  class="close" ng-click="cancel()" aria-hidden="true"></a>
+            <h5 class="modal-title"><span class="font-grey-sharp">{{"ControlText.SubcategoryDetails" |translate}}</span></h5>
+        </div>
+        <div class="modal-body">
+            <div class="col-md-12">
+                <div class="form-group  clearfix">
+                    <label class="col-md-4 control-label Label_Text_Right">{{"ControlText.Cat_CategoryId"|translate}} </label>
+                    <div class="col-md-8">
+                        <span>{{SubCategoryObject.categoryId}}</span>
+                        <!--<input class="form-control " disabled ng-model="SubCategoryObject.categoryId"  type="text" placeholder="{{'ControlText.Cat_CategoryId'|translate}}" name="Date" />-->
+                      
+                    </div>
+                </div>
+                <div class="form-group  clearfix">
+                    <label class="col-md-4 control-label Label_Text_Right">{{"ControlText.Cat_Name"|translate}} </label>
+                    <div class="col-md-8">
+                        <input class="form-control " ng-model="SubCategoryObject.name" required name="name" type="text" placeholder="{{'ControlText.Cat_Name'|translate}}"  />   
+                        <div class="col-md-12  padding1px">
+                            <span class="text-danger" ng-show="frmSubCategory.name.$error.required && frmSubCategory.name.$touched">{{'ErrorMessage.Cat_Name'|translate}}</span>
+                        </div>                   
+                    </div>
+                </div>
+                <div class="form-group  clearfix">
+                    <label class="col-md-4 control-label Label_Text_Right">{{"Description"|translate}} </label>
+                    <div class="col-md-8">
+                        <input class="form-control " type="text"  name="description" multiple ng-model="SubCategoryObject.description" placeholder="{{'Description'|translate}}" />
+                        <!--<div class="col-md-12  padding1px">
+                            <span class="text-danger" ng-show="frmSubCategory.description.$error.required && frmSubCategory.description.$touched">{{'ErrorMessage.AnnualDepreciation'|translate}}</span>
+                        </div>-->
+                    </div>
+                </div>
+                
+                <div class="form-group  clearfix">
+                    <label class="col-md-4 control-label Label_Text_Right">{{"ControlText.UsefulYears"|translate}} </label>
+                    <div class="col-md-8">
+                        <input class="form-control " type="number" min="0" max="1000"  name="usefulYears" ng-model="SubCategoryObject.usefulYears" placeholder="{{'ControlText.UsefulYears'|translate}}" />
+                        <div class="col-md-12  padding1px">
+                            <span class="text-danger" ng-show="frmSubCategory.usefulYears.$error.required && frmSubCategory.usefulYears.$touched">{{'ErrorMessage.UsefulYears'|translate}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group  clearfix">
+                    <label class="col-md-4 control-label Label_Text_Right">{{"Special case"|translate}}</label>
+                    <div class="col-md-8">
+                        <div class="col-md-1 col-sm-1" style="padding: 0px 5px 0px 0px;">
+                            <input type="radio" name="specialCase" ng-value="{{true}}"
+                                ng-checked="SubCategoryObject.specialCase== true"
+                                ng-model="SubCategoryObject.specialCase" class="form-control"
+                                ng-change="itemUpdated()" />
+                        </div>
+                        <div class="col-md-3 col-sm-3"
+                            style="padding-top: 4px;padding-left: 0px;">
+                            <span
+                                style="vertical-align: middle;font-weight: 600;">Yes</span>
+                        </div>
+                        <div class="col-md-1 col-sm-1" style="padding: 0px 5px 0px 0px;">
+                            <input type="radio" id="specialCase" ng-value="{{false}}"
+                                ng-model="SubCategoryObject.specialCase"
+                                ng-checked="SubCategoryObject.specialCase== false"
+                                ng-change="itemUpdated();" name="specialCase"
+                                class="form-control" />
+                        </div>
+                        <div class="col-md-3 col-sm-3"
+                            style="padding-top: 4px;padding-left: 0px;">
+                            <span for=""
+                                style="vertical-align: middle;font-weight: 600;">No</span>
+                        </div>
+                        <!-- <input class="form-control " type="number" min="0" max="100"  name="firstYearDepreciation" ng-model="SubCategoryObject.firstYearDepreciation" placeholder="{{'ControlText.firstYearDepreciation'|translate}}" /> -->
+                        <!-- <div class="col-md-12  padding1px">
+                            <span class="text-danger" ng-show="frmSubCategory.firstYearDepreciation.$error.required && frmSubCategory.firstYearDepreciation.$touched">{{'ErrorMessage.firstYearDepreciation'|translate}}</span>
+                        </div>  -->
+                    </div>
+                </div>
+                <div class="col-md-12" style="padding: 0px;" ng-if="SubCategoryObject.specialCase== false">
+                    <div class="form-group  clearfix">
+                        <label class="col-md-4 control-label Label_Text_Right">{{"ControlText.AnnualDepreciation"|translate}} %</label>
+                        <div class="col-md-8">
+                            <input class="form-control " type="number" min="0" max="100" required name="annualDepreciation"
+                                ng-model="SubCategoryObject.annualDepreciation"
+                                placeholder="{{'ControlText.AnnualDepreciation'|translate}}" />
+                            <div class="col-md-12  padding1px">
+                                <span class="text-danger"
+                                    ng-show="frmSubCategory.annualDepreciation.$error.required && frmSubCategory.annualDepreciation.$touched">{{'ErrorMessage.AnnualDepreciation'|translate}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Depreciate -->
+                <div class="col-md-12" style="padding: 0px;" ng-show="SubCategoryObject.specialCase== true">
+                    <div class="form-group  clearfix">
+                        <label class="col-md-4 control-label Label_Text_Right">{{"Is Depreciation"|translate}}</label>
+                        <div class="col-md-8">
+                            <div class="col-md-1 col-sm-1" style="padding: 0px 5px 0px 0px;">
+                                <input type="radio" name="isDepreciation" ng-value="{{true}}"
+                                    ng-checked="SubCategoryObject.depreciation== true"
+                                    ng-model="SubCategoryObject.depreciation" class="form-control"
+                                    ng-change="itemUpdated()" />
+                            </div>
+                            <div class="col-md-3 col-sm-3"
+                                style="padding-top: 4px;padding-left: 0px;">
+                                <span
+                                    style="vertical-align: middle;font-weight: 600;">Yes</span>
+                            </div>
+                            <div class="col-md-1 col-sm-1" style="padding: 0px 5px 0px 0px;">
+                                <input type="radio" id="isDepreciation" ng-value="{{false}}"
+                                    ng-model="SubCategoryObject.depreciation"
+                                    ng-checked="SubCategoryObject.depreciation== false"
+                                    ng-change="itemUpdated();" name="isDepreciation"
+                                    class="form-control" />
+                            </div>
+                            <div class="col-md-3 col-sm-3"
+                                style="padding-top: 4px;padding-left: 0px;">
+                                <span for=""
+                                    style="vertical-align: middle;font-weight: 600;">No</span>
+                            </div>
+                            <!-- <input class="form-control " type="number" min="0" max="100"  name="firstYearDepreciation" ng-model="SubCategoryObject.firstYearDepreciation" placeholder="{{'ControlText.firstYearDepreciation'|translate}}" /> -->
+                            <!-- <div class="col-md-12  padding1px">
+                                <span class="text-danger" ng-show="frmSubCategory.firstYearDepreciation.$error.required && frmSubCategory.firstYearDepreciation.$touched">{{'ErrorMessage.firstYearDepreciation'|translate}}</span>
+                            </div>  -->
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-12" style="padding: 0px;" ng-if="SubCategoryObject.specialCase== true && SubCategoryObject.depreciation== true">
+
+                    <div class="form-group  clearfix">
+                        <label class="col-md-4 control-label Label_Text_Right">{{"1st Year Depreciation"|translate}} %</label>
+                        <div class="col-md-8">
+                            
+                            <input class="form-control " type="number" min="0" max="100"  name="firstYearDepreciation" ng-model="SubCategoryObject.firstYearDepreciation" placeholder="{{'ControlText.firstYearDepreciation'|translate}}" />
+                            <!-- <div class="col-md-12  padding1px">
+                                <span class="text-danger" ng-show="frmSubCategory.firstYearDepreciation.$error.required && frmSubCategory.firstYearDepreciation.$touched">{{'ErrorMessage.firstYearDepreciation'|translate}}</span>
+                            </div>  -->
+                        </div>
+                    </div>
+                    <div class="form-group  clearfix">
+                        <label class="col-md-4 control-label Label_Text_Right">{{"Corresponding Year Depreciation"|translate}} %</label>
+                        <div class="col-md-8">
+                            <input class="form-control " type="number" min="0" max="100" name="correspondYearDepreciation" ng-model="SubCategoryObject.correspondYearDepreciation" placeholder="{{'ControlText.correspondYearDepreciation'|translate}}" />
+                            <!-- <div class="col-md-12  padding1px">
+                                <span class="text-danger" ng-show="frmSubCategory.correspondYearDepreciation.$error.required && frmSubCategory.correspondYearDepreciation.$touched">{{'ErrorMessage.correspondYearDepreciation'|translate}}</span>
+                            </div>  -->
+                        </div>
+                    </div>                
+                </div>
+
+                <div class="form-group  clearfix" ng-if="!(SubCategoryObject.specialCase== true && SubCategoryObject.depreciation== false)">
+                    <label class="col-md-4 control-label Label_Text_Right">{{"Max. Depreciation"|translate}} %</label>
+                    <div class="col-md-8">
+                        <input class="form-control " type="number" min="0" max="100" name="maxDepreciation" ng-model="SubCategoryObject.maxDepreciation" placeholder="{{'ControlText.maxDepreciation'|translate}}" />
+                        <!-- <div class="col-md-12  padding1px">
+                            <span class="text-danger" ng-show="frmSubCategory.maxDepreciation.$error.required && frmSubCategory.maxDepreciation.$touched">{{'ErrorMessage.maxDepreciation'|translate}}</span>
+                        </div>  -->
+                    </div>
+                </div>
+
+                <div class="col-md-12" style="padding: 0px;" ng-if="SubCategoryObject.specialCase== true && SubCategoryObject.depreciation== false">
+
+                <div class="form-group  clearfix">
+                    <label class="col-md-4 control-label Label_Text_Right">{{"Flat Depreciation"|translate}} %</label>
+                    <div class="col-md-8">
+                        <input class="form-control " type="number" min="0" max="100"  name="flatDepreciation" ng-model="SubCategoryObject.flatDepreciation" placeholder="{{'ControlText.flatDepreciation'|translate}}" />
+                        <!-- <div class="col-md-12  padding1px">
+                            <span class="text-danger" ng-show="frmSubCategory.flatDepreciation.$error.required && frmSubCategory.flatDepreciation.$touched">{{'ErrorMessage.flatDepreciation'|translate}}</span>
+                        </div>  -->
+                    </div>
+                </div>
+                </div>
+                <div class="form-group  clearfix">
+                        <label class="col-md-4 control-label Label_Text_Right">{{"Min Price Point"|translate}} </label>
+                        <div class="col-md-8">
+                            <input class="form-control " type="number" name="usefulYears" ng-model="SubCategoryObject.minPricePoint" placeholder="{{'Min Price Point'|translate}}" />
+                           
+                        </div>
+                    </div>
+
+                    <div class="form-group  clearfix">
+                            <label class="col-md-4 control-label Label_Text_Right">{{"Max Price Point"|translate}} </label>
+                            <div class="col-md-8">
+                                <input class="form-control " type="number" name="usefulYears" ng-model="SubCategoryObject.maxPricePoint" placeholder="{{'Max Price Point'|translate}}" />
+                               
+                            </div>
+                        </div>
+
+                        <div class="form-group  clearfix">
+                                <label class="col-md-4 control-label Label_Text_Right">{{"Associated Subcategory"|translate}} </label>
+                                <div class="col-md-8">
+                                    <input class="form-control " type="text"  name="usefulYears" ng-model="SubCategoryObject.associateSubCat" placeholder="{{'Associated Subcategory'|translate}}" />
+                                    
+                                </div>
+                            </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="modal-footer">
+            <button type="button" class="btn btnMargin sbold" ng-click="cancel()">{{"btn.Cancel"|translate}}</button>
+            <button type="button" data-dismiss="modal" ng-disabled="frmSubCategory.$invalid || frmSubCategory.$pristine" class="btn sbold btnMargin" ng-click="AddUpdateSubCategory()">{{"btn.Save"|translate}}</button>
+        </div>
+    </div> 
+
+</div>

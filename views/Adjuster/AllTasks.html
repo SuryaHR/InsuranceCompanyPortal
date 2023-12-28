@@ -1,0 +1,102 @@
+<div class="headerFreez border_bottom col-md-12 col-xs-12 margin-bottom-5">
+    <ul class="page-breadcrumb breadcrumb sbold">
+        <li>
+            <a ng-click="back()">{{"Home"|translate}}</a>
+            <i class="fa fa-circle"></i>
+        </li>
+
+        <li>
+            <a ng-click="GoToClaim()">{{CommonObj.ClaimNumber}}</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span>{{"Tasks"|translate}}</span>
+        </li>
+
+    </ul>
+    <div class="mainHeadingDiv">
+        <div class="caption font-grey-sharp">
+            <span class="caption-subject font-grey-sharp"> {{"All Claim Tasks"|translate}}</span>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb and heading part End-->
+<!--claim Form Tab-->
+ <div class="padding1px">
+    <div class="col-md-12 col-sm-12">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 options_Background padding1px">
+            <div class="col-lg-2 col-md-2 col-xs-12 col-sm-2">
+                <button class="btn sbold btnmargin margin-top-5 margin-bottom-5 btnOptions"
+                    ng-click="AddClaimForm($event)">
+                    {{"Create Task"|translate}}
+                </button>
+            </div>
+
+            <div
+                class="caption font-green-sharp col-lg-3 col-md-3 col-xs-12 col-sm-3 pull-right padding1px margin-top-5">
+                <div class="input-icon left">
+                    <i class="icon-magnifier"></i>
+                    <input type="text"
+                        class="form-control form-control-solid input-circle input-block-level"
+                        ng-model="searchFormData" placeholder="{{'LostDamagedSearchText'|translate}}">
+                </div>
+            </div>
+        </div>
+        <div class="table-responsive col-md-12  padding1px tableHeight">
+            <table class="table table-bordered table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th ng-click="SortClaimForm('taskId')">
+                            {{"Form ID"|translate}}</th>
+                        <th ng-click="SortClaimForm('taskName')">
+                            {{"Form Name"|translate}}</th>
+                        <th>{{"Description"|translate}}</th>
+                        <th ng-click="SortClaimForm('status.status')">
+                            {{"Status"|translate}}</th>
+                        <th>{{"Created By"|translate}}</th>
+                        <th>{{"Assigned To"|translate}}</th>
+                        <th>{{"Assigned Date"|translate}}</th>
+                        <th>{{"Action"|translate}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr
+                        ng-repeat="task in PendingTaskList | orderBy:'-assignedDate'">
+                        <td ng-click="reviewTaskPopup(task)">
+                            {{task.taskId}}
+                        </td>
+                        <td ng-click="reviewTaskPopup(task)">
+                            {{task.taskName}}
+                        </td>
+                        <td ng-click="reviewTaskPopup(task)">
+                            {{task.comment}}
+                        </td>
+                        <td ng-click="reviewTaskPopup(task)">
+                            {{task.status.status}}
+                        </td>
+                        <td ng-click="reviewTaskPopup(task)">
+                            {{task.createdBy}}
+                        </td>
+                        <td ng-click="reviewTaskPopup(task)">
+                            {{task.assignedTo}}
+                        </td>
+                        <td ng-click="reviewTaskPopup(task)">
+                            {{task.assignedDate | DateTimeFormatShort}}
+                        </td>
+                        <td class="not-clickable-cell" ng-click="$event.stopPropagation()">
+                            <a ng-click="DeletTask(task)" class="text-danger font-sm sbold">
+                                Delete</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a ng-click="CencelTask(task)" class="font-sm sbold">
+                                Cancel</a>
+                        </td>
+                    </tr>
+                    <tr ng-if="PendingTaskList===null || PendingTaskList.length==0">
+                        <td class="text-center text-danger" colspan="12">
+                            {{"No tasks available"|translate}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!--End claim Form Tab-->

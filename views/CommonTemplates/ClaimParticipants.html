@@ -1,0 +1,56 @@
+<style>
+    .profile-img {
+        width: 70px;
+        height: 70px;
+    }
+
+    .text-overflow-ellipsis {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    } 
+</style>
+<div class="col-md-12 col-sm-12 col-lg-12 margin-top-5">
+    <!-- Service request start -->
+    <div class="mainHeadingDiv border_bottom caption form-group">
+        <span
+            class="caption-subject">{{"TabHeaderTitle.ClaimParticipant"|translate}}&nbsp;({{ClaimParticipantsList.length}})</span>
+    </div>
+    <!-- Claim Participants List -->
+    <div class="col-md-12 col-xs-12 margin-top-5">
+        <!--<div class="col-lg-2 col-md-3 col-sm-12 col-xs-12 form-group padding1px items-align-center">
+            <a ng-click="OpenAddNewVendorModel($event)" class="round-button"><i class="fa fa-plus"
+                    aria-hidden="true"></i></a>
+            <a ng-click="OpenAddNewVendorModel($event)"
+                class="noTextDecoration font-size-13">{{"ControlText.AddVendor"|translate}}</a>
+        </div>-->
+        <div class="col-lg-10 col-md-9 col-sm-12 col-xs-12 form-group">
+            <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12 text-center margin-bottom-10 "
+                ng-repeat="participant in ClaimParticipantsList">
+                <div class="col-md-11 col-sm-12 col-xs-12 card" style="padding: 5px; height: 150px;">
+                    <img ng-src="{{participant.participantImage ? participant.participantImage.url : assets/global/img/teamMemb.png}}"
+                        onerror="this.onerror=null; this.src='assets/global/img/teamMemb.png';"
+                        class="profile-img text-center rounded" title="Profile Photo" alt="Profile Picture" />
+                    <span class="display-block primary-link">{{participant.lastName +", "+participant.firstName}}</span>
+                    <span class="display-block font-size-12">{{participant.companyDTO.companyName}}</span>
+                    <span class="display-block text-overflow-ellipsis font-size-12 font-weight-550"
+                        title="{{(participant.designation ? participant.designation.name : participant.role) | titleCase}}">{{(participant.designation ? participant.designation.name : participant.role) | titleCase }}</span>
+                    <div class="col-md-12"
+                        ng-class="{'text-center': participant.emailId === CommonObj.UserName || !participant.userActive}">
+                        <span>{{participant.phoneNum|tel}}</span>
+
+                        <!-- <a class="pull-left"
+                            ng-class="{'hide': participant.participantType.participantType !='POLICY HOLDER' || participant.emailId === CommonObj.UserName || !participant.userActive}"
+                            title="click to send a new message" ng-click="updateAndInviteUser(participant)">
+                            <em class="fa fa-edit"></em></a> -->
+
+                        <a class="pull-right"
+                            ng-class="{'hide': participant.emailId === CommonObj.UserName || !participant.userActive}"
+                            title="click to send a new message" ng-click="sendMessageToParticipant(participant)">
+                            <em class="fa fa-envelope-o"></em></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

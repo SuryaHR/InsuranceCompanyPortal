@@ -1,0 +1,77 @@
+﻿<!-- BEGIN:Completed-->
+<div class="col-md-12 mt-actions">
+    <div class="clearfix"></div>
+    <div class="padding-top-10px table-responsive ">
+        <div class="col-md-12 margin-bottom-25"> 
+                    <label class="control-label text-primary col-md-1 btnMargin">{{"Label.Show_title"|translate}}</label>
+                <div class="col-md-3 btnMargin">
+                    <select class="form-control" ng-model="pagesize">
+                        <option value="10">10 Claims</option>
+                        <option value="15">15 Claims</option>
+                        <option value="20">20 Claims</option>
+                    </select>
+                </div>
+          
+            <div class="col-md-4 btnMargin">
+                <div class="input-icon left">
+                    <i class="icon-magnifier"></i>
+                    <input type="text" ng-model="search" class="form-control form-control-solid input-circle input-block-level" placeholder={{"SearchText"|translate}}>
+                </div>
+            </div>
+        </div>
+        <!--<div class="btn-group btn-group-circle btn-outline">
+            <button type="button" ng-click="ApproveClaim($event)" class="btn green btn-sm btn-outline">{{"ControlText.Assign_title"|translate}}</button>
+
+            <button type="button" class="btn btn-sm red btn-outline" ng-click="RejectClaim($event)">{{"ControlText.Reject_title"|translate}}</button>
+        </div>-->
+        <table class="table  table-striped table-bordered table-hover table-checkable order-column" id="sample_5">
+            <thead>
+                <tr>
+                    <td ng-click="sort('claimType')">
+                        {{"Table.Claim"|translate}}
+                        <span class="glyphicon sort-icon" ng-show="sortKey=='claimType'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                    </td>
+                    <td ng-click="sort('Claim')">
+                        {{"Table.Claim"|translate}}
+                        <span class="glyphicon sort-icon" ng-show="sortKey=='Claim'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                    </td>
+                    <td ng-click="sort('Date')">
+                        {{"Table.LastUpdate"|translate}}
+                        <span class="glyphicon sort-icon" ng-show="sortKey=='Date'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                    </td>
+                    <td ng-click="sort('Status')">
+                        {{"Table.Status"|translate}}
+                        <span class="glyphicon sort-icon" ng-show="sortKey=='Status'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                    </td>
+                    <td>{{"Table.Action"|translate}}</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr  dir-paginate="item in claims|orderBy:sortKey:reverse|filter:search|itemsPerPage:pagesize">
+                    <td>
+                        <span ng-class="{'HOME':'fa fa-home fa-lg', 'AUTO':'fa fa-bus fa-lg'}[item.claimType]"></span>
+                    </td>
+                    <td ng-click="GotoClaimDetails(item)"><a class="TextDecorationNone">{{item.claimNumber }}</a></td>
+                    <td ng-click="GotoClaimDetails(item)"><a class="TextDecorationNone">{{item.createDate | date:'dd-MM-yyyy'}}</a></td>
+                    <td><span class="btn btn-circle  btn-xs green">{{item.status.status}}</span></td>
+                    <td>
+                        <div class="btn-group btn-group-circle btn-outline">
+                            <button type="button" ng-click="openmodel($event)" class="btn green btn-sm btn-outline">{{"ControlText.Assign_title"|translate}}</button>
+
+                            <button type="button" class="btn btn-sm red btn-outline">{{"ControlText.Reject_title"|translate}}</button>
+                        </div>
+                    </td>
+                </tr>
+                <tr ng-if="claims.length == 0 || claims===null">
+                    <td></td>
+                    <td colspan="6">{{NoRecordText|translate}}</td>
+                </tr>
+            </tbody>
+            <tfoot>
+            </tfoot>
+        </table>
+        <div class="clearfix"></div>
+        <dir-pagination-controls max-size="3" ng-if="claims!=null" direction-links="true" boundary-links="true" class="pull-right ">
+        </dir-pagination-controls>
+    </div>
+</div>

@@ -1,0 +1,39 @@
+﻿{
+  "MainHeader": {
+    "Alert": "Alert",
+    "NewItemNotifications": "New Item Notifications",
+    "FNOLSubmissions": "New Submissions"
+
+  },
+  "ControlText": {
+    "NewFNOL": "New FNOL",
+    "LoadFromFile": "Load from file",
+    "Export": "Export",
+    "Assign": "Assign",
+    "Reject": "Reject",
+    "back": "Back"
+
+  },
+  "Label": {
+    "PageSize": "Show",
+    "View": "View",
+    "search": "Search.. Claim #, Policy #, Insured",
+    "GlobalSearch": "Search... Any claim#",
+    "MatchingRecord": "Matching records for"
+
+  },
+  "Table": {
+    "Type": "Type",
+    "Reference": "Claim # ",
+    "PolicyNumber":"Policy # ",
+    "InsuredName": "Insured's Name",
+    "InsuredsPhone": "Insured's Phone #",
+    "ReportDate": "Report Date",
+    "Status": "Status",
+    "Action": "Action",
+    "Type_Title": "Claim Type",
+    "Norecord": "No records available"
+
+  },
+  "GlobalSearchText": "Search... Any claim#, Insured's Name, Phone #"
+}

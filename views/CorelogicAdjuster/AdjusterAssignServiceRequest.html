@@ -1,0 +1,261 @@
+﻿<!--<div class="row">
+    <span class="text-muted bold caption col-md-12 col-sm-12 col-xs-12 col-lg-12 margin-bottom-5 Custombreadcrumb">
+        <a ng-click="GotoDashboard()"> {{"Dashboard"|translate}} </a>&nbsp;>&nbsp; <a ng-click="GotoClaimDetails()">  {{serviceRequestDetails.claimDetails.claimNumber}} </a> &nbsp;>&nbsp;<a ng-click="GoBack()">{{serviceRequestDetails.serviceRequestId}}</a>
+        &nbsp;>&nbsp;{{"HeadingText.AssignServiceRequest" | translate}}
+    </span>
+</div>-->
+<div class="col-md-12 padding1px">
+    <ul class="page-breadcrumb breadcrumb sbold">
+        <li>
+            <a ng-click="GotoDashboard()">{{"Home"|translate}}</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <a ng-click="GotoClaimDetails()">{{serviceRequestDetails.claimDetails.claimNumber}}</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <a ng-click="GoBack()">{{serviceRequestDetails.serviceRequestId}}</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span>Assign service request</span>
+        </li>
+    </ul>
+</div>
+<div class="col-md-12 padding1px">
+    <div class="portlet light ">
+        <div class="portlet-title">
+            <div class="caption ">
+                <span class="caption-subject font-grey-sharp">{{"HeadingText.ServiceRequest" | translate}}:&nbsp;&nbsp; </span><span class="sbold">{{serviceRequestDetails.category.name}}</span>
+
+            </div>
+           
+        </div>
+        <div class="col-md-12 col-sm-12 margin-top-10 text-right">
+            <button id="sample_editable_1_new" class="btn sbold btnMargin" ng-click="GoBack()">
+                {{"Cancel"|translate}}
+            </button>
+            <button id="sample_editable_1_new" class="btn sbold btnMargin" ng-disabled="!VendorIdToAssignRequest" ng-click="AssignServiceRequest()">
+                {{"ControlText.Assign"|translate}}
+            </button>
+        </div>
+        <div class="portlet-body">
+            <div class="row">
+                <!--all claims-->
+                <div class="col-md-12 " ng-form="ServiceRequest">
+                    <div class="portlet ">
+                        <div class="portlet-body">
+                            <div class="row">
+                                <!--top buttons-->
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="col-md-12 col-sm-12 form-group">
+                                            <label class="col-md-3 col-sm-4 col-lg-2 control-label">{{"ControlText.ServiceId"|translate}}</label>
+                                            <div class="col-md-3 col-lg-3 col-sm-5">
+                                                {{serviceRequestDetails.serviceRequestId}}
+                                            </div>
+                                            <div class="col-md-3 col-lg-7 col-sm-3"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="col-md-12 col-sm-12 form-group">
+                                            <label class="col-md-3 col-sm-4 col-lg-2 control-label">{{"ControlText.Status"|translate}}</label>
+                                            <div class="col-md-3 col-lg-3 col-sm-5">
+                                                <select class="input-sm select2me" disabled name="ServiceCategory" required ng-model="serviceRequestDetails.status.statusId" data-placeholder="Select Item Type"
+                                                        ng-options="option.statusId as option.statusName for option in StatusList"></select>
+                                            </div>
+                                            <div class="col-md-3 col-lg-7 col-sm-4"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="col-md-12 form-group">
+                                            <label class="col-md-3 col-lg-2 control-label">{{"ControlText.ServiceDescription"|translate}}</label>
+                                            <div class="col-md-5 col-lg-5">
+                                                <textarea class="form-control " ng-model="serviceRequestDetails.description" type="text" rows="4" placeholder="{{'ControlText.ServiceDescription'|translate}}" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12 col-lg-12 form-group control-label">
+                                        <div class="col-md-6 col-lg-4 col-sm-12 form-group">
+                                            <label class="col-md-6 col-lg-6 col-sm-4 control-label">{{"ControlText.AssignedTo"|translate}}</label>
+                                            <div class="col-md-6 col-sm-8 col-lg-6">
+                                                {{serviceRequestDetails.assignTo.vendorName}}
+
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6 col-lg-4 col-sm-12 form-group">
+                                            <label class="col-md-6 col-lg-6 col-sm-4 control-label">{{"ControlText.DateOfAssignMent"|translate}} </label>
+                                            <div class="col-md-6 col-lg-6  col-sm-8">
+                                                {{serviceRequestDetails.assignedDate | DateFormatMMddyyyy}}
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-md-6 col-lg-4 col-sm-12 form-group">
+                                            <label class="col-md-6 col-lg-6  col-sm-4 control-label">{{"ControlText.TargetDate"|translate}} </label>
+                                            <div class="col-md-6  col-sm-8 col-lg-6">
+                                                {{serviceRequestDetails.targetDate | DateFormatMMddyyyy}}
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-md-6 col-lg-4 col-sm-12 form-group">
+                                            <label class="col-md-6 col-lg-6 col-sm-4 control-label">{{"ControlText.CreateAt"|translate}} </label>
+                                            <div class="col-md-6 col-lg-6 col-sm-8">
+                                                {{serviceRequestDetails.createDate  | DateFormatMMddyyyy}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-lg-4 col-sm-12 form-group">
+                                            <label class="col-md-6 col-lg-6 col-sm-4 control-label">{{"ControlText.CreatedBy"|translate}} </label>
+                                            <div class="col-md-6 col-lg-6 col-sm-8">
+                                                {{serviceRequestDetails.createdBy.name}}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6 col-lg-4 col-sm-12 form-group">
+                                            <label class="col-md-6 col-lg-6 col-sm-4 control-label">{{"ControlText.DateofCompletion"|translate}} </label>
+                                            <div class="col-md-6 col-lg-6 col-sm-8">
+                                                {{serviceRequestDetails.completionDate |DateFormatMMddyyyy}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-lg-6 col-sm-12 form-group">
+                                            <label class="col-md-6 col-sm-4 col-lg-4  control-label">{{"ControlText.Invoice"|translate}} </label>
+                                            <div class="col-md-6 col-lg-8 col-sm-8" style="max-height:50px;overflow-y:auto">
+                                                <span ng-repeat="file in serviceRequestDetails.invoices">
+                                                    <a href="#" download="{{file.url}}">{{file.name}}&nbsp;<span ng-if="!$last">,</span></a>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-lg-6  control-label form-group">
+                                            <label class="col-md-6 col-lg-4 col-sm-4 control-label">{{"ControlText.Attachments"|translate}} </label>
+                                            <div class="col-md-6 col-lg-6 col-sm-8" style="max-height:50px;overflow-y:auto">
+                                                <span ng-repeat="file in serviceRequestDetails.attachments">
+                                                    <a href="#" download="{{file.url}}">{{file.name}}&nbsp;<span ng-if="!$last">,</span></a>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- Associate List -->
+
+    </div>
+</div>
+<div class="col-md-12 clearfix padding1px">
+    <div class="portlet light">
+        <div class="SubHeadingDiv margin-bottom-10">
+            <span class="caption-subject">{{"HeadingText.AvailableVendors"|translate}}</span>
+        </div>  
+        <div class="portlet-body">
+            <div class="row">
+                <div class="col-md-12 padding1px">
+                    <div class="col-md-12">
+                        <div class="options_Background_WithBorder col-md-12">
+                            <div class="col-md-4 pull-right margin-top-5 margin-bottom-5">
+                                <div class="input-icon left">
+                                    <i class="icon-magnifier"></i>
+                                    <input type="text" class="form-control form-control-solid input-circle input-block-level" ng-model="search" placeholder={{"SearchText"|translate}}>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                        <div class="col-md-12 portlet table-responsive">
+                            <div class="col-md-12">
+                                <table class="table table-striped  table-bordered table-hover order-column">
+                                    <thead>
+                                        <tr>
+                                            <th class="table-checkbox" style="width:2%">
+                                            </th>
+                                            <!--<th ng-click="sortVendor('match')">
+                            {{"Table.Match"|translate}}
+                            <span class="glyphicon sort-icon" ng-show="sortKey=='match'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                            </th>-->
+                                            <th ng-click="sortVendor('name')">
+                                                {{"Table.SpecialistName"|translate}}
+                                                <span class="glyphicon sort-icon" ng-show="sortKey=='name'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                            </th>
+                                            <th ng-click="sortVendor('participant')">
+                                                {{"Table.Participant"|translate}}
+                                                <span class="glyphicon sort-icon" ng-show="sortKey=='participant'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                            </th>
+                                            <th ng-click="sortVendor('casesInHand')">
+                                                {{"Table.ClaimsInHand"|translate}}
+                                                <span class="glyphicon sort-icon" ng-show="sortKey=='casesInHand'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                            </th>
+                                            <th>
+                                                {{"Table.Services"|translate}}
+                                            </th>
+                                            <th>
+                                                {{"Table.Speciality"|translate}}
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr dir-paginate="Vendor in VendorList |orderBy:sortKey:reverse|filter:search|itemsPerPage:PageSize " pagination-id="VendorList">
+                                            <td>
+                                                <label class="mt-radio mt-radio-outline mt-radio-single ">
+                                                    <input type="radio" name="selectAdjuster" ng-click="SelectVendor(Vendor)" />
+                                                    <span></span>
+                                                </label>
+                                            </td>
+                                            <!--<td></td>-->
+                                            <td>{{Vendor.name}}</td>
+                                            <td class="text-center">{{Vendor.participant==true? 'Yes' : 'No'}}</td>
+                                            <td class="text-center">
+                                                {{Vendor.casesInHand}}
+                                            </td>
+                                            <td class="tip">
+                                                <span class="Overlay" ng-if="Vendor.ServicesList">{{Vendor.ServicesList }}</span>
+                                                <span>{{Vendor.ServicesList | limitTo: 20}}{{Vendor.ServicesList.length >  20 ? '...' : ''}}</span>
+                                            </td>
+                                            <td class="tip">
+                                                <span class="Overlay" ng-if="Vendor.specialitiesList">{{Vendor.specialitiesList}} </span>
+                                                {{Vendor.specialitiesList | limitTo: 20}}  <span>{{Vendor.specialitiesList.length >  20 ? '...' : ''}}</span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div ng-show="!VendorList.length||VendorList===null" class="col-md-12 text-center text-danger">{{"NoRecordText"|translate}}</div>
+
+                                <dir-pagination-controls max-size="3" pagination-id="VendorList"
+                                                         direction-links="true"
+                                                         boundary-links="true" class="pull-right">
+                                </dir-pagination-controls>
+                                <div class="col-md-12">
+                                    <label class="col-md-4"><b>{{"ControlText.SelectedVendor "|translate}} :&nbsp;&nbsp;{{SelectedVendor}}</b></label>
+                                </div>
+                                <!--<div class="col-md-12">
+                    <label class="col-md-4"><b>{{"ControlText.MinimumCostofServices "|translate}} :&nbsp;&nbsp;{{RateForService|currency}}</b></label>
+                </div>-->
+                            </div>
+
+     </div>
+                    <div class="col-md-12 col-sm-12 margin-top-10 topBorder text-right">
+                        <div class="col-md-12 col-sm-12 padding1px  margin-top-10">
+                            <button id="sample_editable_1_new" class="btn sbold btnMargin" ng-click="GoBack()">
+                                {{"Cancel"|translate}}
+                            </button>
+                            <button id="sample_editable_1_new" class="btn sbold btnMargin" ng-disabled="!VendorIdToAssignRequest" ng-click="AssignServiceRequest()">
+                                {{"ControlText.Assign"|translate}}
+                            </button>
+                        </div>
+                    </div>
+                        </div>
+                          <!----End Pricing Specialist List-->
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+

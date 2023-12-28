@@ -1,0 +1,233 @@
+﻿
+<div class="col-md-12 padding1px">
+    <ul class="page-breadcrumb breadcrumb sbold">
+        <li>
+            <a ng-click="GoToHome()">{{"Home"|translate}}</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <a ng-click="GoToCompany()">{{CommonObj.CompanyName}}</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li ng-if="CommonObj.BranchName!=='null'">
+            <a ng-click="GoBack()">{{CommonObj.BranchName}}</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span ng-show="CommonObj.IsEdit==='true'">{{EmpDetails.firstName+" "+EmpDetails.lastName}}</span>
+            <span ng-show="CommonObj.IsEdit==='false'">{{"New Employee"|translate}}</span>
+        </li>
+    </ul>
+</div>
+
+
+<div class="portlet light padding1px col-md-12 clearfix ">
+    <div class="portlet-title">
+        <div class="caption font-gray-sharp">
+            <span class="caption-subject ">
+                <span ng-show="CommonObj.IsEdit==='true'">{{EmpDetails.firstName+" "+EmpDetails.lastName}}</span>
+                <span ng-show="CommonObj.IsEdit==='false'">{{"New Employee"|translate}}</span>
+
+            </span>
+        </div>
+    </div>
+    <div class="portlet-body" ng-form="NewEmployee">
+        <div class="tools ">
+            <button id="sample_editable_1_new" class="btn sbold btnMargin  pull-right margin-bottom-10" ng-disabled="NewEmployee.$pristine||NewEmployee.$invalid" ng-click="AddNewEmployee()">
+                {{"Save"|translate}}
+            </button>
+            <button id="sample_editable_1_new " class="btn sbold btnMargin  pull-right margin-bottom-10" ng-click="GoBack()">
+                {{"Cancel"|translate}}
+            </button>
+
+        </div>
+        <div class="col-md-12 col-sm-12 padding1px">
+            <div class="col-md-12 col-sm-12 portlet padding1px">
+                <!--General Information Start-->
+                <div class="col-md-12 padding1px">
+                    <div class="caption SubHeadingDiv">
+                        <span class="caption-subject ">
+                            {{"General Information"|translate}}
+                        </span>
+                    </div>
+                </div>
+                <div class="col-md-12 col-sm-12 padding1px margin-top-10">
+                    <div class="form-group col-md-12 col-sm-12">
+                        <div class="col-md-2 col-sm-4">
+                            <label class="col-md-12 Label_Text_Right"><span class="text-danger btnMargin">*</span>{{"First Name"|translate}}</label>
+                        </div>
+                        <div class="col-md-4 col-sm-8">
+                            <input type="text" name="FirstName" required class="form-control" ng-model="EmpDetails.firstName" placeholder='{{"First Name"|translate}}' />
+                            <div class="errormessage">
+                                <span class="text-danger" ng-show="NewEmployee.FirstName.$error.required && NewEmployee.FirstName.$touched">{{"Please enter first name"|translate}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12 col-sm-12">
+                        <div class="col-md-2 col-sm-4">
+                            <label class="col-md-12 Label_Text_Right"><span class="text-danger btnMargin">*</span>{{"Last Name"|translate}}</label>
+                        </div>
+                        <div class="col-md-4 col-sm-8">
+                            <input type="text" name="LastName" required class="form-control" ng-model="EmpDetails.lastName" placeholder='{{"Last Name"|translate}}' />
+                            <div class="errormessage">
+                                <span class="text-danger" ng-show="NewEmployee.LastName.$error.required && NewEmployee.LastName.$touched">{{"Please enter last name"|translate}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12 col-sm-12">
+                        <div class="col-md-2 col-sm-4">
+                            <label class="col-md-12 Label_Text_Right"><span class="text-danger btnMargin">*</span>{{"Email Id"|translate}}</label>
+                        </div>
+                        <div class="col-md-4 col-sm-8">
+                            <input class="form-control" type="email" name="email" pattern="" required ng-model="EmpDetails.email" placeholder='{{"Email Id"|translate}}' />
+                            <div class="errormessage">
+                                <span class="text-danger" ng-show="NewEmployee.email.$error.required && NewEmployee.email.$touched">{{"Please enter email"|translate}}</span>
+                            </div>
+                            <div class="errormessage">
+                                <span class="text-danger" ng-show="NewEmployee.email.$error.email">{{"Please enter valid email"|translate}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12 col-sm-12">
+                        <div class="col-md-2 col-sm-4">
+                            <label class="col-md-12 Label_Text_Right"><span class="text-danger btnMargin">*</span>{{"Phone Number"|translate}}</label>
+                        </div>
+                        <div class="col-md-4 col-sm-8">
+                            <input type="text" name="EmployeeNumber" ng-pattern="/^([0-9-,()\s+]{15})$/" ng-trim="false" maxlength="15" required ng-model="EmpDetails.eveningTimePhone" placeholder="XXX-XXX-XXXX" phone-input class="input-phone form-control" />
+                            <div class="col-md-12 errormessage padding1px">
+                                <span class="text-danger" ng-show="NewEmployee.EmployeeNumber.$error.required && NewEmployee.EmployeeNumber.$touched">{{"Please enter phone number"|translate}}</span>
+                                <span class="text-danger" ng-show="NewEmployee.EmployeeNumber.$error.pattern">{{"Please enter valid phone number"|translate}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--General Information End-->
+                <!--Office Information Start-->
+                <div class="col-md-12 col-sm-12 padding1px">
+                    <div class="caption SubHeadingDiv">
+                        <span class="caption-subject ">
+                            {{"Office Information"|translate}}
+                        </span>
+                    </div>
+                </div>
+                <div class="col-md-12 col-sm-12 padding1px margin-top-10">
+                    <div class="form-group col-md-12 col-sm-12">
+                        <div class="col-md-2 col-sm-4">
+                            <label class="col-md-12 Label_Text_Right"><span class="text-danger btnMargin">*</span>{{"Designation"|translate}}</label>
+                        </div>
+                        <div class="col-md-4 col-sm-8">
+                            <select class="form-control select2me" name="Designation" required ng-model="EmpDetails.designation.id" placeholder='{{"ControlText.Designation"|translate}}'
+                                    ng-options="item.id as item.name for item in DesignationList "></select>
+                            <div class="errormessage">
+                                <span class="text-danger" ng-show="NewEmployee.Designation.$error.required && NewEmployee.Designation.$touched">{{"Please select designation"|translate}}</span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-group col-md-12 col-sm-12">
+                        <div class="col-md-2 col-sm-4">
+                            <label class="col-md-12 control-label Label_Text_Right"><span class="text-danger btnMargin">*</span>{{"Role"|translate}}</label>
+                        </div>
+                        <div class="col-md-4 col-sm-8">
+                            <select class="form-control select2me" name="Role" multiple required ng-model="CommonObj.Role" placeholder='{{"ControlText.Office"|translate}}'
+                                    ng-options="item.id as item.name for item in RoleList "></select>
+                            <div class="errormessage">
+                                <span class="text-danger" ng-show="NewEmployee.Role.$error.required && NewEmployee.Role.$touched">{{"Please select Role "|translate}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12 col-sm-12">
+                        <div class="col-md-2 col-sm-4 ">
+                            <label class="col-md-12 control-label Label_Text_Right">{{"Agent Code"|translate}}</label>
+                        </div>
+                        <div class="col-md-4 col-sm-8">
+                           <input type="text" class="form-control" placeholder='{{"Agent Code"|translate}}' />
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12 col-sm-12">
+                        <div class="col-md-2 col-sm-4 ">
+                            <label class="col-md-12 control-label Label_Text_Right">{{"Branch Office"|translate}}</label>
+                        </div>
+                        <div class="col-md-4 col-sm-8">
+                            <select class="form-control select2me" name="Branch"  ng-model="EmpDetails.branchId" placeholder='{{"ControlText.Office"|translate}}'
+                                    ng-options="item.id as item.branchName for item in OfficeListdata "></select>
+                            <div class="errormessage">
+                                <span class="text-danger" ng-show="NewEmployee.Branch.$error.required && NewEmployee.Branch.$touched">{{"Please select Branch "|translate}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12 col-sm-12">
+                        <div class="col-md-2 col-sm-4">
+                            <label class="col-md-12 control-label Label_Text_Right">{{"Reporting Manager"|translate}}</label>
+                        </div>
+                        <div class="col-md-4 col-sm-8">
+                            <select class="form-control select2me" name="Reporting" ng-model="EmpDetails.reportingManager.id" placeholder='{{"ControlText.ReportingManager"|translate}}'
+                                    ng-options="item.id as item.firstName+' '+item.lastName for item in RepoManagerList" ></select>
+                            <!--<div class="errormessage">
+                                <span class="text-danger" ng-show="NewEmployee.Reporting.$error.required && NewEmployee.Reporting.$touched">{{"Please select Reporting Manager"|translate}}</span>
+                            </div>-->
+                        </div>
+                    </div>
+
+
+
+                </div>
+                <!--Office Information End-->
+                <!--Account Information Start-->
+
+                <div class="col-md-12 col-sm-12 padding1px" ng-if="CommonObj.IsEdit == 'true'">
+                    <div class="caption SubHeadingDiv">
+                        <span class="caption-subject ">
+                            {{"Account Information"|translate}}
+                        </span>
+                    </div>
+                    <div class="form-group col-md-12 col-sm-12 margin-top-10">
+                        <div class="col-md-2 col-sm-4">
+                            <label class="col-md-12 Label_Text_Right"><span class="text-danger btnMargin">*</span>{{"User Name"|translate}}</label>
+                        </div>
+                        <div class="col-md-4 col-sm-8">
+                            <input class="form-control" type="email" name="email" readonly ng-model="EmpDetails.email" placeholder='{{"User Name"|translate}}' />
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-12 col-sm-12">
+                        <div class="col-md-2 col-sm-3">
+                            <label class="col-md-12 control-label Label_Text_Right">{{"Password"|translate}}</label>
+                        </div>
+                        <div class="col-md-4 col-sm-6">
+                            <label class="col-md-6">******************</label>
+                            <span class="col-md-6 text-primary"><a href="#">{{"Reset Password"|translate}}</a></span>
+                            <!--<input class="form-control" type="password" name="email" readonly required ng-model="EmpDetails.password" placeholder='{{"Password"|translate}}' />-->
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-group col-md-12 col-sm-12">
+                        <div class="col-md-2 col-sm-4">
+                            <label class="col-md-12 control-label Label_Text_Right"><span class="text-danger btnMargin">*</span>{{"Account Stauts"|translate}}</label>
+                        </div>
+                        <div class="col-md-4 col-sm-8">
+                            <select class="form-control select2me" name="Active" ng-required="CommonObj.IsEdit =='false'" ng-model="EmpDetails.isActive" placeholder='{{"ControlText.Office"|translate}}'
+                                    ng-options="item.id as item.name for item in StatusList "></select>
+
+                            <div class="errormessage">
+                                <span class="text-danger" ng-show="NewEmployee.Active.$error.required && NewEmployee.Active.$touched">{{"Please select Status "|translate}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Account Information End-->
+            </div>
+        </div>
+        <div class="col-md-12 col-sm-12 topBorder padding1px">
+            <button id="sample_editable_1_new" class="btn sbold btnMargin  pull-right margin-bottom-10 margin-top-10" ng-disabled="NewEmployee.$pristine||NewEmployee.$invalid" ng-click="AddNewEmployee()">
+                {{"Save"|translate}}
+            </button>
+            <button id="sample_editable_1_new " class="btn sbold btnMargin  pull-right margin-bottom-10 margin-top-10" ng-click="GoBack()">
+                {{"Cancel"|translate}}
+            </button>
+
+        </div>
+    </div>
+</div>

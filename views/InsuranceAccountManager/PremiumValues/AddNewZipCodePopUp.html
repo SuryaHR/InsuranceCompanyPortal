@@ -1,0 +1,58 @@
+
+<style>
+  .p_0 {
+    padding : 0px !important;
+  }
+</style>
+
+<div id="myModal">
+    <div id="responsive">
+        <div class="modal-header">
+            <a class="close" ng-click="cancel()" aria-hidden="true"></a>
+            <h4 class="modal-title">{{"Add New Zip Code"|translate}}</h4>
+        </div>
+        <div class="modal-body">
+          <div class="col-md-12 padding1px " ng-form="AddNewZipCodeForm">
+              <div class="col-md-12 col-sm-12 form-group">
+                  <label class="control-label col-md-2 col-sm-4 p_0 text-right">{{"Zip Code"|translate}}</label>
+                  <div class="col-md-6 col-sm-8">
+                      <input class="form-control" type="text" ng-model="zipcode.zipcode" numbersonly placeholder='{{"Zip code"|translate}}' name="zipcode" required minlength="5" maxlength="5"  />
+                      <div class="errormessage">
+                          <div ng-message="required" ng-show="(AddNewZipCodeForm.zipcode.$error.required && AddNewZipCodeForm.zipcode.$touched)">
+                              <span class="text-danger">{{"Please Enter Zip Code."|translate}}</span>
+                          </div>
+     			  					    <span ng-show="AddNewZipCodeForm.zipcode.$error.minlength">Zipcode should be of 5 digits</span>
+		      	  						<span ng-show="AddNewZipCodeForm.zipcode.$error.maxlength">Zipcode should be of 5 digits</span>
+                      </div>
+                  </div>
+                  <div class="col-md-4"></div>
+              </div>
+              <div class="col-md-12 col-sm-12 form-group">
+                  <label class="control-label col-md-2 col-sm-4 p_0 text-right">{{"Premium Value"|translate}}</label>
+                  <div class="col-md-6 col-sm-8">
+                      <input class="form-control" type="text" decimalplaces ng-model="zipcode.premiumValue" step="0.01" placeholder='{{"Premium Value"|translate}}' name="premiumValue" required />
+                      <div class="errormessage">
+                          <div ng-message="required" ng-show="(AddNewZipCodeForm.premiumValue.$error.required && AddNewZipCodeForm.premiumValue.$touched)">
+                              <span class="text-danger">{{"Please Enter Premium Value."|translate}}</span>
+                          </div>
+                      </div>
+                      <div class="col-md-2"></div>
+                  </div>
+              </div>
+              <div class="col-md-12 col-sm-12 form-group">
+                  <label class="control-label col-md-2 col-sm-4 p_0 text-right">{{"Area"|translate}}</label>
+                  <div class="col-md-6 col-sm-8">
+                      <input class="form-control" ng-model="zipcode.area" placeholder='{{"Area"|translate}}' name="area"/>
+                  </div>
+                  <div class="col-md-4"></div>
+              </div>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="modal-footer">
+            <button type="button" data-dismiss="modal" class="btn btnMargin sbold" ng-click="cancel()">{{"Close"|translate}}</button>
+            <button type="button" class="btn btnMargin sbold" ng-click="AddNewZipCode(zipcode)">{{"Add New Zip Code"|translate}}</button>
+        </div>
+    </div>
+
+</div>

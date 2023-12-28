@@ -1,0 +1,108 @@
+{"DiamondClarities" : {
+
+    "Flawless" : "IF",
+    
+    "Very Very Slightly Included 1" : "VVS1",
+    
+    "Very Very Slightly Included 2" : "VVS2",
+    
+    "Very Slightly Included 1" : "VVS1",
+    
+    "Very Slightly Included 2" : "VVS2",
+    
+    "Slightly Included 1" : "SI1",
+    
+    "Slightly Included 2" : "SI2",
+    
+    "Slightly Included 3" : "SI3",
+    
+    "Included 1" : "I1",
+    
+    "Included 2" : "I1",
+    
+    "Included 3" : "I3",
+    "I1":"I1",
+    "VVS":"VVS1",
+    "VS":"VS1",
+    "FL":"IF"
+    
+    },
+    
+     
+    
+    "CutGrades":{
+    
+    "Fair" :"F",   
+
+    "Good" : "G",
+    
+    "Very Good":"VG",
+    
+    "Excellent" : "EX",
+    
+    "Poor" : "P",
+    
+    "None" : "N"
+    
+    },
+    
+     
+    
+    "MetalTypes" : {
+    
+    "10K":"10K",
+    
+    "14K":"14K",
+    
+    "18K":"18K",
+    
+    "20K and More":"20K",
+    
+    "Platinum":"PL",
+
+    "14K and Platinum":"14K_PL",
+
+    "18K and Platinum":"18K_PL",
+
+    "Silver and 14K" :"SS_14K",
+    
+    "Silver and 18K" :"SS_18K",
+    
+    "14K & Platinum":"14K_PL",
+
+    "18K & Platinum":"18K_PL",
+
+    "Silver & 14K" :"SS_14K",
+    
+    "Silver & 18K" :"SS_18K",
+    
+    "Sterling Silver":"SS",
+    
+    "Other":"NA"
+    
+    },
+    
+                   
+    
+     
+    
+    "MetalWeights" :{
+    
+    "grams":"GR",
+    "Grams":"GR",
+
+    "GRAMS":"GR",
+    
+    "DWT":"DWT",
+
+    "AVG. WOMEN'S":"GR",
+    "Avg. Women's":"GR",
+    "Avg. Men's":"GR",
+
+    "Avg Universal":"GR",
+
+    "AVG. MEN'S":"GR",
+    "Average":"GR"
+    
+    }  
+} 

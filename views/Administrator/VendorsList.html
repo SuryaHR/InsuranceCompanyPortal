@@ -1,0 +1,435 @@
+﻿<div class="row">
+    <div class="col-md-12">
+        <ul class="page-breadcrumb breadcrumb sbold">
+            <li>
+                <a ng-click="GotoDashboard()">{{"Home"|translate}}</a>
+                <i class="fa fa-circle"></i>
+            </li>
+
+            <li>
+                <span>{{"3rd Party Vendors"|translate}}</span>
+            </li>
+        </ul>
+    </div>
+</div>
+<div id="ThirPartyVendorsForm" class="col-md-12 portlet light padding1px" ng-show="vendorinvite!=true && inviteVendorOnBoard!=true">
+    <div class="portlet-title">
+        <div class="caption font-gray-sharp">
+            <span class="caption-subject">{{"HeadingText.VendorList"|translate}}</span>
+        </div>
+    </div>
+    <div class="col-md-12 portlet padding1px margin-top-10" style="border:1px solid lightgray">
+        <span style="font-size: 18px;">{{"Filters"|translate}}</span>
+        <div class="col-md-12 col-lg-12 col-sm-12 row margin-top-5">
+            <div class="col-md-8 col-lg-8 col-sm-12 col-xs-12 form-group">
+                <div class="col-md-2 col-sm-6 Label_Text_Right">
+                    <label class="control-label "> {{"ControlText.Show"|translate}}</label>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                        <ul class="nav nav-pills">
+                            <li ng-class="{'active': tab=='All'}">
+                                <a data-toggle="tab" ng-click="searchByDate('All')" aria-expanded="false">{{"ControlText.AllVendors" | translate}}</a>
+                            </li>
+                            <li ng-class="{'active': tab=='ThisMonth'}">
+                                <a data-toggle="tab" ng-click="searchByDate('ThisMonth')" aria-expanded="true"> {{"ControlText.ContentProviders" | translate}}</a>
+                            </li>
+                            <li ng-class="{'active': tab=='Last3Month'}">
+                                <a data-toggle="tab" ng-click="searchByDate('Last3Month')" aria-expanded="true">{{"ControlText.ServiceProviders" | translate}} </a>
+                            </li>
+                        </ul>
+                </div>
+            </div>
+            <div class="col-md-8 col-lg-8 col-sm-12 col-xs-12 form-group">
+                <div class="col-md-2 col-sm-6 Label_Text_Right">
+                    <label class="control-label "> {{"ControlText.ContentCategories"|translate}}</label>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <select class="select2me form-control" ng-model="category" ng-options="categories.categoryId as categories.categoryName for categories in categoryList"></select>
+                </div>
+            </div>
+            <div class="col-md-8 col-lg-8 col-sm-12 col-xs-12 form-group">
+                <div class="col-md-2 col-sm-6 Label_Text_Right">
+                    <label class="control-label "> {{"ControlText.ServicesProvided"|translate}}</label>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <select class="select2me form-control" ng-model="serviceProvided" ng-options="services.id as services.service for services in serviceList"></select>
+                </div>
+            </div>
+            <div class="col-md-8 col-lg-8 col-sm-12 col-xs-12 form-group">
+                <div class="col-md-2 col-sm-6 Label_Text_Right">
+                    <label class="control-label "> {{"ControlText.State"|translate}}</label>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <select class="select2me form-control" ng-model="State" ng-options="state.id as state.state for state in ddlStateList"></select>
+                </div>
+            </div>
+            <div class="col-md-8 col-lg-8 col-sm-12 col-xs-12 form-group">
+                <div class="col-md-2 col-sm-6 Label_Text_Right">
+                    <label class="control-label "> {{"ControlText.City"|translate}}</label>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <select class="select2me form-control" ng-model="City" ng-options="item.name for item in City"></select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="portlet-body border-top" >
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 options_Background padding1px">
+                    <div class="pull-right col-lg-8 col-md-4 margin-top-5 margin-bottom-5 col-sm-12 manageSearch padding1px">
+                        <div class="col-lg-4 col-md-2 col-xs-12 col-sm-4 pull-right ">
+                            <div class="input-icon left">
+                                <i class="icon-magnifier"></i>
+                                <input type="text" class="form-control form-control-solid input-circle input-block-level" ng-model="SearchVendor" placeholder="{{'Company Name'|translate}}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 table-responsive padding1px">
+                    <table class="table table-bordered table-hover table-striped" id="NavigateTable">
+                        <thead>
+                            <tr>
+                                <th ng-click="sort('id')">
+                                    {{"Registration # "|translate}}
+                                    <span class="glyphicon sort-icon" ng-show="sortKey=='id'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                </th>
+                                <th ng-click="sort('name')">
+                                    {{"Vendor Name"|translate}}
+                                    <span class="glyphicon sort-icon" ng-show="sortKey=='name'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                </th>
+                                <th ng-click="sort('address')">
+                                    {{"Address(City)"|translate}}
+                                    <span class="glyphicon sort-icon" ng-show="sortKey=='address'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                </th>
+                                <th ng-click="sort('state')">
+                                    {{"State"|translate}}
+                                    <span class="glyphicon sort-icon" ng-show="sortKey=='state'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                </th>
+                                <th ng-click="sort('PhNo')">
+                                    {{"Table.Active"|translate}}
+                                    <span class="glyphicon sort-icon" ng-show="sortKey=='PhNo'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                </th>
+                                <th ng-click="sort('status')">
+                                    {{"Content Specialities"|translate}}
+                                    <span class="glyphicon sort-icon" ng-show="sortKey=='status'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                </th>
+                                <th ng-click="sort('status')">
+                                    {{"Service Provided"|translate}}
+                                    <span class="glyphicon sort-icon" ng-show="sortKey=='status'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                </th>
+                                <th class="statusHeading">
+                                    {{"Action"|translate}}
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr dir-paginate="item in AllVendorsList |orderBy:sortKey:reverse|filter:SearchService|itemsPerPage:10" paginatio-id="ContentServiceList">
+                                <td>
+                                    {{item.registrationNumber}}
+                                </td>
+                                <td>
+                                    {{item.name}}
+                                </td>
+                                <td>
+                                    {{item.officeAddress.city}}
+                                </td>
+                                <td>{{item.officeAddress.state.stateName}}</td>
+                                <td>
+                                    {{item.createdDate|DateFormatMMddyyyy}}
+                                </td>
+                                <td>
+                                   
+                                </td>
+                                <td>
+
+                                </td>
+                                <td class="text-center">
+                                    <label class="sbold" ng-if="item.isInsuranceCompanyContracted==true && item.requestedToVendor==false">Contracted</label>
+                                    <a ng-if="item.isInsuranceCompanyContracted==false && item.requestedToVendor==false" ng-click="inviteVendor(item)">Invite Vendor</a>
+                                    <label class="sbold" ng-if="item.isInsuranceCompanyContracted==false && item.requestedToVendor==true">Pending Request</label>
+                                </td>
+                            </tr>
+                            <tr ng-if="AllVendorsList===null||AllVendorsList.length ===0">
+                                <td colspan="8" class="text-center"><span class="text-center text-danger">{{"NoRecordText"|translate}}</span></td>
+                            </tr>
+                            <!--<tr>
+                                <td colspan="8">
+                                    <a ng-click="inviteVendor()">{{"inviteVendor"|translate}}</a>
+                                </td>
+                            </tr>-->
+                        </tbody>
+                    </table>
+                    <dir-pagination-controls max-size="3" ng-if="serviceList.length !==0 || serviceList!==null" paginatio-id="ContentServiceList"
+                                             direction-links="true"
+                                             boundary-links="true" class="pull-right">
+                    </dir-pagination-controls>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-6 pull-right margin-top-30">
+        <a ng-click="newVendorOnBoard()">{{"Don't find the vendor? Click here to add new Vendor"}}</a>
+    </div>
+</div>
+<div id="VendorInviteFrom" class="col-md-12 col-sm-12 col-lg-12" ng-show="vendorinvite==true && inviteVendorOnBoard!=true">
+    <div class="col-md-12 portlet light">
+        <div class="portlet-title ">
+            <div class="caption font-grey-sharp">
+                <span class="caption-subject">
+                    Invite Vendor to Join
+                </span>
+            </div>
+            <div class="tools">
+            </div>
+        </div>
+
+        <div class="portlet-body">
+            <div class="row">
+                <div class="col-md-12 margin-top-10 ">
+                    <div class="col-md-12">
+                        <button class="btn btnMargin sbold pull-right" ng-disabled="InviteVendorForm.$invalid ||InviteVendorForm.$pristine" ng-click="InviteVendor()">Send Invite</button>
+                        <button ng-click="CancelInvite()" class="btn btnMargin sbold pull-right">Cancel</button>
+                    </div>
+                </div>
+
+                <div class="col-md-12" ng-form="InviteVendorForm">
+                    <div class="col-md-12 col-sm-6 form-group">
+                        <div class="col-md-6">
+                            <label class="Label_Text_Right col-md-5 col-sm-5 ">Company</label>
+                            <div class="col-md-6 col-sm-7">
+                                <span>{{VendorDetails.name}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-6 form-group">
+                        <div class="col-md-6">
+                            <label class="Label_Text_Right col-md-5 col-sm-5">Vendor Administrator Email ID</label>
+                            <div class="col-md-6 col-sm-7">
+                                <span>{{VendorDetails.adminEmail}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-6 form-group">
+                        <div class="col-md-6">
+                            <label class="Label_Text_Right col-md-5 col-sm-5 ">Email Template</label>
+                            <div class="col-md-6 col-sm-7">
+                                <select class="form-control"  name="EmailTemplate" ng-options="email.id as email.shortDescription for email in EmailTemplate" ng-model="VendorDetails.EmailTemplate.id" ng-change="setEmailDetails()">
+                                </select>
+                                <div ng-message="required" ng-show="InviteVendorForm.EmailTemplate.$error.required && InviteVendorForm.EmailTemplate.$touched">
+                                    <span class="text-danger">Please select email template.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 col-sm-6 form-group">
+                        <div class="col-md-6">
+                            <label class="Label_Text_Right col-md-5 col-sm-5 "><span style="color:red">*</span>Subject Of Email</label>
+                            <div class="col-md-6 col-sm-7">
+                                <input type="text" required name="Subject" ng-model="VendorDetails.EmailTemplate.templateSubject" class="form-control" placeholder='Subject' />
+                                <div ng-message="required" ng-show="InviteVendorForm.Subject.$error.required && InviteVendorForm.Subject.$touched">
+                                    <span class="text-danger">Please enter email subject.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 col-sm-6 form-group">
+                        <div class="col-md-6">
+                            <label class="Label_Text_Right col-md-5 col-sm-5 "><span style="color:red">*</span>Body of Invite</label>
+                            <div class="col-md-7 col-sm-7">
+                                <textarea rows="8" cols="90" name="EmailBody" required ng-model="VendorDetails.EmailTemplate.templateBody"></textarea>                             
+                                <div ng-message="required" ng-show="InviteVendorForm.EmailBody.$error.required && InviteVendorForm.EmailBody.$touched">
+                                    <span class="text-danger">Please enter email body.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 margin-top-10 ">
+                        <div class="col-md-12">
+                            <button class="btn btnMargin sbold pull-right" ng-click="InviteVendor()" ng-disabled="InviteVendorForm.$invalid ||InviteVendorForm.$pristine">Send Invite</button>
+                            <button ng-click="CancelInvite()" class="btn btnMargin sbold pull-right">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="VendorOnBoard" class="col-md-12 portlet light" ng-form="VendorOnBoard" ng-show="inviteVendorOnBoard==true && vendorinvite!=true">
+    <div class="portlet-title ">
+        <div class="caption font-grey-sharp">
+            <span class="caption-subject">
+                {{"Invite a Vendor"|translate}}
+            </span>
+        </div>
+        <div class="tools">
+        </div>
+    </div>
+    <div class="portlet-body">
+        <div class="row">
+            <div class="col-md-12 margin-top-10 ">
+                <div class="col-md-12">
+                    <button class="btn btnMargin sbold pull-right" ng-click="CreateRquest()" ng-disabled="VendorOnBoard.$invalid||VendorOnBoard.$pristine">{{"ControlText.CreateRequest"|translate}}</button>
+                    <button ng-click="CancelVendorOnBoard()" class="btn btnMargin sbold pull-right">{{"Cancel"|translate}}</button>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-12 col-sm-12 padding1px">
+                    <div class="col-md-12 col-sm-12 margin-top-10">
+                        <div class="SubHeadingDiv">
+                            <span class="caption-subject">
+                                {{"Vendor Company Details"|translate}}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-12 col-sm-6 form-group margin-top-5" >
+                    <div class="col-md-6">
+                        <label class="Label_Text_Right col-md-5 col-sm-5 "><span style="color:red">*</span>{{"ControlText.CompanyName"|translate}}</label>
+                        <div class="col-md-6 col-sm-7">
+                            <input type="text" required name="CompanyName" ng-model="company.name" class="form-control" placeholder='{{"ControlText.CompanyName"|translate}}' />
+                            <div ng-message="required" ng-show="(VendorOnBoard.CompanyName.$error.required && VendorOnBoard.CompanyName.$touched)">
+                                <span class="text-danger">{{"Please enter Company Name"|translate}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-12 col-sm-6 ">
+                    <div class="col-md-6">
+                        <label class="Label_Text_Right col-md-5 col-sm-5">{{"ControlText.CompanyWebsite"|translate}}</label>
+                        <div class="col-md-6 col-sm-7">
+                            <input type="text" name="Website" ng-model="company.url" class="form-control" placeholder='{{"ControlText.CompanyWebsite"|translate}}' />
+                            <div ng-message="required" ng-show="(VendorOnBoard.Website.$error.required && VendorOnBoard.Website.$touched)">
+                                <span class="text-danger">{{"Please enter website"|translate}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-12">
+                    <div class="col-md-6">
+                        <div class="col-md-5 text-right">
+                            <label>{{"ControlText.CompanyAddress"|translate}}</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" name="Address1" ng-model="company.address.streetAddressOne" class="form-control" placeholder='{{"ControlText.Address1"|translate}}' />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-12">
+                    <div class="col-md-6">
+                        <div class="col-md-5 text-right">
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" name="Address2" ng-model="company.address.streetAddressTwo" class="form-control" placeholder='{{"ControlText.Address2"|translate}}' />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-12">
+                    <div class="col-md-6">
+                        <div class="col-md-5 text-right">
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" name="City" class="form-control" ng-model="company.address.city" placeholder='{{"ControlText.City"|translate}}' />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-12">
+                    <div class="col-md-6">
+                        <div class="col-md-5 text-right">
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-control select2me" ng-change="SetTimeZone()" ng-model="company.address.state.id" ng-options="state.id as state.state for state in ddlStateList"  name="State"></select>
+                            
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" name="zipCode" ng-model="company.address.zipcode" class="form-control" placeholder='{{"ControlText.ZipCode"|translate}}' maxlength="5" onkeypress="return event.charCode >= 48 && event.charCode <= 57"/>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="col-md-12 col-sm-6 form-group">
+                    <div class="col-md-6">
+                        <label class="Label_Text_Right col-md-5 col-sm-5"><span style="color:red">*</span>{{"ControlText.OfficePhone"|translate}}</label>
+                        <div class="col-md-6 col-sm-7">
+                            <input type="text" required name="userPhoneNo" ng-pattern="/^([0-9-,()\s+]{15})$/" ng-model="company.PhoneWork" ng-trim="false" maxlength="15" phone-input class="form-control" placeholder='{{"ControlText.OfficePhone"|translate}}' />
+                            <div ng-message="required" ng-show="(VendorOnBoard.userPhoneNo.$error.required && VendorOnBoard.userPhoneNo.$touched)">
+                                <span class="text-danger"> {{"Please enter phone number."|translate}}</span>
+                            </div>
+                            <div ng-message="required" ng-show="(VendorOnBoard.userPhoneNo.$error.pattern && VendorOnBoard.userPhoneNo.$touched)">
+                                <span class="text-danger"> {{"Please enter valid phone number."|translate}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-sm-12 padding1px">
+                    <div class="col-md-12 col-sm-12 margin-top-10">
+                        <div class="SubHeadingDiv">
+                            <span class="caption-subject">
+                                {{"Vendor Administrator Details"|translate}}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12 col-sm-6 form-group margin-top-10">
+                    <div class="col-md-6">
+                        <label class="Label_Text_Right col-md-5 col-sm-5"><span style="color:red">*</span>{{"ControlText.FirstName"|translate}}</label>
+                        <div class="col-md-6 col-sm-7">
+                            <input type="text" class="form-control" required name="firstname" ng-model="company.adminFirstName" placeholder='{{"ControlText.FirstName"|translate}}' />
+                            <div ng-message="required" ng-show="(VendorOnBoard.firstname.$error.required && VendorOnBoard.firstname.$touched)">
+                                <span class="text-danger">{{"Please enter first name."|translate}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-sm-6 form-group">
+                    <div class="col-md-6">
+                        <label class="Label_Text_Right col-md-5 col-sm-5"><span style="color:red">*</span>{{"ControlText.LastName"|translate}}</label>
+                        <div class="col-md-6 col-sm-7">
+                            <input type="text" required name="lastname" class="form-control" ng-model="company.adminLastName" placeholder='{{"ControlText.LastName"|translate}}' />
+                            <div ng-message="required" ng-show="(VendorOnBoard.lastname.$error.required && VendorOnBoard.lastname.$touched)">
+                                <span class="text-danger">{{"Please enter last name."|translate}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-sm-6 form-group">
+                    <div class="col-md-6">
+                        <label class="Label_Text_Right col-md-5 col-sm-5"><span style="color:red">*</span>{{"ControlText.Email"|translate}}</label>
+                        <div class="col-md-6 col-sm-7">
+                            <input type="text" required name="useremail" class="form-control" pattern="[a-z0-9A-Z._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" ng-model="company.adminEmail" placeholder='{{"ControlText.Email"|translate}}' />
+                            <div ng-message="required" ng-show="(VendorOnBoard.useremail.$error.required && VendorOnBoard.useremail.$touched)">
+                                <span class="text-danger">{{"Please enter eamilID."|translate}}</span>
+                            </div>
+                            <span class="text-danger col-sm-12 col-xs-12 col-lg-12 col-md-12" ng-message="pattern"
+                                  ng-show="(VendorOnBoard.useremail.$touched && VendorOnBoard.useremail.$error.pattern)">
+                                {{"Please enter valid emailID."|translate}}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-sm-6 form-group">
+                    <div class="col-md-6">
+                        <label class="Label_Text_Right col-md-5 col-sm-5"><span style="color:red">*</span>{{"Phone (Work)"|translate}}</label>
+                        <div class="col-md-6 col-sm-7">
+                            <input type="text" required ng-pattern="/^([0-9-,()\s+]{15})$/" ng-trim="false" maxlength="15" phone-input name="usermobileno" class="form-control" ng-model="company.adminMobile" placeholder='{{"Phone Number"|translate}}' />
+                            <div ng-message="required" ng-show="(VendorOnBoard.usermobileno.$error.required && VendorOnBoard.usermobileno.$touched)">
+                                <span class="text-danger">{{"Please enter mobile number."|translate}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 margin-top-10 ">
+                    <div class="col-md-12">
+                        <button class="btn btnMargin sbold pull-right" ng-click="CreateRquest()" ng-disabled="VendorOnBoard.$invalid||VendorOnBoard.$pristine">{{"ControlText.CreateRequest"|translate}}</button>
+                        <button ng-click="CancelVendorOnBoard()" class="btn btnMargin sbold pull-right">{{"Cancel"|translate}}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,206 @@
+﻿
+
+<div id="myModal">
+    <div id="responsive">
+        <div class="modal-header">
+            <a class="close" ng-click="cancel()" aria-hidden="true"></a>
+            <h4 class="modal-title text-primary">{{"Invoice#"}}&nbsp;:&nbsp;{{InvoiceDetails.invoiceNumber}}</h4>
+        </div>
+        <div class="modal-body">
+            <div class="col-md-12 clearfix margin-top-15 portlet padding1px" id="cal">
+                <div class="portlet-body">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-lg-12 padding1px">
+
+                            <!--<div class="form-group col-md-12 col-sm-12 padding1px">
+                                <div class="col-md-4 col-sm-6 col-xs-12">
+                                    <label class="control-label ">{{"ControlText.InvoiceAddressed"|translate}}</label>
+                                </div>
+                                <div class="col-md-8 col-sm-6 col-xs-12">
+
+                                </div>
+                            </div>-->
+
+                            <div class="form-group col-md-12 padding1px">
+                                <div class="col-md-2 col-sm-6">
+                                    <label class="control-label ">{{"ControlText.PaymentMethod"|translate}}</label>
+                                </div>
+                                <div class="col-md-8 col-sm-6">
+                                    <div class="col-md-2 col-sm-4">
+                                        <label class="mt-radio mt-radio-outline mt-radio-single">
+                                            <input type="radio" class="radio" name="optradioPayment" checked="checked" ng-click="SelectMethod('check')" /><span></span>{{"Radio.Check"|translate}}
+                                        </label>
+                                    </div>
+                                    <div class="col-md-2 col-sm-4">
+                                        <label class="mt-radio mt-radio-outline mt-radio-single">
+                                            <input type="radio" class="radio" name="optradioPayment" ng-click="SelectMethod('EFT')" /><span></span>{{"Radio.EFT"|translate}}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--<div class="portlet">
+                            <div class="portlet-title"></div>
+                        </div>-->
+                        <div class="col-md-6 col-sm-12 col-lg-6 padding1px">
+                            <!---Check section-->
+                            <div class="col-sm-12 col-lg-12 col-md-12 padding1px" id="CheckSectionForm" ng-form="CheckSectionForm">
+                                <div class="form-group col-md-12 col-sm-12 padding1px">
+                                    <div class="col-md-4 col-sm-4">
+                                        <label class="control-label ">{{"ControlText.Amount"|translate}}</label>
+                                    </div>
+                                    <div class="col-md-8 col-sm-8">
+                                        <span class="control-label">{{InvoiceDetails.amount|currency}}</span>
+                                        <!--<input type="text" class="form-control" readonly ng-model="InvoiceDetails.amount" required placeholder='{{"ControlText.Amount"|translate}}' name="amount" />-->
+                                        <div class="errormessage">
+                                            <div ng-message="required" ng-show="(CheckSectionForm.amount.$error.required && CheckSectionForm.amount.$touched)">
+                                                <span class="text-danger">{{"ErrorMessage.AmountRequired"|translate}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-12 col-sm-12 padding1px" ng-if="!IsEFTPayment">
+                                    <div class="col-md-4 col-sm-4">
+                                        <label class="control-label ">{{"ControlText.CheckNumber"|translate}}</label>
+                                    </div>
+                                    <div class="col-md-8 col-sm-8">
+                                        <input type="text" class="form-control" ng-model="Payment.CheckNumber" placeholder='{{"ControlText.CheckNumber"|translate}}' name="checkNo" required />
+                                        <div class="errormessage">
+                                            <div ng-message="required" ng-show="(CheckSectionForm.checkNo.$error.required && CheckSectionForm.checkNo.$touched)">
+                                                <span class="text-danger">{{"ErrorMessage.CheckNoRequired"|translate}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-12 padding1px" ng-if="IsEFTPayment">
+                                    <div class="col-md-4">
+                                        <label class="control-label ">{{"ControlText.BankAccountNumber"|translate}}</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control" ng-model="Payment.BankAccountNumber" placeholder='{{"ControlText.BankAccountNumber"|translate}}' name="BankAccountNumber" ng-required="IsEFTPayment" />
+                                        <div class="errormessage">
+                                            <div ng-message="required" ng-show="(CheckSectionForm.BankAccountNumber.$error.required && CheckSectionForm.BankAccountNumber.$touched)">
+                                                <span class="text-danger">{{"ErrorMessage.BankAccountRequired"|translate}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-12 padding1px" ng-if="IsEFTPayment">
+                                    <div class="col-md-4">
+                                        <label class="control-label ">{{"ControlText.RoutingNumber"|translate}}</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control" ng-model="Payment.RoutingNumber" placeholder='{{"ControlText.RoutingNumber"|translate}}' name="RoutingNumber" ng-required="IsEFTPayment" />
+                                        <div class="errormessage">
+                                            <div ng-message="required" ng-show="(CheckSectionForm.RoutingNumber.$error.required && CheckSectionForm.RoutingNumber.$touched)">
+                                                <span class="text-danger">{{"ErrorMessage.RoutingNoRequired"|translate}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-12 col-sm-12 padding1px">
+                                    <div class="col-md-4 col-sm-4">
+                                        <label class="control-label ">{{"ControlText.DrawnOnBank"|translate}}</label>
+                                    </div>
+                                    <div class="col-md-8 col-sm-8">
+                                        <input type="text" class="form-control" ng-model="Payment.BankName" placeholder='{{"ControlText.DrawnOnBank"|translate}}' name="bankName" required />
+                                        <div class="errormessage">
+                                            <div ng-message="required" ng-show="(CheckSectionForm.bankName.$error.required && CheckSectionForm.bankName.$touched)">
+                                                <span class="text-danger">{{"ErrorMessage.BankNameRequired"|translate}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-12 col-sm-12 padding1px">
+                                    <div class="col-md-4 col-sm-4">
+                                        <label class="control-label ">{{"ControlText.PaymentDate"|translate}}</label>
+                                    </div>
+                                    <div class="col-md-8 col-sm-8">
+                                        <input class="form-control datepicker" data-date-container='#cal' ng-model="Payment.Date" close-on-date-selection="true" data-provide="datepicker" size="16" type="text" placeholder='{{"ControlText.PaymentDate"|translate}}' name="Date" required />
+                                        <div class="errormessage">
+                                            <div ng-message="required" ng-show="(CheckSectionForm.Date.$error.required && CheckSectionForm.Date.$touched)">
+                                                <span class="text-danger">{{"ErrorMessage.DateRequired"|translate}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!---End Check section-->
+                        </div>
+                        <!--Vendor Details-->
+                        <div class="col-md-6 col-lg-6 col-sm-12 padding1px">
+                            <div class="form-group col-md-12 padding1px">
+                                <div class="col-md-4 col-sm-4 col-xs-12">
+                                    <label class="control-label ">{{"ControlText.VendorName"|translate}}</label>
+                                </div>
+                                <div class="col-md-8 col-sm-8 col-xs-12">
+                                    <input type="text" class="form-control" ng-model="VendorDetails.Name" placeholder='{{"ControlText.VendorName"|translate}}' />
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-12 padding1px">
+                                <div class="col-md-4 col-sm-4 col-xs-12">
+                                    <label class="control-label ">{{"ControlText.RemitToAddress"|translate}}</label>
+                                </div>
+                                <div class="col-md-8 col-sm-8 col-xs-12">
+                                    <input type="text" class="form-control" ng-model="VendorDetails.ShippingAddress1" placeholder='{{"ControlText.ShippingAddress1"|translate}}' />
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-12 padding1px">
+                                <div class="col-md-4 col-sm-4">
+
+                                </div>
+                                <div class="col-md-8 col-sm-8 col-xs-12 form-group">
+                                    <input type="text" class="form-control" ng-model="VendorDetails.ShippingAddress2" placeholder='{{"ControlText.ShippingAddress2"|translate}}' />
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12 col-sm-12 padding1px">
+                                <div class="col-md-4 col-sm-4">
+
+                                </div>
+                                <div class="col-md-4 col-sm-4 col-sx-12 form-group">
+                                    <input type="text" class="form-control" ng-model="VendorDetails.City" placeholder='{{"ControlText.TownCity"|translate}}' />
+                                </div>
+                                <div class="col-md-4 col-sm-4 col-sx-12">
+                                    <select class="form-control" ng-model="VendorDetails.State" ng-options="State.id as State.state for State in StateList"></select>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12 padding1px">
+                                <div class="col-md-4 col-sm-4">
+
+                                </div>
+
+                                <div class="col-md-8 col-sm-4">
+                                    <input type="text" class="form-control" maxlength="5" onkeypress='return event.charCode >= 48 && event.charCode <= 57' ng-model="VendorDetails.ZipCode" placeholder='{{"ControlText.State"|translate}}' />
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-12 col-sm-12 visible-sm">
+                                <div class="col-md-3">
+
+                                </div>
+                                <div class="col-md-8 col-sm-12">
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <!--End Vendor Details-->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="modal-footer">
+            <button type="button" class="btn sbold btnMargin" ng-click="cancel()">{{"ControlText.Cancel"|translate}}</button>
+            <button class="btn sbold btnMargin pull-right" ng-disabled="CheckSectionForm.$invalid || CheckSectionForm.$pristine" ng-click="MakePayment()">
+                {{"ControlText.PayNow"|translate}}
+            </button>
+        </div>
+    </div>
+
+</div>
+<!-- <script>
+    ComponentsDateTimePickers.init(); // init todo page
+</script> -->

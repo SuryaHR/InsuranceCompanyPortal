@@ -1,0 +1,76 @@
+﻿{
+
+  "ControlText": {
+    "Contracts": "Contracts",
+    "ContactSearch": "Search by Name, Id",
+    "View": "View",
+    "Edit": "Edit",
+    "Delete": "Delete",
+    "Category": "Category",
+    "SelectType": "Select Type",
+    "SpecialLimites": "Special Limits($)"
+  },
+  "Table": {
+
+    "StartDate": "Start Date",
+    "ExpirationDate": "Expiration Date",
+    "Status": "Status",
+    "Action": "Action",
+    "ContractID": "Contract ID",
+    "InsuranceCompanyName": "Insurance Company Name",
+    "ContractName": "Contract Name",
+    "MaxClaimTime": " Max. Claim Time"
+  },
+  "Label": {
+
+    "StartDate": "Start Date",
+    "ExpirationDate": "Expiration Date",
+    "Status": "Status",
+    "Action": "Action",
+    "ContractID": "Contract ID",
+    "InsuranceCompanyName": "Insurance Company Name",
+    "ContractName": "Contract Name",
+    "MaxClaimTime": " Max. Claim Time",
+    "MaxCliamTimeAgreed": "Contract Claim Time (days)"
+  },
+  
+    "Labeled": {
+      "btnNewCategory": "Add New Category",
+      "btnMoreSubCategory": "Add New Sub-Category",
+      "AddNewCategory": "Add New Category",
+      "LoadFromFile": "Load From File",
+      "Export": "Export",
+      "btnBack": "Back",
+      "btnSave": "Save",
+      "btnCancel": "Cancel",
+      "lblSearch": "Search..",
+      "View": "View",
+      "PageSize": "Show",
+      "New":"New",
+      "Upload":"Upload"
+    },
+    "TableCat": {
+      "CatagoryId": "Category Id",
+      "CatagoryName": "Name",
+      "CoverageLimit": "Coverage Limit",
+      "Description": "Description",
+      "SubCategory": "Sub-Category",
+      "SubCategoryName": "Name",
+      "AnnualDepreciation": "Annual Depreciation",
+      "UsefulYears": "Useful Years",
+      "SrNo": "Id"
+    },
+    "HeaderText": {
+      "ContentCategories": "Content Categories",
+      "CatDesc": "Category Details",
+      "SubCat": "Sub-Category"
+    },
+   
+    "ErrorMsg": {
+      "CoverageLimitRequired": "Coverage limit needs to be provided",
+      "CategoryRequired": " Category name is required",
+      "CoverageLimitNumber": "Coverage limit can only be a number"
+    }
+  
+
+}

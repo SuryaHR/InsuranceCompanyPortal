@@ -1,0 +1,345 @@
+﻿<!--Lost Or Damaged Contents-->
+<!--<div class="row">
+    <span class="text-muted bold caption col-md-12 col-sm-12 col-xs-12 col-lg-12 margin-bottom-5 Custombreadcrumb">
+        <span class="bold caption "><a ng-click="GotoMyClaim()">{{"Dashboard"|translate}} </a>&nbsp;>&nbsp;<a ng-click="GoBack($event)"> {{CommanObj.ClaimNumber}}</a> &nbsp;>&nbsp;Assign Line Item </span>
+    </span>
+</div>-->
+<ul class="page-breadcrumb breadcrumb sbold">
+    <li>
+        <a ng-click="GotoMyClaim()">Home</a>
+        <i class="fa fa-circle"></i>
+    </li>
+    <li>
+        <a ng-click="GoBack($event)">{{CommanObj.ClaimNumber}}</a>
+        <i class="fa fa-circle"></i>
+    </li>
+    <li>
+        <span>Assign Line Item</span>
+    </li>
+
+</ul>
+<div class="col-md-12 padding1px clearfix">
+
+    <div class="portlet">
+
+        <div class="portlet-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-md-12 portlet ">
+
+                        <div class="col-md-12 clearfix">
+                            <!--<button id="btnAddItem" class="btn sbold red  btnMargin" ng-click="AddNewItemToList()">
+                                <i class="fa fa-plus"></i>
+                                {{"ControlText.AddItem"|translate}}
+                            </button>-->
+                            <!--<button id="btnDelete" class="btn sbold green  btnMargin" ng-click="DeletItem($event)">
+                                <i class="fa fa-remove"></i>
+                                {{"ControlText.Delete"|translate}}
+                            </button>-->
+                        </div>
+
+                        <div class="col-md-12 text-right ">
+                            <button type="button" class="btn sbold btnMargin" ng-click="AssignPostLostItem()"> {{"ControlText.AssignAdjuster_title"|translate}} </button>
+                            <button type="button" class="btn btnMargin sbold" data-dismiss="modal" ng-click="cancel($event)">{{"ControlText.Cancel_title"|translate}}</button>
+                            <div class="errormessage">
+                                <div ng-if="displayItemSelectError">
+                                    <span class="text-danger font-red">&nbsp;{{"AlertMessage.SelectItemMessage"|translate}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!--</div>-->
+                        <div class="col-md-12 margin-bottom-5 padding1px">
+                            <span class=""><b> {{SelectedPostLostItems.length}}&nbsp;{{"AssignNoItem.of"|translate}}&nbsp;{{LostDamagedItemList.length}}&nbsp;{{"AssignNoItem.items"|translate}} </b></span>
+
+                        </div>
+                        <!--table data-->
+                        <div class="table-responsive col-md-12 padding1px">
+                            <table class="table table-striped table-bordered table-hover table-checkable order-column" id="sample_5">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <label class="mt-checkbox mt-checkbox-outline mt-checkbox-single ">
+                                                <input type="checkbox" ng-model="selectedAll" ng-click="checkAll()" />
+                                                <span></span>
+                                            </label>
+                                        </th>
+                                        <!--<th class="table-checkbox">
+                                            <a class="TextDecorationNone" ng-click="AddNewItemToList()">
+                                                <i class="fa fa-plus-circle fa-2x text-success"></i>
+                                            </a>
+                                        </th>-->
+                                        <th ng-click="sort('claimItem.id')">
+                                            {{"Table.ItemId"|translate}}
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='claimItem.id'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                        </th>
+                                        <th ng-click="sort('description')">
+                                            {{"Table.Description"|translate}}
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='description'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                        </th>
+                                        <th ng-click="sort('claimItem.isScheduledItem')">
+                                            {{"Table.ScheduledItem"|translate}}
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='claimItem.isScheduledItem'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                        </th>
+                                        <th ng-click="sort('claimItem.brand')">
+                                            {{"Table.Brand"|translate}}
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='laimItem.brand'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                        </th>
+                                        <th ng-click="sort('claimItem.model')">
+                                            {{"Table.Model"|translate}}
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='claimItem.model'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                        </th>
+                                        <th ng-click="sort('claimItem.category.name')">
+                                            {{"Table.Category"|translate}}
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='claimItem.category.name'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                        </th>
+                                        <th ng-click="sort('claimItem.subCategory.name')">
+                                            {{"Table.SubCategory"|translate}}
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='claimItem.subCategory.name'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                        </th>
+                                        <th ng-click="sort('claimItem.age')">
+                                            {{"Table.Age"|translate}}
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='claimItem.age'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                        </th>
+
+                                        <th ng-click="sort('claimItem.insuredPrice')">
+                                            {{"Table.InsuredPrice"|translate}}
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='claimItem.insuredPrice'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                        </th>
+                                        <th ng-click="sort('claimItem.status.status')">
+                                            {{"Table.Status"|translate}}
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='claimItem.status.status'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                        </th>
+                                        <!--<th>
+                                            {{"Table.Action"|translate}}
+                                        </th>-->
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    <tr dir-paginate="item in FiletrLostDamageList |orderBy:sortKey:reverse|filter:searchDamagedContent|itemsPerPage:5" ng-class="{true:'trBackgroundSeleted', false:''}[item.Selected]">
+                                        <td>
+                                            <label class="mt-checkbox mt-checkbox-outline mt-checkbox-single" ng-show="item.claimItem.status.status!='UNDER REVIEW'||item.claimItem.status.id!=3">
+                                                <input type="checkbox" ng-click="SelectPostLostItem(item)" ng-model="item.Selected" />
+
+                                                <span></span>
+
+                                            </label>
+                                        </td>
+                                        <td>{{item.claimItem.id}}</td>
+                                        <td>{{item.claimItem.description}}</td>
+                                        <!--<td>{{item.claimItem.itemName}}</td>-->
+                                        <td><span ng-if="item.claimItem.isScheduledItem===true">Yes</span><span ng-if="item.claimItem.isScheduledItem===false">No</span></td>
+                                        <td>{{item.claimItem.brand}}</td>
+                                        <td>{{item.claimItem.model}}</td>
+                                        <td>{{item.claimItem.category.name}}</td>
+                                        <td>{{item.claimItem.subCategory.name}} </td>
+                                        <td>
+
+                                            <span ng-if="item.claimItem.ageMonths===null || item.ageMonths===''">{{item.claimItem.ageYears}}</span>
+                                            <span ng-if="item.claimItem.ageMonths>0">{{((item.claimItem.ageYears) + (item.claimItem.ageMonths/12) | limitTo : 4)}}</span>
+                                        </td>
+
+                                        <td>{{item.claimItem.insuredPrice|currency}}</td>
+                                        <td>{{item.claimItem.status.status}}</td>
+                                    </tr>
+                                    <tr ng-if="FiletrLostDamageList ===null || FiletrLostDamageList.length ==0">
+                                        <td></td>
+                                        <td colspan="14" class="text-center text-danger">{{"NoRecordText"|translate}}</td>
+                                    </tr>
+
+                                </tbody>
+                                <tfoot>
+                                </tfoot>
+                            </table>
+
+                            <div class="clearfix"></div> <dir-pagination-controls max-size="3"
+                                                                                  direction-links="true"
+                                                                                  boundary-links="true" class="pull-right">
+                            </dir-pagination-controls>
+
+                        </div>
+                        <!--Item Count,Category,Services Required-->
+
+                        <div class="col-md-12 col-sm-12 col-lg-12 margin-bottom-5 padding1px">
+                            <hr class="clearfix hrclass" />
+                            <label class="col-md-4 col-lg-2 col-sm-3 control-label"><b>{{"ControlText.item#"|translate}}</b> &nbsp;{{SelectedPostLostItems.length}}</label>
+
+                            <!--<div class="col-md-2 col-lg-1 col-sm-1">
+                            <label class="control-label"></label>
+                            </div>-->
+
+                            <div class="col-md-3 col-lg-2 col-sm-3">
+                                <label class="control-label"><b>{{'ControlText.TaxRate' | translate}}&nbsp;</b>{{CommanObj.TaxRate}}%</label>
+                            </div>
+
+
+                            <!--<div class="col-md-4 col-lg-12 col-sm-12 padding1px visible-md">
+                                <label class="control-label col-md-7 col-lg-7 col-sm-3"><b>{{'ControlText.ContactInsure' | translate}}</b></label>
+                                <div class="col-md-5 col-lg-5 col-sm-8" style="display:flex">
+                                    <label class="mt-radio mt-radio-outline mt-radio-single ">
+                                        <input type="radio" name="Contact" value="{{true}}" ng-checked="ContactInsured==true" ng-model="ContactInsured" />
+                                        <span></span>
+                                    </label>{{'ControlText.RdoYes' | translate}}
+                                    <label class="mt-radio mt-radio-outline mt-radio-single " style="margin-left: 12%;">
+                                        <input type="radio" name="Contact" ng-checked="ContactInsured==false" ng-model="ContactInsured" value="{{false}}" />
+                                        <span></span>
+                                    </label>{{'ControlText.RdoNo' | translate}}
+                                </div>
+                            </div>-->
+
+                            <div class="col-lg-4 col-md-5 col-sm-6 padding1px  text-right">
+                                <div class="col-md-12 col-lg-12 col-sm-12 padding1px">
+                                    <label class="control-label col-md-5 col-lg-5 col-sm-6"><b>{{'ControlText.ContactInsure' | translate}}</b></label>
+                                    <div class="col-md-5 col-lg-5 col-sm-6" style="display:flex">
+                                        <label class="mt-radio mt-radio-outline mt-radio-single ">
+                                            <input type="radio" name="Contact" value="{{true}}" ng-checked="ContactInsured==true" ng-model="ContactInsured" />
+                                            <span></span>
+                                        </label>{{'ControlText.RdoYes' | translate}}
+                                        <label class="mt-radio mt-radio-outline mt-radio-single " style="margin-left: 12%;">
+                                            <input type="radio" name="Contact" ng-checked="ContactInsured==false" ng-model="ContactInsured" value="{{false}}" />
+                                            <span></span>
+                                        </label>{{'ControlText.RdoNo' | translate}}
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12" style="max-height: 36px;overflow-y: auto;">
+                            <label class="col-md-2 col-lg-2 col-sm-6 control-label padding1px"><b>{{"ControlText.ItemCategory"|translate}} </b></label>
+                            <span ng-repeat="catname in SelectedCategories">{{catname}}<font ng-if="!$last">, &nbsp; </font></span>
+
+                        </div>
+
+                        <div class="col-md-12 padding1px">
+                            <label class="control-label col-md-2"><b>{{'ControlText.Services' | translate}}</b></label>
+                            <div class="col-md-10 col-sm-12 padding1px">
+                                <div class="col-md-2 col-sm-4 form-group" ng-repeat="item  in ServiceList">
+                                    <label class="mt-checkbox mt-checkbox-outline mt-checkbox-single ">
+                                        <input type="checkbox" name="selectAdjuster" ng-click="SelectService(item,$event)" ng-model="item.IsSelected" />
+                                        <span></span>{{item.name}}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <!--End Item Count,Category,Services Required-->
+                    </div>
+                </div>
+                <div class="col-md-12 col-lg-12 col-sm-12 padding1px clearfix">
+                    <div class="portlet light">
+                        <div class="portlet-title">
+                            <div class="caption font-gray-sharp">
+                                <span class="caption-subject">{{"HeadingText.ContractedVendor"|translate}}</span>
+                            </div>
+                        </div>
+                        <div class="portlet-body">
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12">
+                                    <div class="pull-right col-sm-12 col-md-12 options_Background">
+                                        <div class="col-sm-4 col-md-4 margin-top-5 margin-bottom-5 pull-right">
+                                            <div class="input-icon left">
+                                                <i class="icon-magnifier"></i>
+                                                <input type="text" class="form-control form-control-solid input-circle input-block-level" ng-model="search" placeholder={{"SearchText"|translate}}>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-sm-12 padding1px">
+                                    <!----Pricing Specialist List-->
+
+                                    <div class="col-md-12 col-sm-12 clearfix ">
+                                        <table class="table table-striped table-inverse table-bordered table-hover table-checkable order-column">
+                                            <thead>
+                                                <tr>
+                                                    <th class="table-checkbox" style="width:2%">
+                                                    </th>
+                                                    <th ng-click="sortVendor('vendorName')">
+                                                        {{"Table.SpecialistName"|translate}}
+                                                        <span class="glyphicon sort-icon" ng-show="sortVendorsortKey=='vendorName'" ng-class="{'glyphicon-chevron-up':sortVendorreverse,'glyphicon-chevron-down':!sortVendorreverse}"></span>
+                                                    </th>
+                                                    <th ng-click="sortVendor('isClaimedVendor')">
+                                                        {{"Table.Participant"|translate}}
+                                                        <span class="glyphicon sort-icon" ng-show="sortVendorsortKey=='isClaimedVendor'" ng-class="{'glyphicon-chevron-up':sortVendorreverse,'glyphicon-chevron-down':!sortVendorreverse}"></span>
+
+                                                    </th>
+                                                    <th ng-click="sortVendor('itemsInHand')">
+                                                        {{"Table.ItemsInHand"|translate}}
+                                                        <span class="glyphicon sort-icon" ng-show="sortVendorsortKey=='itemsInHand'" ng-class="{'glyphicon-chevron-up':sortVendorreverse,'glyphicon-chevron-down':!sortVendorreverse}"></span>
+                                                    </th>
+                                                    <th style="width:15%">
+                                                        {{"Table.Services"|translate}}
+                                                    </th>
+                                                    <th style="width:15%">
+                                                        {{"Table.Speciality"|translate}}
+                                                    </th>
+                                                    <th style="width:15%">
+                                                        {{"Table.Role"|translate}}
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr dir-paginate="Specialist in PricingSpecialist |orderBy:sortKey:reverse|filter:search|itemsPerPage:PageSize" pagination-id="SpecialistList">
+                                                    <td>
+                                                        <label class="mt-radio mt-radio-outline mt-radio-single">
+                                                            <input type="radio" class="radio" name="specialists" value="1" ng-click="SelectParticipant(Specialist)" />
+                                                            <span></span>
+                                                        </label>
+                                                    </td>
+                                                    <td>{{Specialist.vendorName}}</td>
+                                                    <td class="text-center"><span ng-if="Specialist.isClaimedVendor===true">Yes</span><span ng-if="Specialist.isClaimedVendor!==true">No</span><!--{{Specialist.participantType.name}}--></td>
+                                                    <td class="text-center">
+                                                        {{Specialist.itemsInHand}}
+                                                    </td>
+                                                    <td class="tip">
+                                                        <span class="Overlay" ng-if="Specialist.ProvidedServiceString">{{Specialist.ProvidedServiceString}}</span>
+                                                        {{Specialist.ProvidedServiceString | limitTo: 20}}  <span>{{Specialist.ProvidedServiceString.length >  20 ? '...' : ''}}</span>
+
+                                                    </td>
+                                                    <td class="tip">
+                                                        <span class="Overlay" ng-if="Specialist.categoryExpertise">Null</span>
+                                                        {{Specialist.specialities | limitTo: 20}}  <span>{{Specialist.specialities.length >  20 ? '...' : ''}}</span>
+                                                    </td>
+
+                                                    <td class="tip">
+
+                                                        <span class="Overlay" ng-if="Specialist.RoleList">{{Specialist.RoleList }}</span>
+                                                        {{Specialist.RoleList | limitTo: 20}}  <span>{{Specialist.RoleList.length >  20 ? '...' : ''}}</span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                        <div ng-show="!PricingSpecialist.length||PricingSpecialist===null" class="col-md-12 text-center text-danger">{{"NoRecordText"|translate}}</div>
+
+                                        <dir-pagination-controls max-size="3" pagination-id="SpecialistList"
+                                                                 direction-links="true"
+                                                                 boundary-links="true" class="pull-right">
+                                        </dir-pagination-controls>
+
+                                        <label class="col-md-4"><b>{{"ControlText.MinimumCostOfservice"|translate}} :&nbsp;&nbsp;{{QuotedValue|currency}}</b></label>
+                                    </div>
+                                    <div class="col-md-12 text-right margin-bottom-10">
+                                        <button type="button" class="btn sbold btnMargin" ng-click="AssignPostLostItem()"> {{"ControlText.AssignAdjuster_title"|translate}} </button>
+                                        <button type="button" class="btn btnMargin sbold"  data-dismiss="modal" ng-click="cancel($event)">{{"ControlText.Cancel_title"|translate}}</button>
+                                        <div class="errormessage">
+                                            <div ng-if="displayItemSelectError">
+                                                <span class="text-danger font-red">&nbsp;{{"AlertMessage.SelectItemMessage"|translate}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!----End Pricing Specialist List-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!--End Lost Or Damaged Contents-->

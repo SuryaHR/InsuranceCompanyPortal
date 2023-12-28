@@ -1,0 +1,30 @@
+{
+    "RequestDetails": "Request Details",
+    "Cancel": "Cancel",
+    "UpdateRequest": "Update Request",
+    "Title": "Title",
+    "StartTime": "Start Time",
+    "EndTime": "End Time",
+    "RequestDate": "Date",
+    "RequestNote": "Request Note",
+    "RequestDateRequired": "Please enter request date",
+    "RequestTitleRequired": "Please enter request title",
+    "RequestNoteRequired": "Please enter request note",
+    "SelectParticipant": "Select Participants",
+    "RequestParticipant": "Request Participants",
+    "Subject": "Subject",
+    "To": "To",
+    "Description": "Description",
+    "Reminder": "Reminder",
+    "Priority":"Priority",
+    "DueDate" : "Due Date",
+
+    "ErrorMessage": {
+      "RequestTitleRequired":"Enter Request Title.",
+      "RequestDateRequired" :"Select Request Date.",
+      "RequestDueDateRequired":"Select Request Due Date",
+      "DueDateBeforeStartDate": "Due date must be on or after start date."
+    }
+
+  }
+  

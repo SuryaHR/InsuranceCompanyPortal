@@ -1,0 +1,205 @@
+﻿<div class="col-md-12 padding1px">
+    <ul class="page-breadcrumb breadcrumb sbold">
+        <li>
+            <a ng-click="GoToHome()">{{"HeaderText.Home"|translate}}</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+                <a ng-click="GoToSearchResults()">{{"HeaderText.SearchResults"|translate}}</a>
+                <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span>{{"HeaderText.VendorDetails"|translate}}</span>
+        </li>
+    </ul>
+</div>
+<!--Company details-->
+<div class="col-md-12 portlet light padding1px" ng-form="CompanyDetails">
+    <div class="portlet-title">
+        <div class="caption font-grey-sharp">
+            <span class="caption-subject">{{"Vendor Details"|translate}}</span>
+        </div>
+
+    </div>
+
+    <div class="col-md-12 ">
+        <div class="caption font-green-sharp margin-top-10 margin-bottom-10">
+            <span class="caption font-green-sharp sbold">
+                {{VendorDetails.vendorName}}
+            </span>
+        </div>
+    </div>
+   
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-12 col-sm-12 form-group">
+                <label class="col-md-2 col-sm-2 Label_Text_Right control-label ">{{"Label.VendorName"|translate}}</label>
+                <div class="col-md-3 col-sm-4">
+                    <span class="" name="Name">{{VendorDetails.vendorCompanyName}}</span>
+                    <div class="errormessage">
+                        <span class="text-danger" ng-show="CompanyDetails.Name.$error.required && CompanyDetails.Name.$touched">{{"VendorNameRequired"|translate}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="col-md-12 col-sm-12 form-group">
+                <label class="col-md-2 col-sm-2 Label_Text_Right control-label">{{"Label.CompanyWeb"|translate}}</label>
+                <div class="col-md-3 col-sm-4">
+                    <span class="" required name="Website">{{VendorDetails.website}}</span>
+                    <div class="errormessage">
+                        <span class="text-danger" ng-show="CompanyDetails.Website.$error.required && CompanyDetails.Website.$touched">{{"CompanyWebsiteRequired"|translate}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="col-md-12 col-sm-12 form-group">
+                <label class="col-md-2 col-sm-2 Label_Text_Right control-label">{{"Label.OfficeAddress"|translate}}</label>
+                <div class="col-md-3 col-sm-4">
+                    <span class="margin-bottom-10">{{VendorDetails.shippingAddressData.streetAddressOne}}</span>
+                    <span class="margin-bottom-10">{{VendorDetails.shippingAddressData.streetAddressTwo}}<span ng-if="VendorDetails.shippingAddressData.streetAddressTwo != null">,&nbsp;</span></span>
+                    <span class="margin-bottom-10">{{VendorDetails.shippingAddressData.city}}<span ng-if="VendorDetails.shippingAddressData.city != null">,&nbsp;</span></span>
+                    <div class="col-md-6 col-sm-6 form-group clearfix clear" style="padding:0px !important">
+                        <span>{{VendorDetails.shippingAddressData.state.stateName}}<span ng-if="VendorDetails.shippingAddressData.state.stateName != null">,&nbsp;</span></span>  
+                        <span class="">{{VendorDetails.shippingAddressData.zipcode}}</span>
+                    </div>
+                </div>
+
+                <label class="col-md-2 col-sm-2 Label_Text_Right control-label">{{"Label.BillingAddress"|translate}}</label>
+                <div class="col-md-3 col-sm-4">
+                    <span class=" margin-bottom-10">{{VendorDetails.billingAddressData.streetAddressOne}}</span>
+                    <span class=" margin-bottom-10">{{VendorDetails.billingAddressData.streetAddressTwo}}<span ng-if="VendorDetails.billingAddressData.streetAddressTwo != null">,&nbsp;</span></span>
+                    <span class=" margin-bottom-10">{{VendorDetails.billingAddressData.city}}<span ng-if="VendorDetails.billingAddressData.city != null">,&nbsp;</span></span>
+                    <div class="col-md-6 col-sm-6 form-group clearfix clear" style="padding:0px !important">
+                       <span>{{VendorDetails.billingAddressData.state.stateName}}<span ng-if="VendorDetails.billingAddressData.state.stateName != null">,&nbsp;</span></span>
+                        <span type="text" class="">{{VendorDetails.billingAddressData.zipcode}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="col-md-12 col-sm-12 form-group">
+                <label class="col-md-2 col-sm-2 Label_Text_Right control-label">{{"Label.Phone"|translate}}</label>
+                <div class="col-md-3 col-sm-4">
+                    <span name="phonenumber" ng-pattern="/^([0-9-,()\s+]{15})$/" ng-trim="false" class="input-phone ">{{VendorDetails.phoneNumber|tel}}</span>
+
+                    <div ng-message="pattern" ng-show="(CompanyDetails.phonenumber.$touched && CompanyDetails.phonenumber.$error.required)">
+                        <span class="text-danger">{{"Please enter valid phone number"|translate}}</span>
+                    </div>
+                    <div ng-message="pattern" ng-show="(CompanyDetails.phonenumber.$touched && CompanyDetails.phonenumber.$error.pattern)">
+                        <span class="text-danger">{{"Please enter valid phone number"|translate}}</span>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="col-md-12 col-sm-12 form-group">
+                <label class="col-md-2 col-sm-2 Label_Text_Right control-label ">{{"Label.Fax"|translate}}</label>
+                <div class="col-md-3 col-sm-4">
+
+                    <span name="FaxNumber" class="input-phone ">{{VendorDetails.faxNumber}}</span>
+
+                    <div ng-message="pattern" ng-show="(CompanyDetails.FaxNumber.$touched && CompanyDetails.FaxNumber.$error.required)">
+                        <span class="text-danger">{{"Please enter valid phone number"|translate}}</span>
+                    </div>
+                    <div ng-message="pattern" ng-show="(CompanyDetails.FaxNumber.$touched && CompanyDetails.FaxNumber.$error.pattern)">
+                        <span class="text-danger">{{"Please enter valid phone number"|translate}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12 margin-bottom-10">
+            <div class="caption font-green-sharp col-md-12 col-xs-12 col-sm-12">
+                <span class="caption-subject sbold">
+                    {{"HeaderText.VendorContactSettings"|translate}}
+                </span>
+            </div>
+        </div>
+        <div class="portlet light padding1px">
+            <div class="portlet-title"></div>
+        </div>
+        <div class="col-md-12">
+            <div class="col-md-12 col-sm-12 form-group">
+                <label class="col-md-2 col-sm-2 Label_Text_Right control-label ">{{"Label.FirstName"|translate}}</label>
+                <div class="col-md-3 col-sm-4">
+                    <span class="">{{VendorDetails.contactPersons[0].firstName}}</span>
+                    <div class="errormessage">
+                        <span class="text-danger" ng-show="CompanyDetails.FirstName.$error.required && CompanyDetails.FirstName.$touched">{{"FirstNameRequired"|translate}}</span>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="col-md-12 col-sm-12 form-group">
+                <label class="col-md-2 col-sm-2 Label_Text_Right control-label ">{{"Label.LastName"|translate}}</label>
+                <div class="col-md-3 col-sm-4">
+                    <span class="">{{VendorDetails.contactPersons[0].lastName}}</span>
+                    <div class="errormessage">
+                        <span class="text-danger" ng-show="CompanyDetails.LastName.$error.required && CompanyDetails.LastName.$touched">{{"LastNameRequired"|translate}}</span>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="col-md-12 col-sm-12 form-group">
+                <label class="col-md-2 col-sm-2 Label_Text_Right control-label ">{{"Label.Email"|translate}}</label>
+                <div class="col-md-3 col-sm-4">
+                    <span class="">{{VendorDetails.contactPersons[0].email}}</span>
+                    <div class="errormessage">
+                        <span class="text-danger" ng-show="CompanyDetails.Email.$error.required && CompanyDetails.Email.$touched">{{"EmailRequiredRequired"|translate}}</span>
+                        <span class="text-danger" ng-show="CompanyDetails.Email.$error.pattern">{{"ValidEmail"|translate}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="col-md-12 col-sm-12 form-group">
+                <label class="col-md-2 col-sm-2 Label_Text_Right control-label ">{{"Label.Fax"|translate}}</label>
+                <div class="col-md-3 col-sm-4">
+                    <span type="text" name="FAXNO" class="input-phone ">{{VendorDetails.contactPersons[0].faxNumber}}</span>
+                    <div ng-message="pattern" ng-show="(CompanyDetails.FAXNO.$touched && CompanyDetails.FAXNO.$error.required)">
+                        <span class="text-danger">{{"Please enter valid phone number"|translate}}</span>
+                    </div>
+                    <div ng-message="pattern" ng-show="(CompanyDetails.FAXNO.$touched && CompanyDetails.FAXNO.$error.pattern)">
+                        <span class="text-danger">{{"Please enter valid phone number"|translate}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="col-md-12 col-sm-12 form-group">
+                <label class="col-md-2 col-sm-2 Label_Text_Right control-label ">{{"Label.PhoneWork"|translate}}</label>
+                <div class="col-md-3 col-sm-4">
+                    <span name="phnumber" class="input-phone ">{{VendorDetails.contactPersons[0].workPhoneNumber}}</span>
+                    <div ng-message="pattern" ng-show="(CompanyDetails.phnumber.$touched && CompanyDetails.phnumber.$error.required)">
+                        <span class="text-danger">{{"Please enter valid phone number"|translate}}</span>
+                    </div>
+                    <div ng-message="pattern" ng-show="(CompanyDetails.phnumber.$touched && CompanyDetails.phnumber.$error.pattern)">
+                        <span class="text-danger">{{"Please enter valid phone number"|translate}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="col-md-12 col-sm-12 form-group">
+                <label class="col-md-2 col-sm-2 Label_Text_Right control-label ">{{"Label.PhoneMobile"|translate}}</label>
+                <div class="col-md-3 col-sm-4">
+                    <span name="Mobnumber" class="input-phone ">{{VendorDetails.contactPersons[0].mobilePhoneNumber}}</span>
+
+                    <div ng-message="pattern" ng-show="(CompanyDetails.Mobnumber.$touched && CompanyDetails.Mobnumber.$error.required)">
+                        <span class="text-danger">{{"Please enter valid phone number"|translate}}</span>
+                    </div>
+                    <div ng-message="pattern" ng-show="(CompanyDetails.Mobnumber.$touched && CompanyDetails.Mobnumber.$error.pattern)">
+                        <span class="text-danger">{{"Please enter valid phone number"|translate}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

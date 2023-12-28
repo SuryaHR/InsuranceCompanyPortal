@@ -1,0 +1,84 @@
+﻿{
+  "ControlText": {
+    "Assign_title": "Assign",
+    "Reject_title": "Reject"
+  },
+
+  "HeaderTitle": {
+    "Alert_title": "Alert Box",
+    "LineItemNotification_title": "Line Item Notification",
+    "MyClaims_title": "My Claims",
+    "UpcomingEvents": "Upcoming Events",
+    "ClosedClaims": "Closed Claims"
+  },
+  "HeaderText": {
+    "WaitingForPolicyHolder": "Waiting for information from PolicyHolder",
+    "WaitingSupervisorApproval": "Waiting for Supervisor Approval",
+    "WithVendor": "Claim with Vendor or Pricing Specialists",
+    "Claimsinwork": "Claims working on",
+    "NewClaims": "New Claims",
+    "UnassignClaims": "Unassign Claims",
+    "ClaimsNeedingApproval": "Claims Needing Supervisor Approval",
+    "InvoicesNeedingApproval": "Vendor Invoices Needing Approval",
+    "TeamPerformance": "Team Performance",
+    "ToDoList": "To Do List",
+    "KPIS": "KPIs"
+  },
+  "TabHeaderTitle": {
+    "ClosedClaims": "Closed Claims",
+    "OpenClaims": "Open Claims",
+    "Alerts": "Alerts",
+    "Events": "Events"
+  },
+  "Table": {
+    "Id": "Id",
+    "ClaimId": "Claim #",
+    "Type": "Type",
+    "Claim": "Claim",
+    "InsuredsName": "Insured's Name",
+    "LastUpdated": "Last Updated",
+    "Status": "Status",
+    "LastNote": "Last Note",
+    "DateOfClaim": "Date Of Claim",
+    "PolicyNo": "Policy No",
+    "Date": "Date",
+    "Participant": "Participant",
+    "ScheduledAction": "Scheduled Action",
+    "LastUpdate": "Last Update",
+    "InvoiceNo": "Invoice #",
+    "VendorOrPricing": "Vendor/Pricing Specialist",
+    "NoOfItems": "# Of Items",
+    "InvoiceAmount": "Invoice Amount",
+    "CreatedDate": "Created Date",
+    "Action": "Action",
+    "StartTime": "Start Time",
+    "Title": "Title",
+    "Subject": "Subject",
+    "Message": "Message",
+    "Adjuster": "Adjuster",
+    "OpenClaims": "Open Claims(Assignments)",
+    "OverDueClaims": "Overdue Claims",
+    "LastActivity":"Last Activity"
+
+
+  },
+
+  "SearchText": "claims #,Insured's Name,Vendor Name",
+  "MainSearchText": "What can we help you find?",
+  "NoRecordText": "No records available",
+  "NoInvoicesText": "No invoices available",
+  "NoAlertText": "No new messages available",
+  "NoEventsText": "No events scheduled in next month",
+  "NewClaimSearch": "Search...",
+  "NoRecordsAvailable": "No Records Available",
+  "AlertTemplate": {
+    "Claim": "Claim : ",
+    "IsAssignedTo": "is assigned to",
+    "On": "on"
+  },
+  "ThisMonth": "This Month",
+  "ThisQuater": "This Quater(Jul-Sep)",
+  "ThisYear": "This Year(2018)",
+  "NewClaimToReview" : "New Claim To Review"
+
+}

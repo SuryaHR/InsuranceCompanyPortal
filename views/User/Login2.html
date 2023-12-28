@@ -1,0 +1,656 @@
+﻿<style>
+    .footer {
+        position: fixed;
+        bottom: 10px;
+        width: 95%;
+    }
+
+    .img-max-width {
+        max-width: 80%;
+        max-height: 100%;
+        object-fit: contain;
+        padding-bottom: 0.5em;
+    }
+    /* sso login css */
+    .sso-login-btn{
+        height: 40px;
+        width: 90%;
+        background:#27235E;
+        color: white;
+    }
+
+    .welcome-text{
+    color: #4169E1;
+    font-size: 3vh;
+    font-weight: 100 !important;
+    }
+
+    .fontPink{
+        color:#975fa8;
+    }
+
+    .login-box
+    {
+        right : -50%;
+        width : 70%;
+        text-align: center;
+        padding: 10px;
+        min-width: 74% !important;
+    }
+    
+    .login-btn{
+        height: 40px;
+        width: 90%;
+    }
+
+    .fg-pass{
+       
+        margin-top : 2%;
+        font-size: 13px;
+    }
+    
+    @media all and (min-width: 769px) {
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container-logo {
+            top: 15px;
+        }
+
+        .img-caption {
+            float: right;
+            font-size: 90%;
+            padding-right: 12%;
+        }
+
+        .footer {
+            text-align: right;
+        }
+
+        .footer-logo {
+            width: 230px;
+            height: 120px;
+        }
+
+        .footer .footer-version {
+            display: inline;
+        }
+    }
+
+    @media all and (min-width: 1441px) {
+        .img-max-width {
+            max-width: 100%;
+            margin-top : 10%;
+        }
+
+        .img-caption {
+            padding-right: 22%;
+        }
+
+        .footer {
+            width: 90%;
+        }
+    }
+
+    @media all and (max-width: 768px) {
+        .container {
+            display: contents;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .img-caption {
+            text-align: center;
+            font-size: 90%;
+        }
+
+        .footer {
+            text-align: right;
+        }
+
+        .footer-logo {
+            width: 140px;
+            height: 70px;
+        }
+    }
+
+    @media all and (max-width: 425px) {
+        .footer .footer-version {
+            display: block;
+        }
+
+        .footer {
+            text-align: center;
+        }
+    }
+
+    .font-weight-600 {
+        font-weight: 600;
+    }
+
+    .login-copyright {
+        color: #827e7e;
+        font-weight: 550;
+    }
+    #maindiv{
+        height: 100vh;
+        background-size: 100% ;
+        background-repeat: no-repeat;
+    }
+
+    input[type=text],input[type=password]{
+        height:40px !important;
+        width: 90%;
+        border-radius: 7px;
+        background-color: white !important;
+        border : 1px solid #4169E1;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .idleMsg{
+        border: 1px solid #ff9100;
+        padding: 5px;
+        font-size: 11px;
+        font-weight: 600;
+        margin-bottom: 5px;
+        border-radius: 15px;
+        text-align: center;
+    }
+    .show-icon{
+        right:40px;
+        position:absolute;
+        margin-top:15px;
+        
+    }
+
+    .icon-input {
+    padding-right:60px !important;
+    align-self: center;
+    }
+</style>
+<div class="row login nomargin clearfix clear" id="maindiv" ng-show="!IsLoginedUser">
+    <div class="col-md-12 col-xs-12 container">
+        <!-- <div class="col-md-6 col-sm-12 col-xs-12 bs-reset mt-login-5-bsfix container-logo text-center">
+            <div ng-if="companyInfo.logo" class="col-md-12 col-xs-12 ">
+                <img ng-src="{{companyInfo.logo}}" class="img-max-width"
+                    onerror="this.onerror=null; this.src='assets/global/img/no-image.png';" alt="companyInfo.name" />
+            </div>
+            <h2 ng-if="!companyInfo || !companyInfo.logo"
+                class="col-md-12 col-xs-12 form-title font-green logo-default">
+                {{companyInfo.name}}</h2>
+            <em class="img-caption margin-top-5 font-weight-600">Powered by Artigem Streamline</em>
+        </div> -->
+        <div class="col-md-6 col-sm-12 col-xs-12 ">
+            <div class="portlet-body">
+                <!--login start-->
+                <div class="login-content"
+                style="margin-top:20%;position: relative;right:-15%">
+                    <div class="col-md-12 col-sm-12 login-box">
+                        <!-- <img class="footer-logo" src="assets/pages/img/login/3Circle.png" style="height:8em !important" alt="Artigem Streamline" /> -->
+                        <h1 ng-if="backgroundImage.Description.length > 20" class="caption fontPink sbold" style="margin-top: 10px;font-size: 1.2em !important;">{{backgroundImage.Description}} </h1>
+                        <h1 ng-if="backgroundImage.Description.length <= 20" class="caption fontPink sbold" style="margin-top: 10px;font-size: 1.8em !important;">{{backgroundImage.Description}}</h1>
+                    </div>
+                    <div class="col-md-12 col-sm-12 margin-bottom-15 login-box">
+                        <div ng-show="isIdleTimeout=='true'"  class="idleMsg" >
+                            {{idleTimeoutMsg}}
+                        </div>
+                        <div class="col-md-12 portlet light bordered loginHeightVendor"
+                            style="box-shadow: 2px 0px 16px 0px lightgrey;height: 100%; border-radius: 20px;border: 1px solid #4169E1 !important;min-height:300px;">
+                            <div class="portlet-body " style="margin-top:5% !important;" ng-form="UserLogin">
+                                <div class="col-md-6 col-sm-12 col-xs-12 bs-reset mt-login-5-bsfix container-logo text-center" style="width:45% !important;">
+                                    <div ng-if="companyInfo.logo" class="">
+                                        <img ng-src="{{companyInfo.logo}}" class="img-max-width"
+                                            onerror="this.onerror=null; this.src='assets/global/img/no-image.png';" alt="companyInfo.name" />
+                                    </div>
+                                    <!-- <h2 ng-if="!companyInfo || !companyInfo.logo"
+                                        class="col-md-12 col-xs-12 form-title font-green logo-default">
+                                        {{companyInfo.name}}</h2> -->
+                                    <!-- <em class="img-caption margin-top-5 font-weight-600">Powered by Artigem Streamline</em> -->
+                                </div>
+                                <div class="row " 
+                                style="float:right;width:55%;border-left: 1px solid#D9DDDC;">
+                                    <div class="col-md-12">
+                                        <div class="form-group ">
+                                            <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                                            <label class="control-label welcome-text clearfix sbold">Welcome
+                                                back!</label>
+                                            <div class="clearfix col-md-12" style="margin-top: 20px;"></div>
+                                            <label class="control-label col-md-3 col-sm-3 text-right"
+                                                ng-if="errormsg"></label>
+                                            <div class="col-md-8 col-sm-8" style=" min-height:56px" ng-if="errormsg">
+                                                <div ng-click="EmptyError()" ng-if="errormsg"
+                                                    style="width: 36%;margin: auto; padding: 10px 14px 10px 10px !important;border-radius: 0px !important;background-color: #bd362f;opacity: 0.9 !important;    margin: 0 0 6px;
+                                    padding: 15px 15px 15px 50px;width: 100%;-moz-border-radius: 3px 3px 3px 3px;-webkit-border-radius: 3px 3px 3px 3px;border-radius: 3px 3px 3px 3px;background-position: 15px center;    background-repeat: no-repeat;
+                                    -moz-box-shadow: 0 0 12px #999;-webkit-box-shadow: 0 0 12px #999;box-shadow: 0 0 12px #999;color: #fff; margin-bottom:10px">
+                                                    <button class="toast-close-button" role="button"
+                                                        ng-click="EmptyError()">×</button>
+                                                    <div class="toast-title">Error</div>
+                                                    <div class="toast-message">
+                                                        {{errormsg}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        <!-- Username -->
+                                        <div class="form-group">
+                                            <!-- <label
+                                                class="control-label col-md-3 col-sm-3 text-right">{{"LoginText.UserName_title"|translate}}</label> -->
+                                            <div class="">
+                                                <input tabindex="1"
+                                                    class="form-control form-control-solid placeholder-no-fix"
+                                                    id="UserName" tabindex="1" required ng-model="username" type="text"
+                                                    autocomplete="on"
+                                                    placeholder="{{'LoginText.UserName_Agency_title'|translate}}"
+                                                    name="username" />
+
+                                                <!-- <input class="form-control form-control-solid placeholder-no-fix " pattern="[a-z0-9A-Z._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" tabindex="1" required ng-model="username" type="text" autocomplete="off" placeholder={{"LoginText.UserName_title"|translate}} name="username" /> -->
+                                                <div class="errormessage" role="alert" multiple>
+                                                    <div ng-message="required"
+                                                        ng-show="(UserLogin.username.$error.required && UserLogin.username.$touched)">
+                                                        <span>{{"ErrorMessage.UserNameRequired_message"|translate}}</span>
+                                                    </div>
+                                                    <div ng-message="pattern"
+                                                        ng-show="(UserLogin.username.$touched && UserLogin.username.$error.pattern)">
+                                                        <span>{{"ErrorMessage.ValidEmail_message"|translate}}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Password -->
+                                        <div class="clearfix"></div>
+                                        <div class="form-group margin-top-15">
+                                            <!-- <label
+                                                class="control-label col-md-3 col-sm-3 text-right">{{"LoginText.Password_title"|translate}}</label> -->
+                                            <div class=" ">
+                                                <input tabindex="2"
+                                                    class="form-control form-control-solid placeholder-no-fix icon-input"
+                                                    ng-keydown="$event.which === 13 && LogIn($event)" type="password"
+                                                    tabindex="2" required ng-model="password" autocomplete="off" ng-attr-type="{{ showPassword ? 'text':'password'}}"
+                                                    placeholder="{{'LoginText.Password_title'|translate}}"
+                                                    name="password"  />
+                                                    <span>
+                                                   <span><i  ng-mouseover="showPassword = true" ng-mouseleave="showPassword = false" ng-class="{'fa fa-eye show-icon': showPassword,'fa fa-eye-slash show-icon': !showPassword}"></i></span>
+                                                   </span> 
+                                                <div ng-show="UserLogin.password.$invalid && UserLogin.password.$touched"
+                                                    role="alert" multiple>
+                                                    <div ng-message="required">
+                                                        <span
+                                                            class="errormessage">{{"ErrorMessage.PasswordRequired_message"|translate}}</span>
+                                                    </div>
+                                                    <!--<div ng-message="pattern">
+                                                                            <span translate="LOGIN.ERRORS.EMAIL_MUST_VALID">Email must be a valid e-mail address</span>
+                                                                        </div>-->
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+
+                                        <div class="clearfix"></div>
+                                        <!--<div class="col-md-9 margin-top-10 col-md-offset-3 col-sm-offset-3">
+                                                                <div class="rem-password">
+                                                                    <label class="rememberme mt-checkbox mt-checkbox-outline" style="font-weight:normal!important;font-size:14px !important">
+                                                                        <input type="checkbox" name="remember" value="1" ng-model="RememberMe" /> {{"ControlText.Remember_title"|translate}}
+                                                                        <span></span>
+                                                                    </label>
+                                                                </div>
+                                                            </div>-->
+                                        <div class="form-group margin-top-15" ng-show="!hideCaptcha">
+                                            <label class="control-label col-md-3 col-sm-3 col-lg-3 text-right"></label>
+
+                                            <div class="col-sm-9 col-md-9 col-lg-9" style="padding-right: 0px;">
+                                                <img style="width: 50%; height: 35px;"
+                                                    data-ng-src="data:image/jpeg;base64,{{captcha.captchaImage}}"
+                                                    data-err-src="images/png/avatar.png" />
+                                                <span style="padding-left:10px; " ng-click="getCaptcha()"><i
+                                                        style="color: black;" class="fa fa-refresh fa-2x"></i></span>
+                                            </div>
+
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        <div class="form-group margin-top-15" ng-show="!hideCaptcha">
+                                            <label class="control-label col-md-3 col-sm-3  col-lg-3 text-right"></label>
+                                            <div class="col-sm-9 col-md-9 col-lg-9" style="padding-right: 0px;">
+                                                <input tabindex="3" type="text" style="width: 50%; height: 35px;"
+                                                    class="placeholdersize" ng-model="captchCode" maxlength="6"
+                                                    placeholder="Enter captcha" />
+
+                                            </div>
+                                        </div>
+
+                                        <div class="clearfix"></div>
+                                        <div class="form-actions col-md-12 col-sm-12 col-lg-12 margin-top-10"
+                                            style="padding: 0px !important;">
+
+                                            <div class="">
+                                                <button type="button" ng-click="LogIn($event)" class="btn green login-btn"
+                                                    ng-disabled="UserLogin.$invalid || UserLogin.$pristine">{{"ControlText.Login_title"|translate}}</button>
+                                            </div>
+
+                                            <div class="fg-pass">
+                                                <a href="" ng-click="ForgotPasswordForm($event)"
+                                                    id="forget-password"
+                                                    class="forget-password ">{{"ControlText.ForgotPassword_title"|translate}}</a>
+                                            </div>
+                                            <!-- Links to submit new claim form without login
+                                            <div>
+                                                <a href="" ng-click="OpenSubmitClaimJewelry($event)"  id="submit-claim" class="submit-claim">{{"Click here to submit a new claim Jewelry"|translate}}</a>
+                                            </div>
+                                            <div>
+                                                <a href="" ng-click="OpenSubmitClaimContents($event)" target="_blank" id="submit-claim" class="submit-claim">{{"Click here to submit a new claim Contents"|translate}}</a>
+                                            </div> -->
+                                            <!--<div class="col-md-3 col-md-offset-1">
+                                                                <label class="rememberme check mt-checkbox mt-checkbox-outline">
+                                                                    <input type="checkbox" name="remember" value="1" ng-model="RememberMe" />{{"ControlText.Remember_title"|translate}}
+                                                                    <span></span>
+                                                                </label>
+                                                            </div>-->
+
+                                                            <div ng-show={{loginWithSSO}} >
+                                                                <button type="button" ng-click="AuthorizeSSO()" class="sso-login-btn">Sign in with SSO </button>
+                                                            </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--<div class="col-md-3 col-sm-12 margin-bottom-15">
+                                        <div class="col-md-12 col-sm-12 margin-bottom-15">
+                                        </div>-->
+                </div>
+            </div>
+        </div>
+        <!-- Register user -->
+        <div class="col-md-6 col-sm-6 col-lg-6 login-container bs-reset mt-login-5-bsfix hide" ng-if="false">
+            <div class="login-content" style="margin-top: 10% !important" ng-form="RegisterUser">
+                <h1>{{"LoginText.LogoText_title"|translate}}</h1>
+                <p> Company | Client | Collaboration </p>
+                <form class="login-form" name="UserLogin" id="UserLogin" style="margin-top:0px !important;">
+                    <div style="min-height:56px" ng-if="errormsg">
+                        <div ng-click="EmptyError()" ng-if="errormsg"
+                            style="width: 36%;margin: auto; padding: 10px 14px 10px 50px !important;border-radius: 0px !important;background-color: #bd362f;opacity: 0.9 !important;    margin: 0 0 6px;
+            padding: 15px 15px 15px 50px;width: 100%;-moz-border-radius: 3px 3px 3px 3px;-webkit-border-radius: 3px 3px 3px 3px;border-radius: 3px 3px 3px 3px;background-position: 15px center;    background-repeat: no-repeat;
+            -moz-box-shadow: 0 0 12px #999;-webkit-box-shadow: 0 0 12px #999;box-shadow: 0 0 12px #999;color: #fff; margin-bottom:10px">
+                            <button class="toast-close-button" role="button" ng-click="EmptyError()">×</button>
+                            <div class="toast-title">Error</div>
+                            <div class="toast-message">
+                                {{errormsg}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <input class="form-control form-control-solid placeholder-no-fix form-group" id="UserName"
+                                tabindex="1" required ng-model="username" type="text" autocomplete="on"
+                                placeholder="{{'LoginText.UserName_Agency_title'|translate}}" name="username" />
+                            <div class="errormessage" role="alert" multiple>
+                                <div ng-message="required"
+                                    ng-show="(UserLogin.username.$error.required && UserLogin.username.$touched)">
+                                    <span>{{"ErrorMessage.UserName_AgencyCode_Required_message"|translate}}</span>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <input class="form-control form-control-solid placeholder-no-fix form-group" id="Password"
+                                ng-keydown="$event.which === 13 && LogIn($event)" type="password" tabindex="2" required
+                                ng-model="password" autocomplete="off"
+                                placeholder="{{'LoginText.Password_title'|translate}}" name="password" />
+                            <div class="text-danger"
+                                ng-show="UserLogin.password.$invalid && UserLogin.password.$touched" role="alert"
+                                multiple>
+                                <div ng-message="required">
+                                    <span
+                                        class="errormessage">{{"ErrorMessage.PasswordRequired_message"|translate}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="rem-password">
+                                <!--<label class="rememberme mt-checkbox mt-checkbox-outline" style="font-weight:normal!important;font-size:14px !important">
+                                                        <input type="checkbox" name="remember" value="1" ng-model="RememberMe" /> {{"ControlText.Remember_title"|translate}}
+                                                        <span></span>
+                                                    </label>-->
+                            </div>
+                        </div>
+                        <div class="col-sm-8 text-right">
+                            <div class="forgot-password">
+                                <a href="" style="font-weight:normal!important;font-size:14px !important"
+                                    ng-click="ForgotPasswordForm($event)" id="forget-password"
+                                    class="forget-password">{{"ControlText.ForgotPassword_title"|translate}}</a>
+                            </div>
+                            <!-- <button class="btn green" ng-click="LogIn($event)" tabindex="3" type="button" ng-disabled="UserLogin.$invalid || UserLogin.$pristine">{{"ControlText.Login_title"|translate}}</button> -->
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-6 col-md-6 col-lg-6" style="padding-right: 0px;padding-left: 0px;">
+                            <img style="width: 75%; height: auto;"
+                                data-ng-src="data:image/jpeg;base64,{{captcha.captchaImage}}"
+                                data-err-src="images/png/avatar.png" />
+                            <span style="padding-left:10px; " ng-click="getCaptcha()"><i style="color: black;"
+                                    class="fa fa-refresh fa-2x"></i></span>
+                        </div>
+                        <div class="col-sm-4 col-md-4 col-lg-4" style="padding-right: 0px;">
+                            <input type="text" ng-model="captchCode" style="color: black; width: 75%;" maxlength="6"
+                                placeholder="Enter captcha" />
+                        </div>
+                        <div class="col-sm-2 col-md-2 col-lg-2" style="padding-right: 0px;">
+                            <button class="btn green" ng-click="LogIn($event)" tabindex="3" type="button"
+                                style="margin-top: 10px; padding-left: 10px;"
+                                ng-disabled="UserLogin.$invalid || UserLogin.$pristine">{{"ControlText.Login_title"|translate}}</button>
+
+                        </div>
+
+
+
+                    </div>
+                    <div class="clearfix"></div>
+
+                </form>
+
+                <!-- BEGIN FORGOT PASSWORD FORM -->
+                <!--<form class="forget-form" action="javascript:;" method="post">
+                    <h3 class="font-green">Forgot Password ?</h3>
+                    <p> Enter your e-mail address below to reset your password. </p>
+                    <div class="form-group">
+                        <input class="form-control placeholder-no-fix form-group" type="text" autocomplete="off" placeholder="Email" name="email" />
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" id="back-btn" class="btn green btn-outline">Back</button>
+                        <button type="submit" class="btn btn-success uppercase pull-right">Submit</button>
+                    </div>
+                </form>-->
+
+                <div class="col-lg-12 col-lg-12 col-sm-12 margin-top-10  portlet light bordered" ng-if="showNewUserForm"
+                    ng-form="RegisterUser">
+                    <div class="col-md-12 col-sm-12 col-lg-12 portlet light padding1px">
+                        <div class="portlet-title SubHeadingDiv">
+                            <span class="caption caption-subject">{{'New User'|translate}}</span>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group margin-top-10">
+                        <div class="col-md-4 col-sm-4 col-xs-12 text-right">
+                            <label class="control-label"><span
+                                    class="text-danger">*</span>{{"ControlText.FirstName_title"|translate}}</label>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" required name="firstName" ng-model="registerUser.firstName"
+                                class="form-control" placeholder="{{'ControlText.FirstName_title'|translate}}">
+                            <div ng-message="required"
+                                ng-show="RegisterUser.firstName.$error.required && RegisterUser.firstName.$touched">
+                                <span class="text-danger">{{"ErrorMessage.FirstNameRequired_message"|translate}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group">
+                        <div class="col-md-4 col-sm-4 col-xs-12 text-right">
+                            <label class="control-label"><span
+                                    class="text-danger">*</span>{{"ControlText.LastName_title"|translate}}</label>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" required name="LastName" class="form-control"
+                                ng-model="registerUser.lastName"
+                                placeholder="{{'ControlText.LastName_title'|translate}}">
+                            <div ng-message="required"
+                                ng-show="RegisterUser.LastName.$error.required && RegisterUser.LastName.$touched">
+                                <span class="text-danger">{{"ErrorMessage.LastNameRequired_message"|translate}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group">
+                        <div class="col-md-4 col-sm-4 col-xs-12 text-right">
+                            <label class="control-label"><span
+                                    class="text-danger">*</span>{{"Phone Number"|translate}}</label>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" name="phoneNo" required ng-pattern="/^([0-9-,()\s+]{15})$/"
+                                ng-trim="false" maxlength="15" ng-model="registerUser.phone" placeholder="XXX-XXX-XXXX"
+                                phone-input class="form-control" />
+                            <div ng-message="pattern"
+                                ng-show="(RegisterUser.phoneNo.$error.pattern && RegisterUser.phoneNo.$touched)">
+                                <span class="text-danger">{{"Enter valid Phone number"|translate}}</span>
+                            </div>
+                            <div ng-message="required"
+                                ng-show="(RegisterUser.phoneNo.$error.required && RegisterUser.phoneNo.$touched)">
+                                <span class="text-danger">{{"Phone number required"|translate}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group">
+                        <div class="col-md-4 col-sm-4 col-xs-12 text-right">
+                            <label class="control-label"><span
+                                    class="text-danger">*</span>{{"ControlText.Email"|translate}}</label>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" name="email" required ng-model="registerUser.email"
+                                ng-pattern="/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/"
+                                class="form-control" placeholder="{{'Mail'|translate}}" ng-blur="GetPolicyHolderInfo()">
+                            <div ng-message="pattern"
+                                ng-show="(RegisterUser.email.$error.pattern && RegisterUser.email.$touched)">
+                                <span class="text-danger">{{"Enter valid Email"|translate}}</span>
+                            </div>
+                            <div ng-message="required"
+                                ng-show="(RegisterUser.email.$error.required && RegisterUser.email.$touched)">
+                                <span class="text-danger">{{"Email ID required"|translate}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group">
+                        <div class="col-md-4 col-sm-4 col-xs-12 text-right">
+                            <label class="control-label">{{"Manager First Name"|translate}}</label>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" name="reportingManager" ng-model="registerUser.reportingManagerFirstName"
+                                class="form-control" placeholder="{{'Reporting Manager'|translate}}">
+                            <div ng-message="required"
+                                ng-show="(RegisterUser.reportingManager.$error.required && RegisterUser.reportingManager.$touched)">
+                                <span class="text-danger">{{"Reporting Manager required"|translate}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group">
+                        <div class="col-md-4 col-sm-4 col-xs-12 text-right">
+                            <label class="control-label">{{"Manager Last Name"|translate}}</label>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" name="reportingManagerLastName"
+                                ng-model="registerUser.reportingManagerLastName" class="form-control"
+                                placeholder="{{'Reporting Manager'|translate}}">
+                            <div ng-message="required"
+                                ng-show="(RegisterUser.reportingManagerLastName.$error.required && RegisterUser.reportingManagerLastName.$touched)">
+                                <span class="text-danger">{{"Reporting Manager required"|translate}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group">
+                        <div class="col-md-4 col-sm-4 col-xs-12 text-right">
+                            <label class="control-label"><span
+                                    class="text-danger">*</span>{{"Branch/Office"|translate}}</label>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <!--<div class="input-icon right">
+                            <i class="icon-magnifier"></i>
+                            <div angucomplete-alt id="NoteParticipant" placeholder='{{"Enter Category"|translate}}' pause="100"
+                                    selected-object="BranchOffice" local-data="BranchOfficeList" local-search="localSearch" input-name="NoteParticipant"
+                                    title-field="BranchName" minlength="1" input-class="form-control input-circle input-block-level btnMargin angucompleteSearchBox" match-class="highlight" search-fields="BranchNAme">
+                            </div>
+                        </div>-->
+                            <input type="text" required name="branch" ng-model="registerUser.Branch"
+                                class="form-control" placeholder="{{'Branch Name'|translate}}">
+                            <!--<select class="input-small select2me btnMargin" ng-model="registerUser.branch" name="branch" required data-placeholder="Select..."
+                                                    ng-options="option.id as option.name for option in BranchList"></select>-->
+                            <div ng-message="required"
+                                ng-show="(RegisterUser.branch.$error.required && RegisterUser.branch.$touched)">
+                                <span class="text-danger">{{"Enter branch name"|translate}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group">
+                        <div class="col-md-4 col-sm-4 col-xs-12 text-right">
+                            <label class="control-label">{{"Designation"|translate}}</label>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" name="designation" ng-model="registerUser.Designation"
+                                class="form-control" placeholder="{{'Designation'|translate}}">
+                            <!--<select class="input-small select2me btnMargin" ng-model="registerUser.designation" name="designation" required data-placeholder="Select..."
+                                                    ng-options="option.id as option.name for option in DesignationList"></select>-->
+                            <div ng-message="required"
+                                ng-show="(RegisterUser.designation.$error.required && RegisterUser.designation.$touched)">
+                                <span class="text-danger">{{"Add designation"|translate}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group">
+                        <div class="col-md-10 col-sm-10">
+                            <button class="btn green pull-right" ng-click="Register($event)" tabindex="3" type="button"
+                                ng-disabled="RegisterUser.$invalid || RegisterUser.$pristine">Register</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- END FORGOT PASSWORD FORM -->
+            </div>
+            <div class="clearfix"></div>
+            <div class="login-footer">
+                <div class="row bs-reset">
+                    <div class="col-xs-7 bs-reset pull-right">
+                        <div class="login-copyright text-right">
+                            <p ng-if="versionData.buildVersion!=null"> &copy; {{ todaysDate | date:'yyyy'}}
+                                Artigem, ver. {{versionData.buildVersion}}</p>
+                            <p ng-if="versionData.buildVersion==null"> &copy; {{ todaysDate | date:'yyyy'}}
+                                Artigem </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer with logo and build info -->
+    <div class="col-md-12 col-sm-12 col-xs-12 footer">
+        <!-- <img class="footer-logo" src="assets/pages/img/login/3Circle.png" alt="Artigem Streamline" /> -->
+        <span class="login-copyright" style="font-size:15px">
+            Powered by Artigem Streamline  <span class="footer-version" ng-if="versionData.buildVersion!=null"><span class="hidden-xs">, </span>ver.
+            {{versionData.buildVersion}} &copy;&nbsp;{{ todaysDate | date:'yyyy'}} Artigem
+            <!-- <span class="footer-version" ng-if="versionData.buildVersion!=null"><span class="hidden-xs">, </span>ver.
+                {{versionData.buildVersion}} -->
+            </span>
+        </span>
+    </div>
+</div>
+<script>
+    jQuery(document).ready(function () {
+        $("#UserName").keyup(function (e) {
+            if (e.keyCode == 13) {
+                $("#Password").focus();
+            }
+        });
+        Login.init()
+    });
+</script>

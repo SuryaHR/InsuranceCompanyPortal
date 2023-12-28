@@ -1,0 +1,18 @@
+﻿{
+  "HeaderTitle": {
+    "ActivityLog": "Activity Log"
+    
+  },
+  "Table": {
+    "Id": "Id",
+    "Action": "Action",
+    "ActionTaken": "Action Taken",
+    "Status": "Status",
+    "TimeStamp": "Time Stamp",
+    "ActionTakenBy": "Action Taken By",
+    "TimeElapsed" : "Time Elapsed",
+    "Message" : "Message"    
+  },
+
+  "NoLogs": "No logs found"
+}

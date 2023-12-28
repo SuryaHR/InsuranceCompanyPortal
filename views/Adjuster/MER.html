@@ -1,0 +1,1305 @@
+﻿
+<style>
+     #lnkDownload:hover
+    {
+        color:ghostwhite;
+    }
+    #PrintableDiv{
+        display: none;
+    }
+
+    @page {
+  size: a4 landscape;
+  margin: 0;
+  padding: 0;
+  margin-top: 20mm;
+  margin : 10mm;
+  margin-bottom: 0mm;
+  height: auto;
+}
+    
+    @media print {
+    #PrintableDiv{
+    display: block;
+    height: auto;
+    page-break-after: avoid;
+  }
+
+   .address-label { margin-left:35%; }
+  .address-field { margin-left: 6%;} 
+
+  @media (max-width: 1380px) {
+      body *{ font-size: 14px; }
+   }
+   @media (min-width: 1380px) {
+      body *{ font-size: 15px; }
+   }
+  body * {
+    visibility: hidden;
+  }
+  
+  #PrintableDiv, #PrintableDiv * {
+    visibility: visible;
+  }
+  #PrintableDiv {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+}
+
+.TextWrap{
+    word-wrap: break-word!important;
+}
+    </style>
+<div class="col-md-12 padding1px">
+    <ul class="page-breadcrumb breadcrumb sbold">
+        <li>
+            <a ng-click="GoToHome()">{{"Home"|translate}}</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <a ng-click="goToClaimDetails()">{{CommonObj.ClaimNumber}}</a>
+            <i class="fa fa-circle"></i>
+        </li>
+       <!-- <li>
+            <a ng-click="GoToVendorAssignments()">{{"Vendor Assginments"|translate}}</a>
+            <i class="fa fa-circle"></i>
+        </li>-->
+        <li>
+            <a ng-click="GoToLineItem()">{{CommonObj.ItemNumber}}</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        
+        <li>
+            <span>{{"MER"|translate}}</span>
+        </li>
+    </ul>
+</div>
+<div class="col-md-12 col-sm-12 padding1px">
+    <div class="portlet light padding1px">
+        <div class="portlet-title">
+            <div class="caption font-gray-sharp">
+                <span class="caption-subject">{{"Market Evaluation Report"|translate}}</span>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 padding1px">
+                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                        <div class="col-md-12 text-right">
+                            <button id="sample_editable_1_new" class="btn sbold  btnMargin" onclick="downloadPDF()">
+                                {{"DownloadAsPDF"|translate}}
+                            </button>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-lg-12 col-sm-12 col-xs-12 padding1px">
+                            <div class="col-md-6 col-lg-6 col-sm-6">
+                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+                                    <div class="col-md-4 col-sm-6 Label_Text_Right">
+                                        <label class="control-label ">{{"Date of MER"|translate}}</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6">
+                                        <span class="control-label">{{currentDate | date:'MMMM dd, yyyy'}}</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+                                    <div class="col-md-4 col-sm-6 Label_Text_Right">
+                                        <label class="control-label ">{{"Insurance Company"|translate}}</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6">
+                                        <span class="control-label">{{InsuranceCompanyDetails.insuranceCompanyDetails.name}}</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+                                    <div class="col-md-4 col-sm-6 Label_Text_Right">
+                                        <label class="control-label ">{{"Adjuster"|translate}}</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6">
+                                        <span class="control-label">{{InsuranceCompanyDetails.adjuster.name}}</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+                                    <div class="col-md-4 col-sm-6 Label_Text_Right">
+                                        <label class="control-label ">{{"Branch /Office"|translate}}</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6">
+                                        <span class="control-label">{{InsuranceCompanyDetails.adjuster.branchDetails.companyName}}</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+                                    <div class="col-md-4 col-sm-6 Label_Text_Right">
+                                        <label class="control-label ">{{"Claim #"|translate}}</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6">
+                                        <span class="control-label">{{ItemDetails.claimNumber}}</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+                                    <div class="col-md-4 col-sm-6 Label_Text_Right">
+                                        <label class="control-label ">{{"Item #"|translate}}</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6">
+                                        <span class="control-label">{{ItemDetails.itemNumber}}</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+                                    <div class="col-md-4 col-sm-6 Label_Text_Right">
+                                        <label class="control-label ">{{"Tax Applied"|translate}}</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6">
+                                        <span class="control-label" ng-if="ItemDetails.applyTax">Yes</span>
+                                        <span class="control-label" ng-if="!ItemDetails.applyTax">Yes</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-6 col-sm-6">
+                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                                    <label class="control-label"><u>{{"Prepared For"|translate}}</u></label>
+                                </div>
+                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+                                    <div class="col-md-4 col-sm-6 Label_Text_Right">
+                                        <label class="control-label ">{{"Policyholder"|translate}}</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6">
+                                        <span class="control-label">{{policyHolderDetails.lastName}}, {{policyHolderDetails.firstName}}</span>
+                                    </div>
+                                </div>
+                                <!-- <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+                                    <div class="col-md-4 col-sm-6 Label_Text_Right">
+                                        <label class="control-label ">{{"Address"|translate}}</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6">
+                                        <span class="control-label" ng-if="policyHolderDetails.address.streetAddressOne != null && policyHolderDetails.address.streetAddressOne != '' && policyHolderDetails.address.streetAddressTwo != null && policyHolderDetails.address.streetAddressTwo != ''">{{policyHolderDetails.address.streetAddressOne}}, {{policyHolderDetails.streetAddressTwo}}</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+                                    <div class="col-md-4 col-sm-6"></div>
+                                    <div class="col-md-6 col-sm-6">
+                                        <span class="control-label">{{policyHolderDetails.address.city}}</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+                                    <div class="col-md-4 col-sm-6"></div>
+                                    <div class="col-md-6 col-sm-6">
+                                        <span class="control-label">{{policyHolderDetails.address.state.state}}, {{policyHolderDetails.address.zipcode}}</span>
+                                    </div>
+                                </div> -->
+
+                                <div style="display:flex ;position:relative;width: 100%;">
+                                    <div class="address-label">
+                                        <label class="control-label ">{{"Address"|translate}}</label>
+                                    </div>
+                                    <div class="address-field">
+                                        <div ng-if="(policyHolderDetails.address.streetAddressOne != null && policyHolderDetails.address.streetAddressOne != '') || (policyHolderDetails.address.streetAddressTwo != null && policyHolderDetails.address.streetAddressTwo != '')">
+                                          <span class="control-label" ng-if="policyHolderDetails.address.streetAddressOne != null && policyHolderDetails.address.streetAddressOne != '' ">{{policyHolderDetails.address.streetAddressOne}}</span>
+                                          <span class="control-label" ng-if="policyHolderDetails.address.streetAddressOne != null && policyHolderDetails.address.streetAddressOne != '' && policyHolderDetails.address.streetAddressTwo != null && policyHolderDetails.address.streetAddressTwo != ''"> ,</span>
+                                          <span class="control-label" ng-if="policyHolderDetails.address.streetAddressTwo != null && policyHolderDetails.address.streetAddressTwo != ''"> {{policyHolderDetails.address.streetAddressTwo}}</span>
+
+                                        </div>
+                                    <div style="margin-top:0%">
+                                        <span class="control-label">{{policyHolderDetails.address.city}}</span>
+                                    </div>
+                                    <div>
+                                        <span class="control-label">{{policyHolderDetails.address.state.state}}, {{policyHolderDetails.address.zipcode}}</span>
+                                  </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                                    <label class="control-label"><u>{{"Prepared by"|translate}}</u></label>
+                                </div>
+                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+                                    <div class="col-md-4 col-sm-6 Label_Text_Right">
+                                        <label class="control-label ">{{"Jewelry Specialist"|translate}}</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6">
+                                        <span class="control-label" ng-if="ItemDetails.assignmentDetails.claimRepresentative">{{ItemDetails.assignmentDetails.claimRepresentative.lastName + ", "+ItemDetails.assignmentDetails.claimRepresentative.firstName}}</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+                                    <div class="col-md-4 col-sm-6 Label_Text_Right">
+                                        <label class="control-label ">{{"On behalf of"|translate}}</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6">
+                                        <span class="control-label">{{ItemDetails.vendorDetails.vendorName}}</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+                                    <div class="col-md-4 col-sm-6 Label_Text_Right">
+                                        <label class="control-label ">{{"Specialist Email"|translate}}</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6">
+                                        <span class="control-label">{{ItemDetails.assignmentDetails.claimRepresentative.email}}</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+                                    <div class="col-md-4 col-sm-6 Label_Text_Right">
+                                        <label class="control-label ">{{"Specialist Phone"|translate}}</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6">
+                                        <span class="control-label">{{ItemDetails.assignmentDetails.claimRepresentative.cellPhone ? ItemDetails.assignmentDetails.claimRepresentative.cellPhone : ItemDetails.assignmentDetails.claimRepresentative.dayTimePhone}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-lg-12 col-sm-12 col-xs-12 padding1px">
+                            <div class="portlet light padding1px">
+                                <div class="portlet-title">
+                                    <div class="caption font-gray-sharp">
+                                        <br>
+                                        <span class="caption-subject"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8 col-xs-8  portlet light margin-top-10 bordered" style="border:2px solid black !important;margin-left: 50px !important;width: 68%;">
+                                <div class="portlet light padding1px">
+                                    <div class="portlet-title">
+                                        <div class="caption font-gray-sharp">
+                                            <span class="caption-subject">{{"Original Item"|translate}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 cd-sm-12 col-xs-12">
+                                    <div class="col-md-2 col-sm-2">
+                                        <img ng-if="ItemDetails.attachments" src={{ItemDetails.attachments[0].url}} alt="image" style="width: 80px; height:80px;"/>
+                                        <img ng-if="!ItemDetails.attachments" ng-src="assets/global/img/no-image.png" alt="image" style="width: 80px; height:80px;" />
+                                    </div>
+                                    <div class="col-md-7 col-sm-7">
+                                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+                                            <span class="control-label TextWrap" title="{{ItemDetails.description}}">
+                                                {{ItemDetails.description | limitTo : 80}}{{ItemDetails.description.length > 80 ? '...' : ''}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-3">
+                                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group" style="text-align: right !important;">
+                                            <label class="control-label">{{"Scheduled Value(Original Value)"|translate}}</label>
+                                        </div>
+                                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group" style="text-align: right !important;">
+                                            <span>{{ItemDetails.totalStatedAmount | currency}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8  portlet light margin-top-10 bordered" style="border:2px solid black !important;margin-left: 50px !important; width:68%" ng-repeat="comp in ItemDetails.comparableItems" ng-if="!comp.delete && comp.isReplacementItem">
+                                <div class="portlet light padding1px">
+                                    <div class="portlet-title">
+                                        <div class="caption font-gray-sharp">
+                                            <span class="caption-subject">{{"Replacement Item"|translate}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-sm-12">
+                                    <div class="col-md-2 col-sm-2">
+                                        <img ng-if="comp.imageURL" src={{comp.imageURL}} alt="image" style="width: 80px; height:80px;"/>
+                                        <img ng-if="!comp.imageURL" ng-src="assets/global/img/no-image.png" alt="image" style="width: 80px; height:80px;" />
+                                    </div>
+                                    <div class="col-md-7 col-sm-7">
+                                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+                                            <span  title = "{{comp.description}}" class="control-label TextWrap">{{comp.description | limitTo : 80}} {{comp.description.length > 80 ? '...' : ''}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-3">
+                                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group" style="text-align: right !important;">
+                                            <label class="control-label ">{{"Replacement Cost"|translate}}</label>
+                                        </div>
+                                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group" style="text-align: right !important;">
+                                            <span>{{comp.unitPrice | currency}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12" style="padding-top: 20px;padding-left: 0px !important;padding-right: 0px !important;" ng-if="claimProfile == 'Contents'">
+                                        <div class="portlet light padding1px">
+                                            <div class="portlet-title">
+                                                <div class="caption font-gray-sharp">
+                                                    <span class="caption-subject"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 col-sm-12">
+                                            <div class="col-sm-9 col-md-9 Label_Text_Right">
+                                                    <label class="control-label ">{{"Sub Total"|translate}}</label>
+                                             </div>
+                                             <div class="col-sm-3 col-md-3" style="text-align: right !important;">
+                                                <span style="padding-left: 25px;">{{comp.unitPrice | currency}}</span>
+                                             </div>
+                                        </div>
+                                        <div class="col-md-12 col-sm-12">
+                                            <div class="col-sm-9 col-md-9 Label_Text_Right">
+                                                    <label class="control-label ">{{"Quantity"|translate}}</label>
+                                             </div>
+                                             <div class="col-sm-3 col-md-3" style="text-align: right !important;">
+                                                <span style="padding-left: 25px;">{{comp.quantity}}</span>
+                                             </div>
+                                        </div>
+                                        <div class="col-md-12 col-sm-12">
+                                            <div class="col-sm-9 col-md-9 Label_Text_Right">
+                                                    <label class="control-label ">{{"Taxes"|translate}}
+                                                        <span ng-if="ItemDetails.applyTax">({{ItemDetails.taxRate}}%)</span>
+                                                        <span ng-if="!ItemDetails.applyTax">(0%)</span>
+                                                    </label>
+                                             </div>
+                                             <div class="col-sm-3 col-md-3" style="text-align: right !important;">
+                                                <span style="padding-left: 25px;">{{ItemDetails.totalTax | currency}}</span>
+                                             </div>
+                                        </div>
+                                        <div class="col-md-12 col-sm-12">
+                                            <div class="col-sm-9 col-md-9 Label_Text_Right">
+                                                    <label class="control-label ">{{"Total Replacement Cost"|translate}}</label>
+                                             </div>
+                                             <div class="col-sm-3 col-md-3" style="text-align: right !important;">
+                                                <span style="padding-left: 25px;">{{ItemDetails.rcvTotal | currency}}</span>
+                                             </div>
+                                        </div>
+                                    </div>
+                                    <!-- replacement item for custom Comparables -->
+                                    <div class="col-md-12 col-sm-12 col-xs-12" style="padding-top: 20px;padding-left: 0px !important;padding-right: 0px !important;" ng-if="comp.subJewelryReplacements">
+                                        <div class="col-md-12 col-sm-12 col-xs-12" style="padding-left: 0px !important;padding-right: 0px !important;">
+                                            <div class="col-md-12 col-sm-12" ng-if="comp.subJewelryReplacements.length>0">
+                                                <div class="col-md-2 col-sm-2">
+                                                </div>
+                                                <div class="col-md-7 col-sm-7">
+                                                    <label class="control-label ">{{"Description"|translate}}</label>
+                                                </div>
+                                                <div class="col-sm-3 col-md-3" style="text-align: right !important;">
+                                                    <label class="control-label " style="padding-left: 32px;">{{"Price"|translate}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 col-sm-12" style="padding-top: 20px; padding-left: 0px !important;" ng-repeat="subItem in comp.subJewelryReplacements">
+                                                <div class="col-md-2 col-sm-2">
+                                                    <img ng-if="(subItem.imagesDTOSet == undefined || subItem.imagesDTOSet == null || !subItem.imagesDTOSet[0].url) && (subItem.imageUrl == undefined || subItem.imageUrl == null || subItem.imageUrl =='')" src="assets/global/img/no-image.png" alt="image" style="height:80px;width: 80px;" />
+                                                    <img ng-if="(subItem.imagesDTOSet != undefined && subItem.imagesDTOSet != null && subItem.imagesDTOSet[0].url) || !(subItem.imageUrl == undefined || subItem.imageUrl == null || subItem.imageUrl =='')" ng-src="{{(subItem.imagesDTOSet[0] && subItem.imagesDTOSet[0].length!=0 && subItem.imagesDTOSet[0].url) ? subItem.imagesDTOSet[0].url : subItem.imageUrl}}" alt="image" style="height:80px;width: 80px;" />
+
+                                                    <!-- <img ng-if="!subItem.imagesDTOSet && (subItem.imageUrl == undefined || subItem.imageUrl == null || subItem.imageUrl =='' || !subItem.imagesDTOSet[0].url)" src="assets/global/img/no-image.png" alt="image" style="width: 80px; height:80px;" />
+                                                    <img ng-if="subItem.imagesDTOSet || !(subItem.imageUrl == undefined || subItem.imageUrl == null || subItem.imageUrl =='' || !subItem.imagesDTOSet[0].url)" ng-src="{{ (subItem.imagesDTOSet[0].url && subItem.imagesDTOSet[0].url.length!=0) ? subItem.imagesDTOSet[0].url : subItem.imageUrl}}" alt="image" style="width: 80px; height:80px;" /> -->
+                                                </div>
+                                                <div class="col-md-7 col-sm-7">
+                                                    <span title = "{{subItem.replacementDescription}}" class="control-label TextWrap">{{subItem.replacementDescription | limitTo:80}}{{subItem.replacementDescription.length > 80 ? '...' : ''}}</span>
+                                                </div>
+                                                <div class="col-sm-3 col-md-3" style="text-align: right !important;">
+                                                    <span class="control-label" style="padding-left: 32px;">{{subItem.totalReplacementPrice | currency}}</span>
+                                                </div>
+                                                    <!--SubItems breakup-->
+                                                    <div class="col-md-12 col-sm-12 subComponents" ng-if="subItem.subItems!=null">
+                                                        <div  ng-repeat="subComponent in subItem.subItems" style="width:100%" >
+                                                            <div class="col-md-12 col-sm-12 subcomp-det" style="justify-content: center;width: 100% ;margin-left: 0;">
+                                                                <div class="col-md-1 col-sm-1"></div>
+                                                                <div class="col-md-2 col-sm-2 comp-img">
+                                                                    <img ng-if="(subComponent.imagesDTOSet == undefined || subComponent.imagesDTOSet == null || !subComponent.imagesDTOSet[0].url)" src="assets/global/img/no-image.png" alt="image" style="height:30px;width: 30px;" />
+                                                                    <img ng-if="(subComponent.imagesDTOSet != undefined && subComponent.imagesDTOSet != null && subComponent.imagesDTOSet[0].url)" ng-src="{{ (subComponent.imagesDTOSet[0] && subComponent.imagesDTOSet[0].length!=0) ? subComponent.imagesDTOSet[0].url : subComponent.imageUrl}}" alt="image" style="height:30px;width: 30px;" />
+
+                                                                    <!-- <img ng-if="subComponent.imagesDTOSet || !(subComponent.imageUrl == undefined || subComponent.imageUrl == null || subComponent.imageUrl =='' || !subComponent.imagesDTOSet[0].url)" ng-src="{{(subComponent.imagesDTOSet[0] && subComponent.imagesDTOSet.length!=0) ? subComponent.imagesDTOSet[0].url : subComponent.imageUrl}}" alt="image" style="width: 30px; height:30px;"/>
+                                                                    <img ng-if="!subComponent.imagesDTOSet && (subComponent.imageUrl == undefined || subComponent.imageUrl == null || subComponent.imageUrl =='' || !subComponent.imagesDTOSet[0].url)" ng-src="assets/global/img/no-image.png" alt="image" style="width: 30px; height:30px;" /> -->
+
+                                                                    <!-- <img style="height:30px;width: 30px;"
+                                                                    onerror="this.onerror=null; this.src='assets/global/img/no-image.png';"
+                                                                    ng-src="{{subComponent.imagesDTOSet[0].url}}" ></img> -->
+                                                                </div>
+                                                                <div class="col-md-7 col-sm-7 comp-desc" title="{{subComponent.replacementDescription}}">
+                                                                    <span>{{subComponent.replacementDescription | limitTo: 38}}{{subComponent.replacementDescription.length >  38 ? '...' : ''}}</span>
+                                                                </div>
+                                                                <div class="col-md-2 col-sm-2 subcomp-price" style="text-align:right;">
+                                                                    {{subComponent.totalReplacementPrice | currency}}
+                                                                </div>
+                                                            </div>                                                        
+                                                        </div>
+                                                    </div>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="portlet light padding1px">
+                                            <div class="portlet-title">
+                                                <div class="caption font-gray-sharp">
+                                                    <span class="caption-subject"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 col-sm-12">
+                                            <div class="col-sm-9 col-md-9 Label_Text_Right">
+                                                    <label class="control-label ">{{"Sub Total"|translate}}</label>
+                                             </div>
+                                             <div class="col-sm-3 col-md-3" style="text-align: right !important;">
+                                                <span style="padding-left: 25px;">{{comp.unitPrice | currency}}</span>
+                                             </div>
+                                        </div>
+                                        <div class="col-md-12 col-sm-12">
+                                            <div class="col-sm-9 col-md-9 Label_Text_Right">
+                                                    <label class="control-label ">{{"Taxes"|translate}}
+                                                        <span ng-if="ItemDetails.applyTax">({{ItemDetails.taxRate}}%)</span>
+                                                        <span ng-if="!ItemDetails.applyTax">(0%)</span>
+                                                    </label>
+                                             </div>
+                                             <div class="col-sm-3 col-md-3" style="text-align: right !important;">
+                                                <span style="padding-left: 25px;">{{comp.taxesVal | currency}}</span>
+                                             </div>
+                                        </div>
+                                        <div class="col-md-12 col-sm-12" ng-if="comp.customItem">
+                                            <div class="col-sm-9 col-md-9 Label_Text_Right">
+                                                    <label class="control-label ">{{"Custom Design Charges"|translate}}
+                                                        <span ng-if="comp.customChargesNote && comp.customChargesNote!='' &&  comp.customChargesNote!=null" style="font-weight: normal;word-break: break-all;" title="{{comp.customChargesNote}}">({{comp.customChargesNote | limitTo 70}} {{comp.customChargesNote.length > 70 ? '...' : ''}})</span>
+                                                    </label>
+                                             </div>
+                                             <div class="col-sm-3 col-md-3" style="text-align: right !important;">
+                                                <span style="padding-left: 25px;">{{comp.customCharges | currency}}</span>
+                                             </div>
+                                        </div>
+                                        <div class="col-md-12 col-sm-12" ng-if="comp.customItem">
+                                            <div class="col-sm-9 col-md-9 Label_Text_Right">
+                                                    <label class="control-label ">{{"Labor Charges"|translate}}
+                                                        <span ng-if="comp.labourChargesNote && comp.labourChargesNote!='' &&  comp.labourChargesNote!=null" style="font-weight: normal;word-break: break-all;" title="{{comp.labourChargesNote}}">({{comp.labourChargesNote | limitTo 70 }}{{comp.labourChargesNote.length > 70 ? '...' : ''}})</span>
+                                                    </label>
+                                             </div>
+                                             <div class="col-sm-3 col-md-3" style="text-align: right !important;">
+                                                <span style="padding-left: 25px;">{{comp.labourCharges | currency}}</span>
+                                             </div>
+                                        </div>
+                                        <div class="col-md-12 col-sm-12">
+                                            <div class="col-sm-9 col-md-9 Label_Text_Right">
+                                                    <label class="control-label ">{{"Total Replacement Cost"|translate}}</label>
+                                             </div>
+                                             <div class="col-sm-3 col-md-3" style="text-align: right !important;">
+                                                <span style="padding-left: 25px;">{{ItemDetails.rcvTotal | currency}}</span>
+                                             </div>
+                                        </div>      
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="col-md-8  portlet light margin-top-10 bordered" style="border:2px solid black !important;margin-left: 50px !important; width:68%" ng-if="standardCostAccepted">
+                                <div class="portlet light padding1px">
+                                    <div class="portlet-title">
+                                        <div class="caption font-gray-sharp">
+                                            <span class="caption-subject">{{"Replacement Item"|translate}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-sm-12">
+                                    <div class="col-md-2 col-sm-2">
+                                         <img src={{comp.imageURL}} alt="image" style="width: 80px; height:80px;"/> 
+                                        <img ng-src="assets/global/img/no-image.png" alt="image" style="width: 80px; height:80px;" />
+                                    </div>
+                                    <div class="col-md-7 col-sm-7">
+                                        <div class="col-md-7 col-sm-7">
+                                            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+                                                <span class="control-label TextWrap">{{ItemDetails.adjusterDescription | limitTo : 80}} {{ItemDetails.adjusterDescription.length > 80 ? '...' : ''}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-3">
+                                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group" style="text-align: right !important;">
+                                            <label class="control-label ">{{"Replacement Cost"|translate}}</label>
+                                        </div>
+                                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group" style="text-align: right !important;">
+                                            <span>{{ItemDetails.rcv | currency}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12" style="padding-top: 20px;padding-left: 0px !important;padding-right: 0px !important;" ng-if="claimProfile == 'Contents'">
+                                        <div class="portlet light padding1px">
+                                            <div class="portlet-title">
+                                                <div class="caption font-gray-sharp">
+                                                    <span class="caption-subject"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 col-sm-12">
+                                            <div class="col-sm-9 col-md-9 Label_Text_Right">
+                                                    <label class="control-label ">{{"Sub Total"|translate}}</label>
+                                             </div>
+                                             <div class="col-sm-3 col-md-3" style="text-align: right !important;">
+                                                <span style="padding-left: 25px;">{{ItemDetails.rcv | currency}}</span>
+                                             </div>
+                                        </div>
+                                        <div class="col-md-12 col-sm-12">
+                                            <div class="col-sm-9 col-md-9 Label_Text_Right">
+                                                    <label class="control-label ">{{"Quantity"|translate}}</label>
+                                             </div>
+                                             <div class="col-sm-3 col-md-3" style="text-align: right !important;">
+                                                <span style="padding-left: 25px;">{{ItemDetails.replacementQty == null ? 1 : ItemDetails.replacementQty}}</span>
+                                             </div>
+                                        </div>
+                                        <div class="col-md-12 col-sm-12">
+                                            <div class="col-sm-9 col-md-9 Label_Text_Right">
+                                                    <label class="control-label ">{{"Taxes"|translate}}
+                                                        <span ng-if="ItemDetails.applyTax">({{ItemDetails.taxRate}}%)</span>
+                                                        <span ng-if="!ItemDetails.applyTax">(0%)</span>
+                                                    </label>
+                                             </div>
+                                             <div class="col-sm-3 col-md-3" style="text-align: right !important;">
+                                                <span style="padding-left: 25px;">{{ItemDetails.totalTax | currency}}</span>
+                                             </div>
+                                        </div>
+                                        <div class="col-md-12 col-sm-12">
+                                            <div class="col-sm-9 col-md-9 Label_Text_Right">
+                                                    <label class="control-label ">{{"Total Replacement Cost"|translate}}</label>
+                                             </div>
+                                             <div class="col-sm-3 col-md-3" style="text-align: right !important;">
+                                                <span style="padding-left: 25px;">{{ItemDetails.rcvTotal | currency}}</span>
+                                             </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-lg-12 col-sm-12 col-xs-12 padding1px" style="padding-left: 20px;" ng-if="showComparable">
+                        <div class="portlet light padding1px">
+                            <div class="portlet-title">
+                                <div class="caption font-gray-sharp">
+                                    <span class="caption-subject">{{"Comparable"|translate}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-8  portlet light margin-top-10 bordered clearfix" ng-repeat="comp in comparableItems" ng-if="!comp.isDelete && !comp.isReplacementItem" style="border:2px solid black !important;margin-left: 65px !important;">
+                            <div class="portlet light padding1px">
+                                <div class="portlet-title">
+                                    <div class="caption font-gray-sharp">
+                                        <span class="caption-subject">{{"Comparable #"|translate}}{{comp.index}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-sm-12">
+                                <div class="col-md-2 col-sm-2">
+                                    <div class="col-md-12 light">
+                                        <img ng-if="comp.imageURL" src={{comp.imageURL}} alt="image" style="width: 80px; height:80px;"/>
+                                        <img ng-if="!comp.imageURL" ng-src="assets/global/img/no-image.png" alt="image" style="width: 80px; height:80px;" />
+                                    </div>
+                                </div>
+                                <div class="col-md-7 col-sm-7">
+                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+                                        <span class="control-label TextWrap" title="{{comp.description}}">
+                                            {{comp.description | limitTo : 80}}{{comp.description.length > 80 ? '...' : ''}}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-sm-3">
+                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group" style="text-align: right !important;">
+                                        <label class="control-label ">{{"Replacement Cost"|translate}}</label>
+                                    </div>
+                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group" style="text-align: right !important;">
+                                        <span>{{comp.unitPrice | currency}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-xs-12" ng-if="comp.subJewelryReplacements" style="padding: 0px !important;">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="col-md-12 col-sm-12" ng-if="comp.subJewelryReplacements.length > 0">
+                                    <div class="col-md-2 col-sm-2"></div>
+                                    <div class="col-md-7 col-sm-7">
+                                        <label class="control-label ">{{"Description"|translate}}</label>
+                                    </div>
+                                    <div class="col-md-3 col-sm-3" style="text-align: right !important;">
+                                        <label class="control-label " style="padding-left: 32px;">{{"Price"|translate}}</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-sm-12" style="padding-top: 20px;" ng-repeat="subItem in comp.subJewelryReplacements">
+                                    <div class="col-md-2 col-sm-2">
+                                        <img ng-if="(subItem.imagesDTOSet == undefined || subItem.imagesDTOSet == null || !subItem.imagesDTOSet[0].url) && (subItem.imageUrl == undefined || subItem.imageUrl == null || subItem.imageUrl =='')" src="assets/global/img/no-image.png" alt="image" style="width: 80px; height:80px;" />
+                                        <img ng-if="(subItem.imagesDTOSet!= undefined && subItem.imagesDTOSet && subItem.imagesDTOSet[0].url) || !(subItem.imageUrl == undefined || subItem.imageUrl == null || subItem.imageUrl =='')" ng-src="{{ (subItem.imagesDTOSet[0] && subItem.imagesDTOSet[0].length!=0) && subItem.imagesDTOSet[0].url ? subItem.imagesDTOSet[0].url : subItem.imageUrl}}" alt="image" style="width: 80px; height:80px;" />
+
+                                        <!-- <img ng-if="subItem.imagesDTOSet || !(subItem.imageUrl == undefined || subItem.imageUrl == null || subItem.imageUrl =='' || !subComponent.imagesDTOSet[0].url)" ng-src="{{ (subItem.imagesDTOSet[0] && subItem.imagesDTOSet[0].length!=0) ? subItem.imagesDTOSet[0].url : subItem.imageUrl}}" alt="image" style="width: 80px; height:80px;"/>
+                                        <img ng-if="!subItem.imagesDTOSet && (subItem.imageUrl == undefined || subItem.imageUrl == null || subItem.imageUrl =='' || !subComponent.imagesDTOSet[0].url)" ng-src="assets/global/img/no-image.png" alt="image" style="width: 80px; height:80px;" /> -->
+                                    </div>
+                                    <div class="col-md-7 col-sm-7">
+                                        <span class="control-label TextWrap" title="{{subItem.replacementDescription}}">
+                                            {{subItem.replacementDescription | limitTo : 80}}{{subItem.replacementDescription.length > 80 ? '...' : ''}}
+                                        </span>
+                                    </div>
+                                    <div class="col-md-3 col-sm-3" style="text-align: right !important;">
+                                        <span class="control-label" style="padding-left: 32px;">{{subItem.totalReplacementPrice | currency}}</span>
+                                    </div>
+                                        <!--SubItems breakup-->
+                                        <div class="col-md-12 col-sm-12 subComponents" ng-if="subItem.subItems!=null">
+                                            <div  ng-repeat="subComponent in subItem.subItems" style="width:100%" >
+                                                <div class="col-md-12 col-sm-12 subcomp-det" style="justify-content: center;width: 100% ;margin-left: 0;">
+                                                    <div class="col-md-1 col-sm-1"></div>
+                                                    <div class="col-md-2 col-sm-2 comp-img">
+                                                        <img ng-if="(subComponent.imagesDTOSet == undefined || subComponent.imagesDTOSet == null || !subComponent.imagesDTOSet[0].url) && (subComponent.imageUrl == undefined || subComponent.imageUrl == null || subComponent.imageUrl =='')" src="assets/global/img/no-image.png" alt="image" style="width: 30px; height:30px;" />
+                                                        <img ng-if="(subComponent.imagesDTOSet!= undefined && subComponent.imagesDTOSet && subComponent.imagesDTOSet[0].url) || !(subComponent.imageUrl == undefined || subComponent.imageUrl == null || subComponent.imageUrl =='')" ng-src="{{ (subComponent.imagesDTOSet[0] && subComponent.imagesDTOSet[0].length!=0) ? subComponent.imagesDTOSet[0].url : subComponent.imageUrl}}" alt="image" style="width: 30px; height:30px;" />
+
+                                                        <!-- <img ng-if="!subComponent.imagesDTOSet && (subComponent.imageUrl == undefined || subComponent.imageUrl == null || subComponent.imageUrl =='' || !subComponent.imagesDTOSet[0].url)" src="assets/global/img/no-image.png" alt="image" style="width: 30px; height:30px;" />
+                                                        <img ng-if="subComponent.imagesDTOSet || !(subComponent.imageUrl == undefined || subComponent.imageUrl == null || subComponent.imageUrl =='' || !subComponent.imagesDTOSet[0].url)" ng-src="{{ (subComponent.imagesDTOSet[0].url && subComponent.imagesDTOSet[0].url.length!=0) ? subComponent.imagesDTOSet[0].url : subComponent.imageUrl}}" alt="image" style="width: 30px; height:30px;" /> -->
+                                                    </div>
+                                                    <div class="col-md-7 col-sm-7 comp-desc" title="{{subComponent.replacementDescription}}">
+                                                        <span>{{subComponent.replacementDescription | limitTo: 38}}{{subComponent.replacementDescription.length >  38 ? '...' : ''}}</span>
+                                                    </div>
+                                                    <div class="col-md-2 col-sm-2 subcomp-price" style="text-align:right;">
+                                                        {{subComponent.totalReplacementPrice | currency}}
+                                                    </div>
+                                                </div>                                                        
+                                            </div>
+                                        </div>
+                                    
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="portlet light padding1px" ng-if="comp.subJewelryReplacements">
+                            <div class="portlet-title">
+                                <div class="caption font-gray-sharp">
+                                    <span class="caption-subject"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div ng-if="comp.subJewelryReplacements">
+                        <div class="col-md-12 col-sm-12">
+                            <div class="col-sm-9 col-md-9 Label_Text_Right">
+                                    <label class="control-label ">{{"Sub Total"|translate}}</label>
+                             </div>
+                             <div class="col-sm-3 col-md-3" style="text-align: right !important;">
+                                <span style="padding-left: 25px;">{{comp.unitPrice | currency}}</span>
+                             </div>
+                        </div>
+                        <div class="col-md-12 col-sm-12">
+                            <div class="col-sm-9 col-md-9 Label_Text_Right">
+                                    <label class="control-label ">{{"Taxes"|translate}}
+                                        <span ng-if="ItemDetails.applyTax">({{ItemDetails.taxRate}}%)</span>
+                                            <span ng-if="!ItemDetails.applyTax">(0%)</span>
+                                    </label>
+                             </div>
+                             <div class="col-sm-3 col-md-3" style="text-align: right !important;">
+                                <span style="padding-left: 25px;">{{comp.taxesVal | currency}}</span>
+                             </div>
+                        </div>
+                        <div class="col-md-12 col-sm-12" ng-if="comp.customItem">
+                            <div class="col-sm-9 col-md-9 Label_Text_Right">
+                                    <label class="control-label ">{{"Custom Design Charges"|translate}}
+                                        <span ng-if="comp.customChargesNote && comp.customChargesNote!='' &&  comp.customChargesNote!=null" style="font-weight: normal;word-break: break-all;" title="{{comp.customChargesNote}}">({{comp.customChargesNote | limitTo : 70}} {{comp.customChargesNote.length > 70 ? '...' : ''}})</span>
+                                    </label>
+                             </div>
+                             <div class="col-sm-3 col-md-3" style="text-align: right !important;">
+                                <span style="padding-left: 25px;">{{comp.customCharges | currency}}</span>
+                             </div>
+                        </div>
+                        <div class="col-md-12 col-sm-12" ng-if="comp.customItem">
+                            <div class="col-sm-9 col-md-9 Label_Text_Right">
+                                    <label class="control-label ">{{"Labor Charges"|translate}}
+                                        <span ng-if="comp.labourChargesNote && comp.labourChargesNote!='' &&  comp.labourChargesNote!=null" style="font-weight: normal;word-break: break-all;" title = "{{comp.labourChargesNote}}">({{comp.labourChargesNote | limitTo : 70}}{{comp.labourChargesNote.length > 70 ? '...' : ''}})</span>
+                                    </label>
+                             </div>
+                             <div class="col-sm-3 col-md-3" style="text-align: right !important;">
+                                <span style="padding-left: 25px;">{{comp.labourCharges | currency}}</span>
+                             </div>
+                        </div>
+                        <div class="col-md-12 col-sm-12">
+                            <div class="col-sm-9 col-md-9 Label_Text_Right">
+                                    <label class="control-label ">{{"Total Replacement Cost"|translate}}</label>
+                             </div>
+                             <div class="col-sm-3 col-md-3" style="text-align: right !important;">
+                                <span style="padding-left: 25px;">{{comp.totalReplacementPrice | currency}}</span>
+                             </div>
+                        </div>
+                        </div>
+                    </div></div>
+                </div>
+            </div></div>
+        </div>
+</div>
+<!--Printable Div Start-->
+<div class="row" id="PrintableDiv" style="margin-left:5px ;margin-right:5px;margin-bottom:0px" >
+    <div class="col-md-12 col-xs-12" style="display:flex ;">
+        <div class="col-md-4 col-xs-4" style="padding: 0px;width: 200px;">
+            <img src={{vendorDetails.logo.url}} style="height: 100px;">
+             </div>
+             <div class="col-xs-8 col-md-8 col-sm-8" style="height: 10px;">
+                <label style="font-size:15px;vertical-align: middle;margin-top: 30px;border-bottom: 1px solid black;padding-right: 30px;"> Market Evaluation Report - {{policyHolderDetails.lastName | titleCase}}, {{policyHolderDetails.firstName | titleCase}}</label>
+                
+                <div style="font-size:12px;">
+                    {{ItemDetails.vendorDetails.vendorName}}, {{vendorDetails.address}}
+            </div>
+        </div>
+   </div>
+
+   <div class="col-md-12 col-sm-12 col-lg-12 col-sm-12 col-xs-12 padding1px" style="margin-top: 20px;border: 1px solid black;padding-top:20px;font-size: 12px;">
+    <div class="col-md-6 col-lg-6 col-xs-6">
+        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+            <div class="col-md-4 col-sm-4 col-xs-6">
+                <label class="control-label pull-right" style="float: right;">{{"Date of MER"|translate}}</label>
+            </div>
+            <div class="col-md-6 col-md-6 col-xs-6">
+                <span class="control-label">{{currentDate | date:'MMMM dd, yyyy'}}</span>
+            </div>
+        </div>
+        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+            <div class="col-md-4 col-sm-4 col-xs-6" style="padding-left: 0px !important;text-align: right;">
+                <label class="control-label pull-right" style="">{{"Insurance Company"|translate}}</label>
+            </div>
+            <div class="col-md-6 col-md-6 col-xs-6">
+                <span class="control-label">{{InsuranceCompanyDetails.insuranceCompanyDetails.name}}</span>
+            </div>
+        </div>
+        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+            <div class="col-md-4 col-sm-4 col-xs-6">
+                <label class="control-label pull-right" style="float: right;">{{"Adjuster"|translate}}</label>
+            </div>
+            <div class="col-md-6 col-md-6 col-xs-6">
+                <span class="control-label">{{InsuranceCompanyDetails.adjuster.lastName}}, {{InsuranceCompanyDetails.adjuster.firstName}}</span>
+            </div>
+        </div>
+        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+            <div class="col-md-4 col-sm-4 col-xs-6">
+                <label class="control-label pull-right" style="float: right;">{{"Adjuster Email"|translate}}</label>
+            </div>
+            <div class="col-md-6 col-md-6 col-xs-6">
+                <span class="control-label">{{InsuranceCompanyDetails.adjuster.email}}</span>
+            </div>
+        </div>
+        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+            <div class="col-md-4 col-sm-4 col-xs-6">
+                <label class="control-label pull-right" style="float: right;">{{"Branch/Office"|translate}}</label>
+            </div>
+            <div class="col-md-6 col-md-6 col-xs-6">
+                <span class="control-label">{{InsuranceCompanyDetails.adjuster.branchDetails.companyName}}</span>
+            </div>
+        </div>
+        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+            <div class="col-md-4 col-sm-4 col-xs-6">
+                <label class="control-label pull-right" style="float: right;">{{"Claim#"|translate}}</label>
+            </div>
+            <div class="col-md-6 col-md-6 col-xs-6">
+                <span class="control-label">{{CommonObj.ClaimNumber}}</span>
+            </div>
+        </div>
+        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+            <div class="col-md-4 col-sm-4 col-xs-6">
+                <label class="control-label pull-right" style="float: right;">{{"Item#"|translate}}</label>
+            </div>
+            <div class="col-md-6 col-md-6 col-xs-6">
+                <span class="control-label">{{CommonObj.ItemNumber}}</span>
+            </div>
+        </div>
+        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+            <div class="col-md-4 col-sm-4 col-xs-6">
+                <label class="control-label pull-right" style="float: right;">{{"Tax Applied"|translate}}</label>
+            </div>
+            <div class="col-md-6 col-md-6 col-xs-6">
+                <span class="control-label" ng-if="ItemDetails.applyTax">Yes</span>
+                <span class="control-label" ng-if="!ItemDetails.applyTax">No</span>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-lg-6 col-xs-6">
+        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+            <label class="control-label"><u>{{"Prepared For"|translate}}</u></label>
+        </div>
+        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+            <div class="col-md-4 col-sm-4 col-xs-6">
+                <label class="control-label pull-right" style="float: right;">{{"Policyholder"|translate}}</label>
+            </div>
+            <div class="col-md-6 col-md-6 col-xs-6">
+                <span class="control-label">{{policyHolderDetails.lastName}}, {{policyHolderDetails.firstName}}</span>
+            </div>
+        </div>
+        <!-- <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+            <div class="col-md-4 col-sm-4 col-xs-6">
+                <label class="control-label pull-right" style="float: right;">{{"Address"|translate}}</label>
+            </div>
+            <div class="col-md-6 col-md-6 col-xs-6">
+                <span class="control-label" ng-if="policyHolderDetails.address.streetAddressOne != null && policyHolderDetails.address.streetAddressOne != '' && policyHolderDetails.address.streetAddressTwo != null && policyHolderDetails.address.streetAddressTwo != ''">{{policyHolderDetails.address.streetAddressOne}}, {{policyHolderDetails.streetAddressTwo}}</span>
+            </div>
+        </div>
+        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+            <div class="col-md-4 col-sm-4 col-xs-6">
+            </div>
+            <div class="col-md-6 col-md-6 col-xs-6">
+                <span class="control-label">{{policyHolderDetails.address.city}}</span>
+            </div>
+        </div>
+        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+            <div class="col-md-4 col-sm-4 col-xs-6">
+            </div>
+            <div class="col-md-6 col-md-6 col-xs-6">
+                <span class="control-label">{{policyHolderDetails.address.state.state}}, {{policyHolderDetails.address.zipcode}}</span>
+            </div>
+        </div> -->
+        <div style="display:flex ;position:relative;width: 100%;">
+            <div class="address-label">
+                <label class="control-label ">{{"Address"|translate}}</label>
+            </div>
+            <div class="address-field">
+                <div ng-if="(policyHolderDetails.address.streetAddressOne != null && policyHolderDetails.address.streetAddressOne != '') || (policyHolderDetails.address.streetAddressTwo != null && policyHolderDetails.address.streetAddressTwo != '')">
+                  <span class="control-label" ng-if="policyHolderDetails.address.streetAddressOne != null && policyHolderDetails.address.streetAddressOne != '' ">{{policyHolderDetails.address.streetAddressOne}}</span>
+                  <span class="control-label" ng-if="policyHolderDetails.address.streetAddressOne != null && policyHolderDetails.address.streetAddressOne != '' && policyHolderDetails.address.streetAddressTwo != null && policyHolderDetails.address.streetAddressTwo != ''"> ,</span>
+                  <span class="control-label" ng-if="policyHolderDetails.address.streetAddressTwo != null && policyHolderDetails.address.streetAddressTwo != ''"> {{policyHolderDetails.address.streetAddressTwo}}</span>
+
+                </div>
+            <div style="margin-top:0%">
+                <span class="control-label">{{policyHolderDetails.address.city}}</span>
+            </div>
+            <div>
+                <span class="control-label">{{policyHolderDetails.address.state.state}}, {{policyHolderDetails.address.zipcode}}</span>
+          </div>
+            </div>
+        </div>
+        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+        <label class="control-label"><u>{{"Prepared By"|translate}}</u></label>
+        </div>
+        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+            <div class="col-md-4 col-sm-4 col-xs-6">
+                <label class="control-label pull-right" style="float: right;">{{"Jewelry Specialist"|translate}}</label>
+            </div>
+            <div class="col-md-6 col-md-6 col-xs-6">
+                <span class="control-label" ng-if="ItemDetails.assignmentDetails.claimRepresentative">{{ItemDetails.assignmentDetails.claimRepresentative.lastName + ", "+ItemDetails.assignmentDetails.claimRepresentative.firstName}}</span>
+            </div>
+        </div>
+        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+            <div class="col-md-4 col-sm-4 col-xs-6">
+                <label class="control-label pull-right" style="float: right;">{{"On behalf of"|translate}}</label>
+            </div>
+            <div class="col-md-6 col-md-6 col-xs-6">
+                <span class="control-label">{{ItemDetails.vendorDetails.vendorName}}</span>
+            </div>
+        </div>
+        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+            <div class="col-md-4 col-sm-4 col-xs-6">
+                <label class="control-label pull-right" style="float: right;">{{"Specialist Email"|translate}}</label>
+            </div>
+            <div class="col-md-6 col-md-6 col-xs-6">
+                <span class="control-label" style="word-wrap:break-word;">{{ItemDetails.assignmentDetails.claimRepresentative.email}}</span>
+            </div>
+        </div>
+        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+            <div class="col-md-4 col-sm-4 col-xs-6">
+                <label class="control-label pull-right" style="float: right;">{{"Specialist Phone"|translate}}</label>
+            </div>
+            <div class="col-md-6 col-md-6 col-xs-6">
+                <span class="control-label">{{ItemDetails.assignmentDetails.claimRepresentative.cellPhone ? ItemDetails.assignmentDetails.claimRepresentative.cellPhone : ItemDetails.assignmentDetails.claimRepresentative.dayTimePhone}}</span>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!-- original item details -->
+    <div class="original-item col-md-12 col-xs-12" style="width:100%;text-align: left;display:block;margin-top: 0px !important; padding-left: 0px;margin-right: 2px;padding-right: 0px;">
+        <div class="col-md-12 col-xs-12 portlet light margin-top-10" style="width:100%;display:block;float:left;margin-top:10px;margin-bottom:50px !important;border: 1px solid black !important;">
+            <div class="portlet light padding1px">
+                <div class="portlet-title">
+                    <div class="caption font-gray-sharp">
+                        <label class="control-label ">{{"Original Item"|translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 cd-sm-12 col-xs-12">
+                <div class="col-md-2 col-sm-2 col-xs-2">
+                    <img ng-if="ItemDetails.attachments" src={{ItemDetails.attachments[0].url}} alt="image" style="width: 80px; height:80px;"/>
+                    <img ng-if="!ItemDetails.attachments" ng-src="assets/global/img/no-image.png" alt="image" style="width: 80px; height:80px;" />
+                </div>
+                <div class="col-md-7 col-sm-7 col-xs-7">
+                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+                        <span class="control-label TextWrap">
+                            {{ItemDetails.description | limitTo : 80}}{{ItemDetails.description.length > 80 ? '...' : ''}}
+                        </span>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-3 col-xs-3" style="text-align: right !important;padding-right: 0px !important;">
+                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group" style="padding-right: 0px !important;">
+                        <label class="control-label ">{{"Scheduled Value(Original Value)"|translate}}</label>
+                    </div>
+                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group" style="padding-right: 0px !important;">
+                        <span>{{ItemDetails.totalStatedAmount | currency}}</span>
+                    </div>
+                </div>
+            </div>
+        </div> 
+        <div class="col-md-12 col-xs-12 portlet light margin-top-10" style="width:100%;display:block;float:left;margin-top:90px  !important;margin-bottom:5px;border: 1px solid black !important;"  ng-repeat="comp in ItemDetails.comparableItems" ng-if="!comp.delete && comp.isReplacementItem">
+            <div class="portlet light padding1px">
+                <div class="portlet-title">
+                    <div class="caption font-gray-sharp">
+                        <label class="control-label ">{{"Replacement Item"|translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 cd-sm-12 col-xs-12" style="padding-top: 10px !important;">
+                <div class="col-md-2 col-sm-2 col-xs-2">
+                    <img ng-if="comp.imageURL" src={{comp.imageURL}} alt="image" style="width: 80px; height:80px;"/>
+                    <img ng-if="!comp.imageURL" ng-src="assets/global/img/no-image.png" alt="image" style="width: 80px; height:80px;" />
+                </div>
+                <div class="col-md-7 col-sm-7 col-xs-7">
+                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+                        <span title = "{{comp.description}}" class="control-label TextWrap">
+                            {{comp.description | limitTo : 80}}{{comp.description.length > 80 ? '...' : ''}}
+                        </span>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-3 col-xs-3" style="text-align: right !important;padding-right: 0px !important;">
+                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group" style="padding-right: 0px !important;">
+                        <label class="control-label " style="padding-right: 0px !important;">{{"Replacement price"|translate}}</label>
+                    </div>
+                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group" style="padding-right: 0px !important;">
+                        <span>{{comp.unitPrice | currency}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12" style="padding-top: 20px;padding-left: 0px !important;padding-right: 0px !important;" ng-if="claimProfile == 'Contents'">
+                <div class="col-md-12 col-sm-12 col-xs-12" style="border-top: 1px solid black; margin-top: 20px;">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-sm-9 col-md-9 col-xs-9 Label_Text_Right">
+                            <label class="control-label" style="float: right;">{{"Sub Total"|translate}}</label>
+                        </div>
+                        <div class="col-sm-3 col-md-3 col-xs-3" style="text-align: right !important;padding-right: 0px !important;">
+                            <span style="padding-left: 25px;padding-right: 0px !important;">{{comp.unitPrice | currency}}</span>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-sm-9 col-md-9 col-xs-9 Label_Text_Right">
+                            <label class="control-label" style="float: right;">{{"Quantity"|translate}}</label>
+                        </div>
+                        <div class="col-sm-3 col-md-3 col-xs-3" style="text-align: right !important;padding-right: 0px !important;">
+                            <span style="padding-left: 25px;padding-right: 0px !important;">{{comp.quantity | currency}}</span>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-sm-9 col-md-9 col-xs-9 Label_Text_Right">
+                                <label class="control-label" style="float: right;">{{"Taxes"|translate}}
+                                    <span ng-if="ItemDetails.applyTax">({{ItemDetails.taxRate}}%)</span>
+                                    <span ng-if="!ItemDetails.applyTax">(0%)</span>
+                                </label>
+                         </div>
+                         <div class="col-sm-3 col-md-3 col-xs-3" style="text-align: right !important;padding-right: 0px !important;">
+                            <span style="padding-left: 25px;padding-right: 0px !important;">{{ItemDetails.totalTax | currency}}</span>
+                         </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-sm-9 col-md-9 col-xs-9 Label_Text_Right">
+                                <label class="control-label" style="float: right;">{{"Total Replacement Cost"|translate}}</label>
+                         </div>
+                         <div class="col-sm-3 col-md-3 col-xs-3" style="text-align: right !important;padding-right: 0px !important;">
+                            <span style="padding-left: 25px;padding-right: 0px !important;">{{ItemDetails.rcvTotal | currency}}</span>
+                         </div>
+                    </div>
+                </div>
+            </div>
+            <!-- replacement item break up for custom Comparable -->
+            <div class="col-md-12 col-sm-12 col-xs-12" style="padding-top: 20px;padding-left: 0px !important;padding-right: 0px !important;" ng-if="comp.subJewelryReplacements">
+                <div class="col-md-12 col-sm-12 col-xs-12" style="padding-left: 0px !important;padding-right: 0px !important;">
+                    <div class="col-md-12 col-sm-12 col-xs-12" ng-if="comp.subJewelryReplacements.length>0">
+                        <div class="col-md-2 col-sm-2 col-xs-2">
+                        </div>
+                        <div class="col-md-7 col-sm-7 col-xs-7">
+                            <label class="control-label ">{{"Description"|translate}}</label>
+                        </div>
+                        <div class="col-sm-3 col-md-3 col-xs-3" style="text-align: right !important;padding-right: 0px !important;">
+                            <label class="control-label " style="padding-left: 32px;padding-right: 0px !important;">{{"Price"|translate}}</label>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12" style="padding-top: 20px;" ng-repeat="subItem in comp.subJewelryReplacements">
+                        <div class="col-md-2 col-sm-2 col-xs-2">
+                            <img ng-if="(subItem.imagesDTOSet == undefined || subItem.imagesDTOSet == null || !subItem.imagesDTOSet[0].url) && (subItem.imageUrl == undefined || subItem.imageUrl == null || subItem.imageUrl =='')" src="assets/global/img/no-image.png" alt="image" style="height:80px;width: 80px;" />
+                            <img ng-if="(subItem.imagesDTOSet != undefined && subItem.imagesDTOSet != null && subItem.imagesDTOSet[0].url) || !(subItem.imageUrl == undefined || subItem.imageUrl == null || subItem.imageUrl =='')" ng-src="{{ (subItem.imagesDTOSet[0] && subItem.imagesDTOSet[0].length!=0) && subItem.imagesDTOSet[0].url ? subItem.imagesDTOSet[0].url : subItem.imageUrl}}" alt="image" style="height:80px;width: 80px;" />
+
+                            <!-- <img ng-if="!subItem.imagesDTOSet && (subItem.imageUrl == undefined || subItem.imageUrl == null || subItem.imageUrl =='' || !subItem.imagesDTOSet[0].url)" src="assets/global/img/no-image.png" alt="image" style="width: 80px; height:80px;" />
+                            <img ng-if="subItem.imagesDTOSet || !(subItem.imageUrl == undefined || subItem.imageUrl == null || subItem.imageUrl =='' || !subItem.imagesDTOSet[0].url)" ng-src="{{ (subItem.imagesDTOSet[0].url && subItem.imagesDTOSet[0].url.length!=0) ? subItem.imagesDTOSet[0].url : subItem.imageUrl}}" alt="image" style="width: 80px; height:80px;" /> -->
+                        </div>
+                        <div class="col-md-7 col-sm-7 col-xs-7">
+                            <span title = "{{subItem.replacementDescription}}" class="control-label TextWrap">
+                                {{subItem.replacementDescription| limitTo : 80}}{{subItem.replacementDescription.length > 80 ? '...' : ''}}
+                            </span>
+                        </div>
+                        <div class="col-sm-3 col-md-3 col-xs-3" style="text-align: right !important;padding-right: 0px !important;">
+                            <span class="control-label" style="padding-left: 32px;padding-right: 0px !important;">{{subItem.totalReplacementPrice | currency}}</span>
+                        </div>
+                            <!--SubItems breakup-->
+                            <div class="col-md-12 col-sm-12 col-xs-12 subComponents" ng-if="subItem.subItems!=null">
+                                <div  ng-repeat="subComponent in subItem.subItems" style="width:100%" >
+                                    <div class="col-md-12 col-sm-12 col-xs-12 subcomp-det" style="justify-content: center;width: 100% ;margin-left: 0;">
+                                        <div class="col-md-1 col-sm-1 col-xs-1"></div>
+                                        <div class="col-md-2 col-sm-2 col-xs-2 comp-img">
+                                            <img ng-if="(subComponent.imagesDTOSet == undefined || subComponent.imagesDTOSet == null || !subComponent.imagesDTOSet[0].url)" src="assets/global/img/no-image.png" alt="image" style="height:30px;width: 30px;" />
+                                            <img ng-if="(subComponent.imagesDTOSet != undefined && subComponent.imagesDTOSet != null && subComponent.imagesDTOSet[0].url)" ng-src="{{ (subComponent.imagesDTOSet[0] && subComponent.imagesDTOSet[0].length!=0) ? subComponent.imagesDTOSet[0].url : subComponent.imageUrl}}" alt="image" style="height:30px;width: 30px;" />
+
+                                            <!-- <img ng-if="subComponent.imagesDTOSet || !(subComponent.imageUrl == undefined || subComponent.imageUrl == null || subComponent.imageUrl =='' || !subComponent.imagesDTOSet[0].url)" ng-src="{{ (subComponent.imagesDTOSet[0] && subComponent.imagesDTOSet[0].length!=0) ? subComponent.imagesDTOSet[0].url : subComponent.imageUrl}}" alt="image" style="width: 30px; height:30px;"/>
+                                            <img ng-if="!subComponent.imagesDTOSet && (subComponent.imageUrl == undefined || subComponent.imageUrl == null || subComponent.imageUrl =='' || !subComponent.imagesDTOSet[0].url)" ng-src="assets/global/img/no-image.png" alt="image" style="width: 30px; height:30px;" /> -->
+                                            
+                                            <!-- <img style="height:30px;width: 30px;"
+                                            onerror="this.onerror=null; this.src='assets/global/img/no-image.png';"
+                                            ng-src="{{subComponent.imagesDTOSet[0].url}}" ></img> -->
+                                        </div>
+                                        <div class="col-md-7 col-sm-7 col-xs-7 comp-desc" title="{{subComponent.replacementDescription}}">
+                                            <span>{{subComponent.replacementDescription | limitTo: 38}}{{subComponent.replacementDescription.length >  38 ? '...' : ''}}</span>
+                                        </div>
+                                        <div class="col-md-2 col-sm-2 col-xs-2 subcomp-price" style="text-align:right;">
+                                            {{subComponent.totalReplacementPrice | currency}}
+                                        </div>
+                                    </div>                                                        
+                                </div>
+                            </div>
+                        
+                        
+                    </div>
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12" style="border-top: 1px solid black; margin-top: 20px;">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-sm-9 col-md-9 col-xs-9 Label_Text_Right">
+                            <label class="control-label" style="float: right;">{{"Sub Total"|translate}}</label>
+                        </div>
+                        <div class="col-sm-3 col-md-3 col-xs-3" style="text-align: right !important;padding-right: 0px !important;">
+                            <span style="padding-left: 25px;padding-right: 0px !important;">{{comp.unitPrice | currency}}</span>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-sm-9 col-md-9 col-xs-9 Label_Text_Right">
+                                <label class="control-label" style="float: right;">{{"Taxes"|translate}}
+                                    <span ng-if="ItemDetails.applyTax">({{ItemDetails.taxRate}}%)</span>
+                                    <span ng-if="!ItemDetails.applyTax">(0%)</span>
+                                </label>
+                         </div>
+                         <div class="col-sm-3 col-md-3 col-xs-3" style="text-align: right !important;padding-right: 0px !important;">
+                            <span style="padding-left: 25px;padding-right: 0px !important;">{{comp.taxesVal | currency}}</span>
+                         </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12" ng-if="comp.customItem">
+                        <div class="col-sm-9 col-md-9 col-xs-9 Label_Text_Right">
+                                <label class="control-label" style="float: right;">{{"Custom Design Charges"|translate}}
+                                    <span ng-if="comp.customChargesNote && comp.customChargesNote!='' &&  comp.customChargesNote!=null" style="font-weight: normal;word-break: break-all;">({{comp.customChargesNote}})</span>
+                                </label>
+                         </div>
+                         <div class="col-sm-3 col-md-3" style="text-align: right !important;padding-right: 0px !important;">
+                            <span style="padding-left: 25px;padding-right: 0px !important;">{{comp.customCharges | currency}}</span>
+                         </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12" ng-if="comp.customItem">
+                        <div class="col-sm-9 col-md-9 col-xs-9 Label_Text_Right">
+                                <label class="control-label" style="float: right;">{{"Labor Charges"|translate}}
+                                    <span ng-if="comp.labourChargesNote && comp.labourChargesNote!='' &&  comp.labourChargesNote!=null" style="font-weight: normal;word-break: break-all;">({{comp.labourChargesNote}})</span>
+                                </label>
+                         </div>
+                         <div class="col-sm-3 col-md-3" style="text-align: right !important;padding-right: 0px !important;">
+                            <span style="padding-left: 25px;padding-right: 0px !important;">{{comp.labourCharges | currency}}</span>
+                         </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-sm-9 col-md-9 col-xs-9 Label_Text_Right">
+                                <label class="control-label" style="float: right;">{{"Total Replacement Cost"|translate}}</label>
+                         </div>
+                         <div class="col-sm-3 col-md-3 col-xs-3" style="text-align: right !important;padding-right: 0px !important;">
+                            <span style="padding-left: 25px;padding-right: 0px !important;">{{ItemDetails.rcvTotal | currency}}</span>
+                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 col-xs-12 portlet light margin-top-10" style="width:100%;display:block;float:left;margin-top:10px;margin-bottom:5px;border: 1px solid black !important;" ng-if="standardCostAccepted">
+            <div class="portlet light padding1px">
+                <div class="portlet-title">
+                    <div class="caption font-gray-sharp">
+                        <label class="control-label ">{{"Replacement Item"|translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 cd-sm-12 col-xs-12" style="padding-top: 10px !important;">
+                <div class="col-md-2 col-sm-2 col-xs-2">
+                    <img ng-src="assets/global/img/no-image.png" alt="image" style="width: 80px; height:80px;" />
+                </div>
+                <div class="col-md-7 col-sm-7 col-xs-7">
+                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+                        <span class="control-label TextWrap">
+                            {{ItemDetails.adjusterDescription | limitTo : 80}} {{ItemDetails.adjusterDescription.length > 80 ? '...' : ''}}
+                        </span>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-3 col-xs-3" style="text-align: right !important;padding-right: 0px !important;">
+                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group" style="padding-right: 0px !important;">
+                        <label class="control-label " style="padding-right: 0px !important;">{{"Replacement price"|translate}}</label>
+                    </div>
+                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group" style="padding-right: 0px !important;">
+                        <span>{{ItemDetails.rcv | currency}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12" style="padding-top: 20px;padding-left: 0px !important;padding-right: 0px !important;">
+                <div class="col-md-12 col-sm-12 col-xs-12" style="border-top: 1px solid black; margin-top: 20px;">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-sm-9 col-md-9 col-xs-9 Label_Text_Right">
+                            <label class="control-label" style="float: right;">{{"Sub Total"|translate}}</label>
+                        </div>
+                        <div class="col-sm-3 col-md-3 col-xs-3" style="text-align: right !important;padding-right: 0px !important;">
+                            <span style="padding-left: 25px;padding-right: 0px !important;">{{ItemDetails.rcv | currency}}</span>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-sm-9 col-md-9 col-xs-9 Label_Text_Right">
+                            <label class="control-label" style="float: right;">{{"Quantity"|translate}}</label>
+                        </div>
+                        <div class="col-sm-3 col-md-3 col-xs-3" style="text-align: right !important;padding-right: 0px !important;">
+                            <span style="padding-left: 25px;padding-right: 0px !important;">{{ItemDetails.replacementQty == null ? 1 : ItemDetails.replacementQty}}</span>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-sm-9 col-md-9 col-xs-9 Label_Text_Right">
+                                <label class="control-label" style="float: right;">{{"Taxes"|translate}}
+                                    <span ng-if="ItemDetails.applyTax">({{ItemDetails.taxRate}}%)</span>
+                                    <span ng-if="!ItemDetails.applyTax">(0%)</span>
+                                </label>
+                         </div>
+                         <div class="col-sm-3 col-md-3 col-xs-3" style="text-align: right !important;padding-right: 0px !important;">
+                            <span style="padding-left: 25px;padding-right: 0px !important;">{{ItemDetails.totalTax | currency}}</span>
+                         </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-sm-9 col-md-9 col-xs-9 Label_Text_Right">
+                                <label class="control-label" style="float: right;">{{"Total Replacement Cost"|translate}}</label>
+                         </div>
+                         <div class="col-sm-3 col-md-3 col-xs-3" style="text-align: right !important;padding-right: 0px !important;">
+                            <span style="padding-left: 25px;padding-right: 0px !important;">{{ItemDetails.rcvTotal | currency}}</span>
+                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- comparable items -->
+        <div style="width:100%;display:block;float:left;margin-top:5px;height:auto;">
+        <label style="display:block;font-size:20px;margin-top: 40px;border-bottom:1px solid black;"> Comparable</label>
+
+            <div class="col-md-12 col-xs-12 portlet light margin-top-10" style="width:100%;display:block;float:left;margin-top:10px ;margin-bottom:5px;border: 1px solid black !important;"  ng-repeat="comp in ItemDetails.comparableItems" ng-if="!comp.delete && !comp.isReplacementItem">
+                <div class="portlet light padding1px">
+                    <div class="portlet-title">
+                        <div class="caption font-gray-sharp">
+                            <label class="control-label ">{{"Comparable"|translate}}</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 cd-sm-12 col-xs-12" style="padding-top: 10px !important;">
+                    <div class="col-md-2 col-sm-2 col-xs-2">
+                        <img ng-if="comp.imageURL" src={{comp.imageURL}} alt="image" style="width: 80px; height:80px;"/>
+                        <img ng-if="!comp.imageURL" ng-src="assets/global/img/no-image.png" alt="image" style="width: 80px; height:80px;" />
+                    </div>
+                    <div class="col-md-7 col-sm-7 col-xs-7">
+                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+                            <span class="control-label TextWrap">{{comp.description | limitTo : 80}}{{comp.description.length > 80 ? '...' : ''}}</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-3" style="text-align: right !important;">
+                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+                            <label class="control-label ">{{"Replacement price"|translate}}</label>
+                        </div>
+                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+                            <span>{{comp.unitPrice | currency}}</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- comparable item break up for custom Comparable -->
+                <div class="col-md-12 col-sm-12 col-xs-12" style="padding-top: 20px;padding-left: 0px !important;padding-right: 0px !important;" ng-if="comp.subJewelryReplacements">
+                    <div class="col-md-12 col-sm-12 col-xs-12" style="padding-left: 0px !important;padding-right: 0px !important;">
+                        <div class="col-md-12 col-sm-12 col-xs-12" ng-if="comp.subJewelryReplacements.length > 0">
+                            <div class="col-md-2 col-sm-2 col-xs-2">
+                            </div>
+                            <div class="col-md-7 col-sm-7 col-xs-7">
+                                <label class="control-label ">{{"Description"|translate}}</label>
+                            </div>
+                            <div class="col-sm-3 col-md-3 col-xs-3" style="text-align: right !important;">
+                                <label class="control-label " style="padding-left: 32px;">{{"Price"|translate}}</label>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12" style="padding-top: 20px;" ng-repeat="subItem in comp.subJewelryReplacements">
+                            <div class="col-md-2 col-sm-2 col-xs-2">
+                                <img ng-if="(subItem.imagesDTOSet == undefined || subItem.imagesDTOSet == null || !subItem.imagesDTOSet[0].url) && (subItem.imageUrl == undefined || subItem.imageUrl == null || subItem.imageUrl =='')" src="assets/global/img/no-image.png" alt="image" style="height:80px;width: 80px;" />
+                                <img ng-if="(subItem.imagesDTOSet != undefined && subItem.imagesDTOSet != null && subItem.imagesDTOSet[0].url) || !(subItem.imageUrl == undefined || subItem.imageUrl == null || subItem.imageUrl =='')" ng-src="{{ (subItem.imagesDTOSet[0] && subItem.imagesDTOSet[0].length!=0 && subItem.imagesDTOSet[0].url) ? subItem.imagesDTOSet[0].url : subItem.imageUrl}}" alt="image" style="height:80px;width: 80px;" />
+
+                                <!-- <img ng-if="!subItem.imagesDTOSet && (subItem.imageUrl == undefined || subItem.imageUrl == null || subItem.imageUrl =='' || !subItem.imagesDTOSet[0].url)" src="assets/global/img/no-image.png" alt="image" style="width: 80px; height:80px;" />
+                                <img ng-if="subItem.imagesDTOSet || !(subItem.imageUrl == undefined || subItem.imageUrl == null || subItem.imageUrl =='' || !subItem.imagesDTOSet[0].url)" ng-src="{{ (subItem.imagesDTOSet[0].url && subItem.imagesDTOSet[0].url.length!=0) ? subItem.imagesDTOSet[0].url : subItem.imageUrl}}" alt="image" style="width: 80px; height:80px;" /> -->
+                            </div>
+                            <div class="col-md-7 col-sm-7 col-xs-7">
+                                <span class="control-label TextWrap">{{subItem.replacementDescription | limitTo : 80}} {{subItem.replacementDescription.length > 80 ? '...' : ''}}</span>
+                            </div>
+                            <div class="col-sm-3 col-md-3 col-xs-3" style="text-align: right !important;">
+                                <span class="control-label" style="padding-left: 32px;">{{subItem.totalReplacementPrice | currency}}</span>
+                            </div>
+                                <!--SubItems breakup-->
+                                <div class="col-md-12 col-sm-12 col-xs-12 subComponents" ng-if="subItem.subItems!=null">
+                                    <div  ng-repeat="subComponent in subItem.subItems" style="width:100%" >
+                                        <div class="col-md-12 col-sm-12 col-xs-12 subcomp-det" style="justify-content: center;width: 100% ;margin-left: 0;">
+                                            <div class="col-md-1 col-sm-1 col-xs-1"></div>
+                                            <div class="col-md-2 col-sm-2 col-xs-2 comp-img">
+                                                <img ng-if="(subComponent.imagesDTOSet == undefined || subComponent.imagesDTOSet == null || !subComponent.imagesDTOSet[0].url)" src="assets/global/img/no-image.png" alt="image" style="height:30px;width: 30px;" />
+                                                <img ng-if="(subComponent.imagesDTOSet != undefined && subComponent.imagesDTOSet != null && subComponent.imagesDTOSet[0].url)" ng-src="{{ (subComponent.imagesDTOSet[0] && subComponent.imagesDTOSet[0].length!=0) ? subComponent.imagesDTOSet[0].url : subComponent.imageUrl}}" alt="image" style="height:30px;width: 30px;" />
+
+                                                <!-- <img ng-if="subComponent.imagesDTOSet || !(subComponent.imageUrl == undefined || subComponent.imageUrl == null || subComponent.imageUrl =='' || !subComponent.imagesDTOSet[0].url)" ng-src="{{ (subComponent.imagesDTOSet[0] && subComponent.imagesDTOSet[0].length!=0) ? subComponent.imagesDTOSet[0].url : subComponent.imageUrl}}" alt="image" style="width: 30px; height:30px;"/>
+                                                <img ng-if="!subComponent.imagesDTOSet && (subComponent.imageUrl == undefined || subComponent.imageUrl == null || subComponent.imageUrl =='' || !subComponent.imagesDTOSet[0].url)" ng-src="assets/global/img/no-image.png" alt="image" style="width: 30px; height:30px;" /> -->
+                                            </div>
+                                            <div class="col-md-7 col-sm-7 col-xs-7 comp-desc" title="{{subComponent.replacementDescription}}">
+                                                <span>{{subComponent.replacementDescription | limitTo: 38}}{{subComponent.replacementDescription.length >  38 ? '...' : ''}}</span>
+                                            </div>
+                                            <div class="col-md-2 col-sm-2 col-xs-2 subcomp-price" style="text-align:right;">
+                                                {{subComponent.totalReplacementPrice | currency}}
+                                            </div>
+                                        </div>                                                        
+                                    </div>
+                                </div>
+                            
+                            
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12" style="border-top: 1px solid black; margin-top: 20px;">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="col-sm-9 col-md-9 col-xs-9 Label_Text_Right">
+                                <label class="control-label" style="float: right;">{{"Sub Total"|translate}}</label>
+                            </div>
+                            <div class="col-sm-3 col-md-3 col-xs-3" style="text-align: right !important;">
+                                <span style="padding-left: 25px;">{{comp.unitPrice | currency}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="col-sm-9 col-md-9 col-xs-9 Label_Text_Right">
+                                    <label class="control-label" style="float: right;">{{"Taxes"|translate}}
+                                        <span ng-if="ItemDetails.applyTax">({{ItemDetails.taxRate}}%)</span>
+                                        <span ng-if="!ItemDetails.applyTax">(0%)</span>
+                                    </label>
+                             </div>
+                             <div class="col-sm-3 col-md-3 col-xs-3" style="text-align: right !important;">
+                                <span style="padding-left: 25px;">{{comp.taxesVal | currency}}</span>
+                             </div>
+                        </div>
+                        <div class="col-md-12 col-sm-12" ng-if="comp.customItem">
+                            <div class="col-sm-9 col-md-9 col-xs-9 Label_Text_Right">
+                                    <label class="control-label" style="float: right;">{{"Custom Design Charges"|translate}}
+                                        <span ng-if="comp.customChargesNote && comp.customChargesNote!='' &&  comp.customChargesNote!=null" style="font-weight: normal;word-break: break-all;">({{comp.customChargesNote}})</span>
+                                    </label>
+                             </div>
+                             <div class="col-sm-3 col-md-3" style="text-align: right !important;">
+                                <span style="padding-left: 25px;">{{comp.customCharges | currency}}</span>
+                             </div>
+                        </div>
+                        <div class="col-md-12 col-sm-12" ng-if="comp.customItem">
+                            <div class="col-sm-9 col-md-9 col-xs-9 Label_Text_Right">
+                                    <label class="control-label" style="float: right;">{{"Labor Charges"|translate}}
+                                        <span ng-if="comp.labourChargesNote && comp.labourChargesNote!='' &&  comp.labourChargesNote!=null" style="font-weight: normal;word-break: break-all;">({{comp.labourChargesNote}})</span>
+                                    </label>
+                             </div>
+                             <div class="col-sm-3 col-md-3" style="text-align: right !important;">
+                                <span style="padding-left: 25px;">{{comp.labourCharges | currency}}</span>
+                             </div>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="col-sm-9 col-md-9 col-xs-9 Label_Text_Right">
+                                    <label class="control-label" style="float: right;">{{"Total Replacement Cost"|translate}}</label>
+                             </div>
+                             <div class="col-sm-3 col-md-3 col-xs-3" style="text-align: right !important;">
+                                <span style="padding-left: 25px;">{{comp.totalReplacementPrice | currency}}</span>
+                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 col-sm-12 col-xs-12 " style="margin-top: 20px;">
+            <span><u>Note:</u></span><br />
+            <span>* Artigem has made every attempt to meet or exceed the criteria of your scheduled item. The evaluations were derived from market comparable and are competitively priced for the retail market.</span>
+            <br/>
+            <span>** For returns, warranty, appraisal and any other queries about your items please visit <span style="color: #1a75ff;"><u>www.artigem.com/faqs</u></span> or contact us on +1 (618) 398 9880</span>
+            <br/>
+            <span>*** Sales tax and shipping charges may vary in the final invoice</span>
+            <br/>
+            <span>**** Please visit <span style="color: #1a75ff;"><u>www.artigem.com</u></span> to know more about Artigem</span>
+        </div>
+        <div class="col-md-12 col-sm-12 col-xs-12 " style="margin-top: 20px;">
+            <span><u>Want earn more about jewelry?</u></span>
+            <br/>
+            <span>Diamond education blurb <span style="color: #1a75ff !important;"><u>Link to the diamond education page</u></span></span>
+            <br/>
+            <span>GIA certification blurb <span style="color: #1a75ff;"><u>Link to the GIA page</u></span></span>
+            <br/>
+        </div>
+    </div>
+</div>
+</div>
+<!--Printable Div End-->
+<style>
+    .marginLeftComparable {
+        margin-left: 80px;
+    }
+</style>

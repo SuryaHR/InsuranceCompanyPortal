@@ -1,0 +1,27 @@
+﻿{
+  "labeltext": {
+    "ItemName": "Item Name",
+    "PriceQuoted": "Price Quoted",
+    "RCV": "RCV",
+    "Category": "Category",
+    "Depretiation%": "Depreciation %",
+    "SubCategory": "Sub-Category",
+    "ACV": "ACV",
+    "Brand": "Brand",
+    "TaxRate": "Tax Rate",
+    "Model": "Model",
+    "TotalTax": "Total Tax",
+    "ItemType": "Item Type",
+    "ValueOfItem": "Value Of Item",
+    "AssignedTo": "Assigned To",
+    "Holdover": "Holdover",
+    "YearOfManifacture": "Year Of Manufacture",
+    "PayoutCheck#": "Payout Check #",
+    "Description": "Description",
+    "AdjusterDescription": "Adjuster Description",
+    "Images": "Images"
+  },
+  "BtnTexts": {
+    "Save": "Save","Cancel": "Cancel"
+  }
+}

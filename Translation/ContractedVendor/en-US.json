@@ -1,0 +1,36 @@
+﻿{
+  "HeadingText": {
+    "ContractedVendor": "Contracted 3rd Party Vendors",
+    "VendorList": "All 3Circle 3rd party Vendors"
+  },
+  "ControlText": {
+    "add": "Add Vendor",
+    "View": "View",
+    "Invite": "Invite Vendor",
+    "Show": "Show",
+    "ContentCategories": "Content Categories",
+    "ServicesProvided": "Services Provided",
+    "State": "State",
+    "City": "City",
+    "AllVendors": "All Vendors",
+    "ContentProviders": "Content Providers",
+    "ServiceProviders": "Service Providers",
+    "Filters": "Filters",
+    "CreateRequest": "Create Request",
+    "CompanyName": "Vendor Company Name",
+    "CompanyWebsite": "Company Website",
+    "CompanyAddress": "Company Address",
+    "Address1": "Street Address1",
+    "Address2": "Street Address2",
+    "ZipCode": "ZipCode",
+    "OfficePhone": "Office Phone",
+    "FirstName": "First Name",
+    "LastName": "Last Name",
+    "Email": "Email",
+    "PhoneWork": "Phone (Work)"
+  },
+  "Table": {
+    "Phone": "Phone #",
+    "Active": "Active Since"
+  }
+}

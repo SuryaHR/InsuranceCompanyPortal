@@ -1,0 +1,136 @@
+﻿<!-- External css files for supervisor Dashboard -->
+<style>
+    .card-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .card {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);
+        transition: 0.3s;
+        margin: 6%;
+        border-radius: 4px;
+        cursor: pointer;
+        text-align: left;
+    }
+
+    .card .fa {
+        color: #337ab7;
+    }
+
+    .card:hover {
+        box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.4);
+    }
+
+    .profle-pic {
+        width: 90px;
+        height: 90px;
+        padding: 5px;
+    }
+</style>
+<div class="headerFreez border_bottom col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-bottom-5">
+    <div class="mainHeadingDiv">
+        <div class="caption font-gray-sharp">
+            <span class="caption-subject">{{"HeaderTitle.MyTeam" | translate}} ({{teamCount}})</span>
+        </div>
+    </div>
+</div>
+<div class="col-xs-12" id="content-tab-body">
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 card-container"
+        ng-repeat="adjuster in AllAdjusterList |orderBy: 'adjuster.lastName' track by $index ">
+        <div class="col-md-11 col-sm-12 col-xs-12 card" ng-click="GotoAdjusterPerformance(adjuster)"
+            style="padding: 5px;margin: 10px 0px;min-height: 185px;">
+            <div class="col-md-12 col-lg-12 col-sm-12 margin-top-10">
+                <div class="col-md-3 col-lg-3 col-sm-4 padding1px">
+                    <div class="col-xs-12 padding1px">
+                        <img ng-src="{{adjuster.details.displayPicture ? adjuster.details.displayPicture.fileUrl : assets/global/img/teamMemb.png}}"
+                            onerror="this.onerror=null; this.src='assets/global/img/teamMemb.png';"
+                            style="border-radius:50% !important;"
+                            class="img-responsive profle-pic" title="Profile Photo" alt="Profile Picture" />
+                    </div>
+                </div>
+                <div class="col-md-9 col-lg-9 col-sm-8">
+                    <div class="col-xs-12 padding1px">
+                        <div class="col-md-8 col-sm-8 col-xs-9 res_label_placement"
+                            style="padding-left: 0px;padding-right: 0px;">
+                            <label class="control-label ">{{"ControlText.OpenClaims"|translate}}
+                            </label>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-3 " style="padding-right: 0px;">
+                            <label class="control-label ">{{adjuster.openClaims ? adjuster.openClaims : 0}}
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 padding1px">
+                        <div class="col-md-8 col-sm-8 col-xs-9 res_label_placement "
+                            style="padding-left: 0px;padding-right: 0px;">
+                            <label class="control-label ">{{"ControlText.OverdueClaims"|translate}}
+                            </label>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-3" style="padding-right: 0px;">
+                            <label class="control-label ">{{adjuster.overdueClaims ? adjuster.overdueClaims : 0}} </label>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 padding1px hide">
+                        <div class="col-md-8 col-sm-8 col-xs-9 res_label_placement "
+                            style="padding-left: 0px;padding-right: 0px;">
+                            <label class="control-label">{{"ControlText.OpenAssignments"|translate}}
+                            </label>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-3 " style="padding-right: 0px;">
+                            <label class="control-label ">{{adjuster.openAssignments ? adjuster.openAssignments : 0}} </label>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 padding1px hide">
+                        <div class="col-md-8 col-sm-8 col-xs-9 res_label_placement "
+                            style="padding-left: 0px;padding-right: 0px;">
+                            <label class="control-label">{{"ControlText.TotalPricedForMonth"|translate}}
+                            </label>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-3" style="padding-right: 0px;">
+                            <label class="control-label ">{{"$0.00"|translate}}</label>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 padding1px">
+                        <div class="col-md-8 col-sm-8 col-xs-9 res_label_placement "
+                            style="padding-left: 0px;padding-right: 0px;">
+                            <label class="control-label ">{{"ControlText.TotalSettlementForMonth"|translate}}
+                            </label>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-3" style="padding-right: 0px;">
+                            <label class="control-label ">{{adjuster.totalSettlementAmount ? adjuster.totalSettlementAmount : 0.00 | currency}} </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12 margin-top-10" style="border-top: 1px solid gray;">
+                <div class="col-lg-6 col-md-8 col-sm-7 col-xs-12 margin-top-10 padding1px">
+                    <div class="col-md-12 col-sm-12 padding1px form-group">
+                        <i class="fa fa-user-o" aria-hidden="true"></i>&nbsp;
+                        {{adjuster.details.lastName+", "+adjuster.details.firstName}}
+                    </div>
+                    <div class="col-md-12 col-lg-12 col-sm-12 padding1px form-group">
+                        <i class="fa fa-phone" aria-hidden="true"></i>&nbsp;
+                        {{adjuster.details.cellPhone ? adjuster.details.cellPhone : adjuster.details.dayTimePhone| tel}}
+                    </div>
+                    <div class="col-md-12 col-lg-12 col-sm-12 padding1px form-group">
+                        <i class="fa fa-envelope-o" aria-hidden="true"></i>&nbsp;
+                        {{adjuster.details.email}}
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-4 col-sm-5 col-xs-12 padding1px margin-top-10">
+                    <div class="col-xs-12 padding1px form-group">
+                        <div class="col-lg-6 col-md-12 col-sm-6 col-xs-6 res_label_placement padding_left_zero">
+                            <label class="control-label ">{{"ControlText.Designation"|translate}} :
+                            </label>
+                        </div>
+                        <div class="col-lg-6 col-md-12 col-sm-6 col-xs-6 padding1px">
+                            {{adjuster.details.designation.name}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

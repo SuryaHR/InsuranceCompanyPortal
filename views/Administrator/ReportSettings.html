@@ -1,0 +1,53 @@
+<div class="col-md-12 col-sm-12 padding1px  ">
+    <ul class="page-breadcrumb breadcrumb sbold">
+        <li>
+            <a ng-click="GoToHome()">{{"Home"|translate}}</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span>{{"ReportSettings"|translate}}</span>
+        </li>
+    </ul>
+</div>
+<div class="col-md-12 padding1px">
+    <div class="portlet light padding1px ">
+        <div class="portlet-title">
+            <div class="caption font-grey-sharp">
+                <span class="caption-subject">{{"ReportSettings"|translate}}</span>
+            </div>
+        </div>
+        <div class="row" ng-form="SettingsForm">            
+            <div class="col-xs-12 margin-top-5 text-right margin-bottom-10">
+                <button class="btn sbold btnMargin" ng-click="resetToDefault()">
+                    {{"Buttons.Reset"|translate}}
+                </button>
+                <button type="button" class="btn sbold btnMargin" ng-click="updateSettings()"
+                    ng-disabled="SettingsForm.$pristine || SettingsForm.$invalid">
+                    {{"Buttons.Update"|translate}}
+                </button>
+            </div>
+            <!-- <div class="col-md-5"> -->
+            <div class="col-lg-4 col-md-5 margin-bottom-5"
+                ng-repeat="setting in reportSettings | orderBy : 'role.roleName'">
+                <div class="SubHeadingDiv sbold margin-bottom-10">
+                    {{setting.role.roleName | titleCase}}&nbsp;{{"Settings" | translate}}
+                </div>
+                <div class="col-md-12">
+                    <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline col-md-12 text-success sbold">
+                        <input type="checkbox" class="checkbox" ng-model="setting.monthly"
+                            ng-click="setting.isUpdated = true">
+                        <span></span>{{"Monthly"|translate}}
+                    </label>
+                </div>
+                <div class="col-md-12">
+                    <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline col-md-12 text-success sbold">
+                        <input type="checkbox" class="checkbox" ng-model="setting.quaterly"
+                            ng-click="setting.isUpdated = true">
+                        <span></span>{{"Quaterly"|translate}}
+                    </label>
+                </div>
+            </div>
+            <!-- </div> -->
+        </div>
+    </div>
+</div>

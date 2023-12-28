@@ -1,0 +1,83 @@
+﻿{
+  "HeaderText": {
+    "ItemSummary": "Item Summary",
+    "GemstoneDetails": "Gemstone Details",
+    "DiamandDetails": "Diamand Details"
+
+  },
+  "ControlText": {
+
+    "Save": "Save",
+    "Assignments": "Assignments",
+    "Show": "Show"
+
+  },
+  "Label": {
+    "Gemstone#": "Gemstone #",
+    "WeightOfMounting": "Weight Of Mounting",
+    "Receipts": "Receipts",
+    "Picture": "Picture",
+    "PurchaseDate": "Purchase Date",
+    "ItemType": "Item Type",
+    "ItemSubCategory": "Sub Category",
+    "ItemName": "Item Name",
+    "ItemDescription": "Description",
+    "ItemValue": "Item Value",
+    "MetalType": "Metal Type",
+    "Diamond#": "Diamond #",
+    "CaratWeight": "Carat Weight",
+    "ColorGrade": "Color Grade",
+    "GemLab": "Gem Lab",
+    "Clarity": "Clarity",
+    "CutGrade": "Cut Grade",
+    "StoneCount": "Stone Count",
+    "Shape": "Shape",
+    "Quality": "Quality",
+    "GemstoneType": "Gemstone Type",
+    "Weight": "Weight"
+
+  },
+  "CategorySpecialistsTable": {
+
+  },
+  "SaveDetails": {
+
+
+  },
+  "Sale price (in USD)": "Sale price (in USD)",
+  "Purchase date": "Purchase date",
+  "Year of Work": "Year of Work",
+  "Country of sale": "Country of sale",
+  "Insurance amount requested": "Amount requested",
+  "ArtWork Details": "ArtWork Details",
+  "Artist": "Artist",
+  "Auction House": "Auction House",
+  "Media": "Media",
+  "Specific Medium": "Specific Medium",
+  "size of artifact (in cms)": "size of artifact (in cms)",
+  "Height": "Height",
+  "Length": "Length",
+  "Width": "Width",
+  "Catalogue Raisonne (Only for photographs)": "Catalogue Raisonne (Only for photographs)",
+  "Author": "Author",
+  "Number": "Number",
+  "Item Name": "Item Name",
+  "Full Title on the Label": "Full Title on the Label",
+  "Brand Label": "Brand Label",
+  "Brand Owner": "Brand Owner",
+  "Item Value": "Item Value",
+  "More details about the Wine": "More details about the Wine",
+  "Type And Color": "Type And Color",
+  "Variety": "Variety",
+  "Country": "Country",
+  "Region": "Region",
+  "Sub-region": "Sub-Region",
+  "Bottle Size": "Bottle Size",
+  "Quantity": "Quantity",
+  "Vintage Year": "Vintage Year",
+  "Item Details": "Item Details",
+  "Maker/Manufacturer": "Maker/Manufacturer",
+  "Collections Category": "Collections Category",
+  "Object Type": "Object Type",
+  "Model": "Model"
+}

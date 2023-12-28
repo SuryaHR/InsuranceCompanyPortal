@@ -1,0 +1,63 @@
+﻿<style>
+    #option{
+        cursor:pointer;
+    }
+</style>
+<div class="col-md-12 col-lg-12 padding1px">
+    <ul class="page-breadcrumb breadcrumb sbold">
+        <li>
+            <a ng-click="GoToHome()">{{"Home"|translate}}</a>
+            <i class="fa fa-circle"></i>
+        </li>        
+        <li>
+            <span>{{"State Taxes"|translate}}</span>
+        </li>
+    </ul>
+    <div class="portlet light padding1px">
+        <div class="portlet-title">
+            <div class="caption font-gray-sharp">
+                <span class="caption-subject">{{"StateTaxes"|translate}}</span>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 margin-top-10" ng-form="StateTaxForm">
+                    <!--<div class="col-md-2 col-lg-2 col-sm-4">                   
+                            <select class="form-control select2me"  ng-change="onStateChange(State)" name="State" id="select2insidemodal" required ng-model="State" placeholder='{{"Select State"|translate}}'>
+                                <option value="">Select</option>
+                                <option ng-repeat="State in StateList" value="{{State.id}}">{{State.state}}</option>
+                            </select> 
+                        <div class="errormessage">
+                            <span class="text-danger" ng-show="StateTaxForm.State.$error.required">{{"Please Select State"}}</span>
+                        </div>                     
+                    </div>
+                    <div class="col-md-2 col-lg-2 col-sm-4">
+                        <input type="text" class="form-control" name="TaxRate" ng-model="TaxRate" required placeholder='{{"Corresponding Tax Rate"|translate}}'/>
+                        <div class="errormessage">
+                            <span class="text-danger" ng-show="StateTaxForm.TaxRate.$error.required && StateTaxForm.TaxRate.$touched">{{"Please enter tax rate"}}</span>
+                        </div>
+                    </div>-->
+                    <div class="col-md-12 col-sm-12" ng-repeat="state in StateList">
+                        <div class="col-md-12 clearfix padding1px">
+                                <label class="control-label col-md-2">{{state.stateName}}&nbsp;({{state.state}})</label>
+                            <div class="col-md-2 form-group" style="display:flex">
+                                <input type="text" class="form-control" ng-model="state.taxRate" ng-click="SelectValue(state)"/>
+                                </div>
+                            <div  ng-if="state.isEdit==true" class="col-md-1 text-center margin-bottom-15" style="display:flex;">
+                                <span class="fa fa-check-circle fa-2x font-green" id="option" style="line-height:22px;" ng-click="UpdateStateTax(state)">
+                                </span>&nbsp;<span class="fa fa-times-circle fa-2x text-danger" ng-click="Close(state)" id="option" style="line-height:22px;margin-left:3px;"></span>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                <!--<div class="col-md-12 col-sm-12 margin-top-10">
+                    <div class="col-md-4 col-lg-4 col-sm-8 topBorder text-right">
+                        <button class="btn btnMargin sbold margin-top-10">{{"Cancel"|translate}}</button>
+                        <button class="btn btnMargin sbold margin-top-10" ng-click="UpdateStateTax()" ng-disabled="StateTaxForm.$invalid||StateTaxForm.$pristine">{{"Save"|translate}}</button>
+                    </div>                   
+                </div>-->
+                </div>
+        </div>
+    </div>
+</div>

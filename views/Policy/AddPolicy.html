@@ -1,0 +1,520 @@
+<style>
+    .dropHeightMax {
+        max-height: 80px;
+        overflow-y: auto;
+    }
+
+    .panel-heading {
+        background-color: #337ab7 !important;
+        font-size: 15px !important;
+        color: #fff !important;
+    }
+
+    .subject-size {
+        font-size: 17px !important;
+        color: #000;
+    }
+
+    /*.control-label {
+        padding-top: 5px !important;
+    }*/
+
+    .mandatory {
+        color: red;
+    }
+
+    input::-webkit-input-placeholder {
+        font-size: 11px !important;
+    }
+
+    input:-moz-placeholder {
+        /* Firefox 18- */
+        font-size: 11px !important;
+    }
+
+    input::-moz-placeholder {
+        /* Firefox 19+ */
+        font-size: 11px !important;
+    }
+
+    input:-ms-input-placeholder {
+        font-size: 11px !important;
+    }
+
+    input.pin::-webkit-input-placeholder {
+        color: red !important;
+    }
+
+    input.pin:-moz-placeholder {
+        /* Firefox 18- */
+        color: red !important;
+    }
+
+    input.pin::-moz-placeholder {
+        /* Firefox 19+ */
+        color: red !important;
+    }
+
+    input.pin:-ms-input-placeholder {
+        color: red !important;
+    }
+
+    .Label_Text_Center {
+        text-align: center !important;
+    }
+
+    .Label_Text_Left {
+        text-align: left !important;
+    }
+
+    .Label_Text_Right {
+        text-align: right !important;
+    }
+
+    input {
+        border-radius: 3px !important;
+    }
+    select:required:invalid {
+        color:red;
+    }
+    option:not(:first-of-type) {
+  color: black;
+}
+
+    .input-box {
+        outline: none !important;
+        box-shadow: none !important;
+        display: block;
+        width: 100%;
+        height: 25px;
+        padding: 6px 12px;
+        padding-bottom: 8px;
+        font-size: 13px;
+        line-height: 1.42857;
+        color: #555555;
+        background-color: #fff;
+        background-image: none;
+        border: 1px solid #c2cad8;
+        border-radius: 4px;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+        -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+        -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+        transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+    }
+
+    .control-label {
+        text-align: right !important;
+        margin-bottom: 0 !important;
+        padding-top: 2px !important;
+    }
+
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    input[readonly] {
+        background-color: #fff !important;
+    }
+
+    input:focus {
+        border: 1px solid #2980B9;
+    }
+
+    .policy-body {
+        background-color: #E0F7FA;
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+    }
+
+    /*select {
+        padding-left: 3px !important;
+    }*/
+
+    .custom-btn {
+        display: inline-block;
+        margin-bottom: 0;
+        font-weight: normal;
+        text-align: center;
+        vertical-align: middle;
+        touch-action: manipulation;
+        cursor: pointer;
+        background-image: none;
+        max-width: 12px !important;
+        border: none;
+        white-space: nowrap;
+        padding: 6px 12px;
+        font-size: 14px !important;
+        line-height: 1.42857;
+        border-radius: 4px;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+    .grey {
+        color: #000;
+        background-color: #c2cad8;
+        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+            0 1px 5px 0 rgba(0, 0, 0, 0.12),
+            0 3px 1px -2px rgba(0, 0, 0, 0.2);
+        transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .select2-container .select2-selection--single {
+        max-height: 25px !important;
+    }
+
+    .select2-container--default .select2-selection--single .select2-selection__rendered {
+        color: #555555 !important;
+        line-height: 23px !important;
+        font-size: 11px !important;
+    }
+
+    #select2-select1-container {
+        /*margin-top: 5px;*/
+        padding-left: 5px;
+        font-size: 12px;
+    }
+
+    .showbtns {
+        margin-top: -9px;
+    }
+
+    .input-group-addon {
+        padding: 3px 9px !important;
+    }
+
+    @media (max-device-width:1024px) {
+        .showbtns {
+            display: none;
+        }
+    }
+
+    /* START - Dynamic button effect style*/
+    .btn-default {
+        color: #333;
+        background-color: #c2cad8;
+        border-color: #adadad;
+    }
+
+    .btn-default:hover {
+        color: rgb(248, 244, 244) !important;
+        background-color: #4b4848 !important;
+        border-color: #3a3737 !important;
+    }
+
+    /* END - Dynamic button effect style*/
+    .datepicker {
+        left: 410.088px !important;
+    }
+</style>
+<script>
+    $(document).ready(function () {
+        $selectElement = $("#select1").select2({});
+        $selectElement = $("#select2").select2({});
+    });
+
+    $(function () {
+        $(':input[type=number]').on('mousewheel', function (e) { $(this).blur(); });
+    });
+
+    $(".readonly").on('keydown paste', function (e) {
+        e.preventDefault();
+    });
+
+</script>
+<div class="headerFreez border_bottom col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-bottom-5">
+    <ul class="page-breadcrumb breadcrumb sbold">
+        <li>
+            <a ng-click="GotoAgentDashboard()">{{"Home"|translate}}</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span>{{"Menu.Page_Title"|translate}}</span>
+        </li>
+    </ul>
+    <div class="mainHeadingDiv">
+        <div class="caption font-gray-sharp">
+            <span class="caption-subject">
+                {{"MainHeader.Policy_Title"|translate}}</span>
+        </div>
+    </div>
+</div>
+<!-- Policy Body -->
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="content-parent">
+    <form class="form-horizontal" name="addPolicyForm">
+        <!--Buttons-->
+        <div class="col-lg-12 col-sm-12 pull-right">
+            <div class="form-group pull-right">
+                <button class="btn btn-default sbold btnMargin" type="button"
+                    ng-click="GotoAgentDashboard()">Cancel</button>
+
+                <button class="btn btn-default sbold btnMargin" type="submit" ng-disabled="!addPolicyForm.$valid"
+                    ng-click="addPolicyForm.$valid ? addPolicy() : angular.noob()" style="min-width: 130px;">Save &
+                    Continue</button>
+            </div>
+        </div>
+        <br /><br />
+        <div class="form-group">
+            <label class="control-label col-lg-3 col-md-4 col-sm-5" id="policyNum" for="policyNumber"><strong
+                    class="mandatory">*</strong>&nbsp;{{"PolicyForm.Policy_Num"|translate}}
+            </label>
+            <div class=" col-lg-3 col-md-5 col-sm-6">
+                <input type="text" class="input-box" placeholder="{{'PolicyForm.Policy_Num'|translate}}" required
+                    ng-model="policyDetails.policyNum" id="policyNumber" name="policyNumber" autocomplete="policy"
+                    maxlength="20">
+                <div class="errormessage">
+                    <span class="text-danger"
+                        ng-if="addPolicyForm.policyNumber.$error.required && addPolicyForm.policyNumber.$touched">
+                        {{"Please enter a policy number"|translate}}</span>
+                </div>
+            </div>
+        </div>
+
+        
+        <div class="form-group">
+            <label class="control-label col-lg-3 col-md-4 col-sm-5" id="phName" for="phFirstName"><strong
+                    class="mandatory">*</strong>&nbsp;{{"PolicyForm.Pri_PH_FirstName"|translate}}
+            </label>
+            <div class="col-lg-3 col-md-5 col-sm-6">
+                <input type="text" class="input-box" id="phFirstName" required ng-model="policyDetails.priFirstName"
+                    placeholder="{{'PolicyForm.FirstName_Placeholder'|translate}}" name="phFirstName"
+                    autocomplete="phname">
+                <div class="errormessage">
+                    <span class="text-danger"
+                        ng-if="addPolicyForm.phFirstName.$error.required && addPolicyForm.phFirstName.$touched">
+                        {{"Please enter first name"|translate}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-lg-3 col-md-4 col-sm-5" id="phName" for="phLastName"><strong
+                    class="mandatory">*</strong>&nbsp;{{"PolicyForm.Pri_PH_LastName"|translate}}
+            </label>
+            <div class=" col-lg-3 col-md-5 col-sm-6">
+                <input type="text" class="input-box" id="policyFormInput" required ng-model="policyDetails.priLastName"
+                    placeholder="{{'PolicyForm.LastName_Placeholder'|translate}}" name="phLastName"
+                    autocomplete="phLname">
+                <div class="errormessage">
+                    <span class="text-danger"
+                        ng-if="addPolicyForm.phLastName.$error.required && addPolicyForm.phLastName.$touched">
+                        {{"Please enter last name"|translate}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-lg-3 col-md-4 col-sm-5" for="phEmail1"><strong
+                    class="mandatory">*</strong>&nbsp;{{"PolicyForm.PH_Email"|translate}}&nbsp;
+            </label>
+            <div class=" col-lg-3 col-md-5 col-sm-6">
+                <input type="text" id="phEmail1" name="phEmail1" required ng-model="policyDetails.priEmail"
+                    ng-pattern="/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/" class="form-control"
+                    placeholder="{{'Email'|translate}}" autocomplete="off" />
+                <div ng-message="pattern" ng-show="(addPolicyForm.phEmail1.$error.pattern)">
+                    <span class="text-danger">{{"Please enter valid email"|translate}}</span>
+                </div>
+                <div ng-message="required"
+                    ng-show="addPolicyForm.phEmail1.$error.required && addPolicyForm.phEmail1.$touched">
+                    <span class="text-danger">{{"Please enter email address"|translate}}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-lg-3 col-md-4 col-sm-5" for="phCellNum1"> <strong
+                    class="mandatory">*</strong>&nbsp;{{"PolicyForm.PH_Cell"|translate}}
+            </label>
+            <div class=" col-lg-3 col-md-5 col-sm-6">
+                <input type="text" name="phCellNum1" ng-pattern="/^([0-9-,()\s+]{15})$/" ng-trim="false" required
+                    maxlength="15" class="input-phone input-box" phone-input placeholder="(XXX)XXX-XXXX"
+                    ng-model="policyDetails.priCellPhone" autocomplete="primphone" />
+                <span class="text-danger" ng-if="(addPolicyForm.phCellNum1.$error.pattern)">
+                    {{"PolicyForm.Valid_Number"|translate}} </span>
+                <span class="text-danger"
+                    ng-if="(addPolicyForm.phCellNum1.$error.required && addPolicyForm.phCellNum1.$touched)">{{"PolicyForm.Cell_Required"|translate}}</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                <div class="form-group">
+                    <label class="control-label col-lg-6 col-md-4 col-sm-5"
+                        for="phAddress1">{{"PolicyForm.PH_Street_Address"|translate}}</label>
+                    <div class="col-lg-6 col-md-5 col-sm-6">
+                        <input type="text" class="input-box" ng-model="policyDetails.streetAddress1"
+                            placeholder="{{'PolicyForm.Street_Address'|translate}} 1" name="phAddress1"
+                            autocomplete="phAddress1" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="control-label col-lg-6 col-md-4 col-sm-5"></div>
+                    <div class="col-lg-6 col-md-5 col-sm-6">
+                        <input type="text" class="input-box" ng-model="policyDetails.streetAddress2"
+                            placeholder="{{'PolicyForm.Street_Address'|translate}} 2" name="phAddress2"
+                            autocomplete="phAddress2" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="control-label col-lg-6 col-md-4 col-sm-5"></div>
+                    <div class="col-lg-6 col-md-5 col-sm-6">
+                        <input type="text" class="input-box" ng-model="policyDetails.cityTown"
+                            placeholder="{{'PolicyForm.City'|translate}}" name="phAddress3" autocomplete="phAddress3" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-6 col-md-4 col-sm-5"> </div>
+                    <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
+                        <select class="form-control" ng-model="policyDetails.phState" data-placeholder="State" name="state"
+                            ng-options="option.id as option.state for option in StateList" ng-change="onStateChange(policyDetails.phState)" required>
+                            <option disabled selected hidden value="">State*</option>
+                        </select>
+                        <div class="errormessage">
+                            <span class="text-danger"
+                                ng-if="(addPolicyForm.state.$error.required && addPolicyForm.state.$touched)">{{"Please Select State"|translate}}</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-3 col-sm-6 col-xs-12">
+                        <input type="text" maxlength="5"
+                            onkeypress='return event.charCode >= 48 && event.charCode <= 57' required
+                            placeholder="{{'PolicyForm.PH_Zip'|translate}}*" name="zipcode"
+                            ng-model="policyDetails.zipCode" class="input-box pin" autocomplete="zipcode" />
+
+                        <div class="errormessage">
+                            <span class="text-danger"
+                                ng-if="(addPolicyForm.zipcode.$error.required && addPolicyForm.zipcode.$touched)">{{"PolicyForm.ZIP_required"|translate}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="form-group">
+            <label class="control-label col-lg-3 col-md-4 col-sm-5" id="policyType"
+                for="hoPolicyType">{{"PolicyForm.Policy_Type"|translate}}</label>
+            <div class="col-lg-3 col-md-5 col-sm-6">
+                <select class="form-control" ng-model="policyDetails.phPolicyType" data-placeholder="Select policy type"
+                    ng-options="policyType.id as policyType.typeName for policyType in HOPolicyTypes">
+                </select>
+            </div>
+        </div> -->
+        <div class="form-group">
+            <label class="control-label col-lg-3 col-md-4 col-sm-5"
+                for="secFirstName">{{"PolicyForm.Sec_PH_FirstName"|translate}}</label>
+            <div class=" col-lg-3 col-md-5 col-sm-6">
+                <input type="text" class="input-box" id="policyFormInput" ng-model="policyDetails.secFirstName"
+                    placeholder="{{'PolicyForm.FirstName_Placeholder'|translate}}" name="secFirstName"
+                    autocomplete="secfname">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-lg-3 col-md-4 col-sm-5"
+                for="secLastName">{{"PolicyForm.Sec_PH_LastName"|translate}}</label>
+            <div class=" col-lg-3 col-md-5 col-sm-6">
+                <input type="text" class="input-box" id="policyFormInput" ng-model="policyDetails.secLastName"
+                    placeholder="{{'PolicyForm.LastName_Placeholder'|translate}}" name="secLastName"
+                    autocomplete="seclname">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-lg-3 col-md-4 col-sm-5"
+                for="phEmail2">{{"PolicyForm.Sec_PH_Email"|translate}}&nbsp;</label>
+            <div class="col-lg-3 col-md-5 col-sm-6">
+                <input type="text" id="phEmail2" name="phEmail2" ng-model="policyDetails.secEmail"
+                    ng-pattern="/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/" class="input-box"
+                    placeholder="{{'Email'|translate}}" autocomplete="off" />
+                <div ng-message="pattern" ng-show="(addPolicyForm.phEmail2.$error.pattern)">
+                    <span class="text-danger">{{"Please enter valid email"|translate}}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-lg-3 col-md-4 col-sm-5"
+                for="phCellNum2">{{"PolicyForm.PH_Cell"|translate}}</label>
+            <div class="col-lg-3 col-md-5 col-sm-6">
+                <input type="text" name="phCellNum2" ng-pattern="/^([0-9-,()\s+]{15})$/" ng-trim="false" maxlength="15"
+                    class="input-phone input-box" phone-input placeholder="(XXX)XXX-XXXX"
+                    ng-model="policyDetails.secCellPhone" />
+                <span class="text-danger" ng-if="(addPolicyForm.phCellNum2.$error.pattern)">
+                    {{"PolicyForm.Valid_Number"|translate}}
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-lg-3 col-md-4 col-sm-5"><strong
+                    class="mandatory">*</strong>&nbsp;{{"PolicyForm.Policy_EffDate"|translate}}
+            </label>
+            <div class="col-lg-2 col-md-4 col-sm-6">
+                <!-- <div class="input-icon left" id="policy_eff_date">
+                    <i class="icon-calendar"></i>
+                    <input class="form-control datepicker fromDateCls" data-date-container='#effCal' data-date="{{policyDetails.effectiveDate}}"
+                        ng-model="policyDetails.effectiveDate" data-provide="datepicker" size="16" type="text" placeholder="{{'PolicyForm.Date_Format'|translate}}"
+                        name="effDate" id="effDate" autocomplete="fakeFromDate" readonly />                                        
+                </div> -->
+                <div class="input-icon" id="policy_eff_date">
+                    <i class="icon-calendar"></i>
+                    <input class="form-control datepicker fromDateCls" name="effDate" ng-model="policyDetails.effectiveDate"
+                        close-on-date-selection="true" data-provide="datepicker" size="16" type="text" data-date="{{policyDetails.effectiveDate}}"
+                        autocomplete="off" data-ng-change="getMaxDate(policyDetails.effectiveDate)"
+                        placeholder="{{'PolicyForm.Date_Format'|translate}}"
+                        ng-pattern="/^[0-9]{1,2}\/[0-9]{1,2}\/[0-9]{4}$/" readonly />
+                </div>
+
+                <div class="errormessage">
+                    <span class="text-danger"
+                        ng-if="(addPolicyForm.effDate.$error.required && addPolicyForm.effDate.$touched)">{{"PolicyForm.Select_Date"|translate}}</span>
+                    <span class="text-danger"
+                        ng-if="!addPolicyForm.effDate.$error.required && addPolicyForm.effDate.$invalid && addPolicyForm.effDate.$dirty">{{"PolicyForm.Select_Valid_Date"|translate}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-lg-3 col-md-4 col-sm-5" id="renew-date" for="policyRenewalDate"><strong
+                    class="mandatory">*</strong>&nbsp;{{"PolicyForm.Policy_ReDate"|translate}}
+            </label>
+            <div class=" col-lg-2 col-md-4 col-sm-6">
+                <!-- <div class="input-icon left" id="policy_renew_date">
+                    <i class="icon-calendar"></i>
+                    <input class="form-control datepicker toDateCls" data-date-start-date="{{policyDetails.effectiveDate}}" close-on-date-selection="true"
+                        ng-model="policyDetails.renewalDate" data-provide="datepicker" size="16" type="text" placeholder="{{'PolicyForm.Date_Format'|translate}}"
+                        name="renewDate" id="renewDate" autocomplete="fakeToDate" readonly/>                                        
+                </div> -->
+                <div class="input-icon" id="policy_renew_date">
+                    <i class="icon-calendar"></i>
+                    <input class="form-control datepicker toDateCls" required name="renewDate" id="renewDate" data-date-start-date="{{policyDetails.effectiveDate}}"
+                        ng-model="policyDetails.renewalDate" close-on-date-selection="true" data-provide="datepicker" data-date="{{policyDetails.renewalDate}}"
+                        size="16" type="text" autocomplete="off" placeholder="{{'PolicyForm.Date_Format'|translate}}"
+                        ng-pattern="/^[0-9]{1,2}\/[0-9]{1,2}\/[0-9]{4}$/" readonly />
+                </div>
+            </div>            
+        </div>
+        <!--Effective & Renewal date errors sections -->
+        <div class="form-group">
+            <label class="control-label col-lg-3 col-md-4 col-sm-5"></label>
+            <div class="col-lg-8 col-md-8 col-sm-12 errormessage">
+                <span class="text-danger"
+                    ng-if="(addPolicyForm.renewDate.$error.required && addPolicyForm.renewDate.$touched)">{{"PolicyForm.Select_Date"|translate}}</span>
+                <span class="text-danger" ng-show="!(addPolicyForm.renewDate.$error.required && addPolicyForm.renewDate.$touched) && hasError(addPolicyForm.renewDate)">{{"PolicyForm.Invalid_RDate"|translate}}</span>
+            </div>
+        </div>
+
+        <!--Buttons-->
+        <div class="col-lg-12 col-sm-12 text-right padding1px margin-bottom-10">
+            <button class="btn btn-default sbold btnMargin" type="button"
+                ng-click="GotoAgentDashboard()">Cancel</button>
+            <button class="btn btn-default sbold btnMargin" type="submit" ng-disabled="!addPolicyForm.$valid"
+                ng-click="addPolicyForm.$valid ? addPolicy() : angular.noob()" style="min-width: 130px;">Save &
+                Continue</button>
+        </div>
+    </form>
+</div>
+<script type="application/javascript">
+    $( document ).ready(function() {
+        var $injector = angular.element(document.body).injector();
+        var calService = $injector.get('CalendarUtility');
+        calService.calPastDateSetting("fromDateCls", "toDateCls"); // Policy Effective Dates
+    });
+</script>

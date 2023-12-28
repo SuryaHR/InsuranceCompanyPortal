@@ -1,0 +1,42 @@
+<script>
+    $(document).ready(function () {
+        $("#select2insidemodal").select2({
+            dropdownParent: $("#categoryPopUp")
+        });
+    });
+</script>
+<div id="categoryPopUp">
+    <div id="responsive">
+        <div class="modal-header">
+            <a class="close" ng-click="cancel()" aria-hidden="true"></a>
+            <h5 class="modal-title sbold">{{"Change Category"|translate}}</h5>
+        </div>
+        <div class="modal-body" style="height: 100%;max-height:480px;overflow-y:scroll;overflow-x:hidden;">
+            <div class="col-md-12 col-sm-12 padding1px">
+                <div class="col-md-12 col-sm-12">
+                    <input
+                    type="text"
+                    class="form-control form-control-solid input-circle input-block-level"
+                    ng-model="searchCategory"
+                    ng-change=""
+                    placeholder='{{"Search"|translate}}'>
+                </div>
+                <div class="col-md-12 col-sm-12" style="padding-top:15px;">
+                    <table>
+                        <tr ng-repeat="category in CategoryList|filter:searchCategory" ng-click="saveCategory(category)">
+                            <td> 
+                                <label class="mt-radio mt-radio-outline mt-radio-single">
+                                    <input
+                                        type="radio"
+                                        name="selectedCategory"
+                                        ng-click="saveCategory(category)"
+                                    ><span></span>{{category.categoryName}}
+                                </label></td>
+                        </tr>
+                    </table>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

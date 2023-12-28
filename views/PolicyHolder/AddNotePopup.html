@@ -1,0 +1,72 @@
+﻿<div>
+    <div id="responsive">
+        <div class="modal-header">
+            <a class="close" ng-click="cancel()" aria-hidden="true"></a>
+            <h4 class="modal-title">{{"HeaderTitle.AddNote"|translate}}</h4>
+        </div>
+        <div class="modal-body">
+            <div class="col-md-12 padding1px " ng-form="CreateNoteForm">
+                <div class="col-md-12 col-sm-12 padding1px" style="display:flex">
+                    <input id="NoteFileUpload" type="file" ng-model="CommonObj.Attachment" onchange="angular.element(this).scope().getNoteFileDetails(this)" style="display: none;" accept="image/*">
+                    <div class="col-md-2 col-sm-2 text-center">
+                        <span style="line-height:75px;margin-left:15px;" ng-click="SelectNoteFile();">
+                            <i class="fa fa-paperclip fa-2x"></i>
+                        </span>
+                    </div>
+                    <div class="col-md-10 col-sm-10 clearfix">
+                        <textarea class="form-control" ng-model="CommonObj.claimNote" placeholder='{{"ControlText.NotePlaceholder"|translate}}' rows="3" name="claimNote" required></textarea>
+                        <div class="errormessage">
+                            <div ng-message="required" ng-show="(CreateNoteForm.claimNote.$error.required && CreateNoteForm.claimNote.$touched)">
+                                <span class="text-danger">{{"ErrorMessage.ClaimNoteRequired"|translate}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 margin-top-5 margin-bottom-5 padding1px clearfix">
+                    <div class="col-md-3">
+                        <label class="control-label bold text-success">{{"ControlText.SelectedFile"|translate}}</label>
+                    </div>
+                    <div class="col-md-6 text-left">
+                        <label class="control-label  text-muted bold">{{fileName}}</label>
+                    </div>
+                    <div class="col-md-3 text-left">
+                        <button class="btn sbold btnMargin pull-right" ng-click="ChangeAttachments()" ng-show="files.length>0">
+                            {{"ControlText.ChangeFile"|translate}}
+                        </button>
+                        <!--<button class="btn sbold red btnMargin pull-right" ng-click="ClearAttachments()">
+
+                        {{"ControlText.ClearFile"|translate}}
+                    </button>-->
+                    </div>
+                </div>
+                <div class="col-md-12 margin-top-5 margin-bottom-5  clearfix padding1px">
+                    <label class="col-md-3 control-label">{{"ControlText.SelectParticipnt"|translate}}</label>
+                    <div class="col-md-9">
+                        <select class="form-control select2me input-large" ng-model="CommonObject.SeletedId" data-placeholder="select" id="select2insidemodal"
+                                ng-change="afterSelectedParticipant()">
+                            <option ng-repeat="item in ClaimParticipantsList" value="{{item.participantId}}">{{item.firstName}} &nbsp; {{item.lastName}}</option>
+                        </select>
+                        <!--<div class="input-icon left">
+                            <i class="icon-magnifier"></i>
+                            <div angucomplete-alt id="NoteParticipant" placeholder='{{"NoteParticipantSearchText"|translate}}' pause="100"
+                                 selected-object="GetNoteParticipant" local-data="ClaimParticipantsList" local-search="localSearch" input-name="NoteParticipant"
+                                 title-field="firstName,lastName" minlength="1" input-class="form-control input-circle input-block-level btnMargin angucompleteSearchBox" match-class="highlight">
+                            </div>
+
+                        </div>-->
+
+                    </div>
+                    <span class="col-md-3 text-success">{{"ParticiapntValidMessage"|translate}} </span><div class="col-md-9"><i class="control-label valid-status valid text-success" style="font-size:12px;" ng-repeat="item in participantsForNote">{{item.ParticipantName}}<i ng-if="!$last">,&nbsp;</i></i></div>
+                    <!--<span class="col-md-3 text-success">{{"ParticiapntValidMessage"|translate}} </span><div class="col-md-9"><span class="control-label" style="font-size:12px;" ng-repeat="item in ParticipantName">{{item}}<span ng-if="!$last">,&nbsp;</span></span></div>-->
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="modal-footer">
+            <button type="button" class="btn sbold btnMargin" ng-click="cancel()">{{"ControlText.Cancel"|translate}}</button>
+            <button type="button" data-dismiss="modal" class="btn sbold btnMargin" ng-click="ok()" ng-disabled="CreateNoteForm.$invalid || CreateNoteForm.$pristine">{{"ControlText.AddNote"|translate}}</button>
+        </div>
+    </div>
+
+</div>
+

@@ -1,0 +1,70 @@
+﻿{     
+  "LabelText":{
+    "TotalAppraisalsCrt" : "Total # of Appraisals created :",
+    "TotalArtigemReviews": "Total # of Artigem Reviews :",
+    "PrimaryContact" : "Primary Contact",
+    "PrimaryEmailID" : "Primary Email ID",
+    "PhoneNumber" : "Phone Number",
+    "BillingPeriod" : "Billing Period",
+    "Status" : "Status",    
+    "InvoiceNo" : "Invoice #",
+    "InvoiceDate" : "Invoice Date",    
+    "InvoiceAmount" : "Invoice Amount",
+    "Action" : "Action",    
+    "DateIssued" : "Date Issued",
+    "TotalAmountDue" : "Total Amount Due",
+    "DueDate" : "Due Date",
+    "Summary" : "Summary",
+    "ProductService" : "Product/Service",
+    "Quantity" : "Quantity",
+    "UnitCost" : "Unit Cost",
+    "Adjustments" : "Adjustments",
+    "Total" : "Total",
+    "InvoiceCreatedDate" : "Invoice Created Date",
+    "State": "State",
+    "InsuranceAgent": "Insurance Agent",
+    "PolicyType" : "Policy Type",
+    "To" : "To",
+    "Reason" : "Reason",
+    "Appraisal#" : "Appraisal #",
+    "ItemCategory" : "Item Category",
+    "Policy#" : "Policy #",
+    "PrimaryPolicyholder" : "Primary Policyholder",
+    "OldAppraisalValue" : "Old Appraisal Value",
+    "SpeedCheckValue" : "SpeedCheck Value",
+    "ArtigemReview" : "Artigem Review?",
+    "ExportAsExcel" : "Export As Excel",
+    "ThisMonth" : "This Month",
+    "ThisQuarter" : "This Quarter",
+    "ThisYear" : "This Year",
+    "AgentSearchText" : "Appraisal #, Policy #, Invoice #",
+    "SearchText" : "Appraisal #, Policy #, Agent's name, Policyholder's name, Invoice #"
+  },
+
+  "HeaderText":{
+    "Invoices": "Invoices",
+    "AllInvoices":"All Invoices",
+    "SubscriptionActive":"Subscription Active",
+    "SubscriptionExpired":"Subscription Expired",
+    "BillingContact" : "Billing Contact",
+    "ItemizedInvoices" : "Itemized Invoices",
+    "Invoice#": "Invoice # ",
+    "Filters" : "Filters"
+  },
+
+  "ControlText": {
+    "ThisMonthBtn": "This Month",
+    "ThisQuarterBtn": "This Quarter",
+    "ThisYearBtn": "This Year",
+    "SearchBtn" : "Search" , 
+    "ResetBtn" : "Reset"
+  },
+
+  "MsgText":{
+    "NoDataFound": "No data found",
+    "NoInvoiceFound" : "No invoices found",
+    "SubscriptionPlanActive" : "You are currently on an ANNUAL subscription plan. Your subscription ends ",
+    "SubscriptionPlanExpired" : "Your subscription expired on ",
+    "NoActiveSubcription" : "No active subscription available"
+  }
+}

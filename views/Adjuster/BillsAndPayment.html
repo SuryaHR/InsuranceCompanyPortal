@@ -1,0 +1,630 @@
+﻿<div class="headerFreez border_bottom col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-bottom-5">
+    <div class="mainHeadingDiv">
+        <div class="caption font-gray-sharp">
+            <span class="caption-subject">{{"Invoices"|translate}}</span>
+        </div>
+    </div>
+</div>
+<div class="col-md-12 col-xs-12" id="content-tab-body">
+    <div class="col-md-12 col-sm-12 well">
+        <div class="col-md-12 col-sm-12 sbold form-group">
+            {{"Filters"|translate}}
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 form-group">
+            <div class="col-lg-2 col-md-2 col-sm-3 sbold text-right" style="margin-top: 8px;">
+                {{"Status" | translate}}</div>
+            <div class="col-md-8 col-sm-8 col-sm-12 padding1px">
+                <div class="col-md-6 col-sm-6 pull-left">
+                    <select id="vendorAssociate" class="form-control select2me" multiple="multiple"
+                        data-placeholder="Select Status" ng-model="status"
+                        ng-options="status.id as status.name for status in statusList">
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 form-group" id="cal">
+            <div class="col-lg-2 col-md-2 col-sm-3 sbold text-right"> {{"Created Date" | translate}}
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-5">
+                <div class="input-icon left">
+                    <i class="icon-calendar"></i>
+                    <input class="form-control datepicker" data-date-end-date="0d" ng-model="startDate"
+                        data-date-container='#cal' required close-on-date-selection="false" data-provide="datepicker"
+                        size="16" type="text" placeholder='{{"From"|translate}}' name="fromDate" autocomplete="off" />
+                </div>
+            </div>
+
+            <div class=" col-lg-2 col-md-2 col-sm-5 pull-left">
+                <div class="input-icon left">
+                    <i class="icon-calendar"></i>
+                    <input class="form-control datepicker" data-date-end-date="0d" ng-model="endDate"
+                        data-date-container='#cal' required close-on-date-selection="false" data-provide="datepicker"
+                        size="16" type="text" placeholder='{{"To"|translate}}' name="toDate" autocomplete="off" />
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 form-group">
+            <div class="col-lg-2 col-md-2 col-sm-3 sbold text-right" style="margin-top: 8px;">
+                {{"Vendor" | translate}}</div>
+            <div class="col-md-8 col-sm-8 col-sm-12 padding1px">
+                <div class="col-md-6 col-sm-6 pull-left">
+                    <select id="companies" class="form-control select2me" multiple="multiple"
+                        data-placeholder="Select Vendor" ng-model="vendor"
+                        ng-options="vendor.id as vendor.name for vendor in vendorList ">
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- CTB-2182 -->
+        <!-- <div class="col-lg-12 col-md-12 col-sm-12 margin-top-10 margin-bottom-5">
+                        <div class="col-lg-2 col-md-2 col-sm-3  bold text-right" style="margin-top: 8px;"> {{"Adjuster" | translate}}</div>
+                        <div class="col-md-8 col-sm-8 col-sm-12 padding1px">
+                            <div class="col-md-6 col-sm-6 pull-left">
+                                <select class="form-control select2me" multiple="multiple" data-placeholder="Select Adjuster" ng-model="Adjuster" ng-options = "item.userId as item.lastName+','+item.firstName for item in AdjusterList ">
+                                </select>
+                             </div>
+                        </div>
+                    </div> -->
+
+        <div class="col-lg-12 col-md-12 col-sm-12 form-group">
+            <div class="col-lg-2 col-md-2 col-sm-3 sbold text-right" style="margin-top: 8px;">
+                {{"Claim Number" | translate}}</div>
+            <div class="col-md-8 col-sm-8 col-sm-12 padding1px">
+                <div class="col-md-6 col-sm-6 pull-left">
+                    <input type="text" ng-model="claimNumber" class="form-control"
+                        placeholder="{{'Claim Number' | translate}}">
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-12 col-md-12 col-sm-12 form-group">
+            <div class="col-lg-2 col-md-2 col-sm-3">
+            </div>
+            <div div class="col-md-4 col-sm-8 col-sm-12 text-right">
+                <button id="sample_editable_1_new " class="btn sbold btnMargin" ng-click="searchByFilter()">
+                    {{"Search"|translate}}
+                </button>
+                <button id="sample_editable_1_new " class="btn sbold btnMargin" ng-click="clearFilter()">
+                    {{"Clear All"|translate}}
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <!--Invoices Submitted-->
+        <div class="col-md-12 col-lg-12 col-sm-12">
+            <div class="portlet col-md-12" ng-show="SearchResultHide">
+                <div class="col-md-12 col-sm-12 col-lg-12 padding1px margin-bottom-10">
+
+                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 pull-left padding1px">
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 text-left"
+                            style="padding-left: 0px;padding-right: 0px;">
+                            <a herf="#" ng-click="ViewSubmmittedByClaims()"><span
+                                    ng-style="(claimColor == 'blue')?{'color':'#3A70A1'}:{'color':'black'};">{{"ViewByClaim"|translate}}</span></a>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-left" style="padding-left: 0px;">
+                            <a herf="#" ng-click="ViewSubmmittedByVendor()"><span
+                                    ng-style="(vendorColor == 'blue')?{'color':'#3A70A1'}:{'color':'black'};">{{"ViewByVendor"|translate}}</span></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 options_Background" style="height:34px;"
+                    ng-show="SubmittedFlag==true">
+                    <!-- <div class="pull-right col-lg-5 col-md-6 col-sm-12 manageSearch padding1px">
+                            <div class="caption font-green-sharp col-lg-9 col-md-9 col-xs-12 col-sm-5 pull-right padding1px">
+                                <div class="input-icon left margin-bottom-5 margin-top-5">
+                                    <i class="icon-magnifier"></i>
+                                    <input type="text" class="form-control form-control-solid input-circle input-block-level" ng-model="searchSubmittedClaim" placeholder="{{'SearchText'|translate}}">
+                                </div>
+                            </div>
+                        </div> -->
+                </div>
+                <!--<div class="col-md-12" ng-click="DummyInvoiceDetails()"> go to invoice details</div>-->
+                <div class="col-md-12 table-responsive padding1px invoice_ListDiv" ng-if="SubmittedFlag==true">
+                    <table class="table table-striped table-bordered  table-checkable order-column" id="NavigateTable">
+                        <thead>
+                            <tr>
+                                <th> {{"Claim #"|translate}}</th>
+                                <!-- CTB-2184 -->
+                                <th ng-if="role=='CLAIM SUPERVISOR'">
+                                    {{"Adjuster Name"|translate}}
+
+                                </th>
+
+                                <th>{{"Total"|translate}}</th>
+                                <th ng-click="SortSumbitClaim('invoiceNumber')">
+                                    {{"Table.InvoiceNo"|translate}}
+                                    <span class="glyphicon sort-icon" ng-show="SubmitsortsorClaimtKey=='invoiceNumber'"
+                                        ng-class="{'glyphicon-chevron-up pull-right':SubmitsortClaimreverse,'glyphicon-chevron-down pull-right':!SubmitsortClaimreverse}"></span>
+                                </th>
+                                <!-- CTB-2182 -->
+                                <th>
+                                    {{"Vendor"|translate}}
+
+                                </th>
+                                <th>
+                                    {{"Created By"|translate}}
+
+                                </th>
+                                <!-- <th>
+                                        {{"Table.VendorNote"|translate}}
+
+                                    </th> -->
+
+                                <th ng-click="SortSumbitClaim('amount')">
+                                    {{"Table.InvoiceAmount"|translate}}
+                                    <span class="glyphicon sort-icon" ng-show="SubmitsortsorClaimtKey=='amount'"
+                                        ng-class="{'glyphicon-chevron-up pull-right':SubmitsortClaimreverse,'glyphicon-chevron-down pull-right':!SubmitsortClaimreverse}"></span>
+                                </th>
+                                <th ng-click="SortSumbitClaim('createDate')">
+                                    {{"Table.InvoiceDate"|translate}}
+                                    <span class="glyphicon sort-icon" ng-show="SubmitsortsorClaimtKey=='createDate'"
+                                        ng-class="{'glyphicon-chevron-up pull-right':SubmitsortClaimreverse,'glyphicon-chevron-down pull-right':!SubmitsortClaimreverse}"></span>
+                                </th>
+                                <th ng-click="SortSumbitClaim('dueDate')">
+                                    {{"Table.DueDate"|translate}}
+                                    <span class="glyphicon sort-icon" ng-show="SubmitsortsorClaimtKey=='dueDate'"
+                                        ng-class="{'glyphicon-chevron-up pull-right':SubmitsortClaimreverse,'glyphicon-chevron-down pull-right':!SubmitsortClaimreverse}"></span>
+                                </th>
+
+                                <th ng-click="SortSumbitClaim('status.status')" class="statusHeading">
+                                    {{"Table.Status"|translate}}
+                                    <span class="glyphicon sort-icon" ng-show="SubmitsortsorClaimtKey=='status.status'"
+                                        ng-class="{'glyphicon-chevron-up pull-right':SubmitsortClaimreverse,'glyphicon-chevron-down pull-right':!SubmitsortClaimreverse}"></span>
+                                <th>
+                                    {{"Table.Attachments"|translate}}
+
+                                </th>
+                                <th>
+                                    {{"Table.Action"|translate}}
+                                </th>
+                            </tr>
+                        </thead>
+
+                        <tbody dir-paginate="Claim in InvoicesSubmittedByClaim.claims|itemsPerPage:PageLength"
+                            current-page="currentPage" total-items="totalSize" pagination-id="ClaimToInvoice"
+                            ng-init="parentIndex = $index">
+                            <tr ng-repeat="Invoice in Claim.invoices" ng-show="$first" ng-init="subindex=$index">
+                                <!-- <td class="hidden"></td>
+                                    <td colspan="8" style="background-color: gray;color: white;font-weight: bold;padding-left:10px;">
+                                        {{Claim.claimNumber}}</td> -->
+
+                                <td ng-click="expanddiv(parentIndex)" rowspan="{{Claim.invoices.length}}"
+                                    ng-hide="$index>0" style="word-wrap: break-word;">
+                                    {{Claim.claimNumber}}&nbsp;<span
+                                        ng-if="Claim.invoices.length>1 && !claimExpand[parentIndex].expand"
+                                        class="glyphicon glyphicon-triangle-bottom"></span>
+                                    <span ng-if="Claim.invoices.length>1 && claimExpand[parentIndex].expand"
+                                        class="glyphicon glyphicon-triangle-top"></span></td>
+
+                                <!-- CTB-2184 -->
+                                <td ng-if="role=='CLAIM SUPERVISOR'" ng-click="GotoInvoiceDetails(Invoice)">
+                                    {{Invoice.adjuster.lastName}}, {{Invoice.adjuster.firstName}} </td>
+
+                                <td rowspan="{{Claim.invoices.length}}" ng-click="GotoInvoiceDetails(Invoice)"
+                                    ng-hide="$index>0">
+                                    {{Claim.totalAmount|currency}}</td>
+
+                                <td ng-click="GotoInvoiceDetails(Invoice)">{{Invoice.invoiceNumber}}</td>
+                                <!-- CTB-2182 -->
+                                <td ng-click="GotoInvoiceDetails(Invoice)">{{Invoice.vendorName}}</td>
+                                <td ng-click="GotoInvoiceDetails(Invoice)">{{Invoice.createdBy}}</td>
+                                <!-- <td ng-click="GotoInvoiceDetails(Invoice)">{{Invoice.vendorNote}}</td> -->
+
+                                <td ng-click="GotoInvoiceDetails(Invoice)" class="text-left">
+                                    {{Invoice.amount|currency}}</td>
+                                <td ng-click="GotoInvoiceDetails(Invoice)">
+                                    {{Invoice.createDate|DateFormatMMddyyyy}}</td>
+                                <td ng-click="GotoInvoiceDetails(Invoice)">
+                                    {{Invoice.dueDate|DateFormatMMddyyyy}}</td>
+                                <!--<td ng-click="GotoInvoiceDetails(Invoice)">{{Invoice.status.status}}</td>-->
+                                <td ng-click="GotoInvoiceDetails(Invoice)" class="text-left">
+                                    {{Invoice.status.status}}
+                                </td>
+                                <td ng-click="GotoInvoiceDetails(Invoice)">
+                                    <font ng-repeat="attachment in Invoice.invoiceAttachments"><a
+                                            href="{{attachment.url}}" download>{{attachment.name}}</a><span
+                                            ng-if="!$last">,</span></font>
+                                </td>
+
+                                <td ng-click="GotoInvoiceDetails(Invoice)"></td>
+                            </tr>
+                            <tr ng-repeat="Invoice in Claim.invoices"
+                                ng-show="!$first && claimExpand[parentIndex].expand" ng-init="subindex=$index">
+                                <td rowspan="{{Claim.invoices.length}}" ng-hide="$index>0">
+                                    {{Claim.claimNumber}}<span ng-click="showInvoices=true">click</span>
+                                </td>
+                                <!-- CTB-2184 -->
+                                <td ng-if="role=='CLAIM SUPERVISOR'" ng-click="GotoInvoiceDetails(Invoice)">
+                                    {{Invoice.adjuster.lastName}}, {{Invoice.adjuster.firstName}} </td>
+
+                                <td rowspan="{{Claim.invoices.length}}" ng-click="GotoInvoiceDetails(Invoice)"
+                                    ng-hide="$index>0">
+                                    {{Claim.totalAmount|currency}}</td>
+
+                                <td ng-click="GotoInvoiceDetails(Invoice)">{{Invoice.invoiceNumber}}</td>
+                                <!-- CTB-2182 -->
+                                <td ng-click="GotoInvoiceDetails(Invoice)">{{Invoice.vendorName}}</td>
+                                <td ng-click="GotoInvoiceDetails(Invoice)">{{Invoice.createdBy}}</td>
+                                <!-- <td ng-click="GotoInvoiceDetails(Invoice)">{{Invoice.vendorNote}}</td> -->
+
+                                <td ng-click="GotoInvoiceDetails(Invoice)" class="text-left">
+                                    {{Invoice.amount|currency}}</td>
+                                <td ng-click="GotoInvoiceDetails(Invoice)">
+                                    {{Invoice.createDate|DateFormatMMddyyyy}}</td>
+                                <td ng-click="GotoInvoiceDetails(Invoice)">
+                                    {{Invoice.dueDate|DateFormatMMddyyyy}}</td>
+                                <!--<td ng-click="GotoInvoiceDetails(Invoice)">{{Invoice.status.status}}</td>-->
+                                <td ng-click="GotoInvoiceDetails(Invoice)" class="text-left">
+                                    {{Invoice.status.status}}
+                                </td>
+                                <td ng-click="GotoInvoiceDetails(Invoice)">
+                                    <font ng-repeat="attachment in Invoice.invoiceAttachments"><a
+                                            href="{{attachment.url}}" download>{{attachment.name}}</a><span
+                                            ng-if="!$last">,</span></font>
+                                </td>
+                                <td ng-click="GotoInvoiceDetails(Invoice)"></td>
+                            </tr>
+                            <!-- <tr ng-repeat-end ng-if="Claim.invoices.length>0">
+                                    <td class="hidden"></td>
+                                    <td></td>
+                                    <td class="sbold text-right">{{"Total"|translate}}</td>
+                                    <td class="sbold text-left">{{Claim.totalAmount|currency}}</td>
+                                    <td class="sbold" colspan="5"></td>
+                                </tr> -->
+                        </tbody>
+                        <tfoot>
+                            <tr
+                                ng-if="InvoicesSubmittedByClaim.claims==null||InvoicesSubmittedByClaim.claims.length==0">
+                                <td class="text-danger" style="text-align: center;" colspan="12">
+                                    {{"0 Invoice Available"|translate}}</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                    <dir-pagination-controls max-size="20" ng-if="InvoicesSubmittedByClaim.claims!=null"
+                        pagination-id="ClaimToInvoice" direction-links="true" template-url="tpl/dirPagination.tpl.html"
+                        boundary-links="true" on-page-change="pageChanged(newPageNumber,'INVOICE_SUBMITTED_BY_CLAIM')"
+                        class="pull-right">
+                    </dir-pagination-controls>
+
+                    <span ng-if="InvoicesSubmittedByClaim.claims!=null && InvoicesSubmittedByClaim.claims.length>0"
+                        class="bold" style="color: #337ab7;"> Showing
+                        {{ (PageLength * (currentPage - 1))+1 }} to {{toShowingPage}} of {{totalSize}} <span
+                            ng-if="totalSize>1"> records</span><span ng-if="totalSize ==1">record</span>
+                    </span>
+                </div>
+
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 options_Background" style="height:34px;"
+                    ng-show="SubmittedFlag==false">
+                    <!-- <div class="pull-right col-lg-5 col-md-6 col-sm-12 manageSearch padding1px">
+                            <div class="caption font-green-sharp col-lg-9 col-md-9 col-xs-12 col-sm-5 pull-right padding1px">
+                                <div class="input-icon left margin-bottom-5 margin-top-5">
+                                    <i class="icon-magnifier"></i>
+                                    <input type="text" class="form-control form-control-solid input-circle input-block-level" ng-model="searchSubmittedVendor" placeholder="{{'SearchText'|translate}}">
+                                </div>
+                            </div>
+                        </div> -->
+                </div>
+                <div class="col-md-12 table-responsive padding1px invoice_ListDiv" ng-if="SubmittedFlag==false">
+                    <table class="table table-striped table-bordered  table-checkable order-column" id="NavigateTable">
+                        <thead>
+                            <tr>
+                            <tr>
+                                <th>Vendor Name</th>
+                                <!-- CTB-2184 -->
+                                <th ng-if="role=='CLAIM SUPERVISOR'">
+                                    {{"Adjuster Name"|translate}}
+
+                                </th>
+                                <th>{{"Total"|translate}}</th>
+                                <th ng-click="SortSumbitCompany('invoiceNumber')">
+                                    {{"Table.InvoiceNo"|translate}}
+                                    <span class="glyphicon sort-icon" ng-show="SubmitsortCompanyKey=='invoiceNumber'"
+                                        ng-class="{'glyphicon-chevron-up pull-right':SubmitsortCompanyreverse,'glyphicon-chevron-down pull-right':!SubmitsortCompanyreverse}"></span>
+                                </th>
+                                <!-- CTB-2182 -->
+                                <th>
+                                    {{"Created By"|translate}}
+
+                                </th>
+                                <!-- <th>
+                                        {{"Table.VendorNote"|translate}}
+
+                                    </th> -->
+                                <th ng-click="SortSumbitCompany('amount')">
+                                    {{"Table.InvoiceAmount"|translate}}
+                                    <span class="glyphicon sort-icon" ng-show="SubmitsortCompanyKey=='amount'"
+                                        ng-class="{'glyphicon-chevron-up pull-right':SubmitsortCompanyreverse,'glyphicon-chevron-down pull-right':!SubmitsortCompanyreverse}"></span>
+                                </th>
+                                <th ng-click="SortSumbitCompany('createDate')">
+                                    {{"Table.InvoiceDate"|translate}}
+                                    <span class="glyphicon sort-icon" ng-show="SubmitsortCompanyKey=='createDate'"
+                                        ng-class="{'glyphicon-chevron-up pull-right':SubmitsortCompanyreverse,'glyphicon-chevron-down pull-right':!SubmitsortCompanyreverse}"></span>
+                                </th>
+                                <th ng-click="SortSumbitCompany('dueDate')">
+                                    {{"Table.DueDate"|translate}}
+                                    <span class="glyphicon sort-icon" ng-show="SubmitsortCompanyKey=='dueDate'"
+                                        ng-class="{'glyphicon-chevron-up pull-right':SubmitsortCompanyreverse,'glyphicon-chevron-down pull-right':!SubmitsortCompanyreverse}"></span>
+                                </th>
+
+                                <th ng-click="SortSumbitCompany('status.status')">
+                                    {{"Table.Status"|translate}}
+                                    <span class="glyphicon sort-icon" ng-show="SubmitsortCompanyKey=='status.status'"
+                                        ng-class="{'glyphicon-chevron-up pull-right':Submitsortreverse,'glyphicon-chevron-down pull-right':!SubmitsortCompanyreverse}"></span>
+                                <th>
+                                    {{"Table.Attachments"|translate}}
+
+                                </th>
+                                <th>
+                                    {{"Table.Action"|translate}}
+                                </th>
+                            </tr>
+                        </thead>
+
+                        <tbody dir-paginate="Vendor in InvoicesSubmittedByVendor.vendors|itemsPerPage:PageLength"
+                            current-page="currentPage" total-items="totalSize" pagination-id="ClaimToInvoice"
+                            ng-init="parentIndex = $index">
+                            <tr ng-repeat="Invoice in Vendor.invoices" ng-show="$first" ng-init="subindex=$index">
+                                <!-- <td class="hidden"></td>
+                                    <td colspan="8" style="background-color: gray;color: white;font-weight: bold;padding-left:10px;">
+                                        {{Claim.claimNumber}}</td> -->
+
+                                <td ng-click="expanddiv(parentIndex)" rowspan="{{Vendor.invoices.length}}"
+                                    ng-hide="$index>0">
+                                    {{Vendor.vendorName}}&nbsp;<span
+                                        ng-if="Vendor.invoices.length>1 && !claimExpand[parentIndex].expand"
+                                        class="glyphicon glyphicon-triangle-bottom"></span>
+                                    <span ng-if="Vendor.invoices.length>1 && claimExpand[parentIndex].expand"
+                                        class="glyphicon glyphicon-triangle-top"></span></td>
+                                <!-- CTB-2184 -->
+                                <td ng-if="role=='CLAIM SUPERVISOR'" ng-click="GotoInvoiceDetails(Invoice)">
+                                    {{Invoice.adjuster.lastName}}, {{Invoice.adjuster.firstName}} </td>
+
+                                <td rowspan="{{Vendor.invoices.length}}" ng-click="GotoInvoiceDetails(Invoice)"
+                                    ng-hide="$index>0">
+                                    {{Vendor.totalAmount|currency}}</td>
+
+                                <td ng-click="GotoInvoiceDetails(Invoice)">{{Invoice.invoiceNumber}}</td>
+                                <!-- CTB-2182 -->
+                                <!-- <td ng-click="GotoInvoiceDetails(Invoice)">{{Invoice.vendorNote}}</td> -->
+                                <td ng-click="GotoInvoiceDetails(Invoice)">{{Invoice.createdBy}}</td>
+
+                                <td ng-click="GotoInvoiceDetails(Invoice)" class="text-left">
+                                    {{Invoice.amount|currency}}</td>
+                                <td ng-click="GotoInvoiceDetails(Invoice)">
+                                    {{Invoice.createDate|DateFormatMMddyyyy}}</td>
+                                <td ng-click="GotoInvoiceDetails(Invoice)">
+                                    {{Invoice.dueDate|DateFormatMMddyyyy}}</td>
+                                <!--<td ng-click="GotoInvoiceDetails(Invoice)">{{Invoice.status.status}}</td>-->
+                                <td ng-click="GotoInvoiceDetails(Invoice)" class="text-left">
+                                    <!--<span ng-class="{'stage InvoiceAssigned':Invoice.status.status==='ASSIGNED',
+                                                                                                     'stage InvoiceCreated':Invoice.status.status==='CREATED',
+                                                                                                      'stage InvoiceRejected':Invoice.status.status==='REJECTED',
+                                                                                                     'stage InvoicePendingApproval':Invoice.status.status==='PENDING APPROVAL',
+                                                                                                      'stage InvoiceApproved':Invoice.status.status==='APPROVED',
+                                                                                                     'stage InvoicePaid':Invoice.status.status==='PAID'
+                                                                                                        }">{{Invoice.status.status|limitTo: 13}}<span>{{Invoice.status.status.length >  13 ? '...' : ''}}</span></span>-->
+                                    <span>{{Invoice.status.status|limitTo: 13}}<span>{{Invoice.status.status.length >  13 ? '...' : ''}}</span></span>
+                                </td>
+                                <td ng-click="GotoInvoiceDetails(Invoice)">
+                                    <font ng-repeat="attachment in Invoice.invoiceAttachments"><a
+                                            href="{{attachment.url}}" download>{{attachment.name}}</a><span
+                                            ng-if="!$last">,</span></font>
+                                </td>
+                                <td ng-click="GotoInvoiceDetails(Invoice)"></td>
+                            </tr>
+                            <tr ng-repeat="Invoice in Vendor.invoices"
+                                ng-show="!$first && claimExpand[parentIndex].expand" ng-init="subindex=$index">
+                                <td rowspan="{{Vendor.invoices.length}}" ng-hide="$index>0">
+                                    {{Vendor.vendorName}}<span ng-click="showInvoices=true">click</span>
+                                </td>
+                                <!-- CTB-2184 -->
+                                <td ng-if="role=='CLAIM SUPERVISOR'" ng-click="GotoInvoiceDetails(Invoice)">
+                                    {{Invoice.adjuster.lastName}}, {{Invoice.adjuster.firstName}} </td>
+
+                                <td rowspan="{{Claim.invoices.length}}" ng-click="GotoInvoiceDetails(Invoice)"
+                                    ng-hide="$index>0">
+                                    {{Vendor.totalAmount|currency}}</td>
+
+                                <td ng-click="GotoInvoiceDetails(Invoice)">{{Invoice.invoiceNumber}}</td>
+                                <!-- CTB-2182 -->
+                                <td ng-click="GotoInvoiceDetails(Invoice)">{{Invoice.createdBy}}</td>
+                                <!-- <td ng-click="GotoInvoiceDetails(Invoice)">{{Invoice.vendorNote}}</td> -->
+
+                                <td ng-click="GotoInvoiceDetails(Invoice)" class="text-left">
+                                    {{Invoice.amount|currency}}</td>
+                                <td ng-click="GotoInvoiceDetails(Invoice)">
+                                    {{Invoice.createDate|DateFormatMMddyyyy}}</td>
+                                <td ng-click="GotoInvoiceDetails(Invoice)">
+                                    {{Invoice.dueDate|DateFormatMMddyyyy}}</td>
+                                <!--<td ng-click="GotoInvoiceDetails(Invoice)">{{Invoice.status.status}}</td>-->
+                                <td ng-click="GotoInvoiceDetails(Invoice)" class="text-left">
+                                    <!--<span ng-class="{'stage InvoiceAssigned':Invoice.status.status==='ASSIGNED',
+                                                                                                                                                     'stage InvoiceCreated':Invoice.status.status==='CREATED',
+                                                                                                                                                      'stage InvoiceRejected':Invoice.status.status==='REJECTED',
+                                                                                                                                                     'stage InvoicePendingApproval':Invoice.status.status==='PENDING APPROVAL',
+                                                                                                                                                      'stage InvoiceApproved':Invoice.status.status==='APPROVED',
+                                                                                                                                                     'stage InvoicePaid':Invoice.status.status==='PAID'
+                                                                                                                                                        }">{{Invoice.status.status|limitTo: 13}}<span>{{Invoice.status.status.length >  13 ? '...' : ''}}</span></span>-->
+                                    <span>{{Invoice.status.status|limitTo: 13}}<span>{{Invoice.status.status.length >  13 ? '...' : ''}}</span></span>
+
+                                </td>
+                                <td ng-click="GotoInvoiceDetails(Invoice)">
+                                    <font ng-repeat="attachment in Invoice.invoiceAttachments"><a
+                                            href="{{attachment.url}}" download>{{attachment.name}}</a><span
+                                            ng-if="!$last">,</span></font>
+                                </td>
+                                <td ng-click="GotoInvoiceDetails(Invoice)"></td>
+                            </tr>
+                            <!-- <tr ng-repeat-end ng-if="Claim.invoices.length>0">
+                                    <td class="hidden"></td>
+                                    <td></td>
+                                    <td class="sbold text-right">{{"Total"|translate}}</td>
+                                    <td class="sbold text-left">{{Claim.totalAmount|currency}}</td>
+                                    <td class="sbold" colspan="5"></td>
+                                </tr> -->
+
+                        </tbody>
+                        <tfoot>
+                            <td ng-if="InvoicesSubmittedByVendor.vendors==null||InvoicesSubmittedByVendor.vendors.length==0"
+                                colspan="12" class="text-danger" style="text-align: center;">No records
+                                available</td>
+                        </tfoot>
+                    </table>
+                    <dir-pagination-controls max-size="20" ng-if="InvoicesSubmittedByVendor.claims!=null"
+                        pagination-id="ClaimToInvoice" direction-links="true" template-url="tpl/dirPagination.tpl.html"
+                        boundary-links="true" on-page-change="pageChanged(newPageNumber,'INVOICE_SUBMITTED_BY_VENDOR')"
+                        class="pull-right">
+                    </dir-pagination-controls>
+
+                    <span ng-if="InvoicesSubmittedByVendor.vendors!=null && InvoicesSubmittedByVendor.vendors.length>0"
+                        class="bold" style="color: #337ab7;"> Showing
+                        {{ (PageLength * (currentPage - 1))+1 }} to {{toShowingPage}} of {{totalSize}} <span
+                            ng-if="totalSize>1"> records</span><span ng-if="totalSize ==1">record</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <!--End Invoices Submitted-->
+        <!--Invoices Approved-->
+        <!--End Invoices Approved-->
+    </div>
+
+    <!--Search Result-->
+    <div class="col-md-12" ng-show="SearchResultShow">
+        <div class="portlet light bordered">
+            <div class="portlet-title" style="border:none;">
+                <div class="caption font-green-sharp col-md-6 col-xs-10" style="margin:0px;">
+                    <span class="caption-subject bold" tooltips tooltip-side="left"
+                        tooltip-template="Lorem <p> ipsum dolor sit amet, consectetur adipiscing elit. Aenean tincidunt dolor eu nunc interdum vulputate. Integer non lorem nec libero consequat faucibus eu vitae sem. Etiam sit amet nulla aliquam erat pellentesque dictum non quis dui. Phasellus in lorem sed magna condimentum accumsan. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec rutrum tristique scelerisque. Nam lorem neque, feugiat quis odio sed, dignissim commodo massa. Interdum et malesuada fames ac ante ipsum primis in faucibus. Suspendisse sapien sem, lobortis non erat eu, convallis finibus ante.">
+
+                        <i class="fa fa-gear"></i>
+                        {{"SearchResult"|translate}} : &nbsp;
+
+                    </span>
+                </div>
+                <div class="tools pull-right col-md-1 text-right">
+
+                    <button class="btn btnMargin green sbold" ng-click="CancelSearch()">
+                        {{"Back"|translate}}
+                    </button>
+                </div>
+
+            </div>
+            <div class="portlet-body">
+                <div class="row">
+                    <div class="form-group col-md-12 clearfix">
+
+                    </div>
+                    <div class="col-md-12 table-responsive">
+
+                        <table class="table table-striped table-bordered  table-checkable order-column"
+                            id="NavigateTable">
+                            <thead>
+                                <tr>
+                                    <th ng-click="Searchsort('id')">
+                                        {{"Table.InvoiceNo"|translate}}
+                                        <span class="glyphicon sort-icon" ng-show="SearchsortKey=='id'"
+                                            ng-class="{'glyphicon-chevron-up pull-right':Searchsortreverse,'glyphicon-chevron-down pull-right':!Searchsortreverse}"></span>
+                                    </th>
+                                    <th ng-click="Searchsort('invoiceAmount')">
+                                        {{"Table.InvoiceAmount"|translate}}
+                                        <span class="glyphicon sort-icon" ng-show="SearchsortKey=='invoiceAmount'"
+                                            ng-class="{'glyphicon-chevron-up pull-right':Searchsortreverse,'glyphicon-chevron-down pull-right':!Searchsortreverse}"></span>
+                                    </th>
+                                    <th ng-click="Searchsort('claimNumber')">
+                                        {{"Table.ClaimNo"|translate}}
+                                        <span class="glyphicon sort-icon" ng-show="SearchsortKey=='claimNumber'"
+                                            ng-class="{'glyphicon-chevron-up pull-right':Searchsortreverse,'glyphicon-chevron-down pull-right':!Searchsortreverse}"></span>
+                                    </th>
+                                    <th>
+                                        {{"Table.InsuranceCompany"|translate}}
+                                    </th>
+                                    <th>
+                                        {{"Table.AdjusterName"|translate}}
+                                    </th>
+                                    <th ng-click="Searchsort('numberOfItems')">
+                                        {{"Table.NoOfItem"|translate}}
+                                        <span class="glyphicon sort-icon" ng-show="SearchsortKey=='numberOfItems'"
+                                            ng-class="{'glyphicon-chevron-up pull-right':Searchsortreverse,'glyphicon-chevron-down pull-right':!Searchsortreverse}"></span>
+                                    </th>
+                                    <th>
+                                        {{"Table.ServiceRequested"|translate}}
+                                    <th>
+                                        {{"Table.Status"|translate}}
+                                    <th ng-click="Searchsort('lastUpdated')">
+                                        {{"Table.LastUpdate"|translate}}
+                                        <span class="glyphicon sort-icon" ng-show="SearchsortKey=='lastUpdated'"
+                                            ng-class="{'glyphicon-chevron-up pull-right':Searchsortreverse,'glyphicon-chevron-down pull-right':!Searchsortreverse}"></span>
+                                    </th>
+                                    <th>
+                                        {{"Table.LastNote"|translate}}
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+                            <tbody>
+                                <tr dir-paginate="Invoice in InvoicesSearchResult|orderBy:SearchsortKey:Searchsortreverse|itemsPerPage:PageSize"
+                                    pagination-id="InvoiceSerch">
+                                    <td ng-click="GotoInvoiceDetails(Invoice)"> {{Invoice.id}} </td>
+                                    <td ng-click="GotoInvoiceDetails(Invoice)" class="text-left">
+                                        {{Invoice.invoiceAmount}}
+                                    </td>
+                                    <td ng-click="GotoInvoiceDetails(Invoice)"> {{Invoice.claimNumber}} </td>
+                                    <td ng-click="GotoInvoiceDetails(Invoice)"> {{Invoice.insuranceCompany.name}}</td>
+                                    <td ng-click="GotoInvoiceDetails(Invoice)"> {{Invoice.adjuster.name}} </td>
+                                    <td ng-click="GotoInvoiceDetails(Invoice)"> {{Invoice.numberOfItems}}</td>
+                                    <td ng-click="GotoInvoiceDetails(Invoice)" class="tip"><span class="Overlay"
+                                            ng-if="Invoice.Services">{{Invoice.Services}}
+                                        </span>{{Invoice.Services | limitTo: 20  | limitTo: 20}} </td>
+                                    <td>
+                                        <!--<span class="btn btn-circle blue">
+                                            <span ng-class="{'stage InvoiceAssigned':Invoice.status.status==='ASSIGNED',
+                                                                 'stage InvoiceCreated':Invoice.status.status==='CREATED',
+                                                                  'stage InvoiceRejected':Invoice.status.status==='REJECTED',
+                                                                 'stage InvoicePendingApproval':Invoice.status.status==='PENDING APPROVAL',
+                                                                  'stage InvoiceApproved':Invoice.status.status==='APPROVED',
+                                                                 'stage InvoicePaid':Invoice.status.status==='PAID',
+                                                                    }">
+                                                {{Invoice.status.status|limitTo: 13}}<span>
+                                                    {{Invoice.status.status.length >  13 ? '...' : ''}}
+                                                </span>
+                                            </span>
+                                        </span>-->
+                                        <span class="btn btn-circle blue">
+                                            <span>
+                                                {{Invoice.status.status|limitTo: 13}}<span>
+                                                    {{Invoice.status.status.length >  13 ? '...' : ''}}
+                                                </span>
+                                            </span>
+                                        </span>
+                                    </td>
+                                    <td ng-click="GotoInvoiceDetails(Invoice)">
+                                        {{Invoice.lastUpdated|DateFormatMMddyyyy}}
+                                    </td>
+                                    <td ng-click="GotoInvoiceDetails(Invoice)" style="width:25%;">{{Invoice.lastNote}}
+                                    </td>
+                                </tr>
+                                <tr ng-if="InvoicesSearchResult.length==0||InvoicesSearchResult==null">
+                                    <td colspan="10" class="text-danger" style="text-align: center;">
+                                        {{"No Records available"|translate}}</td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                            </tfoot>
+                        </table>
+
+                        <dir-pagination-controls max-size="3" ng-if="InvoicesApproved!=null"
+                            pagination-id="InvoiceSerch" direction-links="true" boundary-links="true"
+                            class="pull-right">
+                        </dir-pagination-controls>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

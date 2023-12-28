@@ -1,0 +1,21 @@
+﻿{
+  "Cancel":"Cancel",
+  "Phone Number":"Phone Number",
+  "PolicyHolder Name":"PolicyHolder Name",
+  "Submit":"Submit",
+
+  "HeaderText": {
+    "EmailMERtoPolicyholder" : "Email MER to Policyholder",
+    "SMSMERtoPolicyholder" : "SMS MER to Policyholder"
+  },
+  
+  "Label": {
+    "PolicyholderName" : "Policyholder Name",
+    "PhoneNumber" : "Phone Number",
+    "Email" : "Email"
+  },
+  "ControlText" :{
+    "Cancel": "Cancel",
+    "Send": "Send"
+  }
+}

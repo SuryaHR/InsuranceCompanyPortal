@@ -1,0 +1,49 @@
+<script>
+    $(document).ready(function () {
+        $("#select2insidemodal").select2({
+            dropdownParent: $("#myModal")
+        });
+    });
+
+</script>
+<style>
+    .modal {
+        margin-top: 120px;
+    }
+</style>
+<div id="myModal">
+    <div id="responsive">
+        <div class="modal-header">
+            <a class="close" ng-click="cancel()" aria-hidden="true"></a>
+            <h4 class="modal-title sbold" ng-if="item_Details_Found">{{"Details_Found_Header" | translate}}</h4>
+            <h4 class="modal-title sbold" ng-if="!item_Details_Found && !isAttributeZeroCheck">{{"Details_Not_Found_Header" | translate}}</h4>
+            <h4 class="modal-title sbold" ng-if="!item_Details_Found && isAttributeZeroCheck">{{"Could_Not_Calculate" | translate}}</h4>
+        </div>
+        <div class="modal-body">
+            <div class="col-md-12 padding1px " ng-form="ArtigemReviewForm">
+
+                <div class="col-md-12 col-sm-12 form-group">
+                    <textarea class="form-control" rows="5" maxlength="2000" ng-model="popup.message" name="Description" ng-attr-placeholder='{{"Note to Artigem"|translate}}' style="resize: none;"></textarea>
+                </div>
+
+                <div class="col-md-5 col-sm-5 form-group">
+                    <button type="button" data-dismiss="modal" class="btn btn-default sbold pull-right" ng-click="ok()" ng-disabled="popup.message=='' || ArtigemReviewForm.$invalid">{{"Send to Artigem"|translate}}</button>
+                </div>
+
+                <div class="col-md-2 col-sm-2 form-group"></div>
+                <div class="col-md-5 col-sm-5 form-group">
+                    <button type="button" class="btn btn-default sbold pull-left" ng-click="cancel()">{{"Cancel"|translate}}</button>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="modal-footer" style="border: none;">
+        <!-- <button type="button" class="btn btn-default sbold" ng-click="cancel()">{{"Cancel"|translate}}</button>
+            <button type="button" data-dismiss="modal" class="btn btn-default sbold" ng-click="ok()" ng-disabled="ArtigemReviewForm.$invalid">{{"Send to Artigem"|translate}}</button> -->
+    </div>
+</div>
+</div>

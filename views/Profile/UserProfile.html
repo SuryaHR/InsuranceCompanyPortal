@@ -1,0 +1,277 @@
+﻿<ul class="page-breadcrumb breadcrumb sbold">
+    <li>
+        <a ng-click="GoToHome()">{{"Home"|translate}}</a>
+        <i class="fa fa-circle"></i>
+    </li>
+    <li>
+        <span>{{"My profile"|translate}}</span>
+    </li>
+</ul>
+<style>
+    .HeaderDiv {
+        background-color: aquamarine;
+        color: azure;
+        border-bottom: 1px solid #53e6b5;
+        width: 100%;
+        height: auto;
+        padding: 5px;
+    }
+
+    .SubHeading {
+        line-height: 10px;
+        vertical-align: middle;
+        text-shadow: 0px 1px white;
+        font-weight: bold;
+        font-size: 15px;
+        padding: 3px;
+    }
+
+    .mandatory {
+        color: red;
+    }
+</style>
+<!-- Personal Details -->
+<div class="portlet light padding1px">
+    <div class="portlet-title">
+        <div class="caption font-gray-sharp">
+            <span class="caption-subject">{{"Profile"|translate}}</span>
+        </div>
+    </div>
+    <div class="portlet-body">
+        <div class="row" ng-form="PersonalDetailsForm">
+            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-1 col-lg-12 light bordered">
+                <div class="col-md-12 col-sm-12 col-lg-12 padding1px">
+                        <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 text-right">
+                                <button type="button" class="btn sbold btnMargin" ng-disabled="PersonalDetailsForm.$invalid || PersonalDetailsForm.$pristine" ng-if="IsEditPersonalDetails"  ng-click="SaveProfileDetails()">
+                                    {{"Save"|translate}}
+                                </button>
+                                <button type="button" class="btn  sbold btnMargin" ng-if="IsEditPersonalDetails" ng-click="CancelEditPersonalDetails()">
+                                    {{"Cancel"|translate}}
+                                </button>
+
+                                <button type="button" class="btn sbold btnMargin" ng-if="!IsEditPersonalDetails" ng-click="EditPersonalDetails()">
+                                        {{"Edit"|translate}}
+                                </button>                               
+                                <button type="button" class="btn  sbold btnMargin" ng-if="!IsEditPersonalDetails" ng-click="GoToHome()">
+                                        {{"Cancel"|translate}}
+                                </button>
+                            </div>   
+                    <!--Personal Details-->
+                    <div class="col-md-12 col-sm-12 col-xs-12 responsive-padding">
+                        <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 ">
+                        </div>
+                        <div class="col-md-12 col-sm-12">                                                                                    
+                            <div class="clearfix"></div>                                                     
+                            <div class="col-md-12 SubHeadingDiv margin-bottom-10"><span class="caption-subject">{{"Personal Details"|translate}}</span></div>                                                        
+                            <label class="control-label col-xs-12 col-sm-5 col-md-2 col-lg-2 form-group "><strong class="mandatory" ng-if="IsEditPersonalDetails">*</strong>{{"First Name"|translate}}</label>
+                            <div class="col-xs-12 col-sm-5 col-md-3 col-lg-3 form-group">
+                                <input type="text" name="firstName" required class="form-control" ng-if="IsEditPersonalDetails" ng-model="personalDetails.firstName" />
+                                <span class="control-label" ng-if="!IsEditPersonalDetails">{{personalDetails.firstName}}</span>
+                                <span class="text-danger" ng-message="required"
+                                      ng-show="(PersonalDetailsForm.firstName.$error.required && PersonalDetailsForm.firstName.$touched)">
+                                    {{"Please enter first name"|translate}}
+                                </span>
+                            </div>
+                            <div class="clearfix"></div>
+                            <label class="control-label col-xs-12 col-sm-5 col-md-2 col-lg-2 form-group "><strong class="mandatory" ng-if="IsEditPersonalDetails">*</strong>{{"Last Name"|translate}}</label>
+                            <div class="col-xs-12 col-sm-5 col-md-3 col-lg-3 form-group ">
+                                <span class="control-label" ng-if="!IsEditPersonalDetails">{{personalDetails.lastName}}</span>
+                                <input type="text" name="lastName" required ng-model="personalDetails.lastName" class="form-control" ng-if="IsEditPersonalDetails" />
+                                <span class="text-danger" ng-message="required"
+                                      ng-show="(PersonalDetailsForm.lastName.$error.required && PersonalDetailsForm.lastName.$touched)">
+                                    {{"Please enter last name"|translate}}
+                                </span>
+                            </div>
+                            <div class="clearfix"></div>
+                            <label class="control-label col-xs-12 col-sm-5 col-md-2 col-lg-2 form-group"><span ng-if="IsEditPersonalDetails">&nbsp;</span>{{"Date Of Birth"|translate}}</label>
+                            <div class=" col-xs-12 col-sm-5 col-md-3 col-lg-3 form-group " id="cal">
+                                <span class="control-label" ng-if="!IsEditPersonalDetails">{{personalDetails.dateOfBirth}}</span>
+                                <input type="text" name="dateOfBirth" data-date-container='#cal' ng-model="personalDetails.dateOfBirth" data-provide="datepicker" size="16" class="form-control datepicker" ng-if="IsEditPersonalDetails" />
+                            </div>
+                            <div class="clearfix"></div>
+                                <label class="control-label col-xs-12 col-sm-5 col-md-2 col-lg-2 form-group "><span ng-if="IsEditPersonalDetails">&nbsp;</span>{{"Mobile Phone"|translate}}</label>
+                                <div class=" col-xs-12 col-sm-5 col-md-3 col-lg-3 form-group " id="cal">
+                                    <span class="control-label" ng-if="!IsEditPersonalDetails">{{personalDetails.cellPhone |tel}}</span>
+                                    <input type="text" name="MobilePhone" ng-pattern="/^([0-9-,()\s+]{15})$|^$/" ng-trim="false" maxlength="15" ng-model="personalDetails.cellPhone" placeholder="(XXX)XXX-XXXX" phone-input class="input-phone form-control" ng-if="IsEditPersonalDetails" 
+                                    ng-change="PersonalDetailsForm.MobilePhone.$invalid = PersonalDetailsForm.MobilePhone.$error.pattern; PersonalDetailsForm.MobilePhone.$valid = !PersonalDetailsForm.MobilePhone.$error.pattern; PersonalDetailsForm.$invalid = PersonalDetailsForm.MobilePhone.$error.pattern"
+                                    />
+                                    <span class="text-danger"
+                                        ng-show="(PersonalDetailsForm.MobilePhone.$error.pattern)">
+                                        {{"Please enter valid phone number"|translate}}
+                                </span>
+                                </div>
+                                
+                        </div>
+                    </div>
+                    <!--End Personal Details-->
+                    <!--Mailing Address-->
+                    <div class="col-md-12 col-sm-12 col-xs-12 margin-top-10 responsive-padding">
+                        <div class="col-md-12 col-sm-12">                           
+                            <div class="col-md-12 SubHeadingDiv margin-bottom-10"><span class="caption-subject">{{"Mailing Address"|translate}}</span></div>                        
+                            
+                            <label class="control-label col-xs-12 col-sm-5 col-md-2 col-lg-2 form-group "><strong class="mandatory" ng-if="IsEditPersonalDetails">*</strong>{{"Street Address 1"|translate}}</label>
+                            <div class="col-xs-12 col-sm-5 col-md-3 col-lg-3 form-group ">
+                                <span class="control-label" ng-if="!IsEditPersonalDetails">{{personalDetails.address.streetAddressOne}}</span>
+                                <input type="text" name="streetAddress1" required ng-model="personalDetails.address.streetAddressOne" class="form-control " ng-if="IsEditPersonalDetails" />
+                                <span class="text-danger" ng-message="required"
+                                ng-show="(PersonalDetailsForm.streetAddress1.$error.required && PersonalDetailsForm.streetAddress1.$touched)">
+                              {{"Please enter street address 1"|translate}}
+                          </span>
+                            </div>
+                            <div class="clearfix"></div>
+                            <label class="control-label col-xs-12 col-sm-5 col-md-2 col-lg-2 form-group"><span ng-if="IsEditPersonalDetails">&nbsp;</span>{{"Street Address 2"|translate}}</label>
+                            <div class="col-xs-12 col-sm-5 col-md-3 col-lg-3 form-group ">
+                                <span class="control-label" ng-if="!IsEditPersonalDetails">{{personalDetails.address.streetAddressTwo}}</span>
+                                <input type="text" name="streetAddress2" ng-model="personalDetails.address.streetAddressTwo" class="form-control" ng-if="IsEditPersonalDetails" />
+                            </div>
+                            <div class="clearfix"></div>
+                            <label class="control-label col-xs-12 col-sm-5 col-md-2 col-lg-2 form-group"><strong class="mandatory" ng-if="IsEditPersonalDetails">*</strong>{{"City"|translate}}</label>
+                            <div class="col-xs-12 col-sm-5 col-md-3 col-lg-3 form-group">
+                                <span class="control-label" ng-if="!IsEditPersonalDetails">{{personalDetails.address.city}}</span>
+                                <input type="text" name="city" required ng-model="personalDetails.address.city" class="form-control" ng-if="IsEditPersonalDetails" />
+                                <span class="text-danger" ng-message="required"
+                                ng-show="(PersonalDetailsForm.city.$error.required && PersonalDetailsForm.city.$touched)">
+                                    {{"Please enter city"|translate}}
+                                 </span>                                                    
+                            </div>
+
+                            <div class="clearfix"></div>
+                            <label class="control-label col-xs-12 col-sm-5 col-md-2 col-lg-2 form-group"><strong class="mandatory" ng-if="IsEditPersonalDetails">*</strong>{{"State"|translate}}</label>
+                            <div class="col-xs-12 col-sm-5 col-md-3 col-lg-2 form-group ">
+                                <span class="control-label " ng-if="!IsEditPersonalDetails">{{personalDetails.address.state.state}}</span>
+                                <select class="form-control select2me" required ng-model="personalDetails.address.state.id" data-placeholder="Select State" ng-if="IsEditPersonalDetails"
+                                        ng-options="option.id as option.state for option in StateList"></select>
+                            </div>                           
+
+                            <div class="clearfix"></div>
+                            <label class="control-label col-xs-12 col-sm-5 col-md-2 col-lg-2 form-group"><strong class="mandatory" ng-if="IsEditPersonalDetails">*</strong>{{"Zip Code"|translate}}</label>
+                            <div class="col-xs-12 col-sm-5 col-md-3 col-lg-2 form-group">
+                                <span class="control-label" ng-if="!IsEditPersonalDetails">{{personalDetails.address.zipcode}}</span>
+                                <input type="text" required maxlength="5" onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="zipCode" ng-model="personalDetails.address.zipcode" class="form-control" ng-if="IsEditPersonalDetails" />                           
+                                <span class="text-danger" ng-message="required"
+                                ng-show="(PersonalDetailsForm.zipCode.$error.required && PersonalDetailsForm.zipCode.$touched)">
+                                    {{"Please enter zip code"|translate}}
+                                 </span>
+                            </div>
+        
+                        </div>
+                    </div>
+                    <!--End Mailing Address-->
+                    <!--Communication Details-->
+                    <div class="col-md-12 col-sm-12 col-xs-12 margin-top-10 responsive-padding">
+                        <div class="col-md-12 col-sm-12">
+                            <div class="col-md-12 SubHeadingDiv margin-bottom-10"><span class="caption-subject">{{"Communication Details"|translate}}</span></div>
+                            <div class="clearfix"></div>
+                            <label class="control-label col-xs-7 col-sm-5 col-md-2 col-lg-2 form-group"><span ng-if="IsEditPersonalDetails">&nbsp;</span>{{"Employee Id"|translate}}</label>
+                            <div class="col-xs-5 col-sm-5 col-md-3 col-lg-3 form-group">
+                                <!--<input type="text" name="EmployeeId" readonly ng-model="personalDetails.policyHolderId" class="form-control" ng-if="IsEditPersonalDetails" />-->
+                                <span ng-if="IsEditPersonalDetails">{{personalDetails.policyHolderId}}</span>
+                                <span class="control-label responsive-padding" ng-if="!IsEditPersonalDetails">{{personalDetails.policyHolderId}}</span>                                
+                            </div>
+                            
+                            <div class="clearfix"></div>
+                            <label class="control-label col-xs-12 col-sm-5 col-md-2 col-lg-2 form-group "><span ng-if="IsEditPersonalDetails">&nbsp;</span>{{"Email ID"|translate}}</label>
+                            <div class="col-xs-12 col-sm-5 col-md-4 col-lg-3 form-group " style="word-break: break-all;">
+                                <!--<input type="text" readonly name="emailID" required ng-model="personalDetails.email" pattern="[a-z0-9A-Z._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" class="form-control" ng-if="IsEditPersonalDetails" />-->
+                                <span ng-if="IsEditPersonalDetails" >{{personalDetails.email}}</span>                                                                
+                                <span class="control-label" ng-if="!IsEditPersonalDetails">{{personalDetails.email}}</span>
+                            </div>
+
+                            <div class="clearfix"></div>
+                            <label class="control-label col-xs-12 col-sm-5 col-md-2 col-lg-2 form-group "><strong class="mandatory" ng-if="IsEditPersonalDetails">*</strong>{{"Work Phone"|translate}}</label>
+                            <div class="col-xs-12 col-sm-5 col-md-3 col-lg-3 form-group">
+                                <span class="control-label responsive-padding" ng-if="!IsEditPersonalDetails">{{personalDetails.dayTimePhone|tel}}</span>
+                                <input type="text" name="workPhone" ng-pattern="/^([0-9-,()\s+]{15})$/" ng-trim="false" maxlength="15" phone-input required ng-model="personalDetails.dayTimePhone" placeholder="(XXX)XXX-XXXX" class="input-phone form-control" ng-if="IsEditPersonalDetails" />
+                                <span class="text-danger col-sm-12 col-xs-12 col-lg-12 col-md-12" ng-message="required"
+                                      ng-show="(PersonalDetailsForm.workPhone.$error.required && PersonalDetailsForm.workPhone.$touched)">
+                                    {{"Please enter work phone."|translate}}
+                                </span>
+                                <span class="text-danger" ng-message="required"
+                                      ng-show="(PersonalDetailsForm.workPhone.$error.pattern)">
+                                    {{"Please enter valid phone number"|translate}}
+                                </span>
+                            </div>
+                            <label class="control-label col-xs-12 col-sm-5 col-md-1 col-lg-1 form-group "><span ng-if="IsEditPersonalDetails">&nbsp;</span>{{"Extension"|translate}}</label>
+                                <div class=" col-xs-12 col-sm-5 col-md-3 col-lg-3 form-group " id="cal">
+                                    <span class="control-label" ng-if="!IsEditPersonalDetails">{{personalDetails.extension}}</span>
+                                    <input type="text" name="extension" maxlength="4" ng-model="personalDetails.extension" numbers-only class="form-control" ng-if="IsEditPersonalDetails" style="width: 40% !important;"/>
+                                </div>
+                            <div class="clearfix"></div>
+                            <label class="control-label col-xs-12 col-sm-5 col-md-2 col-lg-2 form-group"><span ng-if="IsEditPersonalDetails">&nbsp;</span>{{"Home Phone "|translate}}</label>
+                            <div class="col-xs-12 col-sm-5 col-md-3 col-lg-3 form-group">
+                                <span class="control-label" ng-if="!IsEditPersonalDetails">{{personalDetails.eveningTimePhone|tel}}</span>
+                                <input type="text" name="homePhone" ng-pattern="/^([0-9-,()\s+]{15})$|^$/" ng-trim="false" maxlength="15" class="input-phone form-control" phone-input placeholder="(XXX)XXX-XXXX"  ng-model="personalDetails.eveningTimePhone" ng-if="IsEditPersonalDetails" 
+                                ng-change="PersonalDetailsForm.homePhone.$invalid = PersonalDetailsForm.homePhone.$error.pattern; PersonalDetailsForm.homePhone.$valid = !PersonalDetailsForm.homePhone.$error.pattern; PersonalDetailsForm.$invalid = PersonalDetailsForm.homePhone.$error.pattern"
+                                />
+                                <span class="text-danger"
+                                      ng-show="(PersonalDetailsForm.homePhone.$error.pattern)">
+                                    {{"Please enter valid phone number"|translate}}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <!--End Communication Details-->
+                    <!-- start profile pitctur Details -->
+                    <div class="col-md-12 col-sm-12 col-xs-12 margin-top-10 responsive-padding">
+                        <div class="col-md-12 col-sm-12">
+                            <div class="col-md-12 SubHeadingDiv margin-bottom-10"><span class="caption-subject">{{"Profile Picture"|translate}}</span></div>
+                            <div class="clearfix"></div>
+                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8" ng-if="IsEditPersonalDetails && personalDetails.profilePicture == null">
+                                <input id="FileUpload" multiple type="file"
+                                    onchange="angular.element(this).scope().getAttachmentDetails(this)"
+                                    style="display: none;" accept="image/*|.pdf|.xls|.xlsx">
+                                <a style="text-decoration:none"
+                                    ng-click="AddProfilePicture($event)">{{"Click to upload a profile picture"|translate}}</a>&nbsp;&nbsp;
+                            </div>
+                            <!-- befor saving image file in db fileUrl is not generated so we are refering Image feild in ng-src -->
+                            <div  class="col-lg-8 col-md-8 col-sm-8 col-xs-8" ng-if="personalDetails.profilePicture != null && personalDetails.profilePicture.fileUrl == null">
+                                <img ng-src="{{personalDetails.profilePicture.Image}}" alt="Pictures of the incident"
+                                    class="img-responsive bordered "
+                                    style="width:200px; height:190px;padding:5px;border:1px groove;" />  
+                            </div>
+                            <!-- after saved image file in db fileUrl is generated so we are refering fileUrl feild in ng-src -->
+                            <div  class="col-lg-8 col-md-8 col-sm-8 col-xs-8" ng-if="personalDetails.profilePicture != null && personalDetails.profilePicture.fileUrl != null">
+                                <img ng-src="{{personalDetails.profilePicture.fileUrl}}" alt="Pictures of the incident"
+                                    class="img-responsive bordered "
+                                    style="width:200px; height:190px;padding:5px;border:1px groove;" />  
+                            </div>
+                            <div class="clearfix"></div>
+                            <div  class="col-lg-8 col-md-8 col-sm-8 col-xs-8" ng-if="IsEditPersonalDetails && personalDetails.profilePicture != null">
+                                <input id="FileUpload" multiple type="file"
+                                    onchange="angular.element(this).scope().getAttachmentDetails(this)"
+                                    style="display: none;" accept="image/*|.pdf|.xls|.xlsx">
+                                <a style="text-decoration:none"
+                                    ng-click="AddProfilePicture($event)">{{"Upload new picture"|translate}}</a>&nbsp;&nbsp;
+                                    <a style="text-decoration:none;padding-left: 31px;" class="text-right"
+                                    ng-click="DeleteProfilePicture($event)">{{"Delete"|translate}}</a>&nbsp;&nbsp;
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- end profile pitctur Details -->
+                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 margin-top-10 topBorder margin-bottom-10">                        
+                        <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 margin-top-10 margin-bottom-10 padding1px text-right">
+                            <button type="button" class="btn sbold btnMargin" ng-show="IsEditPersonalDetails" ng-disabled="!IsSaveEnabled && PersonalDetailsForm.$pristine || PersonalDetailsForm.$invalid" ng-click="SaveProfileDetails()">
+                                {{"Save "|translate}}
+                            </button>
+                            <button type="button" class="btn  sbold btnMargin" ng-if="IsEditPersonalDetails" ng-click="CancelEditPersonalDetails()">
+                                {{"Cancel"|translate}}
+                            </button>
+                          
+                            <button type="button" class="btn sbold btnMargin" ng-if="!IsEditPersonalDetails" ng-click="EditPersonalDetails()">
+                                        {{"Edit"|translate}}
+                            </button>                               
+                            <button type="button" class="btn  sbold btnMargin" ng-if="!IsEditPersonalDetails" ng-click="GoToHome()">
+                                        {{"Cancel"|translate}}
+                            </button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

@@ -1,0 +1,1501 @@
+<html>
+    <style>
+    .header{
+        font-size: large;
+        border : none;
+        border-bottom: 2px solid black;
+        margin: 1%;
+    }
+    .heading{
+        font-size: medium;
+        border : none;
+        border-bottom: 1px solid black;
+        margin: 1%;
+        padding-bottom: 0.5%;
+    }
+    .btn-actions{
+        display: flex;
+        justify-content: flex-end;
+    }
+   .actn-btns{
+        margin: 0.2%;
+        padding: 0.4%;
+    }
+    .d-flex{
+        display: flex;
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+    }
+    .original-details{
+       margin-left:1% 
+    }
+    .labels{
+        width: 30%;
+        text-align: right;
+        margin-right: 2%;
+        font-weight: bold;
+    }
+    .row{
+      margin-top : 1%;
+    }
+
+    .original-details{
+        width: 50%;
+        border: none;
+        border-right: 1px solid black;
+        padding-right:3%;
+    }
+    .details{
+        margin-top:1%;
+        font-size: small;
+    }
+    .replacement-details{
+        width:50%;
+        padding-right:3%;
+    }
+    .component{
+        width: 20%;
+        border: none;
+        border-right: 1px solid black;
+        text-align: center;
+    }
+    .options{
+        width: 80%;
+        text-align: center;
+    }
+    .options-box,.component-box{
+        height: 280px;
+        margin:10px;
+        border:1px solid black;
+        /* margin-top:25px; */
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        padding-bottom: 10px;
+        background: #f0f8ff;
+    }
+    .options-box{
+        /* display: flex; */
+        display:-webkit-box;
+        flex-wrap: wrap;
+        flex-wrap: inherit;
+        /* flex-direction: column; */
+        overflow-x: auto;
+
+    }
+    .component-worksheet{
+        margin-top: 3%;
+    }
+    body{
+        font-family: "Open Sans", sans-serif;
+    }
+    .option{       
+        padding:1%;
+        width:30%;
+        border: 1px solid black;
+        border-radius: 10px;
+        height: 96%;
+        margin-top: 10px;
+        margin-left: 24px;
+        /* margin-bottom: 40px; */
+    }
+    .option-selected{       
+        padding:1%;
+        width:30%;
+        border: 4px solid #4BD863;
+        border-radius: 10px;
+        height: 96%;
+        margin-top: 10px;
+        margin-left: 24px;
+        /* margin-bottom: 40px; */
+    }
+    .option-heading{
+        border:none;
+        border-bottom: 1px solid black;
+        text-align: left;
+    }
+    .opt-actions{
+        position: relative;
+        bottom:19%;
+        left:30%;
+        padding: 10px;
+        width: 70%;
+        margin-top: 30px;
+    }
+
+    .field{
+        width: 100%;
+    }
+    .field label{
+        display: block;
+    }
+
+    /* Start -Added for Currency format for input field */
+    label.currencyLbl {
+        position: absolute;
+        background: white;
+        left: 15px;
+        top: 0px;
+        cursor: pointer;
+        padding: 2px 10px !important;
+        max-width: inherit;
+    }
+    input.currency {
+        position: relative;
+        width: 120px !important;
+    }
+    input.currency {
+        padding: 0;
+        border: 1px solid #c2cad8;
+        width: 120px !important;
+        font-family: Arial;
+        line-height: 20px;
+    }
+    label.currencyLbl {
+        padding: 0;
+        border: 1px solid #c2cad8;
+        width: 120px !important;
+        font-family: Arial;
+        line-height: 19px;
+        height: 25px;
+        font-weight: 400 !important;
+        color: #555555;
+        font-size: 12px !important;
+    }
+    input.currency:focus+label.currencyLbl {
+        display: none !important;
+    }
+    /* End -Added for Currency format for input field*/
+
+    /* Start -Components box styles */
+    .itemRemove{
+        float: right!important;
+        position:relative!important;
+    }
+    .itemImg{
+        border:1px solid #a1a1a1!important;
+        padding:2px!important;
+        border-radius:4px!important;
+        height: 100px!important;
+        width: 100px!important;
+    }
+
+    .itemAmt {
+        padding: 45px 0px 35px 0px!important;
+    }
+
+    .itemFavourite{
+        padding:2px!important;
+        border-radius:4px!important;
+        height: 35px!important;
+        width: 35px!important;
+        cursor: pointer!important;
+    }
+
+    .itemLike{
+        padding:2px!important;
+        border-radius:4px!important;
+        height: 35px!important;
+        width: 35px!important;
+    }
+
+    .itemDesc{
+        text-align: justify!important;
+        height: 50px!important;
+        word-wrap: break-word!important;
+    }
+    /* End -Added for Currency format for input field*/
+
+    /* START - Dynamic button effect style*/
+    .btn-default , .btn-danger , .btn-success{
+        color: #333;
+        background-color: #c2cad8!important;
+        border-color: #adadad;
+    }
+    .btn-default:hover , .btn-danger:hover  , .btn-success:hover{
+        color: rgb(248, 244, 244)!important;
+        background-color: #4b4848!important;
+        border-color: #3a3737!important;
+    }
+    .btn-default:disabled,
+    .btn-default[disabled]{
+        color: #333!important;
+        background-color: #c2cad8!important;
+        border-color: #adadad!important;
+    }
+    /* END - Dynamic button effect style*/
+
+    .btn-link[disabled]{
+        color: #aba7a7!important;
+    }
+
+    .mandatory{
+        color: #e73d4a!important;
+    }
+
+    .text-disabled{
+        color: #aba7a7;
+    }
+
+    .disabledGray{
+            background-color: #eef1f5!important;
+            opacity: 1!important;
+    }
+
+    .padding-none{
+        padding: 0px;
+    }
+
+    .subCompHeight320px{
+        height: 320px;
+    }
+
+    .subCompHeight290px{
+        height: 290px;
+    }
+
+    .subCompHeight130px{
+        height: 130px;
+    }
+
+    .subCompHeight25px{
+        height: 25px;
+    }
+
+    .subCompHeight20px{
+        height: 20px;
+    }
+
+    .tab-content{
+        border: none!important;
+        padding: 0px!important;
+    }
+
+    .jwl-comp-bg-color{
+        background: #f0f8ff!important;
+    }
+
+    </style>
+    <body>
+        <div class="col-md-12 col-lg-12 col-sm-12" ng-form="JewelryCustomComparable" id="JewelryCustomComparable" style="padding: 0px;">            
+            <div class="portlet light" style="padding-top:0px;padding-bottom: 0px;">                
+                <div class="portlet-body">
+                    <div class="row" style="margin-top: 0px;">
+                        <div class="col-md-12 col-lg-12 col-sm-12 " style="padding:0px;">
+                            <div class="panel panel-default jwl-comp-bg-color" style="overflow: auto;padding: 10px">
+                                <!--Page Header-->
+                                <div class="col-md-12 col-lg-12 col-sm-12  SubHeadingDiv margin-bottom-10">
+                                    <span class="caption-subject" style="font-size: 14px; font-weight: 700;">{{"Custom Comparable"|translate}}</span>
+                                </div>
+
+                                <!-- Custom Comparable Details -->
+                                <div class="col-md-12 col-lg-12 col-sm-12 padding1px" style="padding:10px 10px 0px 10px!important;">
+                                    <!--Left section-->
+                                    <div class="col-md-6 col-lg-6 col-sm-6 padding1px">
+                                            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-group" >
+                                                <div class="col-md-4 col-sm-4 Label_Text_Right">
+                                                    <label>Original Description <span class="text-danger">*</span></label>
+                                                </div>
+                                                <div class="col-md-8 col-sm-8" title="{{CustomComp.itemDescription}}">                                                   
+                                                    <span style="word-wrap: break-word!important;">{{CustomComp.itemDescription | limitTo: 35}}{{CustomComp.itemDescription.length >  35 ? '...' : ''}}</span>
+                                                    <!-- <textarea class="form-control" required rows="4" id= "OriginalDescription" name="OriginalDescription" ng-model="CustomComp.itemDescription"
+                                                            ng-attr-placeholder='{{"Original Description"|translate}}' style="resize: none;" ng-disabled="pageDisabled"></textarea>
+                                                    <div class="errormessage col-md-12 col-lg-12 col-sm-12 padding-none">
+                                                        <span ng-show="(JewelryCustomComparable.OriginalDescription.$error.required)">{{"Please enter original description"|translate}}</span>
+                                                    </div> -->
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-group" >
+                                                <div class="col-md-4 col-sm-4 Label_Text_Right">
+                                                    <label>Total Cost</label>
+                                                </div>
+                                                <div class="col-md-8 col-sm-8">
+                                                    {{CustomComp.totalPrice | currency}}
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-group" >
+                                                <div class="col-md-4 col-sm-4 Label_Text_Right">
+                                                    <label>Item Category <span class="text-danger">*</span></label>
+                                                </div>
+                                                <div class="col-md-5 col-lg-5 col-sm-5">
+                                                    {{CustomComp.itemCategoryName}}
+                                                    <!-- <select class="form-control" required id="ItemCategory" name="ItemCategory" ng-model="CustomComp.ItemCategory.attributeValueId"
+                                                    ng-change="areYouSureConfirmation('ItemCategory');" ng-focus="itemCategorySelectedVal('ItemCategory')" ng-disabled="pageDisabled" 
+                                                    ng-options="item.attributeValueId as item.atttibuteValue for item in itemCategoryList"></select>
+
+                                                    <div class="errormessage col-md-12 col-lg-12 col-sm-12 padding-none">
+                                                        <span ng-show="(JewelryCustomComparable.ItemCategory.$error.required)">{{"Please select item category"|translate}}</span>
+                                                    </div> -->
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-group" >
+                                                <div class="col-md-4 col-sm-4 Label_Text_Right">
+                                                    <label>Item Type <span class="text-danger">*</span></label>
+                                                </div>
+                                                <div class="col-md-5 col-lg-5 col-sm-5">
+                                                    {{CustomComp.itemTypeName}}
+                                                    <!-- <select class="form-control" required id="type" name="type" ng-model="CustomComp.ItemType.attributeValueTypeId"
+                                                    ng-options="item.attributeValueTypeId as item.atttibuteType for item in itemTypeList" ng-disabled="pageDisabled" 
+                                                    ng-change="areYouSureConfirmation('type');" ng-focus="itemTypeSelectedVal('type')"></select>
+
+                                                    <div class="errormessage col-md-12 col-lg-12 col-sm-12 padding-none">
+                                                        <span ng-show="(JewelryCustomComparable.type.$error.required)">{{"Please select item type"|translate}}</span>
+                                                    </div> -->
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-group" >
+                                                <div class="col-md-4 col-sm-4 Label_Text_Right">
+                                                    <label>Designer Item</label>
+                                                </div>
+                                                <div class="col-md-5 col-lg-5 col-sm-5">
+                                                    <span ng-if="CustomComp.Designer.attributeValueId==5">Yes</span>
+                                                    <span ng-if="CustomComp.Designer.attributeValueId!=5">No</span>
+                                                </div>
+                                            </div>
+                                            
+                                    </div>                                    
+
+                                    <!--Right section-->
+                                    <div class="col-md-6 col-lg-6 col-sm-6 padding1px" filedropzone dropfiles="attachmentList">
+                                            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-group" >
+                                                <div class="col-md-4 col-sm-4 Label_Text_Right" style="padding-left: 0px">
+                                                    <label>Replacement Description <span class="text-danger">*</span></label>
+                                                </div>
+                                                <div class="col-md-8 col-sm-8" title="{{CustomComp.replacementDescription}}">
+                                                    <span style="word-wrap: break-word!important;">{{CustomComp.replacementDescription | limitTo: 35}}{{CustomComp.replacementDescription.length >  35 ? '...' : ''}}</span>
+                                                    <!-- <textarea class="form-control" required rows="4" id= "ReplacementDescription" name="ReplacementDescription" ng-model="CustomComp.replacementDescription"
+                                                            ng-attr-placeholder='{{"Replacement Description"|translate}}' style="resize: none;" ng-disabled="pageDisabled" ></textarea>
+
+                                                    <div class="errormessage col-md-12 col-lg-12 col-sm-12 padding-none">
+                                                        <span ng-show="(JewelryCustomComparable.ReplacementDescription.$error.required)">{{"Please enter replacement description"|translate}}</span>
+                                                    </div> -->
+                                                </div>
+                                            </div>
+
+                                            <!-- <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-group" >
+                                                <div class="col-md-4 col-sm-4 Label_Text_Right">
+                                                    <label>Material Cost</label>
+                                                </div>
+                                                <div class="col-md-8 col-sm-8">
+                                                    {{CustomComp.materialCost | currency}}
+                                                </div>
+                                            </div> -->
+
+                                            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-group" >
+                                                <div class="col-md-4 col-sm-4 Label_Text_Right">
+                                                    <label>SKU#</label>
+                                                </div>
+                                                <div class="col-md-8 col-sm-8">
+                                                    {{CustomComp.sku}}
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-group" >
+                                                <div class="col-md-4 col-sm-4 Label_Text_Right">
+                                                    <label>Merchant</label>
+                                                </div>
+                                                <div class="col-md-8 col-sm-8">
+                                                    {{CustomComp.supplier}}
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-group" >
+                                                <div class="col-md-4 col-sm-4 Label_Text_Right">
+                                                    <label>Supplier's Website (If any)</label>
+                                                </div>
+                                                <div class="col-md-8 col-sm-8">
+                                                    {{CustomComp.supplierWebSite}}
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-group" >
+                                                <div class="col-md-4 col-sm-4 Label_Text_Right">
+                                                    <label>Total Replacement Cost</label>
+                                                </div>
+                                                <div class="col-md-8 col-sm-8">
+                                                    {{CustomComp.totalReplacementPrice | currency}}
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-group" >
+                                                <div class="col-md-4 col-sm-4 Label_Text_Right">
+                                                    <label>Attachment</label>
+                                                </div>
+                                                <div class="col-md-8 col-sm-8">
+                                                    <input id="FileUpload1" ng-readonly="ItemDetails.status.status === constants.itemStatus.supervisorReview" type="file"
+                                                        ng-model="attachmentList" onchange="angular.element(this).scope().getAttachmentDetails(this)"
+                                                        style="display: none;">
+                                                    <!-- <button ng-disabled="ItemDetails.status.status === constants.itemStatus.supervisorReview" ng-show="!isDisable" ng-click="AddAttachment($event)"
+                                                        class="custom-btn btn-link" style="font-family:'Open Sans', sans-serif;font-size: 13px;border-bottom: 1px solid;padding: 0px;margin-left: 15px!important;line-height: 14px;font-weight: 500;">{{"Click to Upload Attachment"|translate}}</button>
+                                                    <span class="attachmentCls" style="margin-left: 10px;">
+                                                        <i class="fa fa-info-circle" data-popover="{{' Valid file formats ( jpeg, png, svg, webp, jpg )'|translate}}" data-popover-trigger="mouseenter"
+                                                        data-popover-placement="right" style="font-size:20px;vertical-align: bottom;"
+                                                        aria-hidden="true"></i>
+                                                    </span> -->
+                                                    
+                                                    <div class="col-md-12 col-sm-6 form-group">                                                     
+                                                        <div class="col-md-4 margin-bottom-10 col-sm-4" style="padding:0px;margin-right: 20px;" ng-repeat="file in attachmentList">
+                                                                <!-- <a ng-hide="ItemDetails.status.status === constants.itemStatus.supervisorReview" class="TextDecorationNone" ng-hide="file.insuranceFile" style="top:8px;left:85px;position:relative" ng-click="RemoveAttachment($index)"> 
+                                                                <i class="fa fa-times-circle fa-2x text-danger" aria-hidden="true"></i></a> -->
+                                                                <div ng-if=isExcel(file.fileName) ng-click="GetDocxDetails(file)" style="cursor: pointer;">
+                                                                        <img src='assets/global/img/excel-icon.png' class="img-responsive bordered "
+                                                                            style="width:90px; height:90px;padding:5px;border:1px groove;" />
+                                                                    </div>
+                                                                    <div ng-if=isPdf(file.fileName) ng-click="GetDocxDetails(file)" style="cursor: pointer;">
+                                                                        <img src='assets/global/img/pdf-icon.svg' class="img-responsive bordered "
+                                                                            style="width:90px; height:90px;padding:5px;border:1px groove;" />
+                                                                    </div>
+                                                                    <div ng-if=isImage(file.fileName) ng-click="GetDocxDetails(file)" style="cursor: pointer;">
+                                                                        <img ng-src="{{file.Image}}" alt="Pictures of the incident" class="img-responsive bordered "
+                                                                            style="width:90px; height:90px;padding:5px;border:1px groove;" />
+                                                                    </div>
+                                                                    
+                                                                    <div ng-if=isDocx(file.fileName) ng-click="GetDocxDetails(file)"  style="cursor: pointer;">
+                                                                    <img ng-src='assets/global/img/docs-file.svg' 
+                                                                        alt="file.fileName" class="img-responsive bordered" title="{{file.fileName}}" style="width:90px; height:90px;padding:5px;border:1px groove;"/>
+                                                                    </div>
+
+                                                                    <span class="sbold" style="word-break: break-word;font-family:Calibri; font-size:14px;cursor:pointer"
+                                                                            ng-click="GetDocxDetails(file)">
+                                                                        <a ng-click="GetDocxDetails(file)" class="sbold" title="{{file.fileName}}" style="word-break: break-word;font-family:Calibri; font-size:14px;cursor:pointer;overflow: hidden;">
+                                                                                {{file.fileName| limitTo:10}}{{file.fileName.length < 10 ? '': ' ...'}}
+                                                                        </a>
+                                                                    </span>
+                                                                
+                                                            <!-- <a style="word-break: break-word;font-family:Calibri; font-size:14px;cursor:pointer;overflow: hidden;" ng-click="GetDocxDetails(file)">{{file.fileName}}</a>
+                                                            <span ng-if="!$last">, </span> -->
+                                                        </div>
+                                                    </div>
+                        
+                                                    <!-- <div class="col-lg-12 col-md-12 col-sm-8 col-xs-8">
+                                                        <div class="col-md-3 margin-bottom-10 col-sm-4" style="padding:0px;" ng-repeat="file in attachmentListEdit">
+                                                                <div ng-if=isExcel(file.fileName)>
+                                                                        <img src='assets/global/img/excel-icon.png' class="img-responsive bordered "
+                                                                            style="width:90px; height:90px;padding:5px;border:1px groove;" />
+                                                                    </div>
+                                                                    <div ng-if=isPdf(file.fileName)>
+                                                                        <img src='assets/global/img/pdf-icon.svg' class="img-responsive bordered "
+                                                                            style="width:90px; height:90px;padding:5px;border:1px groove;" />
+                                                                    </div>
+                                                                    <div ng-if=isImage(file.fileName)>
+                                                                        <img ng-src="{{file.Image}}" alt="Pictures of the incident" class="img-responsive bordered "
+                                                                            style="width:120px; height:120px;padding:5px;border:1px groove;" />
+                                                                    </div>
+                                                            <a ng-click="GetDocxDetails(file)" class="sbold"
+                                                            style="word-break: break-word;font-family:Calibri; font-size:14px;cursor:pointer;overflow: hidden;"><span>{{file.FileName}}</span></a>
+                                                            <span ng-if="!$last && file.FileName != null">, </span>
+                                                        </div>
+                                                    </div> -->
+                                                </div>
+                                            </div> 
+
+                                            <!-- Attachements Preview Start -->
+                                            <div class="panel panel-default" id="img_preview" draggable ng-if="imgDiv" style="margin-top: -90px !important">
+                                                <div class="col-md-12 col-sm-12" style="padding: 0px 10px;">
+                                                    <label class="col-md-12 col-sm-12 SubHeadingDiv margin-bottom-10" style="font-size: 14px;">{{DocxDetails.fileName}}</label>
+                                                    <div class="col-md-12 col-sm-12 margin-bottom-10" style="text-align: left;">
+                                                        <a class="btn btn-default sbold btnMargin" ng-if="showButton" ng-click="getAttachements(DocxDetails.fileData)">Download</a>
+                                                        <a class="btn btn-default sbold btnMargin" ng-if="isPDF == 2" ng-click="downloadFile(DocxDetails)">Download</a>
+
+                                                        <!-- <a class="btn btn-default sbold btnMargin" ng-if="showButton" ng-hide="DocxDetails.insuranceFile" ng-click="DeleteAttachement()">Delete</a> -->
+                                                        <a id="previewclose" class="btn btn-default sbold btnMargin" ng-click="close()">Close Preview</a>
+                                                        <a ng-if="isPDF == 2" id="previewclose" class="btn btn-default sbold btnMargin glyphicon glyphicon-plus" ng-click="largeMe()"></a>
+                                                        <a ng-if="isPDF == 2" id="previewclose" class="btn btn-default sbold btnMargin glyphicon glyphicon-minus" ng-click="smallMe()"></a>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-12 col-sm-12" style="padding: 0px 10px;" ng-if="isPDF == 2">
+                                                    <div class="col-md-12 col-sm-12 margin-bottom-10" style="overflow: hidden;">
+                                                        <img id="imagepre" style="height: 400px;width:400px ;" class="image-wrapper"onerror="this.onerror=null; this.src='assets/global/img/no-image.png';"
+                                                          class="ImageDocx" ng-src="{{DocxDetails.url}}" alt="Image"/>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 col-sm-12 col-xs-12 margin-bottom-10" id="PdfView" ng-if="isPDF===1">
+                                                    <!-- Show PDF region Render PDF here -->
+                                                    <div class="col-md-12" id="load_receipts">
+                                                        <ng-pdf template-url="views/GlobalSearch/PdfViewer.html" canvasid="pdf" scale="page-fit"
+                                                            page=1></ng-pdf>
+                                                    </div>
+                                                    <!--End Show PDF region  -->
+                                                </div>
+                                                <div class="col-md-12 col-sm-12 col-xs-12 text-center" ng-if="isPDF===0">
+                                                    <div class="col-sm-8 col-md-6 col-xs-12 text-center" style="height:230px;width:100%;">
+                                                        <div class="col-md-12 col-sm-12 col-xs-12 well text-center">
+                                                            <span class="text-info">{{"File type does not support preview option. File
+                                                                will start downloading.."|translate}}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Attachments Preview End -->
+
+                                    </div>
+                                </div>
+                            </div> 
+                        </div>                        
+                    </div>
+
+                    <!-- {{CustomComp.ItemCategory.attributeValueId}}
+                    {{CustomComp.ItemType.attributeValueTypeId}}   -->
+
+                    <!-- Component Worksheet-->
+                    <div class="row" style="margin-top: 0px;">
+                        <div class="col-md-12 col-lg-12 col-sm-12 " style="padding:0px;">
+                            <div class="panel panel-default" style="overflow: auto;padding:10px 10px 0px 10px;margin-bottom: 0px;">
+                                <!--Page Header2-->
+                                <div class="col-md-12 col-lg-12 col-sm-12  SubHeadingDiv margin-bottom-10">
+                                    <span class="caption-subject" style="font-size: 14px; font-weight: 700;">{{"Component Worksheet"|translate}}</span>
+                                </div>                                
+
+                                <!-- List of components -->
+                                <div ng-if="CustomComp.ItemCategory.attributeValueId == null || CustomComp.ItemType.attributeValueTypeId == null" class="text-danger" style="text-align: center;">
+                                    *Please select Item Category and Type to display Components           
+                                </div>
+
+                                <div ng-if="(CustomComp.ItemCategory.attributeValueId != null && CustomComp.ItemType.attributeValueTypeId != null) && ( (CustomComp.ItemCategory.attributeValueId != 7 && CustomComp.ItemCategory.attributeValueId != 8 && CustomComp.ItemCategory.attributeValueId != 9 && CustomComp.ItemCategory.attributeValueId != 10 && CustomComp.ItemCategory.attributeValueId != 11 && CustomComp.ItemCategory.attributeValueId != 149) || (CustomComp.ItemType.attributeValueTypeId != 2 && CustomComp.ItemType.attributeValueTypeId != 1 && CustomComp.ItemType.attributeValueTypeId != 3 && CustomComp.ItemType.attributeValueTypeId != 4 && 
+                                             CustomComp.ItemType.attributeValueTypeId != 5 && CustomComp.ItemType.attributeValueTypeId != 6 && CustomComp.ItemType.attributeValueTypeId != 7 && CustomComp.ItemType.attributeValueTypeId != 8 && CustomComp.ItemType.attributeValueTypeId != 9 && CustomComp.ItemType.attributeValueTypeId != 10 && CustomComp.ItemType.attributeValueTypeId != 11 && CustomComp.ItemType.attributeValueTypeId != 12 && CustomComp.ItemType.attributeValueTypeId != 13 && CustomComp.ItemType.attributeValueTypeId != 14 && CustomComp.ItemType.attributeValueTypeId != 15 && CustomComp.ItemType.attributeValueTypeId != 16 && CustomComp.ItemType.attributeValueTypeId != 17 && CustomComp.ItemType.attributeValueTypeId != 19 && CustomComp.ItemType.attributeValueTypeId != 22 && 
+                                             CustomComp.ItemType.attributeValueTypeId != 21 && CustomComp.ItemType.attributeValueTypeId != 26 && CustomComp.ItemType.attributeValueTypeId != 23 && CustomComp.ItemType.attributeValueTypeId != 24 && CustomComp.ItemType.attributeValueTypeId != 25 && CustomComp.ItemType.attributeValueTypeId != 27 && CustomComp.ItemType.attributeValueTypeId != 28 && CustomComp.ItemType.attributeValueTypeId != 29))" class="text-danger" style="text-align: center;">
+                                    *Implementations TBD ...           
+                                </div>
+
+                                <!-- List of components -->
+                                <div class="component-worksheet" ng-if="(CustomComp.ItemCategory.attributeValueId != null && CustomComp.ItemType.attributeValueTypeId != null) && ((CustomComp.ItemCategory.attributeValueId == 7 || CustomComp.ItemCategory.attributeValueId == 8 || CustomComp.ItemCategory.attributeValueId == 9 || CustomComp.ItemCategory.attributeValueId == 10 || CustomComp.ItemCategory.attributeValueId == 11 || CustomComp.ItemCategory.attributeValueId == 149) && 
+                                     (CustomComp.ItemType.attributeValueTypeId == 2 || CustomComp.ItemType.attributeValueTypeId == 1 || CustomComp.ItemType.attributeValueTypeId == 3 || CustomComp.ItemType.attributeValueTypeId == 4 || CustomComp.ItemType.attributeValueTypeId == 5 || CustomComp.ItemType.attributeValueTypeId == 6 || CustomComp.ItemType.attributeValueTypeId == 7 || CustomComp.ItemType.attributeValueTypeId == 8 || CustomComp.ItemType.attributeValueTypeId == 9 || CustomComp.ItemType.attributeValueTypeId == 10 || 
+                                      CustomComp.ItemType.attributeValueTypeId == 11 || CustomComp.ItemType.attributeValueTypeId == 12 || CustomComp.ItemType.attributeValueTypeId == 13 || CustomComp.ItemType.attributeValueTypeId == 14 || CustomComp.ItemType.attributeValueTypeId == 15 || CustomComp.ItemType.attributeValueTypeId == 16 || CustomComp.ItemType.attributeValueTypeId == 17 || CustomComp.ItemType.attributeValueTypeId == 19 || CustomComp.ItemType.attributeValueTypeId == 21 || CustomComp.ItemType.attributeValueTypeId == 22 || CustomComp.ItemType.attributeValueTypeId == 23 || CustomComp.ItemType.attributeValueTypeId == 24 || CustomComp.ItemType.attributeValueTypeId == 25 || CustomComp.ItemType.attributeValueTypeId == 26 || CustomComp.ItemType.attributeValueTypeId == 27 || CustomComp.ItemType.attributeValueTypeId == 28 || CustomComp.ItemType.attributeValueTypeId == 29))">                                   
+                                    <!-- Components Header -->
+                                    <div class="d-flex">
+                                        <div class="component">
+                                            <span style="font-weight: bold;">Component</span>
+                                        </div>
+                                        <div class="options">
+                                            <span style="font-weight: bold; margin-right: 50%;">Options</span>
+                                        </div>                
+                                    </div>
+
+                                    <!-- Ring - Engagement / Diamond Solitair-->
+                                    <!-- Center Stone - Diamond / Gemstone / pearl -->
+                                    <div class="d-flex subCompHeight290px" ng-if="((CustomComp.ItemCategory.attributeValueId == 7 || CustomComp.ItemCategory.attributeValueId == 9 || CustomComp.ItemCategory.attributeValueId == 11) && (CustomComp.ItemType.attributeValueTypeId == 2 || CustomComp.ItemType.attributeValueTypeId == 1 || CustomComp.ItemType.attributeValueTypeId == 4 || CustomComp.ItemType.attributeValueTypeId == 9 || CustomComp.ItemType.attributeValueTypeId == 10 || CustomComp.ItemType.attributeValueTypeId == 12 || CustomComp.ItemType.attributeValueTypeId == 16 || CustomComp.ItemType.attributeValueTypeId == 17 || CustomComp.ItemType.attributeValueTypeId == 23 || CustomComp.ItemType.attributeValueTypeId == 25 || CustomComp.ItemType.attributeValueTypeId == 27 || CustomComp.ItemType.attributeValueTypeId == 28))">
+                                        <div class="component">
+                                            <div class="component-box">                                                
+                                                <div class="field">
+                                                    <label>Center Stone Type</label>
+
+                                                    <!--Engagement-->
+                                                    <select ng-hide="(CustomComp.ItemType.attributeValueTypeId == 17 || CustomComp.ItemType.attributeValueTypeId == 27 || CustomComp.ItemType.attributeValueTypeId == 1 || CustomComp.ItemType.attributeValueTypeId == 9 || CustomComp.ItemType.attributeValueTypeId == 16 || CustomComp.ItemType.attributeValueTypeId == 19)" ng-model="CustomComp.centerStone" ng-change="changeCenterStoneSelection()"  ng-disabled="pageDisabled" >
+                                                        <option value="Diamond" >Diamond</option>
+                                                        <option value="Gemstone" >Gemstone</option>
+                                                    </select>
+                                                    
+                                                    <!--Diamond Solitair-->
+                                                    <select ng-show="CustomComp.ItemType.attributeValueTypeId != 17 && CustomComp.ItemType.attributeValueTypeId != 27 && (CustomComp.ItemType.attributeValueTypeId == 1 || CustomComp.ItemType.attributeValueTypeId == 9 || CustomComp.ItemType.attributeValueTypeId == 16 || CustomComp.ItemType.attributeValueTypeId == 19)" ng-model="CustomComp.centerStone" ng-disabled="true" >
+                                                        <option value="Diamond" >Diamond</option>
+                                                    </select>
+
+                                                    <!--Gemstone-->
+                                                    <select ng-show="CustomComp.ItemType.attributeValueTypeId == 17" ng-model="CustomComp.centerStone" ng-disabled="true" >
+                                                        <option value="Gemstone" >Gemstone</option>
+                                                    </select>
+
+                                                    <!--Pearl-->
+                                                    <select ng-show="CustomComp.ItemType.attributeValueTypeId == 27" ng-model="CustomComp.centerStone" ng-disabled="true" >
+                                                        <option value="Pearl" >Pearl</option>
+                                                    </select>
+
+                                                </div>
+                                            </div>
+                                        </div>                                       
+
+                                        <div class="options">                                            
+                                            <div class="options-box" >
+                                                <!-- Center Diamond Dynamic Box  -->                                                 
+                                                <div ng-repeat="addedDiamond in CustomComp.centerStoneDiamonds" class="option" ng-class="{'option': addedDiamond.itemFavourite == false, 'option-selected': addedDiamond.itemFavourite == true }">                                                    
+                                                    <div class="option-heading">
+                                                        <label ng-if="addedDiamond.itemFavourite == false" >Center Option {{$index+1}}</label>
+                                                        <label ng-if="addedDiamond.itemFavourite == true" >Replacement Quoted</label>
+                                                        <!-- Remove Item Box -->
+                                                        <span ng-hide="pageDisabled">
+                                                            <a ng-if="(addedDiamond.itemFavourite == false && addedDiamond.itemLiked == false)" class="TextDecorationNone itemRemove" ng-click="removeJewelryComponent(addedDiamond, $index)" title="Remove">
+                                                                <i class="fa fa-times-circle fa-2x text-danger" aria-hidden="true"></i>
+                                                            </a>
+                                                            <a ng-if="!(addedDiamond.itemFavourite == false && addedDiamond.itemLiked == false)" class="TextDecorationNone itemRemove" style="cursor: not-allowed!important;">
+                                                                <i class="fa fa-times-circle fa-2x text-disabled" aria-hidden="true"></i>
+                                                            </a>
+                                                        </span>
+                                                    </div>
+                                                    <div class="col-md-12 col-lg-12 col-sm-12 padding1px margin-top-10" >
+                                                        <!--Item image-->
+                                                        <div class="col-md-5 col-lg-5 col-sm-5 padding1px" >
+                                                            <img ng-if="(addedDiamond.imagesDTOSet == undefined || addedDiamond.imagesDTOSet ==null || addedDiamond.imagesDTOSet.length==0 || !addedDiamond.imagesDTOSet[0].url) && (addedDiamond.imageUrl == undefined  || addedDiamond.imageUrl=='')" ng-src="assets/global/img/no-image.png" class="img-responsive itemImg" />
+                                                            <img ng-if="(addedDiamond.imagesDTOSet != undefined && addedDiamond.imagesDTOSet && addedDiamond.imagesDTOSet.length!=0 && addedDiamond.imagesDTOSet[0].url) || (addedDiamond.imageUrl != undefined  && addedDiamond.imageUrl!='')" ng-src="{{ (addedDiamond.imagesDTOSet && addedDiamond.imagesDTOSet.length!=0 && addedDiamond.imagesDTOSet[0].url) ? addedDiamond.imagesDTOSet[0].url : addedDiamond.imageUrl}}" class="img-responsive itemImg" />
+                                                        </div>
+
+                                                        <!--Item cost-->
+                                                        <div class="col-md-5 col-lg-5 col-sm-5 padding1px itemAmt">
+                                                            <label>{{addedDiamond.totalReplacementPrice | currency}}</label>
+                                                        </div>
+
+                                                        <!--Favourite & like -->
+                                                        <div class="col-md-2 col-lg-2 col-sm-2 padding1px" >
+                                                            <!--Star & star fill -->
+                                                            <div class="col-md-12 col-lg-12 col-sm-12 padding1px" >                                                               
+                                                                <img ng-if="addedDiamond.itemFavourite == false" ng-src="assets/global/img/star.svg"  class="itemFavourite" title="Favourite"/>
+                                                                <img ng-if="addedDiamond.itemFavourite == true" ng-src="assets/global/img/star-gold.svg" class="itemFavourite" title="Favourite"/>
+                                                            </div>
+                                                            <!--Heart & Heart fill -->
+                                                            <div class="col-md-12 col-lg-12 col-sm-12 padding1px" >                                                                
+                                                                <img ng-if="addedDiamond.itemLiked == false" disabled="ItemDetails.status.status === constants.itemStatus.supervisorReview" ng-src="assets/global/img/heart.svg" class="itemLike" title="Like" />
+                                                                <img ng-if="addedDiamond.itemLiked == true"  ng-src="assets/global/img/heart-fill.svg" class="itemLike" title="Like" />
+                                                            </div> 
+                                                        </div>
+                                                        <!--Descriptions-->
+                                                        <div class="col-md-12 col-lg-12 col-sm-12 padding1px margin-top-5">
+                                                            <!-- Max 120 chars after that text with elepsies ... -->
+                                                            <p class="itemDesc" title="{{addedDiamond.replacementDescription}}">
+                                                                <span>{{addedDiamond.replacementDescription | limitTo: 94}}{{addedDiamond.replacementDescription.length >  94 ? '...' : ''}}</span>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <!-- Center Gemstone Dynamic Box  -->                                                 
+                                                <div ng-repeat="addedGemstone in CustomComp.centerStoneGemstones" class="option" ng-class="{'option': addedGemstone.itemFavourite == false, 'option-selected': addedGemstone.itemFavourite == true }">                                                    
+                                                    <div class="option-heading">
+                                                        <label ng-if="addedGemstone.itemFavourite == false" >Center Option {{$index+1}}</label>
+                                                        <label ng-if="addedGemstone.itemFavourite == true" >Replacement Quoted</label>
+                                                        <!-- Remove Item Box -->
+                                                        <span ng-hide="pageDisabled">
+                                                            <a ng-if="(addedGemstone.itemFavourite == false && addedGemstone.itemLiked == false)" class="TextDecorationNone itemRemove" ng-click="removeJewelryComponent(addedGemstone, $index)" title="Remove">
+                                                                <i class="fa fa-times-circle fa-2x text-danger" aria-hidden="true"></i>
+                                                            </a>
+                                                            <a ng-if="!(addedGemstone.itemFavourite == false && addedGemstone.itemLiked == false)" class="TextDecorationNone itemRemove" style="cursor: not-allowed!important;">
+                                                                <i class="fa fa-times-circle fa-2x text-disabled" aria-hidden="true"></i>
+                                                            </a>
+                                                        </span>
+                                                    </div>
+                                                    <div class="col-md-12 col-lg-12 col-sm-12 padding1px margin-top-10" >
+                                                        <!--Item image-->
+                                                        <div class="col-md-5 col-lg-5 col-sm-5 padding1px" >
+                                                            <img ng-if="(addedGemstone.imagesDTOSet == undefined || addedGemstone.imagesDTOSet ==null || addedGemstone.imagesDTOSet.length==0 || !addedGemstone.imagesDTOSet[0].url) && (addedGemstone.imageUrl == undefined  || addedGemstone.imageUrl=='')" ng-src="assets/global/img/no-image.png" class="img-responsive itemImg" />
+                                                            <img ng-if="(addedGemstone.imagesDTOSet != undefined && addedGemstone.imagesDTOSet && addedGemstone.imagesDTOSet.length!=0 && addedGemstone.imagesDTOSet[0].url) || (addedGemstone.imageUrl != undefined  && addedGemstone.imageUrl!='')" ng-src="{{ (addedGemstone.imagesDTOSet && addedGemstone.imagesDTOSet.length!=0 && addedGemstone.imagesDTOSet[0].url) ? addedGemstone.imagesDTOSet[0].url : addedGemstone.imageUrl}}" class="img-responsive itemImg" />
+                                                        </div>
+
+                                                        <!--Item cost-->
+                                                        <div class="col-md-5 col-lg-5 col-sm-5 padding1px itemAmt">
+                                                            <label>{{addedGemstone.totalReplacementPrice | currency}}</label>
+                                                        </div>
+
+                                                        <!--Favourite & like -->
+                                                        <div class="col-md-2 col-lg-2 col-sm-2 padding1px" >
+                                                            <!--Star & star fill -->
+                                                            <div class="col-md-12 col-lg-12 col-sm-12 padding1px" >                                                               
+                                                                <img ng-if="addedGemstone.itemFavourite == false"  ng-src="assets/global/img/star.svg"  class="itemFavourite" title="Favourite" />
+                                                                <img ng-if="addedGemstone.itemFavourite == true"   ng-src="assets/global/img/star-gold.svg" class="itemFavourite" title="Favourite" />
+                                                            </div>
+                                                            <!--Heart & Heart fill -->
+                                                            <div class="col-md-12 col-lg-12 col-sm-12 padding1px" >                                                                
+                                                                <img ng-if="addedGemstone.itemLiked == false" ng-src="assets/global/img/heart.svg" class="itemLike" title="Like" />
+                                                                <img ng-if="addedGemstone.itemLiked == true"  ng-src="assets/global/img/heart-fill.svg" class="itemLike" title="Like" />
+                                                            </div> 
+                                                        </div>
+                                                        <!--Descriptions-->
+                                                        <div class="col-md-12 col-lg-12 col-sm-12 padding1px margin-top-5">
+                                                            <!-- Max 120 chars after that text with elepsies ... -->
+                                                            <p class="itemDesc" title="{{addedGemstone.replacementDescription}}">
+                                                                <span>{{addedGemstone.replacementDescription | limitTo: 94}}{{addedGemstone.replacementDescription.length >  94 ? '...' : ''}}</span>
+                                                            </p>                                                            
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Center Pearl Dynamic Box  -->                                                 
+                                                <div ng-repeat="addedPearl in CustomComp.centerStonePearls" class="option" ng-class="{'option': addedPearl.itemFavourite == false, 'option-selected': addedPearl.itemFavourite == true }">                                                    
+                                                    <div class="option-heading">
+                                                        <label ng-if="addedPearl.itemFavourite == false" >Center Option {{$index+1}}</label>
+                                                        <label ng-if="addedPearl.itemFavourite == true" >Replacement Quoted</label>
+                                                        <!-- Remove Item Box -->
+                                                        <span ng-hide="pageDisabled">
+                                                            <a ng-if="(addedPearl.itemFavourite == false && addedPearl.itemLiked == false)" class="TextDecorationNone itemRemove" ng-click="removeJewelryComponent(addedPearl, $index)" title="Remove">
+                                                                <i class="fa fa-times-circle fa-2x text-danger" aria-hidden="true"></i>
+                                                            </a>
+                                                            <a ng-if="!(addedPearl.itemFavourite == false && addedPearl.itemLiked == false)" class="TextDecorationNone itemRemove" style="cursor: not-allowed!important;">
+                                                                <i class="fa fa-times-circle fa-2x text-disabled" aria-hidden="true"></i>
+                                                            </a>
+                                                        </span>
+                                                    </div>
+                                                    <div class="col-md-12 col-lg-12 col-sm-12 padding1px margin-top-10" >
+                                                        <!--Item image-->
+                                                        <div class="col-md-5 col-lg-5 col-sm-5 padding1px" >
+                                                            <img ng-if="(addedPearl.imagesDTOSet == undefined || addedPearl.imagesDTOSet ==null || addedPearl.imagesDTOSet.length==0 || !addedPearl.imagesDTOSet[0].url) && (addedPearl.imageUrl == undefined  || addedPearl.imageUrl=='')" ng-src="assets/global/img/no-image.png" class="img-responsive itemImg" />
+                                                            <img ng-if="(addedPearl.imagesDTOSet != undefined && addedPearl.imagesDTOSet && addedPearl.imagesDTOSet.length!=0 && addedPearl.imagesDTOSet[0].url) || (addedPearl.imageUrl != undefined  && addedPearl.imageUrl!='')" ng-src="{{ (addedPearl.imagesDTOSet && addedPearl.imagesDTOSet.length!=0 && addedPearl.imagesDTOSet[0].url) ? addedPearl.imagesDTOSet[0].url : addedPearl.imageUrl}}" class="img-responsive itemImg" />
+                                                        </div>
+
+                                                        <!--Item cost-->
+                                                        <div class="col-md-5 col-lg-5 col-sm-5 padding1px itemAmt">
+                                                            <label>{{addedPearl.totalReplacementPrice | currency}}</label>
+                                                        </div>
+
+                                                        <!--Favourite & like -->
+                                                        <div class="col-md-2 col-lg-2 col-sm-2 padding1px" >
+                                                            <!--Star & star fill -->
+                                                            <div class="col-md-12 col-lg-12 col-sm-12 padding1px" >                                                               
+                                                                <img ng-if="addedPearl.itemFavourite == false" ng-src="assets/global/img/star.svg"  class="itemFavourite" title="Favourite" />
+                                                                <img ng-if="addedPearl.itemFavourite == true" ng-src="assets/global/img/star-gold.svg" class="itemFavourite" title="Favourite" />
+                                                            </div>
+                                                            <!--Heart & Heart fill -->
+                                                            <div class="col-md-12 col-lg-12 col-sm-12 padding1px" >                                                                
+                                                                <img ng-if="addedPearl.itemLiked == false" ng-src="assets/global/img/heart.svg" class="itemLike" title="Like" />
+                                                                <img ng-if="addedPearl.itemLiked == true"  ng-src="assets/global/img/heart-fill.svg" class="itemLike" title="Like" />
+                                                            </div> 
+                                                        </div>
+                                                        <!--Descriptions-->
+                                                        <div class="col-md-12 col-lg-12 col-sm-12 padding1px margin-top-5">
+                                                            <!-- Max 120 chars after that text with elepsies ... -->
+                                                            <p class="itemDesc" title="{{addedPearl.replacementDescription}}">
+                                                                <span>{{addedPearl.replacementDescription | limitTo: 94}}{{addedPearl.replacementDescription.length >  94 ? '...' : ''}}</span>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                     <!-- Earring - Left Center Stone - Diamond / Gemstone -->
+                                     <div class="d-flex subCompHeight290px" ng-if="CustomComp.ItemCategory.attributeValueId == 10 && (CustomComp.ItemType.attributeValueTypeId == 13 || CustomComp.ItemType.attributeValueTypeId == 15 || CustomComp.ItemType.attributeValueTypeId == 22 || CustomComp.ItemType.attributeValueTypeId == 26)">
+                                        <div class="component">
+                                            <div class="component-box">                                                
+                                                <div class="field">
+                                                    <label>Left Center Stone Type</label>
+                                                    <!--Engagement-->
+                                                    <select ng-hide="CustomComp.ItemType.attributeValueTypeId == 13 || CustomComp.ItemType.attributeValueTypeId == 15" ng-model="CustomComp.leftCenterStone" ng-change="changeCenterStoneSelection()"  ng-disabled="pageDisabled" >
+                                                        <option value="Diamond" >Diamond</option>
+                                                        <option value="Gemstone" >Gemstone</option>
+                                                    </select>
+                                                    
+                                                    <!--Diamond Solitair-->
+                                                    <select ng-show="CustomComp.ItemType.attributeValueTypeId == 13 || CustomComp.ItemType.attributeValueTypeId == 15" ng-model="CustomComp.leftCenterStone" ng-disabled="true" >
+                                                        <option value="Diamond" >Diamond</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>                                       
+
+                                        <div class="options">                                            
+                                            <div class="options-box" >
+                                                <!-- Center Diamond Dynamic Box  -->                                                 
+                                                <div ng-repeat="leftAddedDiamond in CustomComp.leftCenterStoneDiamonds" class="option" ng-class="{'option': leftAddedDiamond.itemFavourite == false, 'option-selected': leftAddedDiamond.itemFavourite == true }">
+                                                    <div class="option-heading">
+                                                        <label ng-if="leftAddedDiamond.itemFavourite == false" >Left Center Option {{$index+1}}</label>
+                                                        <label ng-if="leftAddedDiamond.itemFavourite == true" >Replacement Quoted</label>
+                                                        <!-- Remove Item Box -->                                                        
+                                                        <span ng-hide="pageDisabled">
+                                                            <a ng-if="(leftAddedDiamond.itemFavourite == false && leftAddedDiamond.itemLiked == false)" class="TextDecorationNone itemRemove" ng-click="removeJewelryComponent(leftAddedDiamond, $index)" title="Remove">
+                                                                <i class="fa fa-times-circle fa-2x text-danger" aria-hidden="true"></i>
+                                                            </a>
+                                                            <a ng-if="!(leftAddedDiamond.itemFavourite == false && leftAddedDiamond.itemLiked == false)" class="TextDecorationNone itemRemove" style="cursor: not-allowed!important;">
+                                                                <i class="fa fa-times-circle fa-2x text-disabled" aria-hidden="true"></i>
+                                                            </a>
+                                                        </span>
+                                                    </div>
+                                                    <div class="col-md-12 col-lg-12 col-sm-12 padding1px margin-top-10" >
+                                                        <!--Item image-->
+                                                        <div class="col-md-5 col-lg-5 col-sm-5 padding1px" >
+                                                            <img ng-if="(leftAddedDiamond.imagesDTOSet == undefined || leftAddedDiamond.imagesDTOSet ==null || leftAddedDiamond.imagesDTOSet.length==0 || !leftAddedDiamond.imagesDTOSet[0].url) && (leftAddedDiamond.imageUrl == undefined  || leftAddedDiamond.imageUrl=='')" ng-src="assets/global/img/no-image.png" class="img-responsive itemImg" />
+                                                            <img ng-if="(leftAddedDiamond.imagesDTOSet != undefined && leftAddedDiamond.imagesDTOSet && leftAddedDiamond.imagesDTOSet.length!=0 && leftAddedDiamond.imagesDTOSet[0].url) || (leftAddedDiamond.imageUrl != undefined  && leftAddedDiamond.imageUrl!='')" ng-src="{{ (leftAddedDiamond.imagesDTOSet && leftAddedDiamond.imagesDTOSet.length!=0 && leftAddedDiamond.imagesDTOSet[0].url) ? leftAddedDiamond.imagesDTOSet[0].url : leftAddedDiamond.imageUrl}}" class="img-responsive itemImg" />
+                                                        </div>
+
+                                                        <!--Item cost-->
+                                                        <div class="col-md-5 col-lg-5 col-sm-5 padding1px itemAmt">
+                                                            <label>{{leftAddedDiamond.totalReplacementPrice | currency}}</label>
+                                                        </div>
+
+                                                        <!--Favourite & like -->
+                                                        <div class="col-md-2 col-lg-2 col-sm-2 padding1px" >
+                                                            <!--Star & star fill -->
+                                                            <div class="col-md-12 col-lg-12 col-sm-12 padding1px" >                                                               
+                                                                <img ng-if="leftAddedDiamond.itemFavourite == false" ng-src="assets/global/img/star.svg"  class="itemFavourite" title="Favourite"/>
+                                                                <img ng-if="leftAddedDiamond.itemFavourite == true" ng-src="assets/global/img/star-gold.svg" class="itemFavourite" title="Favourite"/>
+                                                            </div>
+                                                            <!--Heart & Heart fill -->
+                                                            <div class="col-md-12 col-lg-12 col-sm-12 padding1px" >                                                                
+                                                                <img ng-if="leftAddedDiamond.itemLiked == false" ng-src="assets/global/img/heart.svg" class="itemLike" title="Like" />
+                                                                <img ng-if="leftAddedDiamond.itemLiked == true"  ng-src="assets/global/img/heart-fill.svg" class="itemLike" title="Like" />
+                                                            </div> 
+                                                        </div>
+                                                        <!--Descriptions-->
+                                                        <div class="col-md-12 col-lg-12 col-sm-12 padding1px margin-top-5">
+                                                            <!-- Max 120 chars after that text with elepsies ... -->
+                                                            <p class="itemDesc" title="{{leftAddedDiamond.replacementDescription}}">
+                                                                <span>{{leftAddedDiamond.replacementDescription | limitTo: 94}}{{leftAddedDiamond.replacementDescription.length >  94 ? '...' : ''}}</span>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <!-- Center Gemstone Dynamic Box  -->                                                 
+                                                <div ng-repeat="leftAddedGemstone in CustomComp.leftCenterStoneGemstones" class="option" ng-class="{'option': leftAddedGemstone.itemFavourite == false, 'option-selected': leftAddedGemstone.itemFavourite == true }">                                                    
+                                                    <div class="option-heading">
+                                                        <label ng-if="leftAddedGemstone.itemFavourite == false" >Left Center Option {{$index+1}}</label>
+                                                        <label ng-if="leftAddedGemstone.itemFavourite == true" >Replacement Quoted</label>
+                                                        <!-- Remove Item Box -->
+                                                        <span ng-hide="pageDisabled">
+                                                            <a ng-if="(leftAddedGemstone.itemFavourite == false && leftAddedGemstone.itemLiked == false)" class="TextDecorationNone itemRemove" ng-click="removeJewelryComponent(leftAddedGemstone, $index)" title="Remove">
+                                                                <i class="fa fa-times-circle fa-2x text-danger" aria-hidden="true"></i>
+                                                            </a>
+                                                            <a ng-if="!(leftAddedGemstone.itemFavourite == false && leftAddedGemstone.itemLiked == false)" class="TextDecorationNone itemRemove" style="cursor: not-allowed!important;">
+                                                                <i class="fa fa-times-circle fa-2x text-disabled" aria-hidden="true"></i>
+                                                            </a>
+                                                        </span>
+                                                    </div>
+                                                    <div class="col-md-12 col-lg-12 col-sm-12 padding1px margin-top-10" >
+                                                        <!--Item image-->
+                                                        <div class="col-md-5 col-lg-5 col-sm-5 padding1px" >
+                                                            <img ng-if="(leftAddedGemstone.imagesDTOSet == undefined || leftAddedGemstone.imagesDTOSet ==null || leftAddedGemstone.imagesDTOSet.length==0 || !leftAddedGemstone.imagesDTOSet[0].url) && (leftAddedGemstone.imageUrl == undefined  || leftAddedGemstone.imageUrl=='')" ng-src="assets/global/img/no-image.png" class="img-responsive itemImg" />
+                                                            <img ng-if="(leftAddedGemstone.imagesDTOSet != undefined && leftAddedGemstone.imagesDTOSet && leftAddedGemstone.imagesDTOSet.length!=0 && leftAddedGemstone.imagesDTOSet[0].url) || (leftAddedGemstone.imageUrl != undefined  && leftAddedGemstone.imageUrl!='')" ng-src="{{ (leftAddedGemstone.imagesDTOSet && leftAddedGemstone.imagesDTOSet.length!=0) ? leftAddedGemstone.imagesDTOSet[0].url : leftAddedGemstone.imageUrl}}" class="img-responsive itemImg" />
+
+                                                            <!-- <img ng-if="(leftAddedGemstone.imagesDTOSet == undefined || leftAddedGemstone.imagesDTOSet ==null || leftAddedGemstone.imagesDTOSet.length==0 || !leftAddedGemstone.imagesDTOSet[0].url) && (leftAddedGemstone.imageUrl == undefined  || leftAddedGemstone.imageUrl=='')" ng-src="assets/global/img/no-image.png" class="img-responsive itemImg" />
+                                                            <img ng-if="(leftAddedGemstone.imagesDTOSet != undefined && leftAddedGemstone.imagesDTOSet && leftAddedGemstone.imagesDTOSet.length!=0 && leftAddedDiamond.imagesDTOSet[0].url) || (leftAddedGemstone.imageUrl != undefined  && leftAddedGemstone.imageUrl!='')" ng-src="{{ (leftAddedGemstone.imagesDTOSet && leftAddedGemstone.imagesDTOSet.length!=0 && leftAddedDiamond.imagesDTOSet[0].url) ? leftAddedGemstone.imagesDTOSet[0].url : leftAddedGemstone.imageUrl}}" class="img-responsive itemImg" /> -->
+                                                        </div>
+
+                                                        <!--Item cost-->
+                                                        <div class="col-md-5 col-lg-5 col-sm-5 padding1px itemAmt">
+                                                            <label>{{leftAddedGemstone.totalReplacementPrice | currency}}</label>
+                                                        </div>
+
+                                                        <!--Favourite & like -->
+                                                        <div class="col-md-2 col-lg-2 col-sm-2 padding1px" >
+                                                            <!--Star & star fill -->
+                                                            <div class="col-md-12 col-lg-12 col-sm-12 padding1px" >                                                               
+                                                                <img ng-if="leftAddedGemstone.itemFavourite == false" ng-src="assets/global/img/star.svg"  class="itemFavourite" title="Favourite" />
+                                                                <img ng-if="leftAddedGemstone.itemFavourite == true" ng-src="assets/global/img/star-gold.svg" class="itemFavourite" title="Favourite" />
+                                                            </div>
+                                                            <!--Heart & Heart fill -->
+                                                            <div class="col-md-12 col-lg-12 col-sm-12 padding1px" >                                                                
+                                                                <img ng-if="leftAddedGemstone.itemLiked == false" ng-src="assets/global/img/heart.svg" class="itemLike" title="Like" />
+                                                                <img ng-if="leftAddedGemstone.itemLiked == true"  ng-src="assets/global/img/heart-fill.svg" class="itemLike" title="Like" />
+                                                            </div> 
+                                                        </div>
+                                                        <!--Descriptions-->
+                                                        <div class="col-md-12 col-lg-12 col-sm-12 padding1px margin-top-5">
+                                                            <!-- Max 120 chars after that text with elepsies ... -->
+                                                            <p class="itemDesc" title="{{leftAddedGemstone.replacementDescription}}">
+                                                                <span>{{leftAddedGemstone.replacementDescription | limitTo: 94}}{{leftAddedGemstone.replacementDescription.length >  94 ? '...' : ''}}</span>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>    
+                                        </div>
+                                    </div>
+
+                                    <!-- Earring - Right Center Stone - Diamond / Gemstone -->
+                                    <div class="d-flex subCompHeight290px" ng-if="CustomComp.ItemCategory.attributeValueId == 10 && (CustomComp.ItemType.attributeValueTypeId == 13 || CustomComp.ItemType.attributeValueTypeId == 15 || CustomComp.ItemType.attributeValueTypeId == 22 || CustomComp.ItemType.attributeValueTypeId == 26)">
+                                        <div class="component">
+                                            <div class="component-box">                                                
+                                                <div class="field">
+                                                    <label>Right Center Stone Type</label>
+
+                                                    <!--Engagement-->
+                                                    <select ng-hide="CustomComp.ItemType.attributeValueTypeId == 13 || CustomComp.ItemType.attributeValueTypeId == 15" ng-model="CustomComp.rightCenterStone" ng-change="changeCenterStoneSelection()" ng-disabled="pageDisabled" >
+                                                        <option value="Diamond" >Diamond</option>
+                                                        <option value="Gemstone" >Gemstone</option>
+                                                    </select>
+                                                    
+                                                    <!--Diamond Solitair-->
+                                                    <select ng-show="CustomComp.ItemType.attributeValueTypeId == 13 || CustomComp.ItemType.attributeValueTypeId == 15" ng-model="CustomComp.rightCenterStone" ng-disabled="true" >
+                                                        <option value="Diamond" >Diamond</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>                                       
+
+                                        <div class="options">                                            
+                                            <div class="options-box" >
+                                                <!-- Center Diamond Dynamic Box  -->                                                 
+                                                <div ng-repeat="rightAddedDiamond in CustomComp.rightCenterStoneDiamonds" class="option" ng-class="{'option': rightAddedDiamond.itemFavourite == false, 'option-selected': rightAddedDiamond.itemFavourite == true }">                                                    
+                                                    <div class="option-heading">
+                                                        <label ng-if="rightAddedDiamond.itemFavourite == false" >Right Center Option {{$index+1}}</label>
+                                                        <label ng-if="rightAddedDiamond.itemFavourite == true" >Replacement Quoted</label>
+                                                        <!-- Remove Item Box -->                                                        
+                                                        <span ng-hide="pageDisabled">
+                                                            <a ng-if="(rightAddedDiamond.itemFavourite == false && rightAddedDiamond.itemLiked == false)" class="TextDecorationNone itemRemove" ng-click="removeJewelryComponent(rightAddedDiamond, $index)" title="Remove">
+                                                                <i class="fa fa-times-circle fa-2x text-danger" aria-hidden="true"></i>
+                                                            </a>
+                                                            <a ng-if="!(rightAddedDiamond.itemFavourite == false && rightAddedDiamond.itemLiked == false)" class="TextDecorationNone itemRemove" style="cursor: not-allowed!important;">
+                                                                <i class="fa fa-times-circle fa-2x text-disabled" aria-hidden="true"></i>
+                                                            </a>
+                                                        </span>
+                                                    </div>
+                                                    <div class="col-md-12 col-lg-12 col-sm-12 padding1px margin-top-10" >
+                                                        <!--Item image-->
+                                                        <div class="col-md-5 col-lg-5 col-sm-5 padding1px" >
+                                                            <img ng-if="(rightAddedDiamond.imagesDTOSet == undefined || rightAddedDiamond.imagesDTOSet ==null || rightAddedDiamond.imagesDTOSet.length==0 || !rightAddedDiamond.imagesDTOSet[0].url) && (rightAddedDiamond.imageUrl == undefined  || rightAddedDiamond.imageUrl=='')" ng-src="assets/global/img/no-image.png" class="img-responsive itemImg" />
+                                                            <img ng-if="(rightAddedDiamond.imagesDTOSet != undefined && rightAddedDiamond.imagesDTOSet && rightAddedDiamond.imagesDTOSet.length!=0 && rightAddedDiamond.imagesDTOSet[0].url) || (rightAddedDiamond.imageUrl != undefined  && rightAddedDiamond.imageUrl!='')" ng-src="{{ (rightAddedDiamond.imagesDTOSet && rightAddedDiamond.imagesDTOSet.length!=0 && rightAddedDiamond.imagesDTOSet[0].url) ? rightAddedDiamond.imagesDTOSet[0].url : rightAddedDiamond.imageUrl}}" class="img-responsive itemImg" />
+                                                        </div>
+
+                                                        <!--Item cost-->
+                                                        <div class="col-md-5 col-lg-5 col-sm-5 padding1px itemAmt">
+                                                            <label>{{rightAddedDiamond.totalReplacementPrice | currency}}</label>
+                                                        </div>
+
+                                                        <!--Favourite & like -->
+                                                        <div class="col-md-2 col-lg-2 col-sm-2 padding1px" >
+                                                            <!--Star & star fill -->
+                                                            <div class="col-md-12 col-lg-12 col-sm-12 padding1px" >                                                               
+                                                                <img ng-if="rightAddedDiamond.itemFavourite == false" ng-src="assets/global/img/star.svg"  class="itemFavourite" title="Favourite"/>
+                                                                <img ng-if="rightAddedDiamond.itemFavourite == true" ng-src="assets/global/img/star-gold.svg" class="itemFavourite" title="Favourite"/>
+                                                            </div>
+                                                            <!--Heart & Heart fill -->
+                                                            <div class="col-md-12 col-lg-12 col-sm-12 padding1px" >                                                                
+                                                                <img ng-if="rightAddedDiamond.itemLiked == false" ng-src="assets/global/img/heart.svg" class="itemLike" title="Like" />
+                                                                <img ng-if="rightAddedDiamond.itemLiked == true"  ng-src="assets/global/img/heart-fill.svg" class="itemLike" title="Like" />
+                                                            </div> 
+                                                        </div>
+                                                        <!--Descriptions-->
+                                                        <div class="col-md-12 col-lg-12 col-sm-12 padding1px margin-top-5">
+                                                            <!-- Max 120 chars after that text with elepsies ... -->
+                                                            <p class="itemDesc" title="{{rightAddedDiamond.replacementDescription}}">
+                                                                <span>{{rightAddedDiamond.replacementDescription | limitTo: 94}}{{rightAddedDiamond.replacementDescription.length >  94 ? '...' : ''}}</span>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <!-- Center Gemstone Dynamic Box  -->                                                 
+                                                <div ng-repeat="rightAddedGemstone in CustomComp.rightCenterStoneGemstones" class="option" ng-class="{'option': rightAddedGemstone.itemFavourite == false, 'option-selected': rightAddedGemstone.itemFavourite == true }">                                                    
+                                                    <div class="option-heading">
+                                                        <label ng-if="rightAddedGemstone.itemFavourite == false" >Right Center Option {{$index+1}}</label>
+                                                        <label ng-if="rightAddedGemstone.itemFavourite == true" >Replacement Quoted</label>
+                                                        <!-- Remove Item Box -->
+                                                        <span ng-hide="pageDisabled">
+                                                            <a ng-if="(rightAddedGemstone.itemFavourite == false && rightAddedGemstone.itemLiked == false)" class="TextDecorationNone itemRemove" ng-click="removeJewelryComponent(rightAddedGemstone, $index)" title="Remove">
+                                                                <i class="fa fa-times-circle fa-2x text-danger" aria-hidden="true"></i>
+                                                            </a>
+                                                            <a ng-if="!(rightAddedGemstone.itemFavourite == false && rightAddedGemstone.itemLiked == false)" class="TextDecorationNone itemRemove" style="cursor: not-allowed!important;">
+                                                                <i class="fa fa-times-circle fa-2x text-disabled" aria-hidden="true"></i>
+                                                            </a>
+                                                        </span>
+                                                    </div>
+                                                    <div class="col-md-12 col-lg-12 col-sm-12 padding1px margin-top-10" >
+                                                        <!--Item image-->
+                                                        <div class="col-md-5 col-lg-5 col-sm-5 padding1px" >
+                                                            <img ng-if="(rightAddedGemstone.imagesDTOSet == undefined || rightAddedGemstone.imagesDTOSet ==null || rightAddedGemstone.imagesDTOSet.length==0 || !rightAddedGemstone.imagesDTOSet[0].url) && (rightAddedGemstone.imageUrl == undefined  || rightAddedGemstone.imageUrl=='')" ng-src="assets/global/img/no-image.png" class="img-responsive itemImg" />
+                                                            <img ng-if="(rightAddedGemstone.imagesDTOSet != undefined && rightAddedGemstone.imagesDTOSet && rightAddedGemstone.imagesDTOSet.length!=0 && rightAddedGemstone.imagesDTOSet[0].url) || (rightAddedGemstone.imageUrl != undefined  && rightAddedGemstone.imageUrl!='')" ng-src="{{ (rightAddedGemstone.imagesDTOSet && rightAddedGemstone.imagesDTOSet.length!=0) ? rightAddedGemstone.imagesDTOSet[0].url : rightAddedGemstone.imageUrl}}" class="img-responsive itemImg" />
+
+                                                            <!-- <img ng-if="(rightAddedGemstone.imagesDTOSet == undefined || rightAddedGemstone.imagesDTOSet ==null || rightAddedGemstone.imagesDTOSet.length==0 || !rightAddedGemstone.imagesDTOSet[0].url) && (rightAddedGemstone.imageUrl == undefined  || rightAddedGemstone.imageUrl=='')" ng-src="assets/global/img/no-image.png" class="img-responsive itemImg" />
+                                                            <img ng-if="(rightAddedGemstone.imagesDTOSet != undefined && rightAddedGemstone.imagesDTOSet && rightAddedGemstone.imagesDTOSet.length!=0 && rightAddedDiamond.imagesDTOSet[0].url) || (rightAddedGemstone.imageUrl != undefined  && rightAddedGemstone.imageUrl!='')" ng-src="{{ (rightAddedGemstone.imagesDTOSet && rightAddedGemstone.imagesDTOSet.length!=0 && rightAddedDiamond.imagesDTOSet[0].url) ? rightAddedGemstone.imagesDTOSet[0].url : rightAddedGemstone.imageUrl}}" class="img-responsive itemImg" /> -->
+                                                        </div>
+
+                                                        <!--Item cost-->
+                                                        <div class="col-md-5 col-lg-5 col-sm-5 padding1px itemAmt">
+                                                            <label>{{rightAddedGemstone.totalReplacementPrice | currency}}</label>
+                                                        </div>
+
+                                                        <!--Favourite & like -->
+                                                        <div class="col-md-2 col-lg-2 col-sm-2 padding1px" >
+                                                            <!--Star & star fill -->
+                                                            <div class="col-md-12 col-lg-12 col-sm-12 padding1px" >                                                               
+                                                                <img ng-if="rightAddedGemstone.itemFavourite == false" ng-src="assets/global/img/star.svg"  class="itemFavourite" title="Favourite" />
+                                                                <img ng-if="rightAddedGemstone.itemFavourite == true" ng-src="assets/global/img/star-gold.svg" class="itemFavourite" title="Favourite" />
+                                                            </div>
+                                                            <!--Heart & Heart fill -->
+                                                            <div class="col-md-12 col-lg-12 col-sm-12 padding1px" >                                                                
+                                                                <img ng-if="rightAddedGemstone.itemLiked == false" ng-src="assets/global/img/heart.svg" class="itemLike" title="Like" />
+                                                                <img ng-if="rightAddedGemstone.itemLiked == true"  ng-src="assets/global/img/heart-fill.svg" class="itemLike" title="Like" />
+                                                            </div> 
+                                                        </div>
+                                                        <!--Descriptions-->
+                                                        <div class="col-md-12 col-lg-12 col-sm-12 padding1px margin-top-5">
+                                                            <!-- Max 120 chars after that text with elepsies ... -->
+                                                            <p class="itemDesc" title="{{rightAddedGemstone.replacementDescription}}">
+                                                                <span>{{rightAddedGemstone.replacementDescription | limitTo: 94}}{{rightAddedGemstone.replacementDescription.length >  94 ? '...' : ''}}</span>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>   
+                                        </div>
+                                    </div>
+
+                                    <!-- Setting -->
+                                    <!-- Ring - Engagement / Diamond Solitair-->
+                                    <div class="d-flex subCompHeight290px" ng-if="(CustomComp.ItemType.attributeValueTypeId == 3 || CustomComp.ItemType.attributeValueTypeId == 2 || CustomComp.ItemType.attributeValueTypeId == 1 || CustomComp.ItemType.attributeValueTypeId == 4 || CustomComp.ItemType.attributeValueTypeId == 5 || CustomComp.ItemType.attributeValueTypeId == 6 || CustomComp.ItemType.attributeValueTypeId == 7 || CustomComp.ItemType.attributeValueTypeId == 8 || 
+                                    CustomComp.ItemType.attributeValueTypeId == 13 || CustomComp.ItemType.attributeValueTypeId == 14 || CustomComp.ItemType.attributeValueTypeId == 15 || CustomComp.ItemType.attributeValueTypeId == 22 || CustomComp.ItemType.attributeValueTypeId == 24 || CustomComp.ItemType.attributeValueTypeId == 25 || CustomComp.ItemType.attributeValueTypeId == 26 || CustomComp.ItemType.attributeValueTypeId == 28 || CustomComp.ItemType.attributeValueTypeId == 29)">
+                                        <div class="component">
+                                            <div class="component-box" style="justify-content:center">
+                                                <div class="field">
+                                                    <label>Setting</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="options">
+                                            <div class="options-box">
+                                                <!-- Setting Dynamic Box  -->                                                 
+                                                <div ng-repeat="setting in CustomComp.settings" class="option" ng-class="{'option': setting.itemFavourite == false, 'option-selected': setting.itemFavourite == true }">                                                    
+                                                    <div class="option-heading">
+                                                        <label ng-if="setting.itemFavourite == false" >Setting Option {{$index+1}}</label>
+                                                        <label ng-if="setting.itemFavourite == true" >Replacement Quoted</label>
+                                                        <!-- Remove Item Box -->
+                                                        <span ng-hide="pageDisabled">
+                                                            <a ng-if="(setting.itemFavourite == false && setting.itemLiked == false)" class="TextDecorationNone itemRemove" ng-click="removeJewelryComponent(setting, $index)" title="Remove">
+                                                                <i class="fa fa-times-circle fa-2x text-danger" aria-hidden="true"></i>
+                                                            </a>
+                                                            <a ng-if="!(setting.itemFavourite == false && setting.itemLiked == false)" class="TextDecorationNone itemRemove" style="cursor: not-allowed!important;">
+                                                                <i class="fa fa-times-circle fa-2x text-disabled" aria-hidden="true"></i>
+                                                            </a>
+                                                        </span>
+                                                    </div>
+                                                    <div class="col-md-12 col-lg-12 col-sm-12 padding1px margin-top-10" >
+                                                        <!--Item image-->
+                                                        <div class="col-md-5 col-lg-5 col-sm-5 padding1px" >
+                                                            <img ng-if="(setting.imagesDTOSet == undefined || setting.imagesDTOSet ==null || setting.imagesDTOSet.length==0 || !setting.imagesDTOSet[0].url) && (setting.imageUrl == undefined  || setting.imageUrl=='')" ng-src="assets/global/img/no-image.png" class="img-responsive itemImg" />
+                                                            <img ng-if="(setting.imagesDTOSet != undefined && setting.imagesDTOSet && setting.imagesDTOSet.length!=0 && setting.imagesDTOSet[0].url) || (setting.imageUrl != undefined  && setting.imageUrl!='')" ng-src="{{ (setting.imagesDTOSet && setting.imagesDTOSet.length!=0) ? setting.imagesDTOSet[0].url : setting.imageUrl}}" class="img-responsive itemImg" />
+                                                        </div>
+
+                                                        <!--Item cost-->
+                                                        <div class="col-md-5 col-lg-5 col-sm-5 padding1px itemAmt">
+                                                            <label>{{setting.totalReplacementPrice | currency}}</label>
+                                                        </div>
+
+                                                        <!--Favourite & like -->
+                                                        <div class="col-md-2 col-lg-2 col-sm-2 padding1px" >
+                                                            <!--Star & star fill -->
+                                                            <div class="col-md-12 col-lg-12 col-sm-12 padding1px" >                                                               
+                                                                <img ng-if="setting.itemFavourite == false"  ng-src="assets/global/img/star.svg"  class="itemFavourite" title="Favourite" />
+                                                                <img ng-if="setting.itemFavourite == true"   ng-src="assets/global/img/star-gold.svg" class="itemFavourite" title="Favourite" />
+                                                            </div>
+                                                            <!--Heart & Heart fill -->
+                                                            <div class="col-md-12 col-lg-12 col-sm-12 padding1px" >                                                                
+                                                                <img ng-if="setting.itemLiked == false" ng-src="assets/global/img/heart.svg" class="itemLike" title="Like"/>
+                                                                <img ng-if="setting.itemLiked == true"  ng-src="assets/global/img/heart-fill.svg" class="itemLike" title="Like"/>
+                                                            </div> 
+                                                        </div>
+                                                        <!--Descriptions-->
+                                                        <div class="col-md-12 col-lg-12 col-sm-12 padding1px margin-top-5">
+                                                            <!-- Max 120 chars after that text with elepsies ... -->
+                                                            <p class="itemDesc" title="{{setting.replacementDescription}}">
+                                                                <span>{{setting.replacementDescription | limitTo: 94}}{{setting.replacementDescription.length  >  94 ? '...' : ''}}</span>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>                                            
+
+                                        </div>                                        
+                                    </div>
+
+                                    <!-- Chain -->
+                                    <!-- Necklace - Diamond Solitair, Diamond Fashion -->
+                                    <div class="d-flex subCompHeight290px" ng-if="CustomComp.ItemType.attributeValueTypeId == 9 || CustomComp.ItemType.attributeValueTypeId == 10 || CustomComp.ItemType.attributeValueTypeId == 11 || CustomComp.ItemType.attributeValueTypeId == 12 || CustomComp.ItemType.attributeValueTypeId == 21 || CustomComp.ItemType.attributeValueTypeId == 23">
+                                        <div class="component">
+                                            <div class="component-box" style="justify-content:center">
+                                                <div class="field">
+                                                    <label>Chain</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="options">
+                                            <div class="options-box">
+                                                <!-- Chain Dynamic Box  -->                                                 
+                                                <div ng-repeat="chain in CustomComp.chains" class="option" ng-class="{'option': chain.itemFavourite == false, 'option-selected': chain.itemFavourite == true }">                                                    
+                                                    <div class="option-heading">
+                                                        <label ng-if="chain.itemFavourite == false" >Chain Option {{$index+1}}</label>
+                                                        <label ng-if="chain.itemFavourite == true" >Replacement Quoted</label>
+                                                        <!-- Remove Item Box -->
+                                                        <span ng-hide="pageDisabled">
+                                                            <a ng-if="(chain.itemFavourite == false && chain.itemLiked == false)" class="TextDecorationNone itemRemove" ng-click="removeJewelryComponent(chain, $index)" title="Remove">
+                                                                <i class="fa fa-times-circle fa-2x text-danger" aria-hidden="true"></i>
+                                                            </a>
+                                                            <a ng-if="!(chain.itemFavourite == false && chain.itemLiked == false)" class="TextDecorationNone itemRemove" style="cursor: not-allowed!important;">
+                                                                <i class="fa fa-times-circle fa-2x text-disabled" aria-hidden="true"></i>
+                                                            </a>
+                                                        </span>
+                                                    </div>
+                                                    <div class="col-md-12 col-lg-12 col-sm-12 padding1px margin-top-10" >
+                                                        <!--Item image-->
+                                                        <div class="col-md-5 col-lg-5 col-sm-5 padding1px" >
+                                                            <img ng-if="(chain.imagesDTOSet == undefined || chain.imagesDTOSet ==null || chain.imagesDTOSet.length==0 || !chain.imagesDTOSet[0].url) && (chain.imageUrl == undefined  || chain.imageUrl=='')" ng-src="assets/global/img/no-image.png" class="img-responsive itemImg" />
+                                                            <img ng-if="(chain.imagesDTOSet != undefined && chain.imagesDTOSet && chain.imagesDTOSet.length!=0 && chain.imagesDTOSet[0].url) || (chain.imageUrl != undefined  && chain.imageUrl!='')" ng-src="{{ (chain.imagesDTOSet && chain.imagesDTOSet.length!=0) ? chain.imagesDTOSet[0].url : chain.imageUrl}}" class="img-responsive itemImg" />
+                                                        </div>
+
+                                                        <!--Item cost-->
+                                                        <div class="col-md-5 col-lg-5 col-sm-5 padding1px itemAmt">
+                                                            <label>{{chain.totalReplacementPrice | currency}}</label>
+                                                        </div>
+
+                                                        <!--Favourite & like -->
+                                                        <div class="col-md-2 col-lg-2 col-sm-2 padding1px" >
+                                                            <!--Star & star fill -->
+                                                            <div class="col-md-12 col-lg-12 col-sm-12 padding1px" >                                                               
+                                                                <img ng-if="chain.itemFavourite == false" ng-src="assets/global/img/star.svg"  class="itemFavourite" title="Favourite" />
+                                                                <img ng-if="chain.itemFavourite == true" ng-src="assets/global/img/star-gold.svg" class="itemFavourite" title="Favourite" />
+                                                            </div>
+                                                            <!--Heart & Heart fill -->
+                                                            <div class="col-md-12 col-lg-12 col-sm-12 padding1px" >                                                                
+                                                                <img ng-if="chain.itemLiked == false" ng-src="assets/global/img/heart.svg" class="itemLike" title="Like"/>
+                                                                <img ng-if="chain.itemLiked == true"  ng-src="assets/global/img/heart-fill.svg" class="itemLike" title="Like"/>
+                                                            </div> 
+                                                        </div>
+                                                        <!--Descriptions-->
+                                                        <div class="col-md-12 col-lg-12 col-sm-12 padding1px margin-top-5">
+                                                            <!-- Max 120 chars after that text with elepsies ... -->
+                                                            <p class="itemDesc" title="{{chain.replacementDescription}}">
+                                                                <span>{{chain.replacementDescription | limitTo: 94}}{{chain.replacementDescription.length >  94 ? '...' : ''}}</span>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>   
+                                        </div>                                        
+                                    </div>
+
+                                    <!-- Wedding Band  component -->
+                                    <!-- Ring - Engagement / Diamond Solitair / Wedding Band / Anniversary-->
+                                    <div class="d-flex subCompHeight290px" ng-if="((CustomComp.weddingBands && CustomComp.weddingBands.length > 0) && CustomComp.ItemType.attributeValueTypeId == 2 || CustomComp.ItemType.attributeValueTypeId == 1 || CustomComp.ItemType.attributeValueTypeId == 3)">
+                                        <div class="component">
+                                            <div class="component-box" style="justify-content:center">
+                                                <div class="field">
+                                                    <label>Wedding Band</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="options">
+                                            <div class="options-box">
+                                                <!-- Wedding Band Dynamic Box  -->                                                 
+                                                <div ng-repeat="wband in CustomComp.weddingBands" class="option" ng-class="{'option': wband.itemFavourite == false, 'option-selected': wband.itemFavourite == true }">                                                    
+                                                    <div class="option-heading">
+                                                        <label ng-if="wband.itemFavourite == false" >Wedding Band Option {{$index+1}}</label>
+                                                        <label ng-if="wband.itemFavourite == true" >Replacement Quoted</label>
+                                                        <!-- Remove Item Box -->
+                                                        <span ng-hide="pageDisabled">
+                                                            <a ng-if="(wband.itemFavourite == false && wband.itemLiked == false)" class="TextDecorationNone itemRemove" ng-click="removeJewelryComponent(wband, $index)" title="Remove">
+                                                                <i class="fa fa-times-circle fa-2x text-danger" aria-hidden="true"></i>
+                                                            </a>
+                                                            <a ng-if="!(wband.itemFavourite == false && wband.itemLiked == false)" class="TextDecorationNone itemRemove" style="cursor: not-allowed!important;">
+                                                                <i class="fa fa-times-circle fa-2x text-disabled" aria-hidden="true"></i>
+                                                            </a>
+                                                        </span>
+                                                    </div>
+                                                    <div class="col-md-12 col-lg-12 col-sm-12 padding1px margin-top-10" >
+                                                        <!--Item image-->
+                                                        <div class="col-md-5 col-lg-5 col-sm-5 padding1px" >
+                                                            <img ng-if="(wband.imagesDTOSet == undefined || wband.imagesDTOSet ==null || wband.imagesDTOSet.length==0 || !wband.imagesDTOSet[0].url) && (wband.imageUrl == undefined  || wband.imageUrl=='')" ng-src="assets/global/img/no-image.png" class="img-responsive itemImg" />
+                                                            <img ng-if="(wband.imagesDTOSet != undefined && wband.imagesDTOSet && wband.imagesDTOSet.length!=0 && wband.imagesDTOSet[0].url) || (wband.imageUrl != undefined  && wband.imageUrl!='')" ng-src="{{ (wband.imagesDTOSet && wband.imagesDTOSet.length!=0) ? wband.imagesDTOSet[0].url : wband.imageUrl}}" class="img-responsive itemImg" />
+                                                        </div>
+
+                                                        <!--Item cost-->
+                                                        <div class="col-md-5 col-lg-5 col-sm-5 padding1px itemAmt">
+                                                            <label>{{wband.totalReplacementPrice | currency}}</label>
+                                                        </div>
+
+                                                        <!--Favourite & like -->
+                                                        <div class="col-md-2 col-lg-2 col-sm-2 padding1px" >
+                                                            <!--Star & star fill -->
+                                                            <div class="col-md-12 col-lg-12 col-sm-12 padding1px" >                                                               
+                                                                <img ng-if="wband.itemFavourite == false"   ng-src="assets/global/img/star.svg"  class="itemFavourite" title="Favourite" />
+                                                                <img ng-if="wband.itemFavourite == true"    ng-src="assets/global/img/star-gold.svg" class="itemFavourite" title="Favourite" />
+                                                            </div>
+                                                            <!--Heart & Heart fill -->
+                                                            <div class="col-md-12 col-lg-12 col-sm-12 padding1px" >                                                                
+                                                                <img ng-if="wband.itemLiked == false" ng-src="assets/global/img/heart.svg" class="itemLike" title="Like" />
+                                                                <img ng-if="wband.itemLiked == true" ng-src="assets/global/img/heart-fill.svg" class="itemLike" title="Like" />
+                                                            </div> 
+                                                        </div>
+                                                        <!--Descriptions-->
+                                                        <div class="col-md-12 col-lg-12 col-sm-12 padding1px margin-top-5">
+                                                            <!-- Max 120 chars after that text with elepsies ... -->
+                                                            <p class="itemDesc" title="{{wband.replacementDescription}}">
+                                                                <span>{{wband.replacementDescription | limitTo: 94}}{{wband.replacementDescription.length  >  94 ? '...' : ''}}</span>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                    <!-- Watch - Main component -->
+                                    <div class="d-flex subCompHeight290px" ng-if="(CustomComp.ItemCategory.attributeValueId == 149 && CustomComp.ItemType.attributeValueTypeId == 19)">
+                                        <div class="component">
+                                            <div class="component-box">                                                
+                                                <div class="field">
+                                                    <label>Main Watch</label>
+                                                </div>
+                                            </div>
+                                        </div>                                       
+
+                                        <div class="options">                                            
+                                            <div class="options-box" >
+                                                <!-- Main Watch Dynamic Box  -->                                                 
+                                                <div ng-repeat="mainWatch in CustomComp.mainWatchs" class="option" ng-class="{'option': mainWatch.itemFavourite == false, 'option-selected': mainWatch.itemFavourite == true }">                                                    
+                                                    <div class="option-heading">
+                                                        <label ng-if="mainWatch.itemFavourite == false" >Main Watch Option {{$index+1}}</label>
+                                                        <label ng-if="mainWatch.itemFavourite == true" >Replacement Quoted</label>
+                                                        <!-- Remove Item Box -->                                                        
+                                                        <span ng-hide="pageDisabled">
+                                                            <a ng-if="(mainWatch.itemFavourite == false && mainWatch.itemLiked == false)" class="TextDecorationNone itemRemove" ng-click="removeJewelryComponent(mainWatch, $index)" title="Remove">
+                                                                <i class="fa fa-times-circle fa-2x text-danger" aria-hidden="true"></i>
+                                                            </a>
+                                                            <a ng-if="!(mainWatch.itemFavourite == false && mainWatch.itemLiked == false)" class="TextDecorationNone itemRemove" style="cursor: not-allowed!important;">
+                                                                <i class="fa fa-times-circle fa-2x text-disabled" aria-hidden="true"></i>
+                                                            </a>
+                                                        </span>
+                                                    </div>
+                                                    <div class="col-md-12 col-lg-12 col-sm-12 padding1px margin-top-10" >
+                                                        <!--Item image-->
+                                                        <div class="col-md-5 col-lg-5 col-sm-5 padding1px" >
+                                                            <img ng-if="(mainWatch.imagesDTOSet == undefined || mainWatch.imagesDTOSet ==null || mainWatch.imagesDTOSet.length==0 || !mainWatch.imagesDTOSet[0].url) && (mainWatch.imageUrl == undefined  || mainWatch.imageUrl=='')" ng-src="assets/global/img/no-image.png" class="img-responsive itemImg" />
+                                                            <img ng-if="(mainWatch.imagesDTOSet != undefined && mainWatch.imagesDTOSet && mainWatch.imagesDTOSet.length!=0 && mainWatch.imagesDTOSet[0].url) || (mainWatch.imageUrl != undefined  && mainWatch.imageUrl!='')" ng-src="{{ (mainWatch.imagesDTOSet && mainWatch.imagesDTOSet.length!=0) ? mainWatch.imagesDTOSet[0].url : mainWatch.imageUrl}}" class="img-responsive itemImg" />
+                                                        </div>
+
+                                                        <!--Item cost-->
+                                                        <div class="col-md-5 col-lg-5 col-sm-5 padding1px itemAmt">
+                                                            <label>{{mainWatch.totalReplacementPrice | currency}}</label>
+                                                        </div>
+
+                                                        <!--Favourite & like -->
+                                                        <div class="col-md-2 col-lg-2 col-sm-2 padding1px" >
+                                                            <!--Star & star fill -->
+                                                            <div class="col-md-12 col-lg-12 col-sm-12 padding1px" >                                                               
+                                                                <img ng-if="mainWatch.itemFavourite == false" ng-src="assets/global/img/star.svg"  class="itemFavourite" title="Favourite"/>
+                                                                <img ng-if="mainWatch.itemFavourite == true" ng-src="assets/global/img/star-gold.svg" class="itemFavourite" title="Favourite"/>
+                                                            </div>
+                                                            <!--Heart & Heart fill -->
+                                                            <div class="col-md-12 col-lg-12 col-sm-12 padding1px" >                                                                
+                                                                <img ng-if="mainWatch.itemLiked == false" ng-src="assets/global/img/heart.svg" class="itemLike" title="Like" />
+                                                                <img ng-if="mainWatch.itemLiked == true"  ng-src="assets/global/img/heart-fill.svg" class="itemLike" title="Like" />
+                                                            </div> 
+                                                        </div>
+                                                        <!--Descriptions-->
+                                                        <div class="col-md-12 col-lg-12 col-sm-12 padding1px margin-top-5">
+                                                            <!-- Max 120 chars after that text with elepsies ... -->
+                                                            <p class="itemDesc" title="{{mainWatch.replacementDescription}}">
+                                                                <span>{{mainWatch.replacementDescription | limitTo: 94}}{{mainWatch.replacementDescription.length >  94 ? '...' : ''}}</span>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>    
+                                        </div>
+                                    </div>
+
+                                    <!-- Watch - Custom Additions component -->
+                                    <div class="d-flex subCompHeight290px" ng-if="(CustomComp.ItemCategory.attributeValueId == 149 && CustomComp.ItemType.attributeValueTypeId == 19)">
+                                        <div class="component">
+                                            <div class="component-box" style="justify-content:center">
+                                                <div class="field">
+                                                    <label>Custom Additions</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="options">
+                                            <div class="options-box">
+                                                <!-- customAdditions Dynamic Box  -->                                                 
+                                                <div ng-repeat="customAddition in CustomComp.customAdditions" class="option" ng-class="{'option': customAddition.itemFavourite == false, 'option-selected': customAddition.itemFavourite == true }">                                                    
+                                                    <div class="option-heading">
+                                                        <label ng-if="customAddition.itemFavourite == false" >Custom Additions Option {{$index+1}}</label>
+                                                        <label ng-if="customAddition.itemFavourite == true" >Replacement Quoted</label>
+                                                        <!-- Remove Item Box -->
+                                                        <span ng-hide="pageDisabled">
+                                                            <a ng-if="(customAddition.itemFavourite == false && customAddition.itemLiked == false)" class="TextDecorationNone itemRemove" ng-click="removeJewelryComponent(customAddition, $index)" title="Remove">
+                                                                <i class="fa fa-times-circle fa-2x text-danger" aria-hidden="true"></i>
+                                                            </a>
+                                                            <a ng-if="!(customAddition.itemFavourite == false && customAddition.itemLiked == false)" class="TextDecorationNone itemRemove" style="cursor: not-allowed!important;">
+                                                                <i class="fa fa-times-circle fa-2x text-disabled" aria-hidden="true"></i>
+                                                            </a>
+                                                        </span>
+                                                    </div>
+                                                    <div class="col-md-12 col-lg-12 col-sm-12 padding1px margin-top-10" >
+                                                        <!--Item image-->
+                                                        <div class="col-md-5 col-lg-5 col-sm-5 padding1px" >
+                                                            <img ng-if="(customAddition.imagesDTOSet == undefined || customAddition.imagesDTOSet ==null || customAddition.imagesDTOSet.length==0 || !customAddition.imagesDTOSet[0].url) && (customAddition.imageUrl == undefined  || customAddition.imageUrl=='')" ng-src="assets/global/img/no-image.png" class="img-responsive itemImg" />
+                                                            <img ng-if="(customAddition.imagesDTOSet != undefined && customAddition.imagesDTOSet && customAddition.imagesDTOSet.length!=0 && customAddition.imagesDTOSet[0].url) || (customAddition.imageUrl != undefined  && customAddition.imageUrl!='')" ng-src="{{ (customAddition.imagesDTOSet && customAddition.imagesDTOSet.length!=0) ? customAddition.imagesDTOSet[0].url : customAddition.imageUrl}}" class="img-responsive itemImg" />
+                                                        </div>
+
+                                                        <!--Item cost-->
+                                                        <div class="col-md-5 col-lg-5 col-sm-5 padding1px itemAmt">
+                                                            <label>{{customAddition.totalReplacementPrice | currency}}</label>
+                                                        </div>
+
+                                                        <!--Favourite & like -->
+                                                        <div class="col-md-2 col-lg-2 col-sm-2 padding1px" >
+                                                            <!--Star & star fill -->
+                                                            <div class="col-md-12 col-lg-12 col-sm-12 padding1px" >                                                               
+                                                                <img ng-if="customAddition.itemFavourite == false" ng-src="assets/global/img/star.svg"  class="itemFavourite" title="Favourite" />
+                                                                <img ng-if="customAddition.itemFavourite == true" ng-src="assets/global/img/star-gold.svg" class="itemFavourite" title="Favourite" />
+                                                            </div>
+                                                            <!--Heart & Heart fill -->
+                                                            <div class="col-md-12 col-lg-12 col-sm-12 padding1px" >                                                                
+                                                                <img ng-if="customAddition.itemLiked == false" ng-src="assets/global/img/heart.svg" class="itemLike" title="Like"/>
+                                                                <img ng-if="customAddition.itemLiked == true"  ng-src="assets/global/img/heart-fill.svg" class="itemLike" title="Like"/>
+                                                            </div> 
+                                                        </div>
+                                                        <!--Descriptions-->
+                                                        <div class="col-md-12 col-lg-12 col-sm-12 padding1px margin-top-5">
+                                                            <!-- Max 120 chars after that text with elepsies ... -->
+                                                            <p class="itemDesc" title="{{customAddition.replacementDescription}}">
+                                                                <span>{{customAddition.replacementDescription | limitTo: 94}}{{customAddition.replacementDescription.length >  94 ? '...' : ''}}</span>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>    
+                                        </div>                                        
+                                    </div>
+
+                                    <!-- Custom Design charges -->
+                                    <div class="d-flex subCompHeight130px">
+                                        <div class="component">
+                                            <div class="component-box" style="justify-content:center;height: 120px;">
+                                                <div class="field">
+                                                    <label>Custom Design Charges</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="options">
+                                            <div class="options-box" style="height: 120px;overflow: inherit;">
+                                                <div class="d-flex" style="align-items:center;margin-top: 2%;margin-left:20px;position: relative;width: 98%;"> 
+                                                    <div class="col-md-12 col-lg-12 col-sm-12 padding1px">
+                                                        <div class="col-md-4 col-lg-4 col-sm-4 padding1px">
+                                                            <!-- <div class="d-flex options-box" style="justify-content:flex-start;padding-left: 20px;border:none;height:120px ;margin-top:5px">  -->
+                                                                <div>
+                                                                   <span title="{{CustomComp.customChargesNote}}">{{CustomComp.customChargesNote | limitTo :50}}{{CustomComp.customChargesNote.length >  50 ? '...' : ''}}</span> 
+                                                                </div>
+                                                            <!-- </div> -->
+                                                        </div>
+    
+                                                        <div class="col-md-8 col-lg-8 col-sm-8 padding1px">
+                                                            <div class="d-flex options-box" style="justify-content:flex-start;padding-left: 20px;border:none;height:30px ;margin-top:0px"> 
+                                                                {{CustomComp.customCharges | currency}}
+                                                            </div>                                                           
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>     
+                                        </div>
+                                    </div>
+
+                                    <!-- Labour charges -->
+                                    <div class="d-flex subCompHeight130px">
+                                        <div class="component">
+                                            <div class="component-box" style="justify-content:center;height: 120px;">
+                                                <div class="field">
+                                                    <label>Labor Charges</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="options">
+                                            <div class="options-box" style="height: 120px;overflow: inherit;">
+                                                <div class="d-flex" style="align-items:center;margin-top: 2%;margin-left:20px;position: relative;width: 98%;"> 
+                                                    <div class="col-md-12 col-lg-12 col-sm-12 padding1px">
+                                                        <div class="col-md-4 col-lg-4 col-sm-4 padding1px">
+                                                            <!-- <div class="d-flex options-box" style="justify-content:flex-start;padding-left: 20px;border:none;height:120px ;margin-top:5px">  -->
+                                                                <div>
+                                                                   <span title="{{CustomComp.labourChargesNote}}"> {{CustomComp.labourChargesNote | limitTo :50}}{{CustomComp.labourChargesNote.length >  50 ? '...' : ''}}</span>
+                                                                </div>
+                                                            <!-- </div> -->
+                                                        </div>
+    
+                                                        <div class="col-md-8 col-lg-8 col-sm-8 padding1px" >
+                                                            <div class="d-flex options-box" style="justify-content:flex-start;padding-left: 20px;border:none;height:30px ;margin-top:0px"> 
+                                                                {{CustomComp.labourCharges | currency}}
+                                                            </div>                                                           
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>     
+                                        </div>
+                                    </div>
+
+                                    <div class="d-flex subCompHeight25px">
+                                        <div class="component" style="border:none;font-weight: bold;">
+                                            <div class="component-box" style="justify-content:flex-end;padding-right: 20px;border:none;height:30px;">
+                                                <div class="" style="text-align:center ;">
+                                                Sub total
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="options" style="font-weight: bold;">
+                                            <div class="d-flex options-box" style="justify-content:flex-start;padding-left: 20px;border:none;height:30px;"> 
+                                                {{CustomComp.subTotal | currency}}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="d-flex subCompHeight20px">
+                                        <div class="component" style="border:none;font-weight: bold;">
+                                            <div class="component-box" style="justify-content:flex-end;padding-right: 20px;border:none;height:30px;margin-top:5px">
+                                                <div class="" style="text-align:center ;">
+                                                Taxes  
+                                                <span ng-if="ItemDetails.applyTax">(@ {{CustomComp.taxes | percentageDecimal}} )</span>
+                                                <span ng-if="!ItemDetails.applyTax">(@ {{0 | percentageDecimal}} )</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="options" style="font-weight: bold;">
+                                            <div class="d-flex options-box" style="justify-content:flex-start;padding-left: 20px;border:none;height:30px ;margin-top:5px"> 
+                                                {{CustomComp.taxesVal | currency}}
+                                            </div>
+                                        </div>
+                                    </div>  
+                                    
+                                    <div class="d-flex subCompHeight20px">
+                                        <div class="component" style="border:none;font-weight: bold;">
+                                            <div class="component-box" style="justify-content:flex-end;padding-right: 20px;border:none;height:30px ;margin-top:5px;">
+                                                <div class="" style="text-align:center ;">
+                                                    Custom Design Charges
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="options" style="font-weight: bold;">
+                                            <div class="d-flex options-box" style="justify-content:flex-start;padding-left: 20px;border:none;height:30px ;margin-top:5px"> 
+                                                {{CustomComp.customCharges | currency}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="d-flex subCompHeight20px">
+                                        <div class="component" style="border:none;font-weight: bold;">
+                                            <div class="component-box" style="justify-content:flex-end;padding-right: 20px;border:none;height:30px ;margin-top:5px;">
+                                                <div class="" style="text-align:center ;">
+                                                    Labor Charges
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="options" style="font-weight: bold;">
+                                            <div class="d-flex options-box" style="justify-content:flex-start;padding-left: 20px;border:none;height:30px ;margin-top:5px"> 
+                                                {{CustomComp.labourCharges | currency}}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="d-flex ">
+                                        <div class="component" style="border:none;font-weight: bold;">
+                                            <div class="component-box" style="justify-content:flex-end;padding-right: 20px;border:none;height:30px ;margin-top:5px;">
+                                                <div class="" style="text-align:center ;">
+                                                Total Replacement Cost
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="options" style="font-weight: bold;">
+                                            <div class="d-flex options-box" style="justify-content:flex-start;padding-left: 20px;border:none;height:30px ;margin-top:5px"> 
+                                                {{CustomComp.totalReplacementPrice | currency}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                                
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>         
+          
+    </body>    
+</html>

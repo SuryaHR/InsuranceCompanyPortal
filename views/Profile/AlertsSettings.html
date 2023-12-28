@@ -1,0 +1,79 @@
+﻿<ul class="page-breadcrumb breadcrumb sbold">
+    <li>
+        <a ng-click="GoToHome()">{{"Home"|translate}}</a>
+        <i class="fa fa-circle"></i>
+    </li>
+    <li>
+        <span>{{"Security"|translate}}</span>
+    </li>
+</ul>
+<!-- Login Security -->
+<div class="portlet light padding1px">
+    <div class="portlet-title">
+        <div class="caption font-gray-sharp">
+            <span class="caption-subject">{{"Setting"|translate}}</span>
+        </div>
+        <div class="tools">
+        </div>
+    </div>
+    <div class="portlet-body">
+        <div class="row">
+            <div class="col-md-10  bordered">
+                <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 margin-top-10 margin-bottom-10 text-right padding1px">
+                    <button type="button" class="btn  sbold btnMargin" ng-click="GoToHome()">
+                        {{"Cancel"|translate}}
+                    </button>
+                    <button type="button" class="btn sbold btnMargin " ng-click="SaveUserSettingsAlert()">
+                        {{"Save"|translate}}
+                    </button>
+                </div>
+
+                <div class="col-md-12 BackgroundGray">
+                    <div class="col-md-5 col-sm-6 col-lg-5 col-xs-8 text-center ">
+                        <label class="control-label form-group  Label_Text_Right">{{"Dashboard Alerts"|translate}}</label>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-lg-3 col-xs-2 text-center">
+                        <label class="control-label form-group  Label_Text_Right">{{"Dashboard Alerts"|translate}}</label>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-lg-3 col-xs-2 text-center">
+                        <label class="control-label form-group Label_Text_Right">{{"Email Alerts"|translate}}</label>
+                    </div>
+                    <div class="clearfix" ></div>
+                </div>
+                <div class="col-md-12 col-sm-12 padding1px margin-bottom-5" ng-init="catName(Category)" ng-repeat="Category in UserAlertCategory">
+                    <div class="col-md-12 SubHeadingDiv margin-bottom-15 margin-top-10" ng-show="Category.ShowCatName==true" style="margin-top: 0px !important;">
+                        <span class="caption-subject">{{Category.alertCategory}}</span>                        
+                    </div>                  
+                    <div class="col-md-5 col-sm-6 col-lg-5 col-xs-8">
+                        <label class="control-label form-group">{{Category.alertNote}}</label>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-lg-3 col-xs-2 text-center" >
+                        <label class="mt-checkbox mt-checkbox-outline text-success ">
+                            <input type="checkbox" class="checkboxes"  ng-model="Category.dashboardAlert"/>
+                            <span></span>
+                        </label>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-lg-3 col-xs-2 text-center">
+                        <label class="mt-checkbox mt-checkbox-outline text-success ">
+                            <input type="checkbox" class="checkboxes"  ng-model="Category.emailAlert"/>
+                            <span></span>
+                        </label>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                    <div class="col-md-12 col-sm-12 topBorder col-xs-12 col-lg-12 margin-top-10 margin-bottom-10 text-right padding1px">
+                        <div class="col-md-12 col-sm-12 padding1px">
+                            <button type="button" class="btn  sbold btnMargin" ng-click="GoToHome()">
+                                {{"Cancel"|translate}}
+                            </button>
+                            <button type="button" class="btn sbold btnMargin " ng-click="SaveUserSettingsAlert()">
+                                {{"Save"|translate}}
+                            </button>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

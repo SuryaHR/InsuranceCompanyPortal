@@ -1,0 +1,79 @@
+﻿{
+  "MainHeadings": {
+    "Filter": "Filter",
+    "showuser": "Show users where",
+    "UpdateOption": "Update Options",
+    "User": "Users"
+  },
+  "Filterhead": {
+    "username": "User name is",
+    "role": "Role",
+    "status": "Status"
+  },
+  "btn": {
+    "Save": "Save",
+    "edit": "Edit",
+    "Update": "Update",
+    "delete": "Delete",
+    "Cancel": "Cancel",
+    "Search": "Search",
+    "pagelength": "Show",
+    "btnCancel": "Cancel",
+    "btnUpdate": "Update",
+    "lnkResetPass": "Reset Password"
+  },
+  "Table": {
+    "username": "User Name",
+    "Status": "Status",
+    "designation": "Designation",
+    "role": "Role",
+    "branch": "Branch",
+    "lastaccess": "Last Access",
+    "membersince": "Member Since",
+    "operation": "Action"
+  },
+  "FormControlText": {
+    "FirstName": "First Name",
+    "LastName": "Last Name",
+    "UserName": "User Name",
+    "Password": "Password",
+    "Email": "Email",
+    "PhoneNO": "Work Phone No.",
+    "MobileNo":"Mobile Phone No",
+    "Designation": "Designation",
+    "ReportingManager": "Reporting Manager",
+    "Role": "Role",
+    "Branch": "Branch/Office",
+    "AccountStatust": "Account Status",
+    "ResetPassword": "Reset Password",
+    "AgencyCode": "Agency Code",
+    "PasswordReset" : "Password Reset",
+    "PasswordResetLink" : "Click to send password reset email",
+    "ProfilePictureUpload" : "Profile Picture",
+    "ProfilePictureUploadLink" : "Click to upload a profile picture"
+  },
+  "PopUpRole": {
+    "Role": "Role",
+    "btnadd": "Add"
+  },
+  "PopPasswordResetLink": {
+    "Message": "Password reset instructions has been sent to your mail.",
+    "title": "Reset Password"
+  },
+  "New User": "New User",
+  "LoadFromFile": "LoadFromFile",
+  "Export": "Export",
+  "SearchUser": "Name, EmailId, role...",
+  "Users": "Users",
+  "Security Controls": "Security Controls",
+  "Minimum password length": "Minimum password length",
+  "Password complexity": "Password complexity",
+  "Session timeout": "Session timeout",
+  "Lockout threshold": "Lockout threshold",
+  "Lockout period": "Lockout period",
+  "Password expiration": "Password expiration",
+  "Password history": "Password history",
+  "Allow browser to remember password?": "Allow browser to remember password?",
+  "SecurityControls": "Security Controls",
+  "Please enter valid phone number.": "Please enter valid phone number."
+}

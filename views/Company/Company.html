@@ -1,0 +1,49 @@
+﻿<div class="col-md-12" ng-show="UserType=='INSURANCE ADMIN'" ng-controller="CompanyHomeController">
+    <ul class="page-breadcrumb breadcrumb sbold">
+        <li>
+            <a ng-click="GoToHome()">{{"Home"|translate}}</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span>{{CompanyDetails.companyName|translate}}</span>
+        </li>
+    </ul>
+</div>
+<div class="col-md-12" ng-show="UserType=='CLAIM CENTER ADMIN'||UserType=='COMPANY ADMIN'||UserType=='PRICING SPECIALIST'" ng-controller="CompanyHomeController">
+    <ul class="page-breadcrumb breadcrumb sbold">
+        <li>
+            <a ng-click="GoToHome()">{{"Home"|translate}}</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <a ng-click="GoBack()">{{"Insurance Companies"|translate}}</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span>{{CompanyDetails.companyName}}</span>
+        </li>
+    </ul>
+</div>
+<div class="col-md-12">
+   
+        <div class="portlet-body">
+            <div class="tab-content">
+                <!--Home Tab-->
+                <div class="tab-pane active" id="tab_home" ng-if="ShowTabHome">
+                    <div class="portlet-body">
+                        <div class="row">
+                            <div class="col-md-12 padding1px">
+                               
+                                    <div class="row"  ng-include="'views/Company/CompanyHome.html'" ng-controller="CompanyHomeController">
+
+                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               
+            </div>
+        </div>
+   
+</div>

@@ -1,0 +1,265 @@
+<!-- CTB-2704 (Tabs changed to boxes)-->
+<!-- Messages -->
+<style>
+    .completed{
+      color:#80b564;
+    }
+    .notCompleted{
+      color:#337ab8;
+    }
+</style>
+<div ng-class="{'col-md-6 col-sm-6 col-xs-12 box-padding-right': CommonObj.ClaimProfile == 'Contents', 'col-md-12 col-sm-12 col-xs-12 box-padding-right': CommonObj.ClaimProfile == 'Jewelry'}" >
+    <div class="light bordered content-box activity-box-container" style="height: 350px !important;">
+        <div class="SubHeadingDiv col-xs-12 caption font-gray-sharp">
+            <span class="caption-subject sbold">{{"TabHeaderTitle.Notes"|translate}}&nbsp;({{totalMessages}})</span>
+            <a ng-click="AddNotePopup()"
+                class="pull-right noTextDecoration font-size-13">{{"ControlText.SendNote"|translate}}</a>
+        </div>
+        <div class="col-xs-12 padding1px custom_scroll_bar activity-box" infinity-scroll="nextMessagePage();"
+            id="infinity_scroll_table">
+            <div class="general-item-list">
+                <div class="item" ng-click="GotoAllNotes(message)" ng-repeat="message in claimMessages track by $index">
+                    <div class="item-head">
+                        <div class="item-details">
+                            <img ng-src="{{message.addedBy.profilePic ? message.addedBy.profilePic.url : assets/global/img/teamMemb.png}}"
+                                onerror="this.onerror=null; this.src='assets/global/img/teamMemb.png';"
+                                class="item-pic rounded" title="Profile Photo" alt="Profile Picture" />
+                            <span
+                                class="item-name primary-link">{{message.addedBy.lastName +", "+message.addedBy.firstName}}</span>
+                            <span class="item-label hide">{{message.createDate | DateTimeDiff}}</span>
+                        </div>
+                    </div>
+                    <div class="item-body tip text-left">
+                        {{message.message | limitTo:50}}{{message.message.length > 50 ? '...' : ''}}
+                        <span class="Overlay" ng-if="message.message.length>50">{{message.message}}</span>
+                    </div>
+                    <div class="item-footer text-right">
+                        <span>{{message.createDate | DateTimeDiff}}</span>
+                    </div>
+                </div>
+            </div>
+            <div ng-show="isMessagesLoading" class="loading text-center col-sm-12" style="position: relative;">
+                <i class="fa fa-spinner fa-spin fa-2x fa-fw"></i>
+            </div>
+            <div ng-show="!claimMessages.length"
+                style="padding:10px;text-align: center;color: red;background-color: #ffffff;">
+                <em class="glyphicon glyphicon-exclamation-sign"></em>
+                &nbsp;No New Messages
+            </div>
+        </div>
+        <div class="col-xs-12 text-right padding1px">
+            <a href="#" class="noTextDecoration" ng-click="GotoAllNotes()">{{"View all messages"}}</a>
+        </div>
+    </div>
+</div>
+<!--Attachments  -->
+<div class="col-md-6 col-sm-6 col-xs-12 box-padding-left hide">
+    <div class="light bordered content-box" style="height: 250px;">
+        <div class="SubHeadingDiv col-xs-12 caption font-gray-sharp">
+            <span
+                class="caption-subject sbold">{{"TabHeaderTitle.Documents"|translate}}&nbsp;({{ClaimAttachments.totalAttachments ? ClaimAttachments.totalAttachments : 0}})</span>
+        </div>
+        <div class="col-xs-12 padding1px">
+            <div class="margin-top-5 activity-box custom_scroll_bar">
+                <div ng-repeat="file in ClaimAttachments.claimAttachments | limitTo:5"
+                    class="col-lg-4 col-md-6 col-sm-4 col-xs-6 text-center form-group clear-3n-left"
+                    style="padding:5px;">
+                    <a class="TextDecorationNone hide" style="top:8px;left:100px;position:relative"
+                        ng-click="removeattchment(file)">
+                        <i class="fa fa-times-circle fa-2x text-danger" aria-hidden="true"></i></a>
+                    <div class="col-xs-12 padding1px">
+                        <div ng-if=isPdf(file.name)>
+                            <img src='assets/global/img/pdf-icon.svg' class="img-responsive bordered "
+                                style="height:90px;padding:5px;border:1px groove;" />
+                        </div>
+                        <div ng-if=isExcel(file.name)>
+                            <img src='assets/global/img/excel-icon.png' class="img-responsive bordered "
+                                style="height:90px;padding:5px;border:1px groove;" />
+                        </div>
+                        <div ng-if=isImage(file.name)>
+                            <img ng-src="{{file.url}}" alt="Pictures of the incident" class="img-responsive bordered "
+                                style="height:90px;padding:5px;border:1px groove;" />
+                        </div>
+                        <span id="previewDocs" class="sbold"
+                            style="word-break: break-word;font-family:Calibri; font-size:14px;cursor:pointer"
+                            ng-click="GetDocxDetails(file)"><a
+                                title="{{file.name}}">{{file.name| limitTo:20}}{{file.name.length < 20 ? '': ' ...'}}</a></span>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-4 col-xs-6 text-center"
+                    ng-show="ClaimAttachments.totalAttachments > 5" style="line-height: 5;">
+                    <span class="display-block primary-link">+{{ClaimAttachments.totalAttachments - 5}} More</span>
+                </div>
+                <div ng-show="!ClaimAttachments.claimAttachments.length"
+                    style="padding:10px;text-align: center;color: red;background-color: #ffffff;">
+                    <em class="glyphicon glyphicon-exclamation-sign"></em>
+                    &nbsp;No New Attachments
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 text-right padding1px">
+            <a href="#" class="noTextDecoration">{{"View all documents"}}</a>
+        </div>
+    </div>
+</div>
+<!--Request  -->
+<!-- <div class="col-md-6 col-sm-6 col-xs-12 box-padding-left">
+    <div class="light bordered content-box activity-box-container">
+        <div class="SubHeadingDiv col-xs-12 caption font-gray-sharp">
+            <span
+                class="caption-subject sbold">{{"TabHeaderTitle.Requests"|translate}}&nbsp;({{requestList ? requestList.length : 0}})</span>
+            <a ng-click="AddRequestPopup($event)"
+                class="pull-right noTextDecoration font-size-13">{{"ControlText.add_request"|translate}}</a>
+        </div>
+        <div class="col-xs-12 padding1px custom_scroll_bar activity-box" infinityscroll="nextMessagePage();"
+            id="infinity_scroll_table">
+            <div class="general-item-list">
+                <div class="item" ng-repeat="request in requestList | limitTo : 5"
+                    ng-click="GetRequestDetails(request)">
+                    <div class="item-head">
+                        <div class="item-details">
+                            <span class="item-name primary-link">{{request.title}}</span>
+                            <span class="item-label">{{request.createDate | DateTimeDiff}}</span>
+                        </div>
+                        <span class="item-status">
+                            <span class="badge badge-empty"
+                                ng-class="{'badge-danger': request.priority === 'Urgent',
+                                                                       'badge-success' : request.priority === 'Normal',
+                                                                       'badge-warning' : request.priority === 'Minor'}"></span>{{request.priority}}</span>
+                    </div>
+                    <div class="item-body form-group tip text-left">
+                        {{request.purpose | limitTo:50}}{{request.purpose.length >  50 ? '...' : ''}}
+                        <span class="Overlay" ng-if="request.purpose.length>50">{{request.purpose}}</span>
+                    </div>
+                    <div class="item-body font-size-11">
+                        Due Date - {{request.dueDate | DateTimeFormatShort}}
+                    </div>
+                </div>
+            </div>
+            <div ng-show="!requestList.length"
+                style="padding:10px;text-align: center;color: red;background-color: #ffffff;">
+                <em class="glyphicon glyphicon-exclamation-sign"></em>
+                &nbsp;No New Requests
+            </div>
+        </div>
+        <div class="col-xs-12 text-right padding1px">
+            <a href="#" class="noTextDecoration" ng-click="GotoAllRequests()">{{"View all requests"}}</a>
+        </div>
+    </div>
+</div> -->
+<!-- <div class="col-md-6 col-sm-6 col-xs-12 box-padding-left">
+    <div class="light bordered content-box activity-box-container">
+        <div class="SubHeadingDiv col-xs-12 caption font-gray-sharp">
+            <span class="caption-subject sbold">{{"Calendar"|translate}}</span>
+        </div>
+        <div class="col-xs-12 padding1px custom_scroll_bar activity-box" infinity-scroll="nextMessagePage();"
+            id="infinity_scroll_table">
+            <div class="general-item-list">
+                <div class="item" ng-repeat="request in requestList | limitTo : 5"
+                    ng-click="GetRequestDetails(request)">
+                    <div class="item-head">
+                        <div class="item-details">
+                            <span class="item-name primary-link">{{request.title}}</span>
+                            <span class="item-label">{{request.createDate | DateTimeDiff}}</span>
+                        </div>
+                        <span class="item-status">
+                            <span class="badge badge-empty"
+                                ng-class="{'badge-danger': request.priority === 'Urgent',
+                                                                       'badge-success' : request.priority === 'Normal',
+                                                                       'badge-warning' : request.priority === 'Minor'}"></span>{{request.priority}}</span>
+                    </div>
+                    <div class="item-body form-group tip text-left">
+                        {{request.purpose | limitTo:50}}{{request.purpose.length >  50 ? '...' : ''}}
+                        <span class="Overlay" ng-if="request.purpose.length>50">{{request.purpose}}</span>
+                    </div>
+                    <div class="item-body font-size-11">
+                        Due Date - {{request.dueDate | DateTimeFormatShort}}
+                    </div>
+                </div>
+            </div>
+            <div ng-show="!requestList.length"
+                style="padding:10px;text-align: center;color: red;background-color: #ffffff;">
+                <em class="glyphicon glyphicon-exclamation-sign"></em>
+                &nbsp;No New Requests
+            </div>
+        </div>
+        <div class="col-xs-12 text-right padding1px">
+            <a href="#" class="noTextDecoration" ng-click="GotoAllRequests()">{{"View all"}}</a>
+        </div>
+    </div>
+</div> -->
+<!-- policyHolder task -->
+<div class="col-md-6 col-sm-6 col-xs-12 box-padding-left" ng-if="CommonObj.ClaimProfile == 'Contents'">
+    <div class="light bordered content-box activity-box-container" style="height: 350px !important;">
+        <div class="SubHeadingDiv col-xs-12 caption font-gray-sharp">
+            <span class="caption-subject sbold">{{"Policyholder's Task"|translate}}</span>
+            <a ng-click="AddClaimForm()"
+                class="pull-right noTextDecoration font-size-13">{{"Create New Task"|translate}}</a>
+        </div>
+        <div class="col-xs-12 padding1px custom_scroll_bar activity-box"
+            id="infinity_scroll_table">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col" class="col-xs-5 col-sm-5 col-md-5 col-lg-5">{{"Form Name"|translate}}</th>
+                        <th scope="col" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">{{"Status"|translate}}</th>
+                        <th scope="col" class="col-xs-4 col-sm-4 col-md-6 col-lg-4">{{"Assigned Date"|translate}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr
+                        ng-repeat="task in PendingTaskList |orderBy:'-assignedDate' | limitTo:5">
+                        <td class="col-xs-5 col-sm-5 col-md-5 col-lg-5" ng-click="reviewTaskPopup(task)">
+                        {{task.taskName}}
+                        </td>
+                        <td class="col-xs-3 col-sm-3 col-md-3 col-lg-3" ng-class="{completed : task.status.id == 2 , notCompleted:task.status.id != 2}" ng-click="reviewTaskPopup(task)">
+                            {{task.status.status}}
+                        </td>
+                        <td class="col-xs-4 col-sm-4 col-md-4 col-lg-4" ng-click="reviewTaskPopup(task)">
+                            {{task.assignedDate | DateTimeFormatShort}}
+                        </td>
+                    </tr>
+                    <tr ng-if="PendingTaskList===null || PendingTaskList.length==0">
+                        <td class="text-center text-danger" colspan="12">
+                            {{"No tasks available"|translate}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-xs-12 text-right padding1px">
+            <a href="#" class="noTextDecoration" ng-click="GotoPolicyholderTasks()">{{"View all"}}</a>
+        </div>
+    </div>
+</div>
+<!-- policyHolder task end-->
+<!-- Claim participants -->
+<div class="col-md-6 col-sm-6 col-xs-12 box-padding-left hide">
+    <div class="light bordered content-box" style="height: 250px;">
+        <div class="SubHeadingDiv col-xs-12 caption font-gray-sharp">
+            <span
+                class="caption-subject sbold">{{"TabHeaderTitle.ClaimParticipant"|translate}}&nbsp;({{ClaimParticipantsList.length}})</span>
+            <a ng-click="OpenAddNewVendorModel($event)"
+                class="pull-right noTextDecoration font-size-13">{{"ControlText.AddVendor"|translate}}</a>
+        </div>
+        <div class="col-xs-12 padding1px">
+            <div class="margin-top-5 activity-box custom_scroll_bar">
+                <div class="col-lg-6 col-md-12 col-sm-6 col-xs-6 text-center form-group clear-2n-left"
+                    ng-repeat="participant in ClaimParticipantsList | limitTo : 3">
+                    <img ng-src="{{participant.participantImage ? participant.participantImage.url : assets/global/img/teamMemb.png}}"
+                        onerror="this.onerror=null; this.src='assets/global/img/teamMemb.png';"
+                        class="profile-img text-center rounded" title="Profile Photo" alt="Profile Picture" />
+                    <span class="display-block primary-link">{{participant.lastName +", "+participant.firstName}}</span>
+                    <span
+                        class="display-block font-size-12">{{participant.designation ? participant.designation.name : participant.role | titleCase}}</span>
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-6 col-xs-6 text-center" ng-show="ClaimParticipantsList.length > 3"
+                    style="line-height: 5;">
+                    <span class="display-block primary-link">+{{(ClaimParticipantsList.length - 3)+' More'}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 text-right padding1px">
+            <a href="#" class="noTextDecoration" ng-click="GotoAllRequests()">{{"View all participants"}}</a>
+        </div>
+    </div>
+</div>

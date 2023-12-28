@@ -1,0 +1,31 @@
+﻿{
+  "Home": "Home",
+  "New Department": "Add New Department",
+  "Departments": "Departments",
+  "SearchchText": "Department ID, Department Name",
+  "SearchchEmployeeText": "Branch Name, City, Zip Code",
+  "NoRecordText": "No Records Available",
+  "Cancel": "Cancel",
+  "CreateDepartment": "Create Department",
+  "DepartmentHead": "Department Head",
+  "DepartmentId": "Department Id",
+  "Description": "Description",
+  "DepartmentName": "Department Name",
+  "Department Employees": "Department Employees",
+
+  "SerachEmp": "Employee Name",
+  "Add Employee": "Add Employee",
+  "Close": "Close",
+  "Table": {
+    "DeptId": "Department Id",
+    "DeptName": "Department Name",
+    "Employees": "Employees",
+    "InCharge": "In-Charge",
+    "Status": "Status",
+    "EmpName": "Employee Name",
+    "Email": "Email Id",
+    "Phone": "Phone#",
+    "Action": "Action"
+  }
+
+}

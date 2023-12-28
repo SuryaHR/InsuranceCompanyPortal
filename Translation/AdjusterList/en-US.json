@@ -1,0 +1,26 @@
+﻿
+{
+  "Model": {
+    "Header_AdjusterList": "Adjuster List"
+  },
+
+  "ControlText": {
+    "Search_title": "Search",
+    "AssignAdjuster_title": "Assign",
+    "Cancel_title": "Cancel",
+    "Submit":"Submit"
+  },
+
+  "Table": {
+    "Match": "Match",
+    "CasesInHand": "Cases In Hand",
+    "AdjustorName": "Adjuster",
+    "Speciality": "Specialty",
+    "Role": "Role"
+
+  },
+
+  "NoRecordText": "No Records Available",
+  "SearchText": "Search.."
+
+}

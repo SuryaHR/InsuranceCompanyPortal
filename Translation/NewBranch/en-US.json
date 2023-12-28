@@ -1,0 +1,15 @@
+﻿{
+  "FormControlText": {
+    "OfficeId_title": "Office Id",
+    "OfficeName_title": "Office Name",
+    "OfficeAddress_title": "Address",
+    "OfficeCity_title": "City",
+    "OfficeZip_title": "Zip ",
+    "OfficePhoneNumber_title": "Phone Number",
+    "btnNext": "Next"
+  },
+  "Label": {
+    "CompanyName": " Company Name",
+    "OfficeDetails": "Office Details"
+  }
+}

@@ -1,0 +1,287 @@
+﻿<div class="col-md-12 col-sm-12  ">
+    <ul class="page-breadcrumb breadcrumb sbold">
+        <li>
+            <a ng-click="GotoDashboard()">{{"Home"|translate}}</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>           
+            <span ng-if="!NewDepartment">{{"Departments"|translate}}</span>
+            <a ng-click="Cancel()" ng-if="NewDepartment">{{"Departments"|translate}}</a>
+           
+        </li>
+        <li ng-if="NewDepartment">
+            <span ng-if="!DepartmentDetails.id"><i class="fa fa-circle" ></i>{{"New Department"|translate}}</span>
+            <span ng-if="DepartmentDetails.id"><i class="fa fa-circle" ></i>{{DepartmentDetails.departmentId}}</span>
+        </li>
+    </ul>
+</div>
+
+<div class="col-md-12 col-lg-12 col-sm-12 padding1px" ng-if="!NewDepartment">
+    <div class="portlet light padding1px">
+        <div class="portlet-title padding1px">
+            <div class="caption font-grey-sharp">
+                <span class="caption-subject">{{"Departments"|translate}}</span>                
+            </div>
+        </div>
+        <div class="portlet-body">
+            <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <!--Top buttons-->
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 options_Background">
+                            <div class="col-md-12 padding1px margin-top-5 margin-bottom-5">
+                                <button id="sample_editable_1_new" class="btn sbold btnMargin btnOptions" ng-click="AddNewDepartment()">
+                                    {{"New Department"|translate}}
+                                </button>                                
+                                <div class="col-md-3 col-sm-5 pull-right">
+                                    <div class="input-icon left">
+                                        <i class="icon-magnifier"></i>
+                                        <input type="text" ng-model="search" class="form-control form-control-solid input-circle input-block-level " placeholder="{{'SearchchText'| translate}}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Top buttons-->
+                        <!--Start Table Body-->
+                        <div class="col-md-12 table-responsive padding1px" id="sample_5_wrapper">
+                            <table class="table table-striped table-bordered table-hover table-checkable order-column" id="NavigateTable">
+                                <thead>
+                                    <tr>
+                                        <th ng-click="sort('')">
+                                            {{"Table.DeptId"|translate}}
+                                            <!--<span class="glyphicon sort-icon" ng-show="sortKey==='taskId'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>-->
+                                        </th>
+                                        <th ng-click="sort('')">
+                                            {{"Table.DeptName"|translate}}
+                                            <!--<span class="glyphicon sort-icon" ng-show="sortKey==='taskName'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>-->
+                                        </th>
+                                        <th ng-click="sort('')" class="">
+                                            {{"Table.Employees"|translate}}
+                                            <!--<span class="glyphicon sort-icon" ng-show="sortKey==='comment'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>-->
+                                        </th>
+                                        <th ng-click="sort('')">
+                                            {{"Table.InCharge"|translate}}
+                                            <!--<span class="glyphicon sort-icon" ng-show="sortKey==='PolicyType'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>-->
+                                        </th>
+                                        <th ng-click="sort('')">
+                                            {{"Table.Status"|translate}}
+                                            <!--<span class="glyphicon sort-icon" ng-show="sortKey==='PolicyType'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>-->
+                                        </th>    
+                                        <th>
+                                            {{"Action"|translate}}
+                                        </th>                                    
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr dir-paginate="Department in DepartmentList|orderBy:sortKey:reverse|itemsPerPage:pagesize|filter:search" pagination-id="Departments">
+                                        <td ng-click="EditDepartment(Department)">{{Department.departmentId}}</td>
+                                        <td ng-click="EditDepartment(Department)">{{Department.departmentName}}</td>
+                                        <td ng-click="EditDepartment(Department)">{{Department.numberOfEmployees}}</td>
+                                        <td ng-click="EditDepartment(Department)">
+                                        <span ng-if="Department.departmentHead.lastName!=null||Department.departmentHead!=null">{{Department.departmentHead.lastName}}</span>
+                                        <span ng-if="Department.departmentHead.firstName!=null||Department.departmentHead!=null">, </span>
+                                        <span ng-if="Department.departmentHead.firstName!=null||Department.departmentHead!=null">{{Department.departmentHead.firstName}}</span></td>
+                                                                            
+                                        <td style="width:10%" ng-click="EditDepartment(Department)">
+                                            <span ng-show="Department.status===true" class="btn  btn-xs" style="margin:0px!important;background:none">Active</span>
+                                            <span ng-show="Department.status===false" class="btn  btn-xs" style="margin:0px!important;background:none">In-Active</span>
+
+                                        </td>
+                                        <td style="width:10%">
+                                            <span ng-show="Department.status===false" class="btn btn-link btn-xs" style="margin:0px!important;background:none" ng-click="EnableDisbale(Department,true)">Enable</span>
+                                            <span ng-show="Department.status===true" class="btn btn-link btn-xs" style="margin:0px!important;background:none" ng-click="EnableDisbale(Department,false)">Disable</span>
+
+                                        </td>
+                                    </tr>
+                                    <tr ng-if="DepartmentList==null||DepartmentList.length ==0" class="text-danger text-center" >
+                                        <td colspan="6">{{"NoRecordText"|translate}}</td>
+                                    </tr>
+                                </tbody>                                
+                            </table>
+                            <dir-pagination-controls max-size="3" pagination-id="Departments"
+                                                     direction-links="true"
+                                                     boundary-links="true" class="pull-right">
+                            </dir-pagination-controls>
+                        </div>
+
+                        <!--end Table Body-->
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-12 col-lg-12 col-sm-12 padding1px" ng-show="NewDepartment">
+    <div class="portlet light padding1px">
+        <div class="portlet-title padding1px">
+            <div class="caption font-grey-sharp">
+                <span class="caption-subject" ng-if="!DepartmentDetails.id">{{"New Department"|translate}}</span>  
+                <span class="caption-subject" ng-if="DepartmentDetails.id">{{DepartmentDetails.departmentName}}&nbsp; - &nbsp;{{DepartmentDetails.departmentId}}</span>              
+            </div>
+        </div>
+        <div class="col-md-12 col-sm-12 text-right margin-top-10">
+            <button id="sample_editable_1_new" class="btn sbold btnMargin" ng-click="Cancel()">
+                {{"Cancel"|translate}}
+            </button>
+            <button type="button" ng-if="!DepartmentDetails.id" class="btn btnMargin sbold"  ng-click="CreateUpdateDepartment()" ng-disabled="DepartmentForm.$invalid || DepartmentForm.$pristine"><!---->
+            {{"CreateDepartment"|translate}}</button>
+            <button type="button" ng-if="DepartmentDetails.id" class="btn btnMargin sbold"  ng-click="CreateUpdateDepartment()" ng-disabled="DepartmentForm.$invalid || DepartmentForm.$pristine"><!---->
+                {{"Save"|translate}}
+            </button>
+        </div>
+        <div class="portlet-body">
+            <div class="row">
+                <div class="portlet light padding1px">                    
+                    <!-- Add new -->
+                    <div class="col-md-12" id="NewCategory"> 
+                        <div class="col-md-12" ng-form="DepartmentForm">
+                            <div class="form-group  clearfix">
+                                <label class="col-md-2 col-sm-4 control-label Label_Text_Right">{{"DepartmentId"|translate}} </label>
+                                <div class="col-md-4 col-sm-8">
+                                    <input class="form-control" name="DepartmentId" ng-model="DepartmentDetails.departmentId" required type="text" />
+                                    <div class="errormessage">
+                                        <div ng-message="required" ng-show="(DepartmentForm.DepartmentId.$error.required && DepartmentForm.DepartmentId.$touched)">
+                                            <span class="text-danger">{{"Please enter department id"|translate}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group clearfix ">
+                                <label class="col-md-2 col-sm-4 control-label Label_Text_Right">{{"DepartmentName"|translate}}</label>
+                                <div class="col-md-4 col-sm-8">
+                                    <input class="form-control" required name="DepartmentName" ng-model="DepartmentDetails.departmentName"  type="text" />
+                                    <div class="errormessage">
+                                        <div ng-message="required" ng-show="(DepartmentForm.DepartmentName.$error.required && DepartmentForm.DepartmentName.$touched)">
+                                            <span class="text-danger">{{"Please enter department name"|translate}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group  clearfix">
+                                <label class="col-md-2 col-sm-4 control-label Label_Text_Right">{{"Description"|translate}} </label>
+                                <div class="col-md-4 col-sm-8">
+                                    <textarea class="form-control" name="Description" ng-model="DepartmentDetails.departmentDescription" required type="text" />
+                                  
+                                </div>
+                            </div>
+                            <div class="form-group  clearfix">
+                                <label class="col-md-2 col-sm-4 control-label Label_Text_Right">{{"Department Email ID"|translate}} </label>
+                                <div class="col-md-4 col-sm-8">
+                                    <input class="form-control" name="Description" ng-model="DepartmentDetails.departmentEmailId" required type="text" />
+                                </div>
+                            </div>
+                            <!--<div class="form-group  clearfix">
+                                <label class="col-md-2 col-sm-4 control-label Label_Text_Right">{{"DepartmentHead"|translate}} </label>
+                                <div class="col-md-4 col-sm-8" id="myModal">
+                                    <select class="form-control" required ng-model="DepartmentDetails.departmentHead.id" name="DepartmentHead"
+                                            placeholder='{{"ControlText.SelectType"|translate}}' ng-options="item.id as item.firstName+' '+item.lastName for item in DepartmentDetails.departmentHead"></select>
+                                    <div class="errormessage">
+                                        <div ng-message="required" ng-show="(DepartmentForm.DepartmentHead.$error.required && DepartmentForm.DepartmentHead.$touched)">
+                                            <span class="text-danger">{{"Please select department head."|translate}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>-->         
+                            <div class="form-group  clearfix">
+                                <label class="col-md-2 col-sm-4 control-label Label_Text_Right">{{"DepartmentHead"|translate}} </label>
+                                <div class="col-md-4 col-sm-8" id="myModal">
+                                    <select class="form-control" required ng-model="DepartmentDetails.departmentHead.id" name="DepartmentHead"
+                                            placeholder='{{"ControlText.SelectType"|translate}}' ng-options="item.id as item.firstName+' '+item.lastName for item in departmentHeadList"></select>
+                                    <div class="errormessage">
+                                        <div ng-message="required" ng-show="(DepartmentForm.DepartmentHead.$error.required && DepartmentForm.DepartmentHead.$touched)">
+                                            <span class="text-danger">{{"Please select department head."|translate}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>               
+                            <div class="form-group  clearfix" ng-if="DepartmentDetails.id">
+                                <label class="col-md-2 col-sm-4 control-label Label_Text_Right">{{"Status"|translate}} </label>
+                                <div class="col-md-4 col-sm-8" id="myModal1">
+                                    <select class="form-control select2me" ng-model="DepartmentDetails.status" name="status"
+                                            placeholder='{{"Select Status"|translate}}' ng-options="item.id as item.name for item in StatusList">
+                                    </select>
+                                </div>
+                            </div>           
+                            <div class="visible-sm clearfix"></div> 
+
+                            
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 margin-top-20">
+                        <div class="col-md-12 col-sm-12 SubHeadingDiv  margin-bottom-10">
+                            <span class="caption-subject">{{"Department Employees"|translate}}</span>
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 options_Background">
+                            <div class="col-md-12 padding1px margin-top-5 margin-bottom-5">
+                                <button id="sample_editable_1_new"  class="btn sbold btnMargin btnOptions" ng-click="SelectEmployeePopUp()"> <!--ng-disabled="DepartmentForm.$invalid || DepartmentForm.$pristine"-->
+                                    {{"Add Employee"|translate}}
+                                </button>
+                                <div class="col-md-3 col-sm-5 pull-right">
+                                    <div class="input-icon left">
+                                        <i class="icon-magnifier"></i>
+                                        <input type="text" ng-model="searchEmployee" class="form-control form-control-solid input-circle input-block-level " placeholder="{{'SearchchEmployeeText'| translate}}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 table-responsive padding1px" id="sample_5_wrapper">
+                            <table class="table table-striped table-bordered table-hover table-checkable order-column" id="dash">
+                                <thead>
+                                    <tr>
+                                        <th ng-click="sort('')">
+                                            {{"Table.EmpName"|translate}}
+                                            <!--<span class="glyphicon sort-icon" ng-show="sortKey==='taskId'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>-->
+                                        </th>
+                                        <th ng-click="sort('')">
+                                            {{"Table.Email"|translate}}
+                                            <!--<span class="glyphicon sort-icon" ng-show="sortKey==='taskName'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>-->
+                                        </th>
+                                        <th ng-click="sort('')" class="">
+                                            {{"Table.Phone"|translate}}
+                                            <!--<span class="glyphicon sort-icon" ng-show="sortKey==='comment'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>-->
+                                        </th>
+                                        <th>
+                                            {{"Table.Action"|translate}}                                            
+                                        </th>                                      
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr dir-paginate="Employee in DepartmentDetails.departmentEmployees|orderBy:sortKey:reverse|itemsPerPage:pagesize|filter:searchEmployee" pagination-id="Employees">
+                                        <td>{{Employee.lastName+", "+Employee.firstName}}</td>
+                                        <td>{{Employee.email}}</td>
+                                        <td>{{Employee.phone}}</td>
+                                        <td class="text-center" style="width:10%">
+                                            <span ng-show="Employee.isActive===false" ng-click="enableDisableEmployee(Employee)" > <a>Enable</a></span>
+                                            <span ng-show="Employee.isActive===true"  ng-click="enableDisableEmployee(Employee)" ><a>Disable</a></span>                                            
+                                        </td>
+
+                                    </tr>
+                                    <tr ng-if="EmployeeList.length ==0" class="text-danger text-center">
+                                        <td colspan="5">{{"NoRecordText"|translate}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <dir-pagination-controls max-size="3" pagination-id="Employees"
+                                                     direction-links="true"
+                                                     boundary-links="true" class="pull-right">
+                            </dir-pagination-controls>
+                        </div>
+                        <div class="col-md-12 col-sm-12 topBorder">
+                            <div class="margin-top-10 col-md-12 col-sm-12 text-right padding1px">
+                                <button id="sample_editable_1_new" class="btn sbold btnMargin" ng-click="Cancel()">
+                                    {{"Cancel"|translate}}
+                                </button>
+                                <button type="button" ng-if="!DepartmentDetails.id" class="btn btnMargin sbold" ng-disabled="DepartmentForm.$invalid || DepartmentForm.$pristine" ng-click="CreateUpdateDepartment()">
+                                    {{"CreateDepartment"|translate}}
+                                </button>
+                                <button type="button" ng-if="DepartmentDetails.id" class="btn btnMargin sbold" ng-disabled="DepartmentForm.$invalid || DepartmentForm.$pristine" ng-click="CreateUpdateDepartment()">
+                                    {{"Save"|translate}}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

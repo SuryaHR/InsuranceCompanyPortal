@@ -1,0 +1,300 @@
+﻿<style>
+    .dropHeightMax {
+        max-height: 80px;
+        overflow-y: auto;
+    }
+</style>
+<script>
+    function MakeSelect() {
+        setTimeout(function () {
+            $("#SeletbranchFor").select2({ multiple: true, width: "100%" });
+            $("#Selet2For").select2({ multiple: true, width: "100%" });
+        }, 1000);
+    }
+    function MakeSelectAdd() {
+        setTimeout(function () {
+            $("#SeletbranchFor").select2({ multiple: true, width: "100%" });
+            $("#Selet2For").select2({ multiple: true, width: "100%" });
+        }, 100);
+    }
+
+</script>
+<div class="col-md-12 padding1px">
+    <ul class="page-breadcrumb breadcrumb sbold">
+        <li>
+            <a ng-click="GotoDashboard()">{{"Home"|translate}}</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span ng-if="!AddEditUser">{{"User"|translate}}</span>
+            <a ng-if="AddEditUser" ng-click="Cancel($event)">{{"User"|translate}}</a>
+        </li>
+        <li ng-if="AddEditUser">
+            <span ng-if="!EmployeeDetails.userId"><i class="fa fa-circle"></i>{{"New User"|translate}}</span>
+            <span ng-if="EmployeeDetails.userId"><i class="fa fa-circle"></i>{{ EmployeeDetails.firstName  }} &nbsp; {{EmployeeDetails.lastName}}</span>
+        </li>
+    </ul>
+</div>
+<div class="col-md-12 portlet light padding1px">
+
+    <div class="portlet-title" ng-show="!AddEditUser">
+        <div class="caption font-grey-sharp">
+            <span class="caption-subject">{{"Users"|translate}}</span>
+        </div>
+    </div>
+    <div class="portlet-body">
+        <div class="row">
+            <div class="col-md-12 " ng-show="!AddEditUser">
+                <div class="portlet padding1px">
+                    <div class="portlet-body">
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 options_Background padding1px">
+                                    <div class="col-lg-5 col-md-5 col-sm-12 margin-bottom-5 margin-top-5 ">
+                                        <button class="btn btnMargin sbold btnOptions" onclick="MakeSelectAdd()" ng-click="editAdminContact()">{{"New User"|translate}}</button>
+                                        <button class="btn btnMargin sbold" ng-click="LoadUserDetailsFromFile()">{{"LoadFromFile"|translate}}</button>
+                                        <button class="btn btnMargin sbold">{{"Export"|translate}}</button>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 pull-right margin-bottom-5 margin-top-5">
+                                        <div class="input-icon left">
+                                            <i class="icon-magnifier"></i>
+                                            <input type="text" ng-model="search" class="form-control form-control-solid input-circle input-block-level " placeholder="{{'SearchUser' | translate}}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 table-responsive padding1px">
+                                    <table class="table  table-striped table-bordered table-hover table-checkable order-column">
+                                        <thead>
+                                            <tr>
+                                                <th ng-click="sort('userId')">
+                                                    {{"Id"|translate}}
+                                                    <span class="glyphicon sort-icon" ng-show="sortKey=='userId'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                                </th>
+                                                <th ng-click="sort('firstName')">
+                                                    {{"Table.username"|translate}}
+                                                    <span class="glyphicon sort-icon" ng-show="sortKey=='firstName'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                                </th>
+                                                <th ng-click="sort('accountStatus')">
+                                                    {{"Table.Status"|translate}}
+                                                    <span class="glyphicon sort-icon" ng-show="sortKey=='accountStatus'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+
+                                                </th>
+                                                <th>
+                                                    {{"Table.role"|translate}}
+                                                </th>
+                                                <th ng-click="sort('lastLogin')">
+                                                    {{"Table.lastaccess"|translate}}
+                                                    <span class="glyphicon sort-icon" ng-show="sortKey=='lastLogin'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                                </th>
+                                                <th ng-click="sort('memberSince')">
+                                                    {{"Table.membersince"|translate}}
+                                                    <span class="glyphicon sort-icon" ng-show="sortKey=='memberSince'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                                </th>
+                                                <th>
+                                                    {{"Table.operation"|translate}}
+                                                    <span class="glyphicon sort-icon"></span>
+                                                </th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            <tr dir-paginate="item in CompanyEmployeeList|orderBy:sortKey:reverse|filter:search|itemsPerPage:pagesize">
+                                                <td>{{item.userId}}</td>
+                                                <td>{{item.firstName }} &nbsp;{{item.lastName}} </td>
+                                                <td>
+                                                    <span ng-show="item.accountStatus===true" class="btn btn-circle btn-xs green">Active</span>
+                                                    <span ng-show="item.accountStatus===false" class="btn btn-circle btn-xs red">In-Active</span>
+                                                </td>
+                                                <td>{{item.role[0].roleName}}</td>
+                                                <td>{{item.lastLogin | DateFormatMMddyyyyHHmm}}</td>
+                                                <td>{{item.memberSince |DateFormatMMddyyyy}}</td>
+                                                <td>
+                                                    <div class="btn-group btn-group-circle btn-outline">
+                                                        <span ng-click="editAdminContact(item)" onclick="MakeSelect()" class="btn green btn-sm btn-outline">{{"btn.edit"|translate}}</span>
+                                                        <span ng-click="DeleteAdminContact(item,$index)" class="btn red btn-sm  btn-outline">{{"btn.delete"|translate}}</span>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                    <div class="clearfix"></div>
+                                    <dir-pagination-controls max-size="3" direction-links="true" boundary-links="true" class="pull-right ">
+                                    </dir-pagination-controls>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12" ng-show="AddEditUser">
+                <div class="portlet light padding1px">
+                    <div class="portlet-title">
+                        <div class="caption font-grey-sharp">
+                            <span class="caption-subject  " ng-if="!EmployeeDetails.userId"> New User</span>
+                            <span class="caption-subject  " ng-if="EmployeeDetails.userId"> {{ EmployeeDetails.firstName  }} &nbsp; {{EmployeeDetails.lastName}}</span>
+                        </div>
+
+                    </div>
+                    <div class="portlet-body">
+                        <div class="row">
+                            <div class="col-md-12" ng-form="Form">
+                                <!--First Row-->
+                                <div class="form-group col-md-6 col-lg-6 col-sm-12">
+                                    <div class="col-md-4 col-lg-4 col-xs-12 col-sm-6 Label_Text_Right">
+                                        <label class="control-label ">{{"FormControlText.UserName"|translate}} </label>
+                                    </div>
+                                    <div class="col-md-8 col-lg-8 col-sm-6">
+                                        <input type="text" class="form-control" required name="UserName" ng-model="EmployeeDetails.userName" placeholder='{{"FormControlText.UserName"|translate}}' />
+                                        <div ng-message="required" ng-show="(Form.UserName.$error.required && Form.UserName.$touched)">
+                                            <span class="text-danger">{{"please enter user name."|translate}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6 col-lg-6 col-sm-12 col-xs-12" ng-show="EmployeeDetails.userId">
+                                    <div class="col-md-4 col-xs-12 Label_Text_Right col-sm-6">
+                                        <label class="control-label ">{{"FormControlText.Password"|translate}}  </label>
+                                    </div>
+                                    <div class="col-md-8 col-xs-12 col-sm-6">
+                                        <div class="col-md-6 col-sm-4"><label>********</label></div>
+                                        <div class="col-md-6 col-sm-8"><a class="text-danger" ng-click="ResetPassword($event)"> {{'FormControlText.ResetPassword'|translate}} </a></div>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="form-group col-md-6 col-sm-12 col-xs-12">
+                                    <div class="col-md-4 col-xs-12 col-sm-6 Label_Text_Right">
+                                        <label class="control-label ">{{"FormControlText.FirstName"|translate}} </label>
+                                    </div>
+                                    <div class="col-md-8 col-xs-12 col-sm-6">
+                                        <input type="text" class="form-control" required name="FirstName" ng-model="EmployeeDetails.firstName" placeholder='{{"FormControlText.FirstName"|translate}}' />
+                                        <div ng-message="required" ng-show="(Form.FirstName.$error.required && Form.FirstName.$touched)">
+                                            <span class="text-danger">{{"Please enter first name."|translate}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6 col-sm-12 col-xs-12">
+                                    <div class="col-md-4 col-xs-12 col-sm-6 Label_Text_Right">
+                                        <label class="control-label ">{{"FormControlText.LastName"|translate}}</label>
+                                    </div>
+                                    <div class="col-md-8 col-xs-12 col-sm-6">
+                                        <input type="text" class="form-control" required name="LastName" ng-model="EmployeeDetails.lastName" placeholder='{{"FormControlText.LastName"|translate}}' />
+                                        <div ng-message="required" ng-show="(Form.LastName.$error.required && Form.LastName.$touched)">
+                                            <span class="text-danger">{{"Please enter last name."|translate}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-md-6 col-sm-12 col-xs-12">
+                                    <div class="col-md-4 col-sm-6 Label_Text_Right">
+                                        <label class="control-label ">{{"FormControlText.Email"|translate}}</label>
+                                    </div>
+                                    <div class="col-md-8 col-sm-6">
+                                        <input type="text" class="form-control" required name="Email" ng-model="EmployeeDetails.email" placeholder='{{"FormControlText.Email"|translate}}' />
+                                        <div ng-message="required" ng-show="(Form.Email.$error.required && Form.Email.$touched)">
+                                            <span class="text-danger">{{"Please enter email."|translate}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-md-6 col-sm-12 col-xs-12">
+                                    <div class="col-md-4 col-sm-6 Label_Text_Right">
+                                        <label class="control-label ">{{"FormControlText.PhoneNO"|translate}}</label>
+                                    </div>
+                                    <div class="col-md-8 col-sm-6">
+                                        <input type="text" name="phone" ng-pattern="/^([0-9-,()\s+]{15})$/" ng-trim="false" maxlength="15" required ng-model="EmployeeDetails.dayTimePhone" placeholder="XXX-XXX-XXXX" phone-input class="input-phone form-control" />
+                                        <div ng-message="required" ng-show="((Form.phone.$error.required ||Form.phone.$error.pattern) && Form.phone.$touched)">
+                                            <span class="text-danger">{{"Please enter valid phone number."|translate}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!---End First Row--->
+                                <div class="col-md-12 margin-bottom-25"></div>
+                                <div class="portlet ">
+                                    <div class="portlet-title"></div>
+                                    <div class="col-md-12 margin-bottom-25"></div>
+                                    <div class="form-group col-md-6 col-xs-12 col-sm-12">
+                                        <div class="col-md-4 col-sm-6 Label_Text_Right">
+                                            <label>{{"FormControlText.Designation"|translate}}</label>
+                                        </div>
+                                        <div class="col-md-8 col-sm-6">
+                                            <select class="form-control input-medium select2me " required name="designation" ng-model="EmployeeDetails.designationId " ng-options="opt.id as opt.name for opt in DesignationList"></select>
+                                            <div ng-message="required" ng-show="(Form.designation.$error.required && Form.designation.$touched)">
+                                                <span class="text-danger">{{"Please select designation."|translate}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-12 col-xs-12">
+                                        <div class="col-md-4 col-sm-6 Label_Text_Right">
+                                            <label>{{"FormControlText.ReportingManager"|translate}}</label>
+                                        </div>
+                                        <div class="col-md-8 col-sm-6">
+                                            <select class="form-control input-medium select2me "  name="reporting" ng-model="EmployeeDetails.reportingManagerId" ng-options="opt.id as opt.name for opt in ReportingManager"></select>
+                                            <!--<div ng-message="required" ng-show="(Form.reporting.$error.required && Form.reporting.$touched)">
+                                                <span class="text-danger">{{"Please select reporting manager."|translate}}</span>
+                                            </div>-->
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6 col-xs-12 col-sm-12">
+                                        <div class="col-md-4 col-sm-6 Label_Text_Right">
+                                            <label>{{"FormControlText.Role"|translate}}</label>
+                                        </div>
+                                        <div class="col-md-8 col-sm-6 dropHeightMax">
+                                            <select class="form-control input-medium select2me " required name="role" id="Selet2For" multiple ng-options="opt.id as opt.name for opt in RoleList" placeholder="Select the" ng-model="CommonObj.RoleOfUser"></select>
+                                            <div ng-message="required" ng-show="(Form.reporting.$error.required && Form.reporting.$touched)">
+                                                <span class="text-danger">{{"Please select role."|translate}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-md-6 col-xs-12 col-sm-12">
+                                        <div class="col-md-4 col-sm-6 Label_Text_Right">
+                                            <label>{{"FormControlText.Branch"|translate}}</label>
+                                        </div>
+                                        <div class="col-md-8 col-sm-6 dropHeightMax">
+                                            <select class="form-control input-medium select2me " multiple required name="branch" id="SeletbranchFor"
+                                                    ng-options="opt.id as opt.branchName for opt in OfficeList" placeholder="Select the" ng-model="CommonObj.branch"></select>
+                                            <div ng-message="required" ng-show="(Form.reporting.$error.required && Form.reporting.$touched)">
+                                                <span class="text-danger">{{"Please select branch."|translate}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 margin-bottom-25"></div>
+                                <div class="portlet">
+                                    <div class="portlet-title"></div>
+                                    <div class="col-md-12 margin-bottom-25"></div>
+                                    <div class="form-group col-md-6 col-sm-12 col-xs-12">
+                                        <div class="col-md-4 col-sm-6 Label_Text_Right">
+                                            <label>{{"FormControlText.AccountStatust"|translate}}</label>
+                                        </div>
+                                        <div class="col-md-8 col-sm-6">
+                                            <select class="form-control input-medium select2me" required name="account" ng-options="opt.id as opt.name for opt in accountStatusList" placeholder="Select the" ng-model="EmployeeDetails.accountStatus"></select>
+                                            <div ng-message="required" ng-show="(Form.account.$error.required && Form.account.$touched)">
+                                                <span class="text-danger">{{"Please select account status."|translate}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="tools pull-right margin-right-10">
+                                <button id="btnNext" class="btn sbold btnMargin" ng-click="Cancel($event)" onclick="MakeSelectAdd()">
+
+                                    {{"btn.btnCancel"|translate}}
+                                </button>
+                                <button id="btnNext" class="btn sbold btnMargin" ng-click="Update($event)" ng-disabled="Form.$invalid || Form.$pristine">
+
+                                    {{"btn.btnUpdate"|translate}}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

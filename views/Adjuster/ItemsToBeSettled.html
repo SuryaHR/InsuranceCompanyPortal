@@ -1,0 +1,307 @@
+﻿<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <ul class="page-breadcrumb breadcrumb sbold">
+            <li>
+                <a ng-click="GotoDashboard()">{{"Home"|translate}}</a>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <a ng-click="GoBack()">{{ClaimNo}}</a>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <span>{{"labeltext.ItemsSettled"|translate}}</span>
+            </li>
+
+        </ul>
+        </div>
+        <div class="col-md-12 col-sm-12 padding1px" id="cal">
+            <div class="portlet light">
+                <div class="portlet-title">
+                    <div class="caption font-gray-sharp">
+                        <span class="caption-subject">{{"labeltext.ItemsSettled"|translate}}</span>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="row">
+                        <div class="col-md-12 table-responsive margin-bottom-15">
+                            <table class="table table-striped table-bordered table-hover table-checkable order-column" id="dash">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <label class="mt-checkbox mt-checkbox-outline mt-checkbox-single ">
+                                                <input type="checkbox" ng-model="selectedAll" ng-click="checkAll()" />
+                                                <span></span>
+                                            </label>
+                                        </th>
+                                        <th ng-click="sort('itemNumber')">
+                                            {{"labeltext.ItemNumber"|translate}}
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='itemNumber'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                        </th>
+                                        <th ng-click="sort('isScheduledItem')">
+                                            {{"labeltext.ScheduledItem"|translate}}
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='isScheduledItem'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                        </th>
+                                        <th ng-click="sort('Status')" class="statusHeading">
+                                            {{"labeltext.Status"|translate}}
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='Status'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                        </th>
+                                        <th ng-click="sort('Category')">
+                                            {{"labeltext.Category"|translate}}
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='Category'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                        </th>
+                                        <th ng-click="sort('SubCategory')" class="">
+                                            {{"labeltext.SubCategory"|translate}}
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='SubCategory'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                        </th>
+                                        <th>
+                                            {{"labeltext.Description"|translate}}
+                                        </th>
+                                        <th ng-click="sort('age')">
+                                            {{"labeltext.Age"|translate}}
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='age'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                        </th>
+                                        <th ng-click="sort('quantity')">
+                                            {{"labeltext.Quantity"|translate}}
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='quantity'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                        </th>
+                                        <th ng-click="sort('insuredPrice')">
+                                            {{"labeltext.InsuredPrice"|translate}}
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='insuredPrice'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                        </th>
+                                        <th>
+                                            {{"labeltext.Vendor"|translate}}
+                                        </th>
+                                        <th ng-click="sort('adjusterDescription')">
+                                            {{"labeltext.ReplacementDesc"|translate}}
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='adjusterDescription'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                        </th>
+                                        <th ng-click="sort('depreciation')">
+                                            {{"labeltext.Depreciation"|translate}}
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='depreciation'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                        </th>
+
+                                        <th ng-click="sort('acv')">
+                                            {{"labeltext.ACV"|translate}}
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='acv'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                        </th>
+                                        <th ng-click="sort('rcv')">
+                                            {{"labeltext.RCV"|translate}}
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='rcv'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                        </th>
+                                        <th ng-click="sort('isReplaced')">
+                                            {{"labeltext.Replaced"|translate}}
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='isReplaced'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                        </th>
+                                        <th ng-click="sort('holdOverValue')">
+                                            {{"labeltext.Holdover"|translate}}
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='holdOverValue'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                        </th>
+                                        <th>
+                                            {{"labeltext.PayoutChek"|translate}}
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr dir-paginate="item in ItemsList|orderBy:sortKey:reverse|filter:search|itemsPerPage:pagesize">
+                                        <td>
+                                            <label class="mt-checkbox mt-checkbox-outline mt-checkbox-single ">
+                                                <input type="checkbox" ng-click="SelectItem(item.id)" ng-checked="getIsChecked(item.id)" />
+                                                <span></span>
+                                            </label>
+                                        </td>
+                                        <td>{{item.itemNumber}}</td>
+                                        <td>{{item.isScheduledItem}}</td>
+                                        <td>{{item.status.status}}</td>
+                                        <td>{{item.category.name}}</td>
+                                        <td>{{item.subCategory.name}}</td>
+                                        <td>{{item.description}}</td>
+                                        <td class="text-right">{{item.age}}</td>
+                                        <td class="text-right">{{item.quantity}}</td>
+                                        <td class="text-right">{{item.insuredPrice|currency}}</td>
+                                        <td>{{item.vendorDetails.vendorName}}</td>
+                                        <td>{{item.adjusterDescription}}</td>
+                                        <td>{{item.depriciationRate}}</td>
+                                        <td class="text-right">{{item.acv|currency}}</td>
+                                        <td class="text-right">{{item.rcv|currency}}</td>
+                                        <td>{{item.isReplaced}}</td>
+                                        <td>{{item.holdOverValue}}</td>
+                                        <td>{{item.paymentDetails.checkNumber}}</td>
+                                    </tr>
+                                    <tr ng-if="ItemsList.length ===0 ||ItemsList===null">
+                                        <td></td>
+                                        <td colspan="17" class="text-danger text-center">  {{"NoRecordText" |translate}} </td>
+
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                </tfoot>
+                            </table>
+                            <dir-pagination-controls max-size="3" ng-if="ItemList.length > 0 "
+                                                     direction-links="true"
+                                                     boundary-links="true" class="pull-right">
+                            </dir-pagination-controls>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-12 well portlet margin-bottom-25">
+                                <label class="col-md-3">{{SelectedItems.length}} {{"labeltext.ItemsSettled"|translate}}</label>
+                                <label class="col-md-2">{{"labeltext.TotalValue"|translate}} &nbsp; {{TotalACV}}</label>
+                            </div>
+                        </div>
+                        <div class="col-md-12 padding1px">
+                            <div class="portlet light">
+                                <div class="portlet-title">
+                                    <div class="caption font-gray-sharp">
+                                        <span class="caption-subject"> {{"labeltext.PaymentMethod"|translate}}</span>
+                                    </div>
+                                </div>
+                                <div class="portlet-body">
+                                    <div class="row">
+                                        <div class="col-md-12 col-sm-12">
+                                            <label class="mt-radio mt-radio-single col-md-2 col-sm-4 mt-radio-outline"><input type="radio" ng-click="ShowPaymentDetails('DebitCard')" class="radio" name="optradio" /><span></span>{{"Radio.DebitCard"|translate}}</label>
+
+                                            <label class="mt-radio mt-radio-single col-md-2 col-sm-4 mt-radio-outline"><input type="radio" ng-click="ShowPaymentDetails('Check')" class="radio" name="optradio" /><span></span>{{"Radio.Check"|translate}}</label>
+
+                                        </div>
+                                        <div class="col-md-12 col-sm-12">
+                                            <div class="col-md-12 margin-top-10 well" ng-if="DebitCardSection" ng-form="DebitCardForm" id="DebitCardForm" name="DebitCardForm">
+                                                <div class="col-md-6 col-sm-8">
+                                                    <div class="form-group col-md-12">
+                                                        <div class="col-md-3">
+                                                            <label class="control-label ">{{"FormControlText.DrawnOnBank"|translate}}</label>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <input type="text" class="form-control" ng-model="DebitCardDetails.BankName" placeholder='{{"FormControlText.DrawnOnBank"|translate}}' name="BankName" required />
+                                                            <div class="errormessage">
+                                                                <div ng-message="required" ng-show="(DebitCardForm.BankName.$error.required && DebitCardForm.BankName.$touched)">
+                                                                    <span class="text-danger">{{"ErrorMessage.BankRequired"|translate}}</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group col-md-12">
+                                                        <div class="col-md-3">
+                                                            <label class="control-label ">{{"FormControlText.Amount"|translate}}</label>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <input type="text" class="form-control" ng-model="DebitCardDetails.Amount" placeholder='{{"FormControlText.Amount"|translate}}' name="Amount" required />
+                                                            <div class="errormessage">
+                                                                <div ng-message="required" ng-show="(DebitCardForm.Amount.$error.required && DebitCardForm.Amount.$touched)">
+                                                                    <span class="text-danger">{{"ErrorMessage.AmountRequired"|translate}}</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group col-md-12">
+                                                        <div class="col-md-3">
+                                                            <label class="control-label ">{{"FormControlText.DebitCardNumber"|translate}}</label>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <input type="text" class="form-control" ng-model="DebitCardDetails.CardNo" placeholder='{{"FormControlText.DebitCardNumber"|translate}}' name="CardNo" required />
+                                                            <div class="errormessage">
+                                                                <div ng-message="required" ng-show="(DebitCardForm.CardNo.$error.required && DebitCardForm.CardNo.$touched)">
+                                                                    <span class="text-danger">{{"ErrorMessage.CardNoRequired"|translate}}</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group col-md-12">
+                                                        <div class="col-md-3">
+                                                            <label class="control-label ">{{"FormControlText.PaymentDate"|translate}}</label>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <input class="form-control datepicker" data-date-container='#cal' ng-model="DebitCardDetails.PaymentDate" close-on-date-selection="true" data-provide="datepicker" size="16" type="text" placeholder='{{"FormControlText.PaymentDate"|translate}}' name="Date" required />
+                                                            <div class="errormessage">
+                                                                <div ng-message="required" ng-show="(DebitCardForm.Date.$error.required && DebitCardForm.Date.$touched)">
+                                                                    <span class="text-danger">{{"ErrorMessage.DateRequired"|translate}}</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group col-md-12">
+                                                        <div class="col-md-3">
+
+                                                        </div>
+                                                        <div class="col-md-6 text-center">
+                                                            <button class="btn btnMargin sbold blue" ng-click="Payment()" ng-disabled="DebitCardForm.$invalid || DebitCardForm.$pristine">{{"BtnTexts.PayoutItems"|translate}}</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-12 margin-top-10 well" ng-if="CheckSection" ng-form="CheckForm" id="CheckForm" name="CheckForm">
+                                                <div class="col-md-6 col-sm-8">
+                                                    <div class="form-group col-md-12">
+                                                        <div class="col-md-3">
+                                                            <label class="control-label ">{{"FormControlText.Amount"|translate}}</label>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <input type="text" class="form-control" ng-model="CheckDetails.Amount" placeholder='{{"FormControlText.Amount"|translate}}' name="amount" required />
+                                                            <div class="errormessage">
+                                                                <div ng-message="required" ng-show="(CheckForm.amount.$error.required && CheckForm.amount.$touched)">
+                                                                    <span class="text-danger">{{"ErrorMessage.AmountRequired"|translate}}</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group col-md-12">
+                                                        <div class="col-md-3">
+                                                            <label class="control-label ">{{"FormControlText.CheckNumber"|translate}}</label>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <input type="text" class="form-control" ng-model="CheckDetails.CheckNo" placeholder='{{"FormControlText.CheckNumber"|translate}}' name="CheckNo" required />
+                                                            <div class="errormessage">
+                                                                <div ng-message="required" ng-show="(CheckForm.CheckNo.$error.required && CheckForm.CheckNo.$touched)">
+                                                                    <span class="text-danger">{{"ErrorMessage.CheckNoRequired"|translate}}</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group col-md-12">
+                                                        <div class="col-md-3">
+                                                            <label class="control-label ">{{"FormControlText.DrawnOnBank"|translate}}</label>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <input type="text" class="form-control" ng-model="CheckDetails.BankName" placeholder='{{"FormControlText.DrawnOnBank"|translate}}' name="BankName" required />
+                                                            <div class="errormessage">
+                                                                <div ng-message="required" ng-show="(CheckForm.BankName.$error.required && CheckForm.BankName.$touched)">
+                                                                    <span class="text-danger">{{"ErrorMessage.BankRequired"|translate}}</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group col-md-12">
+                                                        <div class="col-md-3">
+                                                            <label class="control-label ">{{"FormControlText.PaymentDate"|translate}}</label>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <input class="form-control datepicker" data-date-container='#cal' ng-model="CheckDetails.PaymentDate" close-on-date-selection="true" data-provide="datepicker" size="16" type="text" placeholder='{{"FormControlText.PaymentDate"|translate}}' name="Date" required />
+                                                            <div class="errormessage">
+                                                                <div ng-message="required" ng-show="(CheckForm.Date.$error.required && CheckForm.Date.$touched)">
+                                                                    <span class="text-danger">{{"ErrorMessage.DateRequired"|translate}}</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group col-md-12">
+                                                        <div class="col-md-3">
+                                                        </div>
+                                                        <div class="col-md-6 text-center">
+                                                            <button class="btn btnMargin sbold blue" ng-click="Payment()" ng-disabled="CheckForm.$invalid || CheckForm.$pristine">{{"BtnTexts.PayoutItems"|translate}}</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>

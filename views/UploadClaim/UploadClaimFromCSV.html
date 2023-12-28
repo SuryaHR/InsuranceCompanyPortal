@@ -1,0 +1,269 @@
+﻿<!-- Steps screen -->
+<div class="col-md-12 " ng-if="stepScreen">
+    <div class="portlet light bordered ">
+        <div class="portlet-title">
+            <div class="caption font-green-sharp">
+                <span class="caption-subject green bold">{{"MainHeader.BulkUploadItems"|translate}}</span>
+            </div>
+
+        </div>
+        <div class="portlet-body">
+            <div class="row">
+                <div class="col-md-12 margin-bottom-15">
+                    <div class="col-md-12 margin-bottom-15 ">
+                        <span class="control-label bold">{{'ControlText.step'|translate}}</span>
+                    </div>
+                    <div class="col-md-12 margin-bottom-15">
+                        <span class="control-label">{{'ControlText.step1'|translate}} <a download href="{{TemplateURL}}">&nbsp;{{'ControlText.step1.1'|translate}} &nbsp;</a>{{'ControlText.step1.2'|translate}}</span>
+                    </div>
+                    <div class="col-md-12  margin-bottom-15">
+                        <span class="control-label">{{'ControlText.step2'|translate}}</span>
+                        <ul class="margin-top-10 margin-bottom-10">
+                            <li>
+                                <span class="control-label">{{'ControlText.step2.1'|translate}}</span>
+                            </li>
+                            <li>
+                                <span class="control-label">{{'ControlText.step2.2'|translate}}</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-12  margin-bottom-15">
+                        {{'ControlText.step3'|translate}}
+                    </div>
+                    <div class="col-md-12 col-sm-12  margin-bottom-15 form-group">
+                        <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12 styleflex">
+                            <span class="control-label"> {{'ControlText.SelectFile'|translate}} :</span>
+                            <div class="col-md-9"><input class="form-control" ng-model="FileDetails.FileName" type="text" placeholder="{{'ControlText.NoFileselected'|translate}}" /></div>
+                        </div>
+
+                        <div class="col-md-1 col-lg-1 col-sm-2 col-xs-12 padding1px">
+                            <input type="file" name="FileUpload" id="FileUpload" class="green" ng-model="fileControl" onchange="angular.element(this).scope().getFileDetails(this)" style="display: none;">
+                            <button class="sbold btn btnMargin" ng-click="FileUploadEvent($event)">{{'ControlText.SelectFile'|translate}}</button>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="col-md-12">
+                            <span class="text-danger sbold">{{ErrorMessage}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="tools pull-right margin-bottom-10">
+                    <button class="sbold btn btnMargin" ng-click="GoBack($event)">{{'ControlText.Cancel'|translate}}</button>
+                    <button class="sbold btn btnMargin" ng-click="StartUpload($event)" ng-disabled="FileDetails.Files.length===0">{{'ControlText.StartUpload'|translate}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end Steps screen -->
+<!-- Loading screen -->
+<div class="col-md-12" ng-if="StatusScreen">
+    <div class="portlet light bordered">
+        <div class="portlet-title">
+            <div class="caption font-green-sharp">
+                <span class="caption-subject green bold">{{"MainHeader.LoadingItems"|translate}}</span>
+            </div>
+            <div class="tools">
+
+            </div>
+        </div>
+        <div class="portlet-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <label class="col-md-2 col-sm-2 control-label">{{'ControlText.FileName'|translate}}</label>
+                    <div class="col-md-10">
+                        {{FileName}}
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <label class="col-md-2 col-sm-2 control-label">{{'ControlText.Status'|translate}}</label>
+                    <div class="col-md-10">
+                        <uib-progressbar class="progress-striped active" value="uploader.progress" type="{{type}}" ng-show="showProgress">
+                            {{type}}
+                            <i> {{uploader.progress}}% </i>
+                        </uib-progressbar>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <label class="col-md-2 col-sm-2 control-label">{{'ControlText.RowsProcessed'|translate}}</label>
+                    <div class="col-md-10">
+                        {{FileName}}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!--end Loading screen -->
+<!-- Finsh screen -->
+<div class="col-md-12" ng-if="FinishScreen">
+    <div class="portlet light bordered">
+        <div class="portlet-title">
+            <div class="caption font-green-sharp">
+                <span class="caption-subject green bold">{{"MainHeader.UploadSuccessful"|translate}}</span>
+            </div>
+            <div class="tools">
+                <button class="sbold btn btnMargin" ng-click="Done($event)">{{'ControlText.Done'|translate}}</button>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <label class="col-md-2 col-sm-2 control-label">{{'ControlText.FileName'|translate}}</label>
+                    <div class="col-md-10">
+                        {{FileDetails.FileName}}
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <label class="col-md-2 col-sm-2 control-label">{{'ControlText.Status'|translate}}</label>
+                    <div class="col-md-10">
+                        <!--<div class="progress-bar progress-bar-info" style="padding-left:0px !important" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>-->
+
+                        <uib-progressbar class="progress-striped green" value="uploader.progress" type="{{type}}">
+                            {{type}}
+                            <i ng-if="showProgress"> {{uploader.progress}}% </i>
+                            <i ng-if="uploader.progress > 99"> DONE!! </i>
+                        </uib-progressbar>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <label class="col-md-2 col-sm-2 control-label">{{'ControlText.RowProcessed'|translate}}</label>
+                    <div class="col-md-10">
+                        {{RowCount}}
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <label class="col-md-2 col-sm-2 control-label">{{'ControlText.NewItemsCreated'|translate}}</label>
+                    <div class="col-md-10">
+                        {{newRecoredInsertedCount}}
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <label class="col-md-2 col-sm-2 control-label">{{'ControlText.ItemsUpdated'|translate}}</label>
+                    <div class="col-md-10">
+                        {{UpdateCount}}
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <label class="col-md-2 col-sm-2 control-label">{{'ControlText.FailedItem'|translate}}</label>
+                    <div class="col-md-10">
+                        {{FialedItem}}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!--end Finsh screen -->
+<!-- Verify screen -->
+<div class="col-md-12" ng-if="VerifyScreen">
+    <div class="portlet light bordered">
+        <div class="portlet-title">
+            <div class="caption font-green-sharp">
+                <span class="caption-subject green bold">{{"MainHeader.VerifyInformation"|translate}}</span>
+            </div>
+            <div class="tools">
+                <button class="sbold btn btnMargin" ng-click="CancelVerify($event)">{{'ControlText.Cancel'|translate}}</button>
+                <button class="sbold btn btnMargin" ng-click="Verify($event)">{{'ControlText.FinishUplolad'|translate}}</button>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <div class="row">
+                <div class="col-md-12" ng-if="showProgress">
+                    <uib-progressbar class="progress-striped green" value="uploader.progress" type="{{type}}">
+                        {{type}}
+                        <i> {{uploader.progress}}% </i>
+                    </uib-progressbar>
+                </div>
+                <div class="col-md-12 table-responsive">
+                    <table class="table table-striped table-bordered table-hover table-checkable order-column">
+                        <tr ng-repeat="(key, value) in Itemlist[0]">
+                            <th style="text-align:left !important; " class="width15" ng-click="sort(key)" ng-if="key==='id'">
+                                <spa class="bold" style="padding:5px !important;">{{"Id"|translate}}</spa>
+                            </th>
+                            <th style="text-align:left !important; " class="width15" ng-click="sort(key)" ng-if="key==='incidentDate'">
+                                <spa class="bold" style="padding:5px !important;">{{"IncidentDate"|translate}}</spa>
+                            </th>
+                            <th style="text-align:left !important; " class="width15" ng-click="sort(key)" ng-if="key==='policyNumber'">
+                                <spa class="bold" style="padding:5px !important;">{{"PolicyNo"|translate}}</spa>
+                            </th>
+                            <th style="text-align:left !important; " class="width15" ng-click="sort(key)" ng-if="key==='accountNumber'">
+                                <spa class="bold" style="padding:5px !important;">{{"AccNo"|translate}}</spa>
+                            </th>
+                            <th style="text-align:left !important; " class="width15" ng-click="sort(key)" ng-if="key==='homeOwnerPolicyType'">
+                                <spa class="bold" style="padding:5px !important;">{{"HomeOwnersPolicyType"|translate}}</spa>
+                            </th>
+                            <th style="text-align:left !important; " class="width15" ng-click="sort(key)" ng-if="key==='policyHolderFirstName'">
+                                <spa class="bold" style="padding:5px !important;">{{"PolicyHolderFirstName"|translate}}</spa>
+                            </th>
+                            <th style="text-align:left !important; " class="width15" ng-click="sort(key)" ng-if="key==='policyHolderLastName'">
+                                <spa class="bold" style="padding:5px !important;">{{"PolicyHolderLastName"|translate}}</spa>
+                            </th>
+                            <th style="text-align:left !important; " class="width15" ng-click="sort(key)" ng-if="key==='email'">
+                                <spa class="bold" style="padding:5px !important;">{{"Email"|translate}}</spa>
+                            </th>
+                            <th style="text-align:left !important; " class="width15" ng-click="sort(key)" ng-if="key==='dayTimePhone'">
+                                <spa class="bold" style="padding:5px !important;">{{"DayTimePhone"|translate}}</spa>
+                            </th>
+                            <th style="text-align:left !important; " class="width15" ng-click="sort(key)" ng-if="key==='eveningTimePhone'">
+                                <spa class="bold" style="padding:5px !important;">{{"EveningTimePhone"|translate}}</spa>
+                            </th>
+                            <th style="text-align:left !important; " class="width15" ng-click="sort(key)" ng-if="key==='cellPhone'">
+                                <spa class="bold" style="padding:5px !important;">{{"CellPhone"|translate}}</spa>
+                            </th>
+                            <!--<th style="text-align:left !important; " class="width15" ng-click="sort(key)" ng-if="key==='address'">
+                                <spa class="bold" style="padding:5px !important;">{{"Address"|translate}}</spa>
+                            </th>-->
+                            <th style="text-align:left !important; " class="width15" ng-click="sort(key)" ng-if="key==='claimNumber'">
+                                <spa class="bold" style="padding:5px !important;">{{"ClaimNo"|translate}}</spa>
+                            </th>
+                            <th style="text-align:left !important; " class="width15" ng-click="sort(key)" ng-if="key==='taxRate'">
+                                <spa class="bold" style="padding:5px !important;">{{"TaxRate"|translate}}</spa>
+                            </th>
+                            <th style="text-align:left !important; " class="width15" ng-click="sort(key)" ng-if="key==='replacementOption'">
+                                <spa class="bold" style="padding:5px !important;">{{"ReplacementOption"|translate}}</spa>
+                            </th>
+                            <th style="text-align:left !important; " class="width15" ng-click="sort(key)" ng-if="key==='claimReportDate'">
+                                <spa class="bold" style="padding:5px !important;">{{"ClaimReportDate"|translate}}</spa>
+                            </th>
+                            <th style="text-align:left !important; " class="width15" ng-click="sort(key)" ng-if="key==='damageType'">
+                                <spa class="bold" style="padding:5px !important;">{{"DamageType"|translate}}</spa>
+                            </th>
+                            <th style="text-align:left !important; " class="width15" ng-click="sort(key)" ng-if="key==='reportDetails'">
+                                <spa class="bold" style="padding:5px !important;">{{"ReportDetails"|translate}}</spa>
+                            </th>
+                            <th style="text-align:left !important; " class="width15" ng-click="sort(key)" ng-if="key==='additionalNotes'">
+                                <spa class="bold" style="padding:5px !important;">{{"AdditionalNotes"|translate}}</spa>
+                            </th>
+                            <td ng-repeat="item in Itemlist" onclick="Edit(this)">
+                                <span id="{{key}}S_{{$index}}" style="width:100%" ng-if="key!=='address'">{{item[key]}}</span>
+                                <input id="{{key}}I_{{$index}}" type="text" ng-model="item[key]" style="display:none;" onblur="HideTextbox(this)" />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--end Verify screen -->
+<script>
+    var Globaltd = null;
+    function Edit(span) {
+        if (Globaltd !== null)
+            HideTextbox(HideTextbox);
+        var td = span;
+        td.children[1].style.display = "block";
+        td.children[1].focus();
+        td.children[0].style.display = "none";
+        Globaltd = span;
+    }
+    function HideTextbox(span) {
+        var td = Globaltd;
+        td.children[1].style.display = "none";
+        td.children[0].style.display = "block";
+        Globaltd = null;
+    }
+</script>

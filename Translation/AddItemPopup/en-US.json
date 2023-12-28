@@ -1,0 +1,19 @@
+{
+    "Label": {
+        "SubCategory": "Sub Category",
+        "IndividualLimit": "Individual Limit",
+        "CategoryLimit": "Category Limit",
+        "AppraisalValue": "Appraisal Value",
+        "AppraisalDate": "Appraisal Date",
+        "ShippingDate" : "Shipping Date",
+        "ShippingMethod" : "Shipping Method",
+        "AddAnotherItem" : "Save and Add Another Item",
+        "AddItem" : "Add Item",
+        "UpdateItem" : "Update Item",
+        "Cancel" : "Cancel"
+    },
+    "Title":{
+        "AddNewItem" : "Add Item",
+        "Item#" : "Item#"
+    }
+}

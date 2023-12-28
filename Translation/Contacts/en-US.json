@@ -1,0 +1,38 @@
+﻿{
+  "ControlText": {
+    "CreateNewContact_title": "New Contact",
+    "UploadContacts_title": "Upload Contacts",
+    "SearchContact_title": "Search..",
+    "Create_title": "Create"
+    
+  },
+  "HeaderText": {
+    "NewContact_title": "New Contact",
+    "UploadContact_title": "Upload Contact"
+  },
+  "Table": {
+    "Id": "Id",
+    "Name": "Name",
+    "Designation": "Designation",
+    "BranchOffice": "Branch / Office",
+    "EmailId": "Email Id",
+    "PhoneNo": "Phone No"
+  },
+  "FormControlText": {
+    "FirstName": "First Name",
+    "LastName": "Last Name",
+    "Email": "Email",
+    "PhoneNumber": "Phone No.",
+    "Designation": "Designation",
+    "ReportingManager": "Reporting Manager",
+    "BranchOffice": "Branch / Office",
+    "Role": "Role"
+  },
+  "Placeholder": {
+    "ddlDesignation": "Designations",
+    "ddlReportingManager": "Search For Employee",
+    "ddlBranchOffice": "Search For Ofice",
+    "ddlRole": "Search Available Roles"
+  },
+  "NewContactNote_title": " * An email will be sent ot contact to complete their profile"
+}

@@ -1,0 +1,28 @@
+﻿{
+  "HeaderText": {
+    "ClaimsTobeAssigned": "Claims To be Assigned",
+    "Claimsinwork": "Claims in work",
+    "WaitingForInsuranceCompany": "Claims waiting for approval from insurance company",
+    "WaitingForPolicyHolder": "Claims waiting for information from policyholder"
+  },
+  "ControlText": {
+    "Show": "Show",
+    "View": "View"
+  },
+  "Table": {
+    "Claim": "Claim #",
+    "InsurenceCompany": "Insurence Company",
+    "Adjustername": "Adjuster Name",
+    "#Item": "# Of Items",
+    "ServiceRequested": "Service Requested",
+    "Status": "Status",
+    "ReportDate": "Report Date",
+    "LastUpdate": "Last Update",
+    "LastNote": "LastNote"
+  },
+  "SearchText": "Search Reference #, Insured's Name, Phone #",
+  "GlobalSearchText": "Serach ...Any Claim #, Policyholder",
+  "NoRecordText": "No Records Available",
+  "All Claims": "All Claims",
+  "Home": "Home"
+}

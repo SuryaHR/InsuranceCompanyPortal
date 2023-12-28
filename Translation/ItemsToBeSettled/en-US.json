@@ -1,0 +1,67 @@
+﻿{
+  "labeltext": {
+    "ItemId": "Item Id",
+    "ScheduledItem": "ScheduledItem",
+    "Status": "Status",
+    "Category": "Category",
+    "SubCategory": "SubCategory",
+    "Description": "Description",
+    "Age": "Age",
+    "Quantity": "Quantity",
+    "InsuredPrice": "Insured Price",
+    "Vendor": "Vendor",
+    "ReplacementDesc": "Replacement Desc.",
+    "Depreciation": "Depreciation",
+    "ACV": "ACV ",
+    "RCV": "RCV",
+    "Replaced": "Replaced",
+    "Holdover": "Holdover",
+    "PayoutChek": "PayoutChek #",
+
+    "ItemsSettled": "Items To Be Settled",
+    "TotalValue": "Total Value",
+    "ItemsSelected ": "Items Selected",
+    "Show": "Show",
+    "View": "View",
+    "Search": "Search Item#, Item Name",
+    "Claim#": "Claim #",
+    "PaymentMethod": "Payment Method",
+    "ItemNumber": "Item No."
+  },
+
+  "BtnTexts": {
+    "Back": "Back",
+    "Cancel": "Cancel",
+    "PayoutItems": "Pay Now"
+  },
+  "NoRecordText": "No records to show",
+  "FormControlText": {
+    "DirectDeposit": "Direct Deposit",
+    "DebitCardNumber": "Debit Card Number",
+    "CheckNumber": "Check Number",
+    "AmountOnCheck": "Amount On Check",
+    "PartialReplacement": "Partial Replacement",
+    "Amount": "Amount",
+    "ConsumerAccount": "Consumer Account#",
+    "NameOfBank": "Name Of The Bank",
+    "RoutingNumber": "Routing Number",
+    "PaymentDate": "Payment Date",
+    "DrawnOnBank": "Drawn On Bank"
+  },
+  "Radio": {
+    "DirectDeposit": "Direct Deposit",
+    "DebitCard": "Debit Card",
+    "Check": "Check"
+  },
+  "ErrorMessage": {
+    "AmountRequired": "Enter Amount",
+    "CardNoRequired": "Enter Debit Card No.",
+    "DateRequired": "Date Required.",
+    "BankRequired": "Enter Bank Name",
+    "CheckNoRequired": "Enter Check No."
+  },
+  "ErrorHeading": "Error..!!",
+  "CommonErrorMessage": "Something went wrong please try again",
+  "SuccessHeading": "Confirmation..!!",
+  "Home": "Home"
+}

@@ -1,0 +1,58 @@
+﻿<div class="">
+    <div class="modal-header text-center">
+        <a class="close" data-dismiss="modal" aria-hidden="true" ng-click="cancel($event)"></a>
+        <h4 class="modal-title text-primary sbold">{{"Modal.Header"|translate}}</h4>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-8 col-sm-12 col-lg-8 col-md-offset-2 col-lg-offset-2">
+                <div class="col-md-12 form-group">
+                    <div class="col-md-4">
+                        <label class="control-label">{{"ControlText.FileName"|translate}}</label>
+                    </div>
+                    <div class="col-md-8">
+                        <!--<input type="text" ng-model="FileName" class="form-control" placeholder='{{"ControlText.FileName"|translate}}' readonly />-->
+                        <span class="text-primary">{{FileName}}</span>
+                    </div>
+                </div>
+                <div class="col-md-12 form-group">
+                    <div class="col-md-4">
+                        <label class="control-label">{{"ControlText.Purpose"|translate}}</label>
+                    </div>
+                    <div class="col-md-8">
+                        <!--<input type="text" ng-model="FileName" class="form-control" placeholder='{{"ControlText.FileName"|translate}}' readonly />-->
+                        <span class="text-primary">{{Purpose}}</span>
+                    </div>
+                </div>
+                <div class="col-md-12 form-group">
+                    <div class="col-md-4">
+                        <label class="control-label">{{"ControlText.Type"|translate}}</label>
+                    </div>
+                    <div class="col-md-8">
+                        <!--<input type="text" ng-model="FileName" class="form-control" placeholder='{{"ControlText.FileName"|translate}}' readonly />-->
+                        <span class="text-primary">{{Type}}</span>
+                    </div>
+                </div>
+                <div class="col-md-12 form-group">
+                    <div class="col-md-4">
+                        <label class="control-label">{{"ControlText.CreatedDate"|translate}}</label>
+                    </div>
+                    <div class="col-md-8">
+                        <!--<input type="text" ng-model="UploadDate" class="form-control" placeholder='{{"ControlText.CreatedDate"|translate}}' readonly />-->
+                        <span class="text-primary">{{UploadDate|DateFormatMMddyyyy}}</span>
+                    </div>
+                </div>
+                <div class="col-md-12 form-group">
+                   
+                    <div class="col-md-8 col-md-offset-4">
+                        <a ng-href="{{DownloadUrl}}" class="sbold" download>{{"ControlText.ViewFile"|translate}}</a>
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer text-center">
+        <button type="button" class="btn dark btn-outline" data-dismiss="modal" ng-click="cancel($event)">{{"ControlText.Ok"|translate}}</button>
+    </div>
+</div>

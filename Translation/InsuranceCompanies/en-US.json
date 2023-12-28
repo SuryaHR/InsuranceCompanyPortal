@@ -1,0 +1,42 @@
+﻿{
+  "ErrorMessage": {
+    "CompanyNameRequired": "Company name is required",
+    "WebsiteRequired": "Website is required",
+    "Address1isrequired": "Address1 is required",
+    "Cityisrequired": "City is required",
+    "Zipcode": "Zip code is required",
+    "PhoneRequired": "Phone number is required",
+    "EmailIdRequired": "Email Id required",
+    "Fax": "Fax is required",
+    "EmailCorrect": "Enter Valid Email Id",
+    "ValidNumbers": "Enter Valid Phone No",
+    "TimeZone": "Default time zone is required",
+    "FirstName": "First name is required",
+    "LastName": "Last name is required",
+    "RoleRequired": "Please select role",
+    "SelectState": "Please select state"
+  },
+  "Label": {
+    "CompanyName": "Company Name",
+    "Website": "Company Website",
+    "Address": "Address",
+    "City": "City",
+    "State": "State",
+    "ZipCode": "Zip Code",
+    "PhoneNumber": "Phone Number",
+    "DefaultTimeZone": "Default Time Zone",
+    "Fax": "Fax",
+    "Email": "Email",
+    "TimeZone": "Default time zone is required",
+    "FirstName": "First Name",
+    "LastName": "Last Name ",
+    "Role": "Role"
+  },
+  "ControlText": {
+    "IsuranceCompany": "Insurance Company Administrator",
+    "Save": "Save",
+
+    "Cancel": "Cancel",
+    "NewInsuranceCompany": "New Insurance Company"
+  }
+}

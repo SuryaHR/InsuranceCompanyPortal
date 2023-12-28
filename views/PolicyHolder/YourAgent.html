@@ -1,0 +1,68 @@
+﻿
+<style>
+    .infoWindowContent {
+        height: auto !important;
+        width: auto !important;
+    }
+</style>
+<script src="https://rawgit.com/allenhwkim/angularjs-google-maps/master/build/scripts/ng-map.js"></script>
+<div class="col-md-12 col-sm-12" ng-controller="YourAgentController">
+    <div class="portlet light padding1px">
+        <!--<div class="portlet-title">-->
+        <div class="SubHeadingDiv ">
+            <div class="caption">
+                <span class="caption-subject font-grey-sharp">{{"Your Agent"|translate}}</span>
+            </div>
+            <div class="tools pull-right">
+                <a href="#" class="collapse font-green"></a>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12 col-lg-1 col-lg-12">
+                    <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 well">
+                        <div class="col-md-2 col-lg-2 col-sm-2 text-center col-xs-12">
+                            <div style="border:1px solid #ddd;height:120px; border:none" class="text-center">
+                                <img onerror="this.onerror=null; this.src='assets/global/img/no-image.png';"
+                                     class="img-thumbnail img-responsive" style="height:120px;"
+                                     ng-src={{AgentDetails.images[0].url}} alt="image" />
+                            </div>
+                        </div>
+                        <div class="col-md-5 col-sm-5 col-lg-5 col-xs-12 padding1px">
+                            <label class="text-info bold col-md-12 col-sm-12 col-xs-12"> {{AgentDetails.firstName}} &nbsp; {{AgentDetails.lastName}} <i class="padding5 font-green fa fa-lg fa-chevron-circle-right"></i></label>
+                            <label class="col-md-12 col-sm-12 col-xs-12"><span class="sbold">{{"Cell no."|translate}} :</span>  &nbsp; <span class="">{{AgentDetails.cellPhone}}</span></label>
+                            <label class="col-md-12 col-sm-12 col-xs-12"><span class="sbold">{{"Fax"|translate}} :</span>  &nbsp; <span class="">{{AgentDetails.fax}}</span></label>
+                            <label class="col-md-6 col-sm-12 col-xs-12"><span class="sbold">{{"Office phone"|translate}} :</span>  &nbsp; <span class="">{{AgentDetails.dayTimePhone}}</span></label>
+                            <label class="col-md-6 col-sm-12 col-xs-12"><span class="sbold">{{"Home phone"|translate}} :</span>  &nbsp; <span class="">{{AgentDetails.eveningTimePhone}}</span></label>
+                            <label class="sbold text-success col-md-12 col-sm-12 col-xs-12">{{"Contact me online"|translate}}<i class="padding5 font-green fa fa-lg fa-chevron-circle-right"></i></label>
+                            <lable class="sbold text-info col-md-12 col-sm-12 col-lg-12"> Get in touch</lable>
+                            <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                                <span class="col-md-12 col-sm-12 col-lg-12 col-xs-12 margintop5">{{AgentDetails.agentAddress.streetAddressOne}}<span ng-if="AgentDetails.agentAddress.streetAddressOne!==null">,</span></span>
+                                <span class="col-md-12 col-sm-12 col-lg-12 col-xs-12">{{AgentDetails.agentAddress.streetAddressTwo}}<span ng-if="AgentDetails.agentAddress.streetAddressTwo!==null">,</span></span>
+                                <span class="col-md-12 col-sm-12 col-lg-12 col-xs-12">{{AgentDetails.agentAddress.city}}, &nbsp;{{AgentDetails.agentAddress.zipcode}}.</span>
+                                <!--<label class="text-info bold col-md-12 col-sm-12 col-xs-12"> {{"Get Direction"|translate}} <i class="padding5 font-green fa fa-lg fa-chevron-circle-right"></i></label>-->
+                            </div>
+                        </div>
+                        <div class="col-md-5 col-sm-5 col-lg-5" style="border-left:groove">
+                            <!--<div style="border:1px solid #ddd;height:200px; border:none" class="col-md-5 col-sm-12 col-xs-12 col-lg-5 ">
+                                <div id="map" style="display:block !important;overflow:auto;position:unset !important; height:100% !important"></div>
+                            </div>
+                            <div class="padding1px col-md-7 col-sm-12 col-lg-7 col-xs-12">
+                                <span class="col-md-12 col-sm-12 col-lg-12 col-xs-12 margintop5">Street 1Address 2</span>
+                                <span class="col-md-12 col-sm-12 col-lg-12 col-xs-12">Street 1Address 2</span>
+                                <label class="text-info bold col-md-12 col-sm-12 col-xs-12"> {{"Get Direction"|translate}} <i class="padding5 font-green fa fa-lg fa-chevron-circle-right"></i></label>
+                            </div>-->
+                            <div style="border:1px solid #ddd;height:200px; border:none" class="col-md-12 col-sm-12 col-xs-12 col-lg-12 ">
+
+                                <div id="map" style="display:block !important;overflow:auto;position:unset !important; height:100% !important">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

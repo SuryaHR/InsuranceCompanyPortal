@@ -1,0 +1,44 @@
+﻿{
+  "TabHeaderText": {
+    "NewSpecialists": "New Specialists",
+    "CategorySpecialities": "Category Specialities",
+    "Note": "the user will be sent an email to setup the account",
+    "Specialists": "Specialists"
+  },
+  "ControlText": {
+    "ContactInformation": "Contact Information",
+    "MatchingResult": "Matching Result",
+    "Go": "Go",
+    "CreateNewUser": "Create New User",
+    "NoResultFound": "No Result Found",
+    "Search": "Employee Id, Employee Name",
+    "SearchCategory": "Search Category",
+    "Employee#": "Employee#",
+    "FirstName": "First Name",
+    "LastName": "Last Name",
+    "EmailId": "Email Id",
+    "DayTimePhone": "Day Time Phone",
+    "MobilePhone": "Mobile Phone",
+    "Address": "Address",
+    "ReportingManager": "Reporting Manager",
+    "Branch/Office": "Branch/Office",
+    "Role": "Role",
+    "Designation": "Designation",
+    "Save": "Save",
+    "Show": "Show",
+    "CategorySpecialities": "Category Specialities",
+    "Name": "Specialist's Name"
+  },
+  "Table": {
+    "Name": "Specialist's Name",
+    "Specialty": "Specialty",
+    "Role": "Role"
+  },
+  "CategorySpecialistsTable": {
+    "search": "Serach categories",
+    "Specialty": "Specialty",
+    "Categories": "Categories"
+  }
+
+
+}

@@ -1,0 +1,32 @@
+﻿{
+  "ControlText": {
+    "Assign_title": "Assign",
+    "Reject_title": "Reject"
+
+  },
+
+  "TabHeaderTitle": {
+    "MyDraft_title": "My Draft",
+    "InProgress_title": "In Progress",
+    "WaitingForApproval_title": "Waiting For Approval",
+    "Declined_title": "Declined"
+
+  },
+  "Label": {
+    "Show_title": "Show",
+    "View_title": "View"
+
+  },
+
+  "Table": {
+    "Id": "Id",
+    "Type": "Type",
+    "Claim": "Claim",
+    "LastUpdate": "Last Update",
+    "Status": "Status",
+    "Action": "Action"
+  },
+
+  "NoRecordText": "No Records Available",
+  "SearchText": "Search...Date, Status"
+}

@@ -1,0 +1,174 @@
+﻿<div class="">
+    <div id="responsive  " style="width:auto">
+        <div class="modal-header">
+            <a class="close" ng-click="cancel()" aria-hidden="true"></a>
+            <h4 class="modal-title">New Item</h4>
+        </div>
+        <div class="modal-body">
+            <div class="col-md-12">
+                <div class="form-group  clearfix">
+                    <div class="col-md-12">
+                        <label class="control-label">{{"labeltext.ItemName"|translate}}</label>
+                        <input type="text" class="form-control" placeholder="{{'labeltext.ItemName'|translate}}">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group  clearfix">
+                    <!--<div class="col-md-6">
+                        <label class="control-label">{{"labeltext.ItemName"|translate}}</label>
+                        <input type="text" class="form-control" placeholder="{{'labeltext.ItemName'|translate}}">
+                    </div>-->
+                    <div class="col-md-6">
+                        <label class="control-label">{{"labeltext.PriceQuoted"|translate}}</label>
+                        <input type="text" class="form-control" placeholder="{{'labeltext.PriceQuoted'|translate}}">
+                    </div>
+                    <!--<div class="col-md-6">
+                        <label class="control-label">{{"labeltext.Model"|translate}}</label>
+                        <input type="text" class="form-control" placeholder="{{'labeltext.Model'|translate}}">
+                    </div>-->
+                    <div class="col-md-6">
+                        <label class="control-label"> {{"labeltext.RCV"|translate}}</label>
+                        <input type="text" class="form-control" placeholder="{{'labeltext.RCV'|translate}}">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group  clearfix">
+
+                    <div class="col-md-6">
+                        <label class="control-label">{{"labeltext.Category"|translate}}</label>
+                        <select class="form-control  select2me" data-placeholder="Select Category" ng-model="Common.Category" ng-change="getSubCategory()">
+                            <option value="{{category.categoryId}}" ng-repeat="category in category">{{category.categoryName}}</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="control-label">{{"labeltext.ACV"|translate}}</label>
+                        <input type="text" class="form-control" placeholder="{{'labeltext.ACV'|translate}}">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group clearfix">
+                    <div class="col-md-6">
+                        <label class="control-label">{{"labeltext.SubCategory"|translate}}</label>
+                        <select class="form-control  select2me" data-placeholder="Select Sub-Category">
+                            <option value="{{SubCategory.id}}" ng-repeat="SubCategory in SubCategory">{{SubCategory.name}}</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="control-label">{{"labeltext.TaxRate"|translate}}</label>
+                        <input type="text" class="form-control" placeholder="{{'labeltext.TaxRate'|translate}}">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="form-group  clearfix">
+
+                    <div class="col-md-6">
+                        <label class="control-label">{{"labeltext.Brand"|translate}}</label>
+                        <input type="text" class="form-control" placeholder="{{'labeltext.Brand'|translate}}">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="control-label">{{"labeltext.TotalTax"|translate}}</label>
+                        <input type="text" class="form-control" placeholder="{{'labeltext.TotalTax'|translate}}">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group  clearfix">
+
+                    <div class="col-md-6">
+                        <label class="control-label">{{"labeltext.ItemType"|translate}}</label>
+                        <input type="text" class="form-control" placeholder="{{'labeltext.ItemType'|translate}}">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="control-label">{{"labeltext.ValueOfItem"|translate}}</label>
+                        <input type="text" class="form-control" placeholder="{{'labeltext.ValueOfItem'|translate}}">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group clearfix">
+                    <div class="col-md-6">
+                        <label class="control-label">{{"labeltext.AssignedTo"|translate}}</label>
+                        <input type="text" class="form-control" placeholder="{{'labeltext.AssignedTo'|translate}}">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="control-label">{{"labeltext.Holdover"|translate}}</label>
+                        <input type="text" class="form-control" placeholder="{{'labeltext.Holdover'|translate}}">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="form-group  clearfix">
+                    <div class="col-md-6">
+                        <label class="control-label">{{"labeltext.YearOfManifacture"|translate}}</label>
+                        <input type="text" class="form-control" placeholder="{{'labeltext.YearOfManifacture'|translate}}">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="control-label">{{"labeltext.PayoutCheck#"|translate}}</label>
+                        <input type="text" class="form-control" placeholder="{{'labeltext.PayoutCheck#'|translate}}">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group  clearfix">
+                    <div class="col-md-12">
+                        <label class="control-label">{{"labeltext.Description"|translate}}</label>
+                        <textarea class="form-control">{{'labeltext.Description'|translate}}</textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group  clearfix">
+                    <div class="col-md-12">
+                        <label class="control-label">{{"labeltext.AdjusterDescription"|translate}}</label>
+                        <textarea class="form-control">{{'labeltext.AdjusterDescription'|translate}}</textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group  clearfix">
+
+                    <div class="col-md-12">
+                        <label class="control-label text-primary"><b>{{"labeltext.Images"|translate}}</b></label>
+                        <div class="col-md-12 form-group">
+                            <div class="col-md-4">
+                                <div class="fileinput fileinput-new" data-provides="fileinput">
+                                    <div class="input-group input-large">
+                                        <div class="form-control uneditable-input input-fixed input-medium" data-trigger="fileinput">
+                                            <i class="fa fa-file fileinput-exists"></i>
+                                            <span class="fileinput-filename"> </span>
+                                        </div>
+                                        <span class="input-group-addon btn default btn-file">
+                                            <span class="fileinput-new "> Select file </span>
+                                            <span class="fileinput-exists"> Change </span>
+                                            <input type="file" name="..." class="green">
+                                        </span>
+                                        <!--<a href="javascript:;" class="input-group-addon btn red fileinput-exists" data-dismiss="fileinput"> Remove </a>-->
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-6 margin-bottom-10" ng-repeat="item in IncidentImages">
+                                <img src="../assets/pages/img/background/10.jpg" alt="Pictures of the incident" class="img-thumbnail" />
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline dark" ng-click="cancel()">{{"BtnTexts.Cancel"|translate}}</button>
+                <button type="button" data-dismiss="modal" class="btn sbold btnMargin" ng-click="AddPostLostItem()">{{"BtnTexts.Save"|translate}}</button>
+            </div>
+        </div>
+    </div>
+</div>
+

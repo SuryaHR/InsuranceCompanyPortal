@@ -1,0 +1,588 @@
+<style>
+    .table-scroll-container {
+        display: block;
+        position: relative;
+        height: fit-content;
+        max-height: 450px;
+        overflow: auto;
+    }
+
+    .table-scroll-container>table {
+        margin-bottom: 0px !important;
+    }
+
+    .footer>tr>td {
+        position: sticky;
+        bottom: 0;
+        z-index: 2;
+        background: #DCDCDC !important;
+    }
+
+    .fixed {
+        background-color: white;
+        position: sticky !important;
+    }
+
+    .fixed-top {
+        top: -1px;
+        z-index: 1;
+    }
+
+    .fixed-left {
+        left: -1px;
+        z-index: 1;
+    }
+
+    .fixed-top-left {
+        z-index: 2;
+        left: -1px;
+        top: -1px;
+    }
+
+    .left-shadow {
+        box-shadow: 5px 3px 5px 0px rgba(0, 0, 0, 0.2);
+    }
+
+    .noShadow {
+        box-shadow: none;
+    }
+</style>
+<div class="portlet padding1px">
+    <div class="portlet-body">
+        <div class="tabbable-custom">
+            <!-- <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="col-lg-4 col-lg-offset-4 col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-12 text-center">
+                        <img ng-src="assets/global/img/no-image.png" height="150px" width="150px" alt="company logo" />
+                        <label class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-10 sbold">< Insurance Company Name ></label>
+                    </div>
+                </div> -->
+                <ul class="nav nav-tabs">
+                  <li class="active">
+                      <a href="#" data-toggle="tab" ng-class="{selected:CurrentTab=='Vendor Assignments'}"
+                          ng-click="vendorAssigmentTab();CurrentTab = 'Vendor Assignments'"> &nbsp;{{"Assignments"|translate}}&nbsp;
+                      </a>
+                  </li>
+                    <!-- <li >
+                        <a href="#" data-toggle="tab" ng-class="{selected:CurrentTab=='quotesSummarized'}"
+                            ng-click="CurrentTab ='quotesSummarized'">&nbsp;{{"Summarized Replacement Quotes"|translate}}&nbsp;</a>
+                    </li> -->
+                    <li>
+                        <a href="#" data-toggle="tab" ng-class="{selected:CurrentTab=='quotesByAssignments'}"
+                            ng-click="CurrentTab = 'quotesByAssignments'"> &nbsp;{{"Quote By Assignments"|translate}}&nbsp;
+                        </a>
+                    </li>
+                    <li >
+                        <a href="#" data-toggle="tab" ng-class="{selected:CurrentTab=='Invoices'}"
+                            ng-click="getInvoice();CurrentTab = 'Invoices'">&nbsp;{{"Invoices"|translate}}&nbsp;</a>
+                    </li>
+
+                </ul>
+
+            <div class="tab-content">
+                <div class="row">
+                  <!--Vendors tab-->
+                  <div class="col-md-12 col-lg-12 padding1px" ng-if="CurrentTab=='Vendor Assignments'"
+                      id="ShowAssignments">
+                      <div class="col-md-12 col-xs-12" ng-include="'views/ClaimsSupervisor/VendorAssignments.html'">
+                      </div>
+                  </div>
+                  <!--End Vendors tab-->
+
+                  <!--Invoices tab-->
+                  <div class="padding1px" id="Invoices" ng-show="CurrentTab=='Invoices'">
+                      <div class="col-md-12 col-md-offset-2 clearfix">
+                          <div class="col-md-2 col-sm-3 col-xs-6 column">
+                              <div class="card card-border-top">
+                                  <h2><a href="#" ng-click="GotoVendorInvoices()">{{countOfinvoces}}</a></h2>
+                                  <h5 class="sbold">Total # Vendor Invoices</h5>
+                                  <h6 class="sbold" style="color:rgb(13 173 7)">
+                                      {{paidInvoiceCount}} Invoices paid</h6>
+                              </div>
+                          </div>
+                          <div class="col-md-2 col-sm-3 col-xs-6 column">
+                              <div class="card card-border-top" style="height: 114px;">
+                                  <h2>{{totalInvoiceAmount | currency}}</h2>
+                                  <h5 class="sbold">Total $ of Invoices</h5>
+                              </div>
+                          </div>
+                          <div class="col-md-2 col-sm-3 col-xs-6 column">
+                              <div class="card card-border-top">
+                                  <h2>{{totalInvoicePaidAmount | currency}}</h2>
+                                  <h5 class="sbold">Total Paid</h5>
+                                  <h6 class="sbold" style="color:red">
+                                      {{(totalInvoiceAmount - totalInvoicePaidAmount)  | currency}} to be paid</h6>
+                              </div>
+                          </div>
+                      </div>
+                      <!-- <div class="col-md-6 col-sm-6 clearfix">
+                          <div class="col-md-12 " style="border:1px solid #ddd;min-height: 222px !important;">
+                              <div class="col-md-12 col-sm-12 col-lg-12  margin-top-20 Div_Space">
+                                  <div class="col-md-6 col-sm-6 col-xs-12">
+                                      <label
+                                          class="control-label text-center sbold  col-md-12 col-sm-12">{{"Label.VendorInvoices"|translate}}</label>
+                                      <span class="text-primary text-center col-md-12 col-sm-12 control-label"><a
+                                              href="#"
+                                              ng-click="GotoVendorInvoices()">{{ClaimStatusInvoiceDetails.totalVendorInvoices}}
+                                          </a></span>
+
+                                  </div>
+                                  <div class="col-md-6 col-sm-6 col-xs-12">
+                                      <label
+                                          class="control-label text-center sbold col-md-12 col-sm-12">{{"Label.VendorInvoicesRemainingToBePaid"|translate}}</label>
+                                      <span class="text-primary text-center col-md-12 col-sm-12 control-label"><a
+                                              href="#"
+                                              ng-click="GotoVendorInvoices()">{{ClaimStatusInvoiceDetails.unPaidVendorInvoices}}</a></span>
+                                  </div>
+                              </div>
+                              <div class="col-md-12 col-sm-12 col-lg-12 margin-top-20 padding1px Div_Space">
+                                  <div class="col-md-6 col-sm-6 col-xs-12 padding1px">
+                                      <label
+                                          class="control-label sbold text-center col-md-12 col-sm-12">{{"Label.PaidToVendors"|translate}}</label>
+                                      <span
+                                          class="text-primary text-center col-md-12 col-sm-12 control-label">{{ClaimStatusInvoiceDetails.paidToVendors|currency}}</span>
+                                  </div>
+                                  <div class="col-md-6 col-sm-6 col-xs-12 padding1px">
+                                      <label
+                                          class="control-label sbold text-center col-md-12 col-sm-12">{{"Label.BalanceToBePaidToVendors"|translate}}</label>
+                                      <span
+                                          class="text-primary text-center col-md-12 col-sm-12 control-label">{{ClaimStatusInvoiceDetails.unPaidToVendors|currency}}</span>
+                                  </div>
+                              </div>
+                          </div>
+                      </div> -->
+                      <!--Top 10 Vendor-->
+                      <!-- <div class="col-md-6 col-sm-6 padding1px clearfix">
+                          <label class="control-label col-md-12 col-sm-12">{{"Top 10 Vendors"|translate}}</label>
+                          Start Table Data
+                          <div class="col-md-12 col-sm-12 table-responsive" style="min-height: 222px !important;">
+                              <table
+                                  class="col-md-12 col-sm-12 col-xs-12 table table-bordered table-hover table-striped">
+                                  <thead>
+                                      <tr>
+                                          <th ng-click="SortVendor('vendor.vendorName')" class="alignTop">
+                                              {{"Table.VendorName"|translate}}
+                                              <span class="glyphicon sort-icon"
+                                                  ng-show="sortClaimDetailsKey=='category.name'"
+                                                  ng-class="{'glyphicon-chevron-up pull-right':reverseClaimDetails,'glyphicon-chevron-down pull-right':!reverseClaimDetails}"></span>
+                                          </th>
+                                          <th ng-click="SortVendor('numberOfItems')" class="alignTop">
+                                              {{"Table.Items"|translate}}
+                                              <span class="glyphicon sort-icon"
+                                                  ng-show="sortClaimDetailsKey=='sumOfCoverageAndSpecialLimit'"
+                                                  ng-class="{'glyphicon-chevron-up pull-right':reverseClaimDetails,'glyphicon-chevron-down pull-right':!reverseClaimDetails}"></span>
+                                          </th>
+                                          <th ng-click="SortVendor('allInvoicesAmount')" class="alignTop ">
+                                              {{"Table.TotalInvoice"|translate}}
+                                              <span class="glyphicon sort-icon" ng-show="sortClaimDetailsKey=='ACV'"
+                                                  ng-class="{'glyphicon-chevron-up pull-right':reverseClaimDetails,'glyphicon-chevron-down pull-right':!reverseClaimDetails}"></span>
+                                          </th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                      <tr
+                                          ng-repeat="Vendor in VendorList|limitTo:10|orderBy:sortVendorKey:reverseVendor">
+                                          <td>
+                                              {{Vendor.vendor.vendorName}}
+                                          </td>
+                                          <td class="text-right">
+                                              {{Vendor.numberOfItems}}
+                                          </td>
+                                          <td class="text-right">
+                                              {{Vendor.allInvoicesAmount|currency}}
+                                          </td>
+                                      </tr>
+                                      <tr ng-if="VendorList===null||VendorList.length==0">
+                                          <td class="text-center text-danger" colspan="3">
+                                              {{"NoRecordText"|translate}}</td>
+                                      </tr>
+                                  </tbody>
+                              </table>
+                          </div>
+                          <div class="col-md-12 col-sm-12 col-lg-12 text-right">
+                              <a class="col-md-12 col-sm-12 pull-right" href="#">{{"View All Vendors"|translate}}</a>
+                          </div>
+                          End Table Data
+                      </div> -->
+
+                      <!--End Top 10 Vendor-->
+                      <!--Vendor Invoices-->
+                      <div class="col-md-12 col-lg-12 col-sm-12 padding1px margin-top-20">
+                          <div class="col-md-12 col-sm-12 col-lg-12 table-responsive">
+                              <table class="table table-bordered table-striped table-hover">
+                                  <thead>
+                                      <tr>
+                                          <th ng-click="SortVendorInvoice('id')">
+                                              {{"Invoice #"|translate}}</th>
+                                          <th ng-click="SortVendorInvoice('vendorNote')">
+                                              {{"Vendor Note"|translate}}</th>
+                                          <th ng-click="SortVendorInvoice('amount')">
+                                              {{"Amount"|translate}}</th>
+                                          <th ng-click="SortVendorInvoice('createDate')">
+                                              {{"Invoice Date"|translate}}</th>
+                                          <th ng-click="SortVendorInvoice('dueDate')">
+                                              {{"Due Date"|translate}}</th>
+                                          <th ng-click="SortVendorInvoice('status.status')" class="statusHeading">
+                                              {{"Status"|translate}}
+                                          </th>
+                                          <th>{{"Attachments"|translate}}</th>
+                                          <th>{{"Action"|translate}}</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                      <tr ng-repeat-start="Vendor in AllInvoices">
+                                          <td colspan="8" class="text-left sbold font-white"
+                                              style="background-color: gray;color: white;font-weight: bold;padding-left:10px;">
+                                              {{Vendor.vendorName}}&nbsp;({{+Vendor.invoices.length}})
+                                          </td>
+                                      </tr>
+                                      <tr
+                                          ng-repeat="Invoice in Vendor.invoices|orderBy:sortInvoiceKey:reverseInvoice">
+                                          <td ng-click="GotoInvoiceDetails(Invoice)">
+                                              {{Invoice.invoiceNumber}} </td>
+                                          <td ng-click="GotoInvoiceDetails(Invoice)">
+                                              {{Invoice.vendorNote}}</td>
+                                          <td ng-click="GotoInvoiceDetails(Invoice)" class="text-right">
+                                              {{Invoice.amount|currency}}
+                                          </td>
+                                          <td ng-click="GotoInvoiceDetails(Invoice)">
+                                              {{Invoice.createDate|DateFormatMMddyyyy}} </td>
+                                          <td ng-click="GotoInvoiceDetails(Invoice)">
+                                              {{Invoice.dueDate|DateFormatMMddyyyy}} </td>
+                                          <td ng-click="GotoInvoiceDetails(Invoice)" class="text-center">
+                                              <span
+                                                  ng-class="{'stage InvoiceAssigned':Invoice.status.status==='ASSIGNED',
+                                                               'stage InvoiceCreated':Invoice.status.status===constants.invoiceStatus.created,
+                                                                'stage InvoiceRejected':Invoice.status.status===constants.invoiceStatus.rejected,
+                                                               'stage InvoicePendingApproval':Invoice.status.status===constants.invoiceStatus.pendingApproval,
+                                                                'stage InvoiceApproved':Invoice.status.status===constants.invoiceStatus.approved,
+                                                               'stage InvoicePaid':Invoice.status.status===constants.invoiceStatus.paid}">
+                                                  {{Invoice.status.status|limitTo: 13}}<span>{{Invoice.status.status.length >  13 ? '...' : ''}}</span>
+                                              </span>
+                                          </td>
+                                          <td ng-click="GotoInvoiceDetails(Invoice)">
+                                              <font ng-repeat="attachment in Invoice.invoiceAttachments">
+                                                  <span><a href={{attachment.url}}
+                                                          download>{{attachment.name}}</a></span><span ng-if="!$last">
+                                                      , </span></font>
+                                          </td>
+                                          <td class="text-center sbold">
+                                              <a class="btn-circle btn green btn-sm btn-outline text-primary"
+                                                  ng-click="ApproveInvoiceFromAllInvoices(Invoice)" href="#"
+                                                  ng-if="Invoice.status.status===constants.invoiceStatus.created">{{"Approve"|translate}}</a>
+                                              <a class="btn-circle btn green btn-sm btn-outline text-primary"
+                                                  ng-click="OpenPaymentPopUp(Vendor.vendorId,Invoice)" href="#"
+                                                  ng-if="Invoice.status.status===constants.invoiceStatus.approved">{{"Pay Now"|translate}}</a>
+                                          </td>
+                                      </tr>
+                                      <tr ng-repeat-end>
+                                          <td></td>
+                                          <td class="sbold text-right">{{"Total"|translate}}
+                                          </td>
+                                          <td class="sbold text-right">
+                                              {{Vendor.totalAmount|currency}}</td>
+                                          <td colspan="5"></td>
+                                      </tr>
+
+                                  </tbody>
+                              </table>
+                          </div>
+                      </div>
+                      <!--End Vendor Invoices-->
+                  </div>
+                  <!--End Invoices tab-->
+
+                    <div class="col-lg-12 col-xs-12 padding1px" ng-show="CurrentTab=='quotesSummarized'">
+                        <div class="portlet light padding1px">
+                            <div class="portlet-title">
+                                <div class="caption font-gray-sharp">
+                                    <span
+                                        class="caption-subject">{{"All Replacement Quotes Summary"}}</span>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-xs-12 padding1px margin-top-5">
+                                <button class="btn btn btn-default sbold pull-right"
+                                    ng-click="exportReplacementEstimate('PDF')">
+                                    {{"DownloadPDF"|translate}}
+                                </button>
+                            </div>
+                            <div class="portlet-body">
+                                <!--Start All Replacement Quotes Summary-->
+                                <div class="col-md-12 col-xs-12 padding1px">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 options_Background padding1px">
+                                        <div
+                                            class="caption font-green-sharp col-lg-3 col-md-3 col-xs-12 col-sm-3 pull-right padding1px  margin-top-5 margin-bottom-5 manageSearch">
+                                            <div class="input-icon left">
+                                                <i class="icon-magnifier"></i>
+                                                <input type="text"
+                                                    class="form-control form-control-solid input-circle input-block-level"
+                                                    ng-model="searchFormData" placeholder="{{'Search...'|translate}}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive padding1px">
+                                        <table class="table table-bordered table-striped table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-left" ng-click="SortClaimForm('Item')">
+                                                        {{"Table.Item"|translate}}
+                                                        <span class="glyphicon sort-icon" ng-show="sortKey==='Item'"
+                                                            ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                    </th>
+                                                    <th class="text-left" ng-click="SortClaimForm('OriginItemDesc')">
+                                                        {{"Table.OriginItemDesc"|translate}}
+                                                        <span class="glyphicon sort-icon"
+                                                            ng-show="sortKey==='OriginItemDesc'"
+                                                            ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                    </th>
+                                                    <th class="text-left" ng-click="SortClaimForm('Status')">
+                                                        {{"Table.Status"|translate}}
+                                                        <span class="glyphicon sort-icon" ng-show="sortKey==='Status'"
+                                                            ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                    </th>
+                                                    <th class="text-left" ng-click="SortClaimForm('OriginalCost')">
+                                                        {{"Table.OriginalCost"|translate}}
+                                                        <span class="glyphicon sort-icon"
+                                                            ng-show="sortKey==='OriginalCost'"
+                                                            ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                    </th>
+
+                                                    <th class="text-left" ng-click="SortClaimForm('ReplItemDesc')">
+                                                        {{"Table.ReplItemDesc"|translate}}
+                                                        <span class="glyphicon sort-icon"
+                                                            ng-show="sortKey==='ReplItemDesc'"
+                                                            ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                    </th>
+                                                    <th class="text-left" ng-click="SortClaimForm('ReplCost')">
+                                                        {{"Table.ReplCost"|translate}}
+                                                        <span class="glyphicon sort-icon" ng-show="sortKey==='ReplCost'"
+                                                            ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                    </th>
+                                                    <th class="text-left" ng-click="SortClaimForm('QuoteDate')">
+                                                        {{"Table.QuoteDate"|translate}}
+                                                        <span class="glyphicon sort-icon"
+                                                            ng-show="sortKey==='QuoteDate'"
+                                                            ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                    </th>
+                                                    <th class="text-left" ng-click="SortClaimForm('QuotedBy')">
+                                                        {{"Table.QuotedBy"|translate}}
+                                                        <span class="glyphicon sort-icon" ng-show="sortKey==='QuotedBy'"
+                                                            ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr dir-paginate="item in FiletrLostDamageList|orderBy:sortKey:reverse|filter:searchFormData|itemsPerPage:pagesize"
+                                                    pagination-id="AssignmentItemList" style="cursor: pointer;">
+                                                    <td class="text-left" ng-click="GoToDetails(item)">
+                                                        {{item.itemNumber}}
+                                                    </td>
+                                                    <td class="text-left" ng-click="GoToDetails(item)"
+                                                        ng-init="desclimit = desclimit; descMoreShown = false">
+                                                        {{(item.description | limitTo: desclimit) + (item.description.length > desclimit ?
+                                                    '...' :
+                                                    '')}}
+                                                        <a ng-show="item.description.length > desclimit && !descMoreShown"
+                                                            stop-propagation
+                                                            ng-click="desclimit=item.description.length; descMoreShown = true">
+                                                            More
+                                                        </a>
+                                                        <a ng-show="descMoreShown" href stop-propagation
+                                                            ng-click="descMoreShown = false; desclimit=30; ">
+                                                            Less </a>
+                                                    </td>
+                                                    <td class="text-left" ng-click="GoToDetails(item)">
+                                                        <span> {{item.status.status|limitTo: 15}} </span>
+                                                        <span>{{item.status.status.length >  15 ? '...' : ''}}</span>
+                                                    </td>
+                                                    <td class="text-left" ng-click="GoToDetails(item)">
+                                                        {{item.quantity*item.insuredPrice |currency}}
+                                                    </td>
+                                                    <td class="text-left" ng-click="GoToDetails(item)"
+                                                        ng-init="limit = limit; moreShown = false">
+                                                        {{item.adjusterDescription != null ? ((item.adjusterDescription
+                                                    | limitTo: limit) + (item.adjusterDescription.length > limit ?
+                                                    '...' :
+                                                    '')) : ''
+                                                }}
+
+                                                        <a ng-show="item.adjusterDescription.length > limit && !moreShown"
+                                                            stop-propagation
+                                                            ng-click="limit=item.adjusterDescription.length; moreShown = true">
+                                                            More
+                                                        </a>
+                                                        <a ng-show="moreShown" href stop-propagation
+                                                            ng-click="moreShown = false; limit=30; ">
+                                                            Less </a>
+                                                    </td>
+                                                    <td class="text-left" ng-click="GoToDetails(item)">
+                                                        <span>{{item.rcvTotal ? item.rcvTotal : 0.00 | currency}}</span>
+                                                    </td>
+                                                    <td class="text-left" ng-click="GoToDetails(item)">
+                                                        {{item.quoteDate }}
+                                                    </td>
+                                                    <td class="text-left" ng-click="GoToDetails(item)">
+                                                        {{item.quotedBy}}
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <div ng-show="FiletrLostDamageList==null || FiletrLostDamageList.length ==0 "
+                                            class="col-md-12 text-center text-danger">
+                                            {{"NoRecordText"|translate}}</div>
+                                    </div>
+                                    <div class="text-right">
+                                        <dir-pagination-controls ng-if="FiletrLostDamageList!=null" max-size="3"
+                                            direction-links="true" boundary-links="true"
+                                            pagination-id="AssignmentItemList">
+                                        </dir-pagination-controls>
+                                    </div>
+                                </div>
+                                <!--Stop All Replacement Quotes Summary-->
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-12" ng-show="CurrentTab=='quotesByAssignments'">
+                        <div class="portlet light padding1px">
+                            <div class="portlet-title">
+                                <div class="caption font-gray-sharp">
+                                    <span
+                                        class="caption-subject">{{"All Replacement Quotes Summary"}}</span>
+                                </div>
+                            </div>
+                            <!-- <div class="col-md-12 col-xs-12 padding1px margin-top-5">
+                                <button class="btn btn btn-default sbold pull-right"
+                                    ng-click="exportReplacementEstimate('PDF')">
+                                    {{"DownloadPDF"|translate}}
+                                </button>
+                            </div> -->
+                            <div class="portlet-body">
+                                <!--Start All Replacement Quotes Summary-->
+                                <div class="col-md-12 col-xs-12 padding1px">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 options_Background padding1px">
+                                        <div
+                                            class="caption font-green-sharp col-lg-3 col-md-3 col-xs-12 col-sm-3 pull-right padding1px  margin-top-5 margin-bottom-5 manageSearch">
+                                            <!-- <div class="input-icon left">
+                                                <i class="icon-magnifier"></i>
+                                                <input type="text"
+                                                    class="form-control form-control-solid input-circle input-block-level"
+                                                    ng-model="searchFormData"
+                                                    placeholder="{{'Search...'|translate}}">
+                                            </div> -->
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive padding1px">
+                                        <table class="table table-bordered table-striped table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-left" ng-click="SortClaimForm('Item')">
+                                                        {{"Assignment #"|translate}}
+                                                        <span class="glyphicon sort-icon" ng-show="sortKey==='Item'"
+                                                            ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                    </th>
+                                                    <th class="text-left" ng-click="SortClaimForm('OriginItemDesc')">
+                                                        Assignment Start Date
+                                                        <span class="glyphicon sort-icon"
+                                                            ng-show="sortKey==='OriginItemDesc'"
+                                                            ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                    </th>
+                                                    <th class="text-left" ng-click="SortClaimForm('Status')">
+                                                        {{"Vendor Company"|translate}}
+                                                        <span class="glyphicon sort-icon" ng-show="sortKey==='Status'"
+                                                            ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                    </th>
+                                                    <th class="text-left" ng-click="SortClaimForm('OriginalCost')">
+                                                        {{"Status"|translate}}
+                                                        <span class="glyphicon sort-icon"
+                                                            ng-show="sortKey==='OriginalCost'"
+                                                            ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                    </th>
+
+                                                    <th class="text-left" ng-click="SortClaimForm('ReplItemDesc')">
+                                                        {{"Assignment End Date"|translate}}
+                                                        <span class="glyphicon sort-icon"
+                                                            ng-show="sortKey==='ReplItemDesc'"
+                                                            ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                    </th>
+                                                    <th class="text-left" ng-click="SortClaimForm('ReplCost')">
+                                                        {{"Original Cost"|translate}}
+                                                        <span class="glyphicon sort-icon" ng-show="sortKey==='ReplCost'"
+                                                            ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                    </th>
+                                                    <th class="text-left" ng-click="SortClaimForm('QuoteDate')">
+                                                        {{"Replacement Cost"|translate}}
+                                                        <span class="glyphicon sort-icon"
+                                                            ng-show="sortKey==='QuoteDate'"
+                                                            ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                    </th>
+                                                    <th class="text-left" ng-click="SortClaimForm('QuotedBy')">
+                                                        {{"Quote Date"|translate}}
+                                                        <span class="glyphicon sort-icon" ng-show="sortKey==='QuotedBy'"
+                                                            ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                    </th>
+                                                    <th class="text-left" ng-click="SortClaimForm('QuotedBy')">
+                                                        {{"Final Quote"|translate}}
+                                                        <span class="glyphicon sort-icon" ng-show="sortKey==='QuotedBy'"
+                                                            ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr dir-paginate="quote in quotesByAssignment|orderBy:sortKey:reverse|filter:searchFormData|itemsPerPage:pagesize"
+                                                    pagination-id="quotesByAssignment" style="cursor: pointer;">
+                                                    <td class="text-left" ng-click="GoToDetails(item)">
+                                                        {{quote.assignmentNumber}}
+                                                    </td>
+                                                    <td class="text-left"
+                                                        ng-init="desclimit = desclimit; descMoreShown = false">
+                                                        {{quote.assignmentStartDate | DateFormatMMddyyyyHHmm}}
+
+
+                                                    </td>
+                                                    <td class="text-left">
+                                                        <span> {{quote.vendorCompany}} </span>
+
+                                                    </td>
+                                                    <td class="text-left">
+                                                        {{quote.status}}
+                                                    </td>
+                                                    <td class="text-left">
+                                                        {{quote.assignmentEndDate | DateFormatMMddyyyyHHmm}}
+                                                    </td>
+                                                    <td class="text-left">
+                                                        <span>{{quote.originalCost | currency}}</span>
+                                                    </td>
+                                                    <td class="text-left">
+                                                        {{quote.finalQuote | currency}}
+                                                    </td>
+                                                    <td class="text-left">
+                                                        {{quote.quoteDate | DateFormatMMddyyyyHHmm}}
+                                                    </td>
+                                                    <td class="text-left"
+                                                        ng-click="GoToViewQuote(quote.assignmentNumber,quote.quoteNumber)">
+                                                        <a href="#">{{quote.quoteNumber}} </a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <div ng-show="quotesByAssignment==null || quotesByAssignment.length ==0 "
+                                            class="col-md-12 text-center text-danger">
+                                            {{"NoRecordText"|translate}}</div>
+                                    </div>
+                                    <div class="text-right">
+                                        <dir-pagination-controls ng-if="quotesByAssignment!=null" max-size="3"
+                                            direction-links="true" boundary-links="true"
+                                            pagination-id="quotesByAssignment">
+                                        </dir-pagination-controls>
+                                    </div>
+                                </div>
+                                <!--Stop All Replacement Quotes Summary-->
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

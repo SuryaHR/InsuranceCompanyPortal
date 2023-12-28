@@ -1,0 +1,1147 @@
+<!-- BEGIN HEADER TOP -->
+<script>
+    function tooglebutton() {
+        if (App.getViewPort().width < App.getResponsiveBreakpoint('md')) {
+            var menu = $(".page-header-menu");
+            if (menu.is(":visible")) {
+                menu.slideUp(300);
+            } else {
+                menu.slideDown(300);
+            }
+
+            if ($('body').hasClass('page-header-top-fixed')) {
+                App.scrollTop();
+            }
+        }
+    };
+
+    function Expand(e) {
+        var id = '#' + e.attributes[0].nodeValue;
+        var hasclass = $(id).hasClass('opened');
+        $(id).parent().find('.opened').removeClass('opened');
+        $(id).parent().find('.open').removeClass('open');
+        $(id).parent().find('.active').removeClass('active');
+        if (hasclass) {
+            $(id).removeClass('opened active')
+        }
+        else {
+
+            $(id).addClass('opened active')
+        }
+    };
+    //Used for dropdown
+    function ApplyArrow(e) {
+        var id = '#' + e.parentNode.attributes[0].nodeValue;
+        var hasclass = $(id).hasClass('opened');
+        $(id).parent().find('.opened').removeClass('opened');
+        $(id).parent().find('.open').removeClass('open');
+        $(id).parent().find('.active').removeClass('active');
+        if (hasclass) {
+            $(id).removeClass('opened open active');
+        }
+        else {
+            $(id).addClass('opened open active');
+
+        }
+
+    };
+</script>
+<style>
+    .globlaSearchIconHeaderLarge {
+        margin: 7px 2px 0px 8px !important;
+    }
+
+    .globlaSearchIconHeaderMedium {
+        margin: 12px -63px 0px 8px !important;
+    }
+
+    .ArrowDown {
+        font-family: FontAwesome;
+        content: "\f107";
+        font-weight: 300;
+    }
+
+    .dropdownMenu {
+        position: relative !important;
+        display: block !important;
+        font-size: 14px !important;
+        margin-top: 10px !important;
+    }
+
+    .dropdownMenu_text {
+        color: #8ea3b6;
+    }
+
+    .active {
+        background-color: #33aae5 !important;
+        /*margin-top: 3px  !important;*/
+        /*border-radius: 3px  !important;*/
+        color: #7fa5c6 !important;
+    }
+
+    /*overriding menu bg color-profile*/
+    .page-header .page-header-menu .hor-menu .navbar-nav>li>a {
+        color: white;
+    }
+
+    /*overriding paddin class of vanbar*/
+    .page-header .page-header-top .top-menu .navbar-nav>li.dropdown {
+        padding: 10px 2px !important;
+        height: 30px
+    }
+
+    .avatars__initials {
+        font-size: 18px;
+        font-weight: 550;
+        text-align: center;
+        line-height: 35px;
+        height: 40px;
+        width: 40px;
+        border-radius: 50% !important;
+        display: inline-block;
+        position: relative;
+        border: solid 2px #337ab7;
+        color: white;
+        background-color: #337ab7;
+    }
+
+    @media (max-width: 991px) {
+        .page-header .page-header-top .page-logo {
+            height: auto;
+        }
+    }
+</style>
+
+<div class="page-header-top" id="page-header-top">
+    <!--For Large device-->
+    <div class="col-lg-12 padding1px visible-lg">
+        <div class="col-lg-9" style="display:flex;width: 73%;">
+            <!-- BEGIN LOGO -->
+            <div class="page-logo col-lg-2 margin-top-5 padding1px topHeaderMenuTitleAlignMent" style="width: 300px;">
+                <h3 class="form-title font-green logo-default" style="font-size: 18px;">{{insuranceCompanyName}}</h3>
+            </div>
+            <div class="col-lg-8 margin-top-5 padding1px topHeaderMenuSearchBoxAlignMent">
+                <div class="input-icon right" style="box-shadow: 0px 0px 4px 1px grey; border-radius: 5px;"
+                    ng-if="ShowSearchBar">
+                    <i class="icon-magnifier globlaSearchIconHeaderLarge"
+                        style="margin: 9px 2px 4px 10px !important;"></i>
+                    <input type="text" style="height:30px !important;border: 1px solid #928888b8;"
+                        ng-model="CommonObj.GlobalSearchText" ng-keydown="$event.which === 13 && Globalsearch()"
+                        class="form-control form-control-solid input-circle input-block-level"
+                        placeholder="{{'MainSearchText'|translate}}">
+                </div>
+            </div>
+        </div>
+        <!-- END LOGO -->
+        <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+        <a href="#" class="menu-toggler sarang"></a>
+        <!--onclick="tooglebutton()"-->
+        <!-- END RESPONSIVE MENU TOGGLER -->
+        <!-- BEGIN TOP NAVIGATION MENU -->
+        <div class="">
+            <div class="top-menu">
+                <ul class="nav navbar-nav pull-right">
+                    <!-- profile Picture -->
+                    <!-- <li ng-if="ProfilePicture.fileUrl != null">
+                        <img ng-src="{{ProfilePicture.fileUrl}}" alt="Profile Picture"
+                                    class="img-responsive bordered "
+                                    style="width:42px; height:42px;border-radius: 50%;margin-right: 2px;" />
+                    </li>
+                    <li ng-if="ProfilePicture.fileUrl == null">
+                        <span class="avatars__initials" style="margin-right: 5px;">{{placeholder}}</span>
+                    </li> -->
+                    <!-- BEGIN NOTIFICATION DROPDOWN -->
+                    <!--<li class="dropdown dropdown-extended dropdown-dark dropdown-notification" id="header_notification_bar">
+                        <a href="javascript:;" class="dropdown-toggle" dropdown-menu-hover data-toggle="dropdown" data-close-others="true">
+                            <i class="icon-bell"></i>
+                            <span class="badge badge-default" ng-if="totalCount>0">{{totalCount}}</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li ng-if="LatestNotification.length" class="external">
+                                <h3 class="font-green sbold">
+                                    You have
+                                    <strong class="">{{totalCount}}</strong> notifications
+                                </h3>
+                                <a class="sbold" href="javascript:;">view all</a>
+                            </li>
+                            <li ng-if="!LatestNotification.length" class="external">
+                                <h3>
+                                    Notifications
+                                </h3>
+                            </li>
+                            <li>
+                                <ul class="dropdown-menu-list scroller" style="height: 250px;" data-handle-color="#637283">
+                                    <li ng-repeat="notification in LatestNotification|orderBy:'notification.createDate':true" ng-click="MarkAsRead(notification)">
+                                        <a class="col-md-12" href="javascript:;">
+                                            <span class="details" style="color:white;">
+                                                <span class="label label-sm text-danger">
+                                                    <i class="glyphicon glyphicon-bell"></i>
+                                                </span> {{notification.message}}
+                                            </span>
+                                            <span class="time" style="color:azure;">{{notification.notificationdate |DateFormatMMddyyyyHHmm}}</span>
+                                        </a>
+                                    </li>
+                                    <li ng-if="LatestNotification.length===0">
+                                        <a class="col-md-12" href="javascript:;">
+                                            You don't have any notification.
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>-->
+                    <!-- BEGIN USER LOGIN DROPDOWN -->
+                    <li class="dropdown dropdown-user dropdown-dark">
+                        <a href="javascript:;" class="dropdown-toggle" dropdown-menu-hover data-toggle="dropdown"
+                            data-close-others="true">
+                            <!--<img alt="" class="img-circle" src="{{settings.layoutPath}}/img/avatar9.jpg">-->
+                            <ul class="nav navbar-nav pull-right">
+                                <li ng-if="ProfilePicture.fileUrl != null"
+                                    style="margin-right: 10px;margin-top: -19px;">
+                                    <img ng-src="{{ProfilePicture.fileUrl}}" alt="Profile Picture"
+                                        class="img-responsive bordered "
+                                        style="width:42px; height:42px;border-radius: 50%;margin-right: 2px;" />
+                                </li>
+                                <li ng-if="ProfilePicture.fileUrl == null"
+                                    style="margin-right: 10px;margin-top: -19px;">
+                                    <span class="avatars__initials"
+                                        style="margin-right: 5px;height: 40px !important;width: 40px !important;line-height: 35px !important;">{{placeholder}}</span>
+                                </li>
+                                <li class="dropdown dropdown-user dropdownMenu dropdown-dark pull-left"
+                                    style="margin-top: -5px !important;color: #8ea3b6 !important;">
+                                    <span class="username username-hide-mobile">{{Name}}</span>
+                                </li>
+                            </ul>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-default" ng-show="!isCoreLogic">
+                            <li>
+                                <a href="#/UserProfile">
+                                    <i class="icon-user"></i>My Profile
+                                </a>
+                            </li>
+                            <li aria-haspopup="true" class="">
+                                <a href="#/ResetPassword" class="nav-link">
+                                    <i class="fa fa-lock"></i>{{"Menulist.Security"|translate}}
+                                </a>
+                            </li>
+                            <!-- <li aria-haspopup="true" class="" ng-if="claimProfile === 'Contents'">
+                                <a href="#/AlertsSettings" class="nav-link">
+                                    <i class="fa fa-bell"></i>{{"Menulist.Settings"|translate}}
+                                </a>
+                            </li> -->
+                            <!-- <li ng-if="ShowMyCalendar" ng-if="claimProfile === 'Contents'">
+                                <a href="#/AllEvents">
+                                    <i class="icon-calendar"></i>My Calendar
+                                </a>
+                            </li> -->
+                        </ul>
+                    </li>
+                    <!-- <li class="dropdown dropdown-user dropdownMenu dropdown-dark pull-left" style="margin-top: 7px !important;" ng-show="accessCalendar && !isCoreLogic">
+                        <a href="#/AllEvents">
+                            <i class="icon-calendar"></i>
+                        </a>
+                    </li> -->
+                    <!-- <li class="dropdown dropdown-user dropdownMenu dropdown-dark pull-left" ng-show="!isCoreLogic"> -->
+                        <!-- <span class="dropdownMenu_text"> Help </span> -->
+                        <!-- <a href="#/helpAndfrequentlyaskedquestions" class="dropdownMenu_text"><span>Help</span></a>
+                    </li> -->
+                    <li class="dropdown dropdown-user dropdownMenu dropdown-dark pull-left" ng-show="!isCoreLogic">
+                        <a href="#" ng-click="Logout($event)" class="dropdownMenu_text"><span> Sign Out</span> </a>
+                    </li>
+                    <!-- END USER LOGIN DROPDOWN -->
+                    <!-- BEGIN QUICK SIDEBAR TOGGLER -->
+                    <!--<li class="dropdown dropdown-extended quick-sidebar-toggler">
+                        <span class="sr-only">Toggle Quick Sidebar</span>
+                        <i class="icon-logout"></i>
+                    </li>-->
+                    <!-- END QUICK SIDEBAR TOGGLER -->
+                </ul>
+            </div>
+        </div>
+        <!-- END TOP NAVIGATION MENU -->
+    </div>
+    <!--End Large device-->
+    <!--For medium device-->
+    <div class="col-md-12 padding1px visible-md">
+        <div class="col-md-8" style="display:flex;">
+            <!-- BEGIN LOGO -->
+            <div class="page-logo col-md-4 padding1px topHeaderMenuTitleAlignMent">
+                <h3 class="form-title font-green logo-default ">ARTIGEM</h3>
+            </div>
+            <div class="col-md-8 margin-top-5 topHeaderMenuSearchBoxAlignMent">
+                <div class="input-icon right" ng-if="ShowSearchBar">
+                    <i class="icon-magnifier globlaSearchIconHeaderMedium"></i>
+                    <input type="text" id="GlobalSearchText" style="height:35px;margin-left: 67px;"
+                        ng-model="CommonObj.GlobalSearchText" ng-keydown="$event.which === 13 && Globalsearch()"
+                        class="form-control form-control-solid input-circle input-block-level"
+                        placeholder="{{'MainSearchText'|translate}}">
+                </div>
+            </div>
+        </div>
+        <!-- END LOGO -->
+        <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+        <a href="#" class="menu-toggler sarang" onclick="tooglebutton()"></a>
+        <!-- END RESPONSIVE MENU TOGGLER -->
+        <!-- BEGIN TOP NAVIGATION MENU -->
+        <div class="top-menu">
+            <ul class="nav navbar-nav pull-right">
+                <!-- BEGIN NOTIFICATION DROPDOWN -->
+                <!--<li class="dropdown dropdown-extended dropdown-dark dropdown-notification" id="header_notification_bar">
+                    <a href="javascript:;" class="dropdown-toggle" dropdown-menu-hover data-toggle="dropdown" data-close-others="true">
+                        <i class="icon-bell"></i>
+                        <span class="badge badge-default" ng-if="totalCount>0">{{totalCount}}</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li ng-if="LatestNotification.length" class="external">
+                            <h3 class="font-green sbold">
+                                You have
+                                <strong class="">{{totalCount}}</strong> notifications
+                            </h3>
+                            <a class="sbold" href="javascript:;">view all</a>
+                        </li>
+                        <li ng-if="!LatestNotification.length" class="external">
+                            <h3>
+                                Notifications
+                            </h3>
+                        </li>
+                        <li>
+                            <ul class="dropdown-menu-list scroller" style="height: 250px;" data-handle-color="#637283">
+                                <li ng-repeat="notification in LatestNotification|orderBy:'notification.createDate':true" ng-click="MarkAsRead(notification)">
+                                    <a class="col-md-12" href="javascript:;">
+                                        <span class="details" style="color:white;">
+                                            <span class="label label-sm text-danger">
+                                                <i class="glyphicon glyphicon-bell"></i>
+                                            </span> {{notification.message}}
+                                        </span>
+                                        <span class="time" style="color:azure;">{{notification.notificationdate |DateFormatMMddyyyyHHmm}}</span>
+                                    </a>
+                                </li>
+                                <li ng-if="LatestNotification.length===0">
+                                    <a class="col-md-12" href="javascript:;">
+                                        You don't have any notification.
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>-->
+                <!-- BEGIN USER LOGIN DROPDOWN -->
+                <li class="dropdown dropdown-user dropdown-dark">
+                    <a href="javascript:;" class="dropdown-toggle" dropdown-menu-hover data-toggle="dropdown"
+                        data-close-others="true">
+                        <!--<img alt="" class="img-circle" src="{{settings.layoutPath}}/img/avatar9.jpg">-->
+                        <span class="username username-hide-mobile">{{Name}}</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-default">
+                        <li>
+                            <a href="#/UserProfile">
+                                <i class="icon-user"></i> My Profile
+                            </a>
+                        </li>
+                        <li aria-haspopup="true" class="">
+                            <a href="#/ResetPassword" class="nav-link">
+                                <i class="fa fa-lock"></i>{{"Menulist.Security"|translate}}
+                            </a>
+                        </li>
+                        <!-- <li aria-haspopup="true" class="" ng-if="claimProfile === 'Contents'">
+                            <a href="#/AlertsSettings" class="nav-link">
+                                <i class="fa fa-bell"></i>{{"Menulist.Settings"|translate}}
+                            </a>
+                        </li> -->
+                        <!-- <li ng-if="claimProfile === 'Contents'">
+                            <a href="#">
+                                <i class="icon-calendar"></i>My Calendar
+                            </a>
+                        </li> -->
+                        <!--<li>
+                            <a href="#">
+                                <i class="icon-envelope-open"></i> My Inbox
+                                <span class="badge badge-danger"> 3 </span>
+                            </a>
+                        </li>-->
+                        <!--<li>
+                            <a href="#">
+                                <i class="icon-rocket"></i> My Tasks
+                                <span class="badge badge-success"> 7 </span>
+                            </a>
+                        </li>-->
+                        <!-- <li class="divider"> </li> -->
+                        <!--<li>
+                            <a href="#">
+                                <i class="icon-lock"></i> Lock Screen
+                            </a>
+                        </li>-->
+                        <li>
+                            <a href="#" ng-click="Logout($event)">
+                                <i class="fa fa-sign-out"></i>Sign Out
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- END USER LOGIN DROPDOWN -->
+                <!-- BEGIN QUICK SIDEBAR TOGGLER -->
+                <!--<li class="dropdown dropdown-extended quick-sidebar-toggler">
+                    <span class="sr-only">Toggle Quick Sidebar</span>
+                    <i class="icon-logout"></i>
+                </li>-->
+                <!-- END QUICK SIDEBAR TOGGLER -->
+            </ul>
+        </div>
+        <!-- END TOP NAVIGATION MENU -->
+    </div>
+    <!--End medium device-->
+    <!--For small device-->
+    <div class="visible-sm">
+
+        <!-- BEGIN LOGO -->
+        <div class="page-logo topHeaderMenuTitleAlignMent">
+            <h3 class="form-title font-green logo-default ">ARTIGEM</h3>
+        </div>
+        <!-- END LOGO -->
+        <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+        <a href="#" class="menu-toggler sarang" onclick="tooglebutton()"></a>
+        <!-- END RESPONSIVE MENU TOGGLER -->
+        <!-- BEGIN TOP NAVIGATION MENU -->
+        <div class="top-menu">
+            <ul class="nav navbar-nav pull-right">
+                <!-- BEGIN NOTIFICATION DROPDOWN -->
+                <li class="dropdown dropdown-extended dropdown-dark dropdown-notification" id="header_notification_bar">
+                    <!-- <a href="javascript:;" class="dropdown-toggle" dropdown-menu-hover data-toggle="dropdown"
+                        data-close-others="true">
+                        <i class="icon-bell"></i>
+                        <span class="badge badge-default" ng-if="totalCount>0">{{totalCount}}</span>
+                    </a> -->
+                    <ul class="dropdown-menu">
+                        <li ng-if="LatestNotification.length" class="external">
+                            <h3 class="font-green sbold">
+                                You have
+                                <strong class="">{{totalCount}}</strong> notifications
+                            </h3>
+                            <a class="sbold" href="javascript:;">view all</a>
+                        </li>
+                        <li ng-if="!LatestNotification.length" class="external">
+                            <h3>
+                                Notifications
+                            </h3>
+                        </li>
+                        <li>
+                            <ul class="dropdown-menu-list scroller" style="height: 250px;" data-handle-color="#637283">
+                                <li ng-repeat="notification in LatestNotification|orderBy:'notification.createDate':true"
+                                    ng-click="MarkAsRead(notification)">
+                                    <a class="col-md-12" href="javascript:;">
+                                        <span class="details" style="color:white;">
+                                            <span class="label label-sm text-danger">
+                                                <i class="glyphicon glyphicon-bell"></i>
+                                            </span> {{notification.message}}
+                                        </span>
+                                        <span class="time"
+                                            style="color:azure;">{{notification.notificationdate |DateFormatMMddyyyyHHmm}}</span>
+                                    </a>
+                                </li>
+                                <li ng-if="LatestNotification.length===0">
+                                    <a class="col-md-12" href="javascript:;">
+                                        You don't have any notification.
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+
+                <!-- BEGIN USER LOGIN DROPDOWN -->
+                <li class="dropdown dropdown-user dropdown-dark">
+                    <a href="javascript:;" class="dropdown-toggle" dropdown-menu-hover data-toggle="dropdown"
+                        data-close-others="true">
+                        <!--<img alt="" class="img-circle" src="{{settings.layoutPath}}/img/avatar9.jpg">-->
+                        <span class="username username-hide-mobile">{{Name}}</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-default">
+                        <li>
+                            <a href="#/UserProfile">
+                                <i class="icon-user"></i>My Profile
+                            </a>
+                        </li>
+                        <li aria-haspopup="true" class="">
+                            <a href="#/ResetPassword" class="nav-link">
+                                <i class="fa fa-lock"></i>{{"Menulist.Security"|translate}}
+                            </a>
+                        </li>
+                        <!-- <li aria-haspopup="true" class="" ng-if="claimProfile === 'Contents'">
+                            <a href="#/AlertsSettings" class="nav-link">
+                                <i class="fa fa-bell"></i>{{"Menulist.Settings"|translate}}
+                            </a>
+                        </li> -->
+                        <!-- <li ng-if="claimProfile === 'Contents'">
+                            <a href="#">
+                                <i class="icon-calendar"></i>My Calendar
+                            </a>
+                        </li> -->
+                        <!--<li>
+                            <a href="#">
+                                <i class="icon-envelope-open"></i> My Inbox
+                                <span class="badge badge-danger"> 3 </span>
+                            </a>
+                        </li>-->
+                        <!--<li>
+                            <a href="#">
+                                <i class="icon-rocket"></i> My Tasks
+                                <span class="badge badge-success"> 7 </span>
+                            </a>
+                        </li>-->
+                        <!-- <li class="divider"> </li> -->
+                        <!--<li>
+                            <a href="#">
+                                <i class="icon-lock"></i> Lock Screen
+                            </a>
+                        </li>-->
+                        <li>
+                            <a href="#" ng-click="Logout($event)">
+                                <i class="fa fa-sign-out"></i>Sign Out
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- END USER LOGIN DROPDOWN -->
+                <!-- BEGIN QUICK SIDEBAR TOGGLER -->
+                <!--<li class="dropdown dropdown-extended quick-sidebar-toggler">
+                    <span class="sr-only">Toggle Quick Sidebar</span>
+                    <i class="icon-logout"></i>
+                </li>-->
+                <!-- END QUICK SIDEBAR TOGGLER -->
+            </ul>
+        </div>
+        <!-- END TOP NAVIGATION MENU -->
+        <div class="col-sm-12">
+            <div class="col-sm-12 topHeaderMenuSearchBoxAlignMent">
+                <div class="input-icon right" ng-if="ShowSearchBar">
+                    <i class="icon-magnifier globlaSearchIcon"></i>
+                    <input type="text" id="GlobalSearchText" style="height:35px;" ng-model="CommonObj.GlobalSearchText"
+                        ng-keydown="$event.which === 13 && Globalsearch()"
+                        class="form-control form-control-solid input-circle input-block-level"
+                        placeholder={{"MainSearchText"|translate}}>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--End small device-->
+    <!--For extra small device-->
+    <div class="visible-xs">
+        <!-- BEGIN LOGO -->
+        <div class="page-logo">
+            <h3 class="form-title font-green logo-default ">ARTIGEM</h3>
+        </div>
+        <!-- END LOGO -->
+        <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+        <a href="#" class="menu-toggler sarang" onclick="tooglebutton()"></a>
+        <!-- END RESPONSIVE MENU TOGGLER -->
+        <!-- BEGIN TOP NAVIGATION MENU -->
+        <div class="top-menu">
+            <ul class="nav navbar-nav pull-right">
+                <li class="dropdown dropdown-user dropdown-dark padding1px">
+                    <a href="javascript:;" class="dropdown-toggle" dropdown-menu-hover data-toggle="dropdown"
+                        data-close-others="true">
+                        <!--<img alt="" class="img-circle" src="{{settings.layoutPath}}/img/avatar9.jpg">-->
+                        <span class="username ">{{Name}}</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-default">
+                        <li>
+                            <a href="#/UserProfile">
+                                <i class="icon-user"></i>My Profile
+                            </a>
+                        </li>
+                        <li aria-haspopup="true" class="">
+                            <a href="#/Security" class="nav-link">
+                                <i class="fa fa-lock"></i>{{"Menulist.Security"|translate}}
+                            </a>
+                        </li>
+                        <!-- <li aria-haspopup="true" class="" ng-if="claimProfile === 'Contents'">
+                            <a href="#/AlertsSettings" class="nav-link">
+                                <i class="fa fa-bell"></i>{{"Menulist.Settings"|translate}}
+                            </a>
+                        </li> -->
+                        <!-- <li>
+                            <a href="#" ng-if="claimProfile === 'Contents'">
+                                <i class="icon-calendar"></i>My Calendar
+                            </a>
+                        </li> -->
+                        <!--<li>
+                            <a href="#">
+                                <i class="icon-envelope-open"></i> My Inbox
+                                <span class="badge badge-danger"> 3 </span>
+                            </a>
+                        </li>-->
+                        <!--<li>
+                            <a href="#">
+                                <i class="icon-rocket"></i> My Tasks
+                                <span class="badge badge-success"> 7 </span>
+                            </a>
+                        </li>-->
+                        <!-- <li class="divider"> </li> -->
+                        <!--<li>
+                            <a href="#">
+                                <i class="icon-lock"></i> Lock Screen
+                            </a>
+                        </li>-->
+                        <li>
+                            <a href="#" ng-click="Logout($event)">
+                                <i class="fa fa-sign-out"></i>Sign Out
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- BEGIN NOTIFICATION DROPDOWN -->
+                <li class="dropdown dropdown-extended dropdown-dark dropdown-notification" id="header_notification_bar">
+                    <!-- <a href="javascript:;" class="dropdown-toggle" dropdown-menu-hover data-toggle="dropdown"
+                        data-close-others="true">
+                        <i class="icon-bell"></i>
+                        <span class="badge badge-default" ng-if="totalCount>0">{{totalCount}}</span>
+                    </a> -->
+                    <ul class="dropdown-menu">
+                        <li ng-if="LatestNotification.length" class="external">
+                            <h3 class="font-green sbold">
+                                You have
+                                <strong class="">{{totalCount}}</strong> notifications
+                            </h3>
+                            <a class="sbold" href="javascript:;">view all</a>
+                        </li>
+                        <li ng-if="!LatestNotification.length" class="external">
+                            <h3>
+                                Notifications
+                            </h3>
+                        </li>
+                        <li>
+                            <ul class="dropdown-menu-list scroller" style="height: 250px;" data-handle-color="#637283">
+                                <li ng-repeat="notification in LatestNotification|orderBy:'notification.createDate':true"
+                                    ng-click="MarkAsRead(notification)">
+                                    <a class="col-md-12" href="javascript:;">
+                                        <span class="details" style="color:white;">
+                                            <span class="label label-sm text-danger">
+                                                <i class="glyphicon glyphicon-bell"></i>
+                                            </span> {{notification.message}}
+                                        </span>
+                                        <span class="time"
+                                            style="color:azure;">{{notification.notificationdate |DateFormatMMddyyyyHHmm}}</span>
+                                    </a>
+                                </li>
+                                <li ng-if="LatestNotification.length===0">
+                                    <a class="col-md-12" href="javascript:;">
+                                        You don't have any notification.
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+
+                <!-- END QUICK SIDEBAR TOGGLER -->
+            </ul>
+        </div>
+        <!-- END TOP NAVIGATION MENU -->
+        <div class="col-xs-12">
+            <div class="col-xs-12">
+                <div class="input-icon right" ng-if="ShowSearchBar">
+                    <i class="icon-magnifier globlaSearchIcon"></i>
+                    <input type="text" id="GlobalSearchText" style="height:35px;" ng-model="CommonObj.GlobalSearchText"
+                        ng-keydown="$event.which === 13 && Globalsearch()"
+                        class="form-control form-control-solid input-circle input-block-level"
+                        placeholder={{"MainSearchText"|translate}}>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--End extra small device-->
+
+</div>
+<!-- END HEADER TOP -->
+<!-- BEGIN HEADER MENU -->
+<!--<div class="page-header-menu" ng-if="ShowHeader">-->
+<div class="page-header-menu">
+    <!--<div class="">-->
+    <!-- END HEADER SEARCH BOX -->
+    <!-- BEGIN MEGA MENU -->
+    <!-- DOC: Apply "hor-menu-light" class after the "hor-menu" class below to have a horizontal menu with white background -->
+    <!-- DOC: Remove dropdown-menu-hover and data-close-others="true" attributes below to disable the dropdown opening on mouse hover -->
+    <div class="hor-menu">
+        <ul class="nav navbar-nav">
+            <!-- Dashboard -->
+            <!-- Claim Center Manager -->
+            <li ng-if="IsAccess('ManagerDashboard')">
+                <a href="#/ManagerDashboard">
+                    <span>{{"Menulist.NewClaim"|translate}}</span>
+                </a>
+            </li>
+            <!-- Adjuster -->
+            <li ng-if="IsAccess('AdjusterDashboard')">
+                <a href="#/AdjusterDashboard">
+                    <span>{{"Menulist.ADJMyClaims"|translate}}</span>
+                </a>
+            </li>
+            <li class="" ng-if="IsAccess('AdjusterAllClaims')">
+                <a href="#/AdjusterAllClaims">
+                    <span>{{"Menulist.AllClaims"|translate}}</span>
+                </a>
+            </li>
+            <!-- Supervisor -->
+            <li class="" ng-if="IsAccess('SupervisorDashboard')">
+                <a href="#/SupervisorDashboard">
+                    <span>{{"Menulist.SupervisorDashboard"|translate}}</span>
+                </a>
+            </li>
+            <!-- Supervisor My Invoices-->
+            <li class="" ng-if="IsAccess('SupervisorMyInvoices')">
+                <a href="#/SupervisorMyInvoices">
+                    <span>{{"Menulist.SupervisorMyInvoices"|translate}}</span>
+                </a>
+            </li>
+            <!-- Supervisor My Team-->
+            <li class="" ng-if="IsAccess('SupervisorMyTeam')">
+                <a href="#/SupervisorMyTeam">
+                    <span>{{"Menulist.SupervisorMyTeam"|translate}}</span>
+                </a>
+            </li>
+
+            <!-- Underwriter -->
+            <li class="" ng-if="IsAccess('UnderWriterDashboard')">
+                <a href="#/UnderWriter">
+                    <span>{{"Menulist.Dashboard"|translate}}</span>
+                </a>
+            </li>
+            <!-- Added by nikilesh for Approved Appraisals -->
+            <li class="apprAppraisals" ng-if="IsAccess('AllAppraisalsUnderwriter')">
+                <a href="#/AllAppraisals">
+                    <span>{{"Menulist.AllAppraisals"|translate}}</span>
+                    <!--<span>{{"Menulist.InsuranceAgent"|translate}}</span>-->
+                </a>
+            </li>
+            <!-- Added by nikilesh for New Insurance Requests -->
+            <li class="" ng-if="IsAccess('UnderWriterDashboard')">
+                <a href="#/NewInsuranceRequests">
+                    <span>{{"Menulist.NewInsuranceRequests"|translate}}</span>
+                    <!-- <span>{{"Menulist.InsuranceAgent"|UnderWriterDashboardtranslate}}</span> -->
+                </a>
+            </li>
+
+            <!-- Added by Vinod for Auto Insurance Requests -->
+            <!-- <li class="autoinsreq" ng-if="IsAccess('UnderWriterDashboard')">
+                <a href="#/AutoInsuranceRequests">
+                    <span>{{"Menulist.AutoInsuranceRequests"|translate}}</span>
+                </a>
+            </li> -->
+
+
+            <!-- Added by Dilip for Underwriter reports -->
+            <li class="Reports" ng-if="IsAccess('UnderWriterDashboard')">
+                <a href="#/UnderwriterReports">
+                    <span>{{"Reports"|translate}}</span>
+                    <!--<span>{{"Menulist.InsuranceAgent"|translate}}</span>-->
+                </a>
+            </li>
+
+            <li class="" ng-if="IsAccess('ClaimCenterAllClaims')">
+                <a href="#/AllClaims">
+                    <span>{{"Menulist.MyClaims"|translate}}</span>
+                </a>
+            </li>
+
+            <li class="" ng-if="IsAccess('ThirdPartyAllClaims')">
+                <a href="#/ThirdPartyAllClaims">
+                    <span>{{"Menulist.ThirdPartyAllClaims"|translate}}</span>
+                </a>
+            </li>
+
+            <li class="" ng-if="IsAccess('SupervisorAllClaim')">
+                <a href="#/SupervisorAllClaim">
+                    <span>{{"Menulist.AllClaims"|translate}}</span>
+                </a>
+            </li>
+
+            <li class="" ng-if="IsAccess('ClaimSpecialistHome')">
+                <a href="#/ClaimSpecialistHome">
+                    <span>{{"Menulist.ClaimSpecialistsHome"|translate}}</span>
+                </a>
+            </li>
+
+            <!--<li class="" ng-if="IsAccess('BillsAndPayments')">
+                <a href="#/BillsAndPayments">
+                    <span>{{"Menulist.VendorAssociateBillsPayment"|translate}}</span>
+                </a>
+            </li>-->
+
+            <!-- <li class="nav-item" ng-if="IsAccess('ClaimReports')">
+                <a href="#/ClaimReports">
+                    <span class="title">{{"Menulist.ClaimReports"|translate}}</span>
+                </a>
+            </li>
+
+            <li class="nav-item" ng-if="IsAccess('AdjusterSalvageReports')">
+                <a href="#/AdjusterSalvageReports">
+                    <span class="title">{{"Menulist.AdjusterSalvageReports"|translate}}</span>
+                </a>
+            </li> -->
+            <li aria-haspopup="true" class="menu-dropdown classic-menu-dropdown"
+                dropdown-menu-hover data-toggle="dropdown" data-close-others="true" ng-show="accessReport == 'true' && ((IsAccess('ClaimReports')) || (IsAccess('AdjusterSalvageReports')))"
+                onclick="Expand(this)">
+                <a>
+                    <span>{{"Menulist.Reports_Title"|translate}}</span>
+                    <span class="arrow"></span>
+                </a>
+                <ul class="dropdown-menu pull-left">
+                    <li aria-haspopup="true" class="" ng-if="IsAccess('ClaimReports')">
+                        <a href="#/ClaimReports" class="nav-link">
+                            {{"Menulist.ClaimReports"|translate}}
+                        </a>
+                    </li>
+                    <li aria-haspopup="true" class="" ng-if="IsAccess('AdjusterSalvageReports')">
+                        <a href="#/AdjusterSalvageReports" class="nav-link">
+                            {{"Menulist.AdjusterSalvageReports"|translate}}
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <!-- Policyholder Pages -->
+            <li class="nav-item" ng-if="IsAccess('PolicyholderMyClaims')">
+                <a href="#/PolicyHolderMyClaims">
+                    <span class="title">{{"Menulist.PolicyholderMyClaims"|translate}}</span>
+                </a>
+            </li>
+
+            <li id="ThirdPartyVendors" aria-haspopup="true" class="menu-dropdown classic-menu-dropdown"
+                dropdown-menu-hover data-toggle="dropdown" data-close-others="true" ng-if="IsAccess('BillsAndPayments')"
+                onclick="Expand(this)">
+                <a>
+                    <span>{{"Menulist.VendorInvoicesPayments"|translate}}</span>
+                    <span class="arrow"></span>
+                </a>
+                <ul class="dropdown-menu pull-left">
+                    <li aria-haspopup="true" class="" ng-if="IsAccess('BillsAndPayments')">
+                        <a href="#/BillsAndPayments" class="nav-link">
+                            {{"Menulist.Invoices"|translate}}
+                        </a>
+                    </li>
+                    <li aria-haspopup="true" class="" ng-if="IsAccess('BillsAndPayments')">
+                        <a href="#/Payable" class="nav-link">
+                            {{"Menulist.Payments"|translate}}
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="" ng-if="IsAccess('Company')">
+                <a href="#/Company">
+                    <span>{{"Menulist.Company"|translate}}</span>
+                </a>
+            </li>
+
+            <!-- added by pooja for insurance agent access also change in translator of siderbarfor header name  -->
+            <li class="" ng-if="IsAccess('InsuranceAgent')">
+                <a href="#/InsuranceAgent" ng-click="gotoInsuranceAgent()">
+                    <span>{{"Dashboard"|translate}}</span>
+                    <!--<span>{{"Menulist.InsuranceAgent"|translate}}</span>-->
+                </a>
+            </li>
+            <!-- added by Dilip for insurance Account Manager access also change in translator of siderbarfor header name  -->
+            <li class="InsAcDashboard" ng-if="IsAccess('InsuranceAccountManager')">
+                <a href="#/InsuranceAccountManager">
+                    <span>{{"Dashboard"|translate}}</span>
+                </a>
+            </li>
+            <li class="" ng-if="IsAccess('InsuranceAllAppraisals') || IsAccess('InsuranceAgent')">
+                <a  href="#/InsuranceAllAppraisals" ng-click="goToInsuranceAgentMyAppraisal()">
+                    <span>{{"My Appraisals"|translate}}</span>
+                    <!--<span>{{"Menulist.InsuranceAgent"|translate}}</span>-->
+                </a>
+            </li>
+            <li class="Reports" ng-if="IsAccess('InsuranceReports') && 'AgentReports' == getReport()">
+                <a href="#/InsuranceReports" ng-click="goToInsuranceAgentReports()">
+                    <span>{{"Reports"|translate}}</span>
+                    <!--<span>{{"Menulist.InsuranceAgent"|translate}}</span>-->
+                </a>
+            </li>
+            <li class="Reports" ng-if="IsAccess('InsuranceManagerReports') && 'ManagerReports' == getReport()">
+                <a href="#/InsuranceManagerReports">
+                    <span>{{"Reports"|translate}}</span>
+                    <!--<span>{{"Menulist.InsuranceAgent"|translate}}</span>-->
+                </a>
+            </li>
+
+            <li class="Invoices" ng-if="IsAccess('InsuranceInvoices')">
+                <a href="#/InsuranceInvoices" ng-click="goToInsuranceAgentInvoices()">
+                    <span>{{"Invoices"|translate}}</span>
+                    <!--<span>{{"Menulist.InsuranceAgent"|translate}}</span>-->
+                </a>
+            </li>
+            <!-- <li class="Invoices" ng-if="IsAccess('InsuranceInvoices')">
+                <a href="#/LoginGemLabAPI">
+                    <span>LoginGemLabAPI</span>
+                </a>
+            </li> -->
+
+            <li id="IdBusinessRules" aria-haspopup="true" class="menu-dropdown classic-menu-dropdown"
+                dropdown-menu-hover data-toggle="dropdown" data-close-others="true"
+                ng-if="IsAccess('InsuranceAccountManagerSettings')">
+                <a>
+                    {{"Menulist.InsuranceAccMngrSettings"|translate}}
+                    <span class="arrow"></span>
+                </a>
+                <ul class="dropdown-menu pull-left">
+                    <li aria-haspopup="true" class=""
+                        ng-if="IsAccess('ApplicationSettings') || IsAccess('InsuranceAccountManagerSettings')">
+                        <a href="#/ApplicationSettings" class="nav-link">
+                            {{"Menulist.ApplicationSettings"|translate}}
+                        </a>
+                    </li>
+                    <li aria-haspopup="true" class=""
+                        ng-if="IsAccess('PremiumValues') || IsAccess('InsuranceAccountManagerSettings')">
+                        <a href="#/PremiumValues" class="nav-link">
+                            <span>{{"Menulist.PremiumValues"|translate}}</span>
+                        </a>
+                    </li>
+                    <li aria-haspopup="true" class=""
+                        ng-if="IsAccess('%markup') || IsAccess('InsuranceAccountManagerSettings')">
+                        <a href="#/InsuranceAccountManagerMarkup" class="nav-link">
+                            <span>{{"Mark-up Schedule"|translate}}</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <!--<li class="" ng-if="IsAccess('VendorRegistration')">
+                <a href="#/VendorRegistration">
+                    <span>{{"Vendor Registration"|translate}}</span>
+                </a>
+            </li>-->
+            <li class="" ng-if="IsAccess('InsuranceCompanies')">
+                <a href="#InsuranceCompanies">
+                    <span>{{"Menulist.InsuranceCompanies"|translate}}</span>
+                </a>
+            </li>
+
+            <!-- CTB-2688 -->
+            <li class="nav-item" ng-if="IsAccess('AdjusterThirdPartyVendor')">
+                <a href="#/AdjusterThirdPartyVendor">
+                    <span class="title">{{"Menulist.ThirdPartyVendor"|translate}}</span>
+                </a>
+            </li>
+
+            <li id="ThirdPartyVendors" aria-haspopup="true" class="menu-dropdown classic-menu-dropdown"
+                dropdown-menu-hover data-toggle="dropdown" data-close-others="true"
+                ng-if="IsAccess('AdminVendors')"
+                onclick="Expand(this)">
+                <a>
+                    {{"Menulist.ThirdPartyVendor"|translate}}
+                    <span class="arrow"></span>
+                </a>
+                <ul class="dropdown-menu pull-left">
+                    <li aria-haspopup="true" class="" ng-if="IsAccess('ContractedVendor')">
+                        <a href="#/ContractedVendor" class="nav-link">
+                            {{"Menulist.ContractedVendors"|translate}}
+                        </a>
+                    </li>
+                    <!-- <li aria-haspopup="true" class="" ng-if="IsAccess('AdjusterThirdPartyVendor')">
+                        <a href="#/AdjusterThirdPartyVendor" class="nav-link">
+                            {{"Menulist.ContractedVendors"|translate}}
+                        </a>
+                    </li> -->
+                    <!--<li aria-haspopup="true" class="">
+                        <a href="#/ContentService" class="nav-link">
+                            <span>{{"Menulist.ContentServices"|translate}}</span>
+                        </a>
+                    </li>
+                    <li aria-haspopup="true" class="" ng-if="IsAccess('Services')">
+                        <a href="#/Services" class="nav-link">
+                            <span>{{"Menulist.Services"|translate}}</span>
+                        </a>
+                    </li>-->
+                </ul>
+            </li>
+            <li id="IdSetting" aria-haspopup="true" class="menu-dropdown classic-menu-dropdown"
+                ng-if="(IsAccess('EnvironmentSetting'))||(IsAccess('UserAdministration'))||(IsAccess('EnvironmentSetting'))||(IsAccess('RolesAndPermissionMapping'))"
+                onclick="Expand(this)">
+                <a href="#">
+                    {{"Menulist.Setting"|translate}}
+                    <span class="arrow"></span>
+                </a>
+                <ul id="IdSettingSubMenu" class="dropdown-menu pull-left">
+                    <li id="IdEnvironmentSetting" aria-haspopup="true" class="dropdown-submenu"
+                        ng-if="IsAccess('EnvironmentSetting')">
+                        <a class="nav-link" onclick="ApplyArrow(this)">
+                            {{"Menulist.EnvironmentSettings"|translate}}<span id="IdSpan" class="arrow"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li aria-haspopup="true" class="">
+                                <a href="#/ContentCategories" class="nav-link">
+                                    {{"Menulist.ContentCategories"|translate}}
+                                </a>
+                            </li>
+                            <li aria-haspopup="true" class="">
+                                <a href="#/ClaimForms" class="nav-link ">
+                                    {{"Menulist.ClaimForms"|translate}}
+                                </a>
+                            </li>
+                            <li aria-haspopup="true" class="">
+                                <a href="#/HomeOwnersPolicies" class="nav-link ">
+                                    {{"Menulist.HomeOwnersPolicies"|translate}}
+                                </a>
+                            </li>
+
+                            <li aria-haspopup="true" class="">
+                                <a href="#/EmailTemplate" class="nav-link ">
+                                    {{"Menulist.EmailTemplate"|translate}}
+                                </a>
+                            </li>
+
+                            <li aria-haspopup="true" class="">
+                                <a href="#/ContentService" class="nav-link">
+                                    <span>{{"Menulist.ContentServices"|translate}}</span>
+                                </a>
+                            </li>
+                            <li aria-haspopup="true" class="" ng-if="IsAccess('Services')">
+                                <a href="#/Services" class="nav-link">
+                                    <span>{{"Menulist.Services"|translate}}</span>
+                                </a>
+                            </li>
+                            <li aria-haspopup="true" class="">
+                                <a href="#/PolicyholderPortalSettings" class="nav-link">
+                                    <span>{{"Menulist.PolicyholderPortalSettings"|translate}}</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li id="ReportSetting" aria-haspopup="true"
+                        ng-if="IsAccess('ReportSettings')">
+                        <a class="nav-link" href="#/ReportSettings" >
+                            {{"Menulist.ReportSettings"|translate}}<span id="IdSpan" class="arrow"></span>
+                        </a>
+                    </li>
+
+                    <!--<li id="IdUserAdministration" aria-haspopup="true" class="dropdown-submenu" ng-if="IsAccess('UserAdministration')">
+                        <a class="nav-link" onclick="ApplyArrow(this)">
+                            {{"Menulist.UserAdministration"|translate}}<span id="IdSpan" class="arrow"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li aria-haspopup="true" class="">
+                                <a href="#/Users" class="nav-link">
+                                    {{"Menulist.Users"|translate}}
+                                </a>
+                            </li>
+                            <li aria-haspopup="true" class="">
+                                <a href="#/SecurityControls" class="nav-link">
+                                    {{"Menulist.SecurityControls"|translate}}
+                                </a>
+                            </li>
+                            <li aria-haspopup="true" class="">
+                                <a href="#/AlertsSettings" class="nav-link">
+                                    <span>{{"Menulist.Settings"|translate}}</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>-->
+                    <!--<li aria-haspopup="true" class="" ng-if="IsAccess('RolesAndPermissionMapping')">
+                        <a href="#/RolesAndPermissionMapping" class="nav-link  ">
+                            {{"Menulist.RolesAndPermission"|translate}}
+                        </a>
+                    </li>-->
+                </ul>
+            </li>
+
+            <li id="IdBusinessRules" aria-haspopup="true" class="menu-dropdown classic-menu-dropdown"
+                dropdown-menu-hover data-toggle="dropdown" data-close-others="true"
+                ng-if="(IsAccess('RolesAndBudget'))||(IsAccess('PaymentTerms'))||(IsAccess('PaymentOptions'))||(IsAccess('StateTaxes'))"
+                onclick="Expand(this)">
+                <a>
+                    {{"Menulist.BusinessRules"|translate}}
+                    <span class="arrow"></span>
+                </a>
+                <ul class="dropdown-menu pull-left">
+                    <li aria-haspopup="true" class="" ng-if="IsAccess('RolesAndBudget')">
+                        <a href="#/RolesAndBudget" class="nav-link">
+                            {{"Menulist.RolesAndBudget"|translate}}
+                        </a>
+                    </li>
+                    <li aria-haspopup="true" class="" ng-if="IsAccess('PaymentTerms')">
+                        <a href="#/PaymentTerms" class="nav-link">
+                            <span>{{"Menulist.PaymentTerms"|translate}}</span>
+                        </a>
+                    </li>
+                    <li aria-haspopup="true" class="" ng-if="IsAccess('PaymentOptions')">
+                        <a href="#/PaymentOptions" class="nav-link">
+                            <span>{{"Menulist.PaymentOptions"|translate}}</span>
+                        </a>
+                    </li>
+                    <li aria-haspopup="true" class="" ng-if="IsAccess('StateTaxes')">
+                        <a href="#/StateTaxes" class="nav-link">
+                            <span>{{"Menulist.StateTaxes"|translate}}</span>
+                        </a>
+                    </li>
+                    <li aria-haspopup="true" class="" ng-if="IsAccess('RolesAndPermissionMapping')">
+                        <a href="#/RolesAndPermissionMapping" class="nav-link  ">
+                            {{"Menulist.RolesAndPermission"|translate}}
+                        </a>
+                    </li>
+                    <li aria-haspopup="true" class="" ">
+                        <a href="#/ClaimTimes" class="nav-link  ">
+                            {{"Menulist.Claims"|translate}}
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li id="IdUserAdministration" aria-haspopup="true" class="menu-dropdown classic-menu-dropdown"
+                onclick="Expand(this)" ng-if="IsAccess('UserAdministration')">
+                <a>
+                    {{"Menulist.UserAdministration"|translate}}
+                    <span class="arrow"></span>
+                </a>
+                <ul class="dropdown-menu pull-left">
+                    <li aria-haspopup="true" class="">
+                        <a href="#/Users" class="nav-link">
+                            {{"Menulist.Users"|translate}}
+                        </a>
+                    </li>
+                    <li aria-haspopup="true" class="">
+                        <a href="#/Departments" class="nav-link">
+                            <span>{{"Menulist.Departments"|translate}}</span>
+                        </a>
+                    </li>
+                    <li aria-haspopup="true" class="">
+                        <a href="#/SecurityControls" class="nav-link">
+                            {{"Menulist.SecurityControls"|translate}}
+                        </a>
+                    </li>
+                </ul>
+            </li>
+           
+
+            <!--<li id="IdMyProfile" aria-haspopup="true" class="menu-dropdown classic-menu-dropdown" onclick="Expand(this)">
+                <a>
+                    {{"Menulist.MyProfile"|translate}}
+
+                    <span class="arrow"></span>
+                </a>
+                <ul class="dropdown-menu pull-left">
+                    <li aria-haspopup="true" class="">
+                        <a href="#/UserProfile" class="nav-link">
+                            <span>{{"Menulist.UserProfile"|translate}}</span>
+                        </a>
+                    </li>
+                    <li aria-haspopup="true" class="">
+                        <a href="#/Security" class="nav-link">
+                            <span>{{"Menulist.Security"|translate}}</span>
+                        </a>
+                    </li>
+                    <li aria-haspopup="true" class="">
+                        <a href="#/AlertsSettings" class="nav-link">
+                            <span>{{"Menulist.Settings"|translate}}</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>-->
+        </ul>
+
+    </div>
+    <!-- END MEGA MENU -->
+
+
+</div>
+<!-- END HEADER MENU -->

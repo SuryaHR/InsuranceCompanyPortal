@@ -1,0 +1,13 @@
+﻿{
+  "Modal": {
+    "Header": "Attachment Details"
+  },
+  "ControlText": {
+    "Ok": "OK",
+    "FileName": "File Name",
+    "CreatedDate": "Upload Date",
+    "ViewFile": "View File",
+    "Purpose": "Purpose",
+    "Type": "Type"
+  }
+}

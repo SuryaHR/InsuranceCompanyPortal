@@ -1,0 +1,17 @@
+﻿{
+  "Quote": "Quote",
+  "Back": "Back",
+  "ExportToPDF": "Export To PDF",
+  "InsuranceCompany": "Insurance Company",
+  "Address": "Address",
+  "Adjuster": "Adjuster",
+  "Street Address 1": "Street Address 1",
+  "Street Address 2": "Street Address 2",
+  "City": "City",
+  "ZipCode": "ZipCode",
+  "Date": "Date",
+  "Claim#": "Claim#",
+  "InsuredName": "Insured's Name",
+  "Phone": "Phone"
+
+}

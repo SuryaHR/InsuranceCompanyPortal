@@ -1,0 +1,91 @@
+﻿<div class="col-md-12 col-sm-12 padding1px  ">
+    <ul class="page-breadcrumb breadcrumb sbold">
+        <li>
+            <a ng-click="GotoDashboard()">{{"Home"|translate}}</a>
+
+        </li>
+        <li>
+            <span><i class="fa fa-circle"></i>{{"Security Controls"|translate}}</span>
+        </li>
+    </ul>
+</div>
+<div class="col-md-12  padding1px">
+    <div class="portlet light padding1px">
+        <div class="portlet-title">
+            <div class="caption font-grey-sharp">
+                <span class="caption-subject">{{"SecurityControls"|translate}}</span>
+            </div>
+        </div>
+        <div class="col-md-8 col-lg-8 col-xs-12 text-right margin-top-10">
+            <!--<div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 text-right pull-right">-->
+            <!--<div class="col-md-6 col-lg-6 col-xs-12 ">-->
+            <button class="btn sbold btnMargin pull-right margin-bottom-10" ng-click="UpdateSecurityControls()">
+                {{"btn.Save"|translate}}
+            </button>
+            <button class="btn sbold btnMargin pull-right " ng-click="Cancel($event)">
+                {{"btn.btnCancel"|translate}}
+            </button>
+        </div>
+    </div>
+    <div class="portlet light padding1px">       
+        <div class="margin-bottom-10"></div>
+        <div class="col-lg-12 col-md-12 col-sm-12 form-group">
+            <label class="col-md-3 col-sm-4 col-xs-6 col-lg-3 Label_Text_Right">{{"Minimum password length"|translate}}</label>
+            <div class="col-md-3 col-sm-4 col-xs-6 col-lg-3">
+                <select class="form-control input-medium select2me" ng-model="SecurityControls.passwordLength.id" ng-options="Password.id as Password.passwordLength for Password in PasswordLengthList"></select>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 form-group">
+            <label class="col-md-3 col-sm-4 col-xs-6 col-lg-3 Label_Text_Right">{{"Password complexity"|translate}}</label>
+            <div class="col-md-3 col-sm-4 col-xs-6 col-lg-3">
+                <select class="form-control input-medium select2me" ng-model="SecurityControls.passwordComplexity.id" ng-options="complexity.id as complexity.passwordComplexity for complexity in PasswordComplexity"></select>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 form-group">
+            <label class="col-md-3 col-sm-4 col-xs-6 col-lg-3 Label_Text_Right">{{"Session timeout"|translate}}</label>
+            <div class="col-md-3 col-sm-4 col-xs-6 col-lg-3">
+                <select class="form-control input-medium select2me" ng-model="SecurityControls.sessionTimeout.id" ng-options="Timeout.id as Timeout.sessionTimeout for Timeout in SessionTimeout"></select>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 form-group">
+            <label class="col-md-3 col-sm-4 col-xs-6 col-lg-3 Label_Text_Right">{{"Lockout threshold"|translate}}</label>
+            <div class="col-md-3 col-sm-4 col-xs-6 col-lg-3">
+                <select class="form-control input-medium select2me" ng-model="SecurityControls.lockoutThreshold.id" ng-options="LockOut.id as LockOut.lockoutThreshold for LockOut in LockOutThreshold"></select>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 form-group">
+            <label class="col-md-3 col-sm-4 col-xs-6 col-lg-3 Label_Text_Right">{{"Lockout period"|translate}}</label>
+            <div class="col-md-3 col-sm-4 col-xs-6 col-lg-3 ">
+                <select class="form-control input-medium select2me" ng-model="SecurityControls.lockoutPeriod.id" ng-options="LockOutPeriod.id as LockOutPeriod.lockoutPeriod for LockOutPeriod in LockOutPeriodList"></select>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 form-group0">
+            <label class="col-md-3 col-sm-4 col-xs-6 col-lg-3 Label_Text_Right">{{"Password expiration"|translate}}</label>
+            <div class="col-md-3 col-sm-4 col-xs-6 col-lg-3 ">
+                <select class="form-control input-medium select2me" ng-model="SecurityControls.passwordExpireTime.id" ng-options="Expiry.id as Expiry.passwordExpiry for Expiry in PassowrdExpiryList"></select>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 form-group">
+            <label class="col-md-3 col-sm-4 col-xs-6 col-lg-3 Label_Text_Right">{{"Password history"|translate}}</label>
+            <div class="col-md-3 col-sm-4 col-xs-6 col-lg-3">
+                <select class="form-control input-medium select2me" ng-model="SecurityControls.passwordHistory.id" ng-options="PasswordHistory.id as PasswordHistory.passwordHistory for PasswordHistory in PasswordHistoryList"></select>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 form-group">
+            <label class="col-md-3 col-sm-4 col-xs-6 col-lg-3 Label_Text_Right">{{"Allow browser to remember password?"|translate}}</label>
+            <div class="col-md-3 col-sm-4 col-xs-6 col-lg-3  ">
+                <select class="form-control input-medium select2me" ng-model="SecurityControls.rememberPassword" ng-options="RememberPass.id as RememberPass.value for RememberPass in RememberPasswordList"></select>
+            </div>
+        </div>
+        <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 text-right pull-right">
+            <div class="col-md-8 col-lg-8 col-xs-12 topBorder">
+                <button class="btn sbold btnMargin pull-right margin-top-10" ng-click="UpdateSecurityControls()">
+                    {{"btn.Save"|translate}}
+                </button>
+                <button class="btn sbold btnMargin pull-right margin-top-10" ng-click="Cancel($event)">
+                    {{"btn.btnCancel"|translate}}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

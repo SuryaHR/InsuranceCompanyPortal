@@ -1,0 +1,23 @@
+﻿{
+  "ControlText": {
+    "Cat_CategoryId": "Category Id",
+    "Cat_Name": "Name",
+    "AnnualDepreciation": "Annual Depreciation",
+    "SubcategoryDetails": "Sub-Category Details",
+    "UsefulYears": "Useful Years",
+    "firstYearDepreciation":"1st Year Depreciation",
+    "correspondYearDepreciation":"Corresponding Year Depreciation",
+    "maxDepreciation":"Max. Depreciation",
+    "flatDepreciation":"Flat Depreciation"
+    
+  },
+  "btn": {
+    "Save": "Save",
+    "Cancel": "Cancel"
+  },
+   "ErrorMessage": {
+    "Cat_Name": "'Category' is a mandatory field",
+    "AnnualDepreciation": "'Annual Depreciation' is a mandatory field",
+    "UsefulYears": "'Useful Years' is a mandatory field"
+  }
+}

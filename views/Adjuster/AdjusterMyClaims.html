@@ -1,0 +1,140 @@
+﻿    <div class="" >
+        <!--Serach TextBox-->
+        <div class="col-md-12" style="margin-bottom:20px;">
+            <div class="col-md-offset-1 col-md-10 ">
+                <div class="input-icon left">
+                    <i class="icon-magnifier"></i>
+                    <input type="text" class="form-control form-control-solid input-circle input-block-level" placeholder={{"MainSearchText"|translate}}>
+                </div>
+            </div>
+        </div>
+        <!--all claims-->
+        <div class="col-md-12">
+            <div class="portlet light bordered">
+                <div class="portlet-title ">
+                    <div class="caption font-green-sharp">
+                        {{"HeaderTitle.MyClaims_title"|translate}}
+                    </div>
+                    <div class="tools">
+                        <a href="javascript:;" class="collapse"> </a>
+                        <a href="javascript:;" class="reload"> </a>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="row ">
+                        <!--top buttons-->
+                        <div class="col-md-12 margin-bottom-25">
+                          
+                                <button id="sample_editable_1_new" class="btn sbold green btnMargin" ng-click="AssignClaimToAdjuster($event)">
+                                    <i class="fa fa-briefcase"></i>
+                                    {{"ControlText.AssignClaims_title"|translate}}
+                                </button>
+                            
+                          
+                                <button id="sample_editable_1_new" class="btn sbold red btnMargin">
+                                    <i class="fa fa-remove"></i>
+                                    {{"ControlText.RejectClaims_title"|translate}}
+                                </button>
+                            <div class="col-md-4 pull-right">
+                                <div class="input-icon left">
+                                    <i class="icon-magnifier"></i>
+                                    <input type="text" class="form-control form-control-solid input-circle input-block-level" placeholder={{"MyClaimsSearchText"|translate}}>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 margin-bottom-15">  
+                                    <label class="control-label text-primary col-md-1">{{"Label.View_title"|translate}}</label>                           
+                                <div class="col-md-3">
+                                    <select class="select2me  input-sm" ng-model="ClaimType" data-placeholder="Select..">
+                                        <option value="">Select</option>
+                                        <option value="AL">Auto</option>
+                                        <option value="WY">Home</option>
+                                    </select>
+                                </div>
+                            <label class="control-label col-md-1 text-primary">{{"Label.Show_title"|translate}}</label>
+
+                            <div class="col-md-3">
+                                <select class="input-sm select2me" ng-model="pagesize">
+                                    <option value="10">10 Claims</option>
+                                    <option value="15">15 Claims</option>
+                                    <option value="20">20 Claims</option>
+                                </select>
+                            </div>                            
+                        </div>
+                        
+                        <div class="clearfix"></div>
+                        <!--table contents-->
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover table-checkable order-column" id="dash">
+                                <thead>
+                                    <tr>
+                                        <th class="table-checkbox">
+                                            <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
+                                                <input type="checkbox" class="group-checkable" ng-model="isAllSelected" ng-click="getAllCheck()" />
+                                                <span></span>
+                                            </label>
+                                        </th>
+                                        <td ng-click="sort('claimType')">
+                                            {{"Table.MyClaimsType"|translate}}
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='claimType'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                        </td>
+                                        <td ng-click="sort('claimId')">
+                                            {{"Table.MyClaimsClaim"|translate}}
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='claimId'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+
+                                        </td>
+                                        <td ng-click="sort('policyNumber')">
+                                           {{"Table.MyClaimsPolicy"|translate}}
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='policyNumber'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                        </td>
+                                        <td ng-click="sort('username')">
+                                            {{"Table.MyClaimsInsuredsName"|translate}}
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='username'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                        </td>
+                                        <td ng-click="sort('createDate')" class="">
+                                            {{"Table.MyClaimsDateOfClaim"|translate}}
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='createDate'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                        </td>
+                                        <td ng-click="sort('claimStatus')">
+                                            {{"Table.MyClaimsStatus"|translate}}
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='claimStatus'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                        </td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-if="MyClaims!=null" dir-paginate="item in MyClaims|orderBy:sortKey:reverse|filter:search|itemsPerPage:pagesize">
+                                        <td>
+                                            <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
+                                                <!--<input type="checkbox" class="checkboxes" value="{{item.Type}}"  />-->
+                                                <input type="checkbox" class="checkboxes" ng-model="item.IsSelected" ng-change="optionToggled()" />
+                                                <span></span>
+                                            </label>
+                                        </td>
+                                        <td ng-click="GotoClaimDetails($event)"><a>{{item.claimType}}</a></td>
+                                        <td ng-click="GotoClaimDetails($event)"><a>{{item.claimId}}</a></td>
+                                        <td ng-click="GotoClaimDetails($event)"><a>{{item.policyNumber}}</a></td>
+                                        <td ng-click="GotoClaimDetails($event)"><a>{{item.username}}</a></td>
+                                        <td>{{item.createDate}}</td>
+                                        <td>{{item.claimStatus}}</td>
+                                    </tr>
+                                    <tr ng-if="MyClaims.length ==0">
+                                        <td></td>
+                                        <td colspan="6">{{"NoRecordText"}}</td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+
+                                </tfoot>
+                            </table>
+                            <dir-pagination-controls max-size="3"
+                                                     direction-links="true"
+                                                     boundary-links="true" class="pull-right">
+                            </dir-pagination-controls>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+

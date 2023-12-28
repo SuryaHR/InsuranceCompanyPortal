@@ -1,0 +1,25 @@
+﻿{
+  "ControlText": {
+    "OfficeId_title": "Office Id",
+    "OfficeName_title": "Office Name",
+    "OfficeAddress_title": "Address",
+    "OfficeCity_title": "City",
+    "OfficeZip_title": "Zip ",
+    "OfficePhoneNumber_title": "Phone Number",
+    "btnSave": "Save",
+    "btnAddmoreContact": "Add More Contact"
+  },
+  "Labels": {
+    "CompanyName": " Company Name",
+    "OfficeDetails": "Office Details",
+    "MemberDetails": "Member Details"
+  },
+  "Table": {
+    "FirstName": "Firs tName",
+    "LastName": "Last Name",
+    "Email": "Email Id",
+    "Phone": "Phone No",
+    "Role": "Role"
+  },
+  "PersonalInfo_Note_title": "* An email will be sent to admin to complete profile."
+}

@@ -1,0 +1,33 @@
+﻿{
+  "labeltext": {
+    "ItemId": "Item Id",
+    "ItemName": "Item Name",
+    "ScheduledItem": "ScheduledItem",
+    "PriceQuoted": "Price",
+    "RCV": "RCV",
+    "Category": "Category",
+    "SubCategory": "SubCategory",
+    "Status": "Status",
+    "ACV": "ACV",
+    "ReplacedValue": "Replaced Value",
+    "AssignedTo": "Assigned To",
+    "Holdover": "Holdover",
+    "PayoutCheck#": "Payout Check #",
+    "HoldOvercheck#": "Holdover Check #",
+    "ItemsSettled": "Items Settled",
+    "Of": "Of",
+    "TotalReplacementvalue": "Total Replacement Value",
+    "TotalHoldOver": "Total Holdover",
+    "GrandTotal": "Grand Total",
+    "Show": "Show",
+    "View": "View",
+    "Search": "Search Item#, Item Name",
+    "Claim#": "Claim #"
+  },
+
+  "BtnTexts": {
+    "Back": "Back",
+    "Cancel": "Cancel"
+  },
+  "NoRecordText": "No records to show"
+}

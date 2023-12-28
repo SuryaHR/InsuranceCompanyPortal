@@ -1,0 +1,178 @@
+<div class="col-md-12">
+    <div class="portlet light padding1px">
+        <div class="portlet-title">
+            <div class="caption font-gray-sharp">
+                <span class="caption-subject" ng-if="isNewQuote">{{"New Quote"|translate}}</span>
+                <span class="caption-subject"
+                    ng-if="!isNewQuote">{{"Reference #"|translate}} {{paymentInfo.checkNumber}}</span>
+            </div>
+           <div class="col-md-12 col-sm-12 margin-bottom-10 text-right padding1px">
+                <button class="btn btnMargin sbold" ng-click="switchTab('policyholderPayments')">{{"Back"|translate}}</button>
+                <button class="btn btnMargin sbold" ng-click="downloadPaymentInfo(QuoteDetails.id)">{{"ExportToPDF"|translate}}</button>
+                
+           </div>
+        </div>
+        
+        <div class="portlet-body">
+            <div class="row">
+                <div class="col-md-6 col-sm-12 margin-top-20">
+                    <div class="col-md-12 col-sm-12 form-group " ">
+                        <label class="col-md-4 col-sm-6 Label_Text_Left control-label sbold"
+                            style="padding: 0px;"><u>{{"Payment made to "|translate}}</u></label>
+    
+                    </div>
+                    <div class="col-md-12 col-sm-12 form-group margin-top-20" ng-if="!isNewQuote">
+                        <label
+                            class="col-md-4 col-sm-6 Label_Text_Right control-label sbold">{{"Customer's Name"|translate}}</label>
+                        <div class="col-md-7 col-sm-6">
+                            <span class="control-label" style="font-weight: bold;text-transform: capitalize;">{{paymentInfo.policyHolderDTO.firstName}}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-12 col-sm-12 form-group">
+                        <label class="col-md-4 col-sm-6 Label_Text_Right control-label">{{"Address"|translate}}</label>
+                        <div class="col-md-7 col-sm-6">
+                            <span style="word-break: break-all;" class="control-label">{{paymentInfo.policyHolderDTO.address.completeAddress}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <div class="col-md-12 col-sm-12 form-group margin-top-20" style="padding: 0px;">
+                        <label class="col-md-4 col-sm-6 Label_Text_Left control-label sbold"
+                            style="padding: 0px;"><u>{{"From"|translate}}</u></label>
+                    </div>
+                    <div class="col-md-12 col-sm-12 form-group">
+                        <div class="col-md-12 col-sm-12 form-group ">
+                            <label
+                                class="col-md-4 col-sm-6 Label_Text_Right control-label sbold">{{"Insurance Company"|translate}}</label>
+                            <div class="col-md-7 col-sm-6">
+                                <span
+                                    class="control-label" style="font-weight: bold;text-transform: capitalize;">{{paymentInfo.companyDTO.companyName}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-sm-12 form-group ">
+                            <label
+                                class="col-md-4 col-sm-6 Label_Text_Right control-label sbold">{{"Adjuster's Name"|translate}}</label>
+                            <div class="col-md-7 col-sm-6">
+                                <span
+                                    class="control-label">{{paymentInfo.adjusterName}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-sm-12 form-group ">
+                            <label
+                                class="col-md-4 col-sm-6 Label_Text_Right control-label sbold">{{"Branch Office"|translate}}</label>
+                            <div class="col-md-7 col-sm-6">
+                                <span
+                                    class="control-label">{{paymentInfo.companyDTO.homeBranchName}}</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 col-sm-12 form-group ">
+                            <label
+                                class="col-md-4 col-sm-6 Label_Text_Right control-label sbold">{{"Billing Address"|translate}}</label>
+                            <div class="col-md-8 col-sm-8">
+                                <span style="word-break: break-all;"
+                                    class="control-label">{{paymentInfo.companyDTO.companyAddress}}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                   
+                   
+
+                </div>
+                <table class="table table-bordered table-striped margin-bottom-10 margin-top-20">
+                    <thead>
+                        <tr>
+                            <th >
+                                {{"Reference/Check  #"|translate}}
+                            </th>
+                            <th >
+                                {{"Payment Date"|translate}}
+                            </th>
+                            <th >
+                                {{"Payment Mode"|translate}}
+                            </th>
+                            <th class="text-right">
+                                {{"Payment Amount"|translate}}
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <!-- item Id -->
+                            <td>{{paymentInfo.checkNumber}}</td>
+                            <!-- item Desc -->
+                            <td>{{paymentInfo.paymentDate | DateTimeFormatShort}}</td>
+                            <!-- item sheduled amount -->
+                            <td>CHECK</td>
+                            <td class="text-right">{{paymentInfo.payAmount|currency}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="col-md-12 margin-top-20">
+                    <span style="font-size: large;">Items Paid</span> 
+                    <div class="portlet padding1px">
+                        <div class="portlet-title"></div>
+                    </div>
+                </div>
+                <div class="col-xs-12">
+                    <table class="table table-hover table-bordered table-striped">
+                        <colgroup>
+                            <col style="width:5%">
+                            <col style="width:25%">
+                            <col style="width:25%">
+                            <col style="width:15%">
+                            <col style="width:15%">
+                            <col style="width:15%">
+                        </colgroup>
+                        <thead>
+                            <tr style="height: 20%;">
+                                <th>
+                                    {{"Item #"|translate}}
+                                </th>
+                                <th>
+                                    {{"Original Item Description"|translate}}
+                                </th>
+                                <th>
+                                    {{"Replacement Item Description "|translate}}
+                                </th>
+                               
+                                <th>
+                                    {{"Replacement Cost"|translate}}
+                                </th>
+                                <th>
+                                    {{"Cash Exposure"|translate}}
+                                </th>
+                                <th>
+                                    {{"Holdover Paid"|translate}}
+                                </th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in paymentInfo.items">
+                                <td>{{item.itemNumber}}</td>
+                                <td>{{item.originalItemDescription}}</td>
+                                <td>{{item.replacementItemDescription}}</td>
+                                <td class="text-right">{{item.replacementCost |currency}}</td>
+                                <td class="text-right">{{item.cashExposure|currency}}</td>
+                                <td class="text-right">{{item.holdoverPaid |currency}}</td>
+                            </tr>
+                        </tr>
+                        </tbody>
+                        <tfoot class="footer">
+                            <tr>
+                                <td colspan="3"></td>
+                                <td class="text-right">  Total</td>
+                                <td class="text-right"> {{totalHoldoverPaid |currency}}</td>
+                                <td class="text-right"> {{totalCashExposure |currency}}</td>
+                            </tr>
+                           
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

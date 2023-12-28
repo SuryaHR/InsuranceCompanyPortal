@@ -1,0 +1,118 @@
+﻿<style>
+    .full button span {
+        background-color: limegreen;
+        border-radius: 32px;
+        color: black;
+    }
+
+    .partially button span {
+        background-color: orange;
+        border-radius: 32px;
+        color: black;
+    }
+</style>
+<div class="col-md-12">
+    <div class="col-md-12 col-lg-12 padding1px">
+        <!--<div class="row">
+            <span class="text-muted bold caption col-md-12 col-sm-12 col-xs-12 col-lg-12 margin-bottom-5 Custombreadcrumb"><a ng-click="GoToDashboard()">{{"Dashboard"|translate}} </a> >&nbsp;<a ng-click="Back()">{{ClaimDetails.ClaimNumber}}</a>&nbsp;>{{"Event Calendar"|translate}}</span>
+        </div>-->
+
+        <ul class="page-breadcrumb breadcrumb sbold">
+            <li>
+                <a ng-click="GoToDashboard()">{{"Home"|translate}}</a>
+                <i class="fa fa-circle"></i>
+            </li>
+            <!-- <li  ng-show="ClaimDetails.ClaimNumber!=null">
+                <a ng-click="Back()">{{ClaimDetails.ClaimNumber}}</a>
+                <i class="fa fa-circle"></i>
+            </li> -->
+            <li>
+                <span>{{"Events"|translate}}</span>
+            </li>
+        </ul>
+       
+    </div>
+    <div class="col-lg-12 col-md-12 portlet light ">
+        <div class="portlet-title" >
+            <div class="caption font-grey-sharp ">
+                <span class="caption-subject font-grey-sharp ">
+                   {{"All Events"|translate}}
+                </span>
+            </div>
+            <div class="tools">
+                <button class="btn sbold btnMargin pull-right" 
+                ng-click="AddNewEvent()">{{"New Event"|translate}}</button>
+                <!-- ng-show="ClaimDetails.ClaimNumber!=null" -->
+            </div>
+        </div>
+        <div class="portlet-body">
+            <div class="row">
+                <!--Full Calendar-->
+                <div class="col-md-12">
+                    <div class="col-md-9 col-lg-9 col-sm-8">
+                        <div class="row">
+                            <div class="col-md-12 margin-bottom-10" >
+                                <div id="calendar" ui-calendar="uiConfig.calendar" ng-model="eventSources" calendar="myCalendar"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--End Full Calendar-->
+                    <!--Datepicker-->
+                    <div class="col-md-3  col-lg-3 col-sm-4 " >    
+                        <div class="col-md-12 text-left" id="cal"> <!--  align-content:space-around -->
+                            <!--<input class="datepicker1  pull-right" style="border:none !important;color:white;" data-date-format="mm/dd/yyyy" ng-change="GoToDt()" data-date-container='#cal' id="select_date" calendar="myCalendar" readonly ng-model="CommonObject.SelectedDate " data-provide="datepicker-inline"  type="text" placeholder="{{'Date'|translate}}" name="Date" />-->
+                            <div pickadate="" class="pic"  selectYears="true"  ng-model="date" format="mm/dd/yyyy" ng-change="GoToDt()" ></div>
+                                              </div> </div>
+                    <!--End Datepicker-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<style>
+   
+    /*Todays background color in calendar*/
+    .fc-unthemed .fc-today {
+    background: #fcf8e3 !important; /**/
+}
+    .fc-event {
+    position: relative;
+    display: block;
+    font-size: .85em;
+    line-height: 1.3;
+    border-radius: 3px;
+    border: 1px solid #3a87ad;
+    /*background-color: rgb(255, 102, 36) !important;*/
+    font-weight: normal;
+}
+
+    .pickadate-cell li
+    {
+        line-height:27px;
+    }
+    .pickadate-main{
+        font:14px;
+    }
+/*For Date range on  calendar*/
+    h2 {
+       font-size: 15px;
+    font-weight: bold;
+}
+   
+    .isDone{
+        background:green;
+    }
+     .isNotDone{
+        background:rgb(145, 228, 251);
+    }
+    .isReschedule{
+        background:rgb(255, 102, 36);
+    }
+    grid-event .fc-title {
+    padding: 0 1px;
+    font-family: initial;
+}
+     .datepicker tr.highlight { background: red; cursor: pointer; }
+</style>

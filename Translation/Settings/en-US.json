@@ -1,0 +1,28 @@
+﻿{
+  
+  "ControlText": {
+    "Back_title": "Back",
+    "Assign_title": "Assign",
+    "SortBy": "Sort By",    
+    "Accept": "Accept"
+  },
+
+  "FormControlText": {
+    
+  },
+  "Radio": {
+    
+  },
+
+  "AlertMessage": {
+    
+  },
+  "ErrorMessage": {
+   
+  },
+
+  "SearchforComparablesText": "Search For More Comparable"
+   
+}
+
+

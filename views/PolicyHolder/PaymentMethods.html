@@ -1,0 +1,86 @@
+﻿<div class="col-md-12 padding1px">
+    <ul class="page-breadcrumb breadcrumb sbold">
+        <li>
+            <a ng-click="GoToHome()">{{"Home"|translate}}</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span>{{"Paymenty Methods"|translate}}</span>
+        </li>
+    </ul>
+</div>
+<div class="row">
+    <div class="portlet light  clearfix">
+
+        <div class="portlet light padding1px">
+            <div class="portlet-title">
+                <div class="caption font-grey-sharp">
+                    <span class="caption-subject font-grey-sharp">{{"ControlText.AvailablePaymentMethods"|translate}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <div class="col-md-12 col-lg-12 padding1px">
+                <div class="col-md-6 padding1px">
+                    <div class="portlet box blue">
+                        <div class="portlet-title">
+                            <div class="text-center" style="padding:4px;">
+                                <span class="bold">{{"TabHeaderTitle.BankAccounts"|translate}}</span>
+                            </div>
+                        </div>
+                        <div class="portlet-body">
+                            <div class="row">
+                                <div class="col-md-12 col-lg-12 text-center margin-bottom-20">
+                                    <span>{{"BankAccountText"|translate}}</span>
+                                </div>
+                                <div class="col-md-12 col-lg-12 text-primary">
+                                    <span class="col-md-12 col-lg-12 text-muted bold padding1px">{{"ControlText.SaveTime"|translate}}</span>
+                                    <span>{{"ControlText.SaveTimeTextFirst"|translate}} <a href="#" class="font-green">{{"ControlText.RecurringPayment"|translate}}</a><span>{{"ControlText.SaveTimeTextLast"|translate}}</span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 col-lg-12">
+                        {{"Message"|translate}}
+                    </div>
+                    <div class="col-md-12 col-lg-12 text-center margin-top-10 margin-bottom-10">
+                        <span class="btn sbold btnMargin" ng-click="OpenAddBankAccount()">{{"ControlText.AddBankAccount"|translate}}</span>
+                    </div>
+                </div>
+                <div class="col-md-6 padding1px">
+                    <div class="portlet box blue">
+                        <div class="portlet-title">
+                            <div class="text-center" style="padding:4px;">
+                                <span class="bold">{{"TabHeaderTitle.CreditDebitCards"|translate}}</span>
+                            </div>
+                        </div>
+                        <div class="portlet-body">
+                            <div class="row">
+                                <div class="col-md-12 col-lg-12 text-center margin-bottom-20">
+                                    <span>{{"CreditCardText"|translate}}</span>
+                                </div>
+                                <div class="col-md-12 col-lg-12 text-primary">
+                                    <span class="col-md-12 col-lg-12"> <span class="text-muted bold padding1px">{{"ControlText.Note"|translate}}</span> : <span>{{"ControlText.NoteFirst"|translate}}</span> <a href="#" class="text-muted bold">{{"ControlText.DoNot"|translate}}</a><span>{{"ControlText.NoteLast"|translate}}</span></span>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-lg-12 text-center margin-bottom-10">
+                        <span class="btn sbold btnMargin" ng-click="OpenAddCard()">{{"ControlText.AddCreditCard"|translate}}</span>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="row" ng-include="'views/PolicyHolder/YourAgent.html'">
+        </div>
+
+        <!--Your Agent-->
+
+
+    </div>
+</div>
+<!--End Your Agent-->

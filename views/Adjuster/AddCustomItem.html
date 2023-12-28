@@ -1,0 +1,442 @@
+<style>
+    #img_preview {
+        min-height: 490px !important;
+        width: 675px !important;
+        padding: 10px 0px;
+        position: fixed;
+        z-index: 20;
+    }
+
+    .image-wrapper {
+        max-height: 350px !important;
+        overflow: auto !important;
+        display: block;
+    }
+    .mandatory {
+        color: red;
+    }
+</style>
+<div class="col-md-12 padding1px">
+    <ul class="page-breadcrumb breadcrumb sbold">
+        <li>
+            <a ng-click="goToDashboard()">{{"Home"|translate}}</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <a ng-click="goBack()">{{CommonObj.ClaimNo}}</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li ng-if="NewCustomItem">
+            <a ng-click="goItemPage()">{{CommonObj.ItemNumber}}</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li ng-if="!NewCustomItem">
+            <a ng-click="goItemPage()">{{CommonObj.ItemNumber}}</a>
+        </li>
+
+        <li ng-if="!CustomItem.id && NewCustomItem">
+            <span>{{"New Custom Item"}}</span>
+        </li>
+        <li ng-if="CustomItem.id && NewCustomItem">
+            <span>{{CustomItem.id}}</span>
+        </li>
+    </ul>
+</div>
+
+<div class="col-md-12 portlet light padding1px" ng-if="!NewCustomItem">
+    <div class="portlet-title">
+        <div class="caption font-gray-sharp">
+            <span class="caption-subject ">
+                {{"Custom Items"|translate}}
+            </span>
+        </div>
+        <div class="tools"></div>
+    </div>
+
+    <div class="portlet-body">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 padding1px">
+                <div class="col-md-12 col-sm-12 clearfix padding1px">
+                    <div class="col-md-12 col-sm-12 ">
+                        <div class="col-md-12 col-sm-12 clearfix options_Background_WithBorder">
+                            <!-- <div class="col-md-12 col-sm-12 margin-top-5 margin-bottom-5 padding1px">
+                                <button class="btn sbold btnMargin btnOptions" ng-click="NewItem()">
+                                    {{"New Custom Item"}}
+                                </button>
+                            </div> -->
+                        </div>
+                    </div>
+                    <div class="col-md-12 table-responsive">
+                        <table class="table table-hover table-bordered table-striped" id="NavigateTable">
+                            <thead>
+                                <tr>
+                                    <th ng-click="sortNewClaim('')">
+                                        {{"Item Id"|translate}}
+                                    </th>
+                                    <th ng-click="sortNewClaim('')">
+                                        {{"Item Description"|translate}}
+                                    </th>
+                                    <th ng-click="sortNewClaim('')">
+                                        {{"Replacement Cost"|translate}}
+                                    </th>
+                                    <th ng-click="sortNewClaim('')">
+                                        {{"Created Date"|translate}}
+                                    </th>
+                                    <th ng-click="sortNewClaim('')">
+                                        {{'Status'|translate}}
+                                    </th>
+                                    <th ng-click="sortNewClaim('')">
+                                        {{'Action'|translate}}
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr
+                                    ng-repeat="item in CustomItemList|orderBy:sortNewClaimKey:reverseNewClaim|filter:searchContract">
+                                    <td ng-click="GotoDetails(item)">{{item.id}}</td>
+                                    <td ng-click="GotoDetails(item)">{{item.description}}</td>
+                                    <td ng-click="GotoDetails(item)">{{item.replacementCost|currency}}</td>
+                                    <td ng-click="GotoDetails(item)">
+                                        {{item.createDate|DateFormatMMddyyyy}}
+                                    </td>
+                                    <td ng-click="GotoDetails(item)">{{item.itemStatus}}</td>
+                                    <td style="width:10%">
+                                        <span ng-if="!item.isComparable" class="text-success sbold" style="font-size:13px"
+                                            ng-click="AddToComparable(item)">Add To Comparable</span>
+                                        &nbsp;&nbsp;
+                                        <span  class="text-danger sbold" style="font-size:13px" ng-if="!item.isReplacementItem"
+                                            ng-click="DeleteCustomItem(item)">Delete</span>
+                                    </td>
+                                </tr>
+                                <tr ng-if="CustomItemList===null ||  CustomItemList.length===0">
+                                    <td></td>
+                                    <td colspan="8" class="text-danger text-center">
+                                        {{"No items to show"|translate}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-12 portlet light padding1px" ng-if="NewCustomItem">
+    <div class="portlet-title">
+        <div class="caption font-gray-sharp">
+            <span class="caption-subject" ng-if="!CustomItem.id">
+                {{"NewCustomItem"|translate}}
+            </span>
+            <span class="caption-subject" ng-if="CustomItem.id">
+                {{"Item Id:"|translate}} {{CustomItem.id}}
+            </span>
+        </div>
+        <div class="tools"></div>
+    </div>
+    <div class="col-md-12 col-lg-12">
+        <div class="portlet-body">
+            <div class="row" ng-form="itemDetailsForm">
+                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 padding1px">
+                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 options_Background_WithBorder"
+                        style="padding-top:5px;padding-bottom:5px;">
+                        <span class="text_options_Label sbold caption">{{"HeaderText.ReplacementItem"|translate}}</span>
+                    </div>
+                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 padding1px" style="border:1px solid lightgray;">
+                        <!--Left Side-->
+                        <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12 margin-top-10 padding1px">
+                            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+                                <div class="col-md-4 col-sm-6 Label_Text_Right">
+                                    <label class="control-label "><strong class="mandatory" >*</strong>
+                                        {{"Label.ReplacementDescription"|translate}}</label>
+                                </div>
+                                <div class="col-md-8 col-sm-6">
+                                    <textarea class="form-control" name="desc" rows="2" style="resize: none;" required ng-model="CustomItem.description"></textarea>
+                                    <span class="text-danger" ng-message="required"
+                                      ng-show="(itemDetailsForm.desc.$error.required && itemDetailsForm.desc.$touched)">
+                                    {{"Please Enter Replacement Description"|translate}}
+                                </span>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+                                <div class="col-md-4 col-sm-6 Label_Text_Right ">
+                                    <label class="control-label "
+                                        style="margin-right:1px;"> <strong class="mandatory" >*</strong>{{"Total Cost"|translate}}</label>
+                                </div>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <input type="text" name="replacementCost" input-Currency="" numbers-Only ng-readonly="CustomSubItem.length>0" required ng-model="CustomItem.replacementCost" class="form-control"
+                                        placeholder='{{"Replacement Cost"|translate}}' />
+                                        <span class="text-danger" ng-message="required"
+                                      ng-show="(itemDetailsForm.replacementCost.$error.required && itemDetailsForm.replacementCost.$touched)">
+                                    {{"Please Enter Replacement Cost"|translate}}
+                                </span>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+                                <div class="col-md-4 col-sm-6 Label_Text_Right">
+                                    <label class="control-label" style="margin-right:1px;">
+                                        {{"Supplier's Website (If any)"|translate}}</label>
+                                </div>
+                                <div class="col-md-6 col-sm-6">
+                                    <input type="text" ng-model="CustomItem.supplierWebsite" class="form-control"
+                                        placeholder='{{"Supplier Website"|translate}}' />
+                                </div>
+                            </div>
+                           
+                        </div>
+                        <!--End Left Side-->
+                        <!-- right side start -->
+                        <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12 margin-top-10 padding1px">
+
+                            <!-- <div class="col-md-12 margin-bottom-10 col-sm-12"><label
+                                    class="col-md-2 col-sm-4 control-label Label_Text_Right">{{"Label.Attachments"|translate}}</label>
+                                <div class="col-md-4 col-sm-8">
+                                    <div class="col-md-12 col-sm-12 form-group">
+                                        <input type="file" name="FileUpload" ng-required="IncidentImages.length === 0"
+                                            ng-model="Validatefile" id="FileUpload" class="green" multiple
+                                            onchange="angular.element(this).scope().uploadImage(event)"
+                                            style="display: none;" accept="*">
+                                        <span class="fa fa-upload fa-2x" ng-click="FireUploadEvent($event)"></span>
+                                       
+                                    </div>
+                                </div>
+
+                            </div> -->
+                            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-group">
+                                <div class="col-md-3 col-sm-6 Label_Text_Right">
+                                    <label class="control-label ">{{"Attachments"|translate}}</label>
+                                </div>
+                                <div class="col-lg-9 col-md-8 col-sm-8 col-xs-8">
+                                    <input id="FileUpload" multiple type="file"
+                                        onchange="angular.element(this).scope().getAttachmentDetails(this)"
+                                        style="display: none;" accept=".png, .jpg, .jpeg">
+                                    <a style="text-decoration:none"
+                                        ng-click="AddAttachment($event)">{{"Click to Add Attachments"|translate}}</a>&nbsp;&nbsp;
+                                </div>
+
+                            </div>
+                            <div class="col-md-12 margin-bottom-10 col-sm-12">
+                                <label class="col-md-2 col-sm-4 control-label Label_Text_Right"></label>
+                                <!-- <div class="col-md-4 col-sm-8">
+                                    <span class="text-success" ng-repeat="item in IncidentImages">{{item.name}}<span
+                                            ng-if="!$last">, </span></span>
+                                </div> -->
+                                <div class="col-md-4 margin-bottom-10 col-sm-4" style="padding:0px;"
+                                    ng-repeat="file in attachmentList" ng-if="!file.isDelete">
+                                    <a class="TextDecorationNone" style="top:8px;left:109px;position:relative"
+                                        ng-click="RemoveAttachment($index)"> <i
+                                            class="fa fa-times-circle fa-2x text-danger" aria-hidden="true"></i></a>
+                                    <div ng-if=isExcel(file.fileName)>
+                                        <img src='assets/global/img/excel-icon.png' class="img-responsive bordered "
+                                            style="width:90px; height:90px;padding:5px;border:1px groove;" />
+                                    </div>
+                                    <div ng-if=isPdf(file.fileName)>
+                                        <img src='assets/global/img/pdf-icon.svg' class="img-responsive bordered "
+                                            style="width:90px; height:90px;padding:5px;border:1px groove;" />
+                                    </div>
+                                    <div ng-if=isImage(file.fileName)>
+                                        <img ng-src="{{file.Image}}" alt="Pictures of the incident"
+                                            class="img-responsive bordered "
+                                            style="width:120px; height:120px;padding:5px;border:1px groove;" />
+                                    </div>
+                                    <!-- <img ng-src="{{file.Image}}" alt="Pictures of the incident" class="img-responsive bordered "
+                                        style="width:120px; height:120px;padding:5px;border:1px groove;" /> -->
+                                    <a style="word-break: break-word;font-family:Calibri; font-size:14px;cursor:pointer;overflow: hidden;"
+                                        ng-click="GetDocxDetails(file)">{{file.fileName}}</a>
+                                    <span ng-if="!$last">, </span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- right side end -->
+                    </div>
+                </div>
+                <div class="col-md-12 portlet light padding1px" ng-if="NewCustomItem">
+                    <div class="portlet-title">
+                        <div class="caption font-gray-sharp">
+                            <span class="caption-subject ">
+                                {{"Worksheet"|translate}}
+                            </span>
+                        </div>
+                        <div class="tools"></div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12 clearfix padding1px">
+                                <div class="col-md-12 col-sm-12">
+                                    <div class="col-md-12 col-sm-12 clearfix options_Background_WithBorder ">
+                                        <!-- <div class="col-md-4 col-sm-6 col-xs-6 pull-left margin-top-5 margin-bottom-5 ">
+                                            <button id="sample_editable_1_new " class="btn sbold btnOptions"
+                                                ng-click="NewItemPopup($event)">
+                                                {{"New Component"|translate}}
+                                            </button>
+                                        </div> -->
+                                        <div class="col-md-4 col-sm-6 col-xs-6 pull-right margin-top-5 margin-bottom-5">
+                                            <div class="input-icon left">
+                                                <i class="icon-magnifier"></i>
+                                                <input type="text"
+                                                    class="form-control form-control-solid input-circle btnMargin input-block-level"
+                                                    ng-model="search" placeholder='{{"search"|translate}}' />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 table-responsive">
+                                    <table class="table table-hover table-bordered table-striped" id="NavigateTable">
+                                        <thead>
+                                            <tr>
+                                                <th ng-click="sortNewClaim('claimNumber')">
+                                                    {{"Table.ItemID"|translate}}
+                                                    <span class="glyphicon sort-icon" ng-show="sortNewClaimKey=='claimNumber'"
+                                                        ng-class="{'glyphicon-chevron-up pull-right':reverseNewClaim,'glyphicon-chevron-down pull-right':!reverseNewClaim}"></span>
+                                                </th>
+                                                <th ng-click="sortNewClaim('insuranceCompany.name')">
+                                                    {{"Table.ItemDescription"|translate}}
+                                                    <span class="glyphicon sort-icon" ng-show="sortNewClaimKey=='insuranceCompany.name'"
+                                                        ng-class="{'glyphicon-chevron-up pull-right':reverseNewClaim,'glyphicon-chevron-down pull-right':!reverseNewClaim}"></span>
+                                                </th>
+                                                <th ng-click="sortNewClaim('adjusterDetails.firstName')">
+                                                    {{"Table.UnitPrice"|translate}}
+                                                    <span class="glyphicon sort-icon"
+                                                        ng-show="sortNewClaimKey=='adjusterDetails.firstName'"
+                                                        ng-class="{'glyphicon-chevron-up pull-right':reverseNewClaim,'glyphicon-chevron-down pull-right':!reverseNewClaim}"></span>
+                                                </th>
+                                                <th ng-click="sortNewClaim('claimedItems')" class="statusHeading">
+                                                    {{"Table.Quantity"|translate}}
+                                                    <span class="glyphicon sort-icon" ng-show="sortNewClaimKey=='claimedItems'"
+                                                        ng-class="{'glyphicon-chevron-up pull-right':reverseNewClaim,'glyphicon-chevron-down pull-right':!reverseNewClaim}"></span>
+                                                </th>
+                                                <th ng-click="sortNewClaim('claimedItems')" class="statusHeading">
+                                                    {{"Table.TotalCost"|translate}}
+                                                    <span class="glyphicon sort-icon" ng-show="sortNewClaimKey=='claimedItems'"
+                                                        ng-class="{'glyphicon-chevron-up pull-right':reverseNewClaim,'glyphicon-chevron-down pull-right':!reverseNewClaim}"></span>
+                                                </th>
+                                                <th ng-click="sortNewClaim('claimedItems')" class="statusHeading">
+                                                    {{"Table.Attachments"|translate}}
+                                                    <span class="glyphicon sort-icon" ng-show="sortNewClaimKey=='claimedItems'"
+                                                        ng-class="{'glyphicon-chevron-up pull-right':reverseNewClaim,'glyphicon-chevron-down pull-right':!reverseNewClaim}"></span>
+                                                </th>
+                                                <th>
+                                                    {{"Table.Action"|translate}}
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="item in CustomSubItem|orderBy:sortNewClaimKey:reverseNewClaim|filter:search">
+                                                <td class="text-center">{{item.id}}</td>
+                                                <td>{{item.description}}</td>
+                                                <td>{{item.unitPrice}}</td>
+                                                <td>{{item.quantity}}</td>
+                                                <td>{{item.totalCost}}</td>
+                                                <td>
+                                                    <font ng-repeat="attachments in item.attachment"><a href="{{attachments.url}}"
+                                                            download>{{attachments.name}}</a><span ng-if="!$last"> , </span></font>
+                                                </td>
+                                                <td class="text-center">
+                                                    <div class="btn-group btn-group-circle btn-outline"
+                                                        style="display:flex !important;">
+                                                        <!--<span ng-click="AddItem(item)" class="text-success sbold pull-left" style="font-size:13px;">{{"Add"|translate}}</span>-->
+                                                        &nbsp; &nbsp;
+                                                        <span ng-click="RemoveSubItem(item,$index)" class="text-danger sbold pull-right"
+                                                            style="font-size:13px;">{{"Delete"|translate}}</span>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr ng-if="CustomSubItem===null || CustomSubItem.length===0">
+                                                <td></td>
+                                                <td colspan="8" class="text-danger text-center">
+                                                    {{"No items to show"|translate}}
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-md-6 pull-right">
+                                    <div class="col-md-3 col-sm-6 Label_Text_Right ">
+                                        <label class="control-label ">
+                                            {{"Label.TotalCost"|translate}} :
+                                            {{CustomSubItemTotalCost|currency}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="portlet">
+                                    <div class="">
+                                        <div class="tools pull-right margin-right-10">
+                                            <button id="sample_editable_1_new " class="btn sbold btnMargin" ng-click="Cancel()">
+                                                {{"Cancel"|translate}}
+                                            </button>
+                                            <button id="sample_editable_1_new " ng-if="!CustomItem.id && !CustomItem.isComparable" class="btn sbold btnMargin"
+                                                ng-click="AddUpdateCustomItem('Draft')" ng-disabled="itemDetailsForm.$invalid || itemDetailsForm.$pristine">
+                                                {{"Draft"|translate}}
+                                            </button>
+                                            <button id="sample_editable_1_new " ng-if="!CustomItem.id && !CustomItem.isComparable" class="btn sbold btnMargin"
+                                                ng-click="AddUpdateCustomItem('Create')" ng-disabled="itemDetailsForm.$invalid || itemDetailsForm.$pristine">
+                                                {{"Create"|translate}}
+                                            </button>
+                                            <button id="sample_editable_1_new " ng-if="CustomItem.id && !CustomItem.isReplacementItem" class="btn sbold btnMargin"
+                                            ng-click="AddUpdateCustomItem('Create')" ng-disabled="itemDetailsForm.$invalid ">
+                                            {{"Update"|translate}}
+                                        </button>
+                                            <button ng-if="!CustomItem.isComparable" id="sample_editable_1_new " class="btn sbold btnMargin"
+                                                ng-click="AddUpdateCustomItem('Comparable')" ng-disabled="itemDetailsForm.$invalid ">
+                                                {{"Add to comparable"|translate}}
+                                            </button>
+                                            <button id="sample_editable_1_new " class="btn sbold btnMargin"
+                                                ng-click="DeleteCustomItem(CustomItem)" ng-if="CustomItem.id && !CustomItem.isReplacementItem">
+                                                {{"Delete"|translate}}
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Attachements Preview Start -->
+<div class="panel panel-defaul" id="img_preview" draggable ng-if="imgDiv" style="margin-top: -120px">
+    <div class="col-md-12 col-sm-12" style="padding: 0px 10px;">
+        <label class="col-md-12 col-sm-12 SubHeadingDiv margin-bottom-10"
+            style="font-size: 14px;">{{DocxDetails.FileName}}</label>
+        <div class="col-md-12 col-sm-12 margin-bottom-10" style="text-align: left;">
+            <a class="btn btn-default sbold btnMargin" href="{{DocxDetails.url}}" ng-if="showButton"
+                ng-click="getAttachements(DocxDetails)">Download</a>
+            <a class="btn btn-default sbold btnMargin" ng-if="showButton"
+                ng-click="deteteClaimAttachment(DocxDetails)">Delete</a>
+            <a id="previewclose" class="btn btn-default sbold btnMargin" ng-click="close()">Close Preview</a>
+            <a ng-if="isPDF == 2" id="previewclose" class="btn btn-default sbold btnMargin glyphicon glyphicon-plus"
+                ng-click="largeMe()"></a>
+            <a ng-if="isPDF == 2" id="previewclose" class="btn btn-default sbold btnMargin glyphicon glyphicon-minus"
+                ng-click="smallMe()"></a>
+        </div>
+    </div>
+
+    <div class="col-md-12 col-sm-12" style="padding: 0px 10px;overflow: auto" ng-if="isPDF == 2">
+        <div class="col-md-12 col-sm-12">
+            <img id="imagepre" class="image-wrapper"
+                onerror="this.onerror=null; this.src='assets/global/img/no-image.png';" class="ImageDocx"
+                ng-src="{{DocxDetails.url}}" alt="Image" />
+        </div>
+    </div>
+    <div class="col-md-12 col-sm-12 col-xs-12 margin-bottom-10" id="PdfView" ng-if="isPDF===1">
+        <!-- Show PDF region Render PDF here -->
+        <div class="col-md-12" id="load_receipts">
+            <ng-pdf template-url="views/GlobalSearch/PdfViewer.html" canvasid="pdf" scale="page-fit" page=1></ng-pdf>
+        </div>
+        <!--End Show PDF region  -->
+    </div>
+    <div class="col-md-12 col-sm-12 col-xs-12 text-center" ng-if="isPDF===0">
+        <div class="col-sm-8 col-md-6 col-xs-12 text-center" style="height:230px;width:100%;">
+            <div class="col-md-12 col-sm-12 col-xs-12 well text-center">
+                <span
+                    class="text-info">{{"File type does not support preview option. File will start downloading.."|translate}}</span>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Attachments Preview End -->

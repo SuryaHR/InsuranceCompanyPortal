@@ -1,0 +1,954 @@
+﻿<style>
+    .padding0px {
+        padding: 0px;
+    }
+
+    .totalRow td:hover {
+        background-color: #337AB7;
+        color: white;
+    }
+
+    .settledHoverCls:hover {
+        text-decoration: underline;
+        font-weight: 700;
+    }
+
+    .table-scroll-container {
+        display: block;
+        position: relative;
+        height: fit-content;
+        overflow: auto;
+    }
+
+    .table-scroll-container>table {
+        margin-bottom: 0px !important;
+    }
+
+    .footer>tr>td {
+        position: sticky;
+        bottom: 0;
+        z-index: 2;
+        background-color: #337AB7;
+        color: white;
+    }
+
+    .fixed {
+        background-color: white;
+        position: sticky !important;
+    }
+
+    .fixed-top {
+        top: -1px;
+    }
+
+    #summary-table {
+        height: 480px;
+    }
+
+    #receipt-table {
+        height: 520px;
+    }
+    .divtobeshown{
+        margin-bottom: 30px;
+    }
+
+    .table_Row_Heading {
+        border-left: 5px solid #b3b3b3 !important;
+    }
+    .drpdown{
+    position:fixed;
+    z-index:100;
+    background-color: white;
+    border-radius: 5px;
+    min-width: 140px;
+    border: 1px solid lightgray;
+    max-height: 225px;
+    overflow-y: scroll;
+    left:21%;
+}
+.drpdown2{
+    position:fixed;
+    z-index:100;
+    background-color: white;
+    border-radius: 5px;
+    min-width: 140px;
+    border: 1px solid lightgray;
+    max-height: 225px;
+    overflow-y: scroll;
+    left:25%;
+}
+.okaybtn{
+    background-color: #1E90FF;
+    border:none;
+    color:white;
+    min-width: 50px !important;
+    border-radius: 2px;
+}
+.cancelBtn{
+    min-width: 50px !important;
+    margin-right: 10%;
+    border:0px;
+    background-color: white;
+    color: #1E90FF;
+    text-decoration: underline;
+}
+
+.clearall{
+    background-color: transparent;
+    border: 0px;
+    margin:0px;
+    text-decoration: underline;
+    color: #1E90FF;
+}
+
+.selectAll{
+    position: sticky;
+    top:0px;
+    background-color: white;
+    padding: 2px;
+    border-bottom: 1px solid black;
+    padding-top: 10px;
+}
+</style>
+<script>
+    function printpdf(){
+    $('#btnLoadFile').addClass('hide');
+    $('.divtobhide').addClass('hide');
+    $('#footercolspan').attr('colspan','3');
+    $('.divtobeshown').removeClass('hide');
+    window.print();
+    $('#btnLoadFile').removeClass('hide');
+    $('.divtobhide').removeClass('hide');
+    $('#footercolspan').attr('colspan','4');
+    $('.divtobeshown').addClass('hide');
+
+    }
+    
+</script>
+<div class="headerFreez border_bottom col-md-12 col-xs-12 margin-bottom-5 divtobhide">
+    <ul class="page-breadcrumb breadcrumb sbold">
+        <li>
+            <a ng-click="GotoDashboard()">{{"Home"|translate}}</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <a ng-click="GotoClaimDetails()">{{CommonObj.ClaimNumber}} </a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span>{{"Receipt Mapper"|translate}}</span>
+        </li>
+    </ul>
+    <div class="mainHeadingDiv">
+        <div class="caption font-gray-sharp">
+            <span class="caption-subject">{{"Receipt Mapper"|translate}}</span>
+        </div>
+    </div>
+</div>
+
+<div class="tabbable-custom col-md-12 col-sm-12 col-xs-12 col-lg-12">
+    <ul class="nav nav-tabs divtobhide">
+        <li class="active">
+            <a href="#" data-toggle="tab" ng-class="{selected:CurrentTab=='Recipt'}"
+                ng-click="CurrentTab = 'Recipt'; ShowPdfDetails='ShowList';GetItemList();">&nbsp;{{"HeaderText.ClaimedItems"|translate}} &nbsp;</a>
+        </li>
+        <li>
+            <a href="#" data-toggle="tab" ng-class="{selected:CurrentTab=='Summarry'}"
+                ng-click="CurrentTab = 'Summarry';GetItemList();"> &nbsp;{{"HeaderText.Summary"|translate}} &nbsp;</a>
+        </li>
+    </ul>
+    <div class="tab-content minTabHeight">
+        <div class="row">
+            <!--Refresh Button link-->
+            <div ng-show="CurrentTab=='Recipt'" class="col-md-3 col-sm-3 col-xs-4 col-lg-3 pull-right divtobhide" style="margin-bottom: 9px;">
+                <!-- <a  ng-click="refreshPage()" class="pull-right"
+                    style="font-weight: 600;">
+                    {{"Refresh Page"|translate}}
+                </a> -->
+
+                <a style="padding:3px !important; margin:1px" ng-click="refreshPage()" href="#" class="pull-right">
+                    <span class="glyphicon glyphicon-refresh"></span>
+                </a>
+            </div>
+            <!--Map Receipts -->
+            <div ng-show="CurrentTab=='Recipt'">
+                <div class="col-md-12 col-xs-12">
+                    <div class="col-md-7 col-sm-12 col-xs-12 padding1px" id="ItemDiv" style="width: 62%;">
+                        <div class="col-md-12 col-xs-12 options_Background_WithBorder" style="display: flex;padding-left: 0px;">
+                            <button ng-click="GetItemList()" style="color: white;width: 16%;text-align: left;" class="clearall">Clear All Filters</button>
+                            <label ng-show="ZoomIn"
+                                class=" col-md-1 col-sm-1 margin-top-5 margin-bottom-5 control-label text_options_Label">{{"View"|translate}}</label>
+                            <div ng-show="ZoomIn" class="col-md-5 col-xs-12 margin-top-5 margin-bottom-5">
+                                <select class="select2me" name="Categories" ng-model="CommonObj.Categories"
+                                    data-placeholder="CategoryList..." ng-change="GetItemsByCategory()">
+                                    <option value="ALL">All</option>
+                                    <option ng-repeat="category in DdlSourceCategoryList"
+                                        value="{{category.categoryName}}">
+                                        {{category.categoryName}}</option>
+                                </select>
+                            </div>
+                            <div ng-class="{'col-md-6' : ZoomIn, 'col-md-12' : !ZoomIn}"
+                                class="margin-top-5 margin-bottom-5">
+                                <div class="input-icon left ">
+                                    <i class="icon-magnifier"></i>
+                                    <input type="text"
+                                        class="form-control form-control-solid input-circle btnMargin input-block-level"
+                                        ng-model="textSearch" ng-change="filterItemsInReceiptMapper(textSearch)"
+                                        name="textSearch"
+                                        placeholder="{{ZoomIn ? 'SearchTextDesc' : 'SearchTextDescCategory' |translate}}">
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Datatable -->
+                        <div class="col-md-12 col-xs-12 table-scroll-container custom_scroll_bar table-responsive padding1px"
+                            id="receipt-table">
+                            <!-- Serching and sorting  items grid -->
+                            <!-- Serching and sorting  items grid -->
+                            <!-- Items grid -->
+                            <table class="table table-striped table-bordered padding1px pointer" id="ReceiptTable">
+                                <thead class="header table_Row_Heading">
+                                    <tr>
+                                        <th class="fixed fixed-top" ng-click="sort('claimItem.id')">
+                                            {{"TabItem.ItemNO"|translate}}
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='claimItem.id'"
+                                                ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                        </th>
+                                        <th class="fixed fixed-top" ng-click="sort('claimItem.description')">
+                                            {{"TabItem.Description"|translate}}
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='claimItem.description'"
+                                                ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+
+                                        </th>
+                                        <th class="fixed fixed-top" ng-show="ZoomIn">
+                                            <div style="display: flex;z-index: 100;">
+                                                <div  ng-click="sort('claimItem.status.status')">
+                                            {{"TabItem.Status"|translate}}
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='claimItem.status.status'"
+                                                ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                            </div>
+                                            <i class="fa fa-filter fa-lg" aria-hidden="true" style="color:#337ab7;margin-left:8%" ng-click="handleCancelbx('status')"></i>
+
+                                        </div>
+                                        </th>
+
+                                        <div class="drpdown custom_scroll_bar"  ng-show="displaystatusfiltr">
+                                            <div style="margin:10%;margin-bottom: 0%;margin-top:0%">
+                                            <div class="selectAll"> 
+                                            <input type="checkbox"  onchange="selectAll(event);" class="selectall" style="margin-right: 10px;padding:10%;margin-top:5%;" ng-model="all" ng-checked="all">Select All
+                                            </div>
+                                            <div style="margin-bottom: 10%;padding:5%">
+                                            <div style="display: flex;" ng-repeat="status in uniqueStatus">
+                                                 <input type="checkbox"  class="status_check" onchange ="handleCheck(event)" style="margin-right: 10px;margin-left: 9%;" value="{{status}}" ng-checked="all">
+                                                {{status}}
+                                            </div>
+                                            </div>
+                                            <div class="btn-controls" style="display: flex;position:relative;right: 3;margin-bottom: 10px;">
+                                                <button ng-click="handleCancelbx('status')" class="cancelBtn" style="">Cancel</button>
+                                                <button class="okaybtn" style="min-width: 50px !important;" ng-click="Filter('status')">OK</button>
+                                            </div>
+                                    </div>
+                                    </div>
+                                        <!-- <th ng-show="ZoomIn" ng-click="sort('claimItem.category.name')"
+                                            style="width:15%;">
+                                            {{"Table.Category"|translate}}
+                                            <span class="glyphicon sort-icon"
+                                                ng-show="sortKey=='claimItem.category.name'"
+                                                ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                        </th> -->
+
+                                        <!-- <th ng-click="sort('claimItem.totalStatedAmount')" style="width:12.5%;">
+                                            {{"Table.totalStatedAmount"|translate}}
+                                            <span class="glyphicon sort-icon"
+                                                ng-show="sortKey=='claimItem.totalStatedAmount'"
+                                                ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                        </th> -->
+
+                                        <th class="fixed fixed-top" ng-show="ZoomIn"
+                                            ng-click="sort('claimItem.receiptValue')">
+                                            {{"TabItem.ReceiptValue"|translate}}
+                                            <span class="glyphicon sort-icon"
+                                                ng-show="sortKey=='claimItem.receiptValue'"
+                                                ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                        </th>
+
+                                        <th class="fixed fixed-top" ng-show="ZoomIn"
+                                            ng-click="sort('claimItem.quantity')">
+                                            {{"TabItem.Qunatity"|translate}}
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='claimItem.quantity'"
+                                                ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                        </th>
+
+                                        <th class="fixed fixed-top" ng-show="ZoomIn"
+                                            ng-click="sort('claimItem.replacementExposure')">
+                                            {{"TabItem.ReplacementCost"|translate}}
+                                            <span class="glyphicon sort-icon"
+                                                ng-show="sortKey=='claimItem.replacementExposure'"
+                                                ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                        </th>
+
+                                        <th class="fixed fixed-top hide" ng-show="ZoomIn"
+                                            ng-click="sort('claimItem.acv')">
+                                            {{"TabItem.ACV"|translate}}
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='claimItem.acv'"
+                                                ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                        </th>
+
+                                        <th class="fixed fixed-top" ng-show="ZoomIn"
+                                            ng-click="sort('claimItem.cashPaid')" style="width:8.6%;">
+                                            {{"TabItem.CashPaid"|translate}}
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='claimItem.Cash Paid'"
+                                                ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                        </th>
+
+                                        <!-- <th ng-show="ZoomIn" ng-click="sort('claimItem.rcv')" style="width:10%;">
+                                            {{"Settle- ment Value"|translate}}
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='claimItem.rcv'"
+                                                ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                        </th> -->
+
+                                        <th class="fixed fixed-top" ng-show="ZoomIn"
+                                            ng-click="sort('claimItem.holdOverDue')">
+                                            {{"TabItem.Holdover"|translate}}
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='claimItem.holdOverDue'"
+                                                ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                        </th>
+
+                                        <th class="fixed fixed-top" ng-show="ZoomIn"
+                                            ng-click="sort('claimItem.holdoverPaid')">
+                                            {{"TabItem.HoldoverPaid"|translate}}
+                                            <span class="glyphicon sort-icon"
+                                                ng-show="sortKey=='claimItem.holdoverPaid'"
+                                                ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                        </th>
+
+                                        <!-- <th ng-show="ZoomIn" ng-click="sort('claimItem.receiptValue')" style="width:10%;">
+                                            {{"Table.ReceiptValue"|translate}}
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='claimItem.receiptValue'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                        </th> -->
+
+                                        <th class="fixed fixed-top" ng-show="ZoomIn"
+                                            ng-click="sort('claimItem.action')">
+                                            {{"TabItem.Action"|translate}}
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='claimItem.action'"
+                                                ng-class="{'glyphicon-chevron-up pull-right':!reverse,'glyphicon-chevron-down pull-right':reverse}"></span>
+                                        </th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat-start="item in FilteredClaimedItemList|orderBy:sortKey:reverse"
+                                        ng-click="showMappedItemOnPDF(item.claimItem)"
+                                        ng-class="{ 'Highlighted_Row_StatusValued':item.claimItem.status.status === constants.itemStatus.valued,
+                                                    'Highlighted_Row_StatusPaid': item.claimItem.status.status === constants.itemStatus.paid,
+                                                    'Highlighted_Row_Settled': item.claimItem.status.status === constants.itemStatus.settled,
+                                                    'Highlighted_Row_Replaced': item.claimItem.status.status === constants.itemStatus.replaced,
+                                                    'Highlighted_Row_PartialReplaced': item.claimItem.status.status === constants.itemStatus.partialReplaced }">
+
+                                        <td>{{item.claimItem.itemNumber}}</td>
+                                        <td>{{item.claimItem.description}}</td>
+                                        <td ng-show="ZoomIn" style="word-wrap:break-word">
+                                            {{item.claimItem.status.status}}</td>
+                                        <!-- <td ng-show="ZoomIn" style="width:15%;word-wrap:break-word">
+                                            {{item.claimItem.category.name}}</td> -->
+
+                                        <!-- <td style="width:12.5%;word-break: break-word;text-align: right;">
+                                            {{item.claimItem.totalStatedAmount |currency}}</td> -->
+                                        <td ng-show="ZoomIn" style="word-break: break-word;text-align: right;">
+                                            {{item.claimItem.receiptValue | currency}} </td>
+                                        <td ng-show="ZoomIn" style="text-align: right;">
+                                            {{item.claimItem.totalQuantityReplaced}} ({{item.claimItem.quantity}}) </td>
+                                        <td ng-show="ZoomIn" style="word-break: break-word;text-align: right;">
+                                            {{item.claimItem.replacementExposure ? item.claimItem.replacementExposure : 0.0 |currency}}
+                                        </td>
+                                        <td ng-show="ZoomIn" class="hide"
+                                            style="word-break: break-word;text-align: right;">
+                                            {{item.claimItem.acv |currency}} </td>
+                                        <td ng-show="ZoomIn" style="word-break: break-word;text-align: right;">
+                                            {{item.claimItem.cashPaid !=null ? item.claimItem.cashPaid : 0 | currency}}
+                                        </td>
+                                        <td ng-show="ZoomIn" style="word-break: break-word;text-align: right;">
+                                            {{item.claimItem.holdOverDue != null ? item.claimItem.holdOverDue : 0 |currency}}
+                                        </td>
+                                        <td ng-show="ZoomIn" style="word-break: break-word;text-align: right;">
+                                            {{item.claimItem.holdOverPaymentPaidAmount != null ? item.claimItem.holdOverPaymentPaidAmount : 0 |currency}}
+                                        </td>
+                                        <!-- <td ng-show="ZoomIn"
+                                            style="width:10%;word-break: break-word;text-align: right;">
+                                            {{item.totalSettlement |currency}} </td> -->
+
+                                        <!-- {{item.claimItem.holdOverValue |currency}}</td> -->
+                                        <td ng-show="ZoomIn"
+                                            style="word-break: break-word;text-align: right;padding: 0px!important;vertical-align: middle;"
+                                            class="not-clickable-cell" ng-click="$event.stopPropagation()">
+                                            <span
+                                                ng-if="item.claimItem.status.status == 'PAID' || (item.claimItem.status.status =='PARTIAL REPLACED' && (item.claimItem.holdOverDue==null || item.claimItem.holdOverDue==0))"
+                                                ng-click="updateItemSettledStatus(item)" class="settledHoverCls"
+                                                style="font-size: 10px;margin-right: 3px;">
+                                                {{"Settled"|translate}}
+                                            </span>
+                                            <!-- <a ng-if="item.claimItem.status.status == 'PAID' || (item.claimItem.status.status =='PARTIAL REPLACED' && (item.claimItem.holdOverDue==null || item.claimItem.holdOverDue==0))" ng-click="updateItemSettledStatus(item)"
+                                                style="font-size: 10px; font-weight: 700; margin-right: 3px;color: white;">
+                                                {{"Settled"|translate}}
+                                            </a> -->
+                                        </td>
+                                    </tr>
+                                    <tr ng-repeat="replaceI in item.claimItem.replaceItems"
+                                        ng-click="ShowPdfCoordinates(replaceI,item.claimItem.id,item.claimItem.itemNumber )"
+                                        ng-class="{ 'Sub_Highlighted_Row_StatusPaid': item.claimItem.status.status === constants.itemStatus.paid,
+                                                    'Sub_Highlighted_Row_Settled': item.claimItem.status.status === constants.itemStatus.settled,
+                                                    'Sub_Highlighted_Row_Replaced': item.claimItem.status.status === constants.itemStatus.replaced,
+                                                    'Sub_Highlighted_Row_PartialReplaced': item.claimItem.status.status === constants.itemStatus.partialReplaced }">
+                                        <td colspan="3" ng-show="ZoomIn"
+                                            style="word-wrap:break-word;text-align: center;">
+                                            {{replaceI.createDate | DateTimeFormatMMMDDT}}</td>
+                                        <!-- <td style="width:12.5%;word-break: break-word;text-align: right;">
+                                            {{replaceI.receiptValue |currency}} </td> -->
+                                        <td ng-show="ZoomIn" style="word-break: break-word;text-align: right;">
+                                            {{ replaceI.receiptValue > 0 ? replaceI.receiptValue : 0 | currency }}</td>
+                                        </td>
+                                        <td ng-show="ZoomIn" style="text-align: center;">{{replaceI.quantity}}
+                                        </td>
+                                        <td ng-show="ZoomIn" class="" style="word-break: break-word;text-align: right;">
+                                            {{replaceI.replacementExposure |currency}} </td>
+                                        <td ng-show="ZoomIn" style="word-break: break-word;text-align: right;">
+                                            {{ replaceI.cashPaid > 0 ? replaceI.cashPaid : 0 | currency }}
+                                        <td ng-show="ZoomIn" style="word-break: break-word;text-align: right;">
+                                            {{replaceI.holdOverDue != null ? replaceI.holdOverDue : 0 |currency}}</td>
+                                        <td ng-show="ZoomIn" style="word-break: break-word;text-align: right;">
+                                            {{replaceI.holdOverPaid != null ? replaceI.holdOverPaid : 0 |currency}}</td>
+                                        <td></td>
+                                    </tr>
+
+                                    <tr ng-repeat="replaceI in item.claimItem.replaceItemsTotal" style="background-color: #f3f3f3"
+                                        ng-class="{ 'Sub_Highlighted_Row_StatusPaid': item.claimItem.status.status === constants.itemStatus.paid,
+                                                    'Sub_Highlighted_Row_Settled': item.claimItem.status.status === constants.itemStatus.settled,
+                                                    'Sub_Highlighted_Row_Replaced': item.claimItem.status.status === constants.itemStatus.replaced,
+                                                    'Sub_Highlighted_Row_PartialReplaced': item.claimItem.status.status === constants.itemStatus.partialReplaced }">
+                                        <td colspan="3" ng-show="ZoomIn" style="word-break: break-word;text-align: right;padding-left:15px !important">
+                                          <strong>Total</strong> 
+                                            </td>
+                                        <td  ng-show="ZoomIn" style="word-break: break-word;text-align: right;">
+                                            <strong>  {{ replaceI.totalReceiptValue > 0 ? replaceI.totalReceiptValue : 0 | currency }}
+                                                </strong>
+                                            </td>
+                                        </td>
+                                        <td ng-show="ZoomIn" style="text-align: center;">
+                                            <strong>{{replaceI.totalQuantityReplaced}} ({{item.claimItem.quantity}}) 
+                                                </strong>
+                                        </td>
+                                        <td ng-show="ZoomIn" class="" style="word-break: break-word;text-align: right;">
+                                          <strong>  {{replaceI.totalMaxReplacement |currency}} </strong>
+                                        </td>
+                                        <td ng-show="ZoomIn" style="word-break: break-word;text-align: right;">
+                                          <strong>  {{ replaceI.totalCashPaid > 0 ? replaceI.totalCashPaid : 0 | currency }}</strong>
+                                          </td>
+                                        <td ng-show="ZoomIn" style="word-break: break-word;text-align: right;">
+                                           <strong> {{replaceI.totalHoldoverDue != null ? replaceI.totalHoldoverDue : 0 |currency}}</strong>
+                                         </td>
+                                        <td ng-show="ZoomIn" style="word-break: break-word;text-align: right;">
+                                           <strong> {{replaceI.totalHoldoverPaid != null ? replaceI.totalHoldoverPaid : 0 |currency}}</strong>
+                                           </td>
+                                        <td></td>
+                                    </tr>
+
+                                    <tr ng-repeat-end></tr>
+                                    <tr ng-if="FilteredClaimedItemList===null || !FilteredClaimedItemList.length">
+                                        <td colspan="10" class="text-danger text-center">{{"Norecordfound"|translate}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tfoot class="footer" ng-show="ZoomIn">
+                                    <tr style="background: #337AB7;color: white; font-weight: 700;">
+                                        <td colspan="3" class="sbold text-right"
+                                            ng-style="{'width': ZoomIn ? '31.5%' : '22%' }">{{"Total"|translate}}</td>
+                                        <!-- <td style="width:12.5%;word-break: break-word;text-align: right;">
+                                                    {{ TotalStatedAmt  | currency}}</td> -->
+                                        <td ng-if="ZoomIn" style="word-break: break-word;text-align: right;">
+                                            {{ TotalReceiptVal  | currency}}</td>
+                                        <td ng-if="ZoomIn" style="word-break: break-word;text-align: right;">
+                                            {{ TotalQuantityReplaced}} ({{TotalQuantityToReplace}})
+                                        </td>
+                                        <td ng-if="ZoomIn"
+                                            style="width:11.9%;word-break: break-word;text-align: right;">
+                                            {{ totalReplacementExposure ? totalReplacementExposure : 0.0 | currency}}
+                                        </td>
+                                        <td ng-if="ZoomIn" class="hide"
+                                            style="word-break: break-word;text-align: right;">
+                                            {{ TotalACV  | currency}}</td>
+                                        <td style="word-break: break-word;text-align: right;">
+                                            {{ totalCashPaid  | currency}}</td>
+
+                                        <td ng-if="ZoomIn" style="word-break: break-word;text-align: right;">
+                                            {{TotalHoldoverDue | currency}}</td>
+                                        <td ng-if="ZoomIn" style="word-break: break-word;text-align: right;">
+                                            {{TotalHoldoverPaid  | currency}}</td>
+                                        <!-- <td ng-if="ZoomIn" style="width:10%;word-break: break-word;text-align: right;">
+                                                    {{totalSettlement  | currency}}</td> -->
+                                        <td ng-if="ZoomIn"
+                                            style="word-break: break-word;text-align: right;background: #337AB7;">
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                            <!--End Items grid -->
+                        </div>
+                    </div>
+                    <div class="col-md-5 visible-lg visible-md padding1px" id="PdfViewerDiv" style="width: 38%;">
+                        <div class="col-md-12 col-xs-12 options_Background_WithBorder" style="border-left:groove 1px;">
+                            <div class="col-md-1 col-xs-1" style="color: #ffffff;">
+                                <span ng-show="ZoomIn"
+                                    class="pull-right hidden-sm hidden-xs	glyphicon glyphicon-resize-full "
+                                    style="font-size: 18px; line-height: 32px;" title="Expand"
+                                    ng-click="ZoomPdfSection()"></span>
+                                <span ng-if="ZoomOut"
+                                    class="pull-right margin-bottom-4 glyphicon glyphicon-resize-small"
+                                    style="font-size: 20px; line-height: 32px;" title="Collapse"
+                                    ng-click="ZoomOutPdfSection()"></span>
+                            </div>
+                            <input id="FileUpload" type="file"
+                                onchange="angular.element(this).scope().getReceiptFile(event)" style="display: none;"
+                                accept="application/pdf" multiple>
+                            <div
+                                class="addnew_receipt btn btn-default col-lg-4 col-md-5 col-xs-12 margin-top-5 margin-bottom-5">
+                                <i class="fa fa-plus-circle" style="cursor: pointer;" id="ClaimFileUpload"
+                                    ng-click="UploadFile()"><span>&nbsp;New Receipt</span></i>
+                            </div>
+                            <div class="col-lg-7 col-md-12 col-xs-12 margin-top-5 margin-bottom-5 pull-right ">
+                                <div class="input-icon left " ng-show="ShowPdfDetails=='ShowList'">
+                                    <i class="icon-magnifier"></i>
+                                    <input type="text"
+                                        class="form-control form-control-solid input-circle btnMargin input-block-level"
+                                        ng-model="listSearch" name="textSearch"
+                                        placeholder="{{'SearchText'|translate}}">
+                                </div>
+                                <span class="glyphicon glyphicon-list  pull-right" style="font-size: 20px;font-weight: lighter; line-height: 1;
+                                   color: white;" ng-click="ShowPdfDetails='ShowList'"
+                                    ng-show="ShowPdfDetails=='ShowDetails'"></span>
+                            </div>
+                        </div>
+                        <!--PDF / Image viewer  -->
+                        <div class="portlet light bordered ">
+                            <div class="portlet-body ">
+                                <div class="row ">
+                                    <div class="col-md-12 col-xs-12 visible-sm visible-xs text-center ">
+                                        <div class="col-md-12 col-xs-12 options_Background_WithBorder">
+                                            <div
+                                                class="addnew_receipt btn btn-default col-xs-12 col-sm-4 margin-top-10 margin-bottom-5">
+                                                <input id="FileUpload" type="file"
+                                                    onchange="angular.element(this).scope().getReceiptFile(this)"
+                                                    style="display: none;" accept="application/pdf" multiple>
+                                                <i class="fa fa-plus-circle" style="cursor: pointer;"
+                                                    id="ClaimFileUpload" ng-click="UploadFile()"><span>&nbsp;New
+                                                        Receipt</span></i>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-6 margin-top-10 margin-bottom-5 pull-right ">
+                                                <div class="input-icon left " ng-show="ShowPdfDetails=='ShowList'">
+                                                    <i class="icon-magnifier"></i>
+                                                    <input type="text"
+                                                        class="form-control form-control-solid input-circle btnMargin input-block-level"
+                                                        ng-model="listSearch" name="textSearch"
+                                                        placeholder="{{'SearchText'|translate}}">
+                                                </div>
+
+                                                <span class="glyphicon glyphicon-list pull-right margin-bottom-10"
+                                                    style="font-size: 20px;font-weight: lighter;line-height: 12px; color: white;"
+                                                    ng-click="ShowPdfDetails='ShowList'"
+                                                    ng-show="ShowPdfDetails=='ShowDetails'"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Show PDF region Render PDF here -->
+                                    <div class="col-md-12 ReceiptHeight" ng-show="ShowPdfDetails=='ShowList'">
+                                        <div class="col-md-12 text-center well"
+                                            ng-if="(ReceiptList.length===0 ||ReceiptList===null)&& Receiptfiles.length===0">
+                                            <label class="text-info">{{"No receipt available yet.."|translate}}</label>
+                                        </div>
+                                        <div class="col-md-12 col-sm-12 col-xs-12"
+                                            style="background:#f1f4f7;border-radius: 4px !important; border-bottom: groove;"
+                                            ng-repeat-start="item in ReceiptList | filter:listSearch ">
+                                            <label
+                                                class="col-md-12 col-lg-12 col-sm-12 col-xs-12 margin-bottom-10 margin-top-10">{{item.date}}</label>
+                                        </div>
+                                        <div ng-repeat="pdf in item.pdfList | filter:listSearch"
+                                            class="col-md-12 col-xs-12 padding1px"
+                                            style="padding-top:5px;background:#f1f4f7">
+                                            <a class="col-md-11 col-xs-10 col-sm-10 sbold margin-bottom-5 margin-top-5"
+                                                ng-click="showReceipt(pdf)">{{pdf.name}}</a>
+                                            <div
+                                                class="col-md-1 col-sm-1 col-xs-1 col-lg-1 margin-bottom-5 margin-top-5">
+                                                <span class="glyphicon glyphicon-tags pull-right "
+                                                    style="transform: rotate(90deg);font-size: 18px;padding-bottom: -2px;"
+                                                    ng-click="ModalLabels(pdf.pdfId)"> </span>
+                                            </div>
+                                            <div class="col-md-12 col-sm-12 col-xs-12 margin-bottom-5">
+                                                <span ng-repeat="tag in pdf.tags">
+                                                    <span class="col-md-12 col-sm-12">{{tag.tag}}</span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div ng-repeat-end></div>
+                                    </div>
+                                    <div class="col-md-12" ng-show="ShowPdfDetails=='ShowDetails'" id="load_receipts">
+                                        <ng-pdf template-url="js/scripts/viewer.html" canvasid="pdf" scale="page-fit"
+                                            page=1> </ng-pdf>
+                                    </div>
+                                    <!--End Show PDF region  -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Summary Tab -->
+            <h3 align="center" class="divtobeshown hide">Settlement Summary of #{{CommonObj.ClaimNumber}}</h3>
+
+            <div class="col-md-12 col-xs-12"  id="summary-table" ng-show="CurrentTab=='Summarry'">
+                <div class="col-md-12 col-xs-12 " style="padding-right:0px;">
+                    
+                    <a class="pull-right divtobhide"
+                        style="margin: 1px; padding: 3px !important;"
+                         ng-click="refreshPage()" href="#" class="pull-right">
+                        <span class="glyphicon glyphicon-refresh"></span>
+                    </a>
+
+                    <button id="btnLoadFile" class="btn sbold btnMargin pull-right divtobhide" ng-click="exportSummaryToPDF()">
+                        {{"Download as PDF"|translate}}
+                    </button>
+
+                    <button id="btnLoadFile" class="btn sbold btnMargin pull-right divtobhide" ng-disabled="!payHoldOver"
+                        ng-click="holdoverCheck()">
+                        {{"Pay Holdover"|translate}}
+                    </button>
+
+                </div>
+                <div class="col-md-12 col-xs-12 margin-bottom-10 " style="padding-right:0px;">
+                    <div class="col-md-3 col-xs-3 "
+                        style="border: 1px solid;border-radius: 4px;border-color: #cccccc;margin-left: 110px;">
+                        <div class="col-md-12 col-xs-12 " style="text-align: center;">
+                            <label
+                                style="font-size: 20px; font-style: normal; font-weight: 400;">{{"Cash Value Paid"|translate}}</label>
+
+                        </div>
+                        <div class="col-md-12 col-xs-12 " style="text-align: center;">
+                            <span><span class="sbold"
+                                    style="font-size: 20px; font-style: normal; font-weight: bold;">{{FilteredClaimedItemList.length}}</span>&nbsp;&nbsp;{{"items"|translate}}&nbsp;&nbsp;<span
+                                    style="border-left: 1px solid black;height: 100px;"></span>&nbsp;&nbsp;<span
+                                    class="sbold"
+                                    style="font-size: 20px; font-style: normal; font-weight: bold;">{{totalCashPaid!=null?totalCashPaid:0 | currency}}</span></span>
+                        </div>
+                    </div>
+                    <!-- <div class="col-md-1 col-xs-3 "></div> -->
+                    <div class="col-md-4 col-xs-3 "
+                        style="border: 1px solid;border-radius: 4px;border-color: #cccccc; margin-left: 50px;width: 350px;">
+                        <div class="col-md-12 col-xs-12 " style="text-align: center;">
+                            <label
+                                style="font-size: 20px; font-style: normal; font-weight: 400;">{{"Holdover Payments"|translate}}</label>
+
+                        </div>
+                        <div class="col-md-12 col-xs-12 " style="text-align: center;">
+                            <span><span class="sbold"
+                                    style="font-size: 20px; font-style: normal; font-weight: bold;">{{noOfHoldoverItems}}</span>&nbsp;&nbsp;{{"items"|translate}}&nbsp;&nbsp;<span
+                                    style="border-left: 1px solid black;height: 100px;"></span>&nbsp;&nbsp;<span
+                                    class="sbold"
+                                    style="color: var(--mq-txt-color, rgba(76, 216, 100, 0.87)); font-size: 20px; font-style: normal; font-weight: bold;">{{TotalHoldoverPaid | currency}}</span>&nbsp;&nbsp;
+                                of &nbsp;&nbsp;<span class="sbold"
+                                    style="color: var(--mq-txt-color, rgb(255, 56, 35));font-size: 20px; font-style: normal; font-weight: bold;">{{TotalHoldoverDue  + TotalHoldoverPaid  | currency}}
+                                </span></span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-md-12 col-xs-12 options_Background_WithBorder divtobhide" style="display: flex;padding-left: 0px;">
+                    <button ng-click="GetItemList()" style="color: white;width: 16%;text-align: left;" class="clearall">Clear All Filters</button>
+
+                    <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3 margin-top-5 margin-bottom-5 text-left"
+                        style="width: auto;padding-right: 0px;">
+
+                    </div>
+                    <div class="col-md-1 col-sm-1 col-md-offset-3 margin-top-5">
+                        <label class="control-label text_options_Label">{{"View"|translate}}</label>
+                    </div>
+                    <div class="form-group col-md-3 col-xs-12 col-sm-5 margin-top-5">
+                        <select class="select2me form-control" name="Categories" ng-model="CommonObj.Categories"
+                            data-placeholder="CategoryList..." ng-change="GetItemsByCategory()">
+                            <option value="ALL">All</option>
+                            <option ng-repeat="category in DdlSourceCategoryList" value="{{category.categoryName}}">
+                                {{category.categoryName}}</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3 col-xs-12 col-sm-4 margin-top-5 padding1px">
+                        <div class="input-icon left">
+                            <i class="icon-magnifier"></i>
+                            <input type="text"
+                                class="form-control form-control-solid input-circle btnMargin input-block-level"
+                                ng-model="summeryItemSearch" ng-change="filterItemsInReceiptMapper(summeryItemSearch)"
+                                name="textSearch" placeholder="{{'SearchTextDescSubCat'|translate}}">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-xs-12 table-scroll-container custom_scroll_bar table-responsive padding1px" style="height: 354px;">
+                    <!-- Summary grid -->
+                    <table class="table table-bordered table-hover" style="border: 1px solid grey" aria-describedby="" id="summaryTable">
+                        <thead class="header">
+                            <tr>
+                                <th class="fixed fixed-top divtobhide">
+                                    <label class="mt-checkbox mt-checkbox-outline mt-checkbox-single ">
+                                        <input type="checkbox" ng-model="selectedAll" ng-click="checkAll()" />
+                                        <span></span>
+                                    </label>
+                                </th>
+                                <th class="fixed fixed-top" ng-click="sortSummary('claimItem.itemNumber')"
+                                    style="word-wrap:break-word;text-align: center;">
+                                    {{"Table.ItemNO"|translate}}
+                                    <span class="glyphicon sort-icon" ng-show="sortSummaryKey=='claimItem.itemNumber'"
+                                        ng-class="{'glyphicon-chevron-up pull-right':!Summaryreverse,'glyphicon-chevron-down pull-right':Summaryreverse}"></span>
+                                </th>
+                                <th class="fixed fixed-top" ng-click="sortSummary('claimItem.description')"
+                                    style="text-align: center;">
+                                    {{"Description"|translate}}
+                                    <span class="glyphicon sort-icon" ng-show="sortSummaryKey=='claimItem.description'"
+                                        ng-class="{'glyphicon-chevron-up pull-right':!Summaryreverse,'glyphicon-chevron-down pull-right':Summaryreverse}"></span>
+                                </th>
+                                <th class="fixed fixed-top"
+                                    style="text-align: center;">
+                                    <div style="display: flex;z-index: 100;">
+                                        <div  ng-click="sortSummary('claimItem.status.status')">
+                                    {{"Status"|translate}}
+                                    <span class="glyphicon sort-icon"
+                                        ng-show="sortSummaryKey=='claimItem.status.status'"
+                                        ng-class="{'glyphicon-chevron-up pull-right':!Summaryreverse,'glyphicon-chevron-down pull-right':Summaryreverse}"></span>
+                                    </div>
+                                    <i class="fa fa-filter fa-lg" aria-hidden="true" style="color:#337ab7;margin-left:8%" ng-click="handleCancelbx('status')"></i>
+
+                                </div>
+                                </th>
+                                <div class="drpdown2 custom_scroll_bar"  ng-show="displaystatusfiltr">
+                                    <div style="margin:10%;margin-bottom: 0%;margin-top:0%">
+                                    <div class="selectAll"> 
+                                    <input type="checkbox"  onchange="selectAll(event);" class="selectall" style="margin-right: 10px;padding:10%;margin-top:5%;" ng-model="all" ng-checked="all">Select All
+                                    </div>
+                                    <div style="margin-bottom: 10%;padding:5%">
+                                    <div style="display: flex;" ng-repeat="status in uniqueStatus">
+                                         <input type="checkbox"  class="status_check" onchange ="handleCheck(event)" style="margin-right: 10px;margin-left: 9%;" value="{{status}}" ng-checked="all">
+                                        {{status}}
+                                    </div>
+                                    </div>
+                                    <div class="btn-controls" style="display: flex;position:relative;right: 3;margin-bottom: 10px;">
+                                        <button ng-click="handleCancelbx('status')" class="cancelBtn" style="">Cancel</button>
+                                        <button class="okaybtn" style="min-width: 50px !important;" ng-click="Filter('status')">OK</button>
+                                    </div>
+                            </div>
+                            </div>
+                                <!-- <th ng-click="sortSummary('claimItem.subCategory.name')">
+                                    {{"Table.SubCategory"|translate}}
+                                    <span class="glyphicon sort-icon" ng-show="sortSummaryKey=='claimItem.subCategory.name'"
+                                        ng-class="{'glyphicon-chevron-up pull-right':!Summaryreverse,'glyphicon-chevron-down pull-right':Summaryreverse}"></span>
+                                </th> -->
+
+                                <th class="fixed fixed-top" ng-click="sortSummary('claimItem.rcvTotal')"
+                                    style="text-align: center;">
+                                    {{"TabItem.ReplacementCost"|translate}}
+                                    <span class="glyphicon sort-icon" ng-show="sortSummaryKey=='claimItem.rcvTotal'"
+                                        ng-class="{'glyphicon-chevron-up pull-right':!Summaryreverse,'glyphicon-chevron-down pull-right':Summaryreverse}"></span>
+                                </th>
+
+                                <!-- <th ng-click="sortSummary('subCategory.anualDepreciation')">
+                                    {{"Table.Depreciation"|translate}}
+                                    <span class="glyphicon sort-icon" ng-show="sortSummaryKey=='id'" ng-class="{'glyphicon-chevron-up pull-right':Summaryreverse,'glyphicon-chevron-down pull-right':!Summaryreverse}"></span>
+                                </th> -->
+                                <th class="fixed fixed-top hide" ng-click="sortSummary('claimItem.acv')"
+                                    style="word-wrap:break-word;text-align: center;">
+                                    {{"Table.CumulativeACV"|translate}}
+                                    <span class="glyphicon sort-icon" ng-show="sortSummaryKey=='claimItem.acv'"
+                                        ng-class="{'glyphicon-chevron-up pull-right':!Summaryreverse,'glyphicon-chevron-down pull-right':Summaryreverse}"></span>
+                                </th>
+
+                                <th class="fixed fixed-top" ng-click="sortSummary('claimItem.Cash_Paid')"
+                                    style="word-wrap:break-word;text-align: center;">
+                                    {{"Cash Paid"|translate}}
+                                    <span class="glyphicon sort-icon" ng-show="sortSummaryKey=='claimItem.Cash_Paid'"
+                                        ng-class="{'glyphicon-chevron-up pull-right':!Summaryreverse,'glyphicon-chevron-down pull-right':Summaryreverse}"></span>
+                                </th>
+
+                                <th class="fixed fixed-top" ng-click="sortSummary('claimItem.Max_Holdover')"
+                                    style="word-wrap:break-word;text-align: center;">
+                                    {{"Max. Holdover"|translate}}
+                                    <span class="glyphicon sort-icon" ng-show="sortSummaryKey=='claimItem.Max_Holdover'"
+                                        ng-class="{'glyphicon-chevron-up pull-right':!Summaryreverse,'glyphicon-chevron-down pull-right':Summaryreverse}"></span>
+                                </th>
+
+                                <th class="fixed fixed-top" ng-click="sortSummary('claimItem.Receipt_Value')"
+                                    style="word-wrap:break-word;text-align: center;">
+                                    {{"Receipt Value"|translate}}
+                                    <span class="glyphicon sort-icon"
+                                        ng-show="sortSummaryKey=='claimItem.Receipt_Value'"
+                                        ng-class="{'glyphicon-chevron-up pull-right':!Summaryreverse,'glyphicon-chevron-down pull-right':Summaryreverse}"></span>
+                                </th>
+
+                                <th class="fixed fixed-top" ng-click="sortSummary('claimItem.Replaced_Qty')"
+                                    style="word-wrap:break-word;text-align: center;">
+                                    {{"Replaced Qty."|translate}}
+                                    <span class="glyphicon sort-icon" ng-show="sortSummaryKey=='claimItem.Replaced_Qty'"
+                                        ng-class="{'glyphicon-chevron-up pull-right':!Summaryreverse,'glyphicon-chevron-down pull-right':Summaryreverse}"></span>
+                                </th>
+                                <th class="fixed fixed-top" 
+                                    style="word-wrap:break-word;text-align: center;">
+                                    <div style="display: flex;z-index: 100;">
+                                        <div ng-click="sortSummary('claimItem.Holdover_Due')">
+                                    {{"Holdover Due"|translate}}
+                                    <span class="glyphicon sort-icon" ng-show="sortSummaryKey=='claimItem.Holdover_Due'"
+                                        ng-class="{'glyphicon-chevron-up pull-right':!Summaryreverse,'glyphicon-chevron-down pull-right':Summaryreverse}"></span>
+                                    </div>
+
+                                        <i class="fa fa-filter fa-lg" aria-hidden="true" style="color:#337ab7;margin-left:8%" ng-click="handleCancelbx('due')"></i>
+
+                                    </div>
+                                </div>
+                                </th>
+                                <div class="drpdown2 custom_scroll_bar" style="left:72%"   ng-show="displayduefiltr">
+                                    <div style="margin:10%;margin-bottom: 0%;margin-top:0%">
+                                    <div class="selectAll"> 
+                                    <input type="checkbox"  onchange="selectAllDue(event);" class="selectalldue" style="margin-right: 10px;padding:10%;margin-top:5%;" ng-model="alldue" ng-checked="alldue">Select All
+                                    </div>
+                                    <div style="margin-bottom: 10%;padding:5%">
+                                    <div style="display: flex;" ng-repeat="due in uniqueHoldOvrDue">
+                                         <input type="checkbox"  class="due_check" onchange ="handleCheckHoldOvrDue(event)" style="margin-right: 10px;margin-left: 9%;" value="{{due}}" ng-checked="alldue">
+                                        {{due}}
+                                    </div>
+                                    </div>
+                                    <div class="btn-controls" style="display: flex;position:relative;right: 3;margin-bottom: 10px;">
+                                        <button ng-click="handleCancelbx('due')" class="cancelBtn" style="">Cancel</button>
+                                        <button class="okaybtn" style="min-width: 50px !important;" ng-click="Filter('due')">OK</button>
+                                    </div>
+                            </div>
+                            </div>
+                                <th class="fixed fixed-top"
+                                    style="word-wrap:break-word;text-align: center;">
+                                    <div style="display: flex;z-index: 100;">
+                                        <div ng-click="sortSummary('claimItem.Holdover_Paid')">
+                                    {{"Holdover Paid"|translate}}
+                                    <span class="glyphicon sort-icon"
+                                        ng-show="sortSummaryKey=='claimItem.Holdover_Paid'"
+                                        ng-class="{'glyphicon-chevron-up pull-right':!Summaryreverse,'glyphicon-chevron-down pull-right':Summaryreverse}"></span>
+                                    </div>
+
+                                        <i class="fa fa-filter fa-lg" aria-hidden="true" style="color:#337ab7;margin-left:8%" ng-click="handleCancelbx('paid')"></i>
+
+                                </div>
+                                </th>
+                                <div class="drpdown2 custom_scroll_bar" style="left:81%"  ng-show="displaypaidfiltr">
+                                    <div style="margin:10%;margin-bottom: 0%;margin-top:0%">
+                                    <div class="selectAll"> 
+                                    <input type="checkbox"  onchange="selectAllPaid(event);" class="selectallpaid" style="margin-right: 10px;padding:10%;margin-top:5%;" ng-model="allpaid" ng-checked="allpaid">Select All
+                                    </div>
+                                    <div style="margin-bottom: 10%;padding:5%">
+                                    <div style="display: flex;" ng-repeat="paid in uniqueHoldOvrPaid">
+                                         <input type="checkbox"  class="paid_check" onchange ="handleCheckHoldOvrPaid(event)" style="margin-right: 10px;margin-left: 9%;" value="{{paid}}" ng-checked="allpaid">
+                                        {{paid}}
+                                    </div>
+                                    </div>
+                                    <div class="btn-controls" style="display: flex;position:relative;right: 3;margin-bottom: 10px;">
+                                        <button ng-click="handleCancelbx('paid')" class="cancelBtn" style="">Cancel</button>
+                                        <button class="okaybtn" style="min-width: 50px !important;" ng-click="Filter('paid')">OK</button>
+                                    </div>
+                            </div>
+                            </div>
+                                <th class="fixed fixed-top" ng-click="sortSummary('claimItem.Settlement_Value')"
+                                    style="word-wrap:break-word;text-align: center;">
+                                    {{"Settlement Value"|translate}}
+                                    <span class="glyphicon sort-icon"
+                                        ng-show="sortSummaryKey=='claimItem.Settlement_Value'"
+                                        ng-class="{'glyphicon-chevron-up pull-right':!Summaryreverse,'glyphicon-chevron-down pull-right':Summaryreverse}"></span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat=" item in FilteredClaimedItemList | orderBy:sortSummaryKey:Summaryreverse ">
+                                <td class="divtobhide">
+                                    <label class="mt-checkbox mt-checkbox-outline mt-checkbox-single ">
+                                        <input type="checkbox" ng-click="SelectPostLostItem(item.claimItem)"
+                                            ng-model="item.claimItem.Selected"
+                                            ng-disabled="item.claimItem.status.status != 'REPLACED' && item.claimItem.status.status != 'PARTIAL REPLACED'" />
+                                        <span></span>
+                                    </label>
+                                </td>
+                                <td>{{item.claimItem.itemNumber}}</td>
+                                <td>{{item.claimItem.description}}</td>
+                                <td>{{item.claimItem.status.status}}</td>
+                                <!-- <td>{{item.claimItem.subCategory.name}}</td> -->
+                                <!-- <td>{{item.claimItem.categoryLimit}}</td> -->
+
+                                <td ng-show="ZoomIn" style="word-break: break-word;text-align: right;">
+                                    {{item.claimItem.replacementExposure ? item.claimItem.replacementExposure : 0.0 |currency}}
+                                </td>
+                                <td style="text-align: right;" class="hide">{{item.claimItem.acv | currency }} </td>
+
+                                <td style="text-align: right;">
+                                    {{item.claimItem.cashPaid!=null?item.claimItem.cashPaid:0| currency }}</td>
+
+                                <!-- <td style="text-align: center;">{{item.claimItem.subCategory.annualDepreciation ? item.claimItem.subCategory.annualDepreciation +'%' : item.claimItem.subCategory.annualDepreciation }}</td> -->
+                                <td style="text-align: right;">
+                                    {{item.claimItem.maxHoldover ? item.claimItem.maxHoldover :0 | currency }}
+                                </td>
+
+                                <td style="text-align: right;">
+                                    {{item.claimItem.receiptValue!=null ?item.claimItem.receiptValue:0 | currency }}
+                                </td>
+                                <td style="text-align: center;">
+                                    {{item.claimItem.totalQuantityReplaced}}/{{item.claimItem.quantity}}
+                                </td>
+                                <td style="text-align: right;">
+                                    {{item.claimItem.holdOverDue!=null?item.claimItem.holdOverDue:0 | currency }}</td>
+                                <td style="text-align: right;">
+                                    {{item.claimItem.holdOverPaymentPaidAmount!=null?item.claimItem.holdOverPaymentPaidAmount:0 | currency }}
+                                </td>
+
+                                <td style="text-align: right;">
+                                    {{item.totalSettlement!=null?item.totalSettlement:0 | currency }}</td>
+
+                                <!-- <td>{{totalCount}}</td> -->
+
+                            </tr>
+                            <tr ng-if="FilteredClaimedItemList.length === 0">
+                                <td colspan="12" class="text-danger text-center" style="text-align:center !important">
+                                    <span>{{"Norecordfound"|translate}} </span></td>
+                            </tr>
+
+                        </tbody>
+                        <tfoot class=footer>
+                            <tr class="text-right">
+                                <td colspan="4" id="footercolspan" class="sbold">{{"Total"|translate}} </td>
+                                <td class="sbold">
+                                    {{ totalReplacementExposure ? totalReplacementExposure : 0.0 | currency}} </td>
+                                <td class="sbold hide">{{TotalACV | currency}} </td>
+                                <td class="sbold">
+                                    {{totalCashPaid!=null?totalCashPaid:0 | currency}}</td>
+                                <td class="sbold">
+                                    {{totalMaxHoldover ? totalMaxHoldover :0 | currency}} </td>
+                                <td class="sbold">
+                                    {{ TotalReceiptVal>0 && TotalReceiptVal!=null?TotalReceiptVal:0  | currency}}</td>
+                                <td class="sbold" style="text-align: center;">
+                                    {{TotalQuantityReplaced!=null?TotalQuantityReplaced:0}}/{{TotalQuantityToReplace!=null?TotalQuantityToReplace:0}}
+                                </td>
+                                <td class="sbold">
+                                    {{TotalHoldoverDue!=null?TotalHoldoverDue:0 |currency}}</td>
+                                <td class="sbold">
+                                    {{TotalHoldoverPaid!=null?TotalHoldoverPaid:0 |currency}}</td>
+                                <td class="sbold">
+                                    {{totalSettlement!=null?totalSettlement:0 |currency}}</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                    <!-- PAgination of grid -->
+                    <!-- <dir-pagination-controls max-size="3" ng-if="FilteredClaimedItemList.length > 0"
+                        pagination-id="FilteredClaimedItemListId" direction-links="true" boundary-links="true"
+                        class="pull-right">
+                    </dir-pagination-controls> -->
+                    <!--End Summary grid -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

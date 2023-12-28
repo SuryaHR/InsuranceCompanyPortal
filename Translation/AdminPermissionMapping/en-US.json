@@ -1,0 +1,21 @@
+﻿{
+  "MainHeading": "User Role - Permission Mapping",
+  "ControlText": {
+    "Save": "Save",
+    "Permission": "Assign Permission For Screens",
+    "Create": "Create",
+    "Delete": "Delete",
+    "Select": "Select",
+    "Update": "Update"
+  },
+  "Label": {
+    "RoleGroup": "Role / Group"
+  },
+  "ErrorMessage": {
+    "RoleRequired": "Select Role ",
+    "PermissionRequired": "Please select permissions to assign"
+  },
+  "AlertMessage": {
+    "PermissionAssignTitle": "Assign Permission"
+  }
+}

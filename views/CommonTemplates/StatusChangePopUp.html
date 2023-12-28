@@ -1,0 +1,40 @@
+<script>
+    $(document).ready(function () {
+        $("#select2insidemodal").select2({
+            dropdownParent: $("#statusPopUp")
+        });
+    });
+</script>
+<div class="statusPopUp">
+    <div class="response">
+        <div class="modal-header" style="background-color: #337ab7; color: white;">
+            <a class="close" ng-click="cancel()" aria-hidden="true"></a>
+            <h5 class="modal-title sbold">{{"Change Status"|translate}}</h5>
+        </div>
+        <div class="modal-body" style="height: 100%;max-height:300px;overflow-y:scroll;overflow-x:hidden;">
+            <div class="col-md-12 col-sm-12 padding1px">
+                
+                <button
+                id="btnLoadFile"
+                class="btn sbold btnMargin"
+                ng-click="paid()" ng-if="canPaid">
+                {{"Mark Paid"|translate}}
+                </button><br><br>
+                <button
+                id="btnLoadFile"
+                class="btn sbold btnMargin"
+                ng-click="ChangeStatus(4)"
+                ng-if="canValued">
+                {{"Mark Valued"|translate}}
+                </button><br><br>
+                <button
+                id="btnLoadFile"
+                class="btn sbold btnMargin"
+                ng-click="SupervisorReview()">
+                {{"Supervisor Review"|translate}}
+                </button>
+                
+            </div>
+        </div>
+    </div>
+</div>

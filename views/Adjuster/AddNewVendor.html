@@ -1,0 +1,476 @@
+﻿<script>
+$(document).ready(function () {
+    $("#select2insidemodal").select2({
+        dropdownParent: $("#myModal")
+    });
+
+});
+</script>
+<div class="">
+    <div class="modal-header text-center">
+        <a class="close" data-dismiss="modal" aria-hidden="true" ng-click="cancel($event)"></a>
+        <h4 class="modal-title text-primary">{{"Modal.Header"|translate}}</h4>
+    </div>
+    <div id="myModal" class="modal-body" style="min-height: 550px; max-height:600px !important;overflow-y:auto;">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group col-md-12">
+                    <div class="col-md-4 col-sm-4">
+                        <label class="bold caption text-primary control-label">{{"FormControl.ParticipantType"|translate}}</label>
+                    </div>
+                    <div class="col-md-8 col-sm-8">
+                        <div class="col-md-6 col-sm-12 margin-bottom-10">
+                            <select class="form-control select2me" id="select2insidemodal" style="width:100%;" ng-model="commObj.ParticipantType" ng-change="selectParticipant()">
+                                <option value="Select">Select</option>
+                                <option ng-repeat="Type in ddlParticipantTypeList" value="{{Type.type}}">{{Type.type}}</option>
+                            </select>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="portlet">
+                <div class="portlet-title"></div>
+            </div>
+                <!--New Vendor form-->
+                <div class="col-md-12 col-sm-12 padding1px" ng-show="displayNewVendor">
+                        <div class="col-md-12 col-sm-12 padding1px">
+                            <div class="col-md-12 col-sm-12 padding1px" id="NewVendorForm" ng-form="NewVendorForm">
+                                <div class="col-md-12 col-sm-12 clearfix">
+                                    <div class="col-md-2 col-sm-4 form-group text-right">
+                                        <label class="text-muted control-label">{{"FormControl.Supplier"|translate}}</label>
+                                    </div>
+                                    <div class="col-md-3 col-sm-3 form-group clearfix">
+                                       
+
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-sm-12 clearfix">
+                                    <div class="col-md-2 col-sm-4 form-group text-right">
+                                        <label class="control-label text-muted">{{"FormControl.SupplierName"|translate}}</label>
+                                    </div>
+                                    <div class="col-md-3 col-sm-3 form-group">
+                                        <input type="text" class="form-control" ng-model="NewVendor.SupplierName" placeholder='{{"FormControl.SupplierName"|translate}}'  />
+
+                                    </div>
+                                   
+                                </div>
+                                <div class="col-md-12 col-sm-12 clearfix clear">
+                                    <div class="col-md-2 col-sm-2 col-sm-4 form-group text-right">
+                                        <label class="control-label text-muted">{{"FormControl.CompanyWebsite"|translate}}</label>
+                                    </div>
+                                    <div class="col-md-3 col-sm-3 form-group">
+                                        <input type="text" class="form-control" ng-model="NewVendor.Website" placeholder='{{"FormControl.CompanyWebsite"|translate}}' />
+                                    </div>
+                                </div>
+                               <!--Dynamically created contact person details-->
+                                <div class="col-md-12 col-sm-12 clearfix clear" ng-repeat="contact in ContactDeatils">
+                                    <div class="col-md-2 col-sm-12 form-group clearfix text-right">
+                                        <label class="control-label text-muted" ng-hide="$index!=0">{{"FormControl.ContactPerson"|translate}}</label>
+                                    </div>
+                                    <div class="col-md-2 col-sm-5 form-group">
+                                        <input type="text" class="form-control" ng-model="contact.firstName" placeholder='{{"FormControl.FirstName"|translate}}' required name="FirstName_{{$index}}"/>
+                                    </div>
+                                    <div class="col-md-2  col-sm-5 form-group clearfix clear">
+                                        <input type="text" class="form-control" ng-model="contact.lastName" placeholder='{{"FormControl.LastName"|translate}}' required name="LastName_{{$index}}"/>
+                                    </div>
+                                    <div class="col-md-2 col-sm-5 form-group">
+                                        <input type="text" class="form-control input-phone"  phone-input  ng-pattern="/^([0-9-,()\s+]{15})$/" ng-trim="false" maxlength="15" ng-model="contact.phoneNumber" required placeholder='{{"FormControl.Phone"|translate}}'  name="Phone_{{$index}}"/>
+                                    </div>
+                                    <div class="col-md-2 col-sm-5 form-group">
+                                        <input type="email" class="form-control" ng-model="contact.email" placeholder='{{"FormControl.Email"|translate}}' required name="Email_{{$index}}"/>
+                                    </div>
+                                    <div class="col-md-2 col-sm-2 clearfix clear">
+                                        <span id="btnRemove" class="btn btn-circle green" ng-show="$index!=0" ng-click="RemoveContactPerson($index,contact)">
+                                            <i class="fa fa-remove"></i>
+                                        </span>
+                                        <span id="btnAdd" class="btn btn-circle blue" ng-show="$index==0"  ng-click="AddContactPerson($index,contact)">
+                                            <i class="fa fa-plus"></i>
+                                        </span>
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 errormessage">
+                                      
+                                        <div class="col-md-offset-2" ng-message="required" ng-show="(NewVendorForm['FirstName_' + $index].$error.required||NewVendorForm['LastName_' + $index].$error.required||NewVendorForm['Phone_' + $index].$error.required||NewVendorForm['Email_' + $index].$error.required) &&(NewVendorForm['FirstName_' + $index].$touched || NewVendorForm['LastName_' + $index].$touched||NewVendorForm['Phone_' + $index].$touched||NewVendorForm['Email_' + $index].$touched)">
+                                            <span class="text-danger">&nbsp;{{"ErrorMessage.ContactPersonDetailsRequired"|translate}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 errormessage">
+
+                                        <div class="col-md-offset-2" ng-message="required" ng-show="(NewVendorForm['Email_' + $index].$error.email)">
+                                            <span class="text-danger">&nbsp;{{"ErrorMessage.EmailCorrect"|translate}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 errormessage">
+                                        <div class="col-md-offset-2" ng-message="required" ng-show="(NewVendorForm['Phone_' + $index].$error.pattern)">
+                                            <span class="text-danger">&nbsp;{{"ErrorMessage.ValidNumbers"|translate}}</span>
+                                        </div>
+                                       
+                                    </div>
+                                    </div>
+                                <!--End Dynamically created contact person details-->
+                                <div class="clear clearfix"></div>
+                                <!--Dynamically Added Phone numbers-->
+                                <div class="col-md-12 clearfix clear"  ng-repeat="phone in PhoneNumbers">
+
+                                    <div class="col-md-2 col-sm-12 form-group text-right">
+                                        <label class="control-label text-muted" ng-hide="$index!=0">{{"FormControl.SuppliersPhone"|translate}}</label>
+                                    </div>
+                                    <div class="col-md-2 col-sm-5 form-group">
+                                        <select class="form-control select2me col-md-6" id="select2insidemodal" ng-model="phone.Type" placeholder='{{"FormControl.PhoneType"|translate}}' name="PhoneType_{{$index}}" required>
+                                            <option value="">Select</option>
+                                             <option value="Work">Work</option>
+                                            <option value="Mobile">Mobile</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2 col-sm-5 form-group">
+                                       
+                                        <input type="text" class="form-control input-phone col-md-6" phone-input  ng-pattern="/^([0-9-,()\s+]{15})$/" ng-trim="false" maxlength="15" ng-model="phone.PhoneNo" placeholder='{{"FormControl.SuppliersPhone"|translate}}' required name="PhoneNumber_{{$index}}"/>
+
+                                    </div>
+                                    <div class="col-md-2 col-sm-2">
+                                        <span id="btnRemovePhone" class="btn btn-circle green" ng-show="$index!=0" ng-click="RemovePhone($index)">
+                                            <i class="fa fa-remove"></i>
+                                        </span>
+                                        <span id="btnAddPhone" class="btn btn-circle blue" ng-show="$index==0" ng-click="AddPhone($index)">
+                                            <i class="fa fa-plus"></i>
+                                        </span>
+                                    </div>
+                                    <div class="errormessage col-sm-12 col-md-12">
+                                        <div class="col-md-offset-2" ng-message="required" ng-show="(NewVendorForm['PhoneType_'+$index].$error.required||NewVendorForm['PhoneNumber_'+$index].$error.required)&&(NewVendorForm['PhoneNumber_'+$index].$touched)">
+                                            <span class="text-danger">&nbsp;{{"ErrorMessage.ContactPersonDetailsRequired"|translate}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="errormessage col-sm-12 col-md-12">
+                                        <div class="col-md-offset-2" ng-message="required" ng-show="(NewVendorForm['PhoneNumber_'+$index].$error.pattern)">
+                                            <span class="text-danger">&nbsp;{{"ErrorMessage.ValidNumbers"|translate}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--End Dynamically Dynamically Added Phone numbers-->
+                                <div class="clear clearfix"></div>
+                                <!--Shipping Address-->
+                                <div class="form-group col-md-12  clearfix clear">
+                                    <div class="col-md-2 col-sm-12 form-group text-right">
+                                        <label class="control-label text-muted">{{"FormControl.ShippingAddress"|translate}}</label>
+                                    </div>
+                                    <div class="col-md-2 col-sm-5 form-group">
+                                        <input type="text" class="form-control" ng-model="NewVendor.ShippingAddressLine1" placeholder='{{"FormControl.AddressLine1"|translate}}' />
+                                    </div>
+                                    <div class="col-md-2 col-sm-5 form-group clearfix clear">
+                                        <input type="text" class="form-control" ng-model="NewVendor.ShippingAddressLine2" placeholder='{{"FormControl.AddressLine2"|translate}}' />
+                                    </div>
+                                    <div class="col-md-2 col-sm-5 form-group clearfix clear">
+                                        <input type="text" class="form-control" ng-model="NewVendor.ShippingCity" placeholder='{{"FormControl.City"|translate}}' />
+                                    </div>
+                                    <div class="col-md-2 col-sm-5 form-group clearfix clear">
+                                        <select class="form-control select2me" id="select2insidemodal" ng-model="commObj.ShippingState" placeholder='{{"FormControl.State"|translate}}'>
+                                            <option value="">Select</option>
+                                            <option ng-repeat="State in ddlStateList" value="{{State.id}}">{{State.state}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2 col-sm-5 form-group clearfix clear">
+                                        <input type="text" class="form-control" maxlength="5" onkeypress='return event.charCode >= 48 && event.charCode <= 57' ng-model="NewVendor.ShippingZipCode" placeholder='{{"FormControl.ZipCode"|translate}}' />
+                                    </div>
+                                </div>
+                                <!--End Shipping Address-->
+                                <div class="clear clearfix"></div>
+                                <!--Billing Address-->
+                                <div class="form-group col-md-12 col-sm-12  clearfix clear">
+                                    <div class="col-md-2 col-sm-12 form-group clear clearfix text-right">
+                                        <label class="control-label text-muted">{{"FormControl.BillingAddress"|translate}}</label>
+                                    </div>
+                                    <div class="col-md-2 col-sm-5 form-group clear clearfix">
+                                        <input type="text" class="form-control" ng-model="NewVendor.BillingAddressLine1" placeholder='{{"FormControl.AddressLine1"|translate}}' />
+                                    </div>
+                                    <div class="col-md-2 col-sm-5 form-group clear clearfix">
+                                        <input type="text" class="form-control" ng-model="NewVendor.BillingAddressLine2" placeholder='{{"FormControl.AddressLine2"|translate}}' />
+                                    </div>
+                                    <div class="col-md-2 col-sm-5 form-group clear clearfix">
+                                        <input type="text" class="form-control" ng-model="NewVendor.BillingCity" placeholder='{{"FormControl.City"|translate}}' />
+                                    </div>
+                                    <div class="col-md-2 col-sm-5 form-group clear clearfix">
+                                        <select class="form-control select2me" id="select2insidemodal" ng-model="commObj.BillingState" placeholder='{{"FormControl.State"|translate}}'>
+                                            <option value="">Select</option>
+                                            <option ng-repeat="State in ddlStateList" value="{{State.id}}">{{State.state}}</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-2 col-sm-5 form-group clear clearfix">
+                                        <input type="text" maxlength="5" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="form-control" ng-model="NewVendor.BillingZipCode" placeholder='{{"FormControl.ZipCode"|translate}}' />
+                                    </div>
+                                </div>
+                                <!--End Billing Address-->
+                                <div class="clear clearfix"></div>
+                                <div class="col-md-12 col-sm-12 margin-top-15 clear clearfix">
+                                    <div class="form-group col-md-12 clear clearfix">
+                                        <div class="col-md-10 col-md-offset-2 text-danger ">
+                                            <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline bold">
+                                                <input type="checkbox" class="checkboxes" ng-checked="IsPermanent" ng-click="MakePermanent()"/>
+                                                <span></span>{{"AddToPermanentVendor"|translate}}
+                                            </label>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 clear clearfix margin-top-30">
+                                    <button class="btn sbold btnMargin pull-right" ng-if="displayAddVendorBtn" ng-click="ResetNewVendor()" >{{"FormControl.Clear"|translate}}</button>
+                                    <button class="btn sbold btnMargin pull-right" ng-disabled="NewVendorForm.$invalid || NewVendorForm.$pristine" ng-if="displayAddVendorBtn" ng-click="AddNewVendor()">{{"FormControl.AddVendor"|translate}}</button>
+                                </div>
+</div>
+</div>
+
+                   
+                 </div>
+                <!--End New Vendor form-->
+
+                <!--Internal participant-->
+                <div class="col-md-12" ng-show="displayInternalParticipant">
+                    <form class="register-form" id="SearchInternal" name="SearchInternal">
+                        <div class="form-group col-md-12">
+                            <div class="col-md-4 col-sm-12">
+                                <label class="control-label text-primary bold">{{"SearchForExistingEmployee"|translate}}</label>
+
+                            </div>
+                            <div class="col-md-5 col-sm-8 clearfix">
+                                <div class="input-icon left">
+                                    <i class="icon-magnifier"></i>
+                                    <input type="text" class="form-control form-control-solid input-circle input-block-level" ng-model="commObj.InternalText" placeholder={{"SearchInternalEmployee"|translate}} required name="InternalEmployee">
+                                </div>
+                                <div class="errormessage">
+                                    <div ng-message="required" ng-show="(SearchInternal.InternalEmployee.$error.required && SearchInternal.InternalEmployee.$touched)">
+                                        <span class="text-danger">{{"ErrorMessage.SearchTextRquired"|translate}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="btn sbold btnMargin " ng-click="searchInternalEmployee()" ng-disabled="SearchInternal.$invalid || SearchInternal.$pristine">{{"ControlText.Go"|translate}}</button>
+                        </div>
+
+                        <!--Search Result-->
+                        <div class="col-md-12" ng-if="displaySearchInternalResult">
+                            <div class="col-md-offset-2 col-md-8 clearfix" >
+                                <div class="col-m-12 clearfix">
+                                    <h4 class="text-danger">{{"Result"|translate}}</h4>
+                                </div>
+                                <div class="col-md-12 margin-top-10  portlet light bordered clearfix" style="height:300px;overflow-y:auto;">
+                                    <ul ng-repeat="employee in InternalEmployeeSearchResult">
+                                        <li style="list-style-type:none;">
+                                            <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline text-muted">
+                                                <input type="checkbox" class="group-checkable" ng-click="selectInternalEmployee(employee,$index)" ng-model="employee.IsSelected"/>
+                                                <span></span>{{employee.lastName}},{{employee.firstName}}
+                                            </label>
+                                        </li>
+                                    </ul>
+                                    <ul ng-show="!InternalEmployeeSearchResult.length||InternalEmployeeSearchResult===null">
+                                        <li style="list-style-type:none;">
+                                            <label class="text-danger">{{"NoRecordText"|translate}}</label>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="errormessage">
+                                    <div ng-if="ShowInternalEmployeeError">
+                                        <span class="text-danger">{{"ErrorMessage.SelectEmployeeFromList"|translate}}</span>
+                                    </div>
+                                </div>
+                                <div class="col-m-12 clearfix">
+                                    <button class="btn sbold btnMargin pull-right" ng-click="ClearInternalEmployeeResult()">{{"FormControl.Clear"|translate}}</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!--End Search Result-->
+                    </form>
+                </div>
+                <!--End Internal participant-->
+
+                <!--External participant-->
+            <form class="register-form" id="ExternalParticipantform" name="ExternalParticipantform">
+                <div class="col-md-12" ng-show="displayExternalParticipant">
+                    <div class="form-group col-md-10 col-sm-10 col-md-offset-1">
+                        <div class="col-md-3 col-md-offset-1 col-sm-3 text-right">
+                            <label class="control-label">{{"FormControl.Name"|translate}}<span class="text-danger">*</span></label>
+                        </div>
+                        <div class="col-md-4 col-sm-4">
+                            <input type="text" class="form-control" required ng-model="ExternalParticipant.FirstName" placeholder='{{"FormControl.FirstName"|translate}}' name="FirstName" />
+                            <div class="errormessage">
+                                <div ng-message="required" ng-show="(ExternalParticipantform.FirstName.$error.required && ExternalParticipantform.FirstName.$touched)">
+                                    <span class="text-danger">{{"ErrorMessage.FirstNameRequired"|translate}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-4">
+                            <input type="text" class="form-control" required ng-model="ExternalParticipant.LastName" placeholder='{{"FormControl.LastName"|translate}}' name="LastName"/>
+                            <div class="errormessage">
+                                <div ng-message="required" ng-show="(ExternalParticipantform.LastName.$error.required && ExternalParticipantform.LastName.$touched)">
+                                    <span class="text-danger">{{"ErrorMessage.LastNameRequired"|translate}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-10 col-sm-10 col-md-offset-1">
+                        <div class="col-md-3 col-md-offset-1 col-sm-3 text-right">
+                            <label class="control-label">{{"FormControl.Phone"|translate}}</label>
+                        </div>
+                        <div class="col-md-4 col-sm-4">
+                            <input type="text" placeholder="(XXX)XXX-XXXX" phone-input class="input-phone form-control"   ng-pattern="/^([0-9-,()\s+]{15})$/" ng-trim="false" ng-model="ExternalParticipant.PhoneNo" name="phoneno" />
+                            <div ng-message="pattern" ng-show="(ExternalParticipantform.phoneno.$error.pattern)">
+                                <span class="text-danger">{{"ErrorMessage.ValidNumbers"|translate}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-4">
+
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-10 col-sm-10 col-md-offset-1">
+                        <div class="col-md-3 col-sm-3 col-md-offset-1 text-right">
+                            <label class="control-label">{{"FormControl.Email"|translate}}</label>
+                        </div>
+                        <div class="col-md-4 col-sm-4">
+                            <input type="email" class="form-control" ng-model="ExternalParticipant.Email" placeholder='{{"FormControl.Email"|translate}}' name="Email" />
+                            <div class="col-md-12 errormessage padding1px">
+
+                                <div class="col-md-12 padding1px" ng-message="required" ng-show="(ExternalParticipantform.Email.$error.email)">
+                                    <span class="text-danger">&nbsp;{{"ErrorMessage.EmailCorrect"|translate}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-4">
+
+                        </div>
+                    </div>
+                    <div class="form-group col-md-10 col-sm-10 col-md-offset-1">
+                        <div class="col-md-3 col-md-offset-1 col-sm-3 text-right">
+                            <label class="control-label">{{"FormControl.Reason"|translate}}</label>
+                        </div>
+                        <div class="col-md-4 col-sm-4">
+                            <input type="text" class="form-control" ng-model="ExternalParticipant.ResonForInclusion" placeholder='{{"FormControl.Reason"|translate}}' />
+                        </div>
+                        <div class="col-md-4 col-sm-4">
+
+                        </div>
+                    </div>
+                    <div class="form-group col-md-10 col-sm-10 col-md-offset-1">
+                        <div class="col-md-3 col-md-offset-1 col-sm-3 text-right">
+                            <label class="control-label">{{"FormControl.Address"|translate}}</label>
+                        </div>
+                        <div class="col-md-4 col-sm-4">
+                            <input type="text" class="form-control" ng-model="ExternalParticipant.AddressLine1" placeholder='{{"FormControl.AddressLine1"|translate}}' />
+                        </div>
+                        <div class="col-md-4 col-sm-4">
+
+                        </div>
+                    </div>
+                    <div class="form-group col-md-10 col-sm-10 col-md-offset-1">
+                        <div class="col-md-3 col-sm-3 col-md-offset-1">
+
+                        </div>
+                        <div class="col-md-4 col-sm-4">
+                            <input type="text" class="form-control" ng-model="ExternalParticipant.AddressLine2" placeholder='{{"FormControl.AddressLine2"|translate}}' />
+                        </div>
+                        <div class="col-md-4 col-sm-4">
+
+                        </div>
+
+                    </div>
+                    <div class="form-group col-md-10 col-sm-10 col-md-offset-1">
+                        <div class="col-md-3 col-md-offset-1 col-sm-3">
+
+                        </div>
+                        <div class="col-md-4 col-sm-4">
+                            <input type="text" class="form-control" ng-model="ExternalParticipant.City" placeholder='{{"FormControl.City"|translate}}' />
+                        </div>
+                        <div class="col-md-4 col-sm-4">
+
+                        </div>
+                    </div>
+                    <div class="form-group col-md-10 col-sm-10 col-md-offset-1">
+                        <div class="col-md-3 col-md-offset-1 col-sm-3">
+
+                        </div>
+                        <div class="col-md-4 col-sm-4">
+                            <select class="form-control select2me" id="select2insidemodal" ng-model="commObj.ExternalPartState">
+                                <option value="">Select</option>
+                                <option ng-repeat="State in ddlStateList" value="{{State.id}}">{{State.state}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 col-sm-4">
+                            <input type="text" class="form-control" maxlength="5" onkeypress='return event.charCode >= 48 && event.charCode <= 57' ng-model="ExternalParticipant.ZipCode" placeholder='{{"FormControl.ZipCode"|translate}}' />
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 clearfix margin-top-40">
+                        <button  class="btn sbold btnMargin pull-right" ng-click="ClearExternalParticipant()">{{"FormControl.Clear"|translate}}</button>
+                        <button class="btn sbold btnMargin pull-right" ng-disabled="ExternalParticipantform.$invalid || ExternalParticipantform.$pristine" ng-click="AddParticipantToClaim()">{{"ControlText.AddParticipantPopup"|translate}}</button>
+                    </div>
+                </div>
+             </form>
+                <!-- End External participant-->
+
+                <!--Existing third party vendor-->
+                <div class="col-md-12" ng-show="displayExistingVendor">
+                    <form class="register-form" id="SearchExisting" name="SearchExisting">
+                        <div class="form-group col-md-12 col-sm-12">
+                            <div class="col-md-4">
+                                <label class="control-label text-primary bold">{{"SearchForExistingVendor"|translate}}</label>
+
+                            </div>
+                            <div class="col-md-5 clearfix col-sm-8">
+                                <div class="input-icon left">
+                                    <i class="icon-magnifier"></i>
+                                    <input type="text" class="form-control form-control-solid input-circle input-block-level" ng-model="commObj.ExistingVendorText" required name="ExistingVendor" placeholder={{"SearchExistingVendor"|translate}}>
+                                </div>
+                                <div class="errormessage">
+                                    <div ng-message="required" ng-show="(SearchExisting.ExistingVendor.$error.required && SearchExisting.ExistingVendor.$touched)">
+                                        <span class="text-danger">{{"ErrorMessage.SearchTextRquired"|translate}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="btn sbold btnMargin " ng-click="searchExistingVendor()" ng-disabled="SearchExisting.$invalid || SearchExisting.$pristine">{{"ControlText.Go"|translate}}</button>
+                        </div>
+
+                        <!--Search Result-->
+                        <div class="col-md-12" ng-show="displaySearchExistingResult">
+                            <div class="col-md-offset-2 col-md-8 clearfix">
+                                <div class="col-m-12 clearfix">
+                                    <h4 class="text-danger">{{"Result"|translate}}</h4>
+                                </div>
+                                <div class="col-md-12 margin-top-10 portlet light bordered clearfix" style="height:300px;overflow-y:auto;">
+                                    <ul ng-repeat="vendor in existingVendorSearchResult">
+                                        <li style="list-style-type:none;">
+                                            <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline text-muted">
+                                                <input type="checkbox" class="group-checkable" ng-click="selectExistingVendor(vendor,$index)" ng-model="vendor.Selected" />
+                                                <span></span>{{vendor.vendorName}}
+                                            </label>
+                                        </li>
+                                    </ul>
+                                    <ul ng-show="!existingVendorSearchResult.length||existingVendorSearchResult===null">
+                                        <li style="list-style-type:none;">
+                                            <label class="text-danger">{{"NoRecordText"|translate}}</label>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="errormessage">
+                                    <div  ng-if="ShowExistingVendorError">
+                                        <span class="text-danger">{{"ErrorMessage.SelectVendorFromList"|translate}}</span>
+                                    </div>
+                                </div>
+                                <div class="col-m-12 clearfix">
+                                    <button class="btn sbold btnMargin pull-right" ng-click="ClearExistingVendorResult()">{{"FormControl.Clear"|translate}}</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!--End Search Result-->
+                        
+                    </form>
+                </div>
+                <!--End Existing third party vendor-->
+</div>
+      
+    </div>
+    <div class="modal-footer">
+        
+        <button type="button" class="btn btnMargin sbold " ng-disabled="ActiveAddBtn" ng-click="AddParticipantToClaim()" ng-if="displayAddParticipantBtn"> {{"ControlText.AddParticipantPopup"|translate}} </button>
+        <button type="button" class="btn btnMargin sbold " data-dismiss="modal" ng-click="cancel($event)">{{"ControlText.Cancel"|translate}}</button>
+    </div>
+</div>

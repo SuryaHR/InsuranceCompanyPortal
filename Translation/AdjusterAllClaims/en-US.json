@@ -1,0 +1,50 @@
+﻿{
+
+  "MainHeader": {
+    "Claim_Ttile": "All Claims",
+    "Filter": "Filter"
+  },
+  "ControlText": {
+    "LoadFromFile": "Load from file",
+    "Export": "Export",
+    "Assign_title": "Assign",
+    "Reject_title": "Reject",
+    "ViewDropDown_Title": "View",
+    "NoRecordddl_Title": "Show",
+    "Search_Placeholder": "Search...",
+    "Show": "Show",
+    "Date": "Date",
+    "ReportDate": "Report Date",
+    "To": "To",
+    "AllClaims": "All Claims ",
+    "ThisMonth": "This Month ",
+    "Last3Months": "Last 3 Months",
+    "ClaimDate" : "Claim Date",
+    "From" : "From",
+    "Status" : "Status",
+    "ClearAll" : "Clear All",
+    "SearchBtn" : "Search",
+    "Search" : "Claim # / Policyholder name",
+    "searchPlaceholder" : "Enter Claim # or Policyholder name",
+    "SelectStatus" : "All status"
+  },
+  "Table": {
+    "Type_Title": "Type",
+    "Claim_Title": "Claim #",
+    "Policy_Title": "Policy",
+    "InsuredName_Title": "Policyholder's Name",
+    "InsuredPhone": "Policyholder's Phone #",
+    "DateClaim_Title": "Report Date",
+    "Status_Title": "Status",
+    "AssignedTo": "Assigned To",
+    "LastUpdate": "Last Update",
+    "LastNote": "Last Note",
+    "Action_Title": "Action",
+    "Status" : "Status",
+    "LastUpdated" : "Last Updated",
+    "Type" : "Type",
+    "ClaimDate" : "Claim Date"
+  }
+
+
+}

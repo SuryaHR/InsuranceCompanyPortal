@@ -1,0 +1,92 @@
+﻿<!--modal div-->
+
+<div>
+   
+    <div class="modal-header">
+        <a  class="close" data-dismiss="modal" aria-hidden="true" ng-click="cancel($event)"></a>
+        <h4 class="modal-title">{{"Model.Header_AdjusterList"|translate}}</h4>
+    </div>
+    <div class="modal-body">
+        <div class="row" style="margin:10px;">
+
+
+            <form class="form-inline pull-right">
+
+                <div class="form-group" style="margin-bottom:10px;">
+                    <label>{{"ControlText.Search_title"|translate}}</label>
+                    <input type="text" ng-model="search" class="form-control" placeholder={{"SearchText"|translate}}>
+                </div>
+
+            </form>
+            <table class="table table-striped table-inverse table-bordered table-hover table-checkable order-column">
+
+                <thead>
+
+                    <tr>
+                        <th class="table-checkbox">
+                            <label class="mt-checkbox mt-checkbox-outline mt-checkbox-single">
+                                <input type="checkbox" class="group-checkable" />
+                                <span></span>
+                            </label>
+                        </th>
+                        <!--<th ng-click="sort('Match')">
+                            {{"Table.Match"|translate}}
+                            <span class="glyphicon sort-icon" ng-show="sortKey=='Match'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                        </th>-->
+                        <th ng-click="sort('casesInHand')">
+                          {{"Table.CasesInHand"|translate}}
+                            <span class="glyphicon sort-icon" ng-show="sortKey=='casesInHand'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                        </th>
+                        <th ng-click="sort('firstName')">
+                        {{"Table.AdjustorName"|translate}}
+                            <span class="glyphicon sort-icon" ng-show="sortKey=='firstName'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                        </th>
+                        <th ng-click="sort('Speciality')">
+                            {{"Table.Speciality"|translate}}
+                            <span class="glyphicon sort-icon" ng-show="sortKey=='Speciality'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                        </th>
+                        <!--<th ng-click="sort('Role')">
+                            {{"Table.Role"|translate}}
+                            <span class="glyphicon sort-icon" ng-show="sortKey=='Role'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                        </th>-->
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+                    <tr dir-paginate="Adjustor in AdjusterList|orderBy:sortKey:reverse|filter:search|itemsPerPage:PageSize">
+                        <td>
+                            <label class="mt-checkbox mt-checkbox-outline mt-checkbox-single">
+                                <input type="checkbox" class="checkboxes" value="1" />
+                                <span></span>
+                            </label>
+                        </td>
+                       
+                        <td>{{Adjustor.casesInHand}}</td>
+                        <td>{{Adjustor.firstName+" "+Adjustor.lastName}}</td>
+                        <td>
+                            <ul ng-repeat="speciality in Adjustor.specialities" style="list-style-type:none">
+                                <li>{{speciality.speciality}}</li>
+                            </ul>
+                        </td>
+                        <!--<td></td>-->
+
+                    </tr>
+                </tbody>
+
+            </table>
+            <div ng-show="!AdjusterList.length" class="col-md-12 text-center text-danger">{{"NoRecordText"|translate}}</div>
+            <dir-pagination-controls max-size="3"
+                                     direction-links="true"
+                                     boundary-links="true" class="pull-right">
+            </dir-pagination-controls>
+
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn dark btn-outline" data-dismiss="modal" ng-click="cancel($event)">{{"ControlText.Cancel_title"|translate}}</button>
+        <button type="button" class="btn green" ng-click="AssignClaim()"> {{"ControlText.AssignAdjuster_title"|translate}} </button>
+    </div>
+</div>
+<!-- /.modal-content -->

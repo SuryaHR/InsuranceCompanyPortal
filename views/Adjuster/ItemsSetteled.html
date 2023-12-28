@@ -1,0 +1,142 @@
+﻿<div class="row">
+    <!--Serach TextBox-->
+
+    <div class="col-md-12">
+        <div class="row">
+            <span class="text-muted bold caption col-md-12 col-sm-12 col-xs-12 col-lg-12 margin-bottom-5 Custombreadcrumb">
+                <a ng-click="GotoDashboard()">{{"Dashboard"|translate}}</a>&nbsp;>&nbsp;<a ng-click="GoBack()">{{ClaimNo}}</a>&nbsp;>&nbsp;Items to be settled
+            </span>
+        </div>
+        <div class="col-md-12">
+            <div class="portlet light bordered">
+                <div class="portlet-title">
+                    <div class="caption font-green-sharp">
+                        <span class="caption-subject">{{"labeltext.Claim#"|translate}} : </span><span style="color:black;font-size:14px">{{ClaimNo}}</span>
+                    </div>
+                    <div class="tools">
+
+                        <a href="" class="collapse"> </a>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="row">
+                        <div class="col-md-12 margin-bottom-20">
+                            <font>48 / 242 {{"labeltext.ItemsSettled"|translate}}</font>
+                            <!--<font>{{count}} of {{totalCount}} results for {{SearchText}}</font>-->
+                        </div>
+                        <div class="form-group col-md-12 clearfix">
+                            <label class="col-md-1 text-primary">{{"labeltext.View"|translate}}</label>
+                            <div class="col-md-3">
+                                <select class="form-control select2me" ng-model="Category" data-placeholder='{{"labeltext.View"|translate}}'>
+                                    <!--<option ng-repeat="items in ddlClaimStatusList" value="items.status">{{items.status}}</option>-->
+                                    <option value="1" selected>Search Criteria </option>
+                                </select>
+                            </div>
+                            <label class="col-md-1 text-primary">{{"labeltext.Show"|translate}}</label>
+                            <div class="col-md-3">
+                                <select class="form-control select2me" ng-model="pagesize" data-placeholder={{"labeltext.Show"|translate}}>
+                                    <option value="10">10 Items</option>
+                                    <option value="15">15 Items</option>
+                                    <option value="20">20 Items</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4 ">
+                                <div class="input-icon left">
+                                    <i class="icon-magnifier"></i>
+                                    <input type="text" ng-model="search" class="form-control form-control-solid input-circle input-block-level" placeholder={{"labeltext.Search"|translate}}>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 table-responsive margin-bottom-15">
+                            <table class="table table-striped table-bordered table-hover table-checkable order-column" id="dash">
+                                <thead>
+                                    <tr>
+                                        <td ng-click="sort('')">
+                                            {{"labeltext.ItemId"|translate}}
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='claimType'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                        </td>
+                                        <td ng-click="sort('')">
+                                            {{"labeltext.ItemName"|translate}}
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='claimId'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                        </td>
+                                        <td ng-click="sort('')">
+                                            {{"labeltext.ScheduledItem"|translate}}
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='policyNumber'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                        </td>
+                                        <td ng-click="sort('')">
+                                            {{"labeltext.PriceQuoted"|translate}}
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='username'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                        </td>
+                                        <td ng-click="sort('')" class="">
+                                            {{"labeltext.Category"|translate}}
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='createDate'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                        </td>
+                                        <td ng-click="sort('')">
+                                            {{"labeltext.SubCategory"|translate}}
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='claimStatus'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                        </td>
+                                        <td ng-click="sort('')">
+                                            {{"labeltext.Status"|translate}}
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='claimStatus'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                        </td>
+                                        <td ng-click="sort('')">
+                                            {{"labeltext.RCV"|translate}}
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='claimStatus'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                        </td>
+                                        <td ng-click="sort('')">
+                                            {{"labeltext.ACV"|translate}}
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='claimStatus'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                        </td>
+                                        <td ng-click="sort('')">
+                                            {{"labeltext.ReplacedValue"|translate}}
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='claimStatus'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                        </td>
+                                        <td ng-click="sort('')">
+                                            {{"labeltext.PayoutCheck#"|translate}}
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='claimStatus'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                        </td>
+                                        <td ng-click="sort('')">
+                                            {{"labeltext.Holdover"|translate}}
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='claimStatus'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                        </td>
+                                        <td ng-click="sort('')">
+                                            {{"labeltext.HoldOvercheck#"|translate}}
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='claimStatus'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                        </td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-if="ItemList!=null" dir-paginate="item in ItemList|orderBy:sortKey:reverse|filter:search|itemsPerPage:pagesize">
+                                        <td><span ng-class="{'HOME':'fa fa-home fa-lg', 'AUTO':'fa fa-bus fa-lg'}[item.claimType]"></span></td>
+                                        <td ng-click="GotoClaimDetails(item)"><a>{{item.claimId}}</a></td>
+                                        <td ng-click="GotoClaimDetails(item)"><a>{{item.policyNumber}}</a></td>
+                                        <td ng-click="GotoClaimDetails(item)"><a>{{item.username}}</a></td>
+                                        <td>{{item.createDate}}</td>
+                                        <td><a class="btn btn-circle  btn-xs green">{{item.claimStatus}}</a></td>
+                                        <td><textarea class="form-control"></textarea></td>
+                                    </tr>
+                                    <tr ng-if="ItemList.length ===0 || ItemList===null">
+                                        <td></td>
+                                        <td colspan="12">{{"NoRecordText" |translate}}</td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                </tfoot>
+                            </table>
+                            <dir-pagination-controls max-size="3" ng-if="ItemList.length > 0 "
+                                                     direction-links="true"
+                                                     boundary-links="true" class="pull-right">
+                            </dir-pagination-controls>
+                        </div>
+                        <div class="col-md-12 ">
+                            <label class="col-md-2">{{"labeltext.ItemsSettled"|translate}}</label>
+                            <label class="col-md-3">{{"labeltext.TotalReplacementvalue"|translate}} &nbsp; 1234</label>
+                            <label class="col-md-2">{{"labeltext.TotalHoldOver"|translate}} &nbsp; 1234</label>
+                            <label class="col-md-2">{{"labeltext.GrandTotal"|translate}} &nbsp; 1234</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

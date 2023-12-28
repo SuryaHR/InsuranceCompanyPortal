@@ -1,0 +1,76 @@
+<style>
+    .profile-img {
+        width: 70px;
+        height: 70px;
+    }
+    .card {
+        box-shadow: 0 6px 6px -6px #777;
+        text-align: center;
+        border: 1px solid #c3c1c1;
+        border-radius: 4px;
+        line-height: 25px;
+    } 
+    .font-size-15 {
+    font-size: 15px;
+    }
+    .card2 {
+        margin-left: 5px;
+        width: 95%;
+        margin-bottom: 5px;
+        padding-left:10px !important;
+    }
+</style>
+<div class="headerFreez border_bottom col-md-12 col-xs-12 margin-bottom-5">
+    <ul class="page-breadcrumb breadcrumb sbold">
+        <li>
+            <a ng-click="GoToHome()">{{"Home"|translate}}</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <a ng-click="GoBack()">{{CommonObj.claimNumber}}</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span>{{"Claim Participants"|translate}}</span>
+        </li>
+    </ul>
+
+    <div class="mainHeadingDiv">
+        <div class="caption font-grey-sharp">
+            <span class="caption-subject font-grey-sharp">{{"Your Assistance Team for Claim #" | translate}}{{CommonObj.claimNumber}}</span>
+        </div>
+    </div>
+</div>
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group" style="margin-top: 20px;">
+    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12 text-center margin-bottom-10"  ng-repeat="participant in ClaimParticipantsList">
+        <div class="col-md-11 col-sm-12 col-xs-12 card" style="padding: 5px; height: 315px;">
+            <img ng-src="{{participant.participantImage ? participant.participantImage.url : assets/global/img/teamMemb.png}}"
+                onerror="this.onerror=null; this.src='assets/global/img/teamMemb.png';"
+                class="profile-img text-center rounded" title="Profile Photo" alt="Profile Picture" />
+            <span class="display-block primary-link font-size-15">{{participant.lastName +", "+participant.firstName}}</span>
+            <span class="display-block font-size-15">{{participant.companyDTO.companyName}}</span>
+            <span class="display-block font-size-15 font-weight-550">{{((participant.designation ? participant.designation.name : participant.role) | titleCase ) | limitTo : 20}}</span>
+            <div class="col-md-12 bordered padding1px font-size-15 text-left card2">
+                <span>{{participant.phoneNum|tel}}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a ng-class="{'hide': participant.emailId === CommonObj.UserName}" title="click to send a new message" ng-click="sendMessageToParticipant(participant)">
+                        <em class="fa fa-envelope-o"></em>
+                    </a>
+                </span>
+                <br>
+                <span class="display-block font-size-15 font-weight-550">{{participant.emailId}}</span>
+                <span class="display-block font-size-15 font-weight-550">{{participant.address.streetAddressOne}}
+                    <span ng-show="participant.address.streetAddressOne != null">,</span>
+                </span>
+                <span class="display-block font-size-15 font-weight-550">{{participant.address.streetAddressTwo}}
+                    <span ng-show="participant.address.streetAddressTwo != null">,</span>
+                </span>
+                <span class="display-block font-size-15 font-weight-550">{{participant.address.city}}
+                    <span ng-show="participant.address.city != null">,</span>
+                </span>
+                <span class="display-block font-size-15 font-weight-550">{{participant.address.state}}
+                    <span ng-show="participant.address.state != null">,</span>
+                    &nbsp;&nbsp;{{participant.address.zipcode}}</span>
+            </div>
+        </div>
+    </div>
+</div>

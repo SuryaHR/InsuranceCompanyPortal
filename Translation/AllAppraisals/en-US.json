@@ -1,0 +1,23 @@
+{
+"Nav":{
+    "Home":"Home",
+    "AllAppraisals":"All Appraisals"
+    },
+
+ "Table":{
+     "placeholder" : "Policy #, Policyholder's Name, Agency, Appraisal #, Approval Date",
+     "NoAppraisals" : "No appraisals found",
+     "AgencyName":"Agency Name",
+     "Appraisal":"Appraisal #",
+     "ItemType":"Item Type",
+     "SubmittedDate":"Submitted Date",
+     "Policy":"Policy #",
+     "Policyholder":"Policyholder",
+     "SpeedCheckAppraisalDate":"SpeedCheck Appraisal Date",
+     "ReviewedDate":"Reviewed Date",
+     "Premium":"Premium",
+     "InsuranceReplacementValue":"Insurance Replacement Value",
+     "Status":"Status"
+ }   
+
+}

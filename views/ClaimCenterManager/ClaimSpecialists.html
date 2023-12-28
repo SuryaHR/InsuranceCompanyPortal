@@ -1,0 +1,185 @@
+﻿<div class="row">
+    <div class="col-md-12">
+        <div class="col-md-12">
+            <div class="portlet light bordered">
+                <div class="portlet-title">
+                    <div class="caption font-green-sharp">
+                        <i class="icon-settings font-green-sharp"></i>
+                        <span class="caption-subject ">{{"TabHeaderText.NewSpecialists" | translate}}</span>
+                    </div>
+                    <div class="tools">
+                        <button id="sample_editable_1_new " class="btn sbold btnMargin" ng-click="SaveDetails()">
+                            <i class="fa fa-save"></i>
+                            {{"ControlText.Save"|translate}}
+                        </button>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="row">
+                        <div class="col-md-12 ">
+                            <div class="portlet light bordered">
+                                <div class="portlet-body">
+                                    <div class="row">
+                                        <!--top buttons-->
+                                        <div class="portlet">
+                                            <div class="portlet-title">
+                                                <!--Keep this empty just took for horizontal line-->
+                                                <div class="form-group col-md-12">
+                                                    <label class="control-label col-md-1 text-primary ">{{"ControlText.Show" | translate}}</label>
+                                                    <div class="col-md-3">
+                                                        <select class="input-sm select2me" ng-model="PageLength">
+                                                            <option value="10">10 Claims</option>
+                                                            <option value="15">15 Claims</option>
+                                                            <option value="20">20 Claims</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="input-icon left">
+                                                            <i class="icon-magnifier"></i>
+                                                            <input type="text" ng-model="search" class="form-control form-control-solid input-circle input-block-level btnMargin" placeholder="{{'ControlText.Search' | translate}}">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--Start Table Data-->
+                                        <div class="col-md-12 padding-top-10px table-responsive">
+                                            <div class="clearfix"> </div>
+                                            <table class="table table-striped table-bordered table-hover table-checkable order-column" id="NavigateTable">
+                                                <thead>
+                                                    <tr>
+                                                        <td></td>
+                                                        <th ng-click="sort('name')">
+                                                            {{"Table.Name" | translate}}
+                                                            <span class="glyphicon sort-icon" ng-show="sortKey=='name'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                                        </th>
+                                                        <th ng-click="sort('Specialty')">
+                                                            {{"Table.Specialty" | translate}}
+                                                            <span class="glyphicon sort-icon" ng-show="sortKey=='Specialty'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                                        </th>
+                                                        <th ng-click="sort('Role')" class="">
+                                                            {{"Table.Role" | translate}}
+                                                            <span class="glyphicon sort-icon" ng-show="sortKey=='Role'" ng-class="{'glyphicon-chevron-up pull-right':reverse,'glyphicon-chevron-down pull-right':!reverse}"></span>
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr ng-if="SpecialistList!=null" dir-paginate="item in SpecialistList|orderBy:sortKey:reverse|filter:search|itemsPerPage:PageLength" pagination-id="ClaimSpecialistlist">
+                                                        <td><label class="mt-radio mt-radio-single mt-radio-outline"> <input type="radio" name="SpecialistId" ng-click="SelectSpecialist(item)"> <span></span></label></td>
+                                                        <td class="width20">{{item.name}}</td>
+                                                        <td><font ng-repeat="specialities in item.specialities ">{{specialities.speciality}}<font ng-if="!$last">, &nbsp; </font></font></td>
+                                                        <td class="width15">{{item.roles[0].roleName}}</td>
+                                                    </tr>
+                                                    <tr ng-if="(SpecialistList===null)||(SpecialistList.length ===0)">
+                                                        <td></td>
+                                                        <td colspan="3" class="text-center text-danger">No records available</td>
+                                                    </tr>
+                                                </tbody>
+                                                <tfoot>
+                                                </tfoot>
+                                            </table>
+                                            <dir-pagination-controls max-size="3" pagination-id="ClaimSpecialistlist" ng-if="SpecialistList!=null"
+                                                                     direction-links="true"
+                                                                     boundary-links="true" class="pull-right">
+                                            </dir-pagination-controls>
+                                        </div>
+                                        <!--End Table data-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="col-md-12">
+            <div class="portlet light ">
+                <div class="portlet-title">
+                    <div class="caption font-green-sharp">
+                        <i class="icon-settings font-green-sharp"></i>
+                        <span class="caption-subject ">{{"TabHeaderText.CategorySpecialities" | translate}}</span>
+                    </div>
+
+                    <!--<div class="tools">
+                        <a href="" class="collapse"> </a>
+
+                    </div>-->
+                </div>
+                <div class="portlet-body">
+                    <div class="row">
+                        <div class="col-md-12 ">
+                            <div class="portlet light bordered">
+                                <div class="portlet-body">
+                                    <div class="row">
+                                        <!--top buttons-->
+                                        <div class="portlet">
+                                            <div class="portlet-title">
+                                                <!--Keep this empty just took for horizontal line-->
+                                                <div class="form-group col-md-12">
+                                                    <label class="control-label  text-primary ">{{"ControlText.Name" | translate}} : &nbsp; {{SpecialistName}}</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--Start Table Data-->
+                                        <div class="col-md-12 padding-top-10px table-responsive">
+                                            <div class="clearfix"> </div>
+                                            <div class="col-md-4 col-md-offset-2">
+                                                <div class="input-icon left">
+                                                    <i class="icon-magnifier"></i>
+                                                    <input type="text" ng-model="searchCategory" class="form-control form-control-solid input-circle input-block-level btnMargin margin-bottom-10" placeholder="{{'CategorySpecialistsTable.search' | translate}}">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-offset-2 col-md-8  table-responsive">
+                                                <table class="table table-bordered  table-striped">
+                                                    <tr>
+                                                        <td class="width45">
+                                                            <div class="col-md-12 table-responsive" style="height:200px;">
+                                                                <table class="table table-bordered table-hover table-striped">
+                                                                    <tr ng-repeat="category in CategoryList|filter:searchCategory">
+                                                                        <td>
+                                                                            <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline" ng-click="">
+                                                                                <input type="checkbox" class="checkboxes" ng-click="AddCategoryToExpert(category)" ng-checked="GetIsChecked(AddSpecialtyList,category)" />
+                                                                                <span></span>
+                                                                            </label>
+                                                                        </td>
+                                                                        <td>{{category.categoryName}}</td>
+                                                                    </tr>
+                                                                </table>
+                                                            </div>
+                                                        </td>
+                                                        <td rowspan="5" class="text-center">
+                                                            <a href="#" style="text-decoration:none;" ng-click="AddToExpertCategory()"><h1 class="text-muted">&gt;</h1></a>
+                                                            <a href="#" style="text-decoration:none;" ng-click="RemoveFromExpertCategory()">  <h1 class="text-muted">&lt;</h1></a>
+                                                        </td>
+                                                        <td class="width45">
+                                                            <div class="col-md-12 table-responsive" style="height:200px;">
+                                                                <table class="table table-bordered table-hover table-striped">
+                                                                    <tr ng-repeat="specialty in  SpecialtyOfSpecialist">
+                                                                        <td>
+                                                                            <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
+                                                                                <input type="checkbox" class="checkboxes" ng-click="RemoveExpertCategory(specialty)" ng-checked="GetIsChecked(RemoveSpecialtyList,specialty)" />
+                                                                                <span></span>
+                                                                            </label>
+                                                                        </td>
+                                                                        <td>{{specialty.speciality}}</td>
+                                                                    </tr>
+                                                                </table>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <!--End Table data-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

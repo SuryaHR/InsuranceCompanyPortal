@@ -1,0 +1,151 @@
+﻿<div class="row">
+    <div class="col-md-12">
+        <ul class="page-breadcrumb breadcrumb sbold">
+            <li>
+                <a ng-click="GotoDashboard()">{{"Home"|translate}}</a>
+                <i class="fa fa-circle"></i>
+            </li>
+
+            <li>
+                <span>{{"3rd Party Vendors"|translate}}</span>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="col-md-12 portlet light padding1px" ng-if="!showNewService">
+    <div class="portlet-title">
+        <div class="caption font-gray-sharp">
+            <span class="caption-subject">{{"HeadingText.ContractedVendor"|translate}}</span>
+        </div>
+    </div>
+    <div class="portlet-body">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 options_Background padding1px">
+                    <div class="col-lg-6 col-md-6 col-sm-12 margin-top-5 margin-bottom-5">
+                            <button id="btnNewVendor" class="btn sbold btnMargin" ng-click="addVendor()">
+                                {{"ControlText.add"|translate}}
+                            </button>
+                            <button id="btnNewService" class="btn sbold btnMargin" ng-click="inviteVendorOnBoard()">
+                                {{"ControlText.Invite"|translate}}
+                            </button>
+                            <button id="btnNewService" class="btn sbold btnMargin" ng-click="UploadVendorDetails()">
+                                {{"Load From File"|translate}}
+                            </button>
+                            <button id="btnNewService" class="btn sbold btnMargin">
+                                {{"Export"|translate}}
+                            </button>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 margin-top-5 margin-bottom-5manageSearch padding1px">
+                       <div class="col-lg-12">
+                           <div class="col-lg-7 col-md-12 col-sm-12 margin-top-5 margin-bottom-5 padding1px">
+                               <div class="col-lg-2 col-md-12 col-sm-12">
+                                   <label class="control-label text_options_Label">{{"ControlText.View"|translate}}</label>
+                               </div>
+                               <div class="col-lg-5 col-md-12 col-sm-12">
+                                   <select class="form-control select2me input-medium" data-placeholder="options" ng-model="SeletedStatus" id="select2insidemodal"
+                                           name="person" ng-options="item.id as item.status for item in StatusList" required ng-change="afterSelectedStatus()"></select>
+                               </div>
+                           </div>
+                           <div class="col-lg-5 col-md-12 col-sm-12 margin-top-5 margin-bottom-5 padding1px">
+                               <div class="input-icon left">
+                                   <i class="icon-magnifier"></i>
+                                   <input type="text" class="form-control form-control-solid input-circle input-block-level " ng-model="SearchService" placeholder={{"SearchService"|translate}}>
+                               </div>
+                           </div>
+                       </div>
+                    </div>
+                </div>
+                <div class="col-md-12 table-responsive padding1px">
+                    <table class="table table-bordered table-hover table-striped" id="NavigateTable">
+                        <thead>
+                            <tr>
+                                <th ng-click="sort('id')">
+                                    {{"Vendor ID "|translate}}
+                                    <span class="glyphicon sort-icon" ng-show="sortKey=='id'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                </th>
+                                <th ng-click="sort('name')">
+                                    {{"Vendor Name"|translate}}
+                                    <span class="glyphicon sort-icon" ng-show="sortKey=='name'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                </th>
+                                <th ng-click="sort('specialties')">
+                                    {{"Specialties"|translate}}
+                                    <span class="glyphicon sort-icon" ng-show="sortKey=='specialties'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                </th>
+                                <th ng-click="sort('address')">
+                                    {{"Address"|translate}}
+                                    <span class="glyphicon sort-icon" ng-show="sortKey=='address'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                </th>
+                                <th ng-click="sort('contactPerson')">
+                                    {{"Vendor Admin"|translate}}
+                                    <span class="glyphicon sort-icon" ng-show="sortKey=='contactPerson'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                </th>
+                                <th ng-click="sort('PhNo')">
+                                    {{"Table.Phone"|translate}}
+                                    <span class="glyphicon sort-icon" ng-show="sortKey=='PhNo'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                </th>
+                                <th ng-click="sort('status')">
+                                    {{"Status"|translate}}
+                                    <span class="glyphicon sort-icon" ng-show="sortKey=='status'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                </th>
+                                <th class="statusHeading">
+                                    {{"Action"|translate}}
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr dir-paginate="item in ActiveVendorsList |orderBy:sortKey:reverse|filter:SearchService|itemsPerPage:10"  paginatio-id="ContentServiceList">
+                               <td ng-click="GoToDetails(item)">
+                                   {{item.id}}
+                               </td>
+                                <td ng-click="GoToDetails(item)">
+                                    {{item.name}}
+                                </td>
+                                <td ng-click="GoToDetails(item)"  ng-init="limitSpecialities = 2; moreShownSpecialities = false" style="width: 20%">
+                                    <span ng-repeat="speciality in item.vendorSpecialities | limitTo:limitSpecialities"> {{speciality}}<span ng-if="!$last">, </span>
+                                
+                                </span>
+                                <span ng-if="item.vendorSpecialities.length>limitSpecialities">...</span>
+                                    <a ng-show="item.vendorSpecialities.length>limitSpecialities && !moreShownSpecialities" href stop-propagation
+                                            ng-click="limitSpecialities=item.vendorSpecialities.length; moreShownSpecialities = true">
+                                            More
+                                        </a>
+                                        <a ng-show="moreShownSpecialities" href stop-propagation ng-click="moreShownSpecialities = false; limitSpecialities=2; ">
+                                            Less </a>
+                                
+                                
+                                   
+                                </td>
+                                <td ng-click="GoToDetails(item)">
+                                    {{item.officeAddress.city}}
+                                </td>
+                                <td ng-click="GoToDetails(item)">
+                                    <span ng-if="item.adminLastName!==null && item.adminFirstName!==null">{{item.adminLastName+", "+item.adminFirstName}}</span>
+                                </td>
+                                <td ng-click="GoToDetails(item)">
+                                    {{item.phoneWork|tel}}
+                                </td>
+                                <td ng-click="GoToDetails(item)">
+                                    {{item.status}}
+                                </td>
+                                <td class="text-center">
+<a ng-click="GoToDetails(item)">{{"View"|translate}}</a>
+                                </td>
+                            </tr>
+                            <tr ng-if="ActiveVendorsList===null ||ActiveVendorsList.length ===0">
+                                <td colspan="7" class="text-center"><span class="text-center text-danger">{{"NoRecordText"|translate}}</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <dir-pagination-controls max-size="3" ng-if="ActiveVendorsList===null ||ActiveVendorsList.length ===0" paginatio-id="ContentServiceList"
+                                             direction-links="true"
+                                             boundary-links="true" class="pull-right">
+                    </dir-pagination-controls>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

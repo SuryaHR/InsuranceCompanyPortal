@@ -1,0 +1,55 @@
+﻿{
+  "ControlText": {
+    "CreateNewContact_title": "New",
+    "UploadContacts_title": "Upload",
+    "SearchContact_title": "Search..",
+    "Create_title": "Create",
+    "AddRole_title": "Add",
+    "UploadContact_title": "Upload",
+    "Back_title": "Back"
+
+  },
+  "HeaderText": {
+    "NewContact_title": "New Contact",
+    "UploadContact_title": "Upload Contact",
+    "UploadContactNote": "Select the CVS file to upload the contact details"
+  },
+  "Table": {
+    "Id": "Id",
+    "Name": "Name",
+    "Designation": "Designation",
+    "BranchOffice": "Branch / Office",
+    "EmailId": "Email Id",
+    "PhoneNo": "Phone No"
+  },
+  "FormControlText": {
+    "FirstName": "First Name",
+    "LastName": "Last Name",
+    "Email": "Email",
+    "PhoneNumber": "Phone No.",
+    "Designation": "Designation",
+    "ReportingManager": "Reporting Manager",
+    "BranchOffice": "Branch / Office",
+    "Role": "Role"
+  },
+  "Placeholder": {
+    "ddlDesignation": "Designations",
+    "ddlReportingManager": "Search For Employee",
+    "ddlBranchOffice": "Search For Ofice",
+    "ddlRole": "Search Available Roles"
+  },
+  "NewContactNote_title": " * An email will be sent to contact to complete their profile",
+  "NoRecordText": "No Records Available",
+  "FirstNameRequired": "Enter First Name",
+  "LastNameRequired": "Enter Last Name",
+  "EmailRequired": "Enter Email Address",
+  "CorrectEmail": "Please Enter Valid Email Address",
+  "PhoneNoRequired": "Enter Phone Number",
+  "DesignationRequired": "Select Designation",
+  "BranchRequired": "Select Branch",
+  "ReoprtingMgnrRequired": "Select Reporting Manager",
+  "CorrectPhoneNo": "Enter Correct Phone Number",
+  "SelectRoleTitle": "Role!",
+  "SelectRole": "You have to select role for this contact"
+}
+

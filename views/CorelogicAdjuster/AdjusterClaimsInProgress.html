@@ -1,0 +1,51 @@
+﻿<div class="col-md-12">
+    <div class="portlet light bordered">
+        <div class="portlet-title tabbable-line">
+            <!--<div class="caption">
+                <i class="icon-social-twitter font-dark hide"></i>
+                <span class="caption-subject font-dark bold uppercase">Quick Actions</span>
+            </div>-->
+            <ul class="nav nav-tabs pull-left">
+                <li class="active">
+                    <a href="tab_actions_pending" data-toggle="tab" ng-click="showMyDraft($event)">{{"TabHeaderTitle.MyDraft_title"|translate}}</a>
+                </li>
+                <li>
+                    <a href="tab_actions_completed" data-toggle="tab" ng-click="showInProgress($event)"> {{"TabHeaderTitle.InProgress_title"|translate}} </a>
+                </li>
+                <li class="">
+                    <a href="tab_actions_pending" data-toggle="tab" ng-click="showWaitingForApproval($event)"> {{"TabHeaderTitle.WaitingForApproval_title"|translate}} </a>
+                </li>
+                <li>
+                    <a href="tab_actions_completed" data-toggle="tab" ng-click="showDeclined($event)"> {{"TabHeaderTitle.Declined_title"|translate}}</a>
+                </li>
+            </ul>
+        </div>
+        <div class="portlet-body">
+            <div class="tab-content">
+                <div class="tab-pane active" id="tab_actions_draft" ng-if="showMyDraftTab">
+
+                    <div class="row " ng-include="'views/Adjuster/MyDraft.html'" ng-controller="MyDraftController">
+
+                    </div>
+
+                </div>
+                <div class="tab-pane active " id="tab_actions_inprogress" ng-if="showInProgressTab">
+                    <div class="row " ng-include="'views/Adjuster/InProgress.html'" ng-controller="InProgressController">
+
+                    </div>
+                </div>
+                <div class="tab-pane active" id="tab_actions_waiting" ng-if="showWaitingForApprovalTab">
+                    <div class="row " ng-include="'views/Adjuster/WaitingForApproval.html'" ng-controller="WaitingForApprovalController">
+
+                    </div>
+                </div>
+                <div class="tab-pane active" id="tab_actions_declined" ng-if="showDeclinedTab">
+                    <div class="row " ng-include="'views/Adjuster/Declined.html'" ng-controller="DeclinedController">
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

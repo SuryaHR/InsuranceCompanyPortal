@@ -1,0 +1,21 @@
+﻿{
+  "TabHeaderText": {
+    "ClaimSpecialists": "Claim Specialists"
+  },
+  "ControlText": {
+    "NewSpecialists": "New Specialists",
+    "View": "View",
+    "Show": "Show",
+    "Search": "EmployeeId, Name, Type"
+  },
+  "Table": {
+    "EmployeeId": "Employee Id",
+    "Name": "Name",
+    "ClaimsInHand": "Claims In Hand",
+    "Designation": "Designation",
+    "Type": "Type",
+    "Status": "Status"
+  },
+  "Claim Specialist": "Claim Specialist",
+  "Home":"Home"
+}

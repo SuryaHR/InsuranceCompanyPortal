@@ -1,0 +1,34 @@
+﻿{
+  "HeaderText":{
+    "Dashboard":"Dashboard",
+    "AllAppraisals":"All Appraisals",
+    "Reports":"Reports",
+    "Settings":"Settings"
+  },
+
+  "ControlText": {
+    "Back_title": "Back",
+    "Assign_title": "Assign",
+    "SortBy": "Sort By",    
+    "Accept": "Accept"
+  },
+
+  "FormControlText": {
+    
+  },
+  "Radio": {
+    
+  },
+
+  "AlertMessage": {
+    
+  },
+  "ErrorMessage": {
+   
+  },
+
+  "SearchforComparablesText": "Search For More Comparable"
+   
+}
+
+

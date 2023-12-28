@@ -1,0 +1,32 @@
+﻿{
+
+  "SearchReports": "First Name, Last Name",
+  "SearchInsReports": "Insurance Companies",
+  "InsuranceCompanies": "Insurance Companies",
+  "AssociatesReport": "Associates Report",
+
+
+  "Table": {
+    "FirstName": "First Name",
+    "LastName": "Last Name",
+    "Claims": "Claims",
+    "Items": "Items",
+    "QuoteValue": "Quote Value",
+    "ReplacedValue": "Replaced Value",
+    "TotalInvoiced": "Total Invoiced",
+    "FirstNote": "First Note",
+    "AvgClaimTime": "Avg. Claim Time",
+
+    "InsuranceCompany": "Insurance Company",
+    "TotalCoverageLimit": "Total Coverage Limit",
+    "IndemnitySavings": "Indemnity Savings",
+    "ReplacementPer": "Replacement %"
+
+  },
+  "Label": {
+    "StartDate": "From Date",
+    "ToDate": "To Date",
+    "To": "To",
+    "Search": "Search"
+  }
+}

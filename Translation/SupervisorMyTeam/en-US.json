@@ -1,0 +1,34 @@
+﻿
+{  
+  "ControlText": {
+    "OpenClaims": "Open claims",
+    "OverdueClaims" : "Overdue claims",
+    "OpenAssignments": "Open assignments",
+    "TotalPricedForMonth": "Total item priced for month",
+    "TotalSettlementForMonth": "Total Settlement for Month",
+    "Department": "Department",
+    "Designation": "Designation",
+    "Role" : "Role"
+  },
+
+  "HeaderTitle": {
+    "MyTeam" : "My Team"
+  },
+
+  "TabHeaderTitle": {
+    
+  },
+
+  "Label": {
+
+  },
+
+  "Table": {
+
+  },
+  "ClaimDetails_Delete": {
+    
+  },
+  "NoRecordText": "No records available"
+  
+}

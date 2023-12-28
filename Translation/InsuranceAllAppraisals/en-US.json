@@ -1,0 +1,87 @@
+﻿{
+  "LabelText":{
+    "ArtileAndPremium" : "Article Coverage And Premiums",
+    "ArticleCoverageTrend" : "Article Coverage Trend",
+    "PremiumTrend" : "Premium Trend",
+    "ArtileAndPremiumChartNote" : "* All dollar values are in '000s (thousands)",
+
+    "ThisMonth" : "This Month",
+    "ThisQuarter" : "This Quarter",
+    "ThisYear" : "This Year",
+
+    "AllDollarValues" : "All dollar values are in '000s (thousands)",
+    "ViewAll" : "View All",
+
+    "AgencyPerformance" : "Agency Performance",
+    "itemCategory" : "Item Category Split",
+    "PolicyholderReviewResults" : "Policyholder Review Results",
+
+    "TotalAppraisalsCreated" : "Total # of appraisals created",
+    "AppraisalsCreatedPerDay":"Avg.# of appraisals created per day",
+    "AvgEvaluationTime": "Average evaluation time",
+    "AppraisalsEvaluatedPerDay":"Avg.# of appraisals evaluated per day",
+    "SentToArtigemReview" : "Appraisals sent for Artigem review",
+
+    "UnderwriterPerformance": "Underwriter Performance",
+    "policyholderFname":"Policyholder First Name",
+    "policyholderLname":"Policyholder Last Name",
+
+    "ItemCategory": "Item Category",
+
+    "PolicyReports":"Policy Reports",
+    "Filters":"Filters",
+    "PolicyEffectiveDate" : "Policy Effective Date",
+    "DateFormat":"mm/dd/yyyy",
+    "To" : "to",
+    "AppraisalStatus" : "Appraisal Status",
+    "State" : "State",
+    "ViewOptions" : "View Options",
+    "ViewByAppraisal" : "View by appraisal",
+    "ViewByPolicy" : "View by policy",
+    "Submit" : "Submit",
+    "CompanyPerformance": "Company Performance",
+    "AppraisalsSentForArtigem" : "Appraisals sent for Artigem Review",
+    "AppraisalsReport":"Appraisals Report",
+    "AppraisalReviews":"Appraisal Reviews",
+    "totalAppraisalReviewed":"Total # of Appraisals Reviewed",
+    "appraisalsEvaluatedPerDay":"Avg. # Of Appraisals Evaluated Per Day",
+    "avgEvaluationTime":"Average Evaluation Time",
+    "totalAppraisalsApproved":"Total # of Appraisals Approved",
+    "totalAppraisalsSentBackToAgent":"Total # of Appraisals Sent Back To Agent"
+    
+    },
+
+    "Table":
+    {
+      "placeholder" : "Appraisal #, Policy #",
+      "Appraisal#" : "Appraisal #",
+      "ItemCategory" : "Item Category",
+      "Policy#" : "Policy #",
+      "PolicyEffectiveDate": "Policy Effective Date",
+      "PolicyRenewalDate":"Policy Renewal Date",
+      "PriPolicyholder" : "Primary Policyholder",
+      "OldAppraisalDate" : "Old Appraisal Date",
+      "OldAppraisalValue" : "Old Appraisal Value",
+      "SpeedcheckValue" : "SpeedCheck Value",
+      "CoverageApproved" : "Coverage Approved",
+      "AnnualPremium" : "Annual Premium",
+      "ChangeInCoverage" : "Change In Coverage",
+      "Status" : "Status",
+      "NoAppraisalText" : "No appraisals found",
+      "InsuranceAgent" : "Insurance Agent",
+      "AgencyCode" : "Agency Code",
+      "CreatedDate" : "Created Date",
+      "ApprovedDate": "Approved Date",
+      "EvaluationTime": "Evaluation Time",
+      "ArtigemReview": "Artigem Review",
+      "PolicyHolderReview": "Policyholder Review"     
+    },
+
+  "HeaderText":{
+    "Dashboard":"Dashboard",
+    "AllAppraisals":"My Appraisals",
+    "Reports":"Reports",
+    "Settings":"Settings"
+  }
+
+}

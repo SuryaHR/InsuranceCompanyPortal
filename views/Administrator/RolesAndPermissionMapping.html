@@ -1,0 +1,105 @@
+﻿<div class="col-md-12 col-sm-12 padding1px  ">
+    <ul class="page-breadcrumb breadcrumb sbold">
+        <li>
+            <a ng-click="GoToHome()">{{"Home"|translate}}</a>
+        </li>
+        <li>
+            <span><i class="fa fa-circle"></i>{{"Security Controls"|translate}}</span>
+        </li>
+    </ul>
+</div>
+
+<div class="col-md-12 padding1px">
+    <div class="portlet light padding1px ">
+        <div class="portlet-title">
+            <div class="caption font-grey-sharp">
+                <span class="caption-subject">{{"MainHeading"|translate}}</span>
+            </div>
+        </div>
+        <div class="col-xs-12 margin-top-5 margin-bottom-5">
+            <button class="btn sbold btnMargin pull-right"
+                ng-disabled="PermissionForm.$invalid || PermissionForm.$pristine" ng-click="AssignPermission()">
+                {{"ControlText.Save"|translate}}
+            </button>
+            <button type="button" class="btn sbold  btnMargin pull-right" ng-click="GetPermissionsForRoles()">
+                {{"Cancel"|translate}}
+            </button>
+        </div>
+        <div class="portlet light" ng-form="PermissionForm">
+            <div class="form-group col-md-12">
+                <label class="col-sm-2 control-label text-right" for="Role">{{"Label.RoleGroup"|translate}}</label>
+                <div class="col-md-4 col-lg-3 col-sm-6 padding1px">
+                    <select class="input-sm select2me" data-placeholder="Select Role" ng-model="Role" name="Role"
+                        id="Role" required ng-options="option.id as option.name for option in RoleList"
+                        ng-change="GetPermissionsForRoles()"></select>
+                    <div class="col-md-12 padding1px errormessage">
+                        <div ng-message="required"
+                            ng-show="(PermissionForm.Role.$error.required)&&(PermissionForm.Role.$touched)">
+                            <span class="text-danger">&nbsp;{{"ErrorMessage.RoleRequired"|translate}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 margin-top-10 col-sm-12 padding1px ">
+                <h4 class="text-primary sbold">{{"ControlText.Permission"|translate}}</h4>
+            </div>
+            <div class="col-md-12 errormessage text-left">
+                <div class="col-md-12" ng-show="DisplayError">
+                    <span class="text-danger">&nbsp;{{"ErrorMessage.PermissionRequired"|translate}}</span>
+                </div>
+            </div>
+            <!--Permission List-->
+            <div class="col-md-12 padding1px" style="height:500px;overflow-y:auto;">
+                <div class="col-lg-5 col-md-6 col-lg-offset-1 margin-bottom-20"
+                    ng-repeat="Screen in ScreenList | orderBy : 'name'" style="border-bottom:1px solid #cdc5c5;">
+                    <div class="col-md-12">
+                        <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline col-md-12 text-success sbold">
+                            <input type="checkbox" class="checkbox" ng-model="Screen.IsScreenSelect"
+                                ng-click="SelectScreen(Screen)">
+                            <span></span>{{Screen.name}}
+                        </label>
+                    </div>
+                    <div class="col-md-11 col-md-offset-1" ng-if="Screen.name != 'COMPARABLE SEARCH'">
+                        <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline col-md-3">
+                            <input type="checkbox" class="checkbox" ng-model="Screen.IsCreate"
+                                ng-click="CheckScreen(Screen)">
+                            <span></span>{{"ControlText.Create"|translate}}
+                        </label>
+                        <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline col-md-3">
+                            <input type="checkbox" class="checkbox" ng-model="Screen.IsDelete"
+                                ng-click="CheckScreen(Screen)">
+                            <span></span>{{"ControlText.Delete"|translate}}
+                        </label>
+                        <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline col-md-3">
+                            <input type="checkbox" class="checkbox" ng-model="Screen.IsSelect"
+                                ng-click="CheckScreen(Screen)">
+                            <span></span>{{"ControlText.Select"|translate}}
+                        </label>
+                        <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline col-md-3">
+                            <input type="checkbox" class="checkbox" ng-model="Screen.IsUpdate"
+                                ng-click="CheckScreen(Screen)">
+                            <span></span>{{"ControlText.Update"|translate}}
+                        </label>
+                    </div>
+                    <div class="col-md-11 col-md-offset-1" ng-if="Screen.name === 'COMPARABLE SEARCH'">
+                        <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline col-md-3">
+                            <input type="checkbox" class="checkbox" ng-model="Screen.isSearch"
+                                ng-click="CheckScreen(Screen)">
+                            <span></span>{{"Search"|translate}}
+                        </label>
+                    </div>
+                </div>
+                <!--End Permission List-->
+            </div>
+        </div>
+        <div class="col-xs-12 margin-top-5">
+            <button class="btn sbold btnMargin pull-right"
+                ng-disabled="PermissionForm.$invalid || PermissionForm.$pristine" ng-click="AssignPermission()">
+                {{"ControlText.Save"|translate}}
+            </button>
+            <button type="button" class="btn sbold  btnMargin pull-right" ng-click="GetPermissionsForRoles()">
+                {{"Cancel"|translate}}
+            </button>
+        </div>
+    </div>
+</div>

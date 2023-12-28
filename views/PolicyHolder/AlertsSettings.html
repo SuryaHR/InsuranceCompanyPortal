@@ -1,0 +1,205 @@
+﻿<ul class="page-breadcrumb breadcrumb sbold">
+    <li>
+        <a ng-click="GoToHome()">{{"Home"|translate}}</a>
+        <i class="fa fa-circle"></i>
+    </li>
+    <li>
+        <span>{{"Security"|translate}}</span>
+    </li>
+</ul>
+<!-- Login Security -->
+<div class="portlet light padding1px">
+    <div class="portlet-title">
+        <div class="caption font-gray-sharp">
+            <span class="caption-subject">{{"Setting"|translate}}</span>
+        </div>
+        <div class="tools">
+        </div>
+    </div>
+    <div class="portlet-body">
+        <div class="row">
+            <div class="col-md-8  bordered" >
+                <!--<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 margin-top-10 margin-bottom-10">
+                    <button type="button" class="btn  sbold btnMargin pull-right">
+                        {{"Cancel"|translate}}
+                    </button>
+                    <button type="button" class="btn sbold btnMargin pull-right">
+                        {{"Save"|translate}}
+                    </button>
+                </div>-->
+               
+                        <div class="col-md-12 BackgroundGray">
+                    <div class="col-md-5 col-sm-6 col-lg-5 col-xs-8 text-center " >
+                        <label class="control-label form-group  Label_Text_Right">{{"Dashboard Alerts"|translate}}</label>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-lg-3 col-xs-2 text-center" >
+                        <label class="control-label form-group  Label_Text_Right">{{"Dashboard Alerts"|translate}}</label>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-lg-3 col-xs-2 text-center" >
+                        <label class="control-label form-group Label_Text_Right">{{"Email Alerts"|translate}}</label>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                        <div class="col-md-12 SubHeadingDiv margin-bottom-15 margin-top-10" style="margin-top: 0px !important;
+">
+                            <span class="caption-subject  ">{{"Notes"|translate}}</span>
+                        </div>
+                        <div class="col-md-5 col-sm-6 col-lg-5 col-xs-8">
+                            <label class="control-label form-group ">{{"Notify me everytime a 'note' is created against a claim"|translate}}</label>
+
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-lg-3 col-xs-2 text-center">
+                            <label class="mt-checkbox mt-checkbox-outline text-success ">
+                                <input type="checkbox" class="checkboxes" />
+                                <span></span>
+                            </label>
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-lg-3 col-xs-2 text-center">
+                            <label class="mt-checkbox mt-checkbox-outline text-success ">
+                                <input type="checkbox" class="checkboxes" />
+                                <span></span>
+                            </label>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="col-md-5 col-sm-6 col-lg-5 col-xs-8">
+                            <label class="control-label form-group ">{{"Notify me everytime a 'note' is addressed to me"|translate}}</label>
+
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-lg-3 col-xs-2 text-center">
+                            <label class="mt-checkbox mt-checkbox-outline text-success ">
+                                <input type="checkbox" class="checkboxes" />
+                                <span></span>
+                            </label>
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-lg-3 col-xs-2 text-center">
+                            <label class="mt-checkbox mt-checkbox-outline text-success ">
+                                <input type="checkbox" class="checkboxes" />
+                                <span></span>
+                            </label>
+                        </div>
+                    <div class="clearfix"></div>                  
+                        <div class="col-md-12 SubHeadingDiv margin-bottom-15 margin-top-10">
+                            <span class="caption-subject  ">{{"Events"|translate}}</span>
+                        </div>
+                        <div class="col-md-5 col-sm-6 col-lg-5 col-xs-8">
+                            <label class="control-label form-group ">{{"Notify me everytime an 'event' is created against a claim"|translate}}</label>
+
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-lg-3 col-xs-2 text-center">
+                            <label class="mt-checkbox mt-checkbox-outline text-success ">
+                                <input type="checkbox" class="checkboxes" />
+                                <span></span>
+                            </label>
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-lg-3 col-xs-2 text-center">
+                            <label class="mt-checkbox mt-checkbox-outline text-success ">
+                                <input type="checkbox" class="checkboxes" />
+                                <span></span>
+                            </label>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="col-md-5 col-sm-6 col-lg-5 col-xs-8">
+                            <label class="control-label form-group ">{{"Notify me everytime an 'event' is addressed to me"|translate}}</label>
+
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-lg-3 col-xs-2 text-center">
+                            <label class="mt-checkbox mt-checkbox-outline text-success ">
+                                <input type="checkbox" class="checkboxes" />
+                                <span></span>
+                            </label>
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-lg-3 col-xs-2 text-center">
+                            <label class="mt-checkbox mt-checkbox-outline text-success ">
+                                <input type="checkbox" class="checkboxes" />
+                                <span></span>
+                            </label>
+                        </div>
+                    <div class="clearfix"></div>
+                        <div class="col-md-12 SubHeadingDiv margin-bottom-15 margin-top-10">
+                            <span class="caption-subject  ">{{"Invoices"|translate}}</span>
+                        </div>
+                        <div class="col-md-5 col-sm-6 col-lg-5 col-xs-8">
+                            <label class="control-label form-group ">{{"Notify me everytime an invoice is created against a claim"|translate}}</label>
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-lg-3 col-xs-2 text-center">
+                            <label class="mt-checkbox mt-checkbox-outline text-success ">
+                                <input type="checkbox" class="checkboxes" />
+                                <span></span>
+                            </label>
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-lg-3 col-xs-2 text-center">
+                            <label class="mt-checkbox mt-checkbox-outline text-success ">
+                                <input type="checkbox" class="checkboxes" />
+                                <span></span>
+                            </label>
+                        </div>
+                    <div class="clearfix"></div>
+                        <div class="col-md-12 SubHeadingDiv margin-bottom-15 margin-top-10">
+                            <span class="caption-subject  ">{{"Service Request"|translate}}</span>
+                        </div>
+                        <div class="col-md-5 col-sm-6 col-lg-5 col-xs-8">
+                            <label class="control-label form-group ">{{"Notify me everytime a service request is created against a claim"|translate}}</label>
+
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-lg-3 col-xs-2 text-center">
+                            <label class="mt-checkbox mt-checkbox-outline text-success ">
+                                <input type="checkbox" class="checkboxes" />
+                                <span></span>
+                            </label>
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-lg-3 col-xs-2 text-center">
+                            <label class="mt-checkbox mt-checkbox-outline text-success ">
+                                <input type="checkbox" class="checkboxes" />
+                                <span></span>
+                            </label>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="col-md-5 col-sm-6 col-lg-5 col-xs-8">
+                            <label class="control-label form-group ">{{"Notify me everytime a service request is created involving me"|translate}}</label>
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-lg-3 col-xs-2 text-center">
+                            <label class="mt-checkbox mt-checkbox-outline text-success ">
+                                <input type="checkbox" class="checkboxes" />
+                                <span></span>
+                            </label>
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-lg-3 col-xs-2 text-center">
+                            <label class="mt-checkbox mt-checkbox-outline text-success ">
+                                <input type="checkbox" class="checkboxes" />
+                                <span></span>
+                            </label>
+                        </div>
+                    <div class="clearfix"></div>
+                        <div class="col-md-12 SubHeadingDiv margin-bottom-15 margin-top-10">
+                            <span class="caption-subject  ">{{"Assignment Status"|translate}}</span>
+                        </div>
+                        <div class="col-md-5 col-sm-6 col-lg-5 col-xs-8">
+                            <label class="control-label form-group ">{{"Notify me everytime the status of the claim assignment changes"|translate}}</label>
+
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-lg-3 col-xs-2 text-center">
+                            <label class="mt-checkbox mt-checkbox-outline text-success ">
+                                <input type="checkbox" class="checkboxes" />
+                                <span></span>
+                            </label>
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-lg-3 col-xs-2 text-center">
+                            <label class="mt-checkbox mt-checkbox-outline text-success ">
+                                <input type="checkbox" class="checkboxes" />
+                                <span></span>
+                            </label>
+                        </div>
+                <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 margin-top-10 margin-bottom-10">
+                    <button type="button" class="btn  sbold btnMargin pull-right"  >
+                        {{"Cancel"|translate}}
+                    </button>
+                    <button type="button" class="btn sbold btnMargin pull-right"  >
+                        {{"Save"|translate}}
+                    </button>
+                </div>   
+             </div>
+            </div>
+    </div>
+</div>
+
+
