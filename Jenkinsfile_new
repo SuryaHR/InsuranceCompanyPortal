@@ -4,8 +4,7 @@
                             stages {
                                 stage('Checkout') {
                                     steps {
-                                        // Assuming your repository is https://github.com/your/repo.git
-                                        git 'https://github.com/SuryaHR/InsuranceCompanyPortal.git'
+                                        checkout scm
                                     }
                                 }
 
