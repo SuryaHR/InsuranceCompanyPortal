@@ -14,9 +14,8 @@
                                             // Check if any changes in the repository
                                             def changedFiles = sh(script: 'git diff --name-only HEAD^ HEAD', returnStdout: true).trim()
 
-                                            if (changedFiles.contains('Jenkinsfile_openly')) {
-                                                echo 'Changes detected in Jenkinsfile_AtoZ. Building the AtoZ-Insurance-Company job.'
-                                                // Add build steps for the AtoZ-Insurance-Company job
+                                            if (changedFiles == 'Jenkinsfile_openly') {
+                                                echo 'Changes detected in Jenkinsfile_openly. Building the Openly-Insurance-Company job.'
                                                 echo 'Before overwrite:'
                                                 sh 'cat Config/Configuration.json'
                                                 // Overwrite the configuration file
