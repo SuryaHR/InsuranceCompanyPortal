@@ -14,7 +14,7 @@
                                             // Check if any changes in the repository
                                             def changedFiles = sh(script: 'git diff --name-only HEAD^ HEAD', returnStdout: true).trim()
 
-                                            if (changedFiles.contains('Jenkinsfile_evolution')) {
+                                            if (changedFiles == 'Jenkinsfile_evolution') {
                                                 echo 'Changes detected in Jenkinsfile_evolution. Building the Evolution-Insurance-Company job.'
                                                 // Add build steps for the AtoZ-Insurance-Company job
                                                 echo 'Before overwrite:'
