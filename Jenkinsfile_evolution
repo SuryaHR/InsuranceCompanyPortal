@@ -48,7 +48,7 @@
                                                     }
                                                 }
                                                 '''
-						currentBuild.result = 'ABORTED' // Abort the build to prevent further stages or jobs
+						
                                             } else {
                                                 echo 'Changes detected in the repository. Building all jobs.'
                                                 // Add build steps for all jobs
