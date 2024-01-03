@@ -18,7 +18,7 @@
                                             {
                                                 {
                                                     "data": {
-                                                        "insuranceCarrier":"AtoZ Insurance Company",
+                                                        "insuranceCarrier":"AtoZ-Insurance-Company",
                                                         "serverAddress": "http://45.79.5.228:8080",
                                                         "Xoriginator": "http://45.79.5.228:8080/AtoZ",
                                                         "apiurl": "/ArtigemRS-FI/api/",
