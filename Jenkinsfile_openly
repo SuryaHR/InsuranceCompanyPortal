@@ -1,0 +1,72 @@
+
+                        pipeline {
+                            agent any
+                            stages {
+                            
+                                stage('Check Changes') {
+                                    steps {
+                                        script {
+                                            // Check if any changes in the repository
+                                            def changedFiles = sh(script: 'git diff --name-only HEAD^ HEAD', returnStdout: true).trim()
+
+                                            // Assuming the Jenkinsfile name is 'Jenkinsfile_openly'
+                                            if (changedFiles == 'Jenkinsfile_openly') {
+                                                echo 'Changes detected in Jenkinsfile_openly. Building the Openly-Insurance-Company job.'
+                                                // Continue to the next stage for building the job
+                                            } else if (changedFiles.contains('Jenkinsfile_')) {
+                                                echo 'Changes detected in other Jenkinsfiles. Skipping the build.'
+                                                currentBuild.result = 'ABORTED' // Skip the rest of the stages
+                                                error('Changes detected in other Jenkinsfiles. Skipping the build.')
+                                            } else {
+                                                echo 'Changes detected in the repository. Building all jobs.'
+                                                // Continue to the next stage for building the job
+                                            }
+                                        }
+                                    }
+                                }
+                                stage('Checkout') {
+                                    steps {
+                                        checkout scm
+                                    }
+                                }
+
+                                stage('Build') {
+                                    steps {
+                                        script {
+                                            echo 'Before overwrite:'
+                                            sh 'cat Config/Configuration.json'
+                                            // Overwrite the configuration file
+                                            writeFile file: 'Config/Configuration.json', text: '''
+                                            {
+                                                "data": {
+                                                    "insuranceCarrier":"Openly Insurance Company",
+                                                    "serverAddress": "http://45.79.5.228:8080",
+                                                    "Xoriginator": "http://45.79.5.228:8080/openly",
+                                                    "apiurl": "/ArtigemRS-FI/api/",
+                                                    "AdminApiurl": "/ArtigemRS-FI_Admin/api/",
+                                                    "receipturl": "/",
+                                                    "ExportUrl": "",
+                                                    "ClaimTemplate": "/ArtigemRS-FI/artigem/templates/ClaimDetails.xlsx",
+                                                    "ItemTemplate": "/ArtigemRS-FI/artigem/templates/postloss_Items.xlsx",
+                                                    "VendorDetailsTemplate": "/ArtigemRS-FI/artigem/templates/VendorCatalogUpload.xlsx",
+                                                    "UserDetailsTemplate": "/ArtigemRS-FI/artigem/templates/UserDetails.xlsx",
+                                                    "bestbuyUrl":"https://api.bestbuy.com/v1/products",
+                                                    "claimProfile": "Contents",
+                                                    "serviceRequests" : "true",
+                                                    "jewelryVendor": "ARTGM",
+                                                    "speedCheckVendor": "ARTGM",
+                                                    "hideCaptcha":"true",
+                                                    "SpeedCheckApiurl": "http://45.79.5.228:8080/SpeedCheck_App/api/",
+                                                    "gemGuideApi":"false",
+                                                    "googleShoppingDropdown":"true",
+                                                    "ThirdPartyAdjusting" : "false",
+                                                    "loginWithSSO":"false"
+                                                }
+                                            }
+                                            '''
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    
