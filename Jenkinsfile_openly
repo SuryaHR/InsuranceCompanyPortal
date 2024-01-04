@@ -39,7 +39,7 @@
                                             writeFile file: 'Config/Configuration.json', text: '''
                                             {
                                                 "data": {
-                                                    "insuranceCarrier":"Openly Insurance Company",
+                                                    "insuranceCarrier":"Openly-Insurance-Company",
                                                     "serverAddress": "http://45.79.5.228:8080",
                                                     "Xoriginator": "http://45.79.5.228:8080/openly",
                                                     "apiurl": "/ArtigemRS-FI/api/",
