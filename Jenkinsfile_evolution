@@ -47,7 +47,7 @@
                                             writeFile file: 'Config/Configuration.json', text: '''
                                             {
                                                 "data": {
-                                                    "insuranceCarrier":"Evolution Insurance Company",
+                                                    "insuranceCarrier":"Evolution-Insurance-Company",
                                                     "serverAddress": "http://45.79.5.228:8080",
                                                     "Xoriginator": "http://45.79.5.228:8080/evolution",
                                                     "apiurl": "/ArtigemRS-FI/api/",
