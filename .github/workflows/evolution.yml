@@ -61,7 +61,10 @@ jobs:
         run: |
           # Replace "/path/to/tomcat/webapps" with the actual path to your Tomcat's webapps directory
           cd $GITHUB_WORKSPACE
-          mv . evolution-app
-          cp -r evolution-app /opt/tomcat/webapps/
+          mkdir tmp
+          mv * tmp/
+          cd ..
+          mv tmp evolution-app
+          mv evolution-app /opt/tomcat/webapps/
 
           
