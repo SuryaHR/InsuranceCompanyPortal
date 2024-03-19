@@ -60,6 +60,8 @@ jobs:
       - name: Copy code to Tomcat
         run: |
           # Replace "/path/to/tomcat/webapps" with the actual path to your Tomcat's webapps directory
-          cp -r evolution /opt/tomcat/webapps/
+          cd $GITHUB_WORKSPACE
+          mv . evolution-app
+          cp -r evolution-app /opt/tomcat/webapps/
 
           
