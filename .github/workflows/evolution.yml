@@ -1,4 +1,4 @@
-name: Update Configuration
+name: Update Configuration and Deploy to Tomcat
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - sakha_master
 
 jobs:
-  update-configuration:
+  deploy-to-tomcat:
     runs-on: ubuntu-latest
     
     steps:
@@ -40,31 +40,18 @@ jobs:
           config=${config//\"googleShoppingDropdown\": \"false\"/\"googleShoppingDropdown\": \"false\"}
           config=${config//\"ThirdPartyAdjusting\": \"true\"/\"ThirdPartyAdjusting\": \"true\"}
           config=${config//\"loginWithSSO\": \"false\"/\"loginWithSSO\": \"false\"}
-
+          config=${config//\"OktaRedirectionURL\" : \"http://173.255.198.245:8080/evolution\"/\"OktaRedirectionURL\" : \"http://173.255.198.245:8080/evolution\"}
+          config=${config//\"OktaClientId\":\"0oa9mhzews9UxxUwr5d7\"/\"OktaClientId\":\"0oa9mhzews9UxxUwr5d7\"}
+          config=${config//\"OktaBaseURL\":\"https://dev-41617002.okta.com/\"/\"OktaBaseURL\":\"https://dev-41617002.okta.com/\"}
+          config=${config//\"OktaEndSessionRedirectionURL\":\"https://dev-41617002.okta.com//oauth2/logout\"/\"OktaEndSessionRedirectionURL\":\"https://dev-41617002.okta.com//oauth2/logout\"}
+          
           # Write the modified content back to the configuration.json file
           echo "$config" > Config/Configuration.json
 
       - name: Display changes
         run: cat Config/Configuration.json  # Display the modified configuration file
 
-      - name: Save project code as artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: evolution
-          path: .  # Save the entire project code directory
-
-      # - name: Rename artifact directory
-      #   run: |
-      #     mv $GITHUB_WORKSPACE evolution-app  # Rename the artifact directory
-
       - name: Copy code to Tomcat
         run: |
-          # Replace "/path/to/tomcat/webapps" with the actual path to your Tomcat's webapps directory
-          cd $GITHUB_WORKSPACE
-          mkdir tmp
-          mv * tmp/
-          cd ..
-          mv tmp evolution-app
-          mv evolution-app /opt/tomcat/webapps/
-
-          
+          # Replace "/opt/tomcat/webapps" with the actual path to your Tomcat's webapps directory
+          cp -r $GITHUB_WORKSPACE /opt/tomcat/webapps/
