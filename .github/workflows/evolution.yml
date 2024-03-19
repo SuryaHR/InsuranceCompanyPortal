@@ -53,13 +53,13 @@ jobs:
           name: evolution
           path: .  # Save the entire project code directory
 
-      - name: Rename artifact directory
-        run: |
-          mv $GITHUB_WORKSPACE evolution-app  # Rename the artifact directory
+      # - name: Rename artifact directory
+      #   run: |
+      #     mv $GITHUB_WORKSPACE evolution-app  # Rename the artifact directory
 
       - name: Copy code to Tomcat
         run: |
           # Replace "/path/to/tomcat/webapps" with the actual path to your Tomcat's webapps directory
-          cp -r evolution-app /opt/tomcat/webapps/
+          cp -r evolution /opt/tomcat/webapps/
 
           
