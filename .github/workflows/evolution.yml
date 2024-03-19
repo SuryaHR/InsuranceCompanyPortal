@@ -13,30 +13,36 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Modify Configuration File
+      - name: Replace values in the configuration.json file
         run: |
-          # Replace values in the configuration.json file
-          sed -i 's|"insuranceCarrier":"The Evolution Insurance Company"/"insuranceCarrier":"Insurance Company Name"|g' Config/Configuration.json
-          sed -i 's|"serverAddress": "http://173.255.198.245:8080"|"serverAddress": "http://localhost:8080"|g' Config/Configuration.json
-          sed -i 's|"Xoriginator": "http://173.255.198.245:8080/evolution"|"Xoriginator": "worldwide.3circledemo.com"|g' Config/Configuration.json
-          sed -i 's|"apiurl":"/ArtigemRS-FI/api/"/"apiurl":"/ArtigemRS-FI/api/"|g' Config/Configuration.json
-          sed -i 's|"AdminApiurl": "/ArtigemRS-FI_Admin/api/"|"AdminApiurl": "/ArtigemRS-FI_Admin/api/"|g' Config/Configuration.json
-          sed -i 's|"receipturl": "/"|"receipturl": "/"|g' Config/Configuration.json
-          sed -i 's|"ClaimTemplate":"/ArtigemRS-FI/artigem/templates/ClaimDetails.xlsx"/"ClaimTemplate":"/ArtigemRS-FI/artigem/templates/ClaimDetails.xlsx"|g' Config/Configuration.json
-          sed -i 's|"ItemTemplate": "/ArtigemRS-FI/artigem/templates/postloss_Items.xlsx"|"ItemTemplate": "/ArtigemRS-FI/artigem/templates/postloss_Items.xlsx"|g' Config/Configuration.json
-          sed -i 's|"VendorDetailsTemplate": "/ArtigemRS-FI/artigem/templates/VendorCatalogUpload.xlsx"|"VendorDetailsTemplate": "/ArtigemRS-FI/artigem/templates/VendorCatalogUpload.xlsx"|g' Config/Configuration.json
-          sed -i 's|"UserDetailsTemplate":"/ArtigemRS-FI/artigem/templates/UserDetails.xlsx"/"UserDetailsTemplate":"/ArtigemRS-FI/artigem/templates/UserDetails.xlsx"|g' Config/Configuration.json
-          sed -i 's|"bestbuyUrl": "https://api.bestbuy.com/v1/products"|"bestbuyUrl": "https://api.bestbuy.com/v1/products"|g' Config/Configuration.json
-          sed -i 's|"claimProfile": "Contents"|"claimProfile": "Contents"|g' Config/Configuration.json
-          sed -i 's|"serviceRequests": "true"|"serviceRequests": "true"|g' Config/Configuration.json
-          sed -i 's|"jewelryVendor": "ARTGM"|"jewelryVendor": "ARTGM"|g' Config/Configuration.json
-          sed -i 's|"speedCheckVendor": "ARTGM"|"speedCheckVendor": "ARTGM"|g' Config/Configuration.json
-          sed -i 's|"hideCaptcha": "true"|"hideCaptcha": "true"|g' Config/Configuration.json
-          sed -i 's|"SpeedCheckApiurl": "http://173.255.198.245:8080/SpeedCheck_App/api/"|"SpeedCheckApiurl": "http://localhost:8080/SpeedCheck_App/api/"|g' Config/Configuration.json
-          sed -i 's|"gemGuideApi": "true"|"gemGuideApi": "true"|g' Config/Configuration.json
-          sed -i 's|"googleShoppingDropdown": "false"|"googleShoppingDropdown": "false"|g' Config/Configuration.json
-          sed -i 's|"ThirdPartyAdjusting": "true"|"ThirdPartyAdjusting": "true"|g' Config/Configuration.json
-          sed -i 's|"loginWithSSO": "false"|"loginWithSSO": "false"|g' Config/Configuration.json          
+          # Read the content of the configuration.json file into a variable
+          config=$(<Config/Configuration.json)
+    
+          # Replace values in the variable using string manipulation
+          config=${config//\"insuranceCarrier\":\"The Evolution Insurance Company\"/\"insuranceCarrier\":\"Insurance Company Name\"}
+          config=${config//\"serverAddress\": \"http://173.255.198.245:8080\"/\"serverAddress\": \"http://localhost:8080\"}
+          config=${config//\"Xoriginator\": \"http://173.255.198.245:8080/evolution\"/\"Xoriginator\": \"worldwide.3circledemo.com\"}
+          config=${config//\"apiurl\":\"/ArtigemRS-FI/api/\"/\"apiurl\":\"/ArtigemRS-FI/api/\"}
+          config=${config//\"AdminApiurl\": \"/ArtigemRS-FI_Admin/api/\"/\"AdminApiurl\": \"/ArtigemRS-FI_Admin/api/\"}
+          config=${config//\"receipturl\": \"/\"/\"receipturl\": \"/\"}
+          config=${config//\"ClaimTemplate\":\"/ArtigemRS-FI/artigem/templates/ClaimDetails.xlsx\"/\"ClaimTemplate\":\"/ArtigemRS-FI/artigem/templates/ClaimDetails.xlsx\"}
+          config=${config//\"ItemTemplate\": \"/ArtigemRS-FI/artigem/templates/postloss_Items.xlsx\"/\"ItemTemplate\": \"/ArtigemRS-FI/artigem/templates/postloss_Items.xlsx\"}
+          config=${config//\"VendorDetailsTemplate\": \"/ArtigemRS-FI/artigem/templates/VendorCatalogUpload.xlsx\"/\"VendorDetailsTemplate\": \"/ArtigemRS-FI/artigem/templates/VendorCatalogUpload.xlsx\"}
+          config=${config//\"UserDetailsTemplate\":\"/ArtigemRS-FI/artigem/templates/UserDetails.xlsx\"/\"UserDetailsTemplate\":\"/ArtigemRS-FI/artigem/templates/UserDetails.xlsx\"}
+          config=${config//\"bestbuyUrl\": \"https://api.bestbuy.com/v1/products\"/\"bestbuyUrl\": \"https://api.bestbuy.com/v1/products\"}
+          config=${config//\"claimProfile\": \"Contents\"/\"claimProfile\": \"Contents\"}
+          config=${config//\"serviceRequests\": \"true\"/\"serviceRequests\": \"true\"}
+          config=${config//\"jewelryVendor\": \"ARTGM\"/\"jewelryVendor\": \"ARTGM\"}
+          config=${config//\"speedCheckVendor\": \"ARTGM\"/\"speedCheckVendor\": \"ARTGM\"}
+          config=${config//\"hideCaptcha\": \"true\"/\"hideCaptcha\": \"true\"}
+          config=${config//\"SpeedCheckApiurl\": \"http://173.255.198.245:8080/SpeedCheck_App/api/\"/\"SpeedCheckApiurl\": \"http://localhost:8080/SpeedCheck_App/api/\"}
+          config=${config//\"gemGuideApi\": \"true\"/\"gemGuideApi\": \"true\"}
+          config=${config//\"googleShoppingDropdown\": \"false\"/\"googleShoppingDropdown\": \"false\"}
+          config=${config//\"ThirdPartyAdjusting\": \"true\"/\"ThirdPartyAdjusting\": \"true\"}
+          config=${config//\"loginWithSSO\": \"false\"/\"loginWithSSO\": \"false\"}
+
+          # Write the modified content back to the configuration.json file
+          echo "$config" > Config/Configuration.json
 
       - name: Display changes
         run: cat path/to/your/configuration.json  # Display the modified configuration file
