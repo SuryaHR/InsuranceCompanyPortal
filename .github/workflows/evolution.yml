@@ -45,7 +45,7 @@ jobs:
           echo "$config" > Config/Configuration.json
 
       - name: Display changes
-        run: cat path/to/your/configuration.json  # Display the modified configuration file
+        run: cat Config/Configuration.json  # Display the modified configuration file
 
       - name: Save project code as artifact
         uses: actions/upload-artifact@v2
