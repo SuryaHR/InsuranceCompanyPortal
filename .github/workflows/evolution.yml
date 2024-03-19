@@ -1,0 +1,59 @@
+name: Update Configuration
+
+on:
+  push:
+    branches:
+      - sakha_master
+
+jobs:
+  update-configuration:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Modify Configuration File
+        run: |
+          # Replace values in the configuration.json file
+          sed -i 's/"insuranceCarrier":"The Evolution Insurance Company"/"insuranceCarrier":"Insurance Company Name"/g' Config/Configuration.json
+          sed -i 's|"serverAddress": "http://173.255.198.245:8080"|"serverAddress": "http://localhost:8080"|g' Config/Configuration.json
+          sed -i 's|"Xoriginator": "http://173.255.198.245:8080/evolution"|"Xoriginator": "worldwide.3circledemo.com"|g' Config/Configuration.json
+          sed -i 's/"apiurl":"/ArtigemRS-FI/api/"/"apiurl":"/ArtigemRS-FI/api/"/g' Config/Configuration.json
+          sed -i 's|"AdminApiurl": "/ArtigemRS-FI_Admin/api/"|"AdminApiurl": "/ArtigemRS-FI_Admin/api/"|g' Config/Configuration.json
+          sed -i 's|"receipturl": "/"|"receipturl": "/"|g' Config/Configuration.json
+          sed -i 's/"ClaimTemplate":"/ArtigemRS-FI/artigem/templates/ClaimDetails.xlsx"/"ClaimTemplate":"/ArtigemRS-FI/artigem/templates/ClaimDetails.xlsx"/g' Config/Configuration.json
+          sed -i 's|"ItemTemplate": "/ArtigemRS-FI/artigem/templates/postloss_Items.xlsx"|"ItemTemplate": "/ArtigemRS-FI/artigem/templates/postloss_Items.xlsx"|g' Config/Configuration.json
+          sed -i 's|"VendorDetailsTemplate": "/ArtigemRS-FI/artigem/templates/VendorCatalogUpload.xlsx"|"VendorDetailsTemplate": "/ArtigemRS-FI/artigem/templates/VendorCatalogUpload.xlsx"|g' Config/Configuration.json
+          sed -i 's/"UserDetailsTemplate":"/ArtigemRS-FI/artigem/templates/UserDetails.xlsx"/"UserDetailsTemplate":"/ArtigemRS-FI/artigem/templates/UserDetails.xlsx"/g' Config/Configuration.json
+          sed -i 's|"bestbuyUrl": "https://api.bestbuy.com/v1/products"|"bestbuyUrl": "https://api.bestbuy.com/v1/products"|g' Config/Configuration.json
+          sed -i 's|"claimProfile": "Contents"|"claimProfile": "Contents"|g' Config/Configuration.json
+          sed -i 's|"serviceRequests": "true"|"serviceRequests": "true"|g' Config/Configuration.json
+          sed -i 's|"jewelryVendor": "ARTGM"|"jewelryVendor": "ARTGM"|g' Config/Configuration.json
+          sed -i 's|"speedCheckVendor": "ARTGM"|"speedCheckVendor": "ARTGM"|g' Config/Configuration.json
+          sed -i 's|"hideCaptcha": "true"|"hideCaptcha": "true"|g' Config/Configuration.json
+          sed -i 's|"SpeedCheckApiurl": "http://173.255.198.245:8080/SpeedCheck_App/api/"|"SpeedCheckApiurl": "http://localhost:8080/SpeedCheck_App/api/"|g' Config/Configuration.json
+          sed -i 's|"gemGuideApi": "true"|"gemGuideApi": "true"|g' Config/Configuration.json
+          sed -i 's|"googleShoppingDropdown": "false"|"googleShoppingDropdown": "false"|g' Config/Configuration.json
+          sed -i 's|"ThirdPartyAdjusting": "true"|"ThirdPartyAdjusting": "true"|g' Config/Configuration.json
+          sed -i 's|"loginWithSSO": "false"|"loginWithSSO": "false"|g' Config/Configuration.json          
+
+      - name: Display changes
+        run: cat path/to/your/configuration.json  # Display the modified configuration file
+
+      - name: Save project code as artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: evolution
+          path: .  # Save the entire project code directory
+
+      - name: Rename artifact directory
+        run: |
+          mv $GITHUB_WORKSPACE evolution-app  # Rename the artifact directory
+
+      - name: Copy code to Tomcat
+        run: |
+          # Replace "/path/to/tomcat/webapps" with the actual path to your Tomcat's webapps directory
+          cp -r evolution-app /opt/tomcat/webapps/
+
+          
